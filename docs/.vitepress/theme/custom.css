@@ -487,10 +487,16 @@ img.zoom-lightbox__content {
 /* ---------- 专注阅读:收起左右两侧 + 加宽正文 ---------- */
 .zen-reading .VPSidebar { display: none !important; }
 .zen-reading .VPContent.has-sidebar { padding-left: 0 !important; }
+/* 收起右侧目录:必须隐藏外层 .aside flex 容器(只隐藏内层 .VPDocAside 会残留约 320px 占位),
+   否则 content-container 被挤到 1000px、右侧大片留白 */
+.zen-reading .VPDoc .aside { display: none !important; }
 .zen-reading .VPDocAside { display: none !important; }
 /* 收起两侧后让正文填满更宽的容器,避免左右大片留白(仍封顶以保证可读性) */
 .zen-reading .VPDoc .container { max-width: 1320px !important; }
-.zen-reading .VPDoc .content-container { max-width: 100% !important; }
+.zen-reading .VPDoc .content-container {
+  max-width: 100% !important;
+  width: 100% !important;
+}
 .zen-reading .VPDoc .content { max-width: 100% !important; margin: 0 auto; }
 /* 隐藏侧栏后,导航栏左侧的残留分隔线/占位收一下 */
 .zen-reading .VPNavBar.has-sidebar .title { border-bottom-color: transparent; }
