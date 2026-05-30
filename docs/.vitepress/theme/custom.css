@@ -1,114 +1,249 @@
 /* ============================================================
-   具身智能学习站 · 自定义主题
-   品牌色:靛蓝 → 紫 渐变(契合 AI / 机器人主题)
+   具身智能学习站 · 自定义主题 v2
+   方向:Swiss / 编辑式极简(Minimalism & Swiss Style)
+   - 配色:Slate 中性灰 + 单一蓝色强调(克制、专业、高对比)
+   - 排版:Inter(正文/标题)+ JetBrains Mono(公式/代码/数据)
+   - 网格留白、清晰层级、细线分隔、极简阴影
+   推荐来源:ui-ux-pro-max 设计系统(文档/研究站)
    ============================================================ */
 
+/* ---------- 字体 ---------- */
 :root {
-  /* 主品牌色:链接、强调、按钮 */
-  --vp-c-brand-1: #5b5bd6;
-  --vp-c-brand-2: #4f4fc7;
-  --vp-c-brand-3: #6d6df0;
-  --vp-c-brand-soft: rgba(109, 109, 240, 0.14);
-  --vp-c-brand-softer: rgba(109, 109, 240, 0.07);
+  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC',
+    'Source Han Sans SC', sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', 'Roboto Mono', ui-monospace,
+    SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* ---------- 配色:浅色(Slate + Blue) ---------- */
+:root {
+  /* 强调蓝(链接/按钮/重点)——AA 对比安全 */
+  --vp-c-brand-1: #1d4ed8;   /* 链接文字,白底 ≈ 5.9:1 */
+  --vp-c-brand-2: #1e40af;
+  --vp-c-brand-3: #2563eb;   /* 按钮底色 */
+  --vp-c-brand-soft: rgba(37, 99, 235, 0.10);
+  --vp-c-brand-softer: rgba(37, 99, 235, 0.06);
+
+  /* 中性面与文字(Slate) */
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-alt: #f8fafc;        /* slate-50 */
+  --vp-c-bg-soft: #f1f5f9;       /* slate-100 */
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-text-1: #0f172a;        /* slate-900 强标题/正文 */
+  --vp-c-text-2: #475569;        /* slate-600 次要 */
+  --vp-c-text-3: #94a3b8;        /* slate-400 弱化 */
+  --vp-c-divider: #e2e8f0;       /* slate-200 */
+  --vp-c-border: #e2e8f0;
+  --vp-c-gutter: #e2e8f0;
 
   /* 按钮 */
   --vp-button-brand-bg: var(--vp-c-brand-3);
-  --vp-button-brand-hover-bg: var(--vp-c-brand-1);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
   --vp-button-brand-active-bg: var(--vp-c-brand-2);
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: #ffffff;
 
-  /* 首页 Hero 渐变标题 + 光晕 */
+  /* Hero:编辑式克制——深 slate→蓝 的细腻渐变标题,无炫光 */
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #6d6df0 30%, #b06ff5 70%, #e879f9);
-  --vp-home-hero-image-background-image: linear-gradient(135deg, rgba(109, 109, 240, 0.55), rgba(176, 111, 245, 0.55));
-  --vp-home-hero-image-filter: blur(64px);
-
-  /* 字体:优化中文显示 */
-  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC',
-    'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Source Han Sans SC', sans-serif;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #0f172a 25%, #2563eb 95%);
 }
 
+/* ---------- 配色:深色 ---------- */
 .dark {
-  --vp-c-brand-1: #a3a8ff;
-  --vp-c-brand-2: #8e93f5;
-  --vp-c-brand-3: #6d6df0;
-  --vp-c-brand-soft: rgba(109, 109, 240, 0.2);
-  --vp-c-brand-softer: rgba(109, 109, 240, 0.12);
-  --vp-home-hero-image-background-image: linear-gradient(135deg, rgba(109, 109, 240, 0.32), rgba(176, 111, 245, 0.32));
+  --vp-c-brand-1: #93b4ff;
+  --vp-c-brand-2: #6f9bff;
+  --vp-c-brand-3: #3b6cf0;
+  --vp-c-brand-soft: rgba(96, 140, 255, 0.16);
+  --vp-c-brand-softer: rgba(96, 140, 255, 0.10);
+
+  --vp-c-bg: #0b1120;            /* 深 slate */
+  --vp-c-bg-alt: #0f172a;
+  --vp-c-bg-soft: #131c2e;
+  --vp-c-bg-elv: #131c2e;
+  --vp-c-text-1: #e8edf5;
+  --vp-c-text-2: #aab4c5;
+  --vp-c-text-3: #6b7689;
+  --vp-c-divider: #1e293b;
+  --vp-c-border: #1e293b;
+  --vp-c-gutter: #1e293b;
+
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #e8edf5 20%, #93b4ff 95%);
 }
 
-/* ===== 正文可读性 ===== */
+/* ---------- 全局:字体平滑 ---------- */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- 排版层级(Swiss:强对比 + 紧致字距) ---------- */
+.vp-doc h1 {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  font-size: 2.1rem;
+}
+.vp-doc h2 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-top: 48px;
+  padding-top: 22px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+.vp-doc h3 {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin-top: 30px;
+}
+.vp-doc h4 {
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
 .vp-doc p,
 .vp-doc li {
   line-height: 1.78;
 }
 
-/* ===== 首页 feature 卡片:悬浮微动 ===== */
-.VPFeature {
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-}
-.VPFeature:hover {
-  transform: translateY(-4px);
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 12px 28px rgba(109, 109, 240, 0.16);
+/* ---------- 链接:编辑式下划线偏移 ---------- */
+.vp-doc a {
+  font-weight: 500;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
-/* ===== 表格:斑马纹 + 品牌色表头 ===== */
+/* ---------- 行内代码:中性而非彩色,贴近 Swiss ---------- */
+.vp-doc :not(pre) > code {
+  color: var(--vp-c-text-1);
+  background-color: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 5px;
+  font-size: 0.85em;
+  padding: 0.15em 0.4em;
+}
+.vp-doc div[class*='language-'] {
+  border-radius: 10px;
+  border: 1px solid var(--vp-c-divider);
+}
+
+/* ---------- 表格:Swiss 细线 + 表头规则 + 等宽数字 ---------- */
 .vp-doc table {
   display: table;
   width: 100%;
-}
-.vp-doc tr:nth-child(2n) {
-  background-color: var(--vp-c-bg-soft);
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.92rem;
 }
 .vp-doc th {
-  background-color: var(--vp-c-brand-softer);
-  font-weight: 600;
+  background: transparent;
+  text-align: left;
+  font-weight: 650;
+  color: var(--vp-c-text-1);
+  border: none;
+  border-bottom: 2px solid var(--vp-c-text-1);
+  padding: 10px 14px;
+}
+.vp-doc td {
+  border: none;
+  border-bottom: 1px solid var(--vp-c-divider);
+  padding: 10px 14px;
+}
+.vp-doc tr {
+  background: transparent !important;
+  transition: background-color 0.15s ease;
+}
+.vp-doc tbody tr:hover {
+  background: var(--vp-c-bg-soft) !important;
 }
 
-/* ===== 论文框架图:圆角 + 轻边框 + 阴影 ===== */
+/* ---------- 论文框架图:极简边框 + 克制阴影 ---------- */
 .vp-doc img {
-  border-radius: 10px;
+  border-radius: 8px;
 }
 .vp-doc p > img {
+  display: block;
+  margin: 0.6rem auto;
   border: 1px solid var(--vp-c-divider);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  margin: 0.4rem auto;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
 }
 
-/* ===== Mermaid 流程图:居中 + 留白 ===== */
+/* ---------- Mermaid:居中 + 留白 ---------- */
 .mermaid {
   display: flex;
   justify-content: center;
-  margin: 1.4rem 0;
+  margin: 1.6rem 0;
 }
 
-/* ===== 代码块圆角 ===== */
-.vp-doc div[class*='language-'] {
+/* ---------- 引用块:左侧蓝色规则(编辑式) ---------- */
+.vp-doc blockquote {
+  border-left: 3px solid var(--vp-c-brand-3);
+  background: var(--vp-c-bg-alt);
+  border-radius: 0 8px 8px 0;
+  padding: 2px 18px;
+}
+
+/* ---------- 首页 Hero:更大、更紧、更克制 ---------- */
+.VPHero .name {
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.VPHero .text {
+  letter-spacing: -0.02em;
+  color: var(--vp-c-text-1);
+}
+.VPHero .tagline {
+  color: var(--vp-c-text-2);
+  line-height: 1.6;
+}
+
+/* ---------- 首页 Feature 卡片:Swiss 扁平 + 细边 + 轻微抬升 ---------- */
+.VPFeature {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.VPFeature:hover {
+  transform: translateY(-3px);
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+.VPFeature .icon {
+  background: var(--vp-c-brand-soft) !important;
   border-radius: 10px;
 }
 
-/* ===== 行内代码:品牌色调 ===== */
-.vp-doc :not(pre) > code {
-  color: var(--vp-c-brand-1);
-  background-color: var(--vp-c-brand-softer);
+/* ---------- 首页正文区:居中收窄 ---------- */
+.VPHome .vp-doc {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 24px 72px;
 }
 
-/* ===== 自定义滚动条 ===== */
+/* ---------- 侧边栏当前项:蓝色强调 ---------- */
+.VPSidebarItem.is-active > .item .link .text {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+}
+
+/* ---------- 滚动条:中性 ---------- */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--vp-c-brand-soft);
+  background: var(--vp-c-divider);
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--vp-c-brand-1);
+  background: var(--vp-c-text-3);
 }
 
-/* ===== 首页底部内容区:轻微留白优化 ===== */
-.VPHome .vp-doc {
-  max-width: 1152px;
-  margin: 0 auto;
-  padding: 0 24px 64px;
+/* ---------- 尊重 reduced-motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .VPFeature,
+  .vp-doc tr {
+    transition: none;
+  }
+  .VPFeature:hover {
+    transform: none;
+  }
 }

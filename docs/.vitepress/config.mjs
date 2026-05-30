@@ -18,7 +18,10 @@ export default withMermaid(defineConfig({
 
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/embodied-ai-learning/favicon.svg' }],
-    ['meta', { name: 'theme-color', content: '#6d6df0' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap' }],
+    ['meta', { name: 'theme-color', content: '#2563eb' }],
     ['meta', { property: 'og:title', content: '具身智能学习站' }],
     ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 12 篇论文细读' }],
   ],
