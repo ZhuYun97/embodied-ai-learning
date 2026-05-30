@@ -1,6 +1,33 @@
 import DefaultTheme from 'vitepress/theme'
-import { onMounted } from 'vue'
+import { h, onMounted } from 'vue'
+import { useRoute, withBase } from 'vitepress'
 import './custom.css'
+
+// 「本系列」页脚导航:在所有 /vla/papers/* 细读与专题页底部,
+// 提供一组跨页快捷入口(无需逐页 frontmatter),提升可发现性。
+const SERIES_LINKS = [
+  ['/vla/', '← 总报告'],
+  ['/vla/papers/embodied-data', '具身数据'],
+  ['/vla/papers/benchmarks', '数据集与基准'],
+  ['/vla/papers/glossary', '术语表'],
+  ['/vla/papers/timeline', '时间线'],
+  ['/vla/papers/references', '参考文献'],
+]
+
+const SeriesFooter = {
+  setup() {
+    const route = useRoute()
+    return () => {
+      if (!/\/vla\/papers\//.test(route.path)) return null
+      return h('nav', { class: 'series-footer', 'aria-label': '本系列导航' }, [
+        h('span', { class: 'series-footer__label' }, '本系列'),
+        ...SERIES_LINKS.map(([to, text]) =>
+          h('a', { class: 'series-footer__link', href: withBase(to) }, text)
+        ),
+      ])
+    }
+  },
+}
 
 // 自定义轻量灯箱:点击/键盘放大流程图(Mermaid SVG)或论文框架图
 // 事件委托 + MutationObserver,兼容 Mermaid 异步渲染与路由切换;键盘可达 + 焦点管理
@@ -116,6 +143,11 @@ function setupLightbox() {
 
 export default {
   extends: DefaultTheme,
+  Layout() {
+    return h(DefaultTheme.Layout, null, {
+      'doc-after': () => h(SeriesFooter),
+    })
+  },
   setup() {
     onMounted(setupLightbox)
   },

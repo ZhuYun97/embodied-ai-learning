@@ -26,9 +26,9 @@ features:
     linkText: 从 RT-1 开始
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
     title: 基准横评硬数据
-    details: SimplerEnv / LIBERO / CALVIN 上 OpenVLA·Octo·π0·RT-2 等模型的成功率成绩表,标注口径与可信度。
-    link: /vla/#四数据集与基准
-    linkText: 看横评
+    details: SimplerEnv / LIBERO / CALVIN / RoboCasa 四大基准逐模型成绩表,标注口径与可信度;含本轮补齐的 RoboCasa 排行榜与数据来源专题。
+    link: /vla/papers/benchmarks
+    linkText: 看数据集与基准
   - icon: { src: /icons/trend.svg, width: 28, height: 28 }
     title: 2025H2–2026 最新前沿
     details: 自变量 WALL-OSS、阿里 Qwen-VLA / RynnVLA、Physical Intelligence π0.6 / π*0.6(RECAP 真机强化学习)。
@@ -46,6 +46,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-card__title">动作即文本 token</div>
     <p>把动作离散化为词表 token,自回归逐 token 生成——简单、直接复用 VLM。</p>
     <div class="route-links">
+      <a href="vla/papers/rt1">RT-1</a>
       <a href="vla/papers/rt2">RT-2</a>
       <a href="vla/papers/openvla">OpenVLA</a>
       <a href="vla/papers/pi0-fast">π0-FAST</a>
@@ -56,8 +57,10 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-card__title">连续动作生成</div>
     <p>用扩散/流匹配直接生成连续动作块,支持动作分块与高频灵巧控制。</p>
     <div class="route-links">
+      <a href="vla/papers/diffusion-policy">Diffusion Policy</a>
       <a href="vla/papers/octo">Octo</a>
       <a href="vla/papers/pi0">π0</a>
+      <a href="vla/papers/cogact">CogACT</a>
       <a href="vla/papers/groot-n1">GR00T N1</a>
     </div>
   </div>
@@ -80,6 +83,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/qwen-vla">Qwen-VLA</a>
       <a href="vla/papers/rynnvla">RynnVLA</a>
       <a href="vla/papers/pi06">π*0.6</a>
+      <a href="vla/papers/gemini-robotics">Gemini Robotics</a>
     </div>
   </div>
 </div>
@@ -91,3 +95,11 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 所有内容由 `deep-research` 工作流(多源检索 + 3 票对抗式事实核查)整理,**凡标 ⚠️ 处为厂商/作者自评数据**,非独立第三方复现,采信时请注意。领域演进极快(2022–2026),多数一手信源为 2024–2026 预印本/官方页面。
 
 > 📌 入口推荐:先读 [VLA 发展深度调研总报告](/vla/) 把握全局,再按[论文细读导航](/vla/#-论文细读导航)逐篇深入。
+
+## 专题与速查
+
+- 📊 [具身数据全景梳理](/vla/papers/embodied-data) —— 四层数据金字塔、10 个真机数据集横评、采集范式与 scaling
+- 🧪 [数据集与基准全景](/vla/papers/benchmarks) —— SimplerEnv / LIBERO / CALVIN / RoboCasa 四大评测逐模型成绩表
+- 📖 [术语速查表](/vla/papers/glossary) —— 流匹配 / 动作分块 / 双系统 / co-training 等术语一页速查
+- 🗓️ [发展时间线](/vla/papers/timeline) —— 2022→2026 里程碑一览,定位 16 篇细读
+- 🔗 [参考文献](/vla/papers/references) —— 全站一手信源(arXiv / 官网)聚合

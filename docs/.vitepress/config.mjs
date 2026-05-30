@@ -11,6 +11,11 @@ export default withMermaid(defineConfig({
   cleanUrls: true,
   ignoreDeadLinks: true,
 
+  // SEO:生成 sitemap.xml(GitHub Pages 项目页完整域名)
+  sitemap: {
+    hostname: 'https://zhuyun97.github.io/embodied-ai-learning/',
+  },
+
   // 启用 LaTeX 数学公式渲染(需 markdown-it-mathjax3,已在 devDependencies)
   markdown: {
     math: true,
@@ -51,8 +56,16 @@ export default withMermaid(defineConfig({
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap' }],
     ['meta', { name: 'theme-color', content: '#2563eb' }],
-    ['meta', { property: 'og:title', content: '具身智能学习站' }],
-    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 16 篇论文细读' }],
+    ['meta', { name: 'author', content: '具身智能学习站' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: '具身智能学习站' }],
+    ['meta', { property: 'og:locale', content: 'zh_CN' }],
+    ['meta', { property: 'og:url', content: 'https://zhuyun97.github.io/embodied-ai-learning/' }],
+    ['meta', { property: 'og:title', content: '具身智能学习站 · Embodied AI Learning' }],
+    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 16 篇论文细读,经多源检索与对抗式事实核查整理。' }],
+    ['meta', { name: 'twitter:card', content: 'summary' }],
+    ['meta', { name: 'twitter:title', content: '具身智能学习站 · Embodied AI Learning' }],
+    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 16 篇论文细读,经对抗式事实核查整理。' }],
   ],
 
   themeConfig: {
@@ -63,7 +76,31 @@ export default withMermaid(defineConfig({
       { text: '首页', link: '/' },
       { text: 'VLA 调研', link: '/vla/' },
       { text: '论文细读', link: '/vla/#-论文细读导航' },
+      {
+        text: '专题',
+        items: [
+          { text: '具身数据全景', link: '/vla/papers/embodied-data' },
+          { text: '数据集与基准', link: '/vla/papers/benchmarks' },
+        ],
+      },
+      {
+        text: '速查',
+        items: [
+          { text: '术语速查表', link: '/vla/papers/glossary' },
+          { text: '发展时间线', link: '/vla/papers/timeline' },
+          { text: '参考文献', link: '/vla/papers/references' },
+        ],
+      },
     ],
+
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/ZhuYun97/embodied-ai-learning' },
+    ],
+
+    editLink: {
+      pattern: 'https://github.com/ZhuYun97/embodied-ai-learning/edit/main/docs/:path',
+      text: '在 GitHub 上编辑本页',
+    },
 
     sidebar: {
       '/vla/': [

@@ -408,11 +408,54 @@ img.zoom-lightbox__content {
   background: var(--vp-c-brand-softer);
 }
 
+/* ---------- 「本系列」页脚导航(细读/专题页底部跨页入口) ---------- */
+.series-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 40px 0 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+.series-footer__label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--vp-c-text-3);
+  text-transform: uppercase;
+  margin-right: 2px;
+}
+.series-footer__link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.84rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+  transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+}
+.series-footer__link:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-softer);
+}
+@media (pointer: coarse) {
+  .series-footer__link {
+    min-height: 40px;
+    padding: 9px 14px;
+  }
+}
+
 /* ---------- 尊重 reduced-motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .VPFeature,
   .route-card,
   .route-links a,
+  .series-footer__link,
   .vp-doc tr {
     transition: none;
   }
