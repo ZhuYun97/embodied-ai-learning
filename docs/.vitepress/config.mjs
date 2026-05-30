@@ -74,6 +74,13 @@ export default withMermaid(defineConfig({
           ],
         },
         {
+          text: '专题综述',
+          collapsed: false,
+          items: [
+            { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
+          ],
+        },
+        {
           text: '论文细读 · 奠基与两条路线',
           collapsed: false,
           items: [

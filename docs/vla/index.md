@@ -38,6 +38,12 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | RynnVLA-001 (2025.09) | 阿里达摩院 | Chameleon 视频生成基座 + ActionVAE,第三条路 | [→ 细读](papers/rynnvla.md) |
 | π0.6 / π*0.6 (2025.11) | Physical Intelligence | 知识隔离训练 + RECAP 真机强化学习,从经验中学习 | [→ 细读](papers/pi06.md) |
 
+**专题综述**
+
+| 专题 | 范围 | 一句话 | 细读 |
+|---|---|---|---|
+| 具身数据全景 | 数据来源 / 采集 / 配比 / scaling | 四层数据金字塔 + 10 个真机数据集横评 + 采集范式成本 + co-training/scaling,8 条规模数字经对抗核查确认 | [→ 细读](papers/embodied-data.md) |
+
 ---
 
 # 一、范式演进与奠基
@@ -229,6 +235,8 @@ flowchart LR
 # 四、数据集与基准
 
 ## 4.1 训练语料
+
+> 📄 **数据专题**:VLA 数据从哪来、怎么采、怎么配、怎么 scale——四层数据金字塔、OXE/DROID/AgiBot World 等 10 个真机数据集横向对比、人类视频与仿真合成的动作信号"翻译"方法、co-training 消融与数据多样性 scaling law,详见 [《具身数据全景梳理》](papers/embodied-data.md)。
 
 - **Open X-Embodiment(OXE)** 为占主导的共享语料:RT-2-X、OpenVLA(970k)、Octo(800k)均以其为基础。
 - **数据稀缺的应对**:Helix/π0.5/GR00T 均通过**跨源/跨本体协同训练**(真实机器人 + 人类视频 + 合成/网络数据)缓解;跨本体迁移已有实证(GR00T N1.5→Unitree G1 熟悉物体 98.8%)。
