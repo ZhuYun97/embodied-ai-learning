@@ -1,3 +1,7 @@
+---
+description: π0(pi-zero)是 Physical Intelligence 提出的视觉-语言-动作流模型,在 PaliGemma(SigLIP+Gemma)上外挂约 300M 流匹配动作专家,用 action chunking 一次输出 50 步连续动作,支持 50Hz 高频灵巧控制,性能超越 OpenVLA 与 Octo。
+---
+
 # π0(pi-zero):基于流匹配的视觉-语言-动作流模型
 
 > **π0: A Vision-Language-Action Flow Model for General Robot Control**

@@ -1,3 +1,7 @@
+---
+description: VLA 视觉-语言-动作模型发展深度调研报告,梳理从 RT-2 离散动作 token 到 Octo、π0、GR00T 连续扩散与流匹配的两条路线,涵盖 Open X-Embodiment 数据底座、双系统分层架构,以及 SimplerEnv、LIBERO、CALVIN 基准上的 OpenVLA-OFT 等 SOTA 演进。
+---
+
 # VLA(视觉-语言-动作)模型发展深度调研报告
 
 > **方法**:多源检索 + 对抗式事实核查工作流(deep-research),共四轮、约 428 个子代理调用。每条关键声明经 3 票对抗核查,需 2/3 反对才推翻;四轮合计核查 100 条声明,确认 97、证伪 3。

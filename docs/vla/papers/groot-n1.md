@@ -1,3 +1,7 @@
+---
+description: GR00T N1 是 NVIDIA 面向通用人形机器人的开放 VLA 基础模型,采用双系统架构:System 2 用 Eagle-2 VLM 做语义推理,System 1 用扩散 Transformer(DiT)流匹配以 120Hz 输出连续动作块,配合数据金字塔与跨本体训练,开放 GR00T-N1-2B 检查点。
+---
+
 # GR00T N1:面向通用人形机器人的开放基础模型(双系统 VLM + 扩散/流匹配 DiT)
 
 > **GR00T N1: An Open Foundation Model for Generalist Humanoid Robots**

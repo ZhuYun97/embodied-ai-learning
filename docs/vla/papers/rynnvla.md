@@ -1,3 +1,7 @@
+---
+description: 阿里达摩院 RynnVLA-001 解读,把自回归文生图模型 Chameleon 扩展为图生视频 I2V,用 1200 万第一视角人类视频做生成式预训练,再以 ActionVAE 压缩动作,把 next-frame 与 next-action 统一进单个 autoregressive transformer 迁移到机器人操作。
+---
+
 # RynnVLA-001:用人类示范视频生成预训练驱动机器人操作的 VLA
 
 > **arXiv**: [2509.15212](https://arxiv.org/abs/2509.15212) (v1)

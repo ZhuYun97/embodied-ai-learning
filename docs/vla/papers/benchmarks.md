@@ -1,3 +1,7 @@
+---
+description: VLA 评测专题,系统梳理 SimplerEnv、LIBERO、CALVIN、RoboCasa 四大主流基准的设计思路、评测协议、读表须知与逐模型成绩表,讲清各基准口径为何不可直接横比。
+---
+
 > [← 返回主报告](../index.md)
 
 # VLA 数据集与基准:四大评测全景

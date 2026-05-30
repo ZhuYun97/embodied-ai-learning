@@ -1,3 +1,7 @@
+---
+description: OpenVLA 开源视觉-语言-动作模型解读,7B 参数以 Llama 2 为主干、DINOv2 加 SigLIP 双流视觉编码器,在 Open X-Embodiment 97 万条演示上训练,以离散动作 token 自回归输出 7 维控制,支持 LoRA 微调与 4-bit 量化,以更小参数量对标 RT-2-X。
+---
+
 # OpenVLA:开源视觉-语言-动作模型
 
 > **arXiv**: [2406.09246](https://arxiv.org/abs/2406.09246) (v1)

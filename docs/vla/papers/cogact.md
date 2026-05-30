@@ -1,3 +1,7 @@
+---
+description: CogACT 是清华与微软亚研院提出的组件化 VLA 模型,用 7B VLM(DINOv2+SigLIP+Llama-2)做认知并产出 cognition token,再由扩散 Transformer(DiT)动作专家生成连续动作块,在 SimplerEnv Google Robot 上成功率达 74.8%,显著超越 OpenVLA。
+---
+
 # CogACT 细粒度解读
 
 > **arXiv**: 2411.19650 · 清华大学 / 微软亚洲研究院 · 2024.11 · **路线**:componentized VLA(VLM 认知 + DiT 扩散动作专家)

@@ -1,3 +1,7 @@
+---
+description: RT-1(Robotics Transformer 1)细粒度解读,Google 用 EfficientNet-B3 加 FiLM、TokenLearner 与 35M decoder-only Transformer 自回归输出 256-bin 离散动作 token,基于 13 万条真实机器人演示验证大规模模仿学习的泛化能力,是离散 token VLA 路线与 Open X-Embodiment 的奠基工作。
+---
+
 # RT-1 细粒度解读
 
 > **arXiv**: 2212.06817 · Google / Everyday Robots · 2022.12 · **路线**:大规模模仿学习前史(离散 256-bin)

@@ -1,3 +1,7 @@
+---
+description: Diffusion Policy 细粒度解读,把 visuomotor 动作生成表述为条件去噪扩散过程,用 DDPM 时序网络(1D 卷积 U-Net 或 Transformer)预测动作块并滚动时域执行,擅长多峰动作分布、训练稳定,是连续动作生成路线的奠基,直接影响 Octo、π0、GR00T 的扩散与流匹配动作专家。
+---
+
 # Diffusion Policy 细粒度解读
 
 > **arXiv**: 2303.04137 · Columbia University / TRI(丰田研究院)/ MIT · 2023(RSS 2023) · **路线**:连续动作生成奠基(条件扩散)

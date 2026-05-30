@@ -1,3 +1,7 @@
+---
+description: Google DeepMind 的 Gemini Robotics 细粒度解读,把 Gemini 2.0 改造为机器人基座,采用云端 backbone 加本机 action decoder 的双系统架构实现 250ms/50Hz 实时控制,并以 Gemini Robotics-ER 提供具身推理,后续演进到 1.5/ER 1.5。
+---
+
 # Gemini Robotics 细粒度解读
 
 > **arXiv**: 2503.20020 · Google DeepMind · 2025.03(后续 Gemini Robotics 1.5 / ER 1.5,2025.09) · **路线**:云端 backbone + 本机 decoder 双系统 VLA
