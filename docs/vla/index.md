@@ -16,14 +16,17 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 
 每篇核心论文配一份独立的细粒度解读(含官方框架图、逐模块拆解、关键数据表),点击跳转:
 
-**奠基与两条路线(2023–2025)**
+**奠基与两条路线(2022–2025)**
 
 | 论文 | 路线 | 一句话 | 细读 |
 |---|---|---|---|
+| RT-1 (2022) | 离散前史 | 35M 小模型 + 13 万真机演示,256-bin 离散动作,RT-2 前身 | [→ 细读](papers/rt1.md) |
 | RT-2 (2023) | 离散 token | 动作即文本 token,奠定 VLA 范式 | [→ 细读](papers/rt2.md) |
+| Diffusion Policy (2023) | 连续扩散奠基 | 条件去噪扩散 + 动作分块,连续路线思想源头(非 VLA) | [→ 细读](papers/diffusion-policy.md) |
 | OpenVLA (2024) | 离散 token | 7B 开源,1/7 参数超 55B RT-2-X | [→ 细读](papers/openvla.md) |
 | Octo (2024) | 连续扩散 | OXE 80 万轨迹,transformer 扩散策略 | [→ 细读](papers/octo.md) |
 | π0 (2024) | 连续流匹配 | 流匹配 + 动作分块,50 Hz 灵巧控制 | [→ 细读](papers/pi0.md) |
+| CogACT (2024) | 组件化:认知+扩散 | 7B VLM 出认知 token + DiT 扩散动作专家 | [→ 细读](papers/cogact.md) |
 | π0-FAST (2025) | 离散 token 高效化 | DCT 频域分词,让自回归 VLA 也能高频 | [→ 细读](papers/pi0-fast.md) |
 | OpenVLA-OFT (2025) | 连续 L1 回归 | 并行解码提速 26×,LIBERO 97.1% SOTA | [→ 细读](papers/openvla-oft.md) |
 | GR00T N1 (2025) | 双系统/扩散 | NVIDIA 工业级双系统,数据金字塔 | [→ 细读](papers/groot-n1.md) |
@@ -37,12 +40,22 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | Qwen-VLA (2026.05) | 阿里 Qwen | Qwen3.5-4B + 1.15B DiT,统一操作/导航/轨迹 | [→ 细读](papers/qwen-vla.md) |
 | RynnVLA-001 (2025.09) | 阿里达摩院 | Chameleon 视频生成基座 + ActionVAE,第三条路 | [→ 细读](papers/rynnvla.md) |
 | π0.6 / π*0.6 (2025.11) | Physical Intelligence | 知识隔离训练 + RECAP 真机强化学习,从经验中学习 | [→ 细读](papers/pi06.md) |
+| Gemini Robotics (2025.03→1.5 2025.09) | Google DeepMind | 云端 backbone + 本机 decoder 延迟拆分(≈250ms/50Hz)+ embodied reasoning | [→ 细读](papers/gemini-robotics.md) |
 
 **专题综述**
 
 | 专题 | 范围 | 一句话 | 细读 |
 |---|---|---|---|
 | 具身数据全景 | 数据来源 / 采集 / 配比 / scaling | 四层数据金字塔 + 10 个真机数据集横评 + 采集范式成本 + co-training/scaling,8 条规模数字经对抗核查确认 | [→ 细读](papers/embodied-data.md) |
+| 数据集与基准 | SimplerEnv / LIBERO / CALVIN / RoboCasa | 四大评测全景 + 逐模型成绩表(含本轮补齐的 RoboCasa 排行榜) | [→ 专题](papers/benchmarks.md) |
+
+**速查与参考**
+
+| 页面 | 用途 | 链接 |
+|---|---|---|
+| 术语速查表 | 流匹配/动作分块/双系统/co-training 等术语一页速查 | [→ 术语表](papers/glossary.md) |
+| 发展时间线 | 2022→2026 里程碑一览(16 篇细读定位) | [→ 时间线](papers/timeline.md) |
+| 参考文献 | 全站一手信源(arXiv/官网)聚合 | [→ 信源](papers/references.md) |
 
 ---
 
@@ -260,8 +273,8 @@ flowchart LR
 | π0-Beta | 71.4 |
 | SpatialVLA | 73.8 |
 | VOTE | 74.4 |
+| CogACT | 74.8 ✅(原表 82.7 系误传,本轮核查更正;CogACT-Base/DiT-Base，DiT-Large 消融 76.7,见 [细读](papers/cogact.md)) |
 | MemoryVLA | 77.7 |
-| CogACT | 82.7 |
 | RT-1(真实策略) | 85.7 |
 
 **WidowX/Bridge — Visual Matching 成功率(%)**
@@ -316,11 +329,30 @@ flowchart LR
 
 **ABCD→D(avg len/5):** GR-1 **4.21**(5 连成功率 73.1%,前最佳 HULC 3.06 / 38.3%);基线 MCIL 在 D→D 上 5 连仅 0.08%(1/2/3/4 任务:48.9/12.9/2.6/0.5%)。
 来源:3D Diffuser Actor(2402.10885)、GR-1(ICLR 2024)、CALVIN(2112.03227)。
-⚠️ 缺口:π0 / π0-FAST 自身在 CALVIN 上的分数未获取。
 
-### RoboCasa ⚠️ 未补齐
+**π0 家族补充(本轮)**:第三方重评(VLM4VLA,arXiv:2601.03309)报 **π0 在 ABC→D 上 avg-len ≈ 3.509**(逐任务 0.896/0.785/0.786/0.610/0.532)⚠️ 口径有改动、非官方。**重要结论:Physical Intelligence 官方的 π0(2410.24164)与 π0-FAST(2501.09747)论文均未把 CALVIN 纳入评测**(只用 LIBERO/SimplerEnv/真机),故"π0 家族官方 CALVIN 分数"本质上不存在,无官方数可填;π0-FAST 的任何 CALVIN 重评亦未见可信来源。
 
-仍未拿到经核查的逐模型成绩。已知仅作为 GR00T N1.5 vs N1 的数据效率点(30 demos:47.5 vs 17.4),非跨模型排行榜。OpenVLA/π0/Octo 在 RoboCasa 上的分数仍为开放问题。
+### RoboCasa ✅ 已补齐(本轮)
+
+> ⚠️ **口径警告**:RoboCasa 有多套不可直接横比的口径——① 官方文档 **RoboCasa 1.0 multitask**(300 任务=65 atomic+235 composite,100 demos/任务)与 ② 原论文 **24 atomic-task single-task**、③ NVIDIA 自家 **30-demo 低数据点** 与 **25-task repo** 各不相同。下表只在**同一口径内**横比。
+
+**① RoboCasa 1.0 multitask(预训练场景,300 任务,100 demos/任务)——同口径最佳横评**
+
+| 模型 | 平均成功率 | Atomic-Seen / Composite-Seen / Composite-Unseen | 来源 |
+|---|---|---|---|
+| **GR00T N1.5** | **20.0%** | 43.0 / 9.6 / 4.4 | robocasa.ai 官方文档 |
+| π0.5(openpi) | 16.9% | 39.6 / 7.1 / 1.2 | 同上 |
+| π0(openpi) | 14.8% | 34.6 / 6.1 / 1.1 | 同上 |
+| Diffusion Policy | 6.1% | 15.7 / 0.2 / 1.25 | 同上 |
+
+> 由基准维护方统一训练评测(非各厂自评),可信度高;同口径下 **DP < π0 < π0.5 < GR00T N1.5**。
+
+**② 其他口径(仅供版本/数据效率参考,勿与①混比)**
+- **GR00T 数据效率点**(30 demos/任务):N1.5 **47.5%** vs N1 **17.4%** ⚠️ NVIDIA 自评(报告已知点)。
+- **原论文 24 atomic single-task**:BC-Transformer Human-50 **28.8%** / Generated-3000 **47.6%**(CoRL 2024,同行评审)。
+- **Isaac-GR00T repo 25-task**:N1.6 **66.2%** / N1.7 **70.8%** ⚠️ NVIDIA 自评。
+
+⚠️ **仍开放**:OpenVLA / Octo 在 RoboCasa 无官方或维护方提供的可比条目;π0/π0.5/DP 在 30-demo 低数据档(与 GR00T 47.5/17.4 同口径)的对照未公开。详见 [数据集与基准专题](papers/benchmarks.md)。
 
 ---
 
@@ -370,11 +402,11 @@ flowchart LR
 
 ## 6.2 尚存缺口与开放问题(下一轮优先级)
 
-1. **RoboCasa 逐模型排行榜** —— 三轮均未拿到经核查数据。
+1. ~~**RoboCasa 逐模型排行榜**~~ ✅ **本轮已补**:RoboCasa 1.0 multitask 同口径 DP/π0/π0.5/GR00T N1.5 已入表(见上 §4 RoboCasa)。**残留**:OpenVLA/Octo 仍无可比条目;π0/π0.5/DP 在 30-demo 低数据档无公开对照。
 2. **π0-FAST 论文自身**(2501.09747)的 FAST 分词 vs 朴素分箱/连续 在收敛、推理频率上的定量数字。
-3. **π0 / π0-FAST 在 CALVIN** 上的 avg-len 分数(已核查数据覆盖 GR-1、3D Diffuser Actor,未覆盖 π0 家族)。
-4. **π0/π0-Beta 的 SimplerEnv 自评数(71.4% / 68.4%)的独立第三方复现**——目前来自 MemoryVLA 作者评测,非 π0 原作者。
-5. 前沿 VLA(Helix / π0.5 / GR00T N1.6/N1.7)的**实时推理延迟、安全/对齐机制、sim-to-real gap 量化**与一手信源对未来趋势的预测。
+3. ~~**π0 / π0-FAST 在 CALVIN**~~ ⚠️ **本轮查清**:PI 官方 π0/π0-FAST 论文**根本未评测 CALVIN**(无官方数可填);仅有第三方重评 π0 ABC→D avg-len ≈3.509(口径有改动,见 §4 CALVIN)。
+4. **π0/π0-Beta 的 SimplerEnv 自评数(71.4% / 68.4%)的严格独立第三方复现** —— 仍缺:现有第三方要么口径不同(WidowX-Bridge ~40.1%),要么作者主动免责(open-pi-zero),无人复现到该数值。
+5. 前沿 VLA(Helix / π0.5 / GR00T N1.6/N1.7)的**实时推理延迟、安全/对齐机制、sim-to-real gap 量化**与一手信源对未来趋势的预测。(Gemini Robotics 的语义安全/机器人宪法见 [细读](papers/gemini-robotics.md)。)
 
 ---
 

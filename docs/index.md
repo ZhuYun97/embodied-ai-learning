@@ -20,10 +20,10 @@ features:
     link: /vla/#一范式演进与奠基
     linkText: 查看主线
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
-    title: 12 篇论文细读
-    details: RT-2 / OpenVLA / Octo / π0 / π0-FAST / OpenVLA-OFT / GR00T N1 / π0.5 及 4 篇最新前沿,每篇含官方框架图与逐模块拆解。
-    link: /vla/papers/rt2
-    linkText: 从 RT-2 开始
+    title: 16 篇论文细读
+    details: RT-1 / RT-2 / Diffusion Policy / OpenVLA / Octo / π0 / CogACT / π0-FAST / OpenVLA-OFT / GR00T N1 / π0.5 + 5 篇前沿(WALL-OSS / Qwen-VLA / RynnVLA / π0.6 / Gemini Robotics),每篇逐模块拆解。
+    link: /vla/papers/rt1
+    linkText: 从 RT-1 开始
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
     title: 基准横评硬数据
     details: SimplerEnv / LIBERO / CALVIN 上 OpenVLA·Octo·π0·RT-2 等模型的成功率成绩表,标注口径与可信度。

@@ -52,7 +52,7 @@ export default withMermaid(defineConfig({
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap' }],
     ['meta', { name: 'theme-color', content: '#2563eb' }],
     ['meta', { property: 'og:title', content: '具身智能学习站' }],
-    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 12 篇论文细读' }],
+    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 16 篇论文细读' }],
   ],
 
   themeConfig: {
@@ -78,16 +78,20 @@ export default withMermaid(defineConfig({
           collapsed: false,
           items: [
             { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
+            { text: '数据集与基准全景', link: '/vla/papers/benchmarks' },
           ],
         },
         {
           text: '论文细读 · 奠基与两条路线',
           collapsed: false,
           items: [
+            { text: 'RT-1（离散前史）', link: '/vla/papers/rt1' },
             { text: 'RT-2（范式奠基）', link: '/vla/papers/rt2' },
+            { text: 'Diffusion Policy（连续奠基）', link: '/vla/papers/diffusion-policy' },
             { text: 'OpenVLA', link: '/vla/papers/openvla' },
             { text: 'Octo', link: '/vla/papers/octo' },
             { text: 'π0', link: '/vla/papers/pi0' },
+            { text: 'CogACT（认知+扩散）', link: '/vla/papers/cogact' },
             { text: 'π0-FAST', link: '/vla/papers/pi0-fast' },
             { text: 'OpenVLA-OFT', link: '/vla/papers/openvla-oft' },
             { text: 'GR00T N1', link: '/vla/papers/groot-n1' },
@@ -102,6 +106,16 @@ export default withMermaid(defineConfig({
             { text: 'Qwen-VLA（阿里）', link: '/vla/papers/qwen-vla' },
             { text: 'RynnVLA-001（达摩院）', link: '/vla/papers/rynnvla' },
             { text: 'π0.6 / π*0.6', link: '/vla/papers/pi06' },
+            { text: 'Gemini Robotics（DeepMind）', link: '/vla/papers/gemini-robotics' },
+          ],
+        },
+        {
+          text: '速查与参考',
+          collapsed: false,
+          items: [
+            { text: '术语速查表', link: '/vla/papers/glossary' },
+            { text: '发展时间线', link: '/vla/papers/timeline' },
+            { text: '参考文献', link: '/vla/papers/references' },
           ],
         },
       ],
