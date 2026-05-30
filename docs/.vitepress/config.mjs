@@ -14,6 +14,35 @@ export default withMermaid(defineConfig({
   // 启用 LaTeX 数学公式渲染(需 markdown-it-mathjax3,已在 devDependencies)
   markdown: {
     math: true,
+    // 给所有正文图片加 loading=lazy + decoding=async,并按尺寸表注入 width/height 消除 CLS
+    config: (md) => {
+      const DIMS = {
+        'groot-n1_arch_detail.webp': [996, 516], 'groot-n1_arch.webp': [997, 520],
+        'groot-n1_datapyramid.webp': [529, 327], 'octo_arch.webp': [1661, 804],
+        'octo_dataset.webp': [1661, 1519], 'openvla_arch.webp': [1661, 617],
+        'openvla-oft_arch.webp': [2000, 313], 'openvla-oft_overview.webp': [2000, 1164],
+        'pi0_arch.webp': [996, 278], 'pi0-fast_arch.webp': [1661, 1565],
+        'pi0-fast_method.webp': [1661, 604], 'pi05_arch.webp': [1661, 691],
+        'pi05_data.webp': [1660, 992], 'pi06_arch.webp': [1660, 486],
+        'pi06_recap.webp': [2000, 1601], 'qwen-vla_arch.webp': [2000, 982],
+        'rt2_arch.webp': [822, 304], 'rt2_results.webp': [2000, 480],
+        'rynnvla_arch.webp': [793, 386], 'rynnvla_pipeline.webp': [793, 309],
+        'wall-oss_arch.webp': [897, 455], 'wall-oss_pipeline.webp': [797, 271],
+      }
+      const orig = md.renderer.rules.image
+      md.renderer.rules.image = (tokens, idx, options, env, self) => {
+        const token = tokens[idx]
+        token.attrSet('loading', 'lazy')
+        token.attrSet('decoding', 'async')
+        const src = token.attrGet('src') || ''
+        const name = src.split('/').pop()
+        if (DIMS[name]) {
+          token.attrSet('width', String(DIMS[name][0]))
+          token.attrSet('height', String(DIMS[name][1]))
+        }
+        return orig ? orig(tokens, idx, options, env, self) : self.renderToken(tokens, idx, options)
+      }
+    },
   },
 
   head: [
@@ -41,7 +70,7 @@ export default withMermaid(defineConfig({
         {
           text: 'VLA 发展深度调研',
           items: [
-            { text: '📊 总报告', link: '/vla/' },
+            { text: '总报告', link: '/vla/' },
           ],
         },
         {

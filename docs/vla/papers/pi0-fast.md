@@ -35,7 +35,7 @@
 
 ## 2. 方法与架构
 
-![FAST 整体概览：左为自回归 Transformer + FAST 分词做灵巧控制，右为 FAST 输出更短的 token 序列](images/pi0-fast_arch.png)
+![FAST 整体概览：左为自回归 Transformer + FAST 分词做灵巧控制，右为 FAST 输出更短的 token 序列](images/pi0-fast_arch.webp)
 
 *图注（对应论文 Figure 2）：左侧——FAST 分词使得可以用「简单的下一 token 预测」训练自回归 Transformer 来做灵巧机器人控制；右侧——相比朴素分词（如 OpenVLA 所用的分箱方案），FAST 把同一段动作压成**短得多**的 token 序列，且随采样频率升高优势愈发明显。*
 
@@ -57,7 +57,7 @@ FAST 的全部方法可拆成三层：**2.1** 先讲清「为什么朴素逐步�
 
 ### 2.2 FAST 分词流水线（DCT → 量化 → BPE → 自回归预测）
 
-![FAST 分词流水线：DCT 频域变换 → 量化 → BPE 压缩](images/pi0-fast_method.png)
+![FAST 分词流水线：DCT 频域变换 → 量化 → BPE 压缩](images/pi0-fast_method.webp)
 
 *图注（对应论文 Figure 4）：FAST 分词流水线。给定一段归一化后的动作 chunk，先用**离散余弦变换（DCT）**把信号转到频域；再**量化** DCT 系数；最后把「按维度展平」的稀疏系数序列用 **BPE** 压缩成最终的动作 token 序列。整条流水线**可逆**，解码即逆过程。*
 
@@ -151,6 +151,6 @@ FAST 可以理解为**离散 token 路线对扩散/流匹配路线的一次「�
 
 - 论文 HTML：<https://arxiv.org/html/2501.09747v1>（Figure 2 / Figure 4 / Figure 6 / Figure 12 及正文）
 - 摘要页：<https://arxiv.org/abs/2501.09747>
-- 图片（本地）：`images/pi0-fast_arch.png`（论文 Figure 2 概览）、`images/pi0-fast_method.png`（论文 Figure 4 分词流水线）
+- 图片（本地）：`images/pi0-fast_arch.webp`（论文 Figure 2 概览）、`images/pi0-fast_method.webp`（论文 Figure 4 分词流水线）
 
 > 本解读基于 arXiv v1 全文 HTML 核对撰写；标注「以原文为准」处为本调研未逐一独立核验的细节数字。

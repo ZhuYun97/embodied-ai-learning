@@ -14,22 +14,22 @@ hero:
       link: /vla/#-论文细读导航
 
 features:
-  - icon: 📜
+  - icon: { src: /icons/route.svg, width: 28, height: 28 }
     title: 发展主线
     details: 五阶段演进 + 四条暗线 + Mermaid 流程图,梳理 VLA 如何从"动作即文本 token"走到"从经验中强化学习"。
     link: /vla/#一范式演进与奠基
     linkText: 查看主线
-  - icon: 🧩
+  - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 12 篇论文细读
     details: RT-2 / OpenVLA / Octo / π0 / π0-FAST / OpenVLA-OFT / GR00T N1 / π0.5 及 4 篇最新前沿,每篇含官方框架图与逐模块拆解。
     link: /vla/papers/rt2
     linkText: 从 RT-2 开始
-  - icon: 📊
+  - icon: { src: /icons/chart.svg, width: 28, height: 28 }
     title: 基准横评硬数据
     details: SimplerEnv / LIBERO / CALVIN 上 OpenVLA·Octo·π0·RT-2 等模型的成功率成绩表,标注口径与可信度。
     link: /vla/#四数据集与基准
     linkText: 看横评
-  - icon: 🚀
+  - icon: { src: /icons/trend.svg, width: 28, height: 28 }
     title: 2025H2–2026 最新前沿
     details: 自变量 WALL-OSS、阿里 Qwen-VLA / RynnVLA、Physical Intelligence π0.6 / π*0.6(RECAP 真机强化学习)。
     link: /vla/#五2025h22026-最新前沿
@@ -43,7 +43,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 <div class="route-grid">
   <div class="route-card">
     <span class="route-tag">离散 token</span>
-    <h4>动作即文本 token</h4>
+    <div class="route-card__title">动作即文本 token</div>
     <p>把动作离散化为词表 token,自回归逐 token 生成——简单、直接复用 VLM。</p>
     <div class="route-links">
       <a href="vla/papers/rt2">RT-2</a>
@@ -53,7 +53,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">连续 · 扩散/流匹配</span>
-    <h4>连续动作生成</h4>
+    <div class="route-card__title">连续动作生成</div>
     <p>用扩散/流匹配直接生成连续动作块,支持动作分块与高频灵巧控制。</p>
     <div class="route-links">
       <a href="vla/papers/octo">Octo</a>
@@ -63,7 +63,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">混合 · 连续回归</span>
-    <h4>两条路融合</h4>
+    <div class="route-card__title">两条路融合</div>
     <p>高层离散 token + 底层流匹配,或改用 L1 连续回归——兼顾语义与精度。</p>
     <div class="route-links">
       <a href="vla/papers/openvla-oft">OpenVLA-OFT</a>
@@ -74,7 +74,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">新范式探索</span>
-    <h4>统一基座 / 第三条路 / 从经验学习</h4>
+    <div class="route-card__title">统一基座 / 第三条路 / 从经验学习</div>
     <p>统一多任务多本体基座、视频生成预训练→动作、真机强化学习。</p>
     <div class="route-links">
       <a href="vla/papers/qwen-vla">Qwen-VLA</a>

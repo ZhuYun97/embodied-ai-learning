@@ -29,7 +29,7 @@
 
 ## 2. 方法与架构
 
-![π0 框架图](images/pi0_arch.png)
+![π0 框架图](images/pi0_arch.webp)
 
 *图注:π0 框架总览(对应论文 Figure 3)。左侧为预训练数据混合(自有灵巧操作数据 + 开源 OXE 数据);中间为流匹配 VLA 模型,由一个**较大的 VLM 主干**(权重由 PaliGemma 初始化,承载互联网预训练表征)和一个**较小的动作专家**(处理机器人本体状态与动作)组成;右侧表示训练好的 π0 可控制**多种本体、不同动作空间**的机器人完成多样任务。图像与语言 token 走 VLM 权重,机器人状态/带噪动作 token 走动作专家权重,两条流通过共享注意力交互。*
 
@@ -135,6 +135,6 @@ $\mathbf{q}_t$ **不是模型预测出来的,而是机器人硬件直接测得�
 
 ## 来源
 
-- 论文 HTML:https://arxiv.org/html/2410.24164v1 (Figure 3 框架图 = `images/pi0_arch.png`)
+- 论文 HTML:https://arxiv.org/html/2410.24164v1 (Figure 3 框架图 = `images/pi0_arch.webp`)
 - 论文摘要页:https://arxiv.org/abs/2410.24164
 - Physical Intelligence,2024.10

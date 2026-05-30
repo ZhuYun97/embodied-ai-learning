@@ -41,7 +41,7 @@ RynnVLA-001 是阿里达摩院 + 湖畔实验室提出的一个 **7B 级** 视�
 
 RynnVLA-001 的主干是一个**自回归 Transformer**,由文生图模型 **Chameleon** 扩展而来去做 I2V(图生视频)。整个方法是一条**三阶段渐进训练链**(见图 2),外加一个独立训练的 **ActionVAE** 作为动作表征模块。下面分:2.1 自回归视频生成主干,2.2 三阶段训练,2.3 ActionVAE,2.4 推理时的关键取舍,2.5 机器人系统与数据。
 
-![RynnVLA-001 模型架构与三阶段训练](images/rynnvla_arch.png)
+![RynnVLA-001 模型架构与三阶段训练](images/rynnvla_arch.webp)
 
 > **图注(译自原文 Figure 2,Model architecture and training stages)**:训练分三个阶段。**(1) 第一视角视频生成式预训练**:训练一个基于 transformer 的图生视频(I2V)模型做未来帧预测。**(2) 人类轨迹建模**:在 I2V 模型上扩展出**动作(轨迹)预测头**,同时引入视觉与状态嵌入(图中蓝色块)。**(3) 机器人 VLA 建模**:把预训练权重迁移到机器人数据上,模型据此学习"视觉 + 语言 + 状态 → 机器人动作"的映射。
 
@@ -56,7 +56,7 @@ RynnVLA-001 的主干是一个**自回归 Transformer**,由文生图模型 **Cha
 
 ### 2.2 三阶段渐进训练:从人类视频到机器人控制
 
-![RynnVLA-001 三类训练数据与训练数据流水线](images/rynnvla_pipeline.png)
+![RynnVLA-001 三类训练数据与训练数据流水线](images/rynnvla_pipeline.webp)
 
 > **图注(译自原文 Figure 1,Training data pipeline)**:框架使用三类训练数据。**(1) 第一视角视频生成式预训练**:用数百万条第一视角人类操作视频做未来帧预测。**(2) 人类轨迹建模**:用带**人手关键点标注**的视频训练,实现**帧 + 轨迹的联合预测**。**(3) 机器人 VLA 建模**:用配有语言指令的机器人数据集,学习"从视觉观测到机器人动作"的映射。
 
@@ -149,7 +149,7 @@ RynnVLA-001 在三项任务上**全面高于** GR00T N1.5 与 π0,平均成功�
 - 论文:RynnVLA-001: Using Human Demonstrations to Improve Robot Manipulation. arXiv:2509.15212 (DAMO Academy, Alibaba Group + Hupan Lab, 2025.09;ICRA 2026 接收). <https://arxiv.org/abs/2509.15212>
 - HTML 全文(图 1/2 来源):<https://arxiv.org/html/2509.15212v1>
 - 代码与权重(开源):<https://github.com/alibaba-damo-academy/RynnVLA-001>
-- 架构图:本仓库 `images/rynnvla_arch.png`(原文 Figure 2 模型架构与三阶段训练,源文件 `x2.png`)
-- 数据流水线图:本仓库 `images/rynnvla_pipeline.png`(原文 Figure 1 三类训练数据/训练数据流水线,源文件 `x1.png`)
+- 架构图:本仓库 `images/rynnvla_arch.webp`(原文 Figure 2 模型架构与三阶段训练,源文件 `x2.png`)
+- 数据流水线图:本仓库 `images/rynnvla_pipeline.webp`(原文 Figure 1 三类训练数据/训练数据流水线,源文件 `x1.png`)
 
 > 说明:第 4–5 节中的全部真机数字与对比结论均为**作者团队自评**(自采 LeRobot SO100 三任务数据集),非独立第三方复现,引用时请注明其自评属性。

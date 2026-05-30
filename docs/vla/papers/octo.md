@@ -27,7 +27,7 @@ Octo 想回答的问题是:**能否提供一个开源、模块化、可在普通
 
 ## 2. 方法与架构
 
-![Octo 框架图](images/octo_arch.png)
+![Octo 框架图](images/octo_arch.webp)
 
 *图注:Octo 模型架构。**左侧**:Octo 用预训练语言模型对任务描述(绿色)做 tokenize,用轻量级 CNN 对输入观测(蓝色)做 tokenize。**顶部**:Transformer 主干处理由任务 token 与观测 token 组成的序列,产生 readout token(紫色),再交给输出头生成动作。**底部**:Transformer 的块式注意力(block-wise attention)结构允许在微调阶段灵活增删输入/输出——例如加入新的观测(蓝色虚线)或新的动作空间(紫色虚线),而无需改动任何预训练参数。*
 
@@ -135,5 +135,5 @@ Octo 是 **VLA "连续动作"路线的早期代表作**。它确立了"**大 Tra
 
 - 论文 HTML:<https://arxiv.org/html/2405.12213v1>
 - 论文摘要页:<https://arxiv.org/abs/2405.12213>
-- 架构图:`images/octo_arch.png`(Figure 1,Model architecture)
-- 训练数据组成图:`images/octo_dataset.png`(Figure 2,OXE 25 子数据集加权采样)
+- 架构图:`images/octo_arch.webp`(Figure 1,Model architecture)
+- 训练数据组成图:`images/octo_dataset.webp`(Figure 2,OXE 25 子数据集加权采样)

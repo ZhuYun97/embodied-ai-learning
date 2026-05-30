@@ -32,7 +32,7 @@
   --vp-c-bg-elv: #ffffff;
   --vp-c-text-1: #0f172a;        /* slate-900 强标题/正文 */
   --vp-c-text-2: #475569;        /* slate-600 次要 */
-  --vp-c-text-3: #94a3b8;        /* slate-400 弱化 */
+  --vp-c-text-3: #64748b;        /* slate-500 弱化(≈4.6:1,达 AA) */
   --vp-c-divider: #e2e8f0;       /* slate-200 */
   --vp-c-border: #e2e8f0;
   --vp-c-gutter: #e2e8f0;
@@ -44,9 +44,13 @@
   --vp-button-brand-border: transparent;
   --vp-button-brand-text: #ffffff;
 
-  /* Hero:编辑式克制——深 slate→蓝 的细腻渐变标题,无炫光 */
+  /* Hero:编辑式克制——纯色标题(去渐变,避免 AI tell) */
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #0f172a 25%, #2563eb 95%);
+  --vp-home-hero-name-background: var(--vp-c-text-1);
+
+  /* 灯箱(遮罩 + 卡片)语义 token */
+  --zoom-overlay: rgba(13, 17, 32, 0.92);
+  --zoom-card: #ffffff;
 }
 
 /* ---------- 配色:深色 ---------- */
@@ -63,12 +67,12 @@
   --vp-c-bg-elv: #131c2e;
   --vp-c-text-1: #e8edf5;
   --vp-c-text-2: #aab4c5;
-  --vp-c-text-3: #6b7689;
+  --vp-c-text-3: #8a94a6;        /* 提亮以达 AA */
   --vp-c-divider: #1e293b;
   --vp-c-border: #1e293b;
   --vp-c-gutter: #1e293b;
 
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #e8edf5 20%, #93b4ff 95%);
+  --vp-home-hero-name-background: var(--vp-c-text-1);
 }
 
 /* ---------- 全局:字体平滑 ---------- */
@@ -154,6 +158,15 @@ html {
 .vp-doc tbody tr:hover {
   background: var(--vp-c-bg-soft) !important;
 }
+/* 窄屏:宽基准表自身可横向滚动,避免撑破页面 */
+@media (max-width: 640px) {
+  .vp-doc table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
 
 /* ---------- 论文框架图:极简边框 + 克制阴影 ---------- */
 .vp-doc img {
@@ -162,6 +175,8 @@ html {
 .vp-doc p > img {
   display: block;
   margin: 0.6rem auto;
+  max-width: 100%;
+  height: auto;            /* 配合 width/height 属性,等比缩放 + 预留空间(防 CLS) */
   border: 1px solid var(--vp-c-divider);
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
 }
@@ -208,7 +223,7 @@ html {
   align-items: center;
   justify-content: center;
   padding: 4vh 4vw;
-  background: rgba(13, 17, 32, 0.92);
+  background: var(--zoom-overlay);
   cursor: zoom-out;
   opacity: 0;
   visibility: hidden;
@@ -226,7 +241,7 @@ html {
   max-height: 92vh;
 }
 .zoom-lightbox__content {
-  background: #fff;
+  background: var(--zoom-card);
   border-radius: 10px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
   transform: scale(0.98);
@@ -350,10 +365,12 @@ img.zoom-lightbox__content {
   padding: 3px 10px;
   border-radius: 999px;
 }
-.route-card h4 {
+.route-card__title {
   margin: 12px 0 6px;
+  font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: -0.01em;
+  color: var(--vp-c-text-1);
 }
 .route-card p {
   font-size: 0.85rem;
@@ -367,14 +384,23 @@ img.zoom-lightbox__content {
   gap: 8px;
 }
 .route-links a {
+  display: inline-flex;
+  align-items: center;
   font-size: 0.82rem;
   font-weight: 500;
-  padding: 4px 11px;
+  padding: 7px 12px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 7px;
   color: var(--vp-c-text-1);
   text-decoration: none;
   transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+}
+/* 触摸设备:满足 ≥44px 触控目标 */
+@media (pointer: coarse) {
+  .route-links a {
+    min-height: 44px;
+    padding: 10px 14px;
+  }
 }
 .route-links a:hover {
   border-color: var(--vp-c-brand-1);

@@ -35,7 +35,7 @@ OpenVLA([[openvla]])作为开源 VLA 的事实标准 baseline,继承了 RT-2 的
 
 ## 2. 方法与架构
 
-![OpenVLA-OFT 方法图](images/openvla-oft_arch.png)
+![OpenVLA-OFT 方法图](images/openvla-oft_arch.webp)
 
 > **图注(译自原文 Figure 2)**:VLA 微调的关键设计决策。**左**:自回归解码(autoregressive decoding)逐个顺序生成动作,与并行解码(parallel decoding)的对比——后者利用**双向注意力**,在**单次前向**中一次性生成全部动作。**右**:离散动作 token + 下一 token 预测,与连续动作值 + L1 回归 / 扩散建模目标的对比。原始 OpenVLA 的训练方案 = 自回归解码 + 离散动作 + 下一 token 预测(即左图与右图各自的左半边);OFT 则把它整体切换到右半边。
 
@@ -169,7 +169,7 @@ OFT 直接回归连续值:**去掉离散输出层,换上一个轻量 MLP 动作�
 - 论文:Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success. arXiv:2502.19645 (RSS 2025). <https://arxiv.org/abs/2502.19645>
 - HTML 全文:<https://arxiv.org/html/2502.19645v2>
 - 项目主页:<https://openvla-oft.github.io>
-- 方法图:本仓库 `images/openvla-oft_arch.png`(原文 Figure 2,源文件 `fig/ar_vs_pr--cont_vs_discr--v2.001.jpeg`,自回归 vs 并行 / 离散 vs 连续 的核心设计对比图)
-- 整体框架/演示图(备用):本仓库 `images/openvla-oft_overview.png`(原文 Figure 1,双臂 ALOHA 上的 OpenVLA-OFT+)
+- 方法图:本仓库 `images/openvla-oft_arch.webp`(原文 Figure 2,源文件 `fig/ar_vs_pr--cont_vs_discr--v2.001.jpeg`,自回归 vs 并行 / 离散 vs 连续 的核心设计对比图)
+- 整体框架/演示图(备用):本仓库 `images/openvla-oft_overview.webp`(原文 Figure 1,双臂 ALOHA 上的 OpenVLA-OFT+)
 
 > 说明:本文吞吐/延迟(4.2→108.8 Hz、约 3× 延迟下降)与成功率(76.5%→97.1%、LIBERO-Long 53.7%→86.5%)均取自原文 Table I/II;「L1 不普遍优于扩散」为作者明确表态,引用时请勿外推。

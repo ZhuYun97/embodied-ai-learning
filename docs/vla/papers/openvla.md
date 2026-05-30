@@ -30,7 +30,7 @@ OpenVLA 的目标就是给出一个**完全开源**(模型 + 训练代码 + 数�
 
 ## 2. 方法与架构
 
-![OpenVLA 框架图](images/openvla_arch.png)
+![OpenVLA 框架图](images/openvla_arch.webp)
 
 > **图注(译自原文 Figure 1)**:OpenVLA 模型架构。给定一张图像观测和一句语言指令,模型预测 7 维机器人控制动作。架构由三个关键组件构成:(1) **视觉编码器**——将 DINOv2 与 SigLIP 的特征拼接(concatenate);(2) **投影器(projector)**——把视觉特征映射到语言嵌入空间;(3) **LLM 主干**——一个 Llama 2 7B 参数的大语言模型。
 
@@ -122,7 +122,7 @@ LoRA 微调取得最佳的「性能/算力」折中:**仅训练约 1.4% 的模�
 
 - 论文:OpenVLA: An Open-Source Vision-Language-Action Model. arXiv:2406.09246 (CoRL 2024). <https://arxiv.org/abs/2406.09246>
 - HTML 全文(图 1 架构图来源):<https://arxiv.org/html/2406.09246v1>
-- 架构图:本仓库 `images/openvla_arch.png`(原文 Figure 1,源文件 `x1.png`)
+- 架构图:本仓库 `images/openvla_arch.webp`(原文 Figure 1,源文件 `x1.png`)
 - 项目主页 / 代码:<https://openvla.github.io> · <https://github.com/openvla/openvla>
 
 > 说明:第 4(5) 节中 SimplerEnv(Google Robot ~34.3% / Bridge 近乎归零)为**社区复现**的常见参照数字,非原论文自评结果,用以与作者真机数字形成对照,引用时请以具体复现来源为准。

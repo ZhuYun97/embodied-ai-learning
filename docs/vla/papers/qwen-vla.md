@@ -43,7 +43,7 @@ Qwen-VLA 的定位,是把 **Qwen 的 VL 建模栈**(感知、理解、推理)作
 
 Qwen-VLA 的结构可以一句话概括:**Qwen3.5-4B VL 主干 + DiT 流匹配动作解码器,外加 embodiment-aware 文本提示,把多任务多本体的数据灌进同一套权重**。下面分三小节:2.1 整体双流架构,2.2 统一的"动作-轨迹预测"框架与本体感知提示,2.3 渐进式训练配方与数据混合。
 
-![Qwen-VLA 总体架构(VL 主干 + DiT 流匹配动作解码器,统一覆盖操作/导航/VL 理解)](images/qwen-vla_arch.png)
+![Qwen-VLA 总体架构(VL 主干 + DiT 流匹配动作解码器,统一覆盖操作/导航/VL 理解)](images/qwen-vla_arch.webp)
 
 > **图注(据官方 GitHub `QwenLM/Qwen-VLA` 架构图 `qwenvla_overview.png` 转述)**:图中央是 **Qwen3.5 Vision-Language Model** 主干,左侧输入为 **Observed Images(观测图像)+ Prompt(文本提示)**,右上方是 **Diffusion Transformer(DiT)** 动作解码器——其内部为 $N\times$ 堆叠的 **Self-Attention + AdaLN + Feed-Forward MLP** 模块,以 **Noisy Action(噪声动作)** 与 **Timestep(去噪时间步)** 为输入,经一个 MLP 输出 **Clean Action(干净动作)**。顶部三个机器人卡通分别标注 **VLA / VLN / VL**,示意同一模型覆盖三类能力;下方与右侧分别给出 **Manipulation(操作)、Navigation(导航)、Vision-Language Understanding(视觉语言理解)** 的样例场景,直观表达"一个模型、多任务、多环境、多本体"。
 
@@ -156,6 +156,6 @@ OOD 平均成功率(%):**Qwen-VLA-aloha(带预训练)显著领先**(README 表�
 - 论文:Qwen-VLA: Unifying Vision-Language-Action Modeling across Tasks, Environments, and Robot Embodiments. arXiv:2605.30280(阿里巴巴 Qwen 团队,2026.05,提交日 2026-05-28). <https://arxiv.org/abs/2605.30280>
 - HuggingFace papers 页:<https://huggingface.co/papers/2605.30280>
 - 官方 GitHub:<https://github.com/QwenLM/Qwen-VLA>(README 提供 Introduction、Key Highlights、Benchmarks 表与架构图)
-- 架构图:本仓库 `images/qwen-vla_arch.png`(源文件 `QwenLM/Qwen-VLA` 仓库 `assets/qwenvla_overview.png`,总体架构/能力总览图)
+- 架构图:本仓库 `images/qwen-vla_arch.webp`(源文件 `QwenLM/Qwen-VLA` 仓库 `assets/qwenvla_overview.png`,总体架构/能力总览图)
 
 > 说明:第 4 节全部基准数字、第 2 节参数拆分与训练配方均为 **Qwen 团队自评/自述**,arXiv HTML 全文撰写时未放出,权重与数据开放度待确认。引用时请注明其自评属性与"极新、未经第三方审视"的状态。

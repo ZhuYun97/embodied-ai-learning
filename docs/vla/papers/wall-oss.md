@@ -42,7 +42,7 @@ WALL-OSS 的定位,就是用一套**紧耦合架构 + 多策略课程**同时弥
 
 WALL-OSS 的核心是把"想做什么(推理/子任务)"与"怎么做(连续动作)"统一进**同一个可微框架**,并用**两阶段课程**先离散后连续地训练它。下面分四小节:2.1 整体架构(紧耦合主干 + 双输出头),2.2 Unified Cross-Level CoT,2.3 两阶段课程(Inspiration / Integration),2.4 紧耦合 MoE 与静态路由。
 
-![WALL-OSS 整体架构(原文 Figure 3)](images/wall-oss_arch.png)
+![WALL-OSS 整体架构(原文 Figure 3)](images/wall-oss_arch.webp)
 
 > **图注(译自原文 Figure 3,Architecture of WALL-OSS)**:主干为 **QwenVL2.5-3B**。输入是多视角图像(第一人称 egocentric + 腕部 arm-mounted 相机)与文本指令;在共享的 **Self-Attention** 之上,**Vision-Language FFN** 与 **Action FFN** 两套专家并存。输出端有两个头:**LM Head** 负责 **Chain of Thought(思维链)/ Sub-task(子任务)/ Discrete Action(离散 FAST 动作 token)**;**Flow Head** 负责 **Continuous Action(连续动作)**,以机器人本体状态(Robot State)与噪声(Noise)为条件做流匹配。无论走哪个头,都**条件于同一份多模态输入**。
 
@@ -61,7 +61,7 @@ WALL-OSS 最核心的概念是 **Unified Cross-Level CoT(统一跨层级思维�
 
 与 GR00T N1 等"双系统/分层"做法不同,WALL-OSS 采用**单模型的 Uni-CoT 形式**,端到端学习"指令 → CoT → 子任务 → 连续动作"的前向映射(原文称 unified CoT forward mapping)。这条链路**可以包含、也可以跳过中间推理步骤**(推理时既能"高层指令 → 推理(CoT)→ 子任务规划 → 连续动作"逐级展开,也能直接出动作),从而既保留 VLM 的语义与推理能力,又能把它"压"到细粒度动作上。直觉上:它把"高层语义 → 细粒度动作"的分解过程显式地编进同一个模型的前向计算,迫使模型理解指令、子目标与动作之间的关系,而不是把规划和控制割裂成两个独立系统。
 
-![训练与推理流程总览(原文 Figure 4)](images/wall-oss_pipeline.png)
+![训练与推理流程总览(原文 Figure 4)](images/wall-oss_pipeline.webp)
 
 > **图注(译自原文 Figure 4,training and inference pipeline)**:**上排(预训练阶段 Pre-Training Stage)**依次为 **Base VLM Pre-training → Inspiration Stage → Integration Stage(Phase 1)→ Integration Stage(Phase 2)**;**下排(推理阶段 Inference Stage)**为 **High-level Instruction → Reasoning(CoT)→ Sub-task Planning → Continuous Action**——即 Unified Cross-Level CoT 在推理时的逐级展开。
 
@@ -165,7 +165,7 @@ $$x_t=(1-\rho(t))\,x_0+\rho(t)\,\epsilon,\qquad \mathcal{L}_{\text{Integration}}
 - 代码:GitHub <https://github.com/X-Square-Robot/wall-x>
 - 模型:HuggingFace `x-square-robot/wall-oss-flow`、`x-square-robot/wall-oss-fast`
 - 项目页:<https://x2robot.com>
-- 架构图:本仓库 `images/wall-oss_arch.png`(原文 Figure 3 Architecture of WALL-OSS,源文件 `x3.png`)
-- 训练/推理流程图:本仓库 `images/wall-oss_pipeline.png`(原文 Figure 4 training and inference pipeline,源文件 `x4.png`)
+- 架构图:本仓库 `images/wall-oss_arch.webp`(原文 Figure 3 Architecture of WALL-OSS,源文件 `x3.png`)
+- 训练/推理流程图:本仓库 `images/wall-oss_pipeline.webp`(原文 Figure 4 training and inference pipeline,源文件 `x4.png`)
 
 > 说明:第 4 节全部数字、"可直接部署 / 零样本"等说法均为 **X Square Robot 实验室自评**,无独立第三方复现;机构归属由官方 GitHub/HF 组织名推断;Wall-OSS-0.5 的梯度桥接预训练与 17 任务零样本套件来自 2026.05 开源发布,不在 arXiv v1 论文中。引用时请注明上述属性。

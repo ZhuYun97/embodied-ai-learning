@@ -2,8 +2,8 @@ import DefaultTheme from 'vitepress/theme'
 import { onMounted } from 'vue'
 import './custom.css'
 
-// 自定义轻量灯箱:点击流程图(Mermaid SVG)或论文框架图全屏放大
-// 用事件委托,天然兼容 Mermaid 的异步渲染与路由切换,无需重复绑定
+// 自定义轻量灯箱:点击/键盘放大流程图(Mermaid SVG)或论文框架图
+// 事件委托 + MutationObserver,兼容 Mermaid 异步渲染与路由切换;键盘可达 + 焦点管理
 let bound = false
 
 function setupLightbox() {
@@ -13,52 +13,105 @@ function setupLightbox() {
   const overlay = document.createElement('div')
   overlay.className = 'zoom-lightbox'
   overlay.setAttribute('role', 'dialog')
-  overlay.setAttribute('aria-label', '放大预览')
+  overlay.setAttribute('aria-modal', 'true')
+  overlay.setAttribute('aria-label', '放大预览,按 Esc 关闭')
+  overlay.tabIndex = -1
   const stage = document.createElement('div')
   stage.className = 'zoom-lightbox__stage'
   overlay.appendChild(stage)
   document.body.appendChild(overlay)
 
+  let lastFocused = null
+
   const close = () => {
     overlay.classList.remove('is-open')
+    if (lastFocused && lastFocused.focus) lastFocused.focus()
+    lastFocused = null
     setTimeout(() => {
       stage.innerHTML = ''
     }, 180)
   }
 
   const open = (node) => {
+    lastFocused = document.activeElement
     stage.innerHTML = ''
     const clone = node.cloneNode(true)
     const isSvg = clone.tagName.toLowerCase() === 'svg'
     clone.removeAttribute('style')
+    clone.removeAttribute('tabindex')
+    clone.removeAttribute('role')
+    clone.removeAttribute('aria-label')
     if (isSvg) {
-      // 去掉固定宽高,保留 viewBox,让 CSS 用视口高度驱动等比放大
       clone.removeAttribute('width')
       clone.removeAttribute('height')
     }
     clone.classList.add('zoom-lightbox__content')
     stage.appendChild(clone)
     overlay.classList.add('is-open')
+    // 等可见性生效后再移焦点入对话框(visibility:hidden 元素无法聚焦)
+    requestAnimationFrame(() => overlay.focus())
+  }
+
+  const resolveTarget = (t) => {
+    if (!t || !t.closest) return null
+    const svg = t.closest('.vp-doc .mermaid svg')
+    if (svg) return svg
+    if (t.tagName === 'IMG' && t.closest('.vp-doc p')) return t
+    return null
   }
 
   overlay.addEventListener('click', close)
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) close()
+    // 对话框打开时:Esc 关闭,Tab 困在对话框内(简易焦点陷阱)
+    if (overlay.classList.contains('is-open')) {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        close()
+      } else if (e.key === 'Tab') {
+        e.preventDefault()
+        overlay.focus()
+      }
+      return
+    }
+    // 未打开时:Enter / Space 在可放大元素上触发放大
+    if (e.key === 'Enter' || e.key === ' ') {
+      const node = resolveTarget(document.activeElement)
+      if (node) {
+        e.preventDefault()
+        open(node)
+      }
+    }
   })
 
-  // 事件委托:点击流程图 SVG 或正文框架图
   document.addEventListener('click', (e) => {
-    const t = e.target
-    if (!t || !t.closest) return
-    const svg = t.closest('.vp-doc .mermaid svg')
-    const img =
-      t.tagName === 'IMG' && t.closest('.vp-doc p') ? t : null
-    const node = svg || img
+    const node = resolveTarget(e.target)
     if (!node) return
     e.preventDefault()
     e.stopPropagation()
     open(node)
   })
+
+  // 将可放大元素标记为可聚焦 + 语义(兼容 Mermaid 异步渲染)
+  const tagZoomable = () => {
+    document.querySelectorAll('.vp-doc .mermaid svg, .vp-doc p > img').forEach((el) => {
+      if (el.dataset.zoomable) return
+      el.dataset.zoomable = '1'
+      el.setAttribute('tabindex', '0')
+      el.setAttribute('role', 'button')
+      const isSvg = el.tagName.toLowerCase() === 'svg'
+      const base = isSvg ? '流程图' : el.getAttribute('alt') || '图片'
+      el.setAttribute('aria-label', `${base},按 Enter 放大`)
+    })
+  }
+  tagZoomable()
+  if ('MutationObserver' in window) {
+    let debounce
+    new MutationObserver(() => {
+      clearTimeout(debounce)
+      debounce = setTimeout(tagZoomable, 200)
+    }).observe(document.body, { childList: true, subtree: true })
+  }
 }
 
 export default {

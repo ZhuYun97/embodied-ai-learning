@@ -30,7 +30,7 @@ GR00T N1 的回答是:用**双系统**解耦"慢思考(VLM 语义)"与"快执行
 
 ## 2. 方法与架构
 
-![GR00T N1 双系统架构](images/groot-n1_arch.png)
+![GR00T N1 双系统架构](images/groot-n1_arch.webp)
 
 *图注:GR00T N1 模型总览(对应论文 Figure 2)。这是一个采用**双系统(dual-system)设计**的 VLA 模型:图像观测与语言指令被转成 token 序列,送入 **Vision-Language Model(VLM)主干**(System 2);VLM 的输出连同机器人本体状态与带噪动作的编码,一起送入 **Diffusion Transformer 模块**(System 1)生成电机动作。两系统均为 Transformer,**紧耦合、端到端联合优化**。公开权重 **GR00T-N1-2B 共约 2.2B 参数**,其中 VLM 约 **1.34B**;在 L40 GPU 上以 bf16 采样一个 16 步动作块约 **63.9 ms**。*
 
@@ -47,7 +47,7 @@ System 2 是一个在互联网规模数据上预训练的**视觉-语言模型**
 
 ### 2.2 System 1:扩散 Transformer 动作模块(DiT + 流匹配,~120 Hz)
 
-![GR00T N1 模型架构细节](images/groot-n1_arch_detail.png)
+![GR00T N1 模型架构细节](images/groot-n1_arch_detail.webp)
 
 *图注:GR00T N1 架构细节(对应论文 Figure 3)。模型在从单臂机械臂到双臂人形灵巧手的多样本体上训练;为应对不同本体的状态/动作维度差异,使用带**具身感知(embodiment-aware)状态/动作编码器**的 DiT 块来嵌入机器人状态与动作。视觉-语言 token 来自 Eagle-2 的潜在嵌入,随后通过**交叉注意力层**馈入 DiT 块。*
 
@@ -94,7 +94,7 @@ DiT 用**流匹配(flow matching)**学习动作生成,即扩散的连续变体:
 
 ### 2.4 数据金字塔与无动作视频的伪标注
 
-![GR00T N1 数据金字塔](images/groot-n1_datapyramid.png)
+![GR00T N1 数据金字塔](images/groot-n1_datapyramid.webp)
 
 *图注:用于机器人基础模型训练的数据金字塔(对应论文 Figure 1)。自底向上:**数据量递减、本体特异性(embodiment-specificity)递增**。底层是海量、与具体机器人本体无关的**人类视频 / 网络数据**(语义与运动先验最广,但离机器人最远);中层是**合成生成数据**(仿真轨迹 + 视频生成"神经轨迹");顶层是数量最少但与目标本体最贴合的**真实机器人遥操作轨迹**。GR00T N1 在预/后训练阶段都跨整座金字塔做 co-training,按异构混合采样训练 batch。*
 
@@ -164,8 +164,8 @@ GR00T N1 是**工业级"双系统(VLM + 扩散/流匹配动作头)"的代表作*
 ## 来源
 
 - 论文 HTML:https://arxiv.org/html/2503.14734v1
-  - Figure 2 双系统总览 = `images/groot-n1_arch.png`
-  - Figure 3 架构细节 = `images/groot-n1_arch_detail.png`
-  - Figure 1 数据金字塔 = `images/groot-n1_datapyramid.png`
+  - Figure 2 双系统总览 = `images/groot-n1_arch.webp`
+  - Figure 3 架构细节 = `images/groot-n1_arch_detail.webp`
+  - Figure 1 数据金字塔 = `images/groot-n1_datapyramid.webp`
 - 论文摘要页:https://arxiv.org/abs/2503.14734
 - NVIDIA,2025.03(GR00T-N1-2B 权重 / 数据 / 仿真基准开放)
