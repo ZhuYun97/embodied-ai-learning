@@ -1,7 +1,49 @@
 import DefaultTheme from 'vitepress/theme'
-import { h, onMounted } from 'vue'
+import { h, ref, onMounted } from 'vue'
 import { useRoute, withBase } from 'vitepress'
 import './custom.css'
+
+// 「专注阅读」切换:收起左右两侧(侧边栏 + 右侧目录),加宽正文。
+// 状态写入 localStorage 并加在 <html>.zen-reading 上(config head 里有预渲染脚本防闪烁)。
+const PANEL_ICON =
+  '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><line x1="5" y1="3" x2="5" y2="13"/><line x1="11" y1="3" x2="11" y2="13"/></svg>'
+
+const ZenToggle = {
+  setup() {
+    const route = useRoute()
+    const on = ref(false)
+    onMounted(() => {
+      on.value =
+        typeof document !== 'undefined' &&
+        document.documentElement.classList.contains('zen-reading')
+    })
+    const toggle = () => {
+      on.value = !on.value
+      document.documentElement.classList.toggle('zen-reading', on.value)
+      try {
+        localStorage.setItem('zen-reading', on.value ? '1' : '0')
+      } catch (e) {}
+    }
+    return () => {
+      // 仅在有左右侧栏的文档页(/vla/*)显示,首页/404 不显示
+      if (!/\/vla\//.test(route.path)) return null
+      return h(
+        'button',
+        {
+          class: ['zen-toggle', { 'is-on': on.value }],
+          type: 'button',
+          onClick: toggle,
+          'aria-pressed': String(on.value),
+          title: on.value ? '退出专注模式(恢复左右侧栏)' : '专注阅读:收起左右侧栏',
+        },
+        [
+          h('span', { class: 'zen-toggle__icon', innerHTML: PANEL_ICON }),
+          h('span', { class: 'zen-toggle__label' }, on.value ? '退出专注' : '专注'),
+        ]
+      )
+    }
+  },
+}
 
 // 「本系列」页脚导航:在所有 /vla/papers/* 细读与专题页底部,
 // 提供一组跨页快捷入口(无需逐页 frontmatter),提升可发现性。
@@ -146,6 +188,7 @@ export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
+      'nav-bar-content-after': () => h(ZenToggle),
       'doc-after': () => h(SeriesFooter),
     })
   },

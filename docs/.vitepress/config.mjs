@@ -51,6 +51,8 @@ export default withMermaid(defineConfig({
   },
 
   head: [
+    // 预渲染恢复「专注阅读」状态,避免刷新时左右侧栏闪烁
+    ['script', {}, "try{if(localStorage.getItem('zen-reading')==='1')document.documentElement.classList.add('zen-reading')}catch(e){}"],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/embodied-ai-learning/favicon.svg' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],

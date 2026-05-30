@@ -450,6 +450,53 @@ img.zoom-lightbox__content {
   }
 }
 
+/* ---------- 专注阅读切换按钮(导航栏)---------- */
+.zen-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+}
+.zen-toggle:hover {
+  color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-1);
+}
+.zen-toggle.is-on {
+  color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+}
+.zen-toggle__icon {
+  display: inline-flex;
+}
+@media (max-width: 768px) {
+  .zen-toggle__label { display: none; }
+  .zen-toggle { padding: 0 9px; }
+}
+
+/* ---------- 专注阅读:收起左右两侧 + 加宽正文 ---------- */
+.zen-reading .VPSidebar { display: none !important; }
+.zen-reading .VPContent.has-sidebar { padding-left: 0 !important; }
+.zen-reading .VPDocAside { display: none !important; }
+.zen-reading .VPDoc.has-aside .content-container { max-width: 100% !important; }
+.zen-reading .VPDoc .content {
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* 隐藏侧栏后,导航栏左侧的残留分隔线/占位收一下 */
+.zen-reading .VPNavBar.has-sidebar .title { border-bottom-color: transparent; }
+
 /* ---------- 尊重 reduced-motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .VPFeature,
