@@ -1,5 +1,6 @@
 ---
 description: FAST(Frequency-space Action Sequence Tokenization)是 Physical Intelligence 提出的高效动作分词法,用 DCT 频域变换加 BPE 压缩离散 token,让自回归 VLA 也能做高频灵巧控制;由此训练的 π0-FAST 性能比肩流匹配版 π0 且训练快约 5 倍。
+title: π0-FAST 细读
 ---
 
 # FAST / π0-FAST：面向 VLA 的高效动作分词
@@ -8,7 +9,7 @@ description: FAST(Frequency-space Action Sequence Tokenization)是 Physical Inte
 > Physical Intelligence, 2025.01 · arXiv: [2501.09747](https://arxiv.org/abs/2501.09747)
 > 路线：离散动作 token 的高效化（频域压缩分词）
 
-[← 返回主报告](../index.md)
+> [← 返回主报告](../index.md)
 
 ---
 

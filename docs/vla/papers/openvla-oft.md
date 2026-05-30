@@ -1,5 +1,6 @@
 ---
 description: OpenVLA-OFT 是斯坦福提出的 VLA 优化微调配方(Optimized Fine-Tuning),用并行解码、动作分块、连续动作表示与 L1 回归改造 OpenVLA,吞吐提升约 26 倍至 108.8Hz,在 LIBERO 基准上把成功率从 76.5% 提到 97.1%,超越 π0 等基线。
+title: OpenVLA-OFT 细读
 ---
 
 # OpenVLA-OFT:优化微调,把 VLA 的速度与成功率同时拉满
@@ -10,7 +11,7 @@ description: OpenVLA-OFT 是斯坦福提出的 VLA 优化微调配方(Optimized 
 > **时间**: 2025.02(RSS 2025)
 > **路线**: 连续动作 —— **并行解码 + 动作分块 + 连续动作表示 + L1 回归**,把原始 OpenVLA 的自回归离散 token 改造成一条连续回归路线
 
-[← 返回主报告](../index.md)
+> [← 返回主报告](../index.md)
 
 ---
 

@@ -1,5 +1,6 @@
 ---
 description: VLA 与具身智能 2022 至 2026 年发展时间线,按 arXiv 首发排序的里程碑大表,五阶段三条动作路线串起 RT-1、Diffusion Policy、RT-2 等关键工作,每个里程碑可点链进对应细读。
+title: VLA 发展时间线
 ---
 
 # VLA / 具身智能发展时间线(2022 → 2026)
@@ -86,7 +87,7 @@ flowchart TD
 | **2024.05** | **Octo** | UC Berkeley 等 | 连续(扩散) | 模块化开源框架,OXE 80 万轨迹训练 transformer 扩散策略,消费级 GPU 数小时可微调到新本体 | [→ 细读](octo.md) |
 | **2024.06** | **OpenVLA** | Stanford 等 | 离散 token | 7B 全开源,Llama2 + DINOv2/SigLIP;⚠️ 用 1/7 参数在 29 任务上超 55B RT-2-X 16.5%,把范式平民化 | [→ 细读](openvla.md) |
 | **2024.10** | **π0** | Physical Intelligence | 连续(流匹配) | PaliGemma + 独立流匹配动作专家;流匹配 + 动作分块达 50 Hz 高频灵巧控制(叠衣服) | [→ 细读](pi0.md) |
-| **2024.11** | **CogACT** | 清华 / 微软亚研院 | 连续(组件化 DiT) | **组件化 VLA**:VLM 只出"认知 token",动作交给专门的 DiT 扩散专家;⚠️ SimplerEnv Google Robot VM 82.7% | [→ 细读](cogact.md) |
+| **2024.11** | **CogACT** | 清华 / 微软亚研院 | 连续(组件化 DiT) | **组件化 VLA**:VLM 只出"认知 token",动作交给专门的 DiT 扩散专家;⚠️ SimplerEnv Google Robot VM 74.8%(原传 82.7 已更正) | [→ 细读](cogact.md) |
 | **2025.01** | **π0-FAST** | Physical Intelligence | 离散(高效化) | DCT 频域分词压缩动作 token,让自回归离散 VLA 也能高频运行,补齐离散路线短板 | [→ 细读](pi0-fast.md) |
 | **2025.02** | **OpenVLA-OFT** | Stanford 等 | 连续(L1 回归) | OFT 配方 = 并行解码 + 动作分块 + 连续表示 + L1 回归;⚠️ 提速 26×、LIBERO 97.1% 刷新 SOTA | [→ 细读](openvla-oft.md) |
 | **2025.02** | **Helix** | Figure AI | 双系统 | ⚠️ 厂商自评:7B VLM(7–9 Hz)+ 80M 控制器(200 Hz),35-DoF 控制人形上半身,首个驱动双协作机器人的 VLA(无细读) | — |
@@ -117,7 +118,7 @@ flowchart TD
 
 ## 四、贯穿全程的四条暗线(竖看时间线)
 
-主报告提炼的四条始终在演进的主轴,映射到上面的时间线:
+主报告提炼的四条始终在演进的主轴(定义与详述以[主报告 §1.1 · 四条暗线](../index.md#一范式演进与奠基)为权威源),映射到上面的时间线:
 
 1. **知识来源**:机器人数据(RT-1)→ +互联网视觉-语言知识(RT-2)→ +人类视频/合成数据(GR00T、RynnVLA)→ +真机部署经验(π\*0.6 的 RECAP RL)。
 2. **动作生成**:离散 token → 离散 vs 连续分化 → 分层(高层离散 + 底层连续)+ 效率优化 → 多路并存/融合。

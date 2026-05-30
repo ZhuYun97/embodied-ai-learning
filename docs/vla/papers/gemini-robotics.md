@@ -1,5 +1,6 @@
 ---
 description: Google DeepMind 的 Gemini Robotics 细粒度解读,把 Gemini 2.0 改造为机器人基座,采用云端 backbone 加本机 action decoder 的双系统架构实现 250ms/50Hz 实时控制,并以 Gemini Robotics-ER 提供具身推理,后续演进到 1.5/ER 1.5。
+title: Gemini Robotics 细读
 ---
 
 # Gemini Robotics 细粒度解读
@@ -79,7 +80,7 @@ graph LR
 - **主数据**:约 **12 个月**的 ALOHA 2 遥操作数据("thousands of hours"),混合网页文档、代码、多模态媒体、ER/VQA 数据。
 - **公平性**:所有基线都用同一份多样化混合训练。两个基线是:**π0 复现版**(在同一混合上训,优于公开 π0 release)与一个 **ALOHA Unleashed 风格的多任务 diffusion policy**。
 
-## 3. 关键数据表
+## 3. 实验与关键结果
 
 ### 具身推理 / VLM 基准(⚠️ 厂商自评,2025.02 口径)
 

@@ -1,5 +1,6 @@
 ---
 description: CogACT 是清华与微软亚研院提出的组件化 VLA 模型,用 7B VLM(DINOv2+SigLIP+Llama-2)做认知并产出 cognition token,再由扩散 Transformer(DiT)动作专家生成连续动作块,在 SimplerEnv Google Robot 上成功率达 74.8%,显著超越 OpenVLA。
+title: CogACT 细读
 ---
 
 # CogACT 细粒度解读
@@ -77,7 +78,7 @@ CogACT 的认知侧直接**复用一个已有的 VLM**(总参数约 7B,与 OpenV
 - **数据**:Open X-Embodiment(OXE)的子集,沿用 Octo / OpenVLA 的同一混合(25 个 VLA 数据集,约 0.4M 条轨迹、**22.5M 帧**),排除 Language Table 与 DROID。
 - **目标**:动作模块用标准扩散去噪损失训练;VLM 认知侧与动作模块一起端到端训练(cognition token 的表示随之被学出来)。
 
-## 3. 关键数据表
+## 3. 实验与关键结果
 SimplerEnv 是把 RT-1 / Bridge 真机场景搬进仿真、并做视觉对齐(Visual Matching)以提升"仿真↔真机"相关性的评测套件。以下为 **Google Robot · Visual Matching** 设定下的平均成功率(均来自论文 Table 1 口径):
 
 | 模型 | 总参数 | 动作建模 | Google Robot VM 平均成功率 |

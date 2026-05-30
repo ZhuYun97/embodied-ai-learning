@@ -1,5 +1,6 @@
 ---
 description: RT-2 细粒度解读,Google DeepMind 把机器人动作表示为文本 token,在 PaLI-X 与 PaLM-E 上对网络视觉-语言数据与机器人轨迹做联合微调(co-fine-tune),证明网络知识可迁移到低层控制,泛化较 RT-1 提升约 2 倍,是离散动作 token 自回归 VLA 路线的奠基工作。
+title: RT-2 细读
 ---
 
 # RT-2 细粒度解读

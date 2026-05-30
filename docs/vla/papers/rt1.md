@@ -1,5 +1,6 @@
 ---
 description: RT-1(Robotics Transformer 1)细粒度解读,Google 用 EfficientNet-B3 加 FiLM、TokenLearner 与 35M decoder-only Transformer 自回归输出 256-bin 离散动作 token,基于 13 万条真实机器人演示验证大规模模仿学习的泛化能力,是离散 token VLA 路线与 Open X-Embodiment 的奠基工作。
+title: RT-1 细读
 ---
 
 # RT-1 细粒度解读
@@ -73,7 +74,7 @@ RT-1 的动作是 **11 维离散向量**,每个维度都被**均匀离散化(uni
 - **TokenLearner + token 复用换实时性**:用 token 压缩把大模型策略压进 3 Hz 的实时预算,解决了"大模型 vs 闭环实时"的硬冲突。
 - **异构数据吸收能力**:证明同一架构能把仿真数据、甚至**不同形态机器人(Kuka)** 的数据混进训练而不掉点,反而提升——这是"规模化数据集"路线的可行性证据。
 
-## 4. 关键数据表
+## 4. 实验与关键结果
 
 | 指标 | RT-1 数值 | 备注 |
 |---|---|---|

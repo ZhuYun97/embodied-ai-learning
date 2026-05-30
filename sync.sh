@@ -27,6 +27,10 @@ echo "▶ 1/5 校验源文件..."
 echo "▶ 2/5 同步内容到站点..."
 # 主报告 -> 站点首页文档
 cp "$REPORT" "$DEST/index.md"
+# 「如何阅读本站 / 更新日志」单页(源端维护;放在 $DEST 根,不进 papers/ 的 --delete 范围)
+for page in guide changelog; do
+  [ -f "$SRC/$page.md" ] && cp "$SRC/$page.md" "$DEST/$page.md"
+done
 # 论文 md + 图片(--delete 让源端的删除也同步过来;排除杂项)
 rsync -a --delete \
   --exclude='.omc' --exclude='.DS_Store' --exclude='.git' \

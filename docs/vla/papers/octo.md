@@ -1,5 +1,6 @@
 ---
 description: Octo 开源通用机器人策略解读,基于 Transformer 的扩散策略,在 Open X-Embodiment 约 80 万条轨迹上预训练,采用块式注意力与 readout token 模块化设计,可在消费级 GPU 上数小时微调到新传感器与新动作空间,定位跨本体通用策略底座。
+title: Octo 细读
 ---
 
 # Octo:开源通用机器人策略
@@ -7,7 +8,7 @@ description: Octo 开源通用机器人策略解读,基于 Transformer 的扩散
 > **arXiv**: [2405.12213](https://arxiv.org/abs/2405.12213) | **机构**: UC Berkeley / Stanford / CMU / Google DeepMind 等 | **时间**: 2024.05
 > **路线**: 连续动作(Transformer 主干 + 扩散策略 Diffusion Policy)
 
-[← 返回主报告](../index.md)
+> [← 返回主报告](../index.md)
 
 ---
 

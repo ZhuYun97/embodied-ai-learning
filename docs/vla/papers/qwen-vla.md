@@ -1,5 +1,6 @@
 ---
 description: 阿里 Qwen 团队的 Qwen-VLA 统一具身基座模型解读,用 Qwen3.5-4B VL 主干加 1.15B DiT 流匹配动作解码器,把操作、导航与轨迹预测合进单一 VLA,并以 embodiment-aware 提示条件实现跨机器人本体。
+title: Qwen-VLA 细读
 ---
 
 # Qwen-VLA:在一个模型里统一操作、导航与轨迹预测的视觉-语言-动作基座
@@ -8,7 +9,7 @@ description: 阿里 Qwen 团队的 Qwen-VLA 统一具身基座模型解读,用 Q
 > 阿里巴巴 Qwen 团队(作者含 Qwen 负责人 Junyang Lin,以及 Dayiheng Liu、Shuai Bai、Jingren Zhou 等),2026.05 · arXiv:[2605.30280](https://arxiv.org/abs/2605.30280)
 > 路线:**统一 VLA 基座** · **Qwen3.5-4B VL 主干 + 1.15B DiT 流匹配(flow-matching)动作解码器** · **操作 / 导航 / 轨迹预测合进一个"动作-轨迹预测"框架** · **embodiment-aware 提示条件**实现跨本体
 
-[← 返回主报告](../index.md)
+> [← 返回主报告](../index.md)
 
 ---
 

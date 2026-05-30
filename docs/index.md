@@ -75,7 +75,6 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/openvla-oft">OpenVLA-OFT</a>
       <a href="vla/papers/pi05">π0.5</a>
       <a href="vla/papers/wall-oss">WALL-OSS</a>
-      <a href="vla/papers/pi06">π0.6</a>
     </div>
   </div>
   <div class="route-card">
@@ -85,7 +84,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-links">
       <a href="vla/papers/qwen-vla">Qwen-VLA</a>
       <a href="vla/papers/rynnvla">RynnVLA</a>
-      <a href="vla/papers/pi06">π*0.6</a>
+      <a href="vla/papers/pi06">π0.6 / π*0.6</a>
       <a href="vla/papers/pi07">π0.7</a>
       <a href="vla/papers/gemini-robotics">Gemini Robotics</a>
     </div>

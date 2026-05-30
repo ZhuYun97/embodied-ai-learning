@@ -1,5 +1,6 @@
 ---
 description: 自变量机器人 X Square Robot 的 WALL-OSS / Wall-OSS-0.5 端到端具身基座 VLA 解读,基于 Qwen2.5-VL 主干与紧耦合 MoE,用 Unified Cross-Level CoT 统一指令推理到动作合成,并结合离散 FAST token 与连续流匹配双分支。
+title: WALL-OSS 细读
 ---
 
 # WALL-OSS / Wall-OSS-0.5:点燃 VLM 走向具身空间的端到端基座
@@ -9,7 +10,7 @@ description: 自变量机器人 X Square Robot 的 WALL-OSS / Wall-OSS-0.5 端�
 > **时间**: 2025.09(WALL-OSS);2026.05.28(Wall-OSS-0.5 开源)
 > **路线**: 端到端具身基座 —— 单一可微框架内统一"指令推理 → 子目标分解 → 细粒度动作合成"(**Unified Cross-Level CoT**),基于 **Qwen2.5-VL** 主干 + **紧耦合 MoE**,**离散 FAST token** 与**连续流匹配(flow matching)双分支**
 
-[← 返回主报告](../index.md)
+> [← 返回主报告](../index.md)
 
 ---
 

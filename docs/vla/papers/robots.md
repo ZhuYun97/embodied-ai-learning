@@ -1,5 +1,6 @@
 ---
 description: 梳理 VLA 实验所用机器人本体,从单臂 WidowX、Franka/DROID 到双臂 ALOHA 与人形 GR-1、Unitree G1、Apollo,讲清各平台形态、自由度与跨本体迁移,涵盖 RT-1、Octo、OpenVLA、π0、GR00T 等模型的本体绑定。
+title: 实验机器人本体梳理
 ---
 
 # 实验机器人本体梳理:VLA 实验都跑在哪些机器人上

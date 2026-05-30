@@ -64,13 +64,13 @@ export default withMermaid(defineConfig({
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:url', content: 'https://zhuyun97.github.io/embodied-ai-learning/' }],
     ['meta', { property: 'og:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 16 篇论文细读,经多源检索与对抗式事实核查整理。' }],
+    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 17 篇论文细读,经多源检索与对抗式事实核查整理。' }],
     ['meta', { property: 'og:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 16 篇论文细读,经对抗式事实核查整理。' }],
+    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 17 篇论文细读,经对抗式事实核查整理。' }],
     ['meta', { name: 'twitter:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
   ],
 
@@ -81,13 +81,44 @@ export default withMermaid(defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: 'VLA 调研', link: '/vla/' },
-      { text: '论文细读', link: '/vla/#-论文细读导航' },
+      {
+        text: '论文细读',
+        items: [
+          {
+            text: '奠基与两条路线',
+            items: [
+              { text: 'RT-1（离散前史）', link: '/vla/papers/rt1' },
+              { text: 'RT-2（范式奠基）', link: '/vla/papers/rt2' },
+              { text: 'Diffusion Policy', link: '/vla/papers/diffusion-policy' },
+              { text: 'OpenVLA', link: '/vla/papers/openvla' },
+              { text: 'Octo', link: '/vla/papers/octo' },
+              { text: 'π0', link: '/vla/papers/pi0' },
+              { text: 'CogACT', link: '/vla/papers/cogact' },
+              { text: 'π0-FAST', link: '/vla/papers/pi0-fast' },
+              { text: 'OpenVLA-OFT', link: '/vla/papers/openvla-oft' },
+              { text: 'GR00T N1', link: '/vla/papers/groot-n1' },
+              { text: 'π0.5', link: '/vla/papers/pi05' },
+            ],
+          },
+          {
+            text: '2025H2–2026 前沿',
+            items: [
+              { text: 'WALL-OSS', link: '/vla/papers/wall-oss' },
+              { text: 'Qwen-VLA', link: '/vla/papers/qwen-vla' },
+              { text: 'RynnVLA-001', link: '/vla/papers/rynnvla' },
+              { text: 'π0.6 / π*0.6', link: '/vla/papers/pi06' },
+              { text: 'Gemini Robotics', link: '/vla/papers/gemini-robotics' },
+              { text: 'π0.7', link: '/vla/papers/pi07' },
+            ],
+          },
+        ],
+      },
       {
         text: '专题',
         items: [
-          { text: '具身数据全景', link: '/vla/papers/embodied-data' },
+          { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
           { text: '具身数据处理', link: '/vla/papers/data-processing' },
-          { text: '数据集与基准', link: '/vla/papers/benchmarks' },
+          { text: '数据集与基准全景', link: '/vla/papers/benchmarks' },
           { text: '实验机器人本体', link: '/vla/papers/robots' },
         ],
       },
