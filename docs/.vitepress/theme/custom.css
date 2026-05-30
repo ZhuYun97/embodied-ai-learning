@@ -188,6 +188,15 @@ html {
 .mermaid .edgeLabel {
   background-color: var(--vp-c-bg) !important;
 }
+/* 点击放大的视觉提示 */
+.mermaid svg,
+.vp-doc p > img {
+  cursor: zoom-in;
+}
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 100;
+}
 
 /* ---------- 引用块:左侧蓝色规则(编辑式) ---------- */
 .vp-doc blockquote {
