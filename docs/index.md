@@ -36,6 +36,54 @@ features:
     linkText: 看前沿
 ---
 
+## 按技术路线浏览
+
+VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文细读:
+
+<div class="route-grid">
+  <div class="route-card">
+    <span class="route-tag">离散 token</span>
+    <h4>动作即文本 token</h4>
+    <p>把动作离散化为词表 token,自回归逐 token 生成——简单、直接复用 VLM。</p>
+    <div class="route-links">
+      <a href="vla/papers/rt2">RT-2</a>
+      <a href="vla/papers/openvla">OpenVLA</a>
+      <a href="vla/papers/pi0-fast">π0-FAST</a>
+    </div>
+  </div>
+  <div class="route-card">
+    <span class="route-tag">连续 · 扩散/流匹配</span>
+    <h4>连续动作生成</h4>
+    <p>用扩散/流匹配直接生成连续动作块,支持动作分块与高频灵巧控制。</p>
+    <div class="route-links">
+      <a href="vla/papers/octo">Octo</a>
+      <a href="vla/papers/pi0">π0</a>
+      <a href="vla/papers/groot-n1">GR00T N1</a>
+    </div>
+  </div>
+  <div class="route-card">
+    <span class="route-tag">混合 · 连续回归</span>
+    <h4>两条路融合</h4>
+    <p>高层离散 token + 底层流匹配,或改用 L1 连续回归——兼顾语义与精度。</p>
+    <div class="route-links">
+      <a href="vla/papers/openvla-oft">OpenVLA-OFT</a>
+      <a href="vla/papers/pi05">π0.5</a>
+      <a href="vla/papers/wall-oss">WALL-OSS</a>
+      <a href="vla/papers/pi06">π0.6</a>
+    </div>
+  </div>
+  <div class="route-card">
+    <span class="route-tag">新范式探索</span>
+    <h4>统一基座 / 第三条路 / 从经验学习</h4>
+    <p>统一多任务多本体基座、视频生成预训练→动作、真机强化学习。</p>
+    <div class="route-links">
+      <a href="vla/papers/qwen-vla">Qwen-VLA</a>
+      <a href="vla/papers/rynnvla">RynnVLA</a>
+      <a href="vla/papers/pi06">π*0.6</a>
+    </div>
+  </div>
+</div>
+
 ## 关于本站
 
 本站是一个**持续生长的具身智能学习笔记**,当前首个专题是 **VLA(视觉-语言-动作)模型发展深度调研**。

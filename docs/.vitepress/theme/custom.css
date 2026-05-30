@@ -237,13 +237,76 @@ html {
   background: var(--vp-c-text-3);
 }
 
+/* ---------- 首页「按技术路线浏览」卡片网格 ---------- */
+.route-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 24px 0 8px;
+}
+.route-card {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--vp-c-bg-alt);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.route-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+.route-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.route-card h4 {
+  margin: 12px 0 6px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.route-card p {
+  font-size: 0.85rem;
+  color: var(--vp-c-text-2);
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.route-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.route-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 4px 11px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 7px;
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+}
+.route-links a:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-softer);
+}
+
 /* ---------- 尊重 reduced-motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .VPFeature,
+  .route-card,
+  .route-links a,
   .vp-doc tr {
     transition: none;
   }
-  .VPFeature:hover {
+  .VPFeature:hover,
+  .route-card:hover {
     transform: none;
   }
 }
