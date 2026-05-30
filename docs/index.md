@@ -99,6 +99,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 ## 专题与速查
 
 - 📊 [具身数据全景梳理](/vla/papers/embodied-data) —— 四层数据金字塔、10 个真机数据集横评、采集范式与 scaling
+- 🛠️ [具身数据处理](/vla/papers/data-processing) —— 清洗/标注/动作&观测处理/伪标签/配比/格式:原始采集→可训练样本的流水线
 - 🧪 [数据集与基准全景](/vla/papers/benchmarks) —— SimplerEnv / LIBERO / CALVIN / RoboCasa 四大评测逐模型成绩表
 - 🤖 [实验机器人本体](/vla/papers/robots) —— 19 个实验本体(单臂/双臂/人形)对照表与跨本体迁移要点
 - 📖 [术语速查表](/vla/papers/glossary) —— 流匹配 / 动作分块 / 双系统 / co-training 等术语一页速查

@@ -50,6 +50,7 @@ const ZenToggle = {
 const SERIES_LINKS = [
   ['/vla/', '← 总报告'],
   ['/vla/papers/embodied-data', '具身数据'],
+  ['/vla/papers/data-processing', '数据处理'],
   ['/vla/papers/benchmarks', '数据集与基准'],
   ['/vla/papers/robots', '机器人本体'],
   ['/vla/papers/glossary', '术语表'],
