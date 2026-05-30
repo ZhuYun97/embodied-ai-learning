@@ -78,6 +78,40 @@ OpenVLA 承自 RT-2 的「动作即语言」范式:把连续动作量化成 toke
 
 ## 4. 实验与关键结果
 
+### 4.0 结果速览表
+
+> 下列表把全文散落的定量结果归并到一起,**每行标注口径与来源**。⚠️ = 作者/厂商自评或未经独立第三方复现;社区复现行单独标注。原文表号引自 OpenVLA(arXiv:2406.09246)。
+
+**表 1 · 核心对比与高效化(原论文自评数,⚠️)**
+
+| 设定 | 指标 | OpenVLA | 对照 | 口径 / 来源 |
+|---|---|---|---|---|
+| vs RT-2-X 真机泛化 | 绝对成功率增益 | **+16.5%**(7B) | RT-2-X 55B(基准) | 29 任务 / 多本体,参数量 1/7;作者自评真机 ⚠️(原文摘要 / Table) |
+| LoRA vs 全量微调 | Franka-Tabletop 成功率 | 68.2%(LoRA) | 69.7%(全量) | 仅训 ≈1.4% 参数(≈97.6M/7188M,rank=32);原文 Table 1 ⚠️(SigLIP-only 小变体) |
+| 4-bit vs bf16 推理 | Bridge 成功率 | 71.9%(int4) | 71.3%(bf16) | 性能基本持平;原文 Table 2 ⚠️(SigLIP-only 小变体) |
+| 4-bit vs bf16 推理 | 显存占用 | 7.0 GB(int4) | 15–16.8 GB(bf16) | 显存降一半以上;裸跑 ≈6 Hz @ RTX 4090(原文 §5.4 / Fig 5) |
+
+**表 2 · 社区在 SimplerEnv 仿真上的复现(非原论文数,可信参照)**
+
+| 套件 | 协议 | OpenVLA | 同表对照 | 来源 |
+|---|---|---|---|---|
+| Google Robot / Fractal | Visual Matching | **34.3%** | Octo-Base 11.0 / RT-1-X 42.4 / RT-2-X 46.3 | benchmarks.md §1.4(MemoryVLA / VOTE / 2409.15250 评测) |
+| WidowX / Bridge | Visual Matching | **1.0–4.2%**(近乎归零) | Octo-Base 17.5 / SpatialVLA 42.7 | benchmarks.md §1.4 |
+| Google Robot | Variant Aggregation 均值(0–1) | **0.530** | RT-1 0.897 / RT-1-X 0.490 / Octo-Base 0.006 | benchmarks.md §1.4 |
+
+**表 3 · LIBERO 终身学习(社区横评口径,⚠️ 多为自评)**
+
+| 模型 | 平均 | Spatial | Object | Goal | Long-10 | Long-90 | 口径 / 来源 |
+|---|---|---|---|---|---|---|---|
+| **OpenVLA** | **75.9** | 84.7 | 88.4 | 79.2 | 53.7 | 73.5 | 5 套件均值;4 套件口径 = 76.5;benchmarks.md §2.3 |
+| Octo | ~75.1 | 78.9 | 85.7 | 84.6 | 51.1 | – | 对照,同源 |
+| π0-FAST | 85.0 | 96.4 | 96.8 | 88.6 | 60.2 | 83.1 | ⚠️ 额外本体感知 + 腕部相机,非同条件 |
+| OpenVLA-OFT | 95.3–97.1 | — | — | — | — | — | 发表时 SOTA,见 [[openvla-oft]] |
+
+> 读表须知:① SimplerEnv 的 Google Robot 与 WidowX/Bridge 是**两套独立机器人**,分数不可混算成"SimplerEnv 总分";② LIBERO 平均有 4 套件 / 5 套件两种口径,故 OpenVLA 出现 75.9 与 76.5 两个数;③ 表 1 的 LoRA / 量化数来自一个**仅用 SigLIP、Octo 同款较小 OXE 混合**的简化变体,与融合 DINOv2+SigLIP 的主模型架构略有差异(原文 §5.3/§5.4)。
+
+下面是对各组结果的要点解读:
+
 **(1) 与 RT-2-X 的正面对比(作者自评,真机)**
 在 29 个任务、跨多个机器人本体上,OpenVLA(7B)以 **16.5% 的绝对成功率**超越闭源 **RT-2-X(55B)**,而参数量仅为其 **1/7**。这是论文最核心的卖点数字。
 

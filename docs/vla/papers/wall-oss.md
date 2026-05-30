@@ -116,7 +116,35 @@ $$x_t=(1-\rho(t))\,x_0+\rho(t)\,\epsilon,\qquad \mathcal{L}_{\text{Integration}}
 
 ## 4. 实验与关键结果
 
-> ⚠️ 以下数字均为 **X Square Robot 自评**,无独立第三方复现。
+> ⚠️ 以下数字均为 **X Square Robot 自评**,无独立第三方复现;**无 SimplerEnv / LIBERO / CALVIN / RoboCasa 等公开横评基准上的可比数据**,故下表均为厂商自定评测口径。
+
+**速览表 A — 具身 VQA 基准(WALL-OSS vs 基线,原文 Table 2;单位 %)**
+
+| 模型 | 设定 | Object Grounding(物体定位) | Scene Captioning(场景描述) | Action Planning(动作规划) | 来源 |
+|---|---|---|---|---|---|
+| Qwen2.5-VL-3B | 基线(未具身化) | 46.1 | 57.7 | 59.8 | 原文 Table 2 ⚠️ |
+| **WALL-OSS** | 具身 VQA 协同训练后 | **91.6** | **87.6** | **69.0** | 原文 Table 2 ⚠️ |
+| 提升(绝对值,pp) | — | +45.5 | +29.9 | +9.2 | 由上两行算得 |
+
+> 口径:三项均为厂商自定义 Embodied VQA 子任务的准确率(%),非任何公开 VQA 基准;数值与基线均出自原文 Table 2,为 X Square Robot 自评。
+
+**速览表 B — 机器人操作评测套件(原文 Figure 6/7,定性结论)**
+
+| 评测维度 | 任务(单指令) | 任务(长程/推理) | 对比设定 | 结论 | 来源 |
+|---|---|---|---|---|---|
+| ① 指令理解/推理/泛化 ② 长程多阶段规划与执行 ③ 动作精度与鲁棒性 | Pick-Up-Waste、Place-by-Color、Instruction-Pick-Place、Pick-Place-Cup | Set-Table、Block-Spell、Tidy-Bedroom | In-distribution(ID)与 Out-of-distribution(OOD)两种,对比多个 SOTA 策略 | 称 WALL-OSS **优于强基线**,并涌现"零样本指令跟随"能力 | 原文 Figure 6/7 ⚠️ |
+
+> 口径:共 **6 个操作任务**;原文以 Figure 6/7 给出 ID/OOD 成功率柱状对比,本细读未抄录逐任务数值(原文以图形呈现),仅录其定性结论。长程任务以 task-progress 而非二元成功率度量。
+
+**速览表 C — Wall-OSS-0.5 零样本真机套件(2026.05.28 开源发布,厂商自述)**
+
+| 模型 | 设定 | 套件规模 | 总体指标 | 代表性单项 | 来源 |
+|---|---|---|---|---|---|
+| **Wall-OSS-0.5**(约 4B) | 零样本真机(zero-shot,目标任务无再采数微调) | 17 任务 | task-progress(任务进度)**> 80** | Block Sorting **100**、Fruit Sorting **96**、Ring Stacking **86** | 报告 §5.1 / 开源发布 ⚠️ |
+
+> 口径:**task-progress(任务进度,非二元成功率)**,意味着部分任务未必完全做完;单项 100/96/86 亦为进度分。该套件与"梯度桥接预训练"均来自 2026.05 开源发布,**不在** arXiv:2509.11766 v1 论文中。⚠️ 厂商自述,无第三方复现。
+
+要点解读见下。
 
 **(1) 具身 VQA 基准:相对基线 Qwen2.5-VL-3B 大幅提升(原文 Table 2)**
 

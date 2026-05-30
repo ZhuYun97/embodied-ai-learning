@@ -126,7 +126,51 @@ DiT 用**流匹配(flow matching)**学习动作生成,即扩散的连续变体:
 
 ## 4. 实验与关键结果
 
-> ⚠️ 以下为 NVIDIA **作者自评**结果,评测以仿真为主、真机集中于 GR-1 人形机器人。
+> ⚠️ 以下为 NVIDIA **作者自评**结果(本文 N1 原论文 + 后续 N1.5 报告),评测以仿真为主、真机集中于 GR-1 人形机器人,**缺独立第三方在统一基准下的复现**。⚠️ 标记处一律为 NVIDIA 自评;每张表均注明口径,跨表口径互不兼容、**禁止横比**。
+
+### 速览表
+
+**表 1 · GR00T 演进:N1.5 vs N1(NVIDIA「GR00T 演进」报告自评)** ⚠️
+> 口径:NVIDIA GEAR 在 N1.5 报告中给出的 N1.5 与 N1 对照,各任务设定不同,**仅纵向看代际提升,不可与下方其他表横比**。
+
+| 设定 / 任务 | 指标 | GR00T N1.5 | GR00T N1 | 来源 |
+|---|---|---|---|---|
+| Language Table(仿真) | 成功率 % | 93.2 | 52.8 | ⚠️ NVIDIA 自评(演进报告) |
+| 真实 GR-1(真机) | 成功率 % | 93.3 | 46.6 | ⚠️ NVIDIA 自评(演进报告) |
+| RoboCasa 30-demo 低数据档 | 成功率 % | 47.5 | 17.4 | ⚠️ NVIDIA 自评(benchmarks.md 表 B / verdicts ✅ 确认数值) |
+| DreamGen(合成数据收益) | 成功率 % | 38.3 | 13.1 | ⚠️ NVIDIA 自评(演进报告) |
+
+> ⚠️ RoboCasa 30-demo 的 47.5 / 17.4 与下方表 3 的 multitask 20.0% **是完全不同实验,不可混用**(同为 N1.5,这里 47.5% / 表 3 为 20.0%)。
+
+**表 2 · N1.5 跨本体迁移到 Unitree G1(后训练,1000 条遥操作)** ⚠️
+> 口径:N1.5 后训练迁移到异于预训练本体(GR-1)的 Unitree G1;250K 步 / 1K H100 / batch 16384。
+
+| 设定 | 指标 | GR00T N1.5 | GR00T N1 | 来源 |
+|---|---|---|---|---|
+| Unitree G1 · 熟悉物体 | 成功率 % | 98.8 | 44.0 | ⚠️ NVIDIA 自评(演进报告) |
+| Unitree G1 · 新物体 | 成功率 % | 84.2 | 待核(N1 对照未给) | ⚠️ NVIDIA 自评(演进报告) |
+
+**表 3 · RoboCasa 1.0 官方 multitask(基准维护方统一评测,非厂商自评)** ✅
+> 口径:300 任务(65 atomic + 235 composite),100 demos/task,multitask,pretrain scenes。这是与 DP / π0 / π0.5 **严格同口径**的最佳可比表;此处 GR00T 为 **N1.5**(非本文 N1,N1 在此表无条目)。
+
+| 模型 | Avg | Atomic-Seen | Composite-Seen | Composite-Unseen | 来源 |
+|---|---|---|---|---|---|
+| **GR00T N1.5** | **20.0%** | 43.0% | 9.6% | 4.4% | ✅ RoboCasa 官方文档(benchmarks.md 表 A) |
+| π0.5 (openpi) | 16.9% | 39.6% | 7.1% | 1.2% | ✅ RoboCasa 官方文档 |
+| π0 (openpi) | 14.8% | 34.6% | 6.1% | 1.1% | ✅ RoboCasa 官方文档 |
+| Diffusion Policy | 6.1% | 15.7% | 0.2% | 1.25% | ✅ RoboCasa 官方文档 |
+
+> 📌 同口径排名:GR00T N1.5 > π0.5 > π0 > Diffusion Policy。⚠️ 本文 **N1** 本身无此表条目;N1 原论文用的是 24 任务 / 100 demos 口径(见下要点),与该 300-task multitask 不可横比。
+
+**表 4 · 本文 N1 原论文自评(定性 / 区间,⚠️ 缺精确公开数值)** ⚠️
+
+| 设定 | 结果 | 来源 |
+|---|---|---|
+| 3 仿真基准 24 任务(100 demos/task) | 平均成功率优于基线(含 Diffusion Policy);GR-1 任务相对基线领先 >17% | ⚠️ NVIDIA 自评(本文 §4 prose,Table 2 / Fig 9–10) |
+| GR-1 真机 8 任务 | 击败 Diffusion Policy 基线;仅用 10% 数据仍小幅下降 | ⚠️ NVIDIA 自评(本文 §4 prose,Table 3 / Table 5) |
+| RoboCasa 24-task(N1 原论文另一口径) | zero-shot ~42% / post-train ~47% | ⚠️ NVIDIA 自评;⚠️ 与表 1 的 30-demo 17.4% 口径不同、**未在一手来源显式调和,不可互证**(benchmarks.md §4.4) |
+
+下方为要点解读(保留原分析性 prose):
 
 - **仿真(Table 2 / Figure 9–10)**:在三个仿真基准(RoboCasa、DexMimicGen,以及一套贴近真实任务的新桌面操作套件,共 24 个任务)上,每任务用 100 条示范时,GR00T N1 平均成功率优于基线(含 Diffusion Policy);在 GR-1 任务上相对基线领先超过 **17%**。
 - **真实世界(Table 3 / Table 5)**:在 GR-1 人形机器人 8 个真机任务上,GR00T N1 击败 Diffusion Policy 基线;即便**仅用 10% 数据**仍表现强劲(相对全量仅小幅下降)。预训练 GR00T-N1-2B 在未见摆放(如把苹果放在双手左侧)下仍能完成双手交接放入篮子(Figure 12),后训练版在放黄瓜/取柠檬等任务上优于卡住或抓取失败的 Diffusion Policy(Figure 13)。
