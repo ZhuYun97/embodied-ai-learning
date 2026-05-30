@@ -198,9 +198,64 @@ html {
 .vp-doc p > img {
   cursor: zoom-in;
 }
-.medium-zoom-overlay,
-.medium-zoom-image--opened {
-  z-index: 100;
+
+/* ---------- 自定义灯箱(流程图/框架图点击放大)---------- */
+.zoom-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  background: rgba(13, 17, 32, 0.92);
+  cursor: zoom-out;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.zoom-lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.zoom-lightbox__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 96vw;
+  max-height: 92vh;
+}
+.zoom-lightbox__content {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  transform: scale(0.98);
+  transition: transform 0.2s ease;
+}
+.zoom-lightbox.is-open .zoom-lightbox__content {
+  transform: scale(1);
+}
+/* 流程图(SVG):用视口高度驱动等比放大,viewBox 保证不失真 */
+svg.zoom-lightbox__content {
+  height: 86vh;
+  width: auto;
+  max-width: 94vw;
+  padding: 18px;
+  box-sizing: border-box;
+}
+/* 框架图(img):等比放大充满视口 */
+img.zoom-lightbox__content {
+  max-width: 94vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  padding: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .zoom-lightbox,
+  .zoom-lightbox__content {
+    transition: none;
+  }
 }
 
 /* ---------- 引用块:左侧蓝色规则(编辑式) ---------- */
