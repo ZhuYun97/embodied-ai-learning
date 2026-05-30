@@ -488,12 +488,10 @@ img.zoom-lightbox__content {
 .zen-reading .VPSidebar { display: none !important; }
 .zen-reading .VPContent.has-sidebar { padding-left: 0 !important; }
 .zen-reading .VPDocAside { display: none !important; }
-.zen-reading .VPDoc.has-aside .content-container { max-width: 100% !important; }
-.zen-reading .VPDoc .content {
-  max-width: 880px;
-  margin-left: auto;
-  margin-right: auto;
-}
+/* 收起两侧后让正文填满更宽的容器,避免左右大片留白(仍封顶以保证可读性) */
+.zen-reading .VPDoc .container { max-width: 1320px !important; }
+.zen-reading .VPDoc .content-container { max-width: 100% !important; }
+.zen-reading .VPDoc .content { max-width: 100% !important; margin: 0 auto; }
 /* 隐藏侧栏后,导航栏左侧的残留分隔线/占位收一下 */
 .zen-reading .VPNavBar.has-sidebar .title { border-bottom-color: transparent; }
 
