@@ -45,6 +45,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | RynnVLA-001 (2025.09) | 阿里达摩院 | Chameleon 视频生成基座 + ActionVAE,第三条路 | [→ 细读](papers/rynnvla.md) |
 | π0.6 / π*0.6 (2025.11) | Physical Intelligence | 知识隔离训练 + RECAP 真机强化学习,从经验中学习 | [→ 细读](papers/pi06.md) |
 | Gemini Robotics (2025.03→1.5 2025.09) | Google DeepMind | 云端 backbone + 本机 decoder 延迟拆分(≈250ms/50Hz)+ embodied reasoning | [→ 细读](papers/gemini-robotics.md) |
+| π0.7 (2026.04) | Physical Intelligence | 可操控通才 + 组合泛化,不微调追平 π*0.6 RL 专家,零样本跨本体叠衣 | [→ 细读](papers/pi07.md) |
 
 **专题综述**
 
@@ -83,7 +84,7 @@ flowchart TD
     NEW["2025H2–2026 最新前沿"]
     BASE["端到端统一基座<br/>WALL-OSS · Qwen-VLA"]
     VID["视频生成第三条路<br/>RynnVLA"]
-    RL["从经验中学习<br/>π0.6 / π*0.6 + RECAP RL"]
+    RL["从经验中学习 → 可操控通才<br/>π0.6/π*0.6 RECAP RL · π0.7 组合泛化"]
 
     RT1 -->|"瓶颈:学不到开放世界语义"| RT2
     RT2 --> SPLIT

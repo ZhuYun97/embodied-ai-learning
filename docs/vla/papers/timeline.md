@@ -39,7 +39,7 @@ flowchart TD
     subgraph P4["阶段 4 · 基座工程化 + 从经验学习（2025H2–26）"]
         WALL["WALL-OSS（2025.09）端到端基座"]
         RYNN["RynnVLA-001（2025.09）视频生成第三条路"]
-        PI06["π0.6 / π*0.6（2025.11）RECAP 真机 RL"]
+        PI06["π0.6/π*0.6（2025.11）RECAP RL → π0.7（2026.04）可操控通才·组合泛化"]
         QWEN["Qwen-VLA（2026.05）统一基座"]
     end
 
@@ -96,6 +96,7 @@ flowchart TD
 | **2025.09** | **WALL-OSS** | 自变量 X²Robot | 混合(端到端基座) | Qwen2.5-VL MoE(~4B)端到端具身基座,FAST 分支 + 流匹配分支并存,"统一跨层级 CoT";⚠️ Wall-OSS-0.5 零样本真机 | [→ 细读](wall-oss.md) |
 | **2025.09** | **RynnVLA-001** | 阿里达摩院 + 湖畔 | 第三条路(视频生成) | 基于 Chameleon 文生图扩展的自回归视频生成基座 + ActionVAE;⚠️ 三项真机均 90.6%,优于 π0/GR00T N1.5 | [→ 细读](rynnvla.md) |
 | **2025.11** | **π0.6 / π\*0.6** | Physical Intelligence | 混合 + 真机 RL | 知识隔离训练(动作专家梯度不回传主干)+ RECAP 真机强化学习;⚠️ 最难任务吞吐翻倍、失败率约减半;从模仿迈向"从经验学习" | [→ 细读](pi06.md) |
+| **2026.04** | **π0.7** | Physical Intelligence | 可操控通才(分层混合) | 富上下文条件化(子任务/视觉子目标/策略元数据)+ 混合质量数据;⚠️ 单一通才不微调追平 π*0.6 RL 专家,零样本跨本体叠衣 80% 接近人类遥操作;初步组合泛化 | [→ 细读](pi07.md) |
 | **2026.05** | **Qwen-VLA** | 阿里 Qwen | 连续(统一基座) | Qwen3.5-4B + 1.15B DiT 流匹配,一个架构统一操作/导航/轨迹;⚠️ LIBERO 97.9%、R2R 69.0% OSR | [→ 细读](qwen-vla.md) |
 
 ---
@@ -145,6 +146,7 @@ flowchart TD
 | WALL-OSS | arxiv.org/abs/2509.11766 · github.com/X-Square-Robot/wall-x |
 | RynnVLA-001 | arxiv.org/abs/2509.15212 · huggingface.co/Alibaba-DAMO-Academy |
 | π0.6 / π\*0.6 | arxiv.org/abs/2511.14759 · pi.website/blog/pistar06 |
+| π0.7 | arxiv.org/abs/2604.15483 · pi.website/blog/pi07 |
 | Qwen-VLA | arxiv.org/abs/2605.30280 · github.com/QwenLM/Qwen-VLA |
 
 ---

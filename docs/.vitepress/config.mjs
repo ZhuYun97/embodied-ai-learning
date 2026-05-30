@@ -161,6 +161,7 @@ export default withMermaid(defineConfig({
             { text: 'RynnVLA-001（达摩院）', link: '/vla/papers/rynnvla' },
             { text: 'π0.6 / π*0.6', link: '/vla/papers/pi06' },
             { text: 'Gemini Robotics（DeepMind）', link: '/vla/papers/gemini-robotics' },
+            { text: 'π0.7（PI 最新）', link: '/vla/papers/pi07' },
           ],
         },
         {

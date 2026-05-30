@@ -20,8 +20,8 @@ features:
     link: /vla/#一范式演进与奠基
     linkText: 查看主线
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
-    title: 16 篇论文细读
-    details: RT-1 / RT-2 / Diffusion Policy / OpenVLA / Octo / π0 / CogACT / π0-FAST / OpenVLA-OFT / GR00T N1 / π0.5 + 5 篇前沿(WALL-OSS / Qwen-VLA / RynnVLA / π0.6 / Gemini Robotics),每篇逐模块拆解。
+    title: 17 篇论文细读
+    details: RT-1 / RT-2 / Diffusion Policy / OpenVLA / Octo / π0 / CogACT / π0-FAST / OpenVLA-OFT / GR00T N1 / π0.5 + 6 篇前沿(WALL-OSS / Qwen-VLA / RynnVLA / π0.6 / Gemini Robotics / π0.7),每篇逐模块拆解。
     link: /vla/papers/rt1
     linkText: 从 RT-1 开始
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
@@ -83,6 +83,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/qwen-vla">Qwen-VLA</a>
       <a href="vla/papers/rynnvla">RynnVLA</a>
       <a href="vla/papers/pi06">π*0.6</a>
+      <a href="vla/papers/pi07">π0.7</a>
       <a href="vla/papers/gemini-robotics">Gemini Robotics</a>
     </div>
   </div>
