@@ -515,3 +515,115 @@ img.zoom-lightbox__content {
     transform: none;
   }
 }
+
+/* ============================================================
+   首页科技感增强(仅作用于 .VPHome,文档页保持极简可读)
+   网格 + 多色辉光背景 · 渐变辉光标题 · 玻璃拟态卡片
+   ============================================================ */
+:root {
+  --tech-grid: rgba(15, 23, 42, 0.05);
+  --tech-feature-bg: rgba(248, 250, 252, 0.62);
+  --tech-card-bg: rgba(255, 255, 255, 0.55);
+}
+.dark {
+  --tech-grid: rgba(148, 163, 184, 0.09);
+  --tech-feature-bg: rgba(19, 28, 46, 0.5);
+  --tech-card-bg: rgba(19, 28, 46, 0.42);
+}
+
+.VPHome { position: relative; overflow: hidden; }
+
+/* 背景层①:科技网格,radial 渐隐(只在顶部/英雄区显眼) */
+.VPHome::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--tech-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--tech-grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 38%, transparent 78%);
+  mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 38%, transparent 78%);
+}
+
+/* 背景层②:三色辉光极光,缓慢漂移 */
+.VPHome::after {
+  content: '';
+  position: absolute;
+  top: -160px;
+  left: 50%;
+  width: min(1000px, 96vw);
+  height: 560px;
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 28% 42%, rgba(37, 99, 235, 0.28), transparent 58%),
+    radial-gradient(circle at 72% 48%, rgba(34, 211, 238, 0.20), transparent 58%),
+    radial-gradient(circle at 52% 72%, rgba(139, 92, 246, 0.20), transparent 60%);
+  filter: blur(46px);
+  opacity: 0.9;
+  animation: techDrift 18s ease-in-out infinite alternate;
+}
+@keyframes techDrift {
+  from { transform: translateX(-53%) translateY(-6px); }
+  to   { transform: translateX(-47%) translateY(18px); }
+}
+
+/* 内容浮于背景之上 */
+.VPHome .VPHero,
+.VPHome .VPFeatures,
+.VPHome .vp-doc { position: relative; z-index: 1; }
+
+/* Hero 标题:蓝→青→紫 渐变辉光字(仅首页) */
+.VPHome .VPHero .name .clip {
+  background: linear-gradient(100deg, #2563eb 0%, #22d3ee 46%, #8b5cf6 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.dark .VPHome .VPHero .name .clip {
+  filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.38));
+}
+.VPHome .VPHero .text { letter-spacing: -0.02em; }
+
+/* Feature 卡:玻璃拟态 + 辉光描边 */
+.VPHome .VPFeature {
+  background: var(--tech-feature-bg);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+}
+.VPHome .VPFeature:hover {
+  border-color: transparent;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.55), 0 14px 44px rgba(37, 99, 235, 0.20);
+}
+
+/* 路线卡:玻璃 + 顶部三色渐变线 + mono 标签 */
+.VPHome .route-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--tech-card-bg);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+}
+.VPHome .route-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
+  opacity: 0.75;
+}
+.VPHome .route-card:hover {
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 14px 44px rgba(37, 99, 235, 0.18);
+}
+.VPHome .route-tag {
+  font-family: var(--vp-font-family-mono);
+  letter-spacing: 0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .VPHome::after { animation: none; }
+}
