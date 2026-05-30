@@ -16,7 +16,17 @@ export default withMermaid(defineConfig({
     math: true,
   },
 
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/embodied-ai-learning/favicon.svg' }],
+    ['meta', { name: 'theme-color', content: '#6d6df0' }],
+    ['meta', { property: 'og:title', content: '具身智能学习站' }],
+    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 12 篇论文细读' }],
+  ],
+
   themeConfig: {
+    logo: '/favicon.svg',
+    siteTitle: '具身智能学习站',
+
     nav: [
       { text: '首页', link: '/' },
       { text: 'VLA 调研', link: '/vla/' },
