@@ -5,6 +5,9 @@ hero:
   name: "具身智能学习站"
   text: "Embodied AI Learning"
   tagline: 从 VLA 模型的发展脉络,到 2026 年最新前沿 —— 经多源检索 + 对抗式事实核查整理
+  image:
+    src: /hero-robot.svg
+    alt: 具身智能机器人概念图
   actions:
     - theme: brand
       text: VLA 发展深度调研 →

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" viewBox="0 0 150 124" fill="none" role="img" aria-label="人形机器人示意">
+  <defs>
+    <linearGradient id="s3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563eb"/><stop offset="0.5" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="f3" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <g stroke="url(#s3)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#f3)">
+    <rect x="58" y="14" width="34" height="30" rx="9"/>
+    <line x1="67" y1="29" x2="75" y2="29" stroke-width="4"/><line x1="80" y1="29" x2="83" y2="29" stroke-width="4"/>
+    <path d="M75 44 v6"/>
+    <path d="M60 52 L90 52 L96 74 L84 96 L66 96 L54 74 Z"/>
+    <path d="M58 56 L42 80 L48 100 M92 56 L108 80 L102 100"/>
+    <path d="M70 96 L66 118 M80 96 L84 118"/>
+  </g>
+  <circle cx="75" cy="70" r="9" fill="url(#s3)" opacity="0.9" filter="url(#f3)"/>
+  <g fill="#22d3ee" filter="url(#f3)"><circle cx="42" cy="80" r="4.5"/><circle cx="108" cy="80" r="4.5"/></g>
+</svg>

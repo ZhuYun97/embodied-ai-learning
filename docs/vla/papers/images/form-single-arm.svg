@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" viewBox="0 0 150 124" fill="none" role="img" aria-label="单臂机器人示意">
+  <defs>
+    <linearGradient id="s1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563eb"/><stop offset="0.5" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="f1" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <g stroke="url(#s1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#f1)">
+    <rect x="40" y="100" width="70" height="16" rx="5"/>
+    <path d="M75 100 L75 70 L112 50 L104 22"/>
+    <path d="M104 22 l16 -2 M104 22 l-2 -16"/>
+  </g>
+  <g fill="#22d3ee" filter="url(#f1)"><circle cx="75" cy="70" r="5"/><circle cx="112" cy="50" r="5"/></g>
+</svg>

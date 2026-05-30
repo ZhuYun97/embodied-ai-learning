@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" viewBox="0 0 150 124" fill="none" role="img" aria-label="双臂机器人示意(ALOHA 式)">
+  <defs>
+    <linearGradient id="s2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563eb"/><stop offset="0.5" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="f2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <g stroke="url(#s2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#f2)">
+    <!-- gantry -->
+    <path d="M30 26 H120"/>
+    <path d="M30 26 V40 M120 26 V40"/>
+    <!-- left arm -->
+    <path d="M52 26 L44 60 L60 86"/>
+    <path d="M60 86 l-13 4 M60 86 l5 13"/>
+    <!-- right arm -->
+    <path d="M98 26 L106 60 L90 86"/>
+    <path d="M90 86 l13 4 M90 86 l-5 13"/>
+    <!-- base -->
+    <rect x="40" y="100" width="70" height="16" rx="5"/>
+  </g>
+  <g fill="#22d3ee" filter="url(#f2)"><circle cx="52" cy="26" r="4.5"/><circle cx="98" cy="26" r="4.5"/><circle cx="44" cy="60" r="4.5"/><circle cx="106" cy="60" r="4.5"/></g>
+</svg>

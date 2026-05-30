@@ -69,6 +69,9 @@ flowchart LR
 
 ### 2.1 单臂(VLA 的"标准考场")
 
+<img class="robot-form-icon" src="./images/form-single-arm.svg" alt="单臂机器人示意">
+
+
 单臂是 VLA 实验的最大公约数,几乎所有早期工作都在单臂上立标杆。
 
 | 平台 | 代表角色 | 谁在用 | 要点 |
@@ -86,6 +89,9 @@ flowchart LR
 
 ### 2.2 双臂(灵巧长时序任务的主战场)
 
+<img class="robot-form-icon" src="./images/form-dual-arm.svg" alt="双臂机器人示意">
+
+
 双臂遥操作是高精度、低吞吐的代表范式,既是采集平台也是评测本体。
 
 | 平台 | 配置 | 谁在用 | 要点 |
@@ -97,6 +103,9 @@ flowchart LR
 **跨本体迁移要点(双臂)**:OpenVLA-OFT+ 在真实双臂 ALOHA 用动作分块 K=25 + FiLM 强化语言 grounding;Qwen-VLA 真机 ALOHA 双臂带预训练 In-Domain 平均 83.6%、OOD 76.9%(对比 π0.5 与 GR00T N1.6,均自评 ⚠️)。Gemini 1.5 的 Motion Transfer 宣称 ALOHA 2 ↔ bi-arm Franka ↔ Apollo 可互迁(厂商口径)。
 
 ### 2.3 人形(当前最前沿、最难复现)
+
+<img class="robot-form-icon" src="./images/form-humanoid.svg" alt="人形机器人示意">
+
 
 人形是 VLA 实验本体演进的当前终点,也是跨本体迁移叙事的主战场。
 
@@ -112,6 +121,9 @@ flowchart LR
 **跨本体迁移要点(人形)**:人形 DoF 高、本体差异大,迁移成败取决于**动作空间是否本体无关**。GR00T 用相对末端执行器动作空间 + 具身感知编码器,使 N1.5 能从 GR-1 预训练本体迁到结构不同的 G1(详见第三节)。
 
 ### 2.4 桌面/特制本体
+
+<img class="robot-form-icon" src="./images/form-tabletop.svg" alt="桌面/特制本体示意">
+
 
 | 平台 | 性质 | 谁在用 | 要点 |
 |---|---|---|---|

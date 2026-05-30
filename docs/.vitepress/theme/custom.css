@@ -578,13 +578,13 @@ img.zoom-lightbox__content {
 .VPHome .vp-doc { position: relative; z-index: 1; }
 
 /* Hero 标题:蓝→青→紫 渐变辉光字(仅首页) */
-.VPHome .VPHero .name .clip {
+.VPHome .VPHero .name.clip {
   background: linear-gradient(100deg, #2563eb 0%, #22d3ee 46%, #8b5cf6 92%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.dark .VPHome .VPHero .name .clip {
+.dark .VPHome .VPHero .name.clip {
   filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.38));
 }
 .VPHome .VPHero .text { letter-spacing: -0.02em; }
@@ -626,4 +626,33 @@ img.zoom-lightbox__content {
 
 @media (prefers-reduced-motion: reduce) {
   .VPHome::after { animation: none; }
+}
+
+/* ---------- 机器人本体页:形态线稿图标(浮右,无边框) ---------- */
+.vp-doc img.robot-form-icon {
+  float: right;
+  width: 118px;
+  height: auto;
+  margin: 0 0 12px 22px;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent;
+}
+@media (max-width: 640px) {
+  .vp-doc img.robot-form-icon { width: 84px; margin: 0 4px 8px 14px; }
+}
+
+/* ---------- 首页 Hero 机器人插画:辉光 + 轻浮动 ---------- */
+.VPHome .VPHero .image-src,
+.VPHome .VPHero .VPImage {
+  filter: drop-shadow(0 0 34px rgba(56, 189, 248, 0.28));
+  animation: heroFloat 6s ease-in-out infinite;
+}
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .VPHome .VPHero .image-src,
+  .VPHome .VPHero .VPImage { animation: none; }
 }
