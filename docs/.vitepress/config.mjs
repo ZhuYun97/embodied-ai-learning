@@ -11,6 +11,11 @@ export default withMermaid(defineConfig({
   cleanUrls: true,
   ignoreDeadLinks: true,
 
+  // 启用 LaTeX 数学公式渲染(需 markdown-it-mathjax3,已在 devDependencies)
+  markdown: {
+    math: true,
+  },
+
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
