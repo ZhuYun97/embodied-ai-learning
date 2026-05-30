@@ -9,6 +9,7 @@ const SERIES_LINKS = [
   ['/vla/', '← 总报告'],
   ['/vla/papers/embodied-data', '具身数据'],
   ['/vla/papers/benchmarks', '数据集与基准'],
+  ['/vla/papers/robots', '机器人本体'],
   ['/vla/papers/glossary', '术语表'],
   ['/vla/papers/timeline', '时间线'],
   ['/vla/papers/references', '参考文献'],

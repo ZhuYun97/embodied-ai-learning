@@ -81,6 +81,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: '具身数据全景', link: '/vla/papers/embodied-data' },
           { text: '数据集与基准', link: '/vla/papers/benchmarks' },
+          { text: '实验机器人本体', link: '/vla/papers/robots' },
         ],
       },
       {
@@ -116,6 +117,7 @@ export default withMermaid(defineConfig({
           items: [
             { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
             { text: '数据集与基准全景', link: '/vla/papers/benchmarks' },
+            { text: '实验机器人本体', link: '/vla/papers/robots' },
           ],
         },
         {
