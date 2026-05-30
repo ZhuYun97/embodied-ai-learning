@@ -82,5 +82,14 @@ export default withMermaid(defineConfig({
 
   mermaid: {
     theme: 'default',
+    // 用系统字体(同步可用)做测量与渲染,避免异步 Inter 导致 CJK 节点文字被截断
+    fontFamily: '"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",sans-serif',
+    flowchart: {
+      htmlLabels: true,
+      useMaxWidth: true,
+      nodeSpacing: 50,
+      rankSpacing: 58,
+      padding: 16,
+    },
   },
 }))

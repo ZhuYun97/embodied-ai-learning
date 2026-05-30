@@ -172,6 +172,22 @@ html {
   justify-content: center;
   margin: 1.6rem 0;
 }
+/* 关键:Mermaid 标签强制系统字体,与测量字体一致,防止 CJK 文字被截断 */
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid .cluster-label,
+.mermaid .label,
+.mermaid foreignObject div,
+.mermaid foreignObject span,
+.mermaid foreignObject p {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    'Noto Sans SC', 'Source Han Sans SC', sans-serif !important;
+  white-space: nowrap;
+}
+/* 边线标签底色随主题,避免深色模式下看不清 */
+.mermaid .edgeLabel {
+  background-color: var(--vp-c-bg) !important;
+}
 
 /* ---------- 引用块:左侧蓝色规则(编辑式) ---------- */
 .vp-doc blockquote {
