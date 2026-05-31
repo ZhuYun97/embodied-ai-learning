@@ -1,19 +1,19 @@
 ---
 title: 全模型规格对比大表
-description: 一页看全 23 个 VLA / 具身智能代表模型的横切规格大表——主干 VLM、视觉编码器、参数量、动作表示、控制频率、训练语料、单体/双系统、开源许可,按时间排序并交叉链接各细读。
+description: 一页看全 24 个 VLA / 具身智能代表模型的横切规格大表——主干 VLM、视觉编码器、参数量、动作表示、控制频率、训练语料、单体/双系统、开源许可,按时间排序并交叉链接各细读。
 ---
 
 # 全模型规格对比大表
 
 > [← 返回主报告](../index.md)
 
-> **本页用途**:把 23 个代表模型的规格拍平成**一张主对比大表**,让你一页看全"谁用什么主干、动作怎么生成、跑多快、用多少数据、开不开源"。这是一张**横切对照页**,只做规组与交叉引用,**不复述单模型细节**——任何一格想深究,点对应细读。
+> **本页用途**:把 24 个代表模型的规格拍平成**一张主对比大表**,让你一页看全"谁用什么主干、动作怎么生成、跑多快、用多少数据、开不开源"。这是一张**横切对照页**,只做规组与交叉引用,**不复述单模型细节**——任何一格想深究,点对应细读。
 > **可信度体例**:⚠️ = 提出方/厂商自评数字;✅ = 经核查/基准维护方统一评测;**待核** = 源文件未给出一手定量,**不编造**(尤其许可证与参数量)。
 > **三处权威源声明(务必先读)**:① **规格以各模型细读为权威源**(本表的数字均可在对应 `xx.md` 里找到出处);② **成绩(成功率/基准分)一律见 [数据集与基准](benchmarks.md)**,本表不抄成绩;③ **年代序与机构以 [发展时间线](timeline.md) 为准**。
 
 ---
 
-## 一、主对比大表(23 模型 × 12 维,按时间排序)
+## 一、主对比大表(24 模型 × 12 维,按时间排序)
 
 > **动作表示图例**:`离散token` = 离散自回归动作 token;`流匹配` = flow matching 连续动作;`扩散DiT` = Diffusion Transformer 连续动作;`L1` = 连续表示 + L1 回归;`混合` = 高层离散 + 底层连续;`视频生成` = 第三条路(视频生成预训练)。
 > **系统形态图例**:`单体` = 单一模型端到端;`双系统` = 慢 VLM 推理(System 2)+ 快控制器执行(System 1)。
@@ -36,6 +36,7 @@ description: 一页看全 23 个 VLA / 具身智能代表模型的横切规格�
 | **Gemini Robotics** | 2025.03 | Google DeepMind | Gemini 2.0(云端蒸馏 backbone) | Gemini 2.0 视觉(内置) | 待核(前沿 VLM,未披露) | 连续(本机 action decoder 出动作块) | 端到端 ~250 ms / 等效 50 Hz ⚠️(云 backbone <160 ms) | 待核(机器人专用训练 + 具身推理数据,未披露规模) | 双系统(云 backbone + 本机 decoder) | **闭源** | [gemini-robotics.md](gemini-robotics.md) |
 | **GR00T N1** | 2025.03 | NVIDIA | Eagle-2(SmolLM2 + SigLIP-2) | SigLIP-2(224×224,pixel shuffle,64 token/帧) | ~2.2B(VLM ~1.34B + DiT) | 扩散DiT / 流匹配(16 步动作块) | System 2 ~10 Hz;System 1 ~120 Hz ⚠️ | 数据金字塔:人类视频 + 合成(827h 神经轨迹)+ 88h 真机；预训练 ~5 万 H100 时 | 双系统(System 2 VLM + System 1 DiT) | **全面开放**(GR00T-N1-2B 权重/数据/仿真基准)/ 具体许可证**待核** | [groot-n1.md](groot-n1.md) |
 | **π0.5** | 2025.04 | Physical Intelligence | 标准 web VLM 初始化(承 π0 系) | 承 π0 系(SigLIP)；具体**待核** | 待核(承 π0 双流，未给确切总数) | 混合(高层 FAST 离散 token + 底层流匹配 50 步) | 50 Hz ⚠️(底层流匹配 10 步去噪) | 约 400 小时移动操作 / 约 100 训练环境 + 6 类异构数据 co-train | 单体(同一 Transformer 两级推理) | **未开源**(数据/权重均闭) | [pi05.md](pi05.md) |
+| **GR-3** | 2025.07 | 字节跳动 Seed | Qwen2.5-VL-3B-Instruct | Qwen2.5-VL 内置视觉 | ~4B(主干 + flow-matching DiT) | 流匹配(动作 DiT,k-token 动作块,Euler Δτ=0.2) | 待核(实时控制,具体 Hz 未给) | 三源:网页 VL co-train + VR 人类轨迹(PICO4U,~450/h)+ 真机(pick 35k/bussing 101h/cloth 116h) | 单体(VLM 主干 + 流匹配专家) | 报告/项目页公开,权重开放程度**待核** | [gr-3.md](gr-3.md) |
 | **MemoryVLA** | 2025.08 | 清华黄高组 / Dexmal / 旷视等 | 7B Prismatic VLM(DINOv2+SigLIP+LLaMA-7B,OXE 续训) | DINOv2 + SigLIP | ~7B(VLM)+ 记忆库 + DiT 动作头 | 扩散DiT(记忆条件化,16 步动作块) | 推理 ~0.194s/步(记忆开销仅 +3.6%)⚠️ | 各基准对应数据(Bridge/RT-1/LIBERO/Mikasa/自采) | 单体 + 感知-认知记忆库(PCMB) | 开源程度**待核** | [memoryvla.md](memoryvla.md) |
 | **WALL-OSS** | 2025.09 | X Square Robot(自变量机器人,机构属推断) | Qwen2.5-VL（紧耦合 MoE,`Qwen2_5_VLMoEForAction`) | Qwen2.5-VL 内置视觉 | ~4B(MoE,BF16) | 混合(LM Head 出 FAST 离散 token + Flow Head 出连续，双分支) | 待核 | 网页图文 + 对话 + 长视频 + 多本体机器人数据 co-train(规模**待核**) | 单体(紧耦合 MoE,静态路由) | **开源**(GitHub `X-Square-Robot/wall-x`，HF `wall-oss-flow`/`wall-oss-fast` 双分支)/ 具体许可证**待核** | [wall-oss.md](wall-oss.md) |
 | **RynnVLA-001** | 2025.09 | 阿里达摩院 + 湖畔实验室 | 无 VLM 主干(从文生图 Chameleon 扩展为 I2V 自回归 Transformer) | Chameleon 视觉离散 token(Qwen2-VL-7B 仅作辅助标注) | 7B 级 | 视频生成(主干)+ ActionVAE 连续隐向量(动作头) | 待核(推理只出动作、丢弃未来帧) | 约 1200 万条第一视角人类操作视频(预训练)+ 自采机器人数据 | 单体 | **开源**(GitHub `alibaba-damo-academy/RynnVLA-001`,代码+权重)/ 具体许可证**待核** | [rynnvla.md](rynnvla.md) |
@@ -122,4 +123,4 @@ flowchart TD
 
 ---
 
-*本对比表基于《VLA(视觉-语言-动作)模型发展深度调研报告》及 23 篇模型细读整理。⚠️ 标记处为提出方/厂商自评数据;**待核** 处为一手源未给出、不予编造。*
+*本对比表基于《VLA(视觉-语言-动作)模型发展深度调研报告》及 24 篇模型细读整理。⚠️ 标记处为提出方/厂商自评数据;**待核** 处为一手源未给出、不予编造。*

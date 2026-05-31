@@ -164,9 +164,9 @@ flowchart TD
 |---|---|---|---|
 | **① 数据引擎** | 生成机器人视频 + 回收伪动作 → 神经轨迹,放大训练数据 | DreamGen、Cosmos | 本页 §4(神经轨迹)、[数据处理 §6](data-processing.md) |
 | **② 生成式预训练先验** | 用 next-frame 视频生成预训练学"动作条件下的视觉动态",再迁移到动作 | RynnVLA-001(第三条路)、Genie | [RynnVLA 细读](rynnvla.md)、本页 §3.2 |
-| **③ 可微规划 / 预测式策略** | 在隐空间预演未来、把"想象的结果"反推成动作(model-based planning) | UniPi / VPP / WorldVLA 等(本站暂未单列) | 待补:预测式 VLA 专题 |
+| **③ 可微规划 / 预测式策略** | 在隐空间预演未来、把"想象的结果"反推成动作(model-based planning) | UniPi / VPP / DreamVLA / WorldVLA | [预测式 VLA 专题](predictive-vla.md) ✅ |
 
-> 即:本站已覆盖①②(作为数据来源与第三条路线),③"世界模型直接作策略主体"目前仅此处点名、尚无独立专题。术语见 [术语速查 · 神经轨迹](glossary.md)。
+> 即:①②③ 现已全部覆盖——①数据引擎见本页 §4,②生成式预训练先验见 [RynnVLA 细读](rynnvla.md),③"世界模型直接作策略主体"见 [预测式 VLA 专题](predictive-vla.md)(推理时预演未来→反推动作)。术语见 [术语速查 · 神经轨迹](glossary.md)。
 
 ---
 

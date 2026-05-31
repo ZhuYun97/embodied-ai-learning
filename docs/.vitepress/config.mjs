@@ -64,13 +64,13 @@ export default withMermaid(defineConfig({
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:url', content: 'https://zhuyun97.github.io/embodied-ai-learning/' }],
     ['meta', { property: 'og:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 23 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
+    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 24 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
     ['meta', { property: 'og:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 23 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
+    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 24 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
     ['meta', { name: 'twitter:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
   ],
 
@@ -115,6 +115,7 @@ export default withMermaid(defineConfig({
           {
             text: '更多代表模型',
             items: [
+              { text: 'GR-3（字节 Seed）', link: '/vla/papers/gr-3' },
               { text: 'RDT-1B（扩散基座）', link: '/vla/papers/rdt-1b' },
               { text: 'GO-1（潜动作桥接）', link: '/vla/papers/go-1' },
               { text: 'MemoryVLA（记忆增强）', link: '/vla/papers/memoryvla' },
@@ -138,6 +139,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: '全模型规格对比', link: '/vla/papers/models-spec' },
           { text: '双系统架构原理', link: '/vla/papers/dual-system-architecture' },
+          { text: '预测式 VLA(世界模型作策略)', link: '/vla/papers/predictive-vla' },
           { text: '知识隔离训练配方', link: '/vla/papers/knowledge-insulation' },
           { text: '推理加速与部署', link: '/vla/papers/inference-deployment' },
           { text: '开源代码库对照', link: '/vla/papers/codebases' },
@@ -195,6 +197,7 @@ export default withMermaid(defineConfig({
           items: [
             { text: '全模型规格对比大表', link: '/vla/papers/models-spec' },
             { text: '双系统 / 分层架构原理', link: '/vla/papers/dual-system-architecture' },
+            { text: '预测式 VLA(世界模型作策略)', link: '/vla/papers/predictive-vla' },
             { text: '知识隔离:VLA 训练配方(KI)', link: '/vla/papers/knowledge-insulation' },
             { text: '推理加速与量化部署', link: '/vla/papers/inference-deployment' },
             { text: '开源代码库与权重对照', link: '/vla/papers/codebases' },
@@ -235,6 +238,7 @@ export default withMermaid(defineConfig({
           text: '论文细读 · 更多代表模型',
           collapsed: false,
           items: [
+            { text: 'GR-3（字节 Seed 双臂移动）', link: '/vla/papers/gr-3' },
             { text: 'RDT-1B（扩散双臂基座）', link: '/vla/papers/rdt-1b' },
             { text: 'GO-1（智元 ViLLA 潜动作）', link: '/vla/papers/go-1' },
             { text: 'MemoryVLA（记忆增强）', link: '/vla/papers/memoryvla' },

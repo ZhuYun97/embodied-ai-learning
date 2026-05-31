@@ -23,8 +23,8 @@ features:
     link: /vla/#一范式演进与奠基
     linkText: 查看主线
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
-    title: 23 篇论文细读
-    details: 奠基与两条路线 11 篇 + 2025H2–2026 前沿 7 篇(WALL-OSS / Wall-OSS-0.5 / Qwen-VLA / RynnVLA / π0.6 / Gemini Robotics / π0.7)+ 更多代表模型 5 篇(RDT-1B / GO-1 / MemoryVLA / SpatialVLA / Helix),每篇逐模块拆解。
+    title: 24 篇论文细读
+    details: 奠基与两条路线 11 篇 + 2025H2–2026 前沿 7 篇(WALL-OSS / Wall-OSS-0.5 / Qwen-VLA / RynnVLA / π0.6 / Gemini Robotics / π0.7)+ 更多代表模型 6 篇(GR-3 / RDT-1B / GO-1 / MemoryVLA / SpatialVLA / Helix),每篇逐模块拆解。
     link: /vla/papers/rt1
     linkText: 从 RT-1 开始
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
@@ -108,11 +108,13 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 
 **横切分析(跨模型对照)**
 
-- 📋 [全模型规格对比大表](/vla/papers/models-spec) —— 23 模型 × 12 维(主干/参数/动作表示/频率/许可)一页看全
+- 📋 [全模型规格对比大表](/vla/papers/models-spec) —— 24 模型 × 12 维(主干/参数/动作表示/频率/许可)一页看全
 - 🧩 [双系统架构原理](/vla/papers/dual-system-architecture) —— 频率解耦 vs 语义分层 vs 梯度隔离的辨析与跨系统对比
+- 🔮 [预测式 VLA(世界模型作策略)](/vla/papers/predictive-vla) —— VPP/DreamVLA/WorldVLA:推理时预演未来→反推动作
+- 🧪 [知识隔离训练配方 KI](/vla/papers/knowledge-insulation) —— stop-gradient 梯度桥,π0.6/π0.7 背后的训练技法
 - ⚡ [推理加速与量化部署](/vla/papers/inference-deployment) —— 9 类加速手段按算法/表示/系统/权重四层归类
 - 🧰 [开源代码库与权重对照](/vla/papers/codebases) —— openpi / OpenVLA / LeRobot / Isaac-GR00T / Octo 选型索引
 - 🔬 [共性失败模式](/vla/papers/failure-modes) —— 6 大失败维度的"失败显微镜",各细读局限升维聚合
 - 📖 [术语速查表](/vla/papers/glossary) —— 流匹配 / 动作分块 / 双系统 / co-training 等术语一页速查
-- 🗓️ [发展时间线](/vla/papers/timeline) —— 2022→2026 里程碑一览,定位 16 篇细读
+- 🗓️ [发展时间线](/vla/papers/timeline) —— 2022→2026 里程碑一览,定位各篇细读
 - 🔗 [参考文献](/vla/papers/references) —— 全站一手信源(arXiv / 官网)聚合

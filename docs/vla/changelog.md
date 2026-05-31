@@ -9,6 +9,8 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 ## 2026-05-31
 
 **按需补全(读者反馈驱动)**
+- 📄 **新增 [GR-3 细读](papers/gr-3.md)**(字节跳动 Seed,arXiv:2507.15493):Qwen2.5-VL-3B + flow-matching DiT(4B)、三源配方(网页VL+VR人类轨迹+真机)、ByteMini 22-DoF 双臂移动本体;补齐"中国大厂×主流路线"空白(细读扩到 **24 篇**)。
+- 📄 **新增 [预测式 VLA 专题](papers/predictive-vla.md)**(VPP/DreamVLA/WorldVLA):兑现 embodied-data §4.1 挂出的"待补"承诺——世界模型作策略主体(推理时预演未来→反推动作),与 RynnVLA"预测只当训练先验"对照;回填 §4.1 占位为正式链接。核查纠偏 VPP CALVIN 提升为 **+18.6%**(非网传 41.5%)。
 - 📄 **新增 [Knowledge Insulation(知识隔离)细读](papers/knowledge-insulation.md)**(arXiv:2505.23705):此前只散见于 π0.6/术语表,现单列;stop-gradient 梯度桥 + FAST 离散监督主干 + co-training,π0.6/π0.7 的训练配方。归入横切/方法专题。
 - 📄 **新增 [Wall-OSS-0.5 细读](papers/wall-oss-05.md)**(自变量技术报告《Pretrain Once, Act Anywhere》):MoT 双专家 + Vision-Aligned RVQ 分词器 + Action-Space Supervision + 梯度桥接 co-training;细读扩到 **23 篇**。与 π 系 stop-gradient 相反、保留端到端梯度。核查时纠偏其"保住通用 VL"——实为以通用 VQA 换具身 grounding(见该页 §5)。
 - 🧭 **新增[阅读优先级](guide)**:guide 增三档(🥇 必读核心约 7 篇 / 🥈 推荐 / 🥉 选读),回应"论文太多"。
