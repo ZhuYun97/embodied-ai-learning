@@ -22,13 +22,14 @@ DreamZero(《World Action Models are Zero-shot Policies》)是一个建立在预
 
 ## 二、方法与架构
 
-- **主干**:建立在**预训练视频扩散主干(pretrained video diffusion backbone)**之上,复用视频生成模型对世界演化的先验。
+- **主干**(据 WAM 综述 arXiv:2605.12090 §4.2.2 的归纳):DreamZero 直接建于预训练的 **Wan2.1 图生视频(image-to-video)主干**之上,仅加**轻量的 state/action 编码器与一个 action decoder**;在 WAM taxonomy 中属 **Joint · 扩散 · 单流(Unified-Stream)· 显式未来预测**——视频潜与动作潜在同一去噪序列里联合优化。
 - **联合建模**:同时建模 **video + action**。video 充当「世界如何演化」的稠密表征,用于学习物理动力学;action 与之联合训练,使模型能从**异构机器人数据**高效学习多样技能,而**不依赖重复示范**(作者自评 ⚠️)。
+- **闭环不漂移**:据综述,为在闭环里持续以真实观测为条件而不累积生成漂移,DreamZero 在每段动作执行后用**基于 KV-cache 的观测替换**(KV-cache-based observation replacement)把想象帧替换为真实观测。
 - **推理回路即策略**:把「预测未来世界状态 → 反推动作」放进推理主回路,因此 WAM 本身即零样本策略,无需额外的策略头分阶段训练(这是与「预测仅作训练先验」路线的本质区别,见第四节)。
-- **系统与模型优化**:为让大模型可实时闭环,作者对模型与系统做了优化,使一个 **14B autoregressive video diffusion model** 达到 **real-time closed-loop control at 7Hz**(作者自评 ⚠️;具体优化手段一手源未在所给摘要展开,待核)。
+- **实时化系统优化**:为让 **14B autoregressive video diffusion model** 达到 **7Hz 实时闭环控制**,据综述引入了一套系统级优化——**异步执行(async execution)+ DiT 缓存 + 量化 + CUDA-graph 编译**(作者/综述陈述 ⚠️)。
 - **跨本体 / 少样本适配**:支持用其他机器人或人类的 **video-only 示范**进行跨本体迁移;并可用少量 **play data** 做 few-shot 本体适配,同时保留 zero-shot 泛化能力(数值见下节)。
 
-> 说明:上述架构要点取自论文摘要逐字要点,内部模块细节(扩散调度、动作解码方式、训练目标的具体形式)在所给语料中未展开,标「待核」。
+> 说明:带「据综述」的架构细节(Wan2.1 主干、KV-cache 观测替换、实时化优化、单流归类)取自 WAM 综述 arXiv:2605.12090 §4.2.2 对 DreamZero 的转述(⚠️ 综述/作者陈述);训练目标与扩散调度的更细节实现仍**待核**。
 
 ## 三、实验与关键结果
 

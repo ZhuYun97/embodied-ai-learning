@@ -8,6 +8,13 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 
 ## 2026-05-31
 
+**WAM 总览按综述全文深化(读 arXiv:2605.12090 原文)**
+- 📚 通读综述全文(Fig 2 / Table 2 / Fig 6 / §2 形式化),把 [WAM 总览](/wam/) 从"摘要级"升级到"原文级":新增**三个目标函数**($\mathcal{L}_{VLA}/\mathcal{L}_{WM}/\mathcal{L}_{WAM}$)与**级联因子分解** $p(o',a|o,l)=p(a|o',o,l)p(o'|o,l)$;补 **WAM vs VAM / Video Policy / AWM** 辨析(§2.2)。
+- 🗂️ **taxonomy 细化到叶**:Cascaded→**显式/隐式**;Joint·自回归→**显式解耦 / 统一离散 / 预测潜**(含 Table 2 主干与规模);Joint·扩散→**单流(显式/隐式)/ 多流(跨注意力·隐状态·共享编码器)**;mermaid 重绘。
+- ✅ **纠偏**:综述 Fig 2 把 **VPP 归 Cascaded·隐式、WorldVLA 归 Joint·自回归**——更正此前"预测式 VLA 都属 Joint 类"的说法(它横跨两支);π0.7 被综述归 Cascaded·显式。
+- 🔬 **DreamZero 细读补全**:据综述 §4.2.2 补 **Wan2.1 图生视频主干**、KV-cache 观测替换、异步执行+DiT缓存+量化+CUDA-graph 实时化,归 Joint·扩散·单流。
+- 📊 数据生态补**具名数据集**(OXE/UMI/ManiSkill2/Ego4D…);评测补**具名基准族**(FVD、VideoPhy/Physics-IQ、WorldSimBench、LIBERO/RoboArena…);开放挑战补综述 §7(多模态超越 RGB、数据配比、因果对齐评测缺口、安全)。
+
 **信息架构重构:VLA / WAM 双轨 + WAM 论文细读**
 - 🧭 **顶栏改为双轨制**:首页 / **VLA 调研** / **WAM 调研** / 速查 / 关于。原「论文细读 / 专题 / 横切分析」三个下拉收进「VLA 调研」;新建并列的「WAM 调研」(总览 + 论文细读)。
 - 🌍 **WAM 升级为独立调研轨**(新建 `/wam/` 目录树):原 WAM 专题页迁为 [WAM 总览](/wam/),并**新增 5 篇 WAM 论文细读**——[DreamZero](/wam/papers/dreamzero)(零样本策略,arXiv:2602.15922)、[X-WAM](/wam/papers/x-wam)(统一 4D + 异步去噪,2604.26694)、[UWM](/wam/papers/uwm)(耦合视频+动作扩散,2504.02792)、[Genie Envisioner](/wam/papers/genie-envisioner)(智元统一世界平台,2508.05635)、[GR00T N2](/wam/papers/groot-n2)(NVIDIA,基于 DreamZero、WAM 架构,区别于 N1.7 VLA)。每篇经一手 arXiv/官方源核查,定量几乎全标 ⚠️、一手未给标待核。

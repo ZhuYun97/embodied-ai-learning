@@ -8,7 +8,7 @@ description: 预测式 VLA / 世界模型作策略主体专题——VPP、DreamV
 > **专题** · 代表作 VPP(arXiv:2412.14803)/ DreamVLA(arXiv:2507.04447)/ WorldVLA(阿里)等 · 2024H2–2026 · **路线**:世界模型作策略主体(推理时预演未来→反推动作)
 > [← 返回主报告](../index.md)
 
-> 📐 **范式定位**:本页的「预测式 VLA」是更上位范式 **[世界-行动模型 WAM](/wam/)** 的一个早期 / 狭窄切片——在 WAM 的 Cascaded/Joint taxonomy 中,VPP/DreamVLA/WorldVLA 都属 **Joint 类**(WorldVLA 为 Joint-自回归)。要把握「联合预测未来状态+动作」的完整范式、分类与 2026 旗舰([DreamZero](/wam/papers/dreamzero) / [X-WAM](/wam/papers/x-wam) / [GR00T N2](/wam/papers/groot-n2)),见 **[WAM 调研](/wam/)**。
+> 📐 **范式定位**:本页的「预测式 VLA」是更上位范式 **[世界-行动模型 WAM](/wam/)** 的早期 / 狭窄切片,且在综述(arXiv:2605.12090,Fig 2)的 Cascaded/Joint taxonomy 中**横跨两支**——**VPP 属 Cascaded·隐式**(潜空间规划)、**WorldVLA 属 Joint·自回归**,并非同一类别。要把握「联合预测未来状态+动作」的完整范式、分类与 2026 旗舰([DreamZero](/wam/papers/dreamzero) / [X-WAM](/wam/papers/x-wam) / [GR00T N2](/wam/papers/groot-n2)),见 **[WAM 调研](/wam/)**。
 
 ---
 

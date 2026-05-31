@@ -40,22 +40,29 @@ NVIDIA 还补充了一个值得注意的运行机制细节:其 WAM 在运行时 
 
 > 关于 WAM 与「世界基础模型」的关系,NVIDIA 给出辨析:WAM 是 world foundation model 的「动作使能」(action-enabled)变体;其 Cosmos 提供基础设施,WAM 则将其用于机器人控制。⚠️(厂商辨析)
 
-### 1.4 三者对比:WAM vs VLA vs 纯世界模型
+### 1.4 形式化:三个目标函数 + 级联/联合两种因子分解
 
-下表依据综述与 NVIDIA 两处一手定义整理。其中「纯世界模型」一栏指不直接产出可执行动作、仅建模世界演化的模型;语料未给出独立的「纯世界模型」逐字定义,故该栏多处据 NVIDIA「WAM 是 world foundation model 的动作使能变体」反推,标注「待核」。
+综述(§2)用一个统一的概率视角把三种范式区分开($o$ 为当前观测、$l$ 为语言指令、$a$ 为动作、$o'$ 为下一观测):
 
-| 维度 | VLA(视觉—语言—动作) | WAM(世界-行动模型) | 纯世界模型 / world foundation model |
-|---|---|---|---|
-| 建模目标 | 动作分布(actions alone) | 未来状态与动作的**联合分布**(joint distribution over future states and actions) | 世界如何演化(基础设施型,如 Cosmos)⚠️/待核 |
-| 输入 | 观测 + 指令(observations and instructions) | 文本指令 + 起始观测(text instruction and starting observation)⚠️ | 视觉/物理状态序列(待核) |
-| 输出 | 动作 | 「目标转移的压缩表征」→ 直接导出机器人指令(潜空间想象,不生成完整图像)⚠️ | 预测的未来状态 / 视频(不直接产出动作,待核) |
-| 是否显式建模动力学 | 否——"without explicitly modeling how the physical world evolves under intervention" | 是——统一 predictive state modeling 与 action generation | 是——建模世界演化(待核其是否含「干预下」语义) |
-| 动作来源 | 反应式 obs→action 直接映射 | 从对未来状态的预测中联合/派生而来 | 无原生动作产出;经「动作使能」后成为 WAM(NVIDIA 辨析)⚠️/待核 |
-| 物理/时空先验 | 缺少显式时空物理动力学建模 ⚠️(NVIDIA 框架) | 从大规模视频(含互联网视频、第一视角人类视频)预训练继承 ⚠️ | 提供物理 AI 基础设施(Cosmos)⚠️ |
+- **VLA**:只建模动作分布 $\mathcal{L}_{\text{VLA}}=\mathbb{E}_{(o,l,a)}[-\log p(a\mid o,l)]$——反应式 obs→action 映射。
+- **世界模型(WM)**:只建模前向动力学 $\mathcal{L}_{\text{WM}}=\mathbb{E}_{(o,a,o')}[-\log p(o'\mid o,a)]$——给定状态与动作预测下一状态,是"状态的概率传播器",本身**不产出可执行动作**。
+- **WAM**:建模未来状态与动作的**联合分布** $\mathcal{L}_{\text{WAM}}=\mathbb{E}_{(o,l,o',a)}[-\log p(o',a\mid o,l)]$。
+
+综述给 WAM 立了**两条硬性判据**(必须同时满足):① **前向预测建模**——以某种可量化表征预测环境的物理演化 $o'$(显式像素/视频,或隐式物理潜表征);② **耦合动作生成**——动作 $a$ 必须与所预测的未来状态 $o'$ **对齐**地导出(可为联合概率输出,也可为级联/统一潜架构里的策略条件化)。
+
+据此 WAM 内部按"如何耦合预测与动作"分两支(即下一节 taxonomy 的顶层划分):
+
+- **级联式(Cascaded)**:显式因子分解 $p(o',a\mid o,l)=p(a\mid o',o,l)\,p(o'\mid o,l)$——先合成未来状态、再据此推动作,二者组件分离。
+- **联合式(Joint)**:在共享表征里直接建模联合分布 $p(o',a\mid o,l)$,状态预测与动作生成共同优化、不硬解耦。
+
+> **与相邻概念的辨析(综述 §2.2,逐条转述)**:
+> - **视频-动作模型(VAM)**:把视频预测与动作对齐;WAM 是更广、**模态无关**的上位集合(视频只是建模世界的一种代理,WAM 也可用单图状态转移、稠密点云、触觉/力等),即 **WAM ⊃ VAM**。
+> - **视频策略(Video Policy)**:由"结构血统"定义——用视频生成骨干(如 DiT)抽取时空表征后直接做 obs→action 映射 $p(a\mid o)$,**不要求**对未来作预测承诺;WAM 则**必须**有显式世界建模监督(合成 $o'$ 是推理与输出的显式一环)。
+> - **动作世界模型(AWM)**:与 WAM 同构($p(o',a\mid o,l)$),但 "AWM" 的中心词是"世界模型"(把系统看作增强的模拟器),而 "WAM" 把"世界"与"动作"摆成**并列**成分、定位为 VLA 谱系的**直接后继**与完整机器人基础模型——综述用 **WAM = AWM** 标注二者等价(见综述 Fig 3)。
 
 ### 1.5 与本站既有内容的接续
 
-本站已有的[预测式 VLA(世界模型作策略)](/vla/papers/predictive-vla)页(覆盖 VPP / DreamVLA / WorldVLA)在 WAM 的 taxonomy 中属 **Joint 类**(其中 WorldVLA 为 Joint-自回归)。也就是说,predictive-vla 是 WAM 的一个早期、较窄的切片,而 WAM 是其伞形上位范式。值得对照的是,本站 [RynnVLA](/vla/papers/rynnvla)(RynnVLA-001)用视频生成做「训练先验」、推理时丢弃未来帧——这与 WAM「推理时预演未来再反推动作」恰成对照:**预测当先验** vs **预测当策略主体**。NVIDIA 谱系中的 [GR00T N1](/vla/papers/groot-n1) 与 GR00T N2(后者称「built on a world action model architecture」⚠️)亦属同一脉络。
+本站已有的[预测式 VLA(世界模型作策略)](/vla/papers/predictive-vla)页(覆盖 VPP / DreamVLA / WorldVLA)是 WAM 的一个早期、较窄的切片,而 WAM 是其伞形上位范式。**值得注意的是,这几个模型在综述 Fig 2 里并不同属一支**:**VPP 被归入 Cascaded·隐式(Implicit)**(潜空间规划),**WorldVLA 被归入 Joint·自回归**——即"预测式 VLA"横跨了级联与联合两大分支,正说明它只是 WAM 大图里的若干点,而非一个统一类别。值得对照的是,本站 [RynnVLA](/vla/papers/rynnvla)(RynnVLA-001)用视频生成做「训练先验」、推理时丢弃未来帧——这与 WAM「推理时预演未来再反推动作」恰成对照:**预测当先验** vs **预测当策略主体**。NVIDIA 谱系中的 [GR00T N1](/vla/papers/groot-n1) 与 GR00T N2(后者称「built on a world action model architecture」⚠️)亦属同一脉络。
 
 ## 二、范式分类(综述 taxonomy)
 
@@ -63,48 +70,37 @@ NVIDIA 还补充了一个值得注意的运行机制细节:其 WAM 在运行时 
 
 ### 2.1 Cascaded(级联):先预测,后动作
 
-级联式 WAM 把「预测未来」与「生成动作」拆成**分离的组件**:先用一个生成/预测模块想象未来(通常是未来视频帧或关键状态),再用一个独立的动作模块从想象结果反推机器人指令。其优点是组件解耦、各司其职,代价是误差可能在级联链上累积。
+级联式 WAM 把「预测未来」与「生成动作」拆成**分离的组件**,显式因子分解 $p(o',a\mid o,l)=p(a\mid o',o,l)\,p(o'\mid o,l)$:先想象未来、再从想象结果反推指令。组件解耦、各司其职,代价是误差可能沿级联链累积。综述(§4.1)按"未来在什么空间表示"再分两条:
 
-代表作(arXiv 编号取自 OpenMOSS 同组维护的 Awesome-WAM 清单):
+- **显式(Explicit)· 像素/几何级预测**:直接生成未来视频、图像或几何目标(光流、点图、位姿),再用逆动力学或几何抽取(如位姿跟踪 + 逆运动学)得到动作——动作抽取因而**可独立于机器人形态**。代表:UniPi、VLP、Gen2Act、AVDC、Im2Flow2Act、3DFlowAction、NovaFlow、Dreamitate(用工具 6-DoF 位姿作人-机桥接)、4DGen(两视角 RGB-D → 多视角 RGB + 点图)、RIGVid、LVP、TesserAct,以及综述把本站细读的 **π0.7 也归入此格**。
+- **隐式(Implicit)· 潜空间规划**:像素级合成开销大、难实时,故在压缩潜空间预测未来潜序列、不解码回像素。代表:VPP(VAE 潜 + 单步潜预测 + 轻量策略,**首次在该框架做到实时**)、VILP、Video Policy(冻结视频 U-Net + 独立动作 U-Net)、S-VAM、LAPA、villa-X、mimic-video(flow matching + 部分去噪提特征)、MWM(以语义掩码潜替代 RGB,过滤光度噪声)。
 
-| 模型 | arXiv / 出处 |
-| --- | --- |
-| UniPi | NeurIPS 2023 |
-| VLP | 2310.10625(ICLR 2024) |
-| Gen2Act | 2409.16283(CoRL 2025) |
-| Dreamitate | 2406.16862(CoRL 2024) |
-| 4DGen | 2507.01099(ICLR 2026) |
-| LV-P | 2512.15840(2025) |
+> 说明:上表代表作与归类取自综述 Fig 2 与 §4.1;arXiv 编号见文末参考与 Awesome-WAM 清单。同一模型在不同来源的归类可能略有出入,以综述原文为准。
 
 ### 2.2 Joint(联合):预测与动作共建一个分布
 
-联合式 WAM 在**单一框架内**同时建模未来状态与动作,直接逼近综述定义的「未来状态与动作的联合分布」。综述按生成机制把 Joint 进一步分为**自回归**与**扩散**两支。
+联合式 WAM 在**单一模型**内把未来状态与动作作为共同监督目标一起训练,直接逼近 $p(o',a\mid o,l)$。综述(§4.2)按"在什么基底上实现联合"分自回归与扩散两支。
 
 #### 2.2.1 Joint · 自回归生成
 
-以自回归方式逐步生成未来表征与动作 token。
+把世界变量与动作变量**序列化进 token 空间**、用因果(左到右)解码联合建模。核心张力:逐 token 串行带来延迟,且早期视觉幻觉会沿序列**级联**成动作失败。综述按"用什么表征接口"再分三式(代表与规模据综述 Table 2):
 
-| 模型 | arXiv / 出处 |
-| --- | --- |
-| GR-1 | 2312.13139(ICLR 2024) |
-| WorldVLA | 2506.21539(2025) |
-| CoT-VLA | 2503.22020(CVPR 2025) |
+| 子式 | 思路 | 代表(主干 / 规模,⚠️ 取自综述 Table 2) |
+|---|---|---|
+| 显式解耦表征 | 各模态保留异构格式、经独立输出头解码(靠 [ACT]/[OBS] 控制 token 路由) | GR-1(195M)· GR-MG · GR-2(30–719M),GPT 式因果 Transformer |
+| 统一离散表征 | 视觉与动作全量化进同一词表、共享 next-token 头 | CoT-VLA(7B,VILA-U)· WorldVLA(7B,Chameleon)· RynnVLA-002(5B,Chameleon+动作头) |
+| 预测式潜表征 | 不生成显式 token,在抽象连续潜空间自回归 | VLA-JEPA(2B,Qwen3-VL;JEPA 式,future 仅作监督、结构无泄漏)· F1(4.2B,MoT) |
+
+> 注:本站 [RynnVLA-001](/vla/papers/rynnvla) 细读的对象是 RynnVLA;综述 Table 2 列的 **RynnVLA-002** 是其后继(Chameleon + 动作头,5B)。
 
 #### 2.2.2 Joint · 扩散生成(单流 / 多流)
 
-以扩散方式生成未来与动作;综述再按数据流结构区分 **Unified-Stream(单流)** 与 **Multi-Stream(多流)**。
+用多步去噪 / 流匹配**并行**生成未来与动作,绕开自回归的串行瓶颈,利于高频闭环。综述按"预测流如何耦合"分两型(见综述 Fig 6):
 
-| 模型 | arXiv / 出处 |
-| --- | --- |
-| PAD | 2411.18179(NeurIPS 2024) |
-| VideoVLA | 2512.06963(NeurIPS 2025) |
-| UWM(Unified World Models) | 2504.02792(RSS 2025) |
-| DreamZero | 2602.15922(2026) |
-| X-WAM | 2604.26694(2026) |
-| Motus | 2512.13030(2025) |
-| MotuBrain | 2604.27792(2026) |
-
-> 注:综述将上表归入「扩散生成」并标注其内部分为单流 / 多流两型,但各模型分别属于单流还是多流,语料未逐一指明(**待核**)。各模型的扩散与联合属性可由一手 arXiv 摘要印证(以下要点均为作者自评 ⚠️):DreamZero 自称建于预训练视频扩散骨干、联合建模 video+action(arXiv 2602.15922);X-WAM 自述为统一 4D 世界模型,在单框架内统一实时动作执行与高保真 4D 世界合成,并指出先前的 UWM 仅建模 2D pixel-space(arXiv 2604.26694);UWM 即「Coupling Video and Action Diffusion」,用于大规模机器人数据预训练(arXiv 2504.02792)。
+- **单流(Unified-Stream)**:世界与动作变量进**同一个 DiT 主干**联合去噪,靠共享注意力同步。再分:
+  - **显式未来预测**(未来观测/其潜代理作直接去噪目标):**PAD**(拼接未来图像潜 + 动作 token,可掺无动作网络视频)、**VideoVLA**(CogVideoX-5B 主干、7-DoF)、**UWM**(给世界与动作各自独立噪声步 → 一套权重可切策略/正向动力学/逆动力学/视频生成)、**Cosmos Policy**(Cosmos-Predict2 主干、潜帧注入 → 同一 checkpoint 兼作策略+世界模型+价值函数、best-of-N 规划)、**DreamZero**、**GigaWorld-Policy**(同 DreamZero 设计但推理只注意历史/当前观测 → 无需在线生成未来视频)、**X-WAM**(复制 DiT 末块作交错深度分支 → 显式 RGB-D)、**UD-VLA**(离散扩散 mask-and-predict)。
+  - **隐式未来预测**(未来仅作内部对齐约束、不显式生成):**FLARE**(可学习 future token 经 MLP 投影、对齐冻结教师编码的真实未来特征;可单独用于无动作视频)、**FRAPPE**(冻结 RDT 主干 + 多对齐专家,Mixture-of-Prefix-and-LoRA)。
+- **多流(Multi-Stream)**:世界与动作分到**不同分支/专家**,经显式耦合交互——综述给出三种(Fig 6):**跨注意力**(CA-Coupled)、**隐状态传递**(Hidden-State,视频 DiT 的隐状态条件化动作 DiT)、**共享编码器**(Shared-Rep,先过统一编码器再各自解码)。
 
 ### 2.3 耦合维度辨析
 
@@ -118,26 +114,26 @@ NVIDIA 还补充了一个值得注意的运行机制细节:其 WAM 在运行时 
 
 ```mermaid
 flowchart TD
-    WAM["世界-行动模型 WAM<br/>(联合分布: 未来状态 + 动作)"]
+    WAM["世界-行动模型 WAM<br/>联合分布 p(o',a|o,l)"]
 
-    WAM --> CAS["级联 Cascaded<br/>(先预测 后动作 · 组件分离)"]
-    WAM --> JOINT["联合 Joint<br/>(单框架共建分布)"]
+    WAM --> CAS["级联 Cascaded<br/>先预测后动作<br/>p = p(a|o',o,l)·p(o'|o,l)"]
+    WAM --> JOINT["联合 Joint<br/>共享表征直接建模 p(o',a|o,l)"]
 
-    CAS --> CAS_M["代表作:<br/>UniPi · VLP(2310.10625)<br/>Gen2Act(2409.16283)<br/>Dreamitate(2406.16862)<br/>4DGen(2507.01099)<br/>LV-P(2512.15840)"]
+    CAS --> CEXP["显式 Explicit · 像素/几何<br/>UniPi · VLP · Gen2Act<br/>Dreamitate · 4DGen · TesserAct · π0.7"]
+    CAS --> CIMP["隐式 Implicit · 潜空间<br/>VPP · VILP · Video Policy<br/>LAPA · villa-X · S-VAM"]
 
-    JOINT --> AR["自回归生成"]
-    JOINT --> DIFF["扩散生成"]
+    JOINT --> AR["自回归生成<br/>(token 化 · 因果解码)"]
+    JOINT --> DIFF["扩散生成<br/>(并行去噪 / 流匹配)"]
 
-    AR --> AR_M["代表作:<br/>GR-1(2312.13139)<br/>WorldVLA(2506.21539)<br/>CoT-VLA(2503.22020)"]
+    AR --> ARE["显式解耦:GR-1 · GR-MG · GR-2"]
+    AR --> ARU["统一离散:CoT-VLA · WorldVLA · RynnVLA-002"]
+    AR --> ARP["预测潜:VLA-JEPA · F1"]
 
-    DIFF --> UNI["单流 Unified-Stream"]
-    DIFF --> MULTI["多流 Multi-Stream"]
-    DIFF --> DIFF_M["代表作(单/多流归属待核):<br/>PAD(2411.18179) · VideoVLA(2512.06963)<br/>UWM(2504.02792) · DreamZero(2602.15922)<br/>X-WAM(2604.26694)<br/>Motus(2512.13030) · MotuBrain(2604.27792)"]
-
-    WAM -.耦合维度辨析.-> DIM["Explicit vs Implicit<br/>(直接生成 vs 潜表征涌现)<br/>Pixel-space vs Latent<br/>(像素帧 vs 中间表征)<br/>Geometric vs Learned<br/>(几何对应 vs 神经抽取)"]
+    DIFF --> UNI["单流 Unified-Stream<br/>PAD · VideoVLA · UWM · Cosmos Policy<br/>DreamZero · X-WAM · UD-VLA"]
+    DIFF --> MUL["多流 Multi-Stream<br/>跨注意力 / 隐状态 / 共享编码器"]
 ```
 
-> 与本站既有内容的位置关系:本站[预测式 VLA](/vla/papers/predictive-vla)页覆盖的 VPP / DreamVLA / WorldVLA 在本 taxonomy 中属 **Joint** 类(WorldVLA 为 Joint-自回归),可视为 WAM 的早期 / 狭窄切片,而 WAM 是其伞形上位范式;[RynnVLA](/vla/papers/rynnvla)把视频生成当「训练先验」、推理时丢弃未来帧,与 Joint·扩散类「推理时预演未来再反推动作」恰成对照。NVIDIA 谱系的 [GR00T N1](/vla/papers/groot-n1) 与更早的 GR-1 同属一脉。
+> 与本站既有内容的位置关系:本站[预测式 VLA](/vla/papers/predictive-vla)页覆盖的 VPP / DreamVLA / WorldVLA 在本 taxonomy 中**并不同属一支**——综述 Fig 2 把 **VPP 归入 Cascaded·隐式**、**WorldVLA 归入 Joint·自回归**;可见"预测式 VLA"是横跨级联与联合的若干早期点,WAM 才是统摄它们的伞形范式。[RynnVLA](/vla/papers/rynnvla)把视频生成当「训练先验」、推理时丢弃未来帧,与 WAM「推理时预演未来再反推动作」恰成对照(其后继 RynnVLA-002 已进入综述 Joint·自回归)。NVIDIA 谱系的 [GR00T N1](/vla/papers/groot-n1) 与更早的 GR-1 同属一脉。
 
 ## 三、代表模型细读
 
@@ -201,7 +197,16 @@ WAM 的训练数据与评测方式,都直接由它「联合建模未来状态与
 
 ### 4.1 四类数据来源
 
-综述将 WAM 的数据生态归为四类:**机器人遥操作(robot teleoperation)、便携人类示范(portable human demonstrations)、仿真(simulation)、互联网级第一视角视频(internet-scale egocentric video)**。NVIDIA 在其 "World Action Model" 词条中给出的运行机制与此呼应——模型在「大规模视频(含互联网视频与第一视角人类视频)」上预训练以习得物理/运动先验。⚠️(NVIDIA 为厂商陈述)
+综述(§5)将 WAM 的数据生态归为四类,各有典型数据集(下列示例取自综述 Fig 2 的数据 roadmap):
+
+| 数据来源 | 特点 | 综述列举的代表数据集 |
+|---|---|---|
+| 机器人遥操作 | 动作标签完整、状态同步,可直接监督动作分支 | OXE、RT-1、BridgeData v2、DROID、RH20T、RoboMIND、AgiBot World、DexCap |
+| 便携人类示范(UMI 式) | 可规模化、in-the-wild,需域迁移/重定向 | UMI、FastUMI / FastUMI-100K、DexUMI、UMI on Legs、RDT2 |
+| 仿真 | 标签完美、含特权信息、可程序化多样化 | ManiSkill2、RoboCasa、RoboTwin / RoboTwin 2.0、SynGrasp-1B、DexMimicGen |
+| 互联网级 / 第一视角人类视频 | 规模最大、被动世界动态先验,但无动作标签 | Ego4D、HowTo100M、EPIC-KITCHENS、Ego-Exo4D、EgoDex、SSv2 |
+
+NVIDIA 词条与此呼应——其 WAM 在「大规模视频(含互联网视频与第一视角人类视频)」上预训练以习得物理/运动先验 ⚠️(NVIDIA 为厂商陈述)。
 
 这四类与本站 [具身数据全景](/vla/papers/embodied-data) 所梳理的来源(遥操作/人类示范/仿真/第一视角视频)一一对应。值得注意的是它们对 WAM 的价值梯度并不相同:
 
@@ -225,9 +230,16 @@ WAM 的训练数据与评测方式,都直接由它「联合建模未来状态与
 
 需要强调:三维评测与成功率并非互斥,而是互补。旗舰模型仍在传统成功率基准上报告结果,以与 SOTA VLA 可比。X-WAM 在 [数据集与基准](/vla/papers/benchmarks) 收录的 **RoboCasa 报 79.2%**、在 RoboTwin 2.0 报 90.7% 平均成功率⚠️;同时它声称 4D 重建/生成在视觉与几何指标上超越现有方法⚠️——后者正对应「视觉保真/物理常识」一维,是传统成功率无法覆盖的部分。可以说,WAM 的完整评测 = 成功率(动作端结果)+ 三维协议(世界想象端的过程质量)。
 
-关于三维协议下各维度的统一基准、量化口径与权威评测方,综述未在本语料中给出可核对的具体方案,**待核**。本站 [数据集与基准](/vla/papers/benchmarks) 目前收录的 RoboCasa 等仍以成功率为主轴,WAM 三维评测如何落到这些基准之上,亦**待核**。
+综述 Fig 2 为每一维列出了具体评测手段(本身多为视频生成 / 世界模型领域已有基准,被借来评 WAM 的"世界想象"质量):
 
-> 对照阅读:本站 [预测式 VLA](/vla/papers/predictive-vla)(VPP / DreamVLA / WorldVLA)在评测上多沿用成功率口径,而它们在 WAM taxonomy 中属 Joint 类(WorldVLA 为 Joint-自回归)——可见三维评测协议是 WAM 伞形范式对这一早期切片提出的更高要求。另见 [RynnVLA](/vla/papers/rynnvla):它把视频生成仅当作训练先验、推理时丢弃未来帧,因而天然落在「成功率」一维里,与 WAM「预演未来再反推动作、需审视想象质量」的评测诉求形成鲜明对照。
+- **视觉保真**:PSNR、SSIM、LPIPS、DreamSim、DINO、FVD(Fréchet Video Distance)——标准视频生成保真指标。
+- **物理常识**:VideoPhy、PhyGenBench、VBench-2.0、WorldModelBench、Physics-IQ、WorldScore、EWMBench——专测"预测是否守物理"。
+- **动作合理性**:WorldSimBench 等——测预测里"可执行的信息含量"。
+- **动作策略(成功率,与 VLA 可比)**:综述同时罗列 LIBERO、CALVIN、RoboCasa、ManiSkill2、SimplerEnv、RoboTwin、HumanoidBench、HomeRobot、RoboArena 等数十个基准(双臂/人形、移动操作、接触与形变、真机榜各成一组)。
+
+> 需强调:综述将这些"世界想象"指标与传统成功率**并列**,正因为它指出当前协议**仍缺**直接评估"世界预测与动作生成之间因果对齐"的统一方法(见 §5.2 开放挑战)。本站 [数据集与基准](/vla/papers/benchmarks) 目前以成功率为主轴;上述视觉/物理类指标如何落到具体模型上,各家口径不一,**待核**。
+
+> 对照阅读:本站 [预测式 VLA](/vla/papers/predictive-vla)(VPP / DreamVLA / WorldVLA)在评测上多沿用成功率口径,而它们在综述 taxonomy 中横跨级联与联合(VPP 属 Cascaded·隐式、WorldVLA 属 Joint·自回归)——三维评测协议正是 WAM 伞形范式对这些早期点提出的更高要求。另见 [RynnVLA](/vla/papers/rynnvla):它把视频生成仅当作训练先验、推理时丢弃未来帧,因而天然落在「成功率」一维里,与 WAM「预演未来再反推动作、需审视想象质量」的评测诉求形成鲜明对照。
 
 ## 五、与本站内容的关系 + 开放挑战 + 判断
 
@@ -237,12 +249,12 @@ WAM 不是凭空出现的范式,本站此前已分散记录了它的若干早期
 
 | 本站既有页 | 在 WAM taxonomy 中的位置 | 关键对照 |
 | --- | --- | --- |
-| [预测式 VLA](/vla/papers/predictive-vla)(VPP / DreamVLA / WorldVLA) | Joint 类的早期切片;其中 WorldVLA 属 **Joint·自回归** | 是 WAM 的狭窄前身,WAM 是其上位伞形范式 |
+| [预测式 VLA](/vla/papers/predictive-vla)(VPP / DreamVLA / WorldVLA) | **横跨两支**:VPP 属 Cascaded·隐式、WorldVLA 属 Joint·自回归(综述 Fig 2) | 是 WAM 的狭窄前身,WAM 是其上位伞形范式 |
 | [RynnVLA](/vla/papers/rynnvla) | 预测当**训练先验**,推理时丢弃未来帧 | 与 WAM「预测当**策略主体**」形成关键对照 |
 | [GR00T N1](/vla/papers/groot-n1)(NVIDIA) | 与 NVIDIA GR00T N2(称建于 WAM 架构 ⚠️)同谱系;GR-1 是更早工作 | 同一技术血脉的不同世代 |
 | [GO-1](/vla/papers/go-1)(智元 AgiBot) | 与 Genie Envisioner(同为智元)同机构 | 同机构对 WAM 的产业化尝试 |
 
-**预测式 VLA 是 WAM 的早期/狭窄切片。** 本站[预测式 VLA](/vla/papers/predictive-vla)页覆盖的 VPP / DreamVLA / WorldVLA,在综述的分类体系里都落入 Joint 类——动作与未来状态在同一模型中联合生成。其中 WorldVLA 被 Awesome-WAM 明确归入 **Joint·自回归生成**(与 GR-1、CoT-VLA 同列)。也就是说,「预测式 VLA」描述的是 WAM 这一伞形范式下一个偏早期、偏狭窄的子集;WAM 才是其上位概念,它把 Cascaded(先预测后动作、组件分离,如 UniPi、VLP、Gen2Act)与各类 Joint 方法一并纳入,并按生成模态、条件机制、动作解码策略进一步细分。
+**预测式 VLA 是 WAM 的早期/狭窄切片,且横跨两支。** 本站[预测式 VLA](/vla/papers/predictive-vla)页覆盖的 VPP / DreamVLA / WorldVLA,在综述 Fig 2 里并不属同一类:**VPP 落在 Cascaded·隐式**(VAE 潜 + 单步潜预测 + 轻量策略),**WorldVLA 落在 Joint·自回归**(Chameleon 基 MLLM,与 CoT-VLA 同组)。这恰恰说明「预测式 VLA」不是一个统一类别,而是 WAM 大图里散落的若干点;WAM 才是上位概念,它把 Cascaded(显式/隐式)与各类 Joint(自回归/扩散)一并纳入,并按生成模态、条件机制、动作解码策略细分。
 
 **RynnVLA 与 WAM 是同一技术(视频生成)的两种用法,方向相反。** 本站 [RynnVLA-001](/vla/papers/rynnvla)用视频生成做训练先验,但在推理时丢弃未来帧——预测只是塑造表征的脚手架。而 WAM 综述对范式的定义恰恰相反:它要求「未来状态与动作」的**联合分布**(joint distribution over future states and actions),典型 WAM(如 NVIDIA glossary 描述的运行机制、DreamZero、X-WAM)在推理时先「想象/预演」未来转移、再据此反推动作。这构成一条清晰的分界线:**预测当先验(RynnVLA)** vs **预测当策略主体(WAM)**。RynnVLA 因此更像一座桥,既不是纯反应式 VLA,也未走到推理期主动预演那一步。
 
@@ -258,14 +270,21 @@ WAM 不是凭空出现的范式,本站此前已分散记录了它的若干早期
 
 - **物理合理性与几何一致。** 综述对 VLA 的批评是其「不显式建模世界在干预下如何演化」。WAM 要补的正是这一课,但只在 2D 像素空间建模并不够:X-WAM 直指先前 unified world model(如 UWM,arXiv 2504.02792)只建模 2D pixel-space,无法兼顾动作效率与世界建模质量,因此转向预测 multi-view RGB-D、做 4D 世界合成(video+3D 重建)⚠️。像素级保真与几何级一致能否同时达成,仍是开放问题。
 
-- **长程组合泛化。** 旗舰模型的强项目前集中在「新任务/新环境/新本体」的零样本与少样本迁移(DreamZero 称新任务/环境 >2x、跨本体 video-only >42% 相对提升、30 分钟 play data 适配新本体 ⚠️),但这些多是短程技能层面的泛化。更长程、需要多步组合规划的任务表现,语料未给出系统证据(待核)。
+- **长程组合泛化。** 旗舰模型的强项目前集中在「新任务/新环境/新本体」的零样本与少样本迁移(DreamZero 称新任务/环境 >2x、跨本体 video-only >42% 相对提升、30 分钟 play data 适配新本体 ⚠️),但这些多是短程技能层面的泛化。更长程、需要多步组合规划的任务表现,综述指为开放问题(待核)。
+
+综述 §7 还另外点出几条(以下为综述论点的转述,非定量):
+
+- **多模态超越 RGB。** 当前 WAM「压倒性地以 RGB 为中心」,而精细操作需要力、触觉、本体感知等模态的融合——如何把这些非视觉信号纳入"世界预测"仍待解(综述结合 OmniVTA 等视-触工作讨论)。
+- **数据配比设计。** 如何把"人类视频预训练"桥接到"精确的机器人动作条件化",即异构数据(遥操作/人类/仿真/网络视频)的混合配方,是把规模转化为可控性的关键。
+- **评测方法学的缺口。** 综述明确指出当前**缺少**评估"世界预测与动作生成之间因果对齐"的指标与协议——视觉保真高 ≠ 动作合理,二者需被联合验证(这也是上面"评测标准化"的更深层版本)。
+- **安全。** 基于模型的预测能力要求**前置的验证流水线**(proactive verification),以免错误的"想象"直接驱动真机动作。
 
 ### 5.3 判断:取代还是融合
 
 基于现有(且多为厂商/作者自评的)证据,克制的判断是:**WAM 更可能是 VLA 的扩展与吸收,而非简单取代。**
 
 - 从范式定义看,WAM 并不抛弃动作生成,而是在其上**叠加**预测式状态建模——综述的措辞是「rather than actions alone」(而非仅动作),NVIDIA 也把 WAM 称作 world foundation model 的「动作使能」变体(⚠️ 厂商陈述)。这是「加法」而非「替换」。
-- 从谱系演化看,本站记录的 WorldVLA(Joint VLA)、GR-1→GR00T 2、RynnVLA(视频先验)显示,业界是在 VLA 的既有骨架上逐步引入世界建模能力,而非另起炉灶。WAM 像是给 VLA「补上世界模型这一课」后的自然延续。
+- 从谱系演化看,本站记录的 WorldVLA(Joint·自回归)、GR-1→GR00T N2、RynnVLA→RynnVLA-002(视频先验)显示,业界是在 VLA 的既有骨架上逐步引入世界建模能力,而非另起炉灶。WAM 像是给 VLA「补上世界模型这一课」后的自然延续。
 - 真正的不确定性在于**推理期是否值得预演未来**:若实时性(DreamZero 7Hz、X-WAM ANS 等工程手段 ⚠️)能稳定压住生成开销,且预测带来的泛化收益(零样本、跨本体)被第三方统一评测证实(目前为 ⚠️,尚待 ✅),则推理期主动想象的 WAM 路线将占优;否则 RynnVLA 式「预测仅作训练先验、推理走轻量策略」的折中可能在工程上更划算。
 
 一句话:就语料证据而言,WAM 是 VLA 的伞形上位范式与能力补全,二者大概率走向融合;「取代」的说法尚无经核查的基准证据支撑(待核)。
@@ -274,7 +293,7 @@ WAM 不是凭空出现的范式,本站此前已分散记录了它的若干早期
 
 体例声明:⚠️ 标注的指标均为提出方/厂商自评,尚未经基准维护方统一第三方评测;**待核**表示一手源在本语料中未给出、不以外部记忆或常识补全。
 
-- 综述:《World Action Models: The Next Frontier in Embodied AI》,arXiv **2605.12090**(OpenMOSS / 复旦系,2026-05-12 提交,14 作者)。WAM 统一定义、Cascaded/Joint taxonomy、耦合三维、四类数据生态、三维评测协议的一手来源。
+- 综述(本页主干来源,**已读全文**):《World Action Models: The Next Frontier in Embodied AI》,arXiv **2605.12090**,2026-05-12;复旦大学 Institute of Trustworthy Embodied AI / OpenMOSS、上海创智学院(Shanghai Innovation Institute)、新加坡国立(NUS)合作,14 作者(Siyin Wang 等,Yu-Gang Jiang 通讯)。本页的形式化定义(§2 三个目标函数 + 级联/联合因子分解)、WAM vs VAM/Video Policy/AWM 辨析(§2.2)、Cascaded(显式/隐式)与 Joint(自回归三式 / 扩散单流·多流)taxonomy(§4、Fig 2、Table 2、Fig 6)、四类数据生态(§5)、三维评测与开放挑战(§6–7)均据此。
 - DreamZero:《World Action Models are Zero-shot Policies》,arXiv **2602.15922**(2026-02-17,36 作者,lead Seonghyeon Ye)。
 - X-WAM:《Unified 4D World Action Modeling from Video Priors with Asynchronous Denoising》,arXiv **2604.26694**(v1 2026-04-29 / v2 2026-05-07)。
 - UWM:Unified World Models《Coupling Video and Action Diffusion》,arXiv **2504.02792**(RSS 2025)。
