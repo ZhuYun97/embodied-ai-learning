@@ -105,6 +105,8 @@ $$x_t=(1-\rho(t))\,x_0+\rho(t)\,\epsilon,\qquad \mathcal{L}_{\text{Integration}}
 
 **Wall-OSS-0.5** 在 WALL-OSS 基础上提出 **"Gradient-Bridged Pretraining(梯度桥接预训练)"**:**以离散动作 token 的交叉熵作为"梯度桥(gradient bridge)"**,把离散动作先验的监督信号桥接到连续控制的学习中(可理解为对 WALL-OSS"离散先验→连续控制"两阶段思路的进一步内聚)。规模仍约 **4B**,主打 **"可直接部署(deploy-ready)、零样本真机操作(zero-shot real-robot)"**——即开箱即用、无需在目标任务上再采数微调即可上真机。
 
+> 📄 **Wall-OSS-0.5 已有独立技术报告与细读**:MoT 双专家路由、Vision-Aligned RVQ 动作分词器、Action-Space Supervision、梯度桥接 co-training 的完整拆解,以及零样本(17 任务)/微调(超 π0.5 17.5pp)/多模态成绩,见 **[Wall-OSS-0.5 细读](wall-oss-05.md)**。其关键立场是"预训练即可部署(Pretrain Once, Act Anywhere)";与 [π0.5](pi05.md)/[知识隔离](knowledge-insulation.md) 的 stop-gradient **相反**——它保留端到端梯度、用离散通路主动塑造主干。
+
 ---
 
 ## 3. 关键设计与创新点

@@ -8,6 +8,13 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 
 ## 2026-05-31
 
+**按需补全(读者反馈驱动)**
+- 📄 **新增 [Knowledge Insulation(知识隔离)细读](papers/knowledge-insulation.md)**(arXiv:2505.23705):此前只散见于 π0.6/术语表,现单列;stop-gradient 梯度桥 + FAST 离散监督主干 + co-training,π0.6/π0.7 的训练配方。归入横切/方法专题。
+- 📄 **新增 [Wall-OSS-0.5 细读](papers/wall-oss-05.md)**(自变量技术报告《Pretrain Once, Act Anywhere》):MoT 双专家 + Vision-Aligned RVQ 分词器 + Action-Space Supervision + 梯度桥接 co-training;细读扩到 **23 篇**。与 π 系 stop-gradient 相反、保留端到端梯度。核查时纠偏其"保住通用 VL"——实为以通用 VQA 换具身 grounding(见该页 §5)。
+- 🧭 **新增[阅读优先级](guide)**:guide 增三档(🥇 必读核心约 7 篇 / 🥈 推荐 / 🥉 选读),回应"论文太多"。
+- 🔗 **新增 [外部资源导航](papers/resources.md)**:5 个经核实的社区 Awesome 合集(jonyzhang2023 ~3.2k⭐、zchoi ~1.8k⭐、Psi-Robot、keon、wadeKeith)+ 综述 / 基准仿真官方站 / 数据集 / 机构博客;与"参考文献"互补。
+- ℹ️ 说明:OpenVLA-OFT(arXiv:2502.19645)经核实**早已有细读**,未重复新建。
+
 **信息架构重构(workflow 四维审计 + 分批落地)**
 - 🧭 **统一数量口径为 17 篇**:全站(OG/Twitter meta、报告导航、参考文献、本站结构)从历史的"16 篇"统一更新为 **17 篇模型细读 / 24 个 papers 页面**(新增 π0.7 后的真实计数)。
 - 🔗 **顶栏「论文细读」改逐篇下拉**:从仅锚点跳转扩成"奠基与两条路线 / 2025H2–2026 前沿"两组逐篇入口;专题/速查名称与侧边栏对齐。

@@ -64,13 +64,13 @@ export default withMermaid(defineConfig({
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:url', content: 'https://zhuyun97.github.io/embodied-ai-learning/' }],
     ['meta', { property: 'og:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 22 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
+    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 23 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
     ['meta', { property: 'og:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 22 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
+    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 23 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
     ['meta', { name: 'twitter:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
   ],
 
@@ -104,6 +104,7 @@ export default withMermaid(defineConfig({
             text: '2025H2–2026 前沿',
             items: [
               { text: 'WALL-OSS', link: '/vla/papers/wall-oss' },
+              { text: 'Wall-OSS-0.5', link: '/vla/papers/wall-oss-05' },
               { text: 'Qwen-VLA', link: '/vla/papers/qwen-vla' },
               { text: 'RynnVLA-001', link: '/vla/papers/rynnvla' },
               { text: 'π0.6 / π*0.6', link: '/vla/papers/pi06' },
@@ -222,6 +223,7 @@ export default withMermaid(defineConfig({
           collapsed: false,
           items: [
             { text: 'WALL-OSS（自变量）', link: '/vla/papers/wall-oss' },
+            { text: 'Wall-OSS-0.5（梯度桥接·可部署）', link: '/vla/papers/wall-oss-05' },
             { text: 'Qwen-VLA（阿里）', link: '/vla/papers/qwen-vla' },
             { text: 'RynnVLA-001（达摩院）', link: '/vla/papers/rynnvla' },
             { text: 'π0.6 / π*0.6', link: '/vla/papers/pi06' },

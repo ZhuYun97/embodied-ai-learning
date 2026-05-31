@@ -23,8 +23,8 @@ features:
     link: /vla/#一范式演进与奠基
     linkText: 查看主线
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
-    title: 22 篇论文细读
-    details: 奠基与两条路线 11 篇 + 2025H2–2026 前沿 6 篇(WALL-OSS / Qwen-VLA / RynnVLA / π0.6 / Gemini Robotics / π0.7)+ 更多代表模型 5 篇(RDT-1B / GO-1 / MemoryVLA / SpatialVLA / Helix),每篇逐模块拆解。
+    title: 23 篇论文细读
+    details: 奠基与两条路线 11 篇 + 2025H2–2026 前沿 7 篇(WALL-OSS / Wall-OSS-0.5 / Qwen-VLA / RynnVLA / π0.6 / Gemini Robotics / π0.7)+ 更多代表模型 5 篇(RDT-1B / GO-1 / MemoryVLA / SpatialVLA / Helix),每篇逐模块拆解。
     link: /vla/papers/rt1
     linkText: 从 RT-1 开始
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
@@ -108,7 +108,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 
 **横切分析(跨模型对照)**
 
-- 📋 [全模型规格对比大表](/vla/papers/models-spec) —— 22 模型 × 12 维(主干/参数/动作表示/频率/许可)一页看全
+- 📋 [全模型规格对比大表](/vla/papers/models-spec) —— 23 模型 × 12 维(主干/参数/动作表示/频率/许可)一页看全
 - 🧩 [双系统架构原理](/vla/papers/dual-system-architecture) —— 频率解耦 vs 语义分层 vs 梯度隔离的辨析与跨系统对比
 - ⚡ [推理加速与量化部署](/vla/papers/inference-deployment) —— 9 类加速手段按算法/表示/系统/权重四层归类
 - 🧰 [开源代码库与权重对照](/vla/papers/codebases) —— openpi / OpenVLA / LeRobot / Isaac-GR00T / Octo 选型索引
