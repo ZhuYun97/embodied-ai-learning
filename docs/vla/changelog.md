@@ -8,8 +8,13 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 
 ## 2026-05-31
 
+**信息架构重构:VLA / WAM 双轨 + WAM 论文细读**
+- 🧭 **顶栏改为双轨制**:首页 / **VLA 调研** / **WAM 调研** / 速查 / 关于。原「论文细读 / 专题 / 横切分析」三个下拉收进「VLA 调研」;新建并列的「WAM 调研」(总览 + 论文细读)。
+- 🌍 **WAM 升级为独立调研轨**(新建 `/wam/` 目录树):原 WAM 专题页迁为 [WAM 总览](/wam/),并**新增 5 篇 WAM 论文细读**——[DreamZero](/wam/papers/dreamzero)(零样本策略,arXiv:2602.15922)、[X-WAM](/wam/papers/x-wam)(统一 4D + 异步去噪,2604.26694)、[UWM](/wam/papers/uwm)(耦合视频+动作扩散,2504.02792)、[Genie Envisioner](/wam/papers/genie-envisioner)(智元统一世界平台,2508.05635)、[GR00T N2](/wam/papers/groot-n2)(NVIDIA,基于 DreamZero、WAM 架构,区别于 N1.7 VLA)。每篇经一手 arXiv/官方源核查,定量几乎全标 ⚠️、一手未给标待核。
+- 🔧 **管线与交叉链**:`sync.sh` 新增 `/wam/` 同步;首页加 WAM hero 入口与功能卡;predictive-vla / guide 反向链至 WAM 轨;WAM 从「横切分析」组移出(横切回到 7 个)。
+
 **新增 WAM 专题 + 站点交互功能层**
-- 🌍 **新增 [世界-行动模型 WAM 专题](papers/wam.md)**:2025–2026 兴起的具身基础模型范式——**联合预测「未来状态+动作」**而非仅生成动作。以综述 arXiv:2605.12090(OpenMOSS)为权威源,梳理 **Cascaded/Joint** taxonomy(含 mermaid)、5 篇代表模型细读(DreamZero 2602.15922:14B 自回归视频扩散 7Hz 闭环 ⚠️ / X-WAM 2604.26694:统一 4D + ANS、RoboCasa 79.2% ⚠️ / UWM / 智元 Genie Envisioner / NVIDIA GR00T 2)、数据生态与三维评测协议(视觉保真/物理常识/动作合理性)。明确边界:[预测式 VLA](papers/predictive-vla) 是 WAM 的早期 Joint 切片,[RynnVLA](papers/rynnvla) 是「预测当先验」对照「WAM 预测当策略主体」;横切专题扩到 **8 个**。全程经一手 arXiv 摘要对抗式核查,定量几乎全标 ⚠️ 自评、一手未给标待核。
+- 🌍 **新增 [世界-行动模型 WAM 专题](/wam/)**(同日稍后重构为独立 WAM 调研轨,见上):2025–2026 兴起的具身基础模型范式——**联合预测「未来状态+动作」**而非仅生成动作。以综述 arXiv:2605.12090(OpenMOSS)为权威源,梳理 **Cascaded/Joint** taxonomy(含 mermaid)、5 篇代表模型细读(DreamZero 2602.15922:14B 自回归视频扩散 7Hz 闭环 ⚠️ / X-WAM 2604.26694:统一 4D + ANS、RoboCasa 79.2% ⚠️ / UWM / 智元 Genie Envisioner / NVIDIA GR00T 2)、数据生态与三维评测协议(视觉保真/物理常识/动作合理性)。明确边界:[预测式 VLA](papers/predictive-vla) 是 WAM 的早期 Joint 切片,[RynnVLA](papers/rynnvla) 是「预测当先验」对照「WAM 预测当策略主体」;横切专题扩到 **8 个**。全程经一手 arXiv 摘要对抗式核查,定量几乎全标 ⚠️ 自评、一手未给标待核。
 - ⚙️ **站点交互功能层(地基 + 4 快赢)**:构建期解析 `models-spec.md` 为带可信度标记的结构化数据(keystone,零漂移);**可信度透镜**(全局开关,一键暗化 ⚠️/待核 单元格,横幅按页实数提示)、**相关细读自动页脚**(按机构/主干/路线给确定性兄弟模型 + 可解释 chip)、**阅读进度跟踪**(localStorage,滚动自动标记 + 全站进度条)、**llms.txt / llms-full.txt + 逐页原始 .md.txt 导出**(供外部 LLM 摄取,⚠️/✅/待核 标记原样保留)。
 
 **按需补全(读者反馈驱动)**

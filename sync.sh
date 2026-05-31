@@ -38,6 +38,14 @@ rsync -a --delete \
 # 保险:清掉可能混入的隐藏目录
 rm -rf "$DEST/papers/images/.omc" 2>/dev/null || true
 
+# WAM 调研轨:总览(wam/index.md)+ 论文细读(wam/papers/),独立 /wam/ 目录树
+if [ -d "$SRC/wam" ]; then
+  mkdir -p "$SITE/docs/wam"
+  rsync -a --delete \
+    --exclude='.omc' --exclude='.DS_Store' --exclude='.git' \
+    "$SRC/wam/" "$SITE/docs/wam/"
+fi
+
 echo "▶ 3/5 修复论文返回链接(适配 VitePress 路由)..."
 # ../VLA发展深度调研报告.md -> ../index.md
 find "$DEST/papers" -name '*.md' -print0 | while IFS= read -r -d '' f; do

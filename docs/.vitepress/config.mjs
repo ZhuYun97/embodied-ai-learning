@@ -171,13 +171,17 @@ export default withMermaid(defineConfig({
 
     nav: [
       { text: '首页', link: '/' },
-      { text: 'VLA 调研', link: '/vla/' },
-      { text: 'WAM 调研', link: '/vla/papers/wam' },
       {
-        text: '论文细读',
+        text: 'VLA 调研',
         items: [
           {
-            text: '奠基与两条路线',
+            text: 'VLA 调研报告',
+            items: [
+              { text: '总报告', link: '/vla/' },
+            ],
+          },
+          {
+            text: '论文细读 · 奠基与两条路线',
             items: [
               { text: 'RT-1（离散前史）', link: '/vla/papers/rt1' },
               { text: 'RT-2（范式奠基）', link: '/vla/papers/rt2' },
@@ -193,7 +197,7 @@ export default withMermaid(defineConfig({
             ],
           },
           {
-            text: '2025H2–2026 前沿',
+            text: '论文细读 · 2025H2–2026 前沿',
             items: [
               { text: 'WALL-OSS', link: '/vla/papers/wall-oss' },
               { text: 'Wall-OSS-0.5', link: '/vla/papers/wall-oss-05' },
@@ -205,7 +209,7 @@ export default withMermaid(defineConfig({
             ],
           },
           {
-            text: '更多代表模型',
+            text: '论文细读 · 更多代表模型',
             items: [
               { text: 'GR-3（字节 Seed）', link: '/vla/papers/gr-3' },
               { text: 'RDT-1B（扩散基座）', link: '/vla/papers/rdt-1b' },
@@ -215,28 +219,48 @@ export default withMermaid(defineConfig({
               { text: 'Helix（人形双系统）', link: '/vla/papers/helix' },
             ],
           },
+          {
+            text: '专题综述',
+            items: [
+              { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
+              { text: '具身数据处理', link: '/vla/papers/data-processing' },
+              { text: '数据集与基准全景', link: '/vla/papers/benchmarks' },
+              { text: '实验机器人本体', link: '/vla/papers/robots' },
+            ],
+          },
+          {
+            text: '横切分析',
+            items: [
+              { text: '全模型规格对比', link: '/vla/papers/models-spec' },
+              { text: '双系统架构原理', link: '/vla/papers/dual-system-architecture' },
+              { text: '预测式 VLA(世界模型作策略)', link: '/vla/papers/predictive-vla' },
+              { text: '知识隔离训练配方', link: '/vla/papers/knowledge-insulation' },
+              { text: '推理加速与部署', link: '/vla/papers/inference-deployment' },
+              { text: '开源代码库对照', link: '/vla/papers/codebases' },
+              { text: '共性失败模式', link: '/vla/papers/failure-modes' },
+            ],
+          },
         ],
       },
       {
-        text: '专题',
+        text: 'WAM 调研',
         items: [
-          { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
-          { text: '具身数据处理', link: '/vla/papers/data-processing' },
-          { text: '数据集与基准全景', link: '/vla/papers/benchmarks' },
-          { text: '实验机器人本体', link: '/vla/papers/robots' },
-        ],
-      },
-      {
-        text: '横切分析',
-        items: [
-          { text: '全模型规格对比', link: '/vla/papers/models-spec' },
-          { text: '双系统架构原理', link: '/vla/papers/dual-system-architecture' },
-          { text: '世界-行动模型 WAM', link: '/vla/papers/wam' },
-          { text: '预测式 VLA(世界模型作策略)', link: '/vla/papers/predictive-vla' },
-          { text: '知识隔离训练配方', link: '/vla/papers/knowledge-insulation' },
-          { text: '推理加速与部署', link: '/vla/papers/inference-deployment' },
-          { text: '开源代码库对照', link: '/vla/papers/codebases' },
-          { text: '共性失败模式', link: '/vla/papers/failure-modes' },
+          {
+            text: 'WAM 调研',
+            items: [
+              { text: '总览(定义 / taxonomy)', link: '/wam/' },
+            ],
+          },
+          {
+            text: 'WAM 论文细读',
+            items: [
+              { text: 'DreamZero(零样本策略)', link: '/wam/papers/dreamzero' },
+              { text: 'X-WAM(统一 4D)', link: '/wam/papers/x-wam' },
+              { text: 'UWM(耦合视频+动作)', link: '/wam/papers/uwm' },
+              { text: 'Genie Envisioner(智元)', link: '/wam/papers/genie-envisioner' },
+              { text: 'GR00T N2(NVIDIA)', link: '/wam/papers/groot-n2' },
+            ],
+          },
         ],
       },
       {
@@ -290,7 +314,6 @@ export default withMermaid(defineConfig({
           items: [
             { text: '全模型规格对比大表', link: '/vla/papers/models-spec' },
             { text: '双系统 / 分层架构原理', link: '/vla/papers/dual-system-architecture' },
-            { text: '世界-行动模型 WAM(联合预测状态+动作)', link: '/vla/papers/wam' },
             { text: '预测式 VLA(世界模型作策略)', link: '/vla/papers/predictive-vla' },
             { text: '知识隔离:VLA 训练配方(KI)', link: '/vla/papers/knowledge-insulation' },
             { text: '推理加速与量化部署', link: '/vla/papers/inference-deployment' },
@@ -356,6 +379,35 @@ export default withMermaid(defineConfig({
           items: [
             { text: '如何阅读本站', link: '/vla/guide' },
             { text: '更新日志', link: '/vla/changelog' },
+          ],
+        },
+      ],
+      '/wam/': [
+        {
+          text: 'WAM 调研',
+          items: [
+            { text: '总览:定义 / taxonomy / 数据评测', link: '/wam/' },
+          ],
+        },
+        {
+          text: 'WAM 论文细读',
+          collapsed: false,
+          items: [
+            { text: 'DreamZero（零样本策略）', link: '/wam/papers/dreamzero' },
+            { text: 'X-WAM（统一 4D · 异步去噪）', link: '/wam/papers/x-wam' },
+            { text: 'UWM（耦合视频+动作扩散）', link: '/wam/papers/uwm' },
+            { text: 'Genie Envisioner（智元 AgiBot）', link: '/wam/papers/genie-envisioner' },
+            { text: 'GR00T N2（NVIDIA）', link: '/wam/papers/groot-n2' },
+          ],
+        },
+        {
+          text: '相关(VLA 调研轨)',
+          collapsed: false,
+          items: [
+            { text: '预测式 VLA(WAM 早期切片)', link: '/vla/papers/predictive-vla' },
+            { text: 'RynnVLA-001(预测当先验)', link: '/vla/papers/rynnvla' },
+            { text: 'GR00T N1(VLA 世代)', link: '/vla/papers/groot-n1' },
+            { text: 'VLA 调研报告', link: '/vla/' },
           ],
         },
       ],
