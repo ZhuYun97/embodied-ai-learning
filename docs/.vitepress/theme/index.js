@@ -529,6 +529,62 @@ function setupLightbox() {
   }
 }
 
+// =====================================================================
+// 惊喜层(delight):仅主页 + 全站控制台签名。克制、双皮肤通用、reduced-motion 安全。
+//  ① 控制台签名(面向开发者/研究者,附开源链接 + 彩蛋提示)
+//  ② Hero 机器人悬停"抬头"(见 custom.css)
+//  ③ Konami(↑↑↓↓←→←→BA)→ 机器人庆祝旋转 + ⊕/✦ 粒子 + 轻提示
+// =====================================================================
+let delightBound = false
+function celebrateRobot() {
+  const wrap = document.querySelector('.VPHome .hero-robot-wrap')
+  const toast = document.createElement('div')
+  toast.className = 'delight-toast'
+  toast.textContent = '🤖 你发现了彩蛋 — ⊕ keep researching'
+  document.body.appendChild(toast)
+  requestAnimationFrame(() => toast.classList.add('is-in'))
+  setTimeout(() => { toast.classList.remove('is-in'); setTimeout(() => toast.remove(), 420) }, 2600)
+
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (!wrap || reduce) return
+  wrap.classList.remove('delight-spin')
+  void wrap.offsetWidth
+  wrap.classList.add('delight-spin')
+  const marks = ['⊕', '✦', '◆', '✕']
+  for (let i = 0; i < 14; i++) {
+    const s = document.createElement('span')
+    s.className = 'delight-particle'
+    s.textContent = marks[i % marks.length]
+    const ang = (Math.PI * 2 * i) / 14
+    const dist = 90 + (i % 3) * 26
+    s.style.setProperty('--dx', (Math.cos(ang) * dist).toFixed(1) + 'px')
+    s.style.setProperty('--dy', (Math.sin(ang) * dist).toFixed(1) + 'px')
+    wrap.appendChild(s)
+    setTimeout(() => s.remove(), 1300)
+  }
+}
+function setupDelight() {
+  if (delightBound || typeof window === 'undefined') return
+  delightBound = true
+  try {
+    console.log(
+      '%c⊕ 具身智能学习站 · Embodied AI Learning',
+      'color:#2563eb;font-weight:700;font-size:14px'
+    )
+    console.log(
+      '%cVLA × WAM 研究档案 · 多源检索 + 对抗式事实核查\n开源 https://github.com/ZhuYun97/embodied-ai-learning\n彩蛋:在主页试试  ↑ ↑ ↓ ↓ ← → ← → B A',
+      'color:#64748b;font-size:12px;line-height:1.7'
+    )
+  } catch (e) {}
+  const seq = ['arrowup','arrowup','arrowdown','arrowdown','arrowleft','arrowright','arrowleft','arrowright','b','a']
+  let pos = 0
+  window.addEventListener('keydown', (e) => {
+    const k = e.key.toLowerCase()
+    pos = k === seq[pos] ? pos + 1 : k === seq[0] ? 1 : 0
+    if (pos === seq.length) { pos = 0; if (document.querySelector('.VPHome')) celebrateRobot() }
+  })
+}
+
 export default {
   extends: DefaultTheme,
   Layout() {
@@ -542,5 +598,6 @@ export default {
   },
   setup() {
     onMounted(setupLightbox)
+    onMounted(setupDelight)
   },
 }

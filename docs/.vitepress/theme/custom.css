@@ -1564,3 +1564,50 @@ html.skin-archive .series-footer__link { border-radius: 4px; }
 @media (prefers-reduced-motion: reduce) {
   html.skin-archive .reg-mark { animation: none; }
 }
+
+/* ============================================================
+   惊喜层(delight)—— 仅主页 hero;双皮肤通用;reduced-motion 安全
+   ① 机器人悬停"抬头"(科技皮辉光↑ / 档案皮墨线转氧化红)
+   ② Konami 彩蛋:庆祝旋转 + ⊕/✦ 粒子 + 轻提示 toast
+   ============================================================ */
+.hero-robot-wrap { position: relative; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.hero-robot-wrap:hover { transform: scale(1.035); }
+/* 科技皮:悬停辉光增强(filter 不与 heroFloat 的 transform 冲突) */
+.hero-robot-wrap:hover .hero-robot-img { filter: drop-shadow(0 0 52px rgba(56, 189, 248, 0.5)); }
+/* 档案皮:悬停墨线转氧化红 */
+html.skin-archive .hero-robot { transition: color 0.35s ease; }
+html.skin-archive .hero-robot-wrap:hover .hero-robot { color: var(--vp-c-brand-1); }
+
+.hero-robot-wrap.delight-spin { animation: delightSpin 0.9s cubic-bezier(0.5, 0, 0.3, 1); }
+@keyframes delightSpin { to { transform: rotate(360deg); } }
+
+.delight-particle {
+  position: absolute; left: 50%; top: 46%;
+  font-size: 16px; line-height: 1; pointer-events: none; z-index: 2;
+  color: #2563eb; transform: translate(-50%, -50%);
+  animation: delightPop 1.2s ease-out forwards;
+}
+html.skin-archive .delight-particle { color: var(--reg-mark); }
+@keyframes delightPop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  18%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1); }
+}
+
+.delight-toast {
+  position: fixed; left: 50%; bottom: 40px; z-index: 300;
+  transform: translateX(-50%) translateY(12px);
+  padding: 10px 18px; border-radius: 10px;
+  font-size: 0.9rem; font-weight: 600;
+  background: var(--vp-c-bg-elv); color: var(--vp-c-text-1);
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  opacity: 0; transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.delight-toast.is-in { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-robot-wrap, .hero-robot-wrap:hover { transition: none; transform: none; }
+  .hero-robot-wrap.delight-spin { animation: none; }
+  .delight-toast { transition: opacity 0.2s ease; transform: translateX(-50%); }
+}
