@@ -110,7 +110,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 
 - 📋 [全模型规格对比大表](/vla/papers/models-spec) —— 24 模型 × 12 维(主干/参数/动作表示/频率/许可)一页看全
 - 🧩 [双系统架构原理](/vla/papers/dual-system-architecture) —— 频率解耦 vs 语义分层 vs 梯度隔离的辨析与跨系统对比
-- 🔮 [预测式 VLA(世界模型作策略)](/vla/papers/predictive-vla) —— VPP/DreamVLA/WorldVLA:推理时预演未来→反推动作
+- 🌍 [世界-行动模型 WAM](/vla/papers/wam) —— 2025–2026 前沿范式:联合预测「未来状态+动作」;DreamZero/X-WAM/GR00T 2,含级联 vs 联合 taxonomy
+- 🔮 [预测式 VLA(世界模型作策略)](/vla/papers/predictive-vla) —— VPP/DreamVLA/WorldVLA:推理时预演未来→反推动作(WAM 的早期切片)
 - 🧪 [知识隔离训练配方 KI](/vla/papers/knowledge-insulation) —— stop-gradient 梯度桥,π0.6/π0.7 背后的训练技法
 - ⚡ [推理加速与量化部署](/vla/papers/inference-deployment) —— 9 类加速手段按算法/表示/系统/权重四层归类
 - 🧰 [开源代码库与权重对照](/vla/papers/codebases) —— openpi / OpenVLA / LeRobot / Isaac-GR00T / Octo 选型索引

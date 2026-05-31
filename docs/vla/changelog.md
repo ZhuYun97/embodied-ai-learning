@@ -8,6 +8,10 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 
 ## 2026-05-31
 
+**新增 WAM 专题 + 站点交互功能层**
+- 🌍 **新增 [世界-行动模型 WAM 专题](papers/wam.md)**:2025–2026 兴起的具身基础模型范式——**联合预测「未来状态+动作」**而非仅生成动作。以综述 arXiv:2605.12090(OpenMOSS)为权威源,梳理 **Cascaded/Joint** taxonomy(含 mermaid)、5 篇代表模型细读(DreamZero 2602.15922:14B 自回归视频扩散 7Hz 闭环 ⚠️ / X-WAM 2604.26694:统一 4D + ANS、RoboCasa 79.2% ⚠️ / UWM / 智元 Genie Envisioner / NVIDIA GR00T 2)、数据生态与三维评测协议(视觉保真/物理常识/动作合理性)。明确边界:[预测式 VLA](papers/predictive-vla) 是 WAM 的早期 Joint 切片,[RynnVLA](papers/rynnvla) 是「预测当先验」对照「WAM 预测当策略主体」;横切专题扩到 **8 个**。全程经一手 arXiv 摘要对抗式核查,定量几乎全标 ⚠️ 自评、一手未给标待核。
+- ⚙️ **站点交互功能层(地基 + 4 快赢)**:构建期解析 `models-spec.md` 为带可信度标记的结构化数据(keystone,零漂移);**可信度透镜**(全局开关,一键暗化 ⚠️/待核 单元格,横幅按页实数提示)、**相关细读自动页脚**(按机构/主干/路线给确定性兄弟模型 + 可解释 chip)、**阅读进度跟踪**(localStorage,滚动自动标记 + 全站进度条)、**llms.txt / llms-full.txt + 逐页原始 .md.txt 导出**(供外部 LLM 摄取,⚠️/✅/待核 标记原样保留)。
+
 **按需补全(读者反馈驱动)**
 - 📄 **新增 [GR-3 细读](papers/gr-3.md)**(字节跳动 Seed,arXiv:2507.15493):Qwen2.5-VL-3B + flow-matching DiT(4B)、三源配方(网页VL+VR人类轨迹+真机)、ByteMini 22-DoF 双臂移动本体;补齐"中国大厂×主流路线"空白(细读扩到 **24 篇**)。
 - 📄 **新增 [预测式 VLA 专题](papers/predictive-vla.md)**(VPP/DreamVLA/WorldVLA):兑现 embodied-data §4.1 挂出的"待补"承诺——世界模型作策略主体(推理时预演未来→反推动作),与 RynnVLA"预测只当训练先验"对照;回填 §4.1 占位为正式链接。核查纠偏 VPP CALVIN 提升为 **+18.6%**(非网传 41.5%)。
