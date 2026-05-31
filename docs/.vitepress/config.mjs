@@ -172,6 +172,7 @@ export default withMermaid(defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: 'VLA 调研', link: '/vla/' },
+      { text: 'WAM 调研', link: '/vla/papers/wam' },
       {
         text: '论文细读',
         items: [
