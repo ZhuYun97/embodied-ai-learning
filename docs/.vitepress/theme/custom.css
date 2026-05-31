@@ -1137,3 +1137,71 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .VPHome .VPHero .main::after { animation: none; }
   .VPHome .route-card::before { transition: none; }
 }
+
+/* ============================================================
+   首页:精修层(章节头 · 收尾卡 · 入场错峰)v3 polish
+   方向:把仍是"裸默认"的三处(分节标题 / 关于本站引述 / 首屏无入场)
+   补齐到与控制台/蓝图同语言;只作用 .VPHome,文档页与可读性不受影响。
+   动画统一 spring 缓动 + reduced-motion 关闭。
+   ============================================================ */
+
+/* —— ① 首页章节标题 → 控制台分节头:去顶部灰线,改左侧竖向渐变轴 —— */
+.VPHome .vp-doc h2 {
+  border-top: 0;
+  margin-top: 60px;
+  padding-top: 0;
+  padding-left: 18px;
+  font-size: 1.55rem;
+  letter-spacing: -0.012em;
+}
+.VPHome .vp-doc h2::after {
+  /* 覆写全站 h2 的"顶部横刻度":首页改为贴左的竖向渐变轴,呼应卡片角标语言 */
+  top: 0.12em;
+  bottom: 0.12em;
+  left: 0;
+  width: 4px;
+  height: auto;
+  background: linear-gradient(180deg, #2563eb 0%, #22d3ee 58%, #8b5cf6 100%);
+  border-radius: 4px;
+}
+.dark .VPHome .vp-doc h2::after {
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+}
+
+/* —— ② 关于本站引述 → 玻璃信息卡(替代裸左边框 blockquote)—— */
+.VPHome .vp-doc blockquote {
+  position: relative;
+  margin-top: 18px;
+  padding: 15px 18px 15px 20px;
+  border: 1px solid var(--vp-c-divider);
+  border-left: 3px solid #22d3ee;
+  border-radius: 10px;
+  background: var(--tech-card-bg);
+  backdrop-filter: blur(8px) saturate(1.15);
+  -webkit-backdrop-filter: blur(8px) saturate(1.15);
+}
+.VPHome .vp-doc blockquote p { color: var(--vp-c-text-2); }
+.dark .VPHome .vp-doc blockquote {
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.06), 0 0 24px rgba(37, 99, 235, 0.08);
+}
+
+/* —— ③ 首屏入场:Feature 卡 + 路线卡错峰升起(spring 缓动)—— */
+@media (prefers-reduced-motion: no-preference) {
+  .VPHome .VPFeature,
+  .VPHome .route-grid .route-card {
+    /* backwards:延迟期显示 from 态,结束后交还元素自身样式 —— 不会压制 hover 的 transform */
+    animation: bpRise 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .VPHome .VPFeatures .item:nth-child(1) .VPFeature { animation-delay: 0.04s; }
+  .VPHome .VPFeatures .item:nth-child(2) .VPFeature { animation-delay: 0.10s; }
+  .VPHome .VPFeatures .item:nth-child(3) .VPFeature { animation-delay: 0.16s; }
+  .VPHome .VPFeatures .item:nth-child(4) .VPFeature { animation-delay: 0.22s; }
+  .VPHome .route-grid .route-card:nth-child(1) { animation-delay: 0.06s; }
+  .VPHome .route-grid .route-card:nth-child(2) { animation-delay: 0.12s; }
+  .VPHome .route-grid .route-card:nth-child(3) { animation-delay: 0.18s; }
+  .VPHome .route-grid .route-card:nth-child(4) { animation-delay: 0.24s; }
+}
+@keyframes bpRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
