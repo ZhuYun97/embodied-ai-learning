@@ -22,27 +22,32 @@ hero:
 features:
   - icon: { src: /icons/route.svg, width: 28, height: 28 }
     title: 发展主线
-    details: 五阶段演进 + 四条暗线 + Mermaid 流程图,梳理 VLA 如何从"动作即文本 token"走到"从经验中强化学习"。
+    details: 五阶段演进 + 四条暗线 + Mermaid 流程图,梳理 VLA 如何从"动作即文本 token"一路走到"从经验中强化学习"。
     link: /vla/#一范式演进与奠基
     linkText: 查看主线
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 24 篇论文细读
-    details: 奠基与两条路线 11 篇 + 2025H2–2026 前沿 7 篇(WALL-OSS / Wall-OSS-0.5 / Qwen-VLA / RynnVLA / π0.6 / Gemini Robotics / π0.7)+ 更多代表模型 6 篇(GR-3 / RDT-1B / GO-1 / MemoryVLA / SpatialVLA / Helix),每篇逐模块拆解。
+    details: 奠基与两条路线 + 2025H2–2026 前沿 + 更多代表模型三组共 24 篇,从 RT-1 到 π0.7 逐模块拆解(架构 / 数据 / 实验 / 局限)。
     link: /vla/papers/rt1
     linkText: 从 RT-1 开始
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
     title: 基准横评硬数据
-    details: SimplerEnv / LIBERO / CALVIN / RoboCasa 四大基准逐模型成绩表,标注口径与可信度;含本轮补齐的 RoboCasa 排行榜与数据来源专题。
+    details: SimplerEnv / LIBERO / CALVIN / RoboCasa 四大基准逐模型成绩表,标注口径与可信度,含 RoboCasa 排行榜与数据来源专题。
     link: /vla/papers/benchmarks
     linkText: 看数据集与基准
+  - icon: { src: /icons/layers.svg, width: 28, height: 28 }
+    title: 横切分析专题
+    details: 全模型规格对比大表、双系统架构、预测式 VLA、知识隔离、推理部署、开源代码库、共性失败模式——7 个跨模型对照专题。
+    link: /vla/papers/models-spec
+    linkText: 看横切分析
   - icon: { src: /icons/trend.svg, width: 28, height: 28 }
     title: 2025H2–2026 最新前沿
-    details: 自变量 WALL-OSS、阿里 Qwen-VLA / RynnVLA、Physical Intelligence π0.6 / π*0.6(RECAP 真机强化学习)。
+    details: 自变量 WALL-OSS、阿里 Qwen-VLA / RynnVLA、Physical Intelligence π0.6 / π*0.6(RECAP 真机强化学习)等最新工作。
     link: /vla/#五2025h22026-最新前沿
     linkText: 看前沿
-  - icon: { src: /icons/route.svg, width: 28, height: 28 }
+  - icon: { src: /icons/globe.svg, width: 28, height: 28 }
     title: WAM 世界-行动模型(新轨)
-    details: 2025–2026 前沿范式——联合预测「未来状态+动作」而非仅生成动作。综述 taxonomy(级联 vs 联合)+ 5 篇细读:DreamZero / X-WAM / UWM / Genie Envisioner / GR00T N2。
+    details: 2025–2026 前沿范式——联合预测「未来状态+动作」。综述 taxonomy(级联 vs 联合)+ DreamZero / X-WAM / UWM / Genie Envisioner / GR00T N2 五篇细读。
     link: /wam/
     linkText: 进入 WAM 调研
 ---
