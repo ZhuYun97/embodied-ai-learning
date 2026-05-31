@@ -135,6 +135,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/dreamzero">DreamZero</a>
       <a href="wam/papers/x-wam">X-WAM</a>
       <a href="wam/papers/lingbot-va">LingBot-VA</a>
+      <a href="wam/papers/tau0-wm">τ0-WM</a>
       <a href="wam/papers/groot-n2">GR00T N2</a>
     </div>
   </div>

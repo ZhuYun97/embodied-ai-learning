@@ -6,7 +6,7 @@ description: 世界-行动模型(WAM)是 2025–2026 兴起的具身基础模型
 # 世界-行动模型 WAM:联合预测未来状态与动作
 
 > **WAM 调研 · 总览** · 2025–2026 前沿范式 · 联合分布建模(未来状态 + 动作)· 权威源:综述 arXiv:2605.12090(OpenMOSS)
-> [← VLA 调研报告](/vla/) · **12 篇细读**(按路线,亦见侧栏):级联 [UniPi](/wam/papers/unipi)·[Gen2Act](/wam/papers/gen2act)·[VPP](/wam/papers/vpp)·[LAPA](/wam/papers/lapa) ｜ 联合 [GR-1](/wam/papers/gr-1)·[WorldVLA](/wam/papers/worldvla)·[UWM](/wam/papers/uwm)·[DreamZero](/wam/papers/dreamzero)·[X-WAM](/wam/papers/x-wam)·[LingBot-VA](/wam/papers/lingbot-va)·[Genie Envisioner](/wam/papers/genie-envisioner)·[GR00T N2](/wam/papers/groot-n2)
+> [← VLA 调研报告](/vla/) · **13 篇细读**(按路线,亦见侧栏):级联 [UniPi](/wam/papers/unipi)·[Gen2Act](/wam/papers/gen2act)·[VPP](/wam/papers/vpp)·[LAPA](/wam/papers/lapa) ｜ 联合 [GR-1](/wam/papers/gr-1)·[WorldVLA](/wam/papers/worldvla)·[UWM](/wam/papers/uwm)·[DreamZero](/wam/papers/dreamzero)·[X-WAM](/wam/papers/x-wam)·[LingBot-VA](/wam/papers/lingbot-va)·[τ0-WM](/wam/papers/tau0-wm)·[Genie Envisioner](/wam/papers/genie-envisioner)·[GR00T N2](/wam/papers/groot-n2)
 
 > 本页系统梳理「世界-行动模型」(World Action Models, WAM)这一 2025–2026 前沿范式:它是「统一预测式状态建模与动作生成、对未来状态与动作的**联合分布**建模」的具身基础模型。内容覆盖定义辨析、综述 taxonomy、代表模型细读、数据生态与评测协议,以及 WAM 与本站既有 VLA 谱系的对位关系。可信度体例:⚠️ = 提出方/厂商自评(本页绝大多数定量属此类);✅ = 经基准维护方统一第三方评测(本语料中几乎缺位);**待核** = 一手源未给出、不以外部记忆或常识补全。所标 arXiv 编号均取自语料。
 

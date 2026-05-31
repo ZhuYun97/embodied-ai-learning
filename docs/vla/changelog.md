@@ -9,7 +9,7 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 ## 2026-05-31
 
 **WAM 细读扩到 12 篇 + 首页「WAM 按范式浏览」路线网格**
-- 📄 **新增 7 篇 WAM 细读**,把覆盖从"全是联合·扩散"补到全 taxonomy:级联·显式 [UniPi](/wam/papers/unipi)(2302.00111)·[Gen2Act](/wam/papers/gen2act)(2409.16283);级联·隐式 [VPP](/wam/papers/vpp)(2412.14803,CALVIN +18.6%/真机 +31.6% ⚠️)·[LAPA](/wam/papers/lapa)(2410.11758);联合·自回归 [GR-1](/wam/papers/gr-1)(2312.13139,CALVIN 94.9%/零样本 85.4% ⚠️,字节 GR 系开端)·[WorldVLA](/wam/papers/worldvla)(2506.21539,达摩院);联合·扩散新增 [LingBot-VA](/wam/papers/lingbot-va)(**蚂蚁灵波**,2601.21998,RoboTwin2.0-Plus 74.2% ⚠️/据第三方鲁棒性研究)。
+- 📄 **新增 8 篇 WAM 细读**,把覆盖从"全是联合·扩散"补到全 taxonomy:级联·显式 [UniPi](/wam/papers/unipi)(2302.00111)·[Gen2Act](/wam/papers/gen2act)(2409.16283);级联·隐式 [VPP](/wam/papers/vpp)(2412.14803,CALVIN +18.6%/真机 +31.6% ⚠️)·[LAPA](/wam/papers/lapa)(2410.11758);联合·自回归 [GR-1](/wam/papers/gr-1)(2312.13139,CALVIN 94.9%/零样本 85.4% ⚠️,字节 GR 系开端)·[WorldVLA](/wam/papers/worldvla)(2506.21539,达摩院);联合·扩散新增 [LingBot-VA](/wam/papers/lingbot-va)(**蚂蚁灵波**,2601.21998,RoboTwin2.0-Plus 74.2% ⚠️/据第三方鲁棒性研究)、[τ0-WM](/wam/papers/tau0-wm)(**智元/上海创智·罗剑岚团队**,2026-05-31 开源,5B/~3 万小时;提议→推演→评估修正的测试时搜索)。WAM 细读共 **13 篇**。
 - 🧭 **首页新增「WAM:按范式浏览」**路线网格(4 卡:级联·显式/隐式、联合·自回归/扩散),与「VLA:按技术路线浏览」并列;原 VLA 区块改名对称。
 - 🗂️ WAM 顶栏与侧栏**改按路线分组**(级联/联合,联合再分自回归/扩散),不再平铺。每篇均经一手 arXiv 摘要核查,定量标 ⚠️、一手未给标待核。
 
