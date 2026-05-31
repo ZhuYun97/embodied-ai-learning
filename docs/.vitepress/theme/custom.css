@@ -756,3 +756,183 @@ img.zoom-lightbox__content {
 
 /* 上述增强均为静态装饰,无新增动画;reduced-motion 无需额外处理。
    玻璃顶栏在不支持 backdrop-filter 的浏览器回退为半透明纯色,文字对比仍达标。 */
+
+/* ===================================================================
+   交互功能层(地基:models-spec 解析器 + 4 个快赢)
+   可信度透镜 / 透镜横幅 / 相关细读 / 阅读进度
+   设计约束:不改正文文字色与对比;暗化用 opacity(不删除信息);reduced-motion 安全。
+   =================================================================== */
+
+/* ---------- 可信度透镜:导航栏开关(沿用 .zen-toggle 视觉)---------- */
+.lens-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+}
+.lens-toggle:hover {
+  color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-1);
+}
+.lens-toggle.is-on {
+  color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+}
+.lens-toggle__icon { display: inline-flex; }
+@media (max-width: 768px) {
+  .lens-toggle__label { display: none; }
+  .lens-toggle { padding: 0 9px; margin-left: 6px; }
+}
+
+/* ---------- 可信度透镜:暗化已标记单元格(td.cred-warn=⚠️自评 / td.cred-todo=待核)---------- */
+.vp-doc td.cred-warn,
+.vp-doc td.cred-todo { transition: opacity 0.22s ease; }
+html.lens-dim .vp-doc td.cred-warn,
+html.lens-dim .vp-doc td.cred-todo { opacity: 0.42; }
+html.lens-strict .vp-doc td.cred-warn,
+html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
+
+/* ---------- 透镜横幅(doc-before:提示本页被暗化的格子数)---------- */
+.lens-banner {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 22px;
+  padding: 9px 14px;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-left: 3px solid #22d3ee;
+  border-radius: 8px;
+}
+.lens-banner__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #22d3ee);
+  box-shadow: 0 0 6px rgba(34, 211, 238, 0.6);
+}
+
+/* ---------- 相关细读(doc-after:确定性兄弟模型 + 可解释 chip)---------- */
+.related-reads {
+  margin: 40px 0 4px;
+  padding-top: 20px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+.related-reads__title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+  margin-bottom: 12px;
+}
+.related-reads__list { list-style: none; margin: 0; padding: 0; }
+.related-reads__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  padding: 7px 0;
+}
+.related-reads__item + .related-reads__item { border-top: 1px dashed var(--vp-c-divider); }
+.related-reads__link {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.related-reads__link:hover { text-decoration: underline; }
+.related-reads__chips { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.rr-chip {
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg-soft);
+  white-space: nowrap;
+}
+.rr-chip--org { border-color: rgba(37, 99, 235, 0.4); color: #2563eb; }
+.rr-chip--backbone { border-color: rgba(124, 58, 237, 0.4); color: #7c3aed; }
+.rr-chip--route { border-color: rgba(13, 148, 136, 0.4); color: #0d9488; }
+.dark .rr-chip--org { color: #93b4ff; }
+.dark .rr-chip--backbone { color: #c4b5fd; }
+.dark .rr-chip--route { color: #5eead4; }
+
+/* ---------- 阅读进度(doc-after:已读标记 + 全站进度条)---------- */
+.read-progress {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin: 28px 0 4px;
+}
+.read-progress__btn {
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg-soft);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+}
+.read-progress__btn:hover { color: var(--vp-c-brand-1); border-color: var(--vp-c-brand-1); }
+.read-progress__btn.is-read {
+  color: #0d9488;
+  border-color: rgba(13, 148, 136, 0.5);
+  background: rgba(13, 148, 136, 0.08);
+}
+.dark .read-progress__btn.is-read { color: #5eead4; }
+.read-progress__meter {
+  flex: 1 1 120px;
+  max-width: 220px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  overflow: hidden;
+}
+.read-progress__bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee);
+  transition: width 0.3s ease;
+}
+.read-progress__count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--vp-c-text-3);
+  font-variant-numeric: tabular-nums;
+}
+@media (pointer: coarse) {
+  .read-progress__btn { min-height: 40px; }
+}
+
+/* reduced-motion:关掉本层所有过渡(透镜暗化 / 进度条 / 按钮) */
+@media (prefers-reduced-motion: reduce) {
+  .vp-doc td.cred-warn,
+  .vp-doc td.cred-todo,
+  .read-progress__bar,
+  .read-progress__btn,
+  .lens-toggle { transition: none !important; }
+}

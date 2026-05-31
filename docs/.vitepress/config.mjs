@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
+import fs from 'node:fs'
+import path from 'node:path'
 
 // 注意:base 需与 GitHub 仓库名一致(项目页 https://<user>.github.io/<repo>/)
 export default withMermaid(defineConfig({
@@ -47,12 +49,101 @@ export default withMermaid(defineConfig({
         }
         return orig ? orig(tokens, idx, options, env, self) : self.renderToken(tokens, idx, options)
       }
+
+      // 可信度透镜:给含 ⚠️/待核 的表格单元格打 class,供全局透镜按可信度暗化。
+      // 顺序:td_open → inline(.content 在块解析期已就绪)→ td_close。
+      const addCredClass = (token, cls) => {
+        const cur = token.attrGet('class')
+        token.attrSet('class', cur ? `${cur} ${cls}` : cls)
+      }
+      md.core.ruler.push('cred-cells', (state) => {
+        const t = state.tokens
+        for (let i = 0; i < t.length; i++) {
+          if (t[i].type !== 'td_open') continue
+          const inline = t[i + 1]
+          if (!inline || inline.type !== 'inline') continue
+          const txt = inline.content
+          if (/待核/.test(txt)) addCredClass(t[i], 'cred-todo')
+          else if (/⚠️|⚠/.test(txt)) addCredClass(t[i], 'cred-warn')
+        }
+      })
     },
+  },
+
+  // 构建期导出:llms.txt(链接索引)+ llms-full.txt(全文)+ 每页原始 .md.txt。
+  // 目的:外部 LLM / 本站未来 RAG 摄取语料时,⚠️/✅/待核 标记与出处声明原样保留,
+  // 不会把自评数字洗成裸事实。纯静态产物,无运行时。
+  buildEnd: async (siteConfig) => {
+    try {
+      const ORIGIN = 'https://zhuyun97.github.io/embodied-ai-learning/'
+      const srcDir = siteConfig.srcDir
+      const outDir = siteConfig.outDir
+
+      // 递归收集内容 .md(跳过 .vitepress / node_modules / dist)
+      const files = []
+      const walk = (dir) => {
+        for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+          if (ent.name.startsWith('.') || ent.name === 'node_modules' || ent.name === 'dist') continue
+          const full = path.join(dir, ent.name)
+          if (ent.isDirectory()) walk(full)
+          else if (ent.name.endsWith('.md') && ent.name !== '404.md') files.push(full)
+        }
+      }
+      walk(srcDir)
+      files.sort()
+
+      // 清洗:去 frontmatter、去 Mermaid 代码块、去裸 HTML 块;保留 ⚠️/✅/待核 与正文 markdown
+      const clean = (raw) =>
+        raw
+          .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '')
+          .replace(/```mermaid[\s\S]*?```/g, '[流程图(Mermaid),详见网页]')
+          .replace(/<div[\s\S]*?<\/div>/g, '')
+          .replace(/<[^>\n]+>/g, '')
+          .replace(/\n{3,}/g, '\n\n')
+          .trim()
+      const titleOf = (raw, rel) => {
+        // 只认 frontmatter 顶格 title:(避免抓到 features 等嵌套缩进键)
+        const fmBlock = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)
+        if (fmBlock) {
+          const t = fmBlock[1].match(/^title:\s*(.+)$/m)
+          if (t) return t[1].trim().replace(/^["']|["']$/g, '')
+        }
+        const h1 = raw.match(/^#\s+(.+)$/m)
+        if (h1) return h1[1].trim()
+        return rel === 'index.md' ? '具身智能学习站(首页)' : rel
+      }
+      const urlOf = (rel) => ORIGIN + rel.replace(/\.md$/, '').replace(/(^|\/)index$/, '$1')
+
+      const index = []
+      const fullParts = []
+      for (const file of files) {
+        const rel = path.relative(srcDir, file).split(path.sep).join('/')
+        const raw = fs.readFileSync(file, 'utf-8')
+        const title = titleOf(raw, rel)
+        const url = urlOf(rel)
+        const body = clean(raw)
+        index.push(`- [${title}](${url}): 原始 markdown ${ORIGIN}${rel}.txt`)
+        fullParts.push(`# ${title}\n来源:${url}\n\n${body}`)
+        // 每页原始 .md.txt(镜像目录结构)
+        const outRaw = path.join(outDir, rel + '.txt')
+        fs.mkdirSync(path.dirname(outRaw), { recursive: true })
+        fs.writeFileSync(outRaw, raw, 'utf-8')
+      }
+
+      const header = `# 具身智能学习站 · Embodied AI Learning\n\n> VLA 模型发展深度调研 + 24 篇论文细读 + 横切分析专题。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
+      fs.writeFileSync(path.join(outDir, 'llms.txt'), header + index.join('\n') + '\n', 'utf-8')
+      fs.writeFileSync(path.join(outDir, 'llms-full.txt'), header + fullParts.join('\n\n---\n\n') + '\n', 'utf-8')
+      console.log(`[buildEnd] 已导出 llms.txt / llms-full.txt + ${files.length} 页原始 .md.txt`)
+    } catch (e) {
+      console.warn('[buildEnd] llms 导出失败(不阻断构建):', e.message)
+    }
   },
 
   head: [
     // 预渲染恢复「专注阅读」状态,避免刷新时左右侧栏闪烁
     ['script', {}, "try{if(localStorage.getItem('zen-reading')==='1')document.documentElement.classList.add('zen-reading')}catch(e){}"],
+    // 预渲染恢复「可信度透镜」状态(dim=暗化自评/待核,strict=仅显已核),避免刷新闪烁
+    ['script', {}, "try{var l=localStorage.getItem('cred-lens');if(l==='dim'||l==='strict')document.documentElement.classList.add('lens-'+l)}catch(e){}"],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/embodied-ai-learning/favicon.svg' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
