@@ -156,6 +156,18 @@ flowchart TD
 > ⚠️ **本主题 NVIDIA 生态高度主导**(RoboCasa/MimicGen/ManiSkill 之外的 GR00T/DreamGen/Cosmos/Isaac 均为 NVIDIA 或合作),大量规模/加速数字为厂商技术报告自评。已同行评审仅 RoboCasa(CoRL)、MimicGen(CoRL)、ManiSkill2(ICLR);其余标 medium。
 > ⚠️ DreamGen 的 333× 仅在论文特定设置(RoboCasa 仿真)下成立,非通用结论;GR00T N1.5 的"36 小时生成 vs 3 个月人工采集"为 NVIDIA 营销框架下自评。
 
+### 4.1 世界模型在 VLA 里的三种定位
+
+"世界模型(world model)"在具身领域不是单一东西,按它**在系统里扮演什么角色**可分三类——本站的相关内容据此分散落在不同页:
+
+| 定位 | 世界模型做什么 | 代表 | 本站覆盖处 |
+|---|---|---|---|
+| **① 数据引擎** | 生成机器人视频 + 回收伪动作 → 神经轨迹,放大训练数据 | DreamGen、Cosmos | 本页 §4(神经轨迹)、[数据处理 §6](data-processing.md) |
+| **② 生成式预训练先验** | 用 next-frame 视频生成预训练学"动作条件下的视觉动态",再迁移到动作 | RynnVLA-001(第三条路)、Genie | [RynnVLA 细读](rynnvla.md)、本页 §3.2 |
+| **③ 可微规划 / 预测式策略** | 在隐空间预演未来、把"想象的结果"反推成动作(model-based planning) | UniPi / VPP / WorldVLA 等(本站暂未单列) | 待补:预测式 VLA 专题 |
+
+> 即:本站已覆盖①②(作为数据来源与第三条路线),③"世界模型直接作策略主体"目前仅此处点名、尚无独立专题。术语见 [术语速查 · 神经轨迹](glossary.md)。
+
 ---
 
 ## 五、采集范式与成本:精度 vs 可扩展性

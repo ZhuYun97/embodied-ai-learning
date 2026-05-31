@@ -23,8 +23,8 @@ features:
     link: /vla/#一范式演进与奠基
     linkText: 查看主线
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
-    title: 17 篇论文细读
-    details: RT-1 / RT-2 / Diffusion Policy / OpenVLA / Octo / π0 / CogACT / π0-FAST / OpenVLA-OFT / GR00T N1 / π0.5 + 6 篇前沿(WALL-OSS / Qwen-VLA / RynnVLA / π0.6 / Gemini Robotics / π0.7),每篇逐模块拆解。
+    title: 22 篇论文细读
+    details: 奠基与两条路线 11 篇 + 2025H2–2026 前沿 6 篇(WALL-OSS / Qwen-VLA / RynnVLA / π0.6 / Gemini Robotics / π0.7)+ 更多代表模型 5 篇(RDT-1B / GO-1 / MemoryVLA / SpatialVLA / Helix),每篇逐模块拆解。
     link: /vla/papers/rt1
     linkText: 从 RT-1 开始
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
@@ -105,6 +105,14 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 - 🛠️ [具身数据处理](/vla/papers/data-processing) —— 清洗/标注/动作&观测处理/伪标签/配比/格式:原始采集→可训练样本的流水线
 - 🧪 [数据集与基准全景](/vla/papers/benchmarks) —— SimplerEnv / LIBERO / CALVIN / RoboCasa 四大评测逐模型成绩表
 - 🤖 [实验机器人本体](/vla/papers/robots) —— 19 个实验本体(单臂/双臂/人形)对照表与跨本体迁移要点
+
+**横切分析(跨模型对照)**
+
+- 📋 [全模型规格对比大表](/vla/papers/models-spec) —— 22 模型 × 12 维(主干/参数/动作表示/频率/许可)一页看全
+- 🧩 [双系统架构原理](/vla/papers/dual-system-architecture) —— 频率解耦 vs 语义分层 vs 梯度隔离的辨析与跨系统对比
+- ⚡ [推理加速与量化部署](/vla/papers/inference-deployment) —— 9 类加速手段按算法/表示/系统/权重四层归类
+- 🧰 [开源代码库与权重对照](/vla/papers/codebases) —— openpi / OpenVLA / LeRobot / Isaac-GR00T / Octo 选型索引
+- 🔬 [共性失败模式](/vla/papers/failure-modes) —— 6 大失败维度的"失败显微镜",各细读局限升维聚合
 - 📖 [术语速查表](/vla/papers/glossary) —— 流匹配 / 动作分块 / 双系统 / co-training 等术语一页速查
 - 🗓️ [发展时间线](/vla/papers/timeline) —— 2022→2026 里程碑一览,定位 16 篇细读
 - 🔗 [参考文献](/vla/papers/references) —— 全站一手信源(arXiv / 官网)聚合

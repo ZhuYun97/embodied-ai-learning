@@ -57,6 +57,7 @@ flowchart TD
 | **VLA(视觉-语言-动作模型)** / Vision-Language-Action Model | 在 VLM 基础上增加动作输出,直接把视觉+语言指令映射为机器人动作的端到端模型 | RT-2 奠基范式;首篇综述 arXiv:2405.14093 | [RT-2 细读](rt2.md) |
 | **行为克隆 / 模仿学习** / Behavior Cloning, Imitation Learning | 用专家演示(状态→动作)做监督学习,是 VLA 主流训练范式;上限受演示分布限制 | RT-1、几乎所有 VLA;突破见 π*0.6 RL | [embodied-data §6.5](embodied-data.md) |
 | **涌现泛化** / Emergent Generalization | 借互联网知识 co-train 后,机器人涌现出训练动作集之外的符号理解/推理/物体泛化能力 | RT-2(RT-2-X 较 RT-2 emergent skill 约 +50% ⚠️) | [RT-2 细读](rt2.md) |
+| **具身思维链 / ECoT** / Embodied Chain-of-Thought | 让 VLA 在出动作前先显式生成一段中间推理(子任务分解 / 物体定位 / 计划),把 LLM 的"想清楚再答"迁移到机器人控制;是"推理式 VLA"的统称 | ECoT(arXiv:2407.08693);π0.5 高层 FAST 子任务、WALL-OSS"统一跨层级 CoT"、Gemini Robotics 具身推理均属此类实现 | [π0.5 细读](pi05.md) · [WALL-OSS 细读](wall-oss.md) |
 
 ---
 
