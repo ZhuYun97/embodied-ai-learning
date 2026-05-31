@@ -149,22 +149,3 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 
 > 📌 入口推荐:先读 [VLA 发展深度调研总报告](/vla/) 把握全局,再按[论文细读导航](/vla/#-论文细读导航)逐篇深入。第一次来?看 [如何阅读本站](/vla/guide) 与[更新日志](/vla/changelog)。
 
-## 专题与速查
-
-- 📊 [具身数据全景梳理](/vla/papers/embodied-data) —— 四层数据金字塔、10 个真机数据集横评、采集范式与 scaling
-- 🛠️ [具身数据处理](/vla/papers/data-processing) —— 清洗/标注/动作&观测处理/伪标签/配比/格式:原始采集→可训练样本的流水线
-- 🧪 [数据集与基准全景](/vla/papers/benchmarks) —— SimplerEnv / LIBERO / CALVIN / RoboCasa 四大评测逐模型成绩表
-- 🤖 [实验机器人本体](/vla/papers/robots) —— 19 个实验本体(单臂/双臂/人形)对照表与跨本体迁移要点
-
-**横切分析(跨模型对照)**
-
-- 📋 [全模型规格对比大表](/vla/papers/models-spec) —— 24 模型 × 12 维(主干/参数/动作表示/频率/许可)一页看全
-- 🧩 [双系统架构原理](/vla/papers/dual-system-architecture) —— 频率解耦 vs 语义分层 vs 梯度隔离的辨析与跨系统对比
-- 🔮 [预测式 VLA(世界模型作策略)](/vla/papers/predictive-vla) —— VPP/DreamVLA/WorldVLA:推理时预演未来→反推动作(WAM 的早期切片,完整范式见 [WAM 调研](/wam/))
-- 🧪 [知识隔离训练配方 KI](/vla/papers/knowledge-insulation) —— stop-gradient 梯度桥,π0.6/π0.7 背后的训练技法
-- ⚡ [推理加速与量化部署](/vla/papers/inference-deployment) —— 9 类加速手段按算法/表示/系统/权重四层归类
-- 🧰 [开源代码库与权重对照](/vla/papers/codebases) —— openpi / OpenVLA / LeRobot / Isaac-GR00T / Octo 选型索引
-- 🔬 [共性失败模式](/vla/papers/failure-modes) —— 6 大失败维度的"失败显微镜",各细读局限升维聚合
-- 📖 [术语速查表](/vla/papers/glossary) —— 流匹配 / 动作分块 / 双系统 / co-training 等术语一页速查
-- 🗓️ [发展时间线](/vla/papers/timeline) —— 2022→2026 里程碑一览,定位各篇细读
-- 🔗 [参考文献](/vla/papers/references) —— 全站一手信源(arXiv / 官网)聚合
