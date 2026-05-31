@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "具身智能学习站"
   text: "Embodied AI Learning"
-  tagline: 梳理具身智能两条主线 —— VLA 发展脉络 × WAM(世界-行动模型)最新前沿;每个数字经多源检索与对抗式事实核查,逐条标注 ⚠️/✅/待核。
+  tagline: 梳理具身智能两条主线 —— VLA 发展脉络 × WAM(世界-行动模型)最新前沿
   image:
     src: /hero-robot.svg
     alt: 具身智能机器人概念图
