@@ -284,6 +284,83 @@ const SeriesFooter = {
 }
 
 // =====================================================================
+// 档案 signature:登记十字标 ⊕ + 编号条(accession line / masthead)
+// 把"研究档案"的世界观落到结构里:首页报头一条,文档页顶一条(每页仅一次)。
+// =====================================================================
+const REG_MARK =
+  '<svg class="reg-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="7"/><line x1="12" y1="1.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="22.5" y2="12"/></svg>'
+
+// 首页报头编号条(home-hero-info-before)
+const HomeMasthead = {
+  setup() {
+    return () =>
+      h('div', { class: 'masthead-strip' }, [
+        h('span', { class: 'masthead-strip__mark', innerHTML: REG_MARK }),
+        h('span', null, 'ARCHIVE · DOMAIN VLA × WAM · REV 2026.05 · LANG ZH / EN'),
+      ])
+  },
+}
+
+// Hero 机器人:技术线稿(墨线随主题 currentColor,关节氧化红;无渐变/辉光/halo)
+const ROBOT_SVG =
+  '<svg class="hero-robot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" fill="none" role="img" aria-label="具身智能机器人技术线稿">' +
+  '<g stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">' +
+  '<rect x="234" y="62" width="120" height="100" rx="26"/>' +
+  '<line x1="260" y1="110" x2="288" y2="110" stroke-width="6"/>' +
+  '<line x1="300" y1="110" x2="328" y2="110" stroke-width="6"/>' +
+  '<path d="M294 62v-22"/>' +
+  '<path d="M278 162v18 M310 162v18"/>' +
+  '<path d="M238 198 L350 198 L370 252 L338 358 L250 358 L218 252 Z"/>' +
+  '<circle cx="294" cy="264" r="34"/>' +
+  '<path d="M226 216 L184 272 L198 346"/>' +
+  '<path d="M362 216 L418 234 L444 180"/>' +
+  '<path d="M254 358 L240 414 M334 358 L348 414"/>' +
+  '<rect x="228" y="414" width="132" height="22" rx="8"/>' +
+  '<rect x="452" y="428" width="94" height="26" rx="8"/>' +
+  '<path d="M499 428 L486 360 L538 320"/>' +
+  '<path d="M538 320 l18 -9 M538 320 l5 -20"/>' +
+  '</g>' +
+  '<circle class="hero-robot__core" cx="294" cy="264" r="13"/>' +
+  '<g class="hero-robot__joint">' +
+  '<circle cx="226" cy="216" r="6"/><circle cx="184" cy="272" r="6"/>' +
+  '<circle cx="362" cy="216" r="6"/><circle cx="418" cy="234" r="6"/>' +
+  '<circle cx="499" cy="428" r="5"/><circle cx="486" cy="360" r="5"/><circle cx="538" cy="320" r="5"/>' +
+  '</g>' +
+  '<g stroke="currentColor" stroke-width="1.5" opacity="0.5">' +
+  '<path d="M462 72 L512 98 L496 152 M512 98 L556 82"/></g>' +
+  '<g class="hero-robot__joint">' +
+  '<circle cx="462" cy="72" r="4"/><circle cx="512" cy="98" r="4"/><circle cx="496" cy="152" r="4"/><circle cx="556" cy="82" r="4"/>' +
+  '</g>' +
+  '</svg>'
+
+const HeroRobot = {
+  setup() {
+    return () => h('div', { class: 'hero-robot-wrap', innerHTML: ROBOT_SVG })
+  },
+}
+
+// 文档页档案编号行(doc-before):ENTRY · 轨道 · 标题 · REV
+const AccessionLine = {
+  setup() {
+    const route = useRoute()
+    const { page, frontmatter } = useData()
+    return () => {
+      if (!/\/(vla|wam)\//.test(route.path)) return null
+      const track = /\/wam\//.test(route.path) ? 'WAM' : 'VLA'
+      const title =
+        (frontmatter.value && frontmatter.value.title) ||
+        (page.value && page.value.title) ||
+        ''
+      const label = `ENTRY · ${track}${title ? ' · ' + title : ''} · REV 2026.05`
+      return h('div', { class: 'accession-line', 'aria-hidden': 'true' }, [
+        h('span', { class: 'accession-line__mark', innerHTML: REG_MARK }),
+        h('span', { class: 'accession-line__text' }, label),
+      ])
+    }
+  },
+}
+
+// =====================================================================
 // 自定义轻量灯箱:点击/键盘放大流程图(Mermaid SVG)或论文框架图
 // =====================================================================
 let bound = false
@@ -400,8 +477,10 @@ export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
+      'home-hero-info-before': () => h(HomeMasthead),
+      'home-hero-image': () => h(HeroRobot),
       'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle)],
-      'doc-before': () => h(LensBanner),
+      'doc-before': () => [h(AccessionLine), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
     })
   },

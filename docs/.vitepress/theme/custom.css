@@ -1,102 +1,157 @@
 /* ============================================================
-   具身智能学习站 · 自定义主题 v2
-   方向:Swiss / 编辑式极简(Minimalism & Swiss Style)
-   - 配色:Slate 中性灰 + 单一蓝色强调(克制、专业、高对比)
-   - 排版:Inter(正文/标题)+ JetBrains Mono(公式/代码/数据)
-   - 网格留白、清晰层级、细线分隔、极简阴影
-   推荐来源:ui-ux-pro-max 设计系统(文档/研究站)
+   具身智能学习站 · 自定义主题 v3 —— 实验室档案 / Lab Index
+   方向:一个严肃机器人实验室的"受控文档 / 档案" ——
+   - 衬底:暖米黄纸张(manila),非冷科技深蓝
+   - 墨色:氧化红(oxblood)+ 松绿(pine),印在纸上,从不发光
+   - 排版:Source Serif 4 + 思源宋体(双语正文衬线)/ Space Grotesk + 霞鹜文楷(标题)/ IBM Plex Mono(编号·数据·代码)
+   - 信号:登记十字标 ⊕ + 档案编号(accession line)+ 账本式数据表
+   原则:克制即signature;数据与可信度标记是结构性墨水,绝非装饰。
+   彻底移除上一版的 渐变辉光 / 玻璃拟态 / 霓虹 / 网格背景 / 蓝图角标 / HUD 眉标。
    ============================================================ */
 
-/* ---------- 字体 ---------- */
+/* ---------- 字体族 ---------- */
 :root {
-  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC',
-    'Source Han Sans SC', sans-serif;
-  --vp-font-family-mono: 'JetBrains Mono', 'Roboto Mono', ui-monospace,
-    SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* 正文:拉丁 Source Serif 4 + 中文思源宋体(首选系统宋体,零额外负载,首屏即宋体) */
+  --vp-font-family-base:
+    'Source Serif 4', 'Source Han Serif SC', 'Noto Serif SC',
+    'Songti SC', 'STSong', SimSun, Georgia, serif;
+  --vp-font-family-mono:
+    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* 标题/报头:Space Grotesk(拉丁)+ 思源宋体/宋体(中文,庄重档案声) */
+  --vp-font-family-display:
+    'Space Grotesk', 'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
 }
 
-/* ---------- 配色:浅色(Slate + Blue) ---------- */
+/* ---------- 配色:浅色(manila 纸 + 氧化红 + 松绿) ---------- */
 :root {
-  /* 强调蓝(链接/按钮/重点)——AA 对比安全 */
-  --vp-c-brand-1: #1d4ed8;   /* 链接文字,白底 ≈ 5.9:1 */
-  --vp-c-brand-2: #1e40af;
-  --vp-c-brand-3: #2563eb;   /* 按钮底色 */
-  --vp-c-brand-soft: rgba(37, 99, 235, 0.10);
-  --vp-c-brand-softer: rgba(37, 99, 235, 0.06);
+  --vp-c-bg:        #EFEBE1;   /* manila 纸 */
+  --vp-c-bg-alt:    #F7F4EC;   /* 索引卡面 */
+  --vp-c-bg-soft:   #F7F4EC;
+  --vp-c-bg-elv:    #FBF9F3;
+  --vp-c-text-1:    #23241F;   /* 墨色正文 ≈13.6:1 */
+  --vp-c-text-2:    #4A4B43;   /* 次要 ≈8.0:1 */
+  --vp-c-text-3:    #6B6C62;   /* 弱化 ≈4.7:1(达 AA) */
+  --vp-c-divider:   #D8D2C4;   /* 发丝线 */
+  --vp-c-border:    #CFC9BA;
+  --vp-c-gutter:    #D8D2C4;
 
-  /* 中性面与文字(Slate) */
-  --vp-c-bg: #ffffff;
-  --vp-c-bg-alt: #f8fafc;        /* slate-50 */
-  --vp-c-bg-soft: #f1f5f9;       /* slate-100 */
-  --vp-c-bg-elv: #ffffff;
-  --vp-c-text-1: #0f172a;        /* slate-900 强标题/正文 */
-  --vp-c-text-2: #475569;        /* slate-600 次要 */
-  --vp-c-text-3: #64748b;        /* slate-500 弱化(≈4.6:1,达 AA) */
-  --vp-c-divider: #e2e8f0;       /* slate-200 */
-  --vp-c-border: #e2e8f0;
-  --vp-c-gutter: #e2e8f0;
+  /* 强调:氧化红(链接/active/按钮) */
+  --vp-c-brand-1:   #9A3324;   /* 链接 白纸≈5.7:1 */
+  --vp-c-brand-2:   #82291C;   /* hover(更深) */
+  --vp-c-brand-3:   #9A3324;   /* 按钮底 */
+  --vp-c-brand-soft:  rgba(154, 51, 36, 0.10);
+  --vp-c-brand-softer: rgba(154, 51, 36, 0.06);
 
   /* 按钮 */
   --vp-button-brand-bg: var(--vp-c-brand-3);
   --vp-button-brand-hover-bg: var(--vp-c-brand-2);
   --vp-button-brand-active-bg: var(--vp-c-brand-2);
   --vp-button-brand-border: transparent;
-  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-text: #FBF9F3;
+  --vp-button-alt-bg: #E7E1D4;
+  --vp-button-alt-border: var(--vp-c-border);
+  --vp-button-alt-text: var(--vp-c-text-1);
+  --vp-button-alt-hover-border: var(--vp-c-text-2);
+  --vp-button-alt-hover-bg: #E0D9CA;
 
-  /* Hero:编辑式克制——纯色标题(去渐变,避免 AI tell) */
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: var(--vp-c-text-1);
+  /* Hero 标题:纯墨色(去渐变) */
+  --vp-home-hero-name-color: var(--vp-c-text-1);
+  /* 去掉默认 hero 图的模糊光斑底 */
+  --vp-home-hero-image-background-image: transparent;
+  --vp-home-hero-image-filter: none;
 
-  /* 灯箱(遮罩 + 卡片)语义 token */
-  --zoom-overlay: rgba(13, 17, 32, 0.92);
-  --zoom-card: #ffffff;
+  /* 档案语义色 */
+  --reg-mark:  #9A3324;        /* 登记十字标 */
+  --cat-tick:  #2F5048;        /* 目录刻度 / 松绿(≈6.9:1) */
+  --cred-warn: #9A3324;        /* ⚠️ 自评 = 氧化红 */
+  --cred-ok:   #2F5048;        /* 待核 = 松绿刻度 */
+
+  /* 代码块:暖羊皮纸 */
+  --vp-code-block-bg: #F2EEE4;
+
+  /* 灯箱 */
+  --zoom-overlay: rgba(35, 36, 31, 0.92);
+  --zoom-card: #FBF9F3;
 }
 
-/* ---------- 配色:深色 ---------- */
+/* ---------- 配色:深色(示波器石墨) ---------- */
 .dark {
-  --vp-c-brand-1: #93b4ff;
-  --vp-c-brand-2: #6f9bff;
-  --vp-c-brand-3: #3b6cf0;
-  --vp-c-brand-soft: rgba(96, 140, 255, 0.16);
-  --vp-c-brand-softer: rgba(96, 140, 255, 0.10);
+  --vp-c-bg:        #16181A;
+  --vp-c-bg-alt:    #1C1F21;
+  --vp-c-bg-soft:   #1C1F21;
+  --vp-c-bg-elv:    #202325;
+  --vp-c-text-1:    #DFE3DC;   /* ≈13.1:1 */
+  --vp-c-text-2:    #B2B7AE;
+  --vp-c-text-3:    #8C9189;
+  --vp-c-divider:   #2C302E;
+  --vp-c-border:    #353A37;
+  --vp-c-gutter:    #2C302E;
 
-  --vp-c-bg: #0b1120;            /* 深 slate */
-  --vp-c-bg-alt: #0f172a;
-  --vp-c-bg-soft: #131c2e;
-  --vp-c-bg-elv: #131c2e;
-  --vp-c-text-1: #e8edf5;
-  --vp-c-text-2: #aab4c5;
-  --vp-c-text-3: #8a94a6;        /* 提亮以达 AA */
-  --vp-c-divider: #1e293b;
-  --vp-c-border: #1e293b;
-  --vp-c-gutter: #1e293b;
+  --vp-c-brand-1:   #E07A5F;   /* 链接 石墨上≈6.4:1 */
+  --vp-c-brand-2:   #EC8E74;
+  --vp-c-brand-3:   #C45A43;
+  --vp-c-brand-soft:  rgba(224, 122, 95, 0.16);
+  --vp-c-brand-softer: rgba(224, 122, 95, 0.10);
 
-  --vp-home-hero-name-background: var(--vp-c-text-1);
+  --vp-button-brand-text: #16181A;
+  --vp-button-alt-bg: #24292B;
+  --vp-button-alt-border: var(--vp-c-border);
+  --vp-button-alt-text: var(--vp-c-text-1);
+  --vp-button-alt-hover-border: var(--vp-c-text-2);
+  --vp-button-alt-hover-bg: #2A2F31;
+
+  --vp-home-hero-name-color: var(--vp-c-text-1);
+
+  --reg-mark:  #E07A5F;
+  --cat-tick:  #7FA693;
+  --cred-warn: #E07A5F;
+  --cred-ok:   #7FA693;
+
+  --vp-code-block-bg: #1A1D1F;
+
+  --zoom-overlay: rgba(10, 12, 13, 0.93);
+  --zoom-card: #202325;
 }
 
-/* ---------- 全局:字体平滑 ---------- */
+/* ---------- 全局:字体平滑 + 纸张质感 ---------- */
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ---------- 排版层级(Swiss:强对比 + 紧致字距) ---------- */
+/* ============================================================
+   排版层级 —— 标题用 display(Grotesk + 文楷),正文衬线,无负字距堆叠
+   ============================================================ */
 .vp-doc h1 {
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  font-size: 2.1rem;
+  font-family: var(--vp-font-family-display);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  font-size: 2.0rem;
+  line-height: 1.2;
 }
 .vp-doc h2 {
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  margin-top: 48px;
-  padding-top: 22px;
+  font-family: var(--vp-font-family-display);
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-top: 52px;
+  padding-top: 20px;
   border-top: 1px solid var(--vp-c-divider);
+  position: relative;
+}
+/* h2 顶线左端叠一段氧化红"封缄"刻度(档案印记) */
+.vp-doc h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 30px;
+  height: 2px;
+  background: var(--vp-c-brand-1);
 }
 .vp-doc h3 {
-  font-weight: 650;
-  letter-spacing: -0.01em;
+  font-family: var(--vp-font-family-display);
+  font-weight: 600;
+  letter-spacing: 0;
   margin-top: 30px;
 }
 .vp-doc h4 {
@@ -105,7 +160,12 @@ html {
 }
 .vp-doc p,
 .vp-doc li {
-  line-height: 1.78;
+  line-height: 1.8;
+}
+/* CJK 正文密排可读性 */
+.vp-doc {
+  font-size: 16.5px;
+  letter-spacing: 0.006em;
 }
 
 /* ---------- 链接:编辑式下划线偏移 ---------- */
@@ -113,52 +173,76 @@ html {
   font-weight: 500;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
+  transition: color 0.14s ease;
 }
 
-/* ---------- 行内代码:中性而非彩色,贴近 Swiss ---------- */
+/* ---------- 行内代码:中性卡片 ---------- */
 .vp-doc :not(pre) > code {
   color: var(--vp-c-text-1);
   background-color: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 5px;
-  font-size: 0.85em;
-  padding: 0.15em 0.4em;
-}
-.vp-doc div[class*='language-'] {
-  border-radius: 10px;
-  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  font-size: 0.84em;
+  padding: 0.12em 0.4em;
+  font-variant-numeric: tabular-nums;
 }
 
-/* ---------- 表格:Swiss 细线 + 表头规则 + 等宽数字 ---------- */
+/* ---------- 代码块:暖纸框,无内辉光 ---------- */
+.vp-doc div[class*='language-'] {
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-border);
+  background: var(--vp-code-block-bg);
+}
+.vp-doc div[class*='language-'] pre,
+.vp-doc div[class*='language-'] code {
+  background: transparent !important;
+}
+/* 右上角语言标签:等宽 · 弱色(去青色辉光) */
+.vp-doc [class*='language-'] > span.lang {
+  font-family: var(--vp-font-family-mono);
+  color: var(--vp-c-text-3);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   数据表 —— 账本式(本站内容的主角)
+   双线顶/底规则 · 发丝行线 · 无竖线 · 暖斑马 · 表头氧化红下划线 · 等宽数字右对齐
+   ============================================================ */
 .vp-doc table {
   display: table;
   width: 100%;
   border-collapse: collapse;
   font-variant-numeric: tabular-nums;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
+  border-top: 2px solid var(--vp-c-text-1);
+  border-bottom: 2px solid var(--vp-c-text-1);
 }
 .vp-doc th {
   background: transparent;
   text-align: left;
-  font-weight: 650;
+  font-family: var(--vp-font-family-display);
+  font-weight: 600;
   color: var(--vp-c-text-1);
   border: none;
-  border-bottom: 2px solid var(--vp-c-text-1);
-  padding: 10px 14px;
+  border-bottom: 1.5px solid var(--vp-c-brand-1);
+  padding: 9px 14px;
+  letter-spacing: 0.01em;
 }
 .vp-doc td {
   border: none;
   border-bottom: 1px solid var(--vp-c-divider);
-  padding: 10px 14px;
+  padding: 9px 14px;
+}
+.vp-doc tbody tr:nth-child(even) {
+  background: var(--vp-c-bg-alt);
 }
 .vp-doc tr {
-  background: transparent !important;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.14s ease;
 }
 .vp-doc tbody tr:hover {
-  background: var(--vp-c-bg-soft) !important;
+  background: var(--vp-c-brand-softer) !important;
 }
-/* 窄屏:宽基准表自身可横向滚动,避免撑破页面 */
+/* 窄屏:宽表横向滚动 */
 @media (max-width: 640px) {
   .vp-doc table {
     display: block;
@@ -168,27 +252,36 @@ html {
   }
 }
 
-/* ---------- 论文框架图:极简边框 + 克制阴影 ---------- */
+/* ---------- 可信度刻度(常驻):⚠️自评=氧化红 / 待核=松绿 左边缘标记 ---------- */
+.vp-doc td.cred-warn { box-shadow: inset 2px 0 0 var(--cred-warn); }
+.vp-doc td.cred-todo { box-shadow: inset 2px 0 0 var(--cred-ok); }
+/* 透镜叠加:在常驻刻度之上再淡出(信息从不删除,只降权) */
+.vp-doc td.cred-warn,
+.vp-doc td.cred-todo { transition: opacity 0.22s ease; }
+html.lens-dim .vp-doc td.cred-warn,
+html.lens-dim .vp-doc td.cred-todo { opacity: 0.45; }
+html.lens-strict .vp-doc td.cred-warn,
+html.lens-strict .vp-doc td.cred-todo { opacity: 0.22; }
+
+/* ---------- 正文图片:极简边框 ---------- */
 .vp-doc img {
-  border-radius: 8px;
+  border-radius: 6px;
 }
 .vp-doc p > img {
   display: block;
   margin: 0.6rem auto;
   max-width: 100%;
-  height: auto;            /* 配合 width/height 属性,等比缩放 + 预留空间(防 CLS) */
-  border: 1px solid var(--vp-c-divider);
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  height: auto;
+  border: 1px solid var(--vp-c-border);
+  box-shadow: none;
 }
 
-/* ---------- Mermaid:居中 + 留白 ---------- */
+/* ---------- Mermaid:居中 + CJK 系统字体测量(防裁切) ---------- */
 .mermaid {
   display: flex;
   justify-content: center;
   margin: 1.6rem 0;
 }
-/* Mermaid 用 SVG <text> 渲染(htmlLabels:false):统一系统字体,
-   getComputedTextLength 自测量,渲染宽度==测量宽度,杜绝 CJK 裁切 */
 .mermaid text,
 .mermaid .nodeLabel,
 .mermaid .edgeLabel,
@@ -197,24 +290,21 @@ html {
   font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
     'Noto Sans SC', 'Source Han Sans SC', sans-serif !important;
 }
-/* 节点不裁切溢出(双保险) */
 .mermaid .node foreignObject,
 .mermaid .label foreignObject {
   overflow: visible;
 }
-/* 边线标签底色随主题,避免深色模式下看不清 */
 .mermaid .edgeLabel,
 .mermaid .edgeLabel rect {
   fill: var(--vp-c-bg) !important;
   background-color: var(--vp-c-bg) !important;
 }
-/* 点击放大的视觉提示 */
 .mermaid svg,
 .vp-doc p > img {
   cursor: zoom-in;
 }
 
-/* ---------- 自定义灯箱(流程图/框架图点击放大)---------- */
+/* ---------- 灯箱(流程图/框架图点击放大) ---------- */
 .zoom-lightbox {
   position: fixed;
   inset: 0;
@@ -229,10 +319,7 @@ html {
   visibility: hidden;
   transition: opacity 0.2s ease, visibility 0.2s ease;
 }
-.zoom-lightbox.is-open {
-  opacity: 1;
-  visibility: visible;
-}
+.zoom-lightbox.is-open { opacity: 1; visibility: visible; }
 .zoom-lightbox__stage {
   display: flex;
   align-items: center;
@@ -242,15 +329,12 @@ html {
 }
 .zoom-lightbox__content {
   background: var(--zoom-card);
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
   transform: scale(0.98);
   transition: transform 0.2s ease;
 }
-.zoom-lightbox.is-open .zoom-lightbox__content {
-  transform: scale(1);
-}
-/* 流程图(SVG):用视口高度驱动等比放大,viewBox 保证不失真 */
+.zoom-lightbox.is-open .zoom-lightbox__content { transform: scale(1); }
 svg.zoom-lightbox__content {
   height: 86vh;
   width: auto;
@@ -258,7 +342,6 @@ svg.zoom-lightbox__content {
   padding: 18px;
   box-sizing: border-box;
 }
-/* 框架图(img):等比放大充满视口 */
 img.zoom-lightbox__content {
   max-width: 94vw;
   max-height: 90vh;
@@ -266,50 +349,142 @@ img.zoom-lightbox__content {
   height: auto;
   padding: 0;
 }
-@media (prefers-reduced-motion: reduce) {
-  .zoom-lightbox,
-  .zoom-lightbox__content {
-    transition: none;
-  }
-}
 
-/* ---------- 引用块:左侧蓝色规则(编辑式) ---------- */
+/* ---------- 引用块:氧化红规则 + 文楷/衬线斜体(去玻璃) ---------- */
 .vp-doc blockquote {
-  border-left: 3px solid var(--vp-c-brand-3);
+  border-left: 3px solid var(--vp-c-brand-1);
   background: var(--vp-c-bg-alt);
-  border-radius: 0 8px 8px 0;
-  padding: 2px 18px;
+  border-radius: 0 6px 6px 0;
+  padding: 4px 18px;
+  font-family: var(--vp-font-family-display);
+}
+.vp-doc blockquote p { color: var(--vp-c-text-2); }
+
+/* ============================================================
+   档案 signature —— 登记十字标 ⊕ + 编号条(accession / masthead)
+   ============================================================ */
+.reg-mark {
+  display: block;
+  color: var(--reg-mark);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reg-mark { animation: regAlign 0.5s ease-out both; }
+}
+@keyframes regAlign {
+  from { transform: rotate(-90deg); opacity: 0; }
+  to   { transform: rotate(0); opacity: 1; }
 }
 
-/* ---------- 首页 Hero:更大、更紧、更克制 ---------- */
+/* 首页报头编号条(home-hero-info-before) */
+.masthead-strip {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+  margin-bottom: 16px;
+}
+.masthead-strip .reg-mark { width: 19px; height: 19px; flex: none; }
+@media (max-width: 640px) {
+  .masthead-strip { font-size: 0.68rem; letter-spacing: 0.08em; gap: 8px; }
+  .masthead-strip .reg-mark { width: 16px; height: 16px; }
+}
+
+/* 文档页档案编号行(doc-before) */
+.accession-line {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+  margin: 0 0 22px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+.accession-line .reg-mark { width: 14px; height: 14px; flex: none; }
+.accession-line__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   首页 Hero —— 左对齐报头,双发丝线,纯墨标题(无渐变/辉光/浮动)
+   ============================================================ */
 .VPHero .name {
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  font-family: var(--vp-font-family-display);
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  color: var(--vp-c-text-1);
 }
 .VPHero .text {
-  letter-spacing: -0.02em;
-  color: var(--vp-c-text-1);
+  font-family: var(--vp-font-family-display);
+  letter-spacing: 0;
+  color: var(--vp-c-text-2);
+  font-weight: 500;
 }
 .VPHero .tagline {
   color: var(--vp-c-text-2);
-  line-height: 1.6;
+  line-height: 1.65;
 }
+/* hero 图:去辉光/浮动 */
+.VPHome .VPHero .image-src,
+.VPHome .VPHero .VPImage {
+  filter: none;
+  animation: none;
+}
+/* Hero 机器人技术线稿(内联 SVG,随主题 currentColor) */
+.hero-robot-wrap { display: flex; justify-content: center; align-items: center; width: 100%; }
+.hero-robot {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  color: var(--vp-c-text-1);
+}
+.hero-robot__joint, .hero-robot__core { fill: var(--reg-mark); }
 
-/* ---------- 首页 Feature 卡片:Swiss 扁平 + 细边 + 轻微抬升 ---------- */
+/* ---------- Feature 卡片:扁平索引卡 + 缺角文件夹 + 01–04 编号 ---------- */
+.VPHome .VPFeatures .items { counter-reset: fcard; }
 .VPFeature {
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 12px;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  counter-increment: fcard;
+  position: relative;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 4px;
+  background: var(--vp-c-bg-alt);
+  box-shadow: none;
+  /* 右上缺角:文件夹标签隐喻 */
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.VPFeature::after {
+  content: counter(fcard, decimal-leading-zero);
+  position: absolute;
+  top: 16px; right: 22px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--vp-c-text-3);
+  pointer-events: none;
 }
 .VPFeature:hover {
-  transform: translateY(-3px);
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  border-color: var(--vp-c-text-2);
+  box-shadow: inset 3px 0 0 var(--vp-c-brand-1);
 }
 .VPFeature .icon {
-  background: var(--vp-c-brand-soft) !important;
-  border-radius: 10px;
+  background: transparent !important;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 4px;
 }
+.VPFeature .title { font-family: var(--vp-font-family-display); font-weight: 600; }
 
 /* ---------- 首页正文区:居中收窄 ---------- */
 .VPHome .vp-doc {
@@ -317,59 +492,62 @@ img.zoom-lightbox__content {
   margin: 0 auto;
   padding: 0 24px 72px;
 }
-
-/* ---------- 侧边栏当前项:蓝色强调 ---------- */
-.VPSidebarItem.is-active > .item .link .text {
-  color: var(--vp-c-brand-1);
-  font-weight: 600;
+/* 首页章节标题:编号目录头(去顶线,左氧化红轴) */
+.VPHome .vp-doc h2 {
+  border-top: 0;
+  margin-top: 60px;
+  padding-top: 0;
+  padding-left: 16px;
+}
+.VPHome .vp-doc h2::before {
+  top: 0.12em;
+  bottom: 0.12em;
+  left: 0;
+  width: 3px;
+  height: auto;
 }
 
-/* ---------- 滚动条:中性 ---------- */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--vp-c-divider);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--vp-c-text-3);
-}
-
-/* ---------- 首页「按技术路线浏览」卡片网格 ---------- */
+/* ============================================================
+   首页路线网格 —— 目录登记册(catalog register)
+   扁平卡 · 方角等宽规格芯片 · 规格行 · 悬停氧化红左缘(无角标/扫光/辉光)
+   ============================================================ */
 .route-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
+  gap: 14px;
   margin: 24px 0 8px;
 }
 .route-card {
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 12px;
+  position: relative;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 4px;
   padding: 20px;
   background: var(--vp-c-bg-alt);
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
 }
 .route-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  border-color: var(--vp-c-text-2);
+  box-shadow: inset 3px 0 0 var(--vp-c-brand-1);
 }
 .route-tag {
   display: inline-block;
-  font-size: 12px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 11.5px;
   font-weight: 600;
+  letter-spacing: 0.03em;
   color: var(--vp-c-brand-1);
-  background: var(--vp-c-brand-soft);
-  padding: 3px 10px;
-  border-radius: 999px;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 45%, transparent);
+  padding: 2px 8px;
+  border-radius: 3px;
 }
+.route-tag::before { content: '▸ '; opacity: 0.75; }
 .route-card__title {
+  font-family: var(--vp-font-family-display);
   margin: 12px 0 6px;
   font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: 0;
   color: var(--vp-c-text-1);
 }
 .route-card p {
@@ -378,255 +556,72 @@ img.zoom-lightbox__content {
   line-height: 1.6;
   margin: 0 0 14px;
 }
-.route-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+.route-links { display: flex; flex-wrap: wrap; gap: 7px; }
 .route-links a {
   display: inline-flex;
   align-items: center;
-  font-size: 0.82rem;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.78rem;
   font-weight: 500;
-  padding: 7px 12px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 7px;
+  padding: 6px 11px;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 4px;
   color: var(--vp-c-text-1);
   text-decoration: none;
-  transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+  transition: border-color 0.16s ease, color 0.16s ease, background-color 0.16s ease;
 }
-/* 触摸设备:满足 ≥44px 触控目标 */
-@media (pointer: coarse) {
-  .route-links a {
-    min-height: 44px;
-    padding: 10px 14px;
-  }
-}
+.route-links a::before { content: '› '; color: var(--vp-c-brand-1); font-weight: 700; }
 .route-links a:hover {
   border-color: var(--vp-c-brand-1);
   color: var(--vp-c-brand-1);
   background: var(--vp-c-brand-softer);
 }
-
-/* ---------- 「本系列」页脚导航(细读/专题页底部跨页入口) ---------- */
-.series-footer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 10px;
-  margin: 40px 0 8px;
-  padding-top: 20px;
-  border-top: 1px solid var(--vp-c-divider);
-}
-.series-footer__label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--vp-c-text-3);
-  text-transform: uppercase;
-  margin-right: 2px;
-}
-.series-footer__link {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.84rem;
-  font-weight: 500;
-  padding: 6px 12px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 999px;
-  color: var(--vp-c-text-2);
-  text-decoration: none;
-  transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
-}
-.series-footer__link:hover {
-  border-color: var(--vp-c-brand-1);
-  color: var(--vp-c-brand-1);
-  background: var(--vp-c-brand-softer);
-}
 @media (pointer: coarse) {
-  .series-footer__link {
-    min-height: 40px;
-    padding: 9px 14px;
-  }
-}
-
-/* ---------- 专注阅读切换按钮(导航栏)---------- */
-.zen-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 34px;
-  padding: 0 12px;
-  margin-left: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--vp-c-text-2);
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
-}
-.zen-toggle:hover {
-  color: var(--vp-c-brand-1);
-  border-color: var(--vp-c-brand-1);
-}
-.zen-toggle.is-on {
-  color: var(--vp-c-brand-1);
-  border-color: var(--vp-c-brand-1);
-  background: var(--vp-c-brand-soft);
-}
-.zen-toggle__icon {
-  display: inline-flex;
-}
-@media (max-width: 768px) {
-  .zen-toggle__label { display: none; }
-  .zen-toggle { padding: 0 9px; }
-}
-
-/* ---------- 专注阅读:收起左右两侧 + 加宽正文 ---------- */
-.zen-reading .VPSidebar { display: none !important; }
-.zen-reading .VPContent.has-sidebar { padding-left: 0 !important; }
-/* 收起右侧目录:必须隐藏外层 .aside flex 容器(只隐藏内层 .VPDocAside 会残留约 320px 占位),
-   否则 content-container 被挤到 1000px、右侧大片留白 */
-.zen-reading .VPDoc .aside { display: none !important; }
-.zen-reading .VPDocAside { display: none !important; }
-/* 收起两侧后让正文填满更宽的容器,避免左右大片留白(仍封顶以保证可读性) */
-.zen-reading .VPDoc .container { max-width: 1320px !important; }
-.zen-reading .VPDoc .content-container {
-  max-width: 100% !important;
-  width: 100% !important;
-}
-.zen-reading .VPDoc .content { max-width: 100% !important; margin: 0 auto; }
-/* 隐藏侧栏后,导航栏左侧的残留分隔线/占位收一下 */
-.zen-reading .VPNavBar.has-sidebar .title { border-bottom-color: transparent; }
-
-/* ---------- 尊重 reduced-motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .VPFeature,
-  .route-card,
-  .route-links a,
-  .series-footer__link,
-  .vp-doc tr {
-    transition: none;
-  }
-  .VPFeature:hover,
-  .route-card:hover {
-    transform: none;
-  }
+  .route-links a { min-height: 44px; padding: 10px 13px; }
 }
 
 /* ============================================================
-   首页科技感增强(仅作用于 .VPHome,文档页保持极简可读)
-   网格 + 多色辉光背景 · 渐变辉光标题 · 玻璃拟态卡片
+   全站框架 —— 顶栏 / 标题 / 侧边栏(实色纸面,无玻璃/渐变/辉光)
    ============================================================ */
-:root {
-  --tech-grid: rgba(15, 23, 42, 0.05);
-  --tech-feature-bg: rgba(248, 250, 252, 0.62);
-  --tech-card-bg: rgba(255, 255, 255, 0.55);
+/* 选区:氧化红淡底 */
+::selection { background: rgba(154, 51, 36, 0.18); }
+.dark ::selection { background: rgba(224, 122, 95, 0.26); }
+
+/* 顶栏:实色纸面 + 普通发丝分隔线 */
+.VPNavBar {
+  background-color: var(--vp-c-bg) !important;
 }
-.dark {
-  --tech-grid: rgba(148, 163, 184, 0.09);
-  --tech-feature-bg: rgba(19, 28, 46, 0.5);
-  --tech-card-bg: rgba(19, 28, 46, 0.42);
+.VPNavBar.has-sidebar .title,
+.VPNavBar.has-sidebar .content {
+  background-color: var(--vp-c-bg) !important;
+}
+.VPNavBarTitle .text {
+  font-family: var(--vp-font-family-display);
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  letter-spacing: 0;
 }
 
-.VPHome { position: relative; overflow: hidden; }
-
-/* 背景层①:科技网格,radial 渐隐(只在顶部/英雄区显眼) */
-.VPHome::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right, var(--tech-grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--tech-grid) 1px, transparent 1px);
-  background-size: 44px 44px;
-  -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 38%, transparent 78%);
-  mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 38%, transparent 78%);
+/* 侧边栏:分组标题 display 大写 + §NN 目录刻度;active 氧化红实条 */
+.VPSidebarItem.level-0 > .item .text {
+  font-family: var(--vp-font-family-display);
+}
+.VPSidebar .group { counter-reset: catsec; }
+.VPSidebarItem.level-0 { counter-increment: catsec; }
+.VPSidebarItem.level-0 > .item > .indicator { display: none; }
+.VPSidebarItem.is-active > .item .link .text {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+}
+.VPSidebarItem.is-active > .item .indicator {
+  background: var(--vp-c-brand-1) !important;
+  box-shadow: none;
 }
 
-/* 背景层②:三色辉光极光,缓慢漂移 */
-.VPHome::after {
-  content: '';
-  position: absolute;
-  top: -160px;
-  left: 50%;
-  width: min(1000px, 96vw);
-  height: 560px;
-  transform: translateX(-50%);
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 28% 42%, rgba(37, 99, 235, 0.28), transparent 58%),
-    radial-gradient(circle at 72% 48%, rgba(34, 211, 238, 0.20), transparent 58%),
-    radial-gradient(circle at 52% 72%, rgba(139, 92, 246, 0.20), transparent 60%);
-  filter: blur(46px);
-  opacity: 0.9;
-  animation: techDrift 18s ease-in-out infinite alternate;
-}
-@keyframes techDrift {
-  from { transform: translateX(-53%) translateY(-6px); }
-  to   { transform: translateX(-47%) translateY(18px); }
-}
-
-/* 内容浮于背景之上 */
-.VPHome .VPHero,
-.VPHome .VPFeatures,
-.VPHome .vp-doc { position: relative; z-index: 1; }
-
-/* Hero 标题:蓝→青→紫 渐变辉光字(仅首页) */
-.VPHome .VPHero .name.clip {
-  background: linear-gradient(100deg, #2563eb 0%, #22d3ee 46%, #8b5cf6 92%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.dark .VPHome .VPHero .name.clip {
-  filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.38));
-}
-.VPHome .VPHero .text { letter-spacing: -0.02em; }
-
-/* Feature 卡:玻璃拟态 + 辉光描边 */
-.VPHome .VPFeature {
-  background: var(--tech-feature-bg);
-  backdrop-filter: blur(10px) saturate(1.2);
-  -webkit-backdrop-filter: blur(10px) saturate(1.2);
-}
-.VPHome .VPFeature:hover {
-  border-color: transparent;
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.55), 0 14px 44px rgba(37, 99, 235, 0.20);
-}
-
-/* 路线卡:玻璃 + 顶部三色渐变线 + mono 标签 */
-.VPHome .route-card {
-  position: relative;
-  overflow: hidden;
-  background: var(--tech-card-bg);
-  backdrop-filter: blur(10px) saturate(1.2);
-  -webkit-backdrop-filter: blur(10px) saturate(1.2);
-}
-.VPHome .route-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
-  opacity: 0.75;
-}
-.VPHome .route-card:hover {
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 14px 44px rgba(37, 99, 235, 0.18);
-}
-.VPHome .route-tag {
-  font-family: var(--vp-font-family-mono);
-  letter-spacing: 0.02em;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .VPHome::after { animation: none; }
-}
+/* 滚动条:中性 */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--vp-c-divider); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: var(--vp-c-text-3); }
 
 /* ---------- 机器人本体页:形态线稿图标(浮右,无边框) ---------- */
 .vp-doc img.robot-form-icon {
@@ -642,128 +637,13 @@ img.zoom-lightbox__content {
   .vp-doc img.robot-form-icon { width: 84px; margin: 0 4px 8px 14px; }
 }
 
-/* ---------- 首页 Hero 机器人插画:辉光 + 轻浮动 ---------- */
-.VPHome .VPHero .image-src,
-.VPHome .VPHero .VPImage {
-  filter: drop-shadow(0 0 34px rgba(56, 189, 248, 0.28));
-  animation: heroFloat 6s ease-in-out infinite;
-}
-@keyframes heroFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .VPHome .VPHero .image-src,
-  .VPHome .VPHero .VPImage { animation: none; }
-}
-
 /* ============================================================
-   全站科技感增强(框架层:顶栏/标题/代码/表格/侧边栏/选区)
-   原则:科技感集中在"框架与强调",正文文字保持高对比可读;
-   纯装饰用渐变/辉光,不改 body 文字颜色;不引入新的持续动画。
+   交互功能层 —— 专注 / 透镜 / 相关细读 / 阅读进度 / 系列页脚
+   全部 retoken 到 纸/墨/氧化红/松绿,去渐变与霓虹
    ============================================================ */
 
-/* 选区高亮:青色科技调 */
-::selection { background: rgba(34, 211, 238, 0.26); }
-.dark ::selection { background: rgba(34, 211, 238, 0.34); }
-
-/* ---------- 顶栏:玻璃化 + 底部三色渐变发丝线(全站统一 HUD 框) ---------- */
-.VPNavBar {
-  position: relative;
-  backdrop-filter: blur(12px) saturate(1.3);
-  -webkit-backdrop-filter: blur(12px) saturate(1.3);
-  background-color: rgba(255, 255, 255, 0.72) !important;
-}
-.dark .VPNavBar {
-  background-color: rgba(15, 23, 42, 0.62) !important;
-}
-/* 有侧栏时顶栏被拆成 .title/.content 两块,各自背景透明以露出统一玻璃层 */
-.VPNavBar.has-sidebar .title,
-.VPNavBar.has-sidebar .content {
-  background-color: transparent !important;
-}
-/* 默认灰色分隔线收掉,改用渐变发丝 */
-.VPNavBar .divider,
-.VPNavBar.has-sidebar .content .curtain { display: none; }
-.VPNavBar::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 1px;
-  pointer-events: none;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(37, 99, 235, 0.45) 22%,
-    rgba(34, 211, 238, 0.6) 50%,
-    rgba(139, 92, 246, 0.45) 78%,
-    transparent 100%);
-  opacity: 0.85;
-}
-
-/* ---------- 文档页 H2:在分节灰线左端叠一段渐变"标签",科技分节感 ---------- */
-.vp-doc h2 { position: relative; }
-.vp-doc h2::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: -1px;
-  width: 52px;
-  height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee);
-  border-radius: 2px;
-}
-
-/* ---------- 代码块:科技描边 + 极淡内辉光(终端感),正文代码色不动 ---------- */
-.vp-doc div[class*='language-'] {
-  border: 1px solid var(--vp-c-divider);
-  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.05);
-}
-.dark .vp-doc div[class*='language-'] {
-  border-color: rgba(56, 189, 248, 0.16);
-  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.08), 0 0 26px rgba(37, 99, 235, 0.07);
-}
-/* 代码块右上角语言标签:等宽 + 青色调 */
-.vp-doc [class*='language-'] > span.lang {
-  font-family: var(--vp-font-family-mono);
-  color: rgba(34, 211, 238, 0.85);
-  letter-spacing: 0.04em;
-}
-
-/* ---------- 表格表头:极淡渐变托底,数据网格感(正文单元格不动) ---------- */
-.vp-doc th {
-  background: linear-gradient(180deg, var(--vp-c-bg-soft), transparent);
-}
-
-/* ---------- 侧边栏当前项:渐变指示条(替代纯色) ---------- */
-.VPSidebarItem.is-active > .item .indicator {
-  background: linear-gradient(180deg, #2563eb, #22d3ee) !important;
-  box-shadow: 0 0 8px rgba(34, 211, 238, 0.4);
-}
-
-/* ---------- 顶栏 logo 标题:轻微渐变(克制,保证可读)---------- */
-.VPNavBarTitle .text {
-  background: linear-gradient(100deg, var(--vp-c-text-1) 30%, #2563eb 70%, #22d3ee 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.dark .VPNavBarTitle .text {
-  background: linear-gradient(100deg, var(--vp-c-text-1) 25%, #38bdf8 75%, #22d3ee 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* 上述增强均为静态装饰,无新增动画;reduced-motion 无需额外处理。
-   玻璃顶栏在不支持 backdrop-filter 的浏览器回退为半透明纯色,文字对比仍达标。 */
-
-/* ===================================================================
-   交互功能层(地基:models-spec 解析器 + 4 个快赢)
-   可信度透镜 / 透镜横幅 / 相关细读 / 阅读进度
-   设计约束:不改正文文字色与对比;暗化用 opacity(不删除信息);reduced-motion 安全。
-   =================================================================== */
-
-/* ---------- 可信度透镜:导航栏开关(沿用 .zen-toggle 视觉)---------- */
+/* —— 专注 + 透镜 切换按钮(导航栏) —— */
+.zen-toggle,
 .lens-toggle {
   display: inline-flex;
   align-items: center;
@@ -773,37 +653,42 @@ img.zoom-lightbox__content {
   margin-left: 8px;
   font-size: 13px;
   font-weight: 600;
+  font-family: var(--vp-font-family-display);
   color: var(--vp-c-text-2);
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
+  background: var(--vp-c-bg-alt);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 5px;
   cursor: pointer;
-  transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+  transition: color 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
 }
-.lens-toggle:hover {
-  color: var(--vp-c-brand-1);
-  border-color: var(--vp-c-brand-1);
-}
+.zen-toggle:hover,
+.lens-toggle:hover { color: var(--vp-c-brand-1); border-color: var(--vp-c-brand-1); }
+.zen-toggle.is-on,
 .lens-toggle.is-on {
   color: var(--vp-c-brand-1);
   border-color: var(--vp-c-brand-1);
   background: var(--vp-c-brand-soft);
 }
+.zen-toggle__icon,
 .lens-toggle__icon { display: inline-flex; }
 @media (max-width: 768px) {
+  .zen-toggle__label,
   .lens-toggle__label { display: none; }
+  .zen-toggle { padding: 0 9px; }
   .lens-toggle { padding: 0 9px; margin-left: 6px; }
 }
 
-/* ---------- 可信度透镜:暗化已标记单元格(td.cred-warn=⚠️自评 / td.cred-todo=待核)---------- */
-.vp-doc td.cred-warn,
-.vp-doc td.cred-todo { transition: opacity 0.22s ease; }
-html.lens-dim .vp-doc td.cred-warn,
-html.lens-dim .vp-doc td.cred-todo { opacity: 0.42; }
-html.lens-strict .vp-doc td.cred-warn,
-html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
+/* —— 专注阅读:收起左右两侧 + 加宽正文 —— */
+.zen-reading .VPSidebar { display: none !important; }
+.zen-reading .VPContent.has-sidebar { padding-left: 0 !important; }
+.zen-reading .VPDoc .aside { display: none !important; }
+.zen-reading .VPDocAside { display: none !important; }
+.zen-reading .VPDoc .container { max-width: 1320px !important; }
+.zen-reading .VPDoc .content-container { max-width: 100% !important; width: 100% !important; }
+.zen-reading .VPDoc .content { max-width: 100% !important; margin: 0 auto; }
+.zen-reading .VPNavBar.has-sidebar .title { border-bottom-color: transparent; }
 
-/* ---------- 透镜横幅(doc-before:提示本页被暗化的格子数)---------- */
+/* —— 透镜横幅(doc-before) —— */
 .lens-banner {
   display: flex;
   align-items: center;
@@ -813,30 +698,30 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   font-size: 0.84rem;
   line-height: 1.5;
   color: var(--vp-c-text-2);
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-left: 3px solid #22d3ee;
-  border-radius: 8px;
+  background: var(--vp-c-bg-alt);
+  border: 1px solid var(--vp-c-border);
+  border-left: 3px solid var(--vp-c-brand-1);
+  border-radius: 5px;
 }
 .lens-banner__dot {
   flex: none;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2563eb, #22d3ee);
-  box-shadow: 0 0 6px rgba(34, 211, 238, 0.6);
+  background: var(--vp-c-brand-1);
 }
 
-/* ---------- 相关细读(doc-after:确定性兄弟模型 + 可解释 chip)---------- */
+/* —— 相关细读(doc-after) —— */
 .related-reads {
   margin: 40px 0 4px;
   padding-top: 20px;
   border-top: 1px solid var(--vp-c-divider);
 }
 .related-reads__title {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--vp-c-text-3);
   margin-bottom: 12px;
@@ -860,24 +745,22 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .related-reads__link:hover { text-decoration: underline; }
 .related-reads__chips { display: inline-flex; flex-wrap: wrap; gap: 6px; }
 .rr-chip {
-  font-size: 0.7rem;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.68rem;
   font-weight: 500;
   line-height: 1;
   padding: 4px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--vp-c-divider);
+  border-radius: 3px;
+  border: 1px solid var(--vp-c-border);
   color: var(--vp-c-text-2);
   background: var(--vp-c-bg-soft);
   white-space: nowrap;
 }
-.rr-chip--org { border-color: rgba(37, 99, 235, 0.4); color: #2563eb; }
-.rr-chip--backbone { border-color: rgba(124, 58, 237, 0.4); color: #7c3aed; }
-.rr-chip--route { border-color: rgba(13, 148, 136, 0.4); color: #0d9488; }
-.dark .rr-chip--org { color: #93b4ff; }
-.dark .rr-chip--backbone { color: #c4b5fd; }
-.dark .rr-chip--route { color: #5eead4; }
+.rr-chip--org { border-color: color-mix(in srgb, var(--vp-c-brand-1) 40%, transparent); color: var(--vp-c-brand-1); }
+.rr-chip--backbone { border-color: var(--vp-c-text-3); color: var(--vp-c-text-2); }
+.rr-chip--route { border-color: color-mix(in srgb, var(--cat-tick) 50%, transparent); color: var(--cat-tick); }
 
-/* ---------- 阅读进度(doc-after:已读标记 + 全站进度条)---------- */
+/* —— 阅读进度(doc-after) —— */
 .read-progress {
   display: flex;
   flex-wrap: wrap;
@@ -886,39 +769,39 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   margin: 28px 0 4px;
 }
 .read-progress__btn {
+  font-family: var(--vp-font-family-display);
   font-size: 0.82rem;
   font-weight: 600;
   padding: 7px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  border: 1px solid var(--vp-c-border);
   color: var(--vp-c-text-2);
-  background: var(--vp-c-bg-soft);
+  background: var(--vp-c-bg-alt);
   cursor: pointer;
-  transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+  transition: color 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
 }
 .read-progress__btn:hover { color: var(--vp-c-brand-1); border-color: var(--vp-c-brand-1); }
 .read-progress__btn.is-read {
-  color: #0d9488;
-  border-color: rgba(13, 148, 136, 0.5);
-  background: rgba(13, 148, 136, 0.08);
+  color: var(--cat-tick);
+  border-color: color-mix(in srgb, var(--cat-tick) 55%, transparent);
+  background: color-mix(in srgb, var(--cat-tick) 10%, transparent);
 }
-.dark .read-progress__btn.is-read { color: #5eead4; }
 .read-progress__meter {
   flex: 1 1 120px;
   max-width: 220px;
   height: 6px;
-  border-radius: 999px;
+  border-radius: 3px;
   background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vp-c-border);
   overflow: hidden;
 }
 .read-progress__bar {
   height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee);
+  background: var(--vp-c-brand-1);
   transition: width 0.3s ease;
 }
 .read-progress__count {
+  font-family: var(--vp-font-family-mono);
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--vp-c-text-3);
@@ -928,280 +811,63 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .read-progress__btn { min-height: 40px; }
 }
 
-/* reduced-motion:关掉本层所有过渡(透镜暗化 / 进度条 / 按钮) */
+/* —— 本系列页脚(doc-after) —— */
+.series-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 40px 0 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+.series-footer__label {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--vp-c-text-3);
+  text-transform: uppercase;
+  margin-right: 2px;
+}
+.series-footer__link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.84rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 4px;
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+  transition: border-color 0.16s ease, color 0.16s ease, background-color 0.16s ease;
+}
+.series-footer__link:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-softer);
+}
+@media (pointer: coarse) {
+  .series-footer__link { min-height: 40px; padding: 9px 14px; }
+}
+
+/* ============================================================
+   动作 —— 机械、最少、确认结构而非装饰;reduced-motion 全关
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
+  .reg-mark { animation: none; }
+  .zoom-lightbox,
+  .zoom-lightbox__content,
+  .vp-doc tr,
+  .vp-doc a,
   .vp-doc td.cred-warn,
   .vp-doc td.cred-todo,
+  .VPFeature,
+  .route-card,
+  .route-links a,
+  .series-footer__link,
   .read-progress__bar,
   .read-progress__btn,
+  .zen-toggle,
   .lens-toggle { transition: none !important; }
-}
-
-/* ============================================================
-   首页:机器人研究控制台 / 技术蓝图层(robotics console · blueprint)
-   方向:把首页从"通用玻璃 + 渐变"提升为"研究仪表盘"——
-   角标刻度框、等宽数据标签、01–04 序号、› 规格行、HUD 眉标。
-   仅作用 .VPHome;文档页与可读性不受影响;无新增动画(reduced-motion 安全)。
-   ============================================================ */
-:root {
-  --bp-tick: rgba(37, 99, 235, 0.55);   /* 角标刻度色(浅色) */
-  --bp-ink: rgba(15, 23, 42, 0.5);      /* 序号/眉标弱色 */
-}
-.dark {
-  --bp-tick: rgba(56, 189, 248, 0.6);
-  --bp-ink: rgba(148, 163, 184, 0.6);
-}
-
-/* —— Hero:HUD 眉标(等宽 · 字距拉开)—— */
-.VPHome .VPHero .main { position: relative; }
-.VPHome .VPHero .main::before {
-  content: '// EMBODIED-AI · VLA × WAM · 2022–2026';
-  display: block;
-  font-family: var(--vp-font-family-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  line-height: 1;
-  margin-bottom: 18px;
-  color: var(--vp-c-brand-1);
-  opacity: 0.9;
-}
-@media (max-width: 640px) {
-  .VPHome .VPHero .main::before { font-size: 10.5px; letter-spacing: 0.1em; margin-bottom: 12px; }
-}
-
-/* —— 路线卡 → 仪表盘面板:四角刻度框 + 序号(原三色顶条改为悬停扫光,见末尾炫酷层)—— */
-.VPHome .route-grid { counter-reset: rcard; }
-.VPHome .route-card {
-  counter-increment: rcard;
-  border-radius: 8px;
-  /* 四角 L 形刻度(8 段线性渐变;不覆盖既有半透明玻璃底色)*/
-  background-image:
-    linear-gradient(var(--bp-tick), var(--bp-tick)), linear-gradient(var(--bp-tick), var(--bp-tick)),
-    linear-gradient(var(--bp-tick), var(--bp-tick)), linear-gradient(var(--bp-tick), var(--bp-tick)),
-    linear-gradient(var(--bp-tick), var(--bp-tick)), linear-gradient(var(--bp-tick), var(--bp-tick)),
-    linear-gradient(var(--bp-tick), var(--bp-tick)), linear-gradient(var(--bp-tick), var(--bp-tick));
-  background-repeat: no-repeat;
-  background-position:
-    0 0, 0 0,            /* 左上:横 + 竖 */
-    100% 0, 100% 0,      /* 右上 */
-    0 100%, 0 100%,      /* 左下 */
-    100% 100%, 100% 100%;/* 右下 */
-  background-size:
-    14px 1.5px, 1.5px 14px,
-    14px 1.5px, 1.5px 14px,
-    14px 1.5px, 1.5px 14px,
-    14px 1.5px, 1.5px 14px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-size 0.2s ease;
-}
-.VPHome .route-card::after {
-  content: counter(rcard, decimal-leading-zero);
-  position: absolute;
-  top: 16px; right: 18px;
-  font-family: var(--vp-font-family-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--bp-ink);
-}
-.VPHome .route-card:hover {
-  background-size:
-    22px 1.5px, 1.5px 22px,
-    22px 1.5px, 1.5px 22px,
-    22px 1.5px, 1.5px 22px,
-    22px 1.5px, 1.5px 22px;   /* 悬停时角标"张开" */
-}
-
-/* —— 路线标签 → 等宽规格芯片(▸ 前缀 · 方角)—— */
-.VPHome .route-tag {
-  border-radius: 4px;
-  background: transparent;
-  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 45%, transparent);
-  color: var(--vp-c-brand-1);
-  padding: 3px 9px;
-}
-.VPHome .route-tag::before { content: '▸ '; opacity: 0.8; }
-
-/* —— 路线链接 → 等宽"规格行"(› 前缀 · 方角)—— */
-.VPHome .route-links a {
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.78rem;
-  border-radius: 5px;
-}
-.VPHome .route-links a::before {
-  content: '› ';
-  color: var(--vp-c-brand-1);
-  font-weight: 700;
-}
-
-/* —— Feature 卡:加 01–04 序号(等宽),与路线卡同语言 —— */
-.VPHome .VPFeatures .items { counter-reset: fcard; }
-.VPHome .VPFeature {
-  counter-increment: fcard;
-  position: relative;
-}
-.VPHome .VPFeature::after {
-  content: counter(fcard, decimal-leading-zero);
-  position: absolute;
-  top: 20px; right: 22px;
-  font-family: var(--vp-font-family-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--bp-ink);
-  pointer-events: none;
-}
-
-/* ============================================================
-   首页:炫酷层(neon · 流光 · 扫光)—— 在蓝图层之上再加一档
-   暗色更突出霓虹;所有动画 reduced-motion 下关闭。仅 .VPHome。
-   ============================================================ */
-
-/* —— Hero 标题:流动渐变 + 更强霓虹辉光 —— */
-.VPHome .VPHero .name.clip {
-  background-size: 220% auto;
-  animation: bpTitleFlow 9s ease-in-out infinite;
-}
-@keyframes bpTitleFlow {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-.dark .VPHome .VPHero .name.clip {
-  filter: drop-shadow(0 0 26px rgba(56, 189, 248, 0.5));
-}
-
-/* —— Hero 眉标:闪烁的状态指示点(占位 16px,点落在文字前的空档,不会溢出)—— */
-.VPHome .VPHero .main::before { position: relative; padding-left: 16px; }
-.VPHome .VPHero .main::after {
-  content: '';
-  position: absolute;
-  top: 5px; left: 1px;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #22d3ee;
-  box-shadow: 0 0 8px #22d3ee;
-  animation: bpBlink 1.8s steps(1, end) infinite;
-}
-@keyframes bpBlink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.15; } }
-
-/* —— 背景网格:极缓慢漂移(活的蓝图)—— */
-@media (prefers-reduced-motion: no-preference) {
-  .VPHome::before { animation: bpGridPan 40s linear infinite; }
-}
-@keyframes bpGridPan {
-  from { background-position: 0 0, 0 0; }
-  to   { background-position: 44px 44px, 44px 44px; }
-}
-
-/* —— 路线卡:悬停斜向扫光(重启 ::before 作流光层)—— */
-.VPHome .route-card::before {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0; left: -65%; right: auto;
-  width: 45%; height: auto;
-  background: linear-gradient(105deg, transparent 0%, rgba(56, 189, 248, 0.16) 50%, transparent 100%);
-  transform: skewX(-16deg);
-  transition: left 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 1;
-}
-.VPHome .route-card:hover::before { left: 130%; }
-.dark .VPHome .route-card::before { background: linear-gradient(105deg, transparent 0%, rgba(56, 189, 248, 0.26) 50%, transparent 100%); }
-
-/* 暗色:路线卡悬停霓虹环 + 角标变亮 */
-.dark .VPHome .route-card:hover {
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7), 0 0 30px rgba(56, 189, 248, 0.28), 0 16px 48px rgba(37, 99, 235, 0.28);
-}
-
-/* —— 规格行链接:悬停霓虹 —— */
-.VPHome .route-links a:hover {
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 0 14px rgba(56, 189, 248, 0.28);
-}
-.dark .VPHome .route-links a:hover {
-  background: rgba(56, 189, 248, 0.12);
-  color: #67e8f9;
-  border-color: rgba(56, 189, 248, 0.7);
-}
-
-/* —— 标签芯片:暗色霓虹描边辉光 —— */
-.dark .VPHome .route-tag { box-shadow: 0 0 12px rgba(56, 189, 248, 0.2); }
-
-/* —— Feature 卡:暗色悬停霓虹 —— */
-.dark .VPHome .VPFeature:hover {
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6), 0 0 26px rgba(56, 189, 248, 0.22), 0 16px 48px rgba(37, 99, 235, 0.24);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .VPHome .VPHero .name.clip { animation: none; }
-  .VPHome .VPHero .main::after { animation: none; }
-  .VPHome .route-card::before { transition: none; }
-}
-
-/* ============================================================
-   首页:精修层(章节头 · 收尾卡 · 入场错峰)v3 polish
-   方向:把仍是"裸默认"的三处(分节标题 / 关于本站引述 / 首屏无入场)
-   补齐到与控制台/蓝图同语言;只作用 .VPHome,文档页与可读性不受影响。
-   动画统一 spring 缓动 + reduced-motion 关闭。
-   ============================================================ */
-
-/* —— ① 首页章节标题 → 控制台分节头:去顶部灰线,改左侧竖向渐变轴 —— */
-.VPHome .vp-doc h2 {
-  border-top: 0;
-  margin-top: 60px;
-  padding-top: 0;
-  padding-left: 18px;
-  font-size: 1.55rem;
-  letter-spacing: -0.012em;
-}
-.VPHome .vp-doc h2::after {
-  /* 覆写全站 h2 的"顶部横刻度":首页改为贴左的竖向渐变轴,呼应卡片角标语言 */
-  top: 0.12em;
-  bottom: 0.12em;
-  left: 0;
-  width: 4px;
-  height: auto;
-  background: linear-gradient(180deg, #2563eb 0%, #22d3ee 58%, #8b5cf6 100%);
-  border-radius: 4px;
-}
-.dark .VPHome .vp-doc h2::after {
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
-}
-
-/* —— ② 关于本站引述 → 玻璃信息卡(替代裸左边框 blockquote)—— */
-.VPHome .vp-doc blockquote {
-  position: relative;
-  margin-top: 18px;
-  padding: 15px 18px 15px 20px;
-  border: 1px solid var(--vp-c-divider);
-  border-left: 3px solid #22d3ee;
-  border-radius: 10px;
-  background: var(--tech-card-bg);
-  backdrop-filter: blur(8px) saturate(1.15);
-  -webkit-backdrop-filter: blur(8px) saturate(1.15);
-}
-.VPHome .vp-doc blockquote p { color: var(--vp-c-text-2); }
-.dark .VPHome .vp-doc blockquote {
-  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.06), 0 0 24px rgba(37, 99, 235, 0.08);
-}
-
-/* —— ③ 首屏入场:Feature 卡 + 路线卡错峰升起(spring 缓动)—— */
-@media (prefers-reduced-motion: no-preference) {
-  .VPHome .VPFeature,
-  .VPHome .route-grid .route-card {
-    /* backwards:延迟期显示 from 态,结束后交还元素自身样式 —— 不会压制 hover 的 transform */
-    animation: bpRise 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-  }
-  .VPHome .VPFeatures .item:nth-child(1) .VPFeature { animation-delay: 0.04s; }
-  .VPHome .VPFeatures .item:nth-child(2) .VPFeature { animation-delay: 0.10s; }
-  .VPHome .VPFeatures .item:nth-child(3) .VPFeature { animation-delay: 0.16s; }
-  .VPHome .VPFeatures .item:nth-child(4) .VPFeature { animation-delay: 0.22s; }
-  .VPHome .route-grid .route-card:nth-child(1) { animation-delay: 0.06s; }
-  .VPHome .route-grid .route-card:nth-child(2) { animation-delay: 0.12s; }
-  .VPHome .route-grid .route-card:nth-child(3) { animation-delay: 0.18s; }
-  .VPHome .route-grid .route-card:nth-child(4) { animation-delay: 0.24s; }
-}
-@keyframes bpRise {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
