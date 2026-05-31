@@ -18,25 +18,25 @@ hero:
 
 features:
   - icon: { src: /icons/route.svg, width: 28, height: 28 }
-    title: 发展主线
-    details: 五阶段演进 + 四条暗线 + Mermaid 流程图,梳理 VLA 如何从"动作即文本 token"一路走到"从经验中强化学习"。
-    link: /vla/#一范式演进与奠基
-    linkText: 查看主线
+    title: 两条主线 · VLA × WAM
+    details: 一轨梳理 VLA(视觉-语言-动作)从 RT-1 到 π0.7 的发展脉络,一轨追踪 WAM(世界-行动模型)联合预测「未来状态 + 动作」的最新前沿。
+    link: /vla/
+    linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
-    title: 24 篇论文细读
-    details: 奠基与两条路线 + 2025H2–2026 前沿 + 更多代表模型三组共 24 篇,从 RT-1 到 π0.7 逐模块拆解(架构 / 数据 / 实验 / 局限)。
-    link: /vla/papers/rt1
-    linkText: 从 RT-1 开始
+    title: 逐篇论文细读
+    details: VLA 24 篇 + WAM 13 篇,每篇配官方框架图,逐模块拆解架构 / 数据 / 实验 / 局限,并附关键数据表。
+    link: /vla/#-论文细读导航
+    linkText: 进入细读导航
+  - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
+    title: 对抗式事实核查
+    details: 所有结论经 deep-research 工作流(多源检索 + 3 票对抗核查)整理;⚠️ 自评 / ✅ 已核 / 待核 三级标记,绝不把厂商自评洗成裸事实。
+    link: /vla/guide
+    linkText: 看可信度体例
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
-    title: 基准横评硬数据
-    details: SimplerEnv / LIBERO / CALVIN / RoboCasa 四大基准逐模型成绩表,标注口径与可信度,含 RoboCasa 排行榜与数据来源专题。
+    title: 基准硬数据 + 速查
+    details: SimplerEnv / LIBERO / CALVIN / RoboCasa 四大基准逐模型成绩表,标注口径与可信度;另备术语表 / 时间线 / 参考文献速查。
     link: /vla/papers/benchmarks
-    linkText: 看数据集与基准
-  - icon: { src: /icons/globe.svg, width: 28, height: 28 }
-    title: WAM 世界-行动模型(新轨)
-    details: 2025–2026 前沿范式——联合预测「未来状态+动作」。综述 taxonomy(级联 vs 联合)+ DreamZero / X-WAM / UWM / Genie Envisioner / GR00T N2 五篇细读。
-    link: /wam/
-    linkText: 进入 WAM 调研
+    linkText: 看数据与速查
 ---
 
 ## VLA:按技术路线浏览
