@@ -8,6 +8,11 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 
 ## 2026-05-31
 
+**WAM 细读扩到 12 篇 + 首页「WAM 按范式浏览」路线网格**
+- 📄 **新增 7 篇 WAM 细读**,把覆盖从"全是联合·扩散"补到全 taxonomy:级联·显式 [UniPi](/wam/papers/unipi)(2302.00111)·[Gen2Act](/wam/papers/gen2act)(2409.16283);级联·隐式 [VPP](/wam/papers/vpp)(2412.14803,CALVIN +18.6%/真机 +31.6% ⚠️)·[LAPA](/wam/papers/lapa)(2410.11758);联合·自回归 [GR-1](/wam/papers/gr-1)(2312.13139,CALVIN 94.9%/零样本 85.4% ⚠️,字节 GR 系开端)·[WorldVLA](/wam/papers/worldvla)(2506.21539,达摩院);联合·扩散新增 [LingBot-VA](/wam/papers/lingbot-va)(**蚂蚁灵波**,2601.21998,RoboTwin2.0-Plus 74.2% ⚠️/据第三方鲁棒性研究)。
+- 🧭 **首页新增「WAM:按范式浏览」**路线网格(4 卡:级联·显式/隐式、联合·自回归/扩散),与「VLA:按技术路线浏览」并列;原 VLA 区块改名对称。
+- 🗂️ WAM 顶栏与侧栏**改按路线分组**(级联/联合,联合再分自回归/扩散),不再平铺。每篇均经一手 arXiv 摘要核查,定量标 ⚠️、一手未给标待核。
+
 **WAM 总览按综述全文深化(读 arXiv:2605.12090 原文)**
 - 📚 通读综述全文(Fig 2 / Table 2 / Fig 6 / §2 形式化),把 [WAM 总览](/wam/) 从"摘要级"升级到"原文级":新增**三个目标函数**($\mathcal{L}_{VLA}/\mathcal{L}_{WM}/\mathcal{L}_{WAM}$)与**级联因子分解** $p(o',a|o,l)=p(a|o',o,l)p(o'|o,l)$;补 **WAM vs VAM / Video Policy / AWM** 辨析(§2.2)。
 - 🗂️ **taxonomy 细化到叶**:Cascaded→**显式/隐式**;Joint·自回归→**显式解耦 / 统一离散 / 预测潜**(含 Table 2 主干与规模);Joint·扩散→**单流(显式/隐式)/ 多流(跨注意力·隐状态·共享编码器)**;mermaid 重绘。

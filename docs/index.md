@@ -42,7 +42,7 @@ features:
     linkText: 进入 WAM 调研
 ---
 
-## 按技术路线浏览
+## VLA:按技术路线浏览
 
 VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文细读:
 
@@ -90,6 +90,52 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/pi06">π0.6 / π*0.6</a>
       <a href="vla/papers/pi07">π0.7</a>
       <a href="vla/papers/gemini-robotics">Gemini Robotics</a>
+    </div>
+  </div>
+</div>
+
+## WAM:按范式浏览
+
+世界-行动模型(WAM)按综述 taxonomy 分「级联」与「联合」两支,联合再分自回归 / 扩散,点击进入对应细读(范式总览见 [WAM 调研](wam/)):
+
+<div class="route-grid">
+  <div class="route-card">
+    <span class="route-tag">级联 · 显式</span>
+    <div class="route-card__title">先生成像素未来,再抽动作</div>
+    <p>显式合成未来视频/几何,再用逆动力学或几何抽取得到动作——动作抽取可独立于本体。</p>
+    <div class="route-links">
+      <a href="wam/papers/unipi">UniPi</a>
+      <a href="wam/papers/gen2act">Gen2Act</a>
+    </div>
+  </div>
+  <div class="route-card">
+    <span class="route-tag">级联 · 隐式</span>
+    <div class="route-card__title">潜空间预测 → 隐式逆动力学</div>
+    <p>在压缩潜表征上预测未来、不解码回像素,再据此出动作,以换取实时性。</p>
+    <div class="route-links">
+      <a href="wam/papers/vpp">VPP</a>
+      <a href="wam/papers/lapa">LAPA</a>
+    </div>
+  </div>
+  <div class="route-card">
+    <span class="route-tag">联合 · 自回归</span>
+    <div class="route-card__title">token 化,因果联合生成</div>
+    <p>把未来帧与动作序列化进 token 空间、因果解码联合建模;需治早期误差级联。</p>
+    <div class="route-links">
+      <a href="wam/papers/gr-1">GR-1</a>
+      <a href="wam/papers/worldvla">WorldVLA</a>
+    </div>
+  </div>
+  <div class="route-card">
+    <span class="route-tag">联合 · 扩散</span>
+    <div class="route-card__title">并行去噪,未来+动作同生</div>
+    <p>用扩散/流匹配并行生成未来与动作,绕开自回归串行瓶颈,利于高频闭环。</p>
+    <div class="route-links">
+      <a href="wam/papers/uwm">UWM</a>
+      <a href="wam/papers/dreamzero">DreamZero</a>
+      <a href="wam/papers/x-wam">X-WAM</a>
+      <a href="wam/papers/lingbot-va">LingBot-VA</a>
+      <a href="wam/papers/groot-n2">GR00T N2</a>
     </div>
   </div>
 </div>

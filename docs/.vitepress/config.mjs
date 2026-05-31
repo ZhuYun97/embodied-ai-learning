@@ -252,11 +252,23 @@ export default withMermaid(defineConfig({
             ],
           },
           {
-            text: 'WAM 论文细读',
+            text: '细读 · 级联(先预测后动作)',
             items: [
+              { text: 'UniPi(文生视频规划·奠基)', link: '/wam/papers/unipi' },
+              { text: 'Gen2Act(零样本人类视频)', link: '/wam/papers/gen2act' },
+              { text: 'VPP(预测性视觉表征)', link: '/wam/papers/vpp' },
+              { text: 'LAPA(潜动作预训练)', link: '/wam/papers/lapa' },
+            ],
+          },
+          {
+            text: '细读 · 联合(预测+动作共建)',
+            items: [
+              { text: 'GR-1(视频生成预训练·自回归)', link: '/wam/papers/gr-1' },
+              { text: 'WorldVLA(自回归动作世界模型)', link: '/wam/papers/worldvla' },
+              { text: 'UWM(耦合视频+动作扩散)', link: '/wam/papers/uwm' },
               { text: 'DreamZero(零样本策略)', link: '/wam/papers/dreamzero' },
               { text: 'X-WAM(统一 4D)', link: '/wam/papers/x-wam' },
-              { text: 'UWM(耦合视频+动作)', link: '/wam/papers/uwm' },
+              { text: 'LingBot-VA(蚂蚁灵波)', link: '/wam/papers/lingbot-va' },
               { text: 'Genie Envisioner(智元)', link: '/wam/papers/genie-envisioner' },
               { text: 'GR00T N2(NVIDIA)', link: '/wam/papers/groot-n2' },
             ],
@@ -390,12 +402,37 @@ export default withMermaid(defineConfig({
           ],
         },
         {
-          text: 'WAM 论文细读',
+          text: '细读 · 级联 · 显式',
           collapsed: false,
           items: [
+            { text: 'UniPi（文生视频规划·奠基）', link: '/wam/papers/unipi' },
+            { text: 'Gen2Act（零样本人类视频）', link: '/wam/papers/gen2act' },
+          ],
+        },
+        {
+          text: '细读 · 级联 · 隐式',
+          collapsed: false,
+          items: [
+            { text: 'VPP（预测性视觉表征）', link: '/wam/papers/vpp' },
+            { text: 'LAPA（潜动作预训练）', link: '/wam/papers/lapa' },
+          ],
+        },
+        {
+          text: '细读 · 联合 · 自回归',
+          collapsed: false,
+          items: [
+            { text: 'GR-1（视频生成预训练）', link: '/wam/papers/gr-1' },
+            { text: 'WorldVLA（自回归动作世界模型）', link: '/wam/papers/worldvla' },
+          ],
+        },
+        {
+          text: '细读 · 联合 · 扩散',
+          collapsed: false,
+          items: [
+            { text: 'UWM（耦合视频+动作扩散）', link: '/wam/papers/uwm' },
             { text: 'DreamZero（零样本策略）', link: '/wam/papers/dreamzero' },
             { text: 'X-WAM（统一 4D · 异步去噪）', link: '/wam/papers/x-wam' },
-            { text: 'UWM（耦合视频+动作扩散）', link: '/wam/papers/uwm' },
+            { text: 'LingBot-VA（蚂蚁灵波·因果世界模型）', link: '/wam/papers/lingbot-va' },
             { text: 'Genie Envisioner（智元 AgiBot）', link: '/wam/papers/genie-envisioner' },
             { text: 'GR00T N2（NVIDIA）', link: '/wam/papers/groot-n2' },
           ],
