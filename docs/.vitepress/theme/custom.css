@@ -656,3 +656,103 @@ img.zoom-lightbox__content {
   .VPHome .VPHero .image-src,
   .VPHome .VPHero .VPImage { animation: none; }
 }
+
+/* ============================================================
+   全站科技感增强(框架层:顶栏/标题/代码/表格/侧边栏/选区)
+   原则:科技感集中在"框架与强调",正文文字保持高对比可读;
+   纯装饰用渐变/辉光,不改 body 文字颜色;不引入新的持续动画。
+   ============================================================ */
+
+/* 选区高亮:青色科技调 */
+::selection { background: rgba(34, 211, 238, 0.26); }
+.dark ::selection { background: rgba(34, 211, 238, 0.34); }
+
+/* ---------- 顶栏:玻璃化 + 底部三色渐变发丝线(全站统一 HUD 框) ---------- */
+.VPNavBar {
+  position: relative;
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+  background-color: rgba(255, 255, 255, 0.72) !important;
+}
+.dark .VPNavBar {
+  background-color: rgba(15, 23, 42, 0.62) !important;
+}
+/* 有侧栏时顶栏被拆成 .title/.content 两块,各自背景透明以露出统一玻璃层 */
+.VPNavBar.has-sidebar .title,
+.VPNavBar.has-sidebar .content {
+  background-color: transparent !important;
+}
+/* 默认灰色分隔线收掉,改用渐变发丝 */
+.VPNavBar .divider,
+.VPNavBar.has-sidebar .content .curtain { display: none; }
+.VPNavBar::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(37, 99, 235, 0.45) 22%,
+    rgba(34, 211, 238, 0.6) 50%,
+    rgba(139, 92, 246, 0.45) 78%,
+    transparent 100%);
+  opacity: 0.85;
+}
+
+/* ---------- 文档页 H2:在分节灰线左端叠一段渐变"标签",科技分节感 ---------- */
+.vp-doc h2 { position: relative; }
+.vp-doc h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 52px;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee);
+  border-radius: 2px;
+}
+
+/* ---------- 代码块:科技描边 + 极淡内辉光(终端感),正文代码色不动 ---------- */
+.vp-doc div[class*='language-'] {
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.05);
+}
+.dark .vp-doc div[class*='language-'] {
+  border-color: rgba(56, 189, 248, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.08), 0 0 26px rgba(37, 99, 235, 0.07);
+}
+/* 代码块右上角语言标签:等宽 + 青色调 */
+.vp-doc [class*='language-'] > span.lang {
+  font-family: var(--vp-font-family-mono);
+  color: rgba(34, 211, 238, 0.85);
+  letter-spacing: 0.04em;
+}
+
+/* ---------- 表格表头:极淡渐变托底,数据网格感(正文单元格不动) ---------- */
+.vp-doc th {
+  background: linear-gradient(180deg, var(--vp-c-bg-soft), transparent);
+}
+
+/* ---------- 侧边栏当前项:渐变指示条(替代纯色) ---------- */
+.VPSidebarItem.is-active > .item .indicator {
+  background: linear-gradient(180deg, #2563eb, #22d3ee) !important;
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.4);
+}
+
+/* ---------- 顶栏 logo 标题:轻微渐变(克制,保证可读)---------- */
+.VPNavBarTitle .text {
+  background: linear-gradient(100deg, var(--vp-c-text-1) 30%, #2563eb 70%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.dark .VPNavBarTitle .text {
+  background: linear-gradient(100deg, var(--vp-c-text-1) 25%, #38bdf8 75%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 上述增强均为静态装饰,无新增动画;reduced-motion 无需额外处理。
+   玻璃顶栏在不支持 backdrop-filter 的浏览器回退为半透明纯色,文字对比仍达标。 */
