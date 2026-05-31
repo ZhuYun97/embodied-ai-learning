@@ -149,6 +149,7 @@ export default withMermaid(defineConfig({
           { text: '术语速查表', link: '/vla/papers/glossary' },
           { text: '发展时间线', link: '/vla/papers/timeline' },
           { text: '参考文献', link: '/vla/papers/references' },
+          { text: '外部资源导航', link: '/vla/papers/resources' },
         ],
       },
       {
@@ -246,6 +247,7 @@ export default withMermaid(defineConfig({
             { text: '术语速查表', link: '/vla/papers/glossary' },
             { text: '发展时间线', link: '/vla/papers/timeline' },
             { text: '参考文献', link: '/vla/papers/references' },
+            { text: '外部资源导航(Awesome 列表)', link: '/vla/papers/resources' },
           ],
         },
         {

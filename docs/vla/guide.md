@@ -50,7 +50,7 @@ description: 如何阅读本站——具身智能学习站的内容地图、推�
 - **2025H2–2026 前沿**:[WALL-OSS](papers/wall-oss) · [Qwen-VLA](papers/qwen-vla) · [RynnVLA-001](papers/rynnvla) · [Gemini Robotics](papers/gemini-robotics) · [π0.7](papers/pi07)
 - **更多代表模型**:[RDT-1B](papers/rdt-1b) · [GO-1](papers/go-1) · [MemoryVLA](papers/memoryvla) · [SpatialVLA](papers/spatialvla) · [Helix](papers/helix)
 - **方法 / 工程横切**:[知识隔离 KI](papers/knowledge-insulation) · [具身数据处理](papers/data-processing) · [推理加速与部署](papers/inference-deployment) · [开源代码库对照](papers/codebases) · [共性失败模式](papers/failure-modes)
-- **速查 / 参考**:[术语速查表](papers/glossary) · [发展时间线](papers/timeline) · [参考文献](papers/references) · [实验机器人本体](papers/robots)
+- **速查 / 参考**:[术语速查表](papers/glossary) · [发展时间线](papers/timeline) · [参考文献](papers/references) · [外部资源导航(Awesome 列表)](papers/resources) · [实验机器人本体](papers/robots)
 
 > 优先级是"建立全局理解"视角的建议序;若你为特定目的而来(找某模型/某数据集/某工程问题),直接按上面的[推荐阅读路径](#推荐阅读路径)表或顶栏导航定位即可。
 
