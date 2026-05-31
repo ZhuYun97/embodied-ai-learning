@@ -11,6 +11,50 @@ import './custom.css'
 const PANEL_ICON =
   '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><line x1="5" y1="3" x2="5" y2="13"/><line x1="11" y1="3" x2="11" y2="13"/></svg>'
 
+// =====================================================================
+// 「配色主题」切换:科技蓝(默认)⇄ 实验室档案(暖纸)。
+// 在 <html> 加 .skin-archive(config head 有预渲染脚本防闪烁),存 localStorage。
+// =====================================================================
+const skin = reactive({ mode: '' }) // '' = 科技蓝(默认) | 'archive' = 实验室档案
+const SKIN_KEY = 'site-skin'
+const PALETTE_ICON =
+  '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M8 1.5a6.5 6.5 0 1 0 0 13c.9 0 1.4-.7 1.4-1.4 0-.8-.7-1.2-.7-1.9 0-.5.4-.9 1-.9H11A3.5 3.5 0 0 0 14.5 6 5 5 0 0 0 8 1.5z"/><circle cx="5" cy="7" r="0.9" fill="currentColor" stroke="none"/><circle cx="8" cy="4.8" r="0.9" fill="currentColor" stroke="none"/><circle cx="11" cy="7" r="0.9" fill="currentColor" stroke="none"/></svg>'
+
+const SkinToggle = {
+  setup() {
+    onMounted(() => {
+      try {
+        skin.mode = localStorage.getItem(SKIN_KEY) === 'archive' ? 'archive' : ''
+      } catch (e) {}
+    })
+    const toggle = () => {
+      skin.mode = skin.mode === 'archive' ? '' : 'archive'
+      document.documentElement.classList.toggle('skin-archive', skin.mode === 'archive')
+      try {
+        localStorage.setItem(SKIN_KEY, skin.mode)
+      } catch (e) {}
+    }
+    return () =>
+      h(
+        'button',
+        {
+          class: ['skin-toggle', { 'is-on': skin.mode === 'archive' }],
+          type: 'button',
+          onClick: toggle,
+          'aria-pressed': String(skin.mode === 'archive'),
+          title:
+            skin.mode === 'archive'
+              ? '当前:实验室档案(暖纸)。点击切回「科技蓝」默认主题'
+              : '当前:科技蓝(默认)。点击切换「实验室档案」暖纸主题',
+        },
+        [
+          h('span', { class: 'skin-toggle__icon', innerHTML: PALETTE_ICON }),
+          h('span', { class: 'skin-toggle__label' }, skin.mode === 'archive' ? '档案' : '配色'),
+        ]
+      )
+  },
+}
+
 const ZenToggle = {
   setup() {
     const route = useRoute()
@@ -293,11 +337,13 @@ const REG_MARK =
 // 首页报头编号条(home-hero-info-before)
 const HomeMasthead = {
   setup() {
-    return () =>
-      h('div', { class: 'masthead-strip' }, [
+    return () => {
+      if (skin.mode !== 'archive') return null
+      return h('div', { class: 'masthead-strip' }, [
         h('span', { class: 'masthead-strip__mark', innerHTML: REG_MARK }),
         h('span', null, 'ARCHIVE · DOMAIN VLA × WAM · REV 2026.05 · LANG ZH / EN'),
       ])
+    }
   },
 }
 
@@ -335,7 +381,16 @@ const ROBOT_SVG =
 
 const HeroRobot = {
   setup() {
-    return () => h('div', { class: 'hero-robot-wrap', innerHTML: ROBOT_SVG })
+    return () =>
+      skin.mode === 'archive'
+        ? h('div', { class: 'hero-robot-wrap', innerHTML: ROBOT_SVG })
+        : h('div', { class: 'hero-robot-wrap' }, [
+            h('img', {
+              class: 'hero-robot-img',
+              src: withBase('/hero-robot.svg'),
+              alt: '具身智能机器人概念图',
+            }),
+          ])
   },
 }
 
@@ -345,6 +400,7 @@ const AccessionLine = {
     const route = useRoute()
     const { page, frontmatter } = useData()
     return () => {
+      if (skin.mode !== 'archive') return null
       if (!/\/(vla|wam)\//.test(route.path)) return null
       const track = /\/wam\//.test(route.path) ? 'WAM' : 'VLA'
       const title =
@@ -479,7 +535,7 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'home-hero-info-before': () => h(HomeMasthead),
       'home-hero-image': () => h(HeroRobot),
-      'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle)],
+      'nav-bar-content-after': () => [h(SkinToggle), h(ConfidenceLens), h(ZenToggle)],
       'doc-before': () => [h(AccessionLine), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
     })
