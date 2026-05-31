@@ -24,6 +24,36 @@ description: 如何阅读本站——具身智能学习站的内容地图、推�
 
 > 每篇细读底部都有「本系列」页脚,可一键跳到相关专题与速查页。
 
+## 阅读优先级(论文太多?先读这些)
+
+细读已有 20+ 篇,不必通读。按下面三档由浅入深、按需取用即可。
+
+### 🥇 第一档 · 必读核心(建立主线,约 7 篇)
+
+看懂"VLA 是什么、两条路线、效率之争、泛化前沿"的最小集——读完这几篇就有完整骨架:
+
+1. [总报告](/vla/) —— **先读这个**,把握全局脉络与五阶段主线
+2. [RT-2](papers/rt2) —— 范式奠基:动作即文本 token
+3. [π0](papers/pi0) —— 连续流匹配 + 动作分块的代表作
+4. [OpenVLA](papers/openvla) —— 开源平民化基线(最常被对标)
+5. [OpenVLA-OFT](papers/openvla-oft) —— 离散 vs 连续的最硬定量证据 + 推理提速 26×
+6. [π0.5](papers/pi05) —— 双系统/分层 + 开放世界泛化
+7. [数据集与基准全景](papers/benchmarks) —— 学会"怎么读懂一个成绩数字"(口径/可信度)
+
+### 🥈 第二档 · 推荐(按技术路线补全)
+
+- **模型**:[Diffusion Policy](papers/diffusion-policy)(连续奠基)· [RT-1](papers/rt1)(离散前史)· [Octo](papers/octo) · [CogACT](papers/cogact) · [π0-FAST](papers/pi0-fast) · [GR00T N1](papers/groot-n1)(双系统) · [π0.6 / π*0.6](papers/pi06)(从经验学习)
+- **横切/数据**:[全模型规格对比大表](papers/models-spec)(一页看全 22 模型)· [双系统架构原理](papers/dual-system-architecture) · [具身数据全景](papers/embodied-data)
+
+### 🥉 第三档 · 选读(最新前沿 / 特定主题 / 补充)
+
+- **2025H2–2026 前沿**:[WALL-OSS](papers/wall-oss) · [Qwen-VLA](papers/qwen-vla) · [RynnVLA-001](papers/rynnvla) · [Gemini Robotics](papers/gemini-robotics) · [π0.7](papers/pi07)
+- **更多代表模型**:[RDT-1B](papers/rdt-1b) · [GO-1](papers/go-1) · [MemoryVLA](papers/memoryvla) · [SpatialVLA](papers/spatialvla) · [Helix](papers/helix)
+- **方法 / 工程横切**:[知识隔离 KI](papers/knowledge-insulation) · [具身数据处理](papers/data-processing) · [推理加速与部署](papers/inference-deployment) · [开源代码库对照](papers/codebases) · [共性失败模式](papers/failure-modes)
+- **速查 / 参考**:[术语速查表](papers/glossary) · [发展时间线](papers/timeline) · [参考文献](papers/references) · [实验机器人本体](papers/robots)
+
+> 优先级是"建立全局理解"视角的建议序;若你为特定目的而来(找某模型/某数据集/某工程问题),直接按上面的[推荐阅读路径](#推荐阅读路径)表或顶栏导航定位即可。
+
 ## 可信度标注约定
 
 本站对"数字从哪来"非常较真,统一用三个标记:

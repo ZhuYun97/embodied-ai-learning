@@ -137,6 +137,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: '全模型规格对比', link: '/vla/papers/models-spec' },
           { text: '双系统架构原理', link: '/vla/papers/dual-system-architecture' },
+          { text: '知识隔离训练配方', link: '/vla/papers/knowledge-insulation' },
           { text: '推理加速与部署', link: '/vla/papers/inference-deployment' },
           { text: '开源代码库对照', link: '/vla/papers/codebases' },
           { text: '共性失败模式', link: '/vla/papers/failure-modes' },
@@ -192,6 +193,7 @@ export default withMermaid(defineConfig({
           items: [
             { text: '全模型规格对比大表', link: '/vla/papers/models-spec' },
             { text: '双系统 / 分层架构原理', link: '/vla/papers/dual-system-architecture' },
+            { text: '知识隔离:VLA 训练配方(KI)', link: '/vla/papers/knowledge-insulation' },
             { text: '推理加速与量化部署', link: '/vla/papers/inference-deployment' },
             { text: '开源代码库与权重对照', link: '/vla/papers/codebases' },
             { text: '共性失败模式(失败显微镜)', link: '/vla/papers/failure-modes' },
