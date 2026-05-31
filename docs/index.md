@@ -35,16 +35,6 @@ features:
     details: SimplerEnv / LIBERO / CALVIN / RoboCasa 四大基准逐模型成绩表,标注口径与可信度,含 RoboCasa 排行榜与数据来源专题。
     link: /vla/papers/benchmarks
     linkText: 看数据集与基准
-  - icon: { src: /icons/layers.svg, width: 28, height: 28 }
-    title: 横切分析专题
-    details: 全模型规格对比大表、双系统架构、预测式 VLA、知识隔离、推理部署、开源代码库、共性失败模式——7 个跨模型对照专题。
-    link: /vla/papers/models-spec
-    linkText: 看横切分析
-  - icon: { src: /icons/trend.svg, width: 28, height: 28 }
-    title: 2025H2–2026 最新前沿
-    details: 自变量 WALL-OSS、阿里 Qwen-VLA / RynnVLA、Physical Intelligence π0.6 / π*0.6(RECAP 真机强化学习)等最新工作。
-    link: /vla/#五2025h22026-最新前沿
-    linkText: 看前沿
   - icon: { src: /icons/globe.svg, width: 28, height: 28 }
     title: WAM 世界-行动模型(新轨)
     details: 2025–2026 前沿范式——联合预测「未来状态+动作」。综述 taxonomy(级联 vs 联合)+ DreamZero / X-WAM / UWM / Genie Envisioner / GR00T N2 五篇细读。
