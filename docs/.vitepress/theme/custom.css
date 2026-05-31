@@ -936,3 +936,204 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .read-progress__btn,
   .lens-toggle { transition: none !important; }
 }
+
+/* ============================================================
+   首页:机器人研究控制台 / 技术蓝图层(robotics console · blueprint)
+   方向:把首页从"通用玻璃 + 渐变"提升为"研究仪表盘"——
+   角标刻度框、等宽数据标签、01–04 序号、› 规格行、HUD 眉标。
+   仅作用 .VPHome;文档页与可读性不受影响;无新增动画(reduced-motion 安全)。
+   ============================================================ */
+:root {
+  --bp-tick: rgba(37, 99, 235, 0.55);   /* 角标刻度色(浅色) */
+  --bp-ink: rgba(15, 23, 42, 0.5);      /* 序号/眉标弱色 */
+}
+.dark {
+  --bp-tick: rgba(56, 189, 248, 0.6);
+  --bp-ink: rgba(148, 163, 184, 0.6);
+}
+
+/* —— Hero:HUD 眉标(等宽 · 字距拉开)—— */
+.VPHome .VPHero .main { position: relative; }
+.VPHome .VPHero .main::before {
+  content: '// EMBODIED-AI · VLA × WAM · 2022–2026';
+  display: block;
+  font-family: var(--vp-font-family-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  margin-bottom: 18px;
+  color: var(--vp-c-brand-1);
+  opacity: 0.9;
+}
+@media (max-width: 640px) {
+  .VPHome .VPHero .main::before { font-size: 10.5px; letter-spacing: 0.1em; margin-bottom: 12px; }
+}
+
+/* —— 路线卡 → 仪表盘面板:四角刻度框 + 序号(原三色顶条改为悬停扫光,见末尾炫酷层)—— */
+.VPHome .route-grid { counter-reset: rcard; }
+.VPHome .route-card {
+  counter-increment: rcard;
+  border-radius: 8px;
+  /* 四角 L 形刻度(8 段线性渐变;不覆盖既有半透明玻璃底色)*/
+  background-image:
+    linear-gradient(var(--bp-tick), var(--bp-tick)), linear-gradient(var(--bp-tick), var(--bp-tick)),
+    linear-gradient(var(--bp-tick), var(--bp-tick)), linear-gradient(var(--bp-tick), var(--bp-tick)),
+    linear-gradient(var(--bp-tick), var(--bp-tick)), linear-gradient(var(--bp-tick), var(--bp-tick)),
+    linear-gradient(var(--bp-tick), var(--bp-tick)), linear-gradient(var(--bp-tick), var(--bp-tick));
+  background-repeat: no-repeat;
+  background-position:
+    0 0, 0 0,            /* 左上:横 + 竖 */
+    100% 0, 100% 0,      /* 右上 */
+    0 100%, 0 100%,      /* 左下 */
+    100% 100%, 100% 100%;/* 右下 */
+  background-size:
+    14px 1.5px, 1.5px 14px,
+    14px 1.5px, 1.5px 14px,
+    14px 1.5px, 1.5px 14px,
+    14px 1.5px, 1.5px 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-size 0.2s ease;
+}
+.VPHome .route-card::after {
+  content: counter(rcard, decimal-leading-zero);
+  position: absolute;
+  top: 16px; right: 18px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--bp-ink);
+}
+.VPHome .route-card:hover {
+  background-size:
+    22px 1.5px, 1.5px 22px,
+    22px 1.5px, 1.5px 22px,
+    22px 1.5px, 1.5px 22px,
+    22px 1.5px, 1.5px 22px;   /* 悬停时角标"张开" */
+}
+
+/* —— 路线标签 → 等宽规格芯片(▸ 前缀 · 方角)—— */
+.VPHome .route-tag {
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 45%, transparent);
+  color: var(--vp-c-brand-1);
+  padding: 3px 9px;
+}
+.VPHome .route-tag::before { content: '▸ '; opacity: 0.8; }
+
+/* —— 路线链接 → 等宽"规格行"(› 前缀 · 方角)—— */
+.VPHome .route-links a {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.78rem;
+  border-radius: 5px;
+}
+.VPHome .route-links a::before {
+  content: '› ';
+  color: var(--vp-c-brand-1);
+  font-weight: 700;
+}
+
+/* —— Feature 卡:加 01–04 序号(等宽),与路线卡同语言 —— */
+.VPHome .VPFeatures .items { counter-reset: fcard; }
+.VPHome .VPFeature {
+  counter-increment: fcard;
+  position: relative;
+}
+.VPHome .VPFeature::after {
+  content: counter(fcard, decimal-leading-zero);
+  position: absolute;
+  top: 20px; right: 22px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--bp-ink);
+  pointer-events: none;
+}
+
+/* ============================================================
+   首页:炫酷层(neon · 流光 · 扫光)—— 在蓝图层之上再加一档
+   暗色更突出霓虹;所有动画 reduced-motion 下关闭。仅 .VPHome。
+   ============================================================ */
+
+/* —— Hero 标题:流动渐变 + 更强霓虹辉光 —— */
+.VPHome .VPHero .name.clip {
+  background-size: 220% auto;
+  animation: bpTitleFlow 9s ease-in-out infinite;
+}
+@keyframes bpTitleFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.dark .VPHome .VPHero .name.clip {
+  filter: drop-shadow(0 0 26px rgba(56, 189, 248, 0.5));
+}
+
+/* —— Hero 眉标:闪烁的状态指示点(占位 16px,点落在文字前的空档,不会溢出)—— */
+.VPHome .VPHero .main::before { position: relative; padding-left: 16px; }
+.VPHome .VPHero .main::after {
+  content: '';
+  position: absolute;
+  top: 5px; left: 1px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 8px #22d3ee;
+  animation: bpBlink 1.8s steps(1, end) infinite;
+}
+@keyframes bpBlink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.15; } }
+
+/* —— 背景网格:极缓慢漂移(活的蓝图)—— */
+@media (prefers-reduced-motion: no-preference) {
+  .VPHome::before { animation: bpGridPan 40s linear infinite; }
+}
+@keyframes bpGridPan {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 44px 44px, 44px 44px; }
+}
+
+/* —— 路线卡:悬停斜向扫光(重启 ::before 作流光层)—— */
+.VPHome .route-card::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: -65%; right: auto;
+  width: 45%; height: auto;
+  background: linear-gradient(105deg, transparent 0%, rgba(56, 189, 248, 0.16) 50%, transparent 100%);
+  transform: skewX(-16deg);
+  transition: left 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+}
+.VPHome .route-card:hover::before { left: 130%; }
+.dark .VPHome .route-card::before { background: linear-gradient(105deg, transparent 0%, rgba(56, 189, 248, 0.26) 50%, transparent 100%); }
+
+/* 暗色:路线卡悬停霓虹环 + 角标变亮 */
+.dark .VPHome .route-card:hover {
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7), 0 0 30px rgba(56, 189, 248, 0.28), 0 16px 48px rgba(37, 99, 235, 0.28);
+}
+
+/* —— 规格行链接:悬停霓虹 —— */
+.VPHome .route-links a:hover {
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 0 14px rgba(56, 189, 248, 0.28);
+}
+.dark .VPHome .route-links a:hover {
+  background: rgba(56, 189, 248, 0.12);
+  color: #67e8f9;
+  border-color: rgba(56, 189, 248, 0.7);
+}
+
+/* —— 标签芯片:暗色霓虹描边辉光 —— */
+.dark .VPHome .route-tag { box-shadow: 0 0 12px rgba(56, 189, 248, 0.2); }
+
+/* —— Feature 卡:暗色悬停霓虹 —— */
+.dark .VPHome .VPFeature:hover {
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6), 0 0 26px rgba(56, 189, 248, 0.22), 0 16px 48px rgba(37, 99, 235, 0.24);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .VPHome .VPHero .name.clip { animation: none; }
+  .VPHome .VPHero .main::after { animation: none; }
+  .VPHome .route-card::before { transition: none; }
+}
