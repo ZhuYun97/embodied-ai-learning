@@ -243,20 +243,6 @@ export default withMermaid(defineConfig({
         ],
       },
       {
-        text: '具身基础',
-        items: [
-          {
-            text: '通用专题(VLA × WAM 共用)',
-            items: [
-              { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
-              { text: '具身数据处理', link: '/vla/papers/data-processing' },
-              { text: '数据集与基准全景', link: '/vla/papers/benchmarks' },
-              { text: '实验机器人本体', link: '/vla/papers/robots' },
-            ],
-          },
-        ],
-      },
-      {
         text: 'WAM 调研',
         items: [
           {
@@ -289,6 +275,20 @@ export default withMermaid(defineConfig({
               { text: 'τ0-WM(智元/上海创智·测试时搜索)', link: '/wam/papers/tau0-wm' },
               { text: 'Genie Envisioner(智元)', link: '/wam/papers/genie-envisioner' },
               { text: 'GR00T N2(NVIDIA)', link: '/wam/papers/groot-n2' },
+            ],
+          },
+        ],
+      },
+      {
+        text: '具身基础',
+        items: [
+          {
+            text: '通用专题(VLA × WAM 共用)',
+            items: [
+              { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
+              { text: '具身数据处理', link: '/vla/papers/data-processing' },
+              { text: '数据集与基准全景', link: '/vla/papers/benchmarks' },
+              { text: '实验机器人本体', link: '/vla/papers/robots' },
             ],
           },
         ],
