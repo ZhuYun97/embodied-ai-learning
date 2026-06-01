@@ -72,6 +72,7 @@ graph LR
 | **π0.5 (pi-zero-five)** | Physical Intelligence 2025 | arxiv.org/abs/2504.16054 · pi.website/blog/pi05 | [📄 pi05](pi05.md) | 开放世界泛化 |
 | **π*0.6 (pi-star-0.6 / RECAP)** | Physical Intelligence 2025.11 | arxiv.org/abs/2511.14759 · pi.website/blog/pistar06 · website.pi-asset.com/pi06star/PI06_model_card.pdf | [📄 pi06](pi06.md) | 真机 RL 改进,最难任务吞吐翻倍、失败率约减半 ⚠️ |
 | **Figure Helix** | Figure AI 2025 | figure.ai/news/helix | — | 仅官方新闻页(无论文) ⚠️ |
+| **SmolVLA** | Hugging Face / LeRobot 2025 | arxiv.org/abs/2506.01844 · github.com/huggingface/lerobot · huggingface.co/blog/smolvla | [📄 smolvla](smolvla.md) | 0.45B 小型高效开源 VLA,冻结 SmolVLM-2 + 流匹配动作专家;⚠️ LIBERO 87.3 追平 π0(3.3B),全开源 Apache |
 | **SteerVLA** | Stanford/Berkeley 2026 | arxiv.org/abs/2602.08440 · steervla.github.io · openreview.net/forum?id=fS6UPyXF4A | [📄 steervla](steervla.md) | 自动驾驶域:高层 VLM 语言 meta-action 操控低层 VLA waypoint;⚠️ ICLR 2026 投稿,Bench2Drive 长尾 +8.04 |
 
 ---
@@ -229,4 +230,4 @@ graph LR
 
 ---
 
-*本页为《VLA 发展深度调研报告》信源聚合,综合主报告附录 + 25 篇细读 + 具身数据专题第八节,去重整理。⚠️ 标记处为提出方/厂商自评数据。*
+*本页为《VLA 发展深度调研报告》信源聚合,综合主报告附录 + 26 篇细读 + 具身数据专题第八节,去重整理。⚠️ 标记处为提出方/厂商自评数据。*

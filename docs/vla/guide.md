@@ -8,7 +8,7 @@ description: 如何阅读本站——具身智能学习站的内容地图、推�
 
 ## 这是什么 / 不是什么
 
-- **是**:对 VLA 领域(2022–2026)的体系化梳理——发展脉络、24 篇核心论文细读、横切分析专题、数据/基准/机器人本体专题,附可信度标注与一手信源。
+- **是**:对 VLA 领域(2022–2026)的体系化梳理——发展脉络、26 篇核心论文细读、横切分析专题、数据/基准/机器人本体专题,附可信度标注与一手信源。
 - **不是**:教程或代码库。本站重在"读懂领域脉络与关键结论",不提供可运行实现。
 - **范围**:目前聚焦 VLA 操作(manipulation);世界模型已在[数据专题 §4](papers/embodied-data)分散覆盖(作数据引擎/生成式预训练先验),足式运动、导航等更广的具身子领域尚未单列。
 
@@ -43,7 +43,7 @@ description: 如何阅读本站——具身智能学习站的内容地图、推�
 ### 🥈 第二档 · 推荐(按技术路线补全)
 
 - **模型**:[Diffusion Policy](papers/diffusion-policy)(连续奠基)· [RT-1](papers/rt1)(离散前史)· [Octo](papers/octo) · [CogACT](papers/cogact) · [π0-FAST](papers/pi0-fast) · [GR00T N1](papers/groot-n1)(双系统) · [π0.6 / π*0.6](papers/pi06)(从经验学习)
-- **横切/数据**:[全模型规格对比大表](papers/models-spec)(一页看全 24 模型)· [双系统架构原理](papers/dual-system-architecture) · [具身数据全景](papers/embodied-data)
+- **横切/数据**:[全模型规格对比大表](papers/models-spec)(一页看全 26 模型)· [双系统架构原理](papers/dual-system-architecture) · [具身数据全景](papers/embodied-data)
 
 ### 🥉 第三档 · 选读(最新前沿 / 特定主题 / 补充)
 
@@ -70,7 +70,7 @@ description: 如何阅读本站——具身智能学习站的内容地图、推�
 ## 站点结构
 
 - **总报告** — 发展主线、代表模型、技术路线之争、数据集与基准、最新前沿、核查与局限
-- **论文细读 ×24** — 奠基与两条路线(11)+ 2025H2–2026 前沿(7:含 Wall-OSS-0.5)+ 更多代表模型(6:GR-3/RDT-1B/GO-1/MemoryVLA/SpatialVLA/Helix)
+- **论文细读 ×26** — 奠基与两条路线(11)+ 2025H2–2026 前沿(7:含 Wall-OSS-0.5)+ 更多代表模型(8:GR-3/RDT-1B/GO-1/MemoryVLA/SpatialVLA/Helix/SmolVLA/SteerVLA)
 - **横切分析专题 ×7** — 全模型规格对比 / 双系统架构原理 / 预测式 VLA / 知识隔离训练配方 / 推理加速与部署 / 开源代码库对照 / 共性失败模式
 - **WAM 调研轨(独立)** — 总览(定义 / 级联 vs 联合 taxonomy / 数据与评测)+ 5 篇细读:DreamZero / X-WAM / UWM / Genie Envisioner / GR00T N2
 - **专题** — 具身数据全景 / 具身数据处理 / 数据集与基准 / 实验机器人本体

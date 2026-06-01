@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 25 篇 + WAM 13 篇,每篇配官方框架图,逐模块拆解架构 / 数据 / 实验 / 局限,并附关键数据表。
+    details: VLA 26 篇 + WAM 13 篇,每篇配官方框架图,逐模块拆解架构 / 数据 / 实验 / 局限,并附关键数据表。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -65,6 +65,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/pi0">π0</a>
       <a href="vla/papers/cogact">CogACT</a>
       <a href="vla/papers/groot-n1">GR00T N1</a>
+      <a href="vla/papers/smolvla">SmolVLA（小型高效）</a>
     </div>
   </div>
   <div class="route-card">

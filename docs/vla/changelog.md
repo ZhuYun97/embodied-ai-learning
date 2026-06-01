@@ -8,6 +8,12 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 
 ## 2026-06-01
 
+**新增 SmolVLA 细读(小型高效开源 VLA),模型细读扩到 26 篇**
+- 📄 **新增 [SmolVLA 细读](/vla/papers/smolvla)**(arXiv:2506.01844,Hugging Face / LeRobot 团队):**平民化 VLA**——主力仅 **0.45B 参数**(冻结 **SmolVLM-2** 主干 + ~100M 流匹配动作专家),三连砍计算(**冻结 VLM** 只训动作专家 + **层跳过**只用前 16 层 LLM + 每帧 **64 视觉 token**),配 **异步推理栈**(Client-Server 解耦感知/预测与执行,任务完成快约 30%)。只吃 **481 个社区数据集筛出的 2.29 万条 episode**(Qwen2.5-VL-3B 自动清洗标注)。⚠️ **LIBERO 平均 87.3** 追平 π0(3.3B)的 86.0、超 OpenVLA(7B)的 76.5;真机 SO-100 多任务 **78.3**;相比 π0 **训练快约 40%、显存少 6×**;单 GPU 可训、消费级 GPU/CPU 可部署,代码/权重/数据全开源(Apache,集成 LeRobot)。
+- 🧭 **全站接入**:顶栏「VLA 调研 · 更多代表模型」与 `/vla/` 侧栏加入口;首页「VLA:按技术路线浏览」**连续·扩散/流匹配**卡、[总报告导航表](/vla/)、[发展时间线](/vla/papers/timeline)(2025.06 节点)、[参考文献](/vla/papers/references)、[规格大表](/vla/papers/models-spec)(26 模型 × 12 维)同步登记;自动联动「相关细读」页脚与可信度透镜。
+- 🔢 **数量口径 25→26**:全站指代「模型细读数」处(首页 feature 卡、guide、resources、references、models-spec、时间线定位)统一更新为 **26 篇**。**顺带修正**:上轮 SteerVLA 声称已更新 guide/resources 至 25,实际两文件仍停在 24——本轮一并直接修到真实值 **26**。
+- 🔎 **事实纪律**:LIBERO/Meta-World/真机数字均为**作者自评**(未见独立第三方同口径复现,尽管已全开源、复现门槛低);原文 episode 数标注不一致(Table 1 标题「~10M」vs 表体「22.9K episode / 10.6M 帧」),采信 **22.9K episode** 并就地标注;SimplerEnv 原文未评测,不予补造。
+
 **新增 SteerVLA 细读(本站首篇自动驾驶域 VLA),模型细读扩到 25 篇**
 - 📄 **新增 [SteerVLA 细读](/vla/papers/steervla)**(arXiv:2602.08440,Stanford/UC Berkeley,Levine/Finn/Sadigh/Mees 等;ICLR 2026 投稿):把机器人圈的「可操控(steerability)」分层范式迁到**自动驾驶长尾**——高层 VLM 规划器读场景/历史车状态/路由指令,产出**短推理链 + 细粒度语言 meta-action**;低层 VLA 据观测 + meta-action **回归未来 waypoint**;核心是两级间的**「语言接口」**(高层推理锚定到低层控制)+ 用 **VLM 对真机/仿真数据做事后(hindsight)稠密语言标注**喂监督。⚠️ 闭环 **Bench2Drive 总驾驶分 +4.77、长尾子集 Bench2Drive-LongTail +8.04**(长尾对照前 SOTA SimLingo)。
 - 🌐 **首次进入自动驾驶域**:此前 24 篇细读全为机器人操作/人形,SteerVLA 是首篇驾驶 VLA;在 [规格大表](/vla/papers/models-spec) 标「自动驾驶」域、动作空间为 waypoint 轨迹,**横比成功率不与操作类基准混算**。
