@@ -229,15 +229,6 @@ export default withMermaid(defineConfig({
             ],
           },
           {
-            text: '专题综述',
-            items: [
-              { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
-              { text: '具身数据处理', link: '/vla/papers/data-processing' },
-              { text: '数据集与基准全景', link: '/vla/papers/benchmarks' },
-              { text: '实验机器人本体', link: '/vla/papers/robots' },
-            ],
-          },
-          {
             text: '横切分析',
             items: [
               { text: '全模型规格对比', link: '/vla/papers/models-spec' },
@@ -247,6 +238,20 @@ export default withMermaid(defineConfig({
               { text: '推理加速与部署', link: '/vla/papers/inference-deployment' },
               { text: '开源代码库对照', link: '/vla/papers/codebases' },
               { text: '共性失败模式', link: '/vla/papers/failure-modes' },
+            ],
+          },
+        ],
+      },
+      {
+        text: '具身基础',
+        items: [
+          {
+            text: '通用专题(VLA × WAM 共用)',
+            items: [
+              { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
+              { text: '具身数据处理', link: '/vla/papers/data-processing' },
+              { text: '数据集与基准全景', link: '/vla/papers/benchmarks' },
+              { text: '实验机器人本体', link: '/vla/papers/robots' },
             ],
           },
         ],
@@ -324,7 +329,7 @@ export default withMermaid(defineConfig({
           ],
         },
         {
-          text: '专题综述',
+          text: '通用专题(VLA × WAM 共用)',
           collapsed: false,
           items: [
             { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
@@ -458,6 +463,16 @@ export default withMermaid(defineConfig({
             { text: 'τ0-WM（智元/上海创智·测试时搜索）', link: '/wam/papers/tau0-wm' },
             { text: 'Genie Envisioner（智元 AgiBot）', link: '/wam/papers/genie-envisioner' },
             { text: 'GR00T N2（NVIDIA）', link: '/wam/papers/groot-n2' },
+          ],
+        },
+        {
+          text: '通用专题(VLA × WAM 共用)',
+          collapsed: false,
+          items: [
+            { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
+            { text: '具身数据处理', link: '/vla/papers/data-processing' },
+            { text: '数据集与基准全景', link: '/vla/papers/benchmarks' },
+            { text: '实验机器人本体', link: '/vla/papers/robots' },
           ],
         },
         {

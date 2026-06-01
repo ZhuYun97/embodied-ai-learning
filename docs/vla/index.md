@@ -67,7 +67,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | SmolVLA (2025.06) | Hugging Face / LeRobot | 0.45B 小型高效开源:冻结 SmolVLM-2 + ~100M 流匹配动作专家,层跳过/64token/异步推理;⚠️ LIBERO 87.3 追平 π0(3.3B)、超 OpenVLA(7B),训练快 40%/省显存 6× | [→ 细读](papers/smolvla.md) |
 | SteerVLA (2026.02) | Stanford / UC Berkeley | 首篇自动驾驶域:高层 VLM 出语言 meta-action「操控」低层 VLA 回归 waypoint,VLM 事后稠密标注;⚠️ 闭环 Bench2Drive 长尾 +8.04 | [→ 细读](papers/steervla.md) |
 
-**专题综述**
+**具身基础专题(VLA × WAM 共用)**
 
 | 专题 | 范围 | 一句话 | 细读 |
 |---|---|---|---|
