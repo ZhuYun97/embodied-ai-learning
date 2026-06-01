@@ -8,6 +8,17 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 
 ## 2026-06-01
 
+**新增 4 篇细读(ECoT/RoboVLMs/SimpleVLA-RL/TinyVLA),模型细读扩到 30 篇**
+- 📄 **新增 4 篇细读**:
+  - **[ECoT](/vla/papers/ecot)**(arXiv:2407.08693,伯克利/Stanford/华沙大学,CoRL 2024):**reasoning-VLA 奠基**——在 OpenVLA 基础上先生成具身推理链(plan→subtask→motion→bbox/位姿)再出动作,被 Fast ECoT/Emma-X 等 build-on。
+  - **[TinyVLA](/vla/papers/tinyvla)**(arXiv:2409.12514,美的/华东师大,RA-L 2025):**高数据效率、快推理的紧凑 VLA**——VLM 初始化+扩散策略头,跳过大规模机器人预训练;⚠️ +21.5% 数据效率/+25.7% 推理速度提升;S2 引 331(量级高),被高效 VLA 广泛当 baseline。
+  - **[RoboVLMs](/vla/papers/robovlms)**(arXiv:2412.14058,字节 Research/清华,Nature Machine Intelligence):**"建 VLA 什么最重要"的系统实证**——主干/架构/跨本体数据消融,提供常用 baseline 框架家族;S2 引 95/影响性 6;~471★;被 VITA 等当 baseline。
+  - **[SimpleVLA-RL](/vla/papers/simplevla-rl)**(arXiv:2509.09674,清华/上海AI Lab/北大,ICLR 2026):**VLA 专用在线 RL 后训练框架**——veRL/GRPO 作用于 OpenVLA-OFT;⚠️ LIBERO-Long 97.6 超 π0,冷启动→刷新 LIBERO SOTA;S2 引 91/影响性 14;GitHub ~1.7k★。
+- 🧭 **全站接入**:顶栏「VLA 调研 · 更多代表模型」与 `/vla/` 侧栏加 4 个入口(ECoT/TinyVLA/RoboVLMs/SimpleVLA-RL);首页「VLA:按技术路线浏览」**新范式探索**卡加 ECoT/RoboVLMs/SimpleVLA-RL、**连续·扩散/流匹配**卡加 TinyVLA;[总报告导航表](/vla/)、[发展时间线](/vla/papers/timeline)(2024.07/2024.09/2024.12/2025.09 节点)、[参考文献](/vla/papers/references)、[规格大表](/vla/papers/models-spec)(30 模型 × 12 维)同步登记;自动联动「相关细读」页脚与可信度透镜。
+- 🔢 **数量口径 26→30**:全站指代「模型细读数」处(首页 feature 卡、guide、resources、references、models-spec、时间线定位)统一更新为 **30 篇**。
+- 🔎 **事实纪律**:四篇定量均为**作者自评**(标 ⚠️);ECoT 推理链数据通过 GPT-4V 生成;TinyVLA 原文未给确切参数量/主干型号,标待核;RoboVLMs 为系统实证、多配置 baseline;SimpleVLA-RL 的 LIBERO-Long 97.6 需第三方验证。
+- 🎯 **三大空白路线补齐**:① **推理 CoT**(ECoT 奠基)② **系统实证与 baseline 框架**(RoboVLMs)③ **在线 RL 后训练**(SimpleVLA-RL),加上高效紧凑路线(TinyVLA),填补了此前 26 篇细读的方法论空白。
+
 **新增 SmolVLA 细读(小型高效开源 VLA),模型细读扩到 26 篇**
 - 📄 **新增 [SmolVLA 细读](/vla/papers/smolvla)**(arXiv:2506.01844,Hugging Face / LeRobot 团队):**平民化 VLA**——主力仅 **0.45B 参数**(冻结 **SmolVLM-2** 主干 + ~100M 流匹配动作专家),三连砍计算(**冻结 VLM** 只训动作专家 + **层跳过**只用前 16 层 LLM + 每帧 **64 视觉 token**),配 **异步推理栈**(Client-Server 解耦感知/预测与执行,任务完成快约 30%)。只吃 **481 个社区数据集筛出的 2.29 万条 episode**(Qwen2.5-VL-3B 自动清洗标注)。⚠️ **LIBERO 平均 87.3** 追平 π0(3.3B)的 86.0、超 OpenVLA(7B)的 76.5;真机 SO-100 多任务 **78.3**;相比 π0 **训练快约 40%、显存少 6×**;单 GPU 可训、消费级 GPU/CPU 可部署,代码/权重/数据全开源(Apache,集成 LeRobot)。
 - 🧭 **全站接入**:顶栏「VLA 调研 · 更多代表模型」与 `/vla/` 侧栏加入口;首页「VLA:按技术路线浏览」**连续·扩散/流匹配**卡、[总报告导航表](/vla/)、[发展时间线](/vla/papers/timeline)(2025.06 节点)、[参考文献](/vla/papers/references)、[规格大表](/vla/papers/models-spec)(26 模型 × 12 维)同步登记;自动联动「相关细读」页脚与可信度透镜。

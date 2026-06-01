@@ -1,19 +1,19 @@
 ---
 title: 全模型规格对比大表
-description: 一页看全 26 个 VLA / 具身智能代表模型的横切规格大表——主干 VLM、视觉编码器、参数量、动作表示、控制频率、训练语料、单体/双系统、开源许可,按时间排序并交叉链接各细读。
+description: 一页看全 30 个 VLA / 具身智能代表模型的横切规格大表——主干 VLM、视觉编码器、参数量、动作表示、控制频率、训练语料、单体/双系统、开源许可,按时间排序并交叉链接各细读。
 ---
 
 # 全模型规格对比大表
 
 > [← 返回主报告](../index.md)
 
-> **本页用途**:把 26 个代表模型的规格拍平成**一张主对比大表**,让你一页看全"谁用什么主干、动作怎么生成、跑多快、用多少数据、开不开源"。这是一张**横切对照页**,只做规组与交叉引用,**不复述单模型细节**——任何一格想深究,点对应细读。
+> **本页用途**:把 30 个代表模型的规格拍平成**一张主对比大表**,让你一页看全"谁用什么主干、动作怎么生成、跑多快、用多少数据、开不开源"。这是一张**横切对照页**,只做规组与交叉引用,**不复述单模型细节**——任何一格想深究,点对应细读。
 > **可信度体例**:⚠️ = 提出方/厂商自评数字;✅ = 经核查/基准维护方统一评测;**待核** = 源文件未给出一手定量,**不编造**(尤其许可证与参数量)。
 > **三处权威源声明(务必先读)**:① **规格以各模型细读为权威源**(本表的数字均可在对应 `xx.md` 里找到出处);② **成绩(成功率/基准分)一律见 [数据集与基准](benchmarks.md)**,本表不抄成绩;③ **年代序与机构以 [发展时间线](timeline.md) 为准**。
 
 ---
 
-## 一、主对比大表(26 模型 × 12 维,按时间排序)
+## 一、主对比大表(30 模型 × 12 维,按时间排序)
 
 > **动作表示图例**:`离散token` = 离散自回归动作 token;`流匹配` = flow matching 连续动作;`扩散DiT` = Diffusion Transformer 连续动作;`L1` = 连续表示 + L1 回归;`混合` = 高层离散 + 底层连续;`视频生成` = 第三条路(视频生成预训练)。
 > **系统形态图例**:`单体` = 单一模型端到端;`双系统` = 慢 VLM 推理(System 2)+ 快控制器执行(System 1)。
@@ -25,9 +25,12 @@ description: 一页看全 26 个 VLA / 具身智能代表模型的横切规格�
 | ⭐ **RT-2** | 2023.07 | Google DeepMind | PaLI-X(5B/55B)/ PaLM-E(12B) | 主干 VLM 内置(PaLI-X / PaLM-E 视觉) | 5B / 12B / 55B | 离散token(256-bin × 8 维,文本 token) | 55B≈1–3 Hz;5B≈5 Hz ⚠️(须多 TPU 云端) | 机器人轨迹 + 网络 VL 数据 co-fine-tune(规模**待核**) | 单体 | **闭源**(权重/代码均未公开) | [rt2.md](rt2.md) |
 | **Octo** | 2024.05 | UC Berkeley / Stanford / CMU / Google DeepMind 等 | 无大 LLM(t5-base 文本编码器 + ViT 式 Transformer) | 浅层卷积 patch stem(ViT 式) | Octo-Small 27M / Octo-Base 93M | 扩散(条件 DDPM 动作头,动作块) | 扩散多步去噪,实时控制频率**待核** | OXE 约 80 万条(800k)轨迹(25 子集) | 单体 | **完全开源**(权重/代码/数据管线/微调脚本)/ 具体许可证**待核** | [octo.md](octo.md) |
 | **OpenVLA** | 2024.06 | Stanford / UC Berkeley / Google DeepMind / TRI / MIT 等 | Llama 2 7B | DINOv2 + SigLIP 双流拼接(224×224) | ~7.5B(0.6B 视觉 + 2 层 MLP + 7B LLM) | 离散token(256-bin 分位数 × 7 维) | ~6 Hz(bf16@RTX4090,裸跑)⚠️ | OXE 约 97 万条(970k)真机演示 | 单体 | **完全开源**(权重/代码/数据混合/LoRA+量化工具链)/ 具体许可证**待核** | [openvla.md](openvla.md) |
+| **ECoT** | 2024.07 | 伯克利/Stanford/华沙大学 | OpenVLA(Llama 2 7B) | DINOv2 + SigLIP(承 OpenVLA) | ~7.5B(承 OpenVLA) | 离散token(先生成推理链,再出动作 token) | 待核(承 OpenVLA 基座) | OpenVLA 基座 + GPT-4V 生成推理链标注 | 单体 | 开源程度**待核** | [ecot.md](ecot.md) |
+| **TinyVLA** | 2024.09 | 美的/华东师大 等 | VLM 初始化(具体型号**待核**) | 待核 | 待核(紧凑设计) | 扩散(VLM 初始化 + 扩散策略头) | 待核(快推理,⚠️ +25.7% 速度提升) | 跳过大规模机器人预训练,直接目标任务微调 | 单体 | 开源程度**待核** | [tinyvla.md](tinyvla.md) |
 | **RDT-1B** | 2024.10 | 清华 TSAIL | 无独立 VLM(SigLIP + T5-XXL 冻结编码器作条件) | SigLIP-so400m(冻结) | ~1.2B(扩散 DiT 主干) | 扩散DiT(纯去噪一体化,动作块 64 步) | 推理 DPM-Solver++ 5 步;RTX4090 等效 ~381 Hz ⚠️ | 46 数据集 / 1M+ 轨迹 / ~21TB 预训练 + 6K+ ALOHA 双臂微调 | 单体(纯扩散一体化) | **MIT 开源**(代码/权重/数据) | [rdt-1b.md](rdt-1b.md) |
 | **π0** | 2024.10 | Physical Intelligence | PaliGemma(SigLIP-So400m + Gemma 2B) | SigLIP-So400m(400M) | ~3.3B(~3B 主干 + ~300M 动作专家) | 流匹配(连续,动作块 50 步) | 50 Hz ⚠️(去噪约 10 步) | 自有灵巧操作数据 + 开源 OXE(规模**待核**) | 单体(双流权重,一个 Transformer) | 当时**未完全开源**(后续版本另议)/ 许可证**待核** | [pi0.md](pi0.md) |
 | **CogACT** | 2024.11 | 清华大学 / 微软亚洲研究院 | Llama-2(7B 级,Prismatic VLM) | DINOv2 ViT-L/14 + SigLIP ViT-So400M/14 | ~7B(VLM)+ DiT 动作模块(S/B/L 三档) | 扩散DiT(cognition token 条件,动作块 N=15) | DDIM 10 步去噪,实时控制频率**待核** | OXE 子集约 0.4M 轨迹 / 22.5M 帧(25 数据集) | 单体(组件化:VLM 认知 + DiT) | 开源(代码/权重公开)/ 具体许可证**待核** | [cogact.md](cogact.md) |
+| **RoboVLMs** | 2024.12 | 字节 Research/清华 等 | 多种 VLM(CLIP/SigLIP/Qwen-VL 等消融) | 多种(系统实证) | 待核(多配置 baseline) | 多种(系统实证) | 待核 | 跨本体数据混合(系统实证) | 单体(框架家族) | 开源程度**待核** | [robovlms.md](robovlms.md) |
 | **SpatialVLA** | 2025.01 | 上海 AI Lab / 上科大等 | PaliGemma2(~3.5B) | SigLIP + ZoeDepth 单目深度(Ego3D 编码) | ~3.5B | 离散token(自适应动作网格,~8194 空间 token,自回归) | T=4 步动作块;实时频率**待核** | 1.1M 真机轨迹(OXE 子集 + RH20T 重加权) | 单体 | **开源**(代码/权重)/ 许可证**待核** | [spatialvla.md](spatialvla.md) |
 | **π0-FAST** | 2025.01 | Physical Intelligence | PaliGemma(同 π0) | SigLIP-So400m(同 π0) | ~3B 级(同 π0 主干，动作头改自回归) | 离散token(FAST = DCT + 量化 + BPE 频域分词) | 自回归高频化(具体 Hz **待核**) | 同 π0 系数据;FAST+ 分词器在 100 万条真机轨迹上训练 | 单体 | FAST+ 分词器开放;π0-FAST 权重开放程度**待核** | [pi0-fast.md](pi0-fast.md) |
 | **Helix** | 2025.02 | Figure AI | 7B 开放权重 VLM(型号**待核**) | S1 自带全卷积多尺度骨干(仿真预训练) | 7B(S2)+ 80M(S1) ⚠️ | 回归(S1 cross-attn enc-dec 直出 35-DoF 连续动作) | S2 7–9 Hz / S1 200 Hz ⚠️ | 约 500h 遥操作 ⚠️(称 <5% 既往 VLA 数据) | **双系统**(7B S2 + 80M S1,隐向量异步桥接) | **未开源**(无论文/权重/数据) | [helix.md](helix.md) |
@@ -41,6 +44,7 @@ description: 一页看全 26 个 VLA / 具身智能代表模型的横切规格�
 | **MemoryVLA** | 2025.08 | 清华黄高组 / Dexmal / 旷视等 | 7B Prismatic VLM(DINOv2+SigLIP+LLaMA-7B,OXE 续训) | DINOv2 + SigLIP | ~7B(VLM)+ 记忆库 + DiT 动作头 | 扩散DiT(记忆条件化,16 步动作块) | 推理 ~0.194s/步(记忆开销仅 +3.6%)⚠️ | 各基准对应数据(Bridge/RT-1/LIBERO/Mikasa/自采) | 单体 + 感知-认知记忆库(PCMB) | 开源程度**待核** | [memoryvla.md](memoryvla.md) |
 | **WALL-OSS** | 2025.09 | X Square Robot(自变量机器人,机构属推断) | Qwen2.5-VL（紧耦合 MoE,`Qwen2_5_VLMoEForAction`) | Qwen2.5-VL 内置视觉 | ~4B(MoE,BF16) | 混合(LM Head 出 FAST 离散 token + Flow Head 出连续，双分支) | 待核 | 网页图文 + 对话 + 长视频 + 多本体机器人数据 co-train(规模**待核**) | 单体(紧耦合 MoE,静态路由) | **开源**(GitHub `X-Square-Robot/wall-x`，HF `wall-oss-flow`/`wall-oss-fast` 双分支)/ 具体许可证**待核** | [wall-oss.md](wall-oss.md) |
 | **RynnVLA-001** | 2025.09 | 阿里达摩院 + 湖畔实验室 | 无 VLM 主干(从文生图 Chameleon 扩展为 I2V 自回归 Transformer) | Chameleon 视觉离散 token(Qwen2-VL-7B 仅作辅助标注) | 7B 级 | 视频生成(主干)+ ActionVAE 连续隐向量(动作头) | 待核(推理只出动作、丢弃未来帧) | 约 1200 万条第一视角人类操作视频(预训练)+ 自采机器人数据 | 单体 | **开源**(GitHub `alibaba-damo-academy/RynnVLA-001`,代码+权重)/ 具体许可证**待核** | [rynnvla.md](rynnvla.md) |
+| **SimpleVLA-RL** | 2025.09 | 清华/上海AI Lab/北大 | OpenVLA-OFT(Llama 2 7B) | DINOv2 + SigLIP(承 OpenVLA) | ~7.5B(承 OpenVLA-OFT) | L1(承 OpenVLA-OFT,RL 后训练) | 待核(承 OpenVLA-OFT) | OpenVLA-OFT 基座 + 在线 RL(veRL/GRPO) | 单体 | 开源程度**待核** | [simplevla-rl.md](simplevla-rl.md) |
 | **π0.6 / π\*0.6** | 2025.11 | Physical Intelligence | Gemma3-4B 初始化 | SigLIP-400M | Gemma3-4B 主干 + 860M 动作专家(总数源未给,~4.9B 系相加估算) | 混合(分层:高层离散自回归 + 底层流匹配;同时支持 FAST 离散) | 待核(承 π0.5 高频流匹配) | 示范 + on-policy 自采 + 专家遥操作干预(RECAP 真机 RL;规模**待核**) | 单体(分层两级 + KI 训练) | **未开源**(数据/权重均闭) | [pi06.md](pi06.md) |
 | **Wall-OSS-0.5** | 2026.02 | X Square Robot(自变量机器人) | Qwen2.5-VL-3B-Instruct + MoT 双专家 | Qwen2.5-VL 内置视觉(448px) | ~4B(MoT:VL Expert + Action Expert) | 混合(梯度桥接:离散 RVQ 训练桥 + 连续流匹配部署) | 三视角 224² ~21Hz / 448² ~15Hz(RTX5090,T=10)⚠️ | 1M+ 轨迹/epoch(60% 自采 + 40% 开源 10 子集)+ 90M 多模态(9:1) | 单体(MoT 路由,端到端梯度) | **开源**(GitHub `X-Square-Robot/wall-x`)/ 许可证**待核** | [wall-oss-05.md](wall-oss-05.md) |
 | **SteerVLA** | 2026.02 | Stanford / UC Berkeley(据作者名单推断,**待核**) | 高层 VLM 主干型号**待核** | 待核 | 待核 | 混合(分层:高层语言 meta-action + 低层 VLA 回归 waypoint 轨迹) | 待核 | 真机 + 仿真驾驶数据 + VLM 事后稠密语言标注(具名数据集**待核**) | 双系统(高层 VLM 规划 + 低层 VLA,语言接口) | 论文 CC BY 4.0;代码/权重开放程度**待核** | [steervla.md](steervla.md) |
@@ -125,4 +129,4 @@ flowchart TD
 
 ---
 
-*本对比表基于《VLA(视觉-语言-动作)模型发展深度调研报告》及 26 篇模型细读整理。⚠️ 标记处为提出方/厂商自评数据;**待核** 处为一手源未给出、不予编造。*
+*本对比表基于《VLA(视觉-语言-动作)模型发展深度调研报告》及 30 篇模型细读整理。⚠️ 标记处为提出方/厂商自评数据;**待核** 处为一手源未给出、不予编造。*
