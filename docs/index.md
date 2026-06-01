@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 24 篇 + WAM 13 篇,每篇配官方框架图,逐模块拆解架构 / 数据 / 实验 / 局限,并附关键数据表。
+    details: VLA 25 篇 + WAM 13 篇,每篇配官方框架图,逐模块拆解架构 / 数据 / 实验 / 局限,并附关键数据表。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }

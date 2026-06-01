@@ -220,6 +220,7 @@ export default withMermaid(defineConfig({
               { text: 'MemoryVLA（记忆增强）', link: '/vla/papers/memoryvla' },
               { text: 'SpatialVLA（3D/空间）', link: '/vla/papers/spatialvla' },
               { text: 'Helix（人形双系统）', link: '/vla/papers/helix' },
+              { text: 'SteerVLA（自动驾驶·分层操控）', link: '/vla/papers/steervla' },
             ],
           },
           {
@@ -377,6 +378,7 @@ export default withMermaid(defineConfig({
             { text: 'MemoryVLA（记忆增强）', link: '/vla/papers/memoryvla' },
             { text: 'SpatialVLA（3D/空间 VLA）', link: '/vla/papers/spatialvla' },
             { text: 'Helix（Figure 人形双系统）', link: '/vla/papers/helix' },
+            { text: 'SteerVLA（自动驾驶·分层语言操控）', link: '/vla/papers/steervla' },
           ],
         },
         {

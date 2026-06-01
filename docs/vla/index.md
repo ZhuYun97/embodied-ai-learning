@@ -60,6 +60,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | MemoryVLA (2025.08) | 清华黄高组等 | 感知-认知双记忆库打破单步马尔可夫假设,补长程时序短板(CogACT 加记忆版) | [→ 细读](papers/memoryvla.md) |
 | SpatialVLA (2025.01) | 上海 AI Lab 等 | Ego3D 位置编码 + 自适应动作网格,给 2D VLA 注入 3D(含 3D-VLA/PointVLA 对照) | [→ 细读](papers/spatialvla.md) |
 | Helix (2025.02) | Figure AI | 单权重 35-DoF 人形上半身双系统(7B@7-9Hz + 80M@200Hz),隐向量窄接口(⚠️ 无论文) | [→ 细读](papers/helix.md) |
+| SteerVLA (2026.02) | Stanford / UC Berkeley | 首篇自动驾驶域:高层 VLM 出语言 meta-action「操控」低层 VLA 回归 waypoint,VLM 事后稠密标注;⚠️ 闭环 Bench2Drive 长尾 +8.04 | [→ 细读](papers/steervla.md) |
 
 **专题综述**
 
@@ -74,7 +75,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 
 | 专题 | 范围 | 一句话 | 链接 |
 |---|---|---|---|
-| 全模型规格对比 | 24 模型 × 12 维 | 主干/视觉编码器/参数/动作表示/频率/语料/单体or双系统/许可一表打尽(成绩见基准、年代见时间线) | [→ 大表](papers/models-spec.md) |
+| 全模型规格对比 | 25 模型 × 12 维 | 主干/视觉编码器/参数/动作表示/频率/语料/单体or双系统/许可一表打尽(成绩见基准、年代见时间线) | [→ 大表](papers/models-spec.md) |
 | 双系统架构原理 | System 1/2 / 分层 / 知识隔离 | 辨析"频率解耦 vs 语义分层 vs 梯度隔离"三种常被混用的解耦,含跨系统对比表与单模型反例 | [→ 专题](papers/dual-system-architecture.md) |
 | 预测式 VLA | 世界模型作策略主体 | VPP/DreamVLA/WorldVLA:推理时预演未来→反推动作,区别于 RynnVLA 的"预测只当训练先验" | [→ 专题](papers/predictive-vla.md) |
 | 知识隔离训练配方 | KI(arXiv:2505.23705) | stop-gradient 挡住动作专家梯度 + FAST 离散监督主干 + co-training,π0.6/π0.7 背后的训练技法 | [→ 细读](papers/knowledge-insulation.md) |
@@ -87,7 +88,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | 页面 | 用途 | 链接 |
 |---|---|---|
 | 术语速查表 | 流匹配/动作分块/双系统/co-training 等术语一页速查 | [→ 术语表](papers/glossary.md) |
-| 发展时间线 | 2022→2026 里程碑一览(24 篇细读定位) | [→ 时间线](papers/timeline.md) |
+| 发展时间线 | 2022→2026 里程碑一览(25 篇细读定位) | [→ 时间线](papers/timeline.md) |
 | 参考文献 | 全站一手信源(arXiv/官网)聚合 | [→ 信源](papers/references.md) |
 | 外部资源导航 | 站外高质量 Awesome 论文合集 / 综述 / 基准仿真官方站 / 数据集 / 机构博客 | [→ 资源](papers/resources.md) |
 
@@ -189,7 +190,7 @@ flowchart LR
 
 # 二、代表性模型
 
-> 本节只展开**精选代表**以勾勒两条路线与双系统的脉络;**完整 24 篇模型细读清单见开头的 [📄 论文细读导航](#-论文细读导航)**。下文未单独展开的模型(如 RT-1 离散前史、π0-FAST 频域分词)在第三、四部分与对应细读中讨论。
+> 本节只展开**精选代表**以勾勒两条路线与双系统的脉络;**完整 25 篇模型细读清单见开头的 [📄 论文细读导航](#-论文细读导航)**。下文未单独展开的模型(如 RT-1 离散前史、π0-FAST 频域分词)在第三、四部分与对应细读中讨论。
 
 ## 2.1 离散 token 路线
 

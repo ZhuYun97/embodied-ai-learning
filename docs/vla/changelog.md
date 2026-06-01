@@ -6,6 +6,15 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 
 本站持续生长,这里按时间倒序记录主要更新。⚠️ 标记的自评数据与"待核"缺口在各页内就地标注。
 
+## 2026-06-01
+
+**新增 SteerVLA 细读(本站首篇自动驾驶域 VLA),模型细读扩到 25 篇**
+- 📄 **新增 [SteerVLA 细读](/vla/papers/steervla)**(arXiv:2602.08440,Stanford/UC Berkeley,Levine/Finn/Sadigh/Mees 等;ICLR 2026 投稿):把机器人圈的「可操控(steerability)」分层范式迁到**自动驾驶长尾**——高层 VLM 规划器读场景/历史车状态/路由指令,产出**短推理链 + 细粒度语言 meta-action**;低层 VLA 据观测 + meta-action **回归未来 waypoint**;核心是两级间的**「语言接口」**(高层推理锚定到低层控制)+ 用 **VLM 对真机/仿真数据做事后(hindsight)稠密语言标注**喂监督。⚠️ 闭环 **Bench2Drive 总驾驶分 +4.77、长尾子集 Bench2Drive-LongTail +8.04**(长尾对照前 SOTA SimLingo)。
+- 🌐 **首次进入自动驾驶域**:此前 24 篇细读全为机器人操作/人形,SteerVLA 是首篇驾驶 VLA;在 [规格大表](/vla/papers/models-spec) 标「自动驾驶」域、动作空间为 waypoint 轨迹,**横比成功率不与操作类基准混算**。
+- 🧭 **全站接入**:顶栏「VLA 调研 · 更多代表模型」与 `/vla/` 侧栏加入口;[总报告导航表](/vla/)、[发展时间线](/vla/papers/timeline)(2026.02 节点)、[参考文献](/vla/papers/references)、[规格大表](/vla/papers/models-spec)(25 模型 × 12 维)同步登记;自动联动「相关细读」页脚与可信度透镜。
+- 🔢 **数量口径 24→25**:全站指代「模型细读数」处(首页 feature 卡、guide、resources、references、models-spec、时间线定位)统一更新为 **25 篇**(历史 changelog 行不改写)。
+- 🔎 **事实纪律**:论文为投稿中、2026-02 极新预印本、无第三方复现,定量全标 ⚠️;**meta-action 确切词表、高低层主干型号、模仿学习具名数据集、完整结果表与五项城市驾驶技能逐项分**一手摘要/项目页未给出,一律标 **待核** 不予编造(arXiv PDF ~13.5MB、全文 HTML 整理时尚未可解析,定量以 arXiv 摘要 / 项目页 / OpenReview 三处交叉为准)。
+
 ## 2026-05-31
 
 **WAM 细读扩到 12 篇 + 首页「WAM 按范式浏览」路线网格**
