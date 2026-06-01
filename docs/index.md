@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 26 篇 + WAM 13 篇,每篇配官方框架图,逐模块拆解架构 / 数据 / 实验 / 局限,并附关键数据表。
+    details: VLA 30 篇 + WAM 16 篇,每篇配官方框架图,逐模块拆解架构 / 数据 / 实验 / 局限,并附关键数据表。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -65,6 +65,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/pi0">π0</a>
       <a href="vla/papers/cogact">CogACT</a>
       <a href="vla/papers/groot-n1">GR00T N1</a>
+      <a href="vla/papers/tinyvla">TinyVLA（高效紧凑）</a>
       <a href="vla/papers/smolvla">SmolVLA（小型高效）</a>
     </div>
   </div>
@@ -83,6 +84,9 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-card__title">统一基座 / 第三条路 / 从经验学习</div>
     <p>统一多任务多本体基座、视频生成预训练→动作、真机强化学习,以及可操控分层跨域到自动驾驶。</p>
     <div class="route-links">
+      <a href="vla/papers/ecot">ECoT（推理 CoT）</a>
+      <a href="vla/papers/robovlms">RoboVLMs（系统实证）</a>
+      <a href="vla/papers/simplevla-rl">SimpleVLA-RL（在线 RL）</a>
       <a href="vla/papers/qwen-vla">Qwen-VLA</a>
       <a href="vla/papers/rynnvla">RynnVLA</a>
       <a href="vla/papers/pi06">π0.6 / π*0.6</a>
@@ -136,6 +140,16 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/lingbot-va">LingBot-VA</a>
       <a href="wam/papers/tau0-wm">τ0-WM</a>
       <a href="wam/papers/groot-n2">GR00T N2</a>
+      <a href="wam/papers/ladi-wm">LaDi-WM</a>
+    </div>
+  </div>
+  <div class="route-card">
+    <span class="route-tag">联合 · 混合</span>
+    <div class="route-card__title">自回归 + 扩散混合</div>
+    <p>结合自回归与扩散优势,或用潜表征对齐未来与动作,兼顾长期规划与精细控制。</p>
+    <div class="route-links">
+      <a href="wam/papers/uva">UVA</a>
+      <a href="wam/papers/flare">FLARE</a>
     </div>
   </div>
 </div>

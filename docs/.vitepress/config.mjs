@@ -214,6 +214,10 @@ export default withMermaid(defineConfig({
           {
             text: '论文细读 · 更多代表模型',
             items: [
+              { text: 'ECoT（推理 CoT）', link: '/vla/papers/ecot' },
+              { text: 'TinyVLA（高效紧凑）', link: '/vla/papers/tinyvla' },
+              { text: 'RoboVLMs（系统实证）', link: '/vla/papers/robovlms' },
+              { text: 'SimpleVLA-RL（在线 RL）', link: '/vla/papers/simplevla-rl' },
               { text: 'GR-3（字节 Seed）', link: '/vla/papers/gr-3' },
               { text: 'RDT-1B（扩散基座）', link: '/vla/papers/rdt-1b' },
               { text: 'GO-1（潜动作桥接）', link: '/vla/papers/go-1' },
@@ -263,6 +267,7 @@ export default withMermaid(defineConfig({
               { text: 'Gen2Act(零样本人类视频)', link: '/wam/papers/gen2act' },
               { text: 'VPP(预测性视觉表征)', link: '/wam/papers/vpp' },
               { text: 'LAPA(潜动作预训练)', link: '/wam/papers/lapa' },
+              { text: 'LaDi-WM(潜扩散世界模型·CoRL25)', link: '/wam/papers/ladi-wm' },
             ],
           },
           {
@@ -271,6 +276,8 @@ export default withMermaid(defineConfig({
               { text: 'GR-1(视频生成预训练·自回归)', link: '/wam/papers/gr-1' },
               { text: 'WorldVLA(自回归动作世界模型)', link: '/wam/papers/worldvla' },
               { text: 'UWM(耦合视频+动作扩散)', link: '/wam/papers/uwm' },
+              { text: 'UVA(统一视频动作·解耦双头)', link: '/wam/papers/uva' },
+              { text: 'FLARE(未来潜表征对齐)', link: '/wam/papers/flare' },
               { text: 'DreamZero(零样本策略)', link: '/wam/papers/dreamzero' },
               { text: 'X-WAM(统一 4D)', link: '/wam/papers/x-wam' },
               { text: 'LingBot-VA(蚂蚁灵波)', link: '/wam/papers/lingbot-va' },
@@ -373,6 +380,10 @@ export default withMermaid(defineConfig({
           text: '论文细读 · 更多代表模型',
           collapsed: false,
           items: [
+            { text: 'ECoT（推理 CoT）', link: '/vla/papers/ecot' },
+            { text: 'TinyVLA（高效紧凑）', link: '/vla/papers/tinyvla' },
+            { text: 'RoboVLMs（系统实证）', link: '/vla/papers/robovlms' },
+            { text: 'SimpleVLA-RL（在线 RL）', link: '/vla/papers/simplevla-rl' },
             { text: 'GR-3（字节 Seed 双臂移动）', link: '/vla/papers/gr-3' },
             { text: 'RDT-1B（扩散双臂基座）', link: '/vla/papers/rdt-1b' },
             { text: 'GO-1（智元 ViLLA 潜动作）', link: '/vla/papers/go-1' },
@@ -423,6 +434,7 @@ export default withMermaid(defineConfig({
           items: [
             { text: 'VPP（预测性视觉表征）', link: '/wam/papers/vpp' },
             { text: 'LAPA（潜动作预训练）', link: '/wam/papers/lapa' },
+            { text: 'LaDi-WM（潜扩散世界模型·CoRL25）', link: '/wam/papers/ladi-wm' },
           ],
         },
         {
@@ -438,6 +450,8 @@ export default withMermaid(defineConfig({
           collapsed: false,
           items: [
             { text: 'UWM（耦合视频+动作扩散）', link: '/wam/papers/uwm' },
+            { text: 'UVA（统一视频动作·解耦双头）', link: '/wam/papers/uva' },
+            { text: 'FLARE（未来潜表征对齐·隐式）', link: '/wam/papers/flare' },
             { text: 'DreamZero（零样本策略）', link: '/wam/papers/dreamzero' },
             { text: 'X-WAM（统一 4D · 异步去噪）', link: '/wam/papers/x-wam' },
             { text: 'LingBot-VA（蚂蚁灵波·因果世界模型）', link: '/wam/papers/lingbot-va' },

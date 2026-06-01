@@ -6,7 +6,7 @@ description: 世界-行动模型(WAM)是 2025–2026 兴起的具身基础模型
 # 世界-行动模型 WAM:联合预测未来状态与动作
 
 > **WAM 调研 · 总览** · 2025–2026 前沿范式 · 联合分布建模(未来状态 + 动作)· 权威源:综述 arXiv:2605.12090(OpenMOSS)
-> [← VLA 调研报告](/vla/) · **13 篇细读**(按路线,亦见侧栏):级联 [UniPi](/wam/papers/unipi)·[Gen2Act](/wam/papers/gen2act)·[VPP](/wam/papers/vpp)·[LAPA](/wam/papers/lapa) ｜ 联合 [GR-1](/wam/papers/gr-1)·[WorldVLA](/wam/papers/worldvla)·[UWM](/wam/papers/uwm)·[DreamZero](/wam/papers/dreamzero)·[X-WAM](/wam/papers/x-wam)·[LingBot-VA](/wam/papers/lingbot-va)·[τ0-WM](/wam/papers/tau0-wm)·[Genie Envisioner](/wam/papers/genie-envisioner)·[GR00T N2](/wam/papers/groot-n2)
+> [← VLA 调研报告](/vla/) · **16 篇细读**(按路线,亦见侧栏):级联 [UniPi](/wam/papers/unipi)·[Gen2Act](/wam/papers/gen2act)·[VPP](/wam/papers/vpp)·[LAPA](/wam/papers/lapa)·[LaDi-WM](/wam/papers/ladi-wm) ｜ 联合 [GR-1](/wam/papers/gr-1)·[WorldVLA](/wam/papers/worldvla)·[UWM](/wam/papers/uwm)·[UVA](/wam/papers/uva)·[FLARE](/wam/papers/flare)·[DreamZero](/wam/papers/dreamzero)·[X-WAM](/wam/papers/x-wam)·[LingBot-VA](/wam/papers/lingbot-va)·[τ0-WM](/wam/papers/tau0-wm)·[Genie Envisioner](/wam/papers/genie-envisioner)·[GR00T N2](/wam/papers/groot-n2)
 
 > 本页系统梳理「世界-行动模型」(World Action Models, WAM)这一 2025–2026 前沿范式:它是「统一预测式状态建模与动作生成、对未来状态与动作的**联合分布**建模」的具身基础模型。内容覆盖定义辨析、综述 taxonomy、代表模型细读、数据生态与评测协议,以及 WAM 与本站既有 VLA 谱系的对位关系。可信度体例:⚠️ = 提出方/厂商自评(本页绝大多数定量属此类);✅ = 经基准维护方统一第三方评测(本语料中几乎缺位);**待核** = 一手源未给出、不以外部记忆或常识补全。所标 arXiv 编号均取自语料。
 
@@ -90,6 +90,7 @@ NVIDIA 还补充了一个值得注意的运行机制细节:其 WAM 在运行时 
 | 显式解耦表征 | 各模态保留异构格式、经独立输出头解码(靠 [ACT]/[OBS] 控制 token 路由) | GR-1(195M)· GR-MG · GR-2(30–719M),GPT 式因果 Transformer |
 | 统一离散表征 | 视觉与动作全量化进同一词表、共享 next-token 头 | CoT-VLA(7B,VILA-U)· WorldVLA(7B,Chameleon)· RynnVLA-002(5B,Chameleon+动作头) |
 | 预测式潜表征 | 不生成显式 token,在抽象连续潜空间自回归 | VLA-JEPA(2B,Qwen3-VL;JEPA 式,future 仅作监督、结构无泄漏)· F1(4.2B,MoT) |
+| 混合架构 | 结合自回归与扩散优势,或用潜表征对齐未来与动作 | UVA(统一视频动作模型,自回归+扩散)· FLARE(未来潜表征对齐) |
 
 > 注:本站 [RynnVLA-001](/vla/papers/rynnvla) 细读的对象是 RynnVLA;综述 Table 2 列的 **RynnVLA-002** 是其后继(Chameleon + 动作头,5B)。
 
@@ -98,7 +99,7 @@ NVIDIA 还补充了一个值得注意的运行机制细节:其 WAM 在运行时 
 用多步去噪 / 流匹配**并行**生成未来与动作,绕开自回归的串行瓶颈,利于高频闭环。综述按"预测流如何耦合"分两型(见综述 Fig 6):
 
 - **单流(Unified-Stream)**:世界与动作变量进**同一个 DiT 主干**联合去噪,靠共享注意力同步。再分:
-  - **显式未来预测**(未来观测/其潜代理作直接去噪目标):**PAD**(拼接未来图像潜 + 动作 token,可掺无动作网络视频)、**VideoVLA**(CogVideoX-5B 主干、7-DoF)、**UWM**(给世界与动作各自独立噪声步 → 一套权重可切策略/正向动力学/逆动力学/视频生成)、**Cosmos Policy**(Cosmos-Predict2 主干、潜帧注入 → 同一 checkpoint 兼作策略+世界模型+价值函数、best-of-N 规划)、**DreamZero**、**GigaWorld-Policy**(同 DreamZero 设计但推理只注意历史/当前观测 → 无需在线生成未来视频)、**X-WAM**(复制 DiT 末块作交错深度分支 → 显式 RGB-D)、**UD-VLA**(离散扩散 mask-and-predict)。
+  - **显式未来预测**(未来观测/其潜代理作直接去噪目标):**PAD**(拼接未来图像潜 + 动作 token,可掺无动作网络视频)、**VideoVLA**(CogVideoX-5B 主干、7-DoF)、**UWM**(给世界与动作各自独立噪声步 → 一套权重可切策略/正向动力学/逆动力学/视频生成)、**Cosmos Policy**(Cosmos-Predict2 主干、潜帧注入 → 同一 checkpoint 兼作策略+世界模型+价值函数、best-of-N 规划)、**DreamZero**、**GigaWorld-Policy**(同 DreamZero 设计但推理只注意历史/当前观测 → 无需在线生成未来视频)、**X-WAM**(复制 DiT 末块作交错深度分支 → 显式 RGB-D)、**UD-VLA**(离散扩散 mask-and-predict)、**LaDi-WM**(潜扩散世界模型)。
   - **隐式未来预测**(未来仅作内部对齐约束、不显式生成):**FLARE**(可学习 future token 经 MLP 投影、对齐冻结教师编码的真实未来特征;可单独用于无动作视频)、**FRAPPE**(冻结 RDT 主干 + 多对齐专家,Mixture-of-Prefix-and-LoRA)。
 - **多流(Multi-Stream)**:世界与动作分到**不同分支/专家**,经显式耦合交互——综述给出三种(Fig 6):**跨注意力**(CA-Coupled)、**隐状态传递**(Hidden-State,视频 DiT 的隐状态条件化动作 DiT)、**共享编码器**(Shared-Rep,先过统一编码器再各自解码)。蚂蚁灵波 [LingBot-VA](/wam/papers/lingbot-va) 用 Mixture-of-Transformers 把视觉与动作 token 整合进共享潜空间,即属此支(MoT 专家分担,单/多流确切归属待核)。
 
