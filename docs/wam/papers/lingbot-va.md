@@ -33,7 +33,7 @@ LingBot-VA 是一个**自回归扩散框架**,同时学习帧预测(frame predic
 ## 三、实验与关键结果
 
 - **原论文摘要未给出定量结果**(成功率、对比基线等),故自评数值此处标 **待核**。
-- **第三方鲁棒性研究的成绩** ⚠️:一篇对比研究《Do World Action Models Generalize Better than VLAs? A Robustness Study》(arXiv:2603.22078)在视觉/语言扰动下评测多个 WAM 与 VLA,报告 **LingBot-VA 在 RoboTwin 2.0-Plus 成功率 74.2%**(同表中 Cosmos-Policy 在 LIBERO-Plus 报 82.2%)。该研究结论是 WAM 整体鲁棒性强、较多数 VLA 泛化更好,但 π0.5 等经充分多样数据训练的 VLA 在部分任务可追平。注:此数字出自该对比研究、非基准维护方统一榜单,仍标 ⚠️;RoboTwin 见本站 [数据集与基准](/vla/papers/benchmarks)。
+- **第三方鲁棒性研究的成绩** ⚠️:一篇对比研究《Do World Action Models Generalize Better than VLAs? A Robustness Study》(arXiv:2603.22078)在视觉/语言扰动下评测多个 WAM 与 VLA,报告 **LingBot-VA 在 RoboTwin 2.0-Plus 成功率 74.2%**(同表中 Cosmos-Policy 在 LIBERO-Plus 报 82.2%)。该研究结论是 WAM 整体鲁棒性强、较多数 VLA 泛化更好,但 π0.5 等经充分多样数据训练的 VLA 在部分任务可追平。注:此数字出自该对比研究、非基准维护方统一榜单,仍标 ⚠️;RoboTwin 见本站 [评测基准](/vla/papers/benchmarks)。
 
 ## 四、与本站谱系的关系
 

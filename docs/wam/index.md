@@ -161,7 +161,7 @@ flowchart TD
   - 提出 **Asynchronous Noise Sampling(ANS)**:推理时异步去噪调度——动作用更少步数快速解码以实时执行、视频用完整步数保高保真;训练时从联合分布采样以对齐推理分布。
 - **关键数字**(作者自评 ⚠️):
   - 预训练于 **"over 5,800 hours of robotic data"** ⚠️
-  - RoboCasa **"79.2%"**、RoboTwin 2.0 **"90.7%"** 平均成功率 ⚠️(RoboCasa 见本站 [数据集与基准](/vla/papers/benchmarks))
+  - RoboCasa **"79.2%"**、RoboTwin 2.0 **"90.7%"** 平均成功率 ⚠️(RoboCasa 见本站 [评测基准](/vla/papers/benchmarks))
   - 4D 重建/生成在视觉与几何指标上「超越现有方法」(具体数值待核)
 
 ### 3.3 UWM(arXiv 2504.02792) · [完整细读 →](/wam/papers/uwm)
@@ -229,7 +229,7 @@ NVIDIA 词条与此呼应——其 WAM 在「大规模视频(含互联网视频�
 
 这正是 WAM 的「可解释性」主张的评测落点:NVIDIA 称可通过检视预测帧来定位失败⚠️——这一诊断方式在纯成功率评测下根本无从谈起,因为成功率只给出 0/1 结果而不暴露过程。
 
-需要强调:三维评测与成功率并非互斥,而是互补。旗舰模型仍在传统成功率基准上报告结果,以与 SOTA VLA 可比。X-WAM 在 [数据集与基准](/vla/papers/benchmarks) 收录的 **RoboCasa 报 79.2%**、在 RoboTwin 2.0 报 90.7% 平均成功率⚠️;同时它声称 4D 重建/生成在视觉与几何指标上超越现有方法⚠️——后者正对应「视觉保真/物理常识」一维,是传统成功率无法覆盖的部分。可以说,WAM 的完整评测 = 成功率(动作端结果)+ 三维协议(世界想象端的过程质量)。
+需要强调:三维评测与成功率并非互斥,而是互补。旗舰模型仍在传统成功率基准上报告结果,以与 SOTA VLA 可比。X-WAM 在 [评测基准](/vla/papers/benchmarks) 收录的 **RoboCasa 报 79.2%**、在 RoboTwin 2.0 报 90.7% 平均成功率⚠️;同时它声称 4D 重建/生成在视觉与几何指标上超越现有方法⚠️——后者正对应「视觉保真/物理常识」一维,是传统成功率无法覆盖的部分。可以说,WAM 的完整评测 = 成功率(动作端结果)+ 三维协议(世界想象端的过程质量)。
 
 综述 Fig 2 为每一维列出了具体评测手段(本身多为视频生成 / 世界模型领域已有基准,被借来评 WAM 的"世界想象"质量):
 
@@ -238,7 +238,7 @@ NVIDIA 词条与此呼应——其 WAM 在「大规模视频(含互联网视频�
 - **动作合理性**:WorldSimBench 等——测预测里"可执行的信息含量"。
 - **动作策略(成功率,与 VLA 可比)**:综述同时罗列 LIBERO、CALVIN、RoboCasa、ManiSkill2、SimplerEnv、RoboTwin、HumanoidBench、HomeRobot、RoboArena 等数十个基准(双臂/人形、移动操作、接触与形变、真机榜各成一组)。
 
-> 需强调:综述将这些"世界想象"指标与传统成功率**并列**,正因为它指出当前协议**仍缺**直接评估"世界预测与动作生成之间因果对齐"的统一方法(见 §5.2 开放挑战)。本站 [数据集与基准](/vla/papers/benchmarks) 目前以成功率为主轴;上述视觉/物理类指标如何落到具体模型上,各家口径不一,**待核**。
+> 需强调:综述将这些"世界想象"指标与传统成功率**并列**,正因为它指出当前协议**仍缺**直接评估"世界预测与动作生成之间因果对齐"的统一方法(见 §5.2 开放挑战)。本站 [评测基准](/vla/papers/benchmarks) 目前以成功率为主轴;上述视觉/物理类指标如何落到具体模型上,各家口径不一,**待核**。
 
 > 对照阅读:本站 [预测式 VLA](/vla/papers/predictive-vla)(VPP / DreamVLA / WorldVLA)在评测上多沿用成功率口径,而它们在综述 taxonomy 中横跨级联与联合(VPP 属 Cascaded·隐式、WorldVLA 属 Joint·自回归)——三维评测协议正是 WAM 伞形范式对这些早期点提出的更高要求。另见 [RynnVLA](/vla/papers/rynnvla):它把视频生成仅当作训练先验、推理时丢弃未来帧,因而天然落在「成功率」一维里,与 WAM「预演未来再反推动作、需审视想象质量」的评测诉求形成鲜明对照。
 
@@ -302,4 +302,4 @@ WAM 不是凭空出现的范式,本站此前已分散记录了它的若干早期
 - Awesome-WAM(OpenMOSS 同组维护清单):本页各代表模型 arXiv 编号与 Cascaded/Joint 归类来源,含 UniPi、VLP(2310.10625)、Gen2Act(2409.16283)、Dreamitate(2406.16862)、4DGen(2507.01099)、LV-P(2512.15840)、GR-1(2312.13139)、WorldVLA(2506.21539)、CoT-VLA(2503.22020)、PAD(2411.18179)、VideoVLA(2512.06963)、Motus(2512.13030)、MotuBrain(2604.27792)等。
 - AGIBOT(智元)Genie Envisioner 相关报道(含 The Robot Report 对 Genie Envisioner 2.0 由「world action model」向「world simulator」演进的报道):「industry's first action-driven world model」陈述来源(⚠️;技术细节、论文编号待核)。
 
-参见:[预测式 VLA](/vla/papers/predictive-vla)、[RynnVLA](/vla/papers/rynnvla)、[GR00T N1](/vla/papers/groot-n1)、[GO-1](/vla/papers/go-1)、[具身数据全景](/vla/papers/embodied-data)、[数据集与基准](/vla/papers/benchmarks)、[主报告](/vla/)。
+参见:[预测式 VLA](/vla/papers/predictive-vla)、[RynnVLA](/vla/papers/rynnvla)、[GR00T N1](/vla/papers/groot-n1)、[GO-1](/vla/papers/go-1)、[具身数据全景](/vla/papers/embodied-data)、[评测基准](/vla/papers/benchmarks)、[主报告](/vla/)。

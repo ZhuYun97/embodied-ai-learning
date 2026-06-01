@@ -19,7 +19,7 @@ description: 如何阅读本站——具身智能学习站的内容地图、推�
 | **第一次了解 VLA** | [总报告](/vla/) 摘要 + 第一部分发展主线 → [发展时间线](timeline) → 任选 [RT-2](papers/rt2) / [π0](papers/pi0) 细读 |
 | **快速建立全景** | [总报告](/vla/) 的论文细读导航表 + [术语速查表](papers/glossary) |
 | **深挖某个模型** | 论文细读导航里点对应条目;每篇细读结构统一:TL;DR → 要解决的问题 → 方法与架构 → 实验结果表 → 局限 |
-| **找数据/基准/硬件** | [具身数据全景](papers/embodied-data) · [数据集与基准](papers/benchmarks) · [实验机器人本体](papers/robots) |
+| **找数据/基准/硬件** | [具身数据全景](papers/embodied-data) · [评测基准](papers/benchmarks) · [实验机器人本体](papers/robots) |
 | **查术语 / 找原文** | [术语速查表](papers/glossary) · [参考文献](papers/references) |
 
 > 每篇细读底部都有「本系列」页脚,可一键跳到相关专题与速查页。
@@ -38,7 +38,7 @@ description: 如何阅读本站——具身智能学习站的内容地图、推�
 4. [OpenVLA](papers/openvla) —— 开源平民化基线(最常被对标)
 5. [OpenVLA-OFT](papers/openvla-oft) —— 离散 vs 连续的最硬定量证据 + 推理提速 26×
 6. [π0.5](papers/pi05) —— 双系统/分层 + 开放世界泛化
-7. [数据集与基准全景](papers/benchmarks) —— 学会"怎么读懂一个成绩数字"(口径/可信度)
+7. [评测基准全景](papers/benchmarks) —— 学会"怎么读懂一个成绩数字"(口径/可信度)
 
 ### 🥈 第二档 · 推荐(按技术路线补全)
 
@@ -65,15 +65,15 @@ description: 如何阅读本站——具身智能学习站的内容地图、推�
 | ✅ | 经**本站对抗式事实核查**确认,或由基准维护方统一评测 |
 | 待核 | 一手来源里**没有给出**该定量数字(常见于论文只给曲线图),不臆造 |
 
-读基准表时还要注意**口径**:同一基准常有多套不可直接横比的设定(如 SimplerEnv 的 Visual Matching vs Variant Aggregation、RoboCasa 的 multitask vs 30-demo),表注里都有说明。同一份数据若同时出现在总报告与专题页,**以专题页为权威源**(总报告 §4.2 已注明指向[《数据集与基准全景》](papers/benchmarks))。
+读基准表时还要注意**口径**:同一基准常有多套不可直接横比的设定(如 SimplerEnv 的 Visual Matching vs Variant Aggregation、RoboCasa 的 multitask vs 30-demo),表注里都有说明。同一份数据若同时出现在总报告与专题页,**以专题页为权威源**(总报告 §4.2 已注明指向[《评测基准全景》](papers/benchmarks))。
 
 ## 站点结构
 
-- **总报告** — 发展主线、代表模型、技术路线之争、数据集与基准、最新前沿、核查与局限
+- **总报告** — 发展主线、代表模型、技术路线之争、评测基准、最新前沿、核查与局限
 - **论文细读 ×30** — 奠基与两条路线(11)+ 2025H2–2026 前沿(7:含 Wall-OSS-0.5)+ 更多代表模型(12:ECoT/TinyVLA/RoboVLMs/SimpleVLA-RL/GR-3/RDT-1B/GO-1/MemoryVLA/SpatialVLA/Helix/SmolVLA/SteerVLA)
 - **横切分析专题 ×7** — 全模型规格对比 / 双系统架构原理 / 预测式 VLA / 知识隔离训练配方 / 推理加速与部署 / 开源代码库对照 / 共性失败模式
 - **WAM 调研轨(独立)** — 总览(定义 / 级联 vs 联合 taxonomy / 数据与评测)+ 5 篇细读:DreamZero / X-WAM / UWM / Genie Envisioner / GR00T N2
-- **专题** — 具身数据全景 / 具身数据处理 / 数据集与基准 / 实验机器人本体
+- **专题** — 具身数据全景 / 具身数据处理 / 评测基准 / 实验机器人本体
 - **速查与参考** — 术语速查表 / 发展时间线 / 参考文献
 - **关于** — 本页 / [更新日志](changelog)
 

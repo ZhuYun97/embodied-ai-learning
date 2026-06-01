@@ -463,7 +463,7 @@ LAPA 码本 **vocab=8 × seq=4(即 8^4)**,用 NSVQ 防梯度坍塌、对 patch e
 
 **相关细读(主报告)**:[pi0 归一化/state token](pi0.md) · [pi0-fast FAST 分词](pi0-fast.md) · [rynnvla ActionVAE](rynnvla.md) · [groot-n1 IDM/潜动作](groot-n1.md)
 
-**相关专题**:[具身数据全景](embodied-data.md) · [数据集与基准](benchmarks.md) · [实验机器人本体](robots.md)
+**相关专题**:[具身数据全景](embodied-data.md) · [评测基准](benchmarks.md) · [实验机器人本体](robots.md)
 
 ---
 

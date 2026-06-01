@@ -53,7 +53,7 @@ DreamZero(《World Action Models are Zero-shot Policies》)是一个建立在预
 - **NVIDIA GR00T N2**:据本站记录,GR00T N2「based on DreamZero research」,即把 DreamZero 的世界-行动模型思想落到具体本体平台上。详见 WAM 细读 [GR00T N2](/wam/papers/groot-n2)。
 - **与 RynnVLA 的关键对照**:DreamZero 与 [RynnVLA](/vla/papers/rynnvla) 构成一组干净的路线对照——RynnVLA 是「**预测当训练先验、推理时丢弃未来帧**」,世界模型只在训练阶段塑形表征;DreamZero 是「**预测当策略主体**」,推理主回路里持续预演未来并反推动作。两者刚好坐落在「世界模型用在训练 vs 用在推理」这条轴的两端。
 - **taxonomy 归属**:在 WAM 分类中属 **Joint 类**(联合建模 video 与 action),与 [预测式 VLA](/vla/papers/predictive-vla) 所讨论的 predictive 路线、以及 [WAM 总览](/wam/)中的其他条目(如 [GR00T N2](/wam/papers/groot-n2)、[X-WAM](/wam/papers/x-wam)、[UWM](/wam/papers/uwm))共同构成本站对 WAM 的谱系刻画。
-- 评测基准侧可对照本站 [数据集与基准](/vla/papers/benchmarks) 页;但需注意本篇所有成绩为作者自评,未进入统一评测口径。
+- 评测基准侧可对照本站 [评测基准](/vla/papers/benchmarks) 页;但需注意本篇所有成绩为作者自评,未进入统一评测口径。
 
 ## 五、局限与存疑
 

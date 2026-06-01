@@ -73,7 +73,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 |---|---|---|---|
 | 具身数据全景 | 数据来源 / 采集 / 配比 / scaling | 四层数据金字塔 + 10 个真机数据集横评 + 采集范式成本 + co-training/scaling,8 条规模数字经对抗核查确认 | [→ 细读](papers/embodied-data.md) |
 | 具身数据处理 | 清洗 / 标注 / 动作&观测处理 / 伪标签 / 配比 / 格式 | 从原始采集到可训练样本的处理流水线:归一化/分词/分块、IDM/潜动作伪标签、Re-Mix/n^0.43 配比、RLDS/LeRobot 格式 | [→ 专题](papers/data-processing.md) |
-| 数据集与基准 | SimplerEnv / LIBERO / CALVIN / RoboCasa | 四大评测全景 + 逐模型成绩表(含 RoboCasa 同口径排行榜) | [→ 专题](papers/benchmarks.md) |
+| 评测基准 | SimplerEnv / LIBERO / CALVIN / RoboCasa | 四大评测全景 + 逐模型成绩表(含 RoboCasa 同口径排行榜) | [→ 专题](papers/benchmarks.md) |
 | 实验机器人本体 | 单臂 / 双臂 / 人形 / 跨本体 | 19 个实验本体对照表(平台/厂商/形态/DoF/关联模型与数据集)+ 跨本体迁移要点 | [→ 专题](papers/robots.md) |
 
 **横切分析专题(跨模型对照,重组本站已核查内容)**
@@ -295,7 +295,7 @@ flowchart LR
 
 ---
 
-# 四、数据集与基准
+# 四、评测基准
 
 ## 4.1 训练语料
 
@@ -308,7 +308,7 @@ flowchart LR
 
 > ⚠️ **读表须知**:① 多数为提出方论文自评,非独立复现;② SimplerEnv Google Robot 有 3 任务子集 vs 4 任务平均两种口径(故 RT-1-X 42.4 vs 49.4);③ LIBERO 有 4 vs 5 套件两种平均口径(故 OpenVLA 75.9 vs 76.5);④ π0-FAST 的 LIBERO 85.0% 额外用了本体感知+腕部相机,非严格同条件;⑤ "SOTA" 均以各论文发表时(2024–2025)为限。
 >
-> 📌 **权威源约定**:四大基准**最全的逐模型成绩与口径细节以 [《数据集与基准全景》专题](papers/benchmarks.md) 为准**(含第三方复现、扩展基准与更多口径对照)。本节是面向报告读者的**精选横评**,与专题同源;若两处数字出现不一致,以专题页为准并回报修订。
+> 📌 **权威源约定**:四大基准**最全的逐模型成绩与口径细节以 [《评测基准全景》专题](papers/benchmarks.md) 为准**(含第三方复现、扩展基准与更多口径对照)。本节是面向报告读者的**精选横评**,与专题同源;若两处数字出现不一致,以专题页为准并回报修订。
 
 ### SimplerEnv
 
@@ -404,7 +404,7 @@ flowchart LR
 - **原论文 24 atomic single-task**:BC-Transformer Human-50 **28.8%** / Generated-3000 **47.6%**(CoRL 2024,同行评审)。
 - **Isaac-GR00T repo 25-task**:N1.6 **66.2%** / N1.7 **70.8%** ⚠️ NVIDIA 自评。
 
-⚠️ **仍开放**:OpenVLA / Octo 在 RoboCasa 无官方或维护方提供的可比条目;π0/π0.5/DP 在 30-demo 低数据档(与 GR00T 47.5/17.4 同口径)的对照未公开。详见 [数据集与基准专题](papers/benchmarks.md)。
+⚠️ **仍开放**:OpenVLA / Octo 在 RoboCasa 无官方或维护方提供的可比条目;π0/π0.5/DP 在 30-demo 低数据档(与 GR00T 47.5/17.4 同口径)的对照未公开。详见 [评测基准专题](papers/benchmarks.md)。
 
 ---
 
