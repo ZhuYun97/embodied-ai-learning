@@ -80,13 +80,14 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   <div class="route-card">
     <span class="route-tag">新范式探索</span>
     <div class="route-card__title">统一基座 / 第三条路 / 从经验学习</div>
-    <p>统一多任务多本体基座、视频生成预训练→动作、真机强化学习。</p>
+    <p>统一多任务多本体基座、视频生成预训练→动作、真机强化学习,以及可操控分层跨域到自动驾驶。</p>
     <div class="route-links">
       <a href="vla/papers/qwen-vla">Qwen-VLA</a>
       <a href="vla/papers/rynnvla">RynnVLA</a>
       <a href="vla/papers/pi06">π0.6 / π*0.6</a>
       <a href="vla/papers/pi07">π0.7</a>
       <a href="vla/papers/gemini-robotics">Gemini Robotics</a>
+      <a href="vla/papers/steervla">SteerVLA（自动驾驶）</a>
     </div>
   </div>
 </div>
