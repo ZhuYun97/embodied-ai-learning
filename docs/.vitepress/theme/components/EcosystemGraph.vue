@@ -181,56 +181,65 @@ function edgePath(e) {
 // ===== 力导向 =====
 let raf = null
 let alpha = 1
+const LINK = 185
 
-function tick() {
-  if (alpha < 0.005) { raf = null; return }
-  alpha *= 0.992
-
+// 单步物理:斥力 + 连接力 + 向心/分层,按给定 alpha 积分位置
+function simStep(a) {
   for (let i = 0; i < nodes.length; i++) {
-    const a = nodes[i]
+    const p = nodes[i]
     for (let j = i + 1; j < nodes.length; j++) {
-      const b = nodes[j]
-      let dx = a.x - b.x, dy = a.y - b.y
+      const q = nodes[j]
+      let dx = p.x - q.x, dy = p.y - q.y
       let d2 = dx * dx + dy * dy || 0.01
       let d = Math.sqrt(d2)
       const rep = 6200 / d2
       const fx = (dx / d) * rep, fy = (dy / d) * rep
-      a.vx += fx; a.vy += fy
-      b.vx -= fx; b.vy -= fy
+      p.vx += fx; p.vy += fy
+      q.vx -= fx; q.vy -= fy
     }
   }
-
-  const LINK = 185
   for (const e of edges) {
-    const a = nodeMap.value[e.source], b = nodeMap.value[e.target]
-    let dx = b.x - a.x, dy = b.y - a.y
+    const p = nodeMap.value[e.source], q = nodeMap.value[e.target]
+    let dx = q.x - p.x, dy = q.y - p.y
     let d = Math.sqrt(dx * dx + dy * dy) || 0.01
     const f = (d - LINK) * 0.02
     const fx = (dx / d) * f, fy = (dy / d) * f
-    a.vx += fx; a.vy += fy
-    b.vx -= fx; b.vy -= fy
+    p.vx += fx; p.vy += fy
+    q.vx -= fx; q.vy -= fy
   }
-
   for (const n of nodes) {
     if (n.fixed) { n.vx = 0; n.vy = 0; continue }
-    // 公司向中心,机构被往外推,形成分层
     const pull = n.kind === 'conn' ? 0.0010 : 0.0035
     n.vx += (CX - n.x) * pull
     n.vy += (CY - n.y) * pull
     n.vx *= 0.85; n.vy *= 0.85
-    n.x += n.vx * alpha * 4
-    n.y += n.vy * alpha * 4
+    n.x += n.vx * a * 4
+    n.y += n.vy * a * 4
     n.x = Math.max(n.r + 56, Math.min(W - n.r - 56, n.x))
     n.y = Math.max(n.r + 26, Math.min(H - n.r - 26, n.y))
   }
+}
 
+// 预热:挂载前同步收敛布局 —— 首屏即稳定,杜绝可见漂移(确定性,SSR/客户端一致)
+function presettle() {
+  let a = 1
+  for (let i = 0; i < 320; i++) { simStep(a); a *= 0.97 }
+}
+
+// 拖拽后的小幅重稳:快速衰减(~1.5s 收敛),不再长时间晃动
+function tick() {
+  if (alpha < 0.02) { raf = null; return }
+  alpha *= 0.9
+  simStep(alpha)
   raf = requestAnimationFrame(tick)
 }
-
 function reheat() {
-  alpha = Math.max(alpha, 0.6)
+  alpha = Math.max(alpha, 0.45)
   if (!raf) raf = requestAnimationFrame(tick)
 }
+
+// 在首次渲染前同步收敛(setup 期执行),首屏布局即最终态
+presettle()
 
 // ===== 拖拽 =====
 let dragNode = null
@@ -266,7 +275,7 @@ function onNodeClick(n) {
   if (n.website) window.open(n.website, '_blank', 'noopener')
 }
 
-onMounted(() => { reheat() })
+// 不在挂载时再跑动画:presettle() 已收敛,首屏即稳定;仅拖拽时 reheat()
 onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
 </script>
 
