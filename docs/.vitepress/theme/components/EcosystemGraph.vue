@@ -71,6 +71,29 @@
           />
         </g>
 
+        <!-- 中心:发光机器人线稿(具身智能意象,填补留白) -->
+        <circle :cx="CX" :cy="CY" r="118" class="center-aura" />
+        <g class="center-robot" :transform="`translate(${CX - 305 * 0.62}, ${CY - 240 * 0.62}) scale(0.62)`">
+          <g class="cr-stroke" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="234" y="62" width="120" height="100" rx="26" />
+            <line x1="260" y1="110" x2="288" y2="110" stroke-width="6" />
+            <line x1="300" y1="110" x2="328" y2="110" stroke-width="6" />
+            <path d="M294 62v-22" />
+            <path d="M278 162v18 M310 162v18" />
+            <path d="M238 198 L350 198 L370 252 L338 358 L250 358 L218 252 Z" />
+            <circle cx="294" cy="264" r="34" />
+            <path d="M226 216 L184 272 L198 346" />
+            <path d="M362 216 L418 234 L444 180" />
+            <path d="M254 358 L240 414 M334 358 L348 414" />
+            <rect x="228" y="414" width="132" height="22" rx="8" />
+          </g>
+          <circle class="cr-eye" cx="294" cy="264" r="13" />
+          <g class="cr-joint">
+            <circle cx="226" cy="216" r="6" /><circle cx="184" cy="272" r="6" />
+            <circle cx="362" cy="216" r="6" /><circle cx="418" cy="234" r="6" />
+          </g>
+        </g>
+
         <!-- 节点 -->
         <g
           v-for="n in nodes"
@@ -296,6 +319,13 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 /* 轨道环 */
 .orbit { fill: none; stroke: rgba(120, 150, 230, 0.12); stroke-width: 1; }
 
+/* 中心机器人 */
+.center-aura { fill: rgba(110, 140, 255, 0.13); filter: url(#kg-glow-strong); pointer-events: none; }
+.center-robot { color: #cbdcff; pointer-events: none; }
+.cr-stroke { filter: url(#kg-glow); opacity: 0.92; }
+.cr-eye { fill: #7dd3fc; filter: url(#kg-glow); }
+.cr-joint { fill: #7dd3fc; }
+
 /* 关系边:主辐射(hub→子公司)亮,跨投资等次要边默认很淡,悬停再点亮 */
 /* 主辐射边用集群色(行内 stroke);次要/跨投资边中性极淡;虚线区分合作/孵化 */
 .edge { fill: none; stroke: #6e80ad; stroke-width: 1; opacity: 0.12; transition: opacity 0.2s, stroke-width 0.2s; }
@@ -363,6 +393,9 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 
 <!-- 档案皮:暖纸深空(非 scoped,确保 html.skin-archive 后代选择器正确编译) -->
 <style>
+html.skin-archive .center-robot { color: #f0d2a8; }
+html.skin-archive .cr-eye, html.skin-archive .cr-joint { fill: #f4b86a; }
+html.skin-archive .center-aura { fill: rgba(201, 140, 70, 0.13); }
 html.skin-archive .kg-wrap {
   background:
     radial-gradient(ellipse 50% 42% at 50% 49%, rgba(176, 106, 46, 0.2), transparent 70%),
