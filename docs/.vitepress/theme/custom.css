@@ -1122,21 +1122,24 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   to   { background-position: 44px 44px, 44px 44px; }
 }
 
-/* —— 路线卡:悬停斜向扫光(重启 ::before 作流光层)—— */
+/* —— 路线卡:悬停斜向扫光层已禁用(其溢出会形成左上角蓝色斜块 bug)
+       恢复 L640 顶部三色渐变发丝线为 ::before 唯一职责 —— */
 .VPHome .route-card::before {
   content: '';
   position: absolute;
-  top: 0; bottom: 0; left: -65%; right: auto;
-  width: 45%; height: auto;
-  background: linear-gradient(105deg, transparent 0%, rgba(56, 189, 248, 0.16) 50%, transparent 100%);
-  transform: skewX(-16deg);
-  transition: left 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  top: 0; left: 0; right: 0; bottom: auto;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
+  opacity: 0.75;
+  /* 关键:无 transform、无 skew,无溢出风险 */
+  transform: none;
   pointer-events: none;
   z-index: 0;
-  opacity: 1;
 }
-.VPHome .route-card:hover::before { left: 130%; }
-.dark .VPHome .route-card::before { background: linear-gradient(105deg, transparent 0%, rgba(56, 189, 248, 0.26) 50%, transparent 100%); }
+.VPHome .route-card:hover::before { left: 0; }  /* 禁用 hover 扫光位移 */
+.dark .VPHome .route-card::before {
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
+}
 
 /* 暗色:路线卡悬停霓虹环 + 角标变亮 */
 .dark .VPHome .route-card:hover {
