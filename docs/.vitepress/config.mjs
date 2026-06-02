@@ -294,6 +294,11 @@ export default withMermaid(defineConfig({
         ],
       },
       {
+        text: '新闻',
+        link: '/news/',
+        activeMatch: '^/news/',
+      },
+      {
         text: '速查',
         items: [
           { text: '术语速查表', link: '/vla/papers/glossary' },
