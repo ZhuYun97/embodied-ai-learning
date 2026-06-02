@@ -42,6 +42,11 @@ features:
     details: SimplerEnv / LIBERO / CALVIN / RoboCasa 四大基准逐模型成绩表,标注口径与可信度;另备术语表 / 时间线 / 参考文献速查。
     link: /vla/papers/benchmarks
     linkText: 看数据与速查
+  - icon: { src: /icons/route.svg, width: 28, height: 28 }
+    title: 生态图谱(力导向关系网)
+    details: 国内外 38 家具身公司 + 12 家投资方/机构,以投资/合作/控股/孵化关系连成网络。深空舞台 + 霓虹流光,可拖拽缩放、悬停高亮关联子图。
+    link: /ecosystem/
+    linkText: 进入图谱
 ---
 
 ## VLA:按技术路线浏览
