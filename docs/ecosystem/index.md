@@ -1,6 +1,6 @@
 ---
 title: 具身智能生态全景
-description: 国际与国内具身智能公司、科研机构一览——代表产品、技术方向与官网链接。持续更新。
+description: 国际与国内具身智能公司、科研机构一览——代表产品、技术方向、融资数据与官网链接。持续更新。
 ---
 
 # 具身智能生态全景
@@ -30,18 +30,44 @@ description: 国际与国内具身智能公司、科研机构一览——代表�
 
 ## 国内公司
 
-| 公司 | 成立 | 代表产品 | 简介 | 链接 |
+::: tip 数据更新
+2026 年前 5 月，国内具身 AI 创业公司共获 **218 笔投资**，总额超 **577 亿元**，已超 2025 年全年。中国占全球人形机器人市场份额 **80%+**，相关企业超 **1025 家**。
+:::
+
+### 头部厂商（上市或估值 ≥ 10 亿美元）
+
+| 公司 | 成立 | 代表产品 | 最新融资/估值 | 简介 | 链接 |
+|------|------|----------|--------------|------|------|
+| **优必选 (UBTECH)** | 2012 | Walker 系列 | **港股上市** | 最早商业化人形机器人之一 | [ubtrobot.com](https://ubtrobot.com) |
+| **宇树科技 (Unitree)** | 2016 | H2 / G1 / 四足系列 | **IPO 在审**(估值 62 亿美元) | 国内出货量最大的四足+人形厂商，科创板在审 | [unitree.com](https://unitree.com) |
+| **达闼机器人 (CloudMinds)** | 2015 | 云端大脑机器人 | **纳斯达克上市** | 云端智能 + 5G 控制机器人体系 | [cloudminds.com](https://cloudminds.com) |
+| **Robotera (睿尔曼)** | 2023 | L7 人形 / Q5 轮足 / XHAND1 | **2 亿美元 B 轮**(估值 15 亿美元,2026/05) | 顺丰/IDG 领投，物流场景千台级部署 | — |
+| **来福谐波 (LinkerBot)** | 2019 | 灵巧手 | **估值 60 亿美元**(2026) | 专注机器人灵巧手，估值行业领先 | — |
+
+### 成长型公司（融资 1000 万 - 1 亿美元）
+
+| 公司 | 成立 | 代表产品 | 最新融资 | 简介 | 链接 |
+|------|------|----------|----------|------|------|
+| **智元机器人 (AgiBot)** | 2023 | A2 / AgiBotWorld | **10 亿元+ A 轮** | 人形机器人 + 开源数据集，2025 年市占率 31% | [agibot.com](https://agibot.com) |
+| **傅利叶智能 (Fourier)** | 2015 | GR-1 / GR-2 | **数亿元 B+ 轮** | 医疗康复起家，转型通用人形 | [fftai.com](https://fftai.com) |
+| **逐际动力 (LimX Dynamics)** | 2021 | 双足 / 人形系列 | **近亿美元 A 轮** | 全身控制与步态规划，仿人运动能力突出 | [limxdynamics.com](https://limxdynamics.com) |
+| **X-Humanoid (清华系)** | 2024 | 人形机器人 | **1 亿美元天使轮**(2026/02) | 清华交叉信息研究院孵化，字节/美团投资 | — |
+| **银河通用 (Galbot)** | 2023 | Galbot G1 | **数亿元 A 轮** | 轮式人形，聚焦工业+商业场景 | [galbot.cn](https://galbot.cn) |
+| **Vbot (未来机器人)** | 2023 | 全尺寸人形 | **7300 万美元 Pre-A**(2026/05) | 具身 AI 创业公司，快速扩产 | — |
+| **JoyIn (乐悠机器人)** | 2024 | 陪伴机器人 | **7000 万美元**(3 轮,2026) | IDG/金秋资本/东钟资本投资 | — |
+| **自变量机器人 (X²Robot)** | 2023 | Wall-OSS VLA 系列 | **数千万元天使轮** | 专注 VLA 模型与开源具身平台 | — |
+| **宇感科技 (Genisom AI)** | 2023 | 四足 + 人形量产 | **数千万元 Pre-A** | 高性价比机器人量产 | — |
+| **千寻智能 (Spirit AI)** | 2024 | Spirit v1.5 | **未披露** | 通用具身大模型，RoboChallenge 基准领先 | [spirit-ai.com](https://www.spirit-ai.com) |
+| **乐聚机器人 (Leju)** | 2016 | Kuavo 系列 | **数千万元 A 轮** | 双足人形，运动控制见长 | [lejurobot.com](https://lejurobot.com) |
+
+### 垂直场景公司
+
+| 公司 | 成立 | 代表产品 | 场景 | 链接 |
 |------|------|----------|------|------|
-| **宇树科技 (Unitree)** | 2016 | H2 / G1 人形，四足系列 | 国内出货量最大的四足+人形机器人厂商 | [unitree.com](https://unitree.com) |
-| **智元机器人 (AgiBot)** | 2023 | A2 / AgiBotWorld | 人形机器人 + 开源具身数据集 AgiBotWorld | [agibot.com](https://agibot.com) |
-| **自变量机器人 (X²Robot)** | 2023 | Wall-OSS VLA 系列 | 专注 VLA 模型与开源具身智能平台 | — |
-| **银河通用 (Galaxy General)** | 2023 | Galbot G1 | 轮式人形机器人，聚焦工业+商业场景 | — |
-| **逐际动力 (LimX Dynamics)** | 2021 | 双足 / 人形系列 | 全身控制与步态规划，仿人运动能力突出 | [limxdynamics.com](https://limxdynamics.com) |
-| **傅利叶智能 (Fourier)** | 2015 | GR-1 / GR-2 | 医疗康复起家，转型通用人形机器人 | [fftai.com](https://fftai.com) |
-| **优必选 (UBTECH)** | 2012 | Walker 系列 | 最早商业化人形机器人之一，港股上市 | [ubtrobot.com](https://ubtrobot.com) |
-| **达闼机器人 (CloudMinds)** | 2015 | 云端大脑机器人 | 云端智能+5G 控制机器人体系 | [cloudminds.com](https://cloudminds.com) |
-| **宇感科技 (Genisom AI)** | 2023 | 四足 + 人形量产 | 专注高性价比人形及四足机器人量产 | — |
-| **千寻智能 (Spirit AI)** | 2024 | Spirit v1.5 | 通用具身大模型，RoboChallenge 基准领先，杭州/北京/深圳 | [spirit-ai.com](https://www.spirit-ai.com) |
+| **擎朗智能 (Keenon)** | 2010 | 送餐机器人 | 餐饮服务 | [keenon.com](https://keenon.com) |
+| **猎户星空 (Orion Star)** | 2016 | 豹小秘系列 | 商场导览/咖啡机器人 | [orionstar.com](https://orionstar.com) |
+| **高仙机器人 (Gaussian)** | 2013 | 清洁机器人 | 商用清洁 | [gaussianrobotics.com](https://gaussianrobotics.com) |
+| **九号公司 (Ninebot)** | 2012 | 配送机器人 | 末端配送 | [ninebot.com](https://ninebot.com) |
 
 ---
 
@@ -64,4 +90,4 @@ description: 国际与国内具身智能公司、科研机构一览——代表�
 
 ---
 
-> 本列表持续维护。如有遗漏或信息有误，欢迎通过 [GitHub Issue](https://github.com/ZhuYun97/embodied-ai-learning/issues) 反馈。
+> **数据来源**: WebSearch 交叉核实，融资数据截至 2026 年 6 月。如有遗漏或信息有误，欢迎通过 [GitHub Issue](https://github.com/ZhuYun97/embodied-ai-learning/issues) 反馈。
