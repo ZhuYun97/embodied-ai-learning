@@ -41,6 +41,7 @@ description: 国际与国内具身智能公司、科研机构一览——代表�
 | **优必选 (UBTECH)** | 2012 | Walker 系列 | 最早商业化人形机器人之一，港股上市 | [ubtrobot.com](https://ubtrobot.com) |
 | **达闼机器人 (CloudMinds)** | 2015 | 云端大脑机器人 | 云端智能+5G 控制机器人体系 | [cloudminds.com](https://cloudminds.com) |
 | **宇感科技 (Genisom AI)** | 2023 | 四足 + 人形量产 | 专注高性价比人形及四足机器人量产 | — |
+| **千寻智能 (Spirit AI)** | 2024 | Spirit v1.5 | 通用具身大模型，RoboChallenge 基准领先，杭州/北京/深圳 | [spirit-ai.com](https://www.spirit-ai.com) |
 
 ---
 
