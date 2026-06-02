@@ -155,6 +155,79 @@ git push
 - LinkedIn
 - Discord/Slack 社区
 
+## 重点关注实体
+
+搜索时主动用以下公司/机构名称作关键词，确保不遗漏。
+
+### 🌍 国际公司
+
+| 公司 | 代表产品/方向 |
+|------|-------------|
+| Physical Intelligence (π) | π0 / π0.5 / π0.7 VLA 系列 |
+| Figure AI | Figure 03 / Helix-02 人形机器人 |
+| Boston Dynamics | Atlas 电动人形机器人 |
+| Agility Robotics | Digit 双足机器人 |
+| 1X Technologies | Neo 人形机器人 |
+| Apptronik | Apollo 人形机器人 |
+| Sanctuary AI | Phoenix 人形机器人 |
+| Skild AI | 通用机器人大脑 |
+| Humanoid (UK) | HMND 01 工业人形机器人 |
+| Mecka AI | 人类动作数据采集 |
+| Human Archive | 多模态具身数据 |
+| MicroAGI | 家庭场景数据采集 |
+| Nvidia (Isaac GR00T) | 机器人开发平台 |
+| Google DeepMind | Gemini Robotics / RT 系列 |
+| OpenAI Robotics | 具身智能部门 |
+| Tesla (Optimus) | 人形机器人量产 |
+| Microsoft (Muse) | 游戏/世界模型 |
+| Hugging Face (LeRobot) | 开源机器人学习 |
+
+### 🇨🇳 国内公司
+
+| 公司 | 代表产品/方向 |
+|------|-------------|
+| 宇树科技 (Unitree) | H2 / G1 人形机器人，四足机器人 |
+| 智元机器人 (AgiBot) | A2 人形机器人 / AgiBotWorld 数据集 |
+| 自变量机器人 (X²Robot) | Wall-OSS / Wall-OSS-0.5 VLA |
+| 银河通用 (Galaxy General) | Galbot G1 人形机器人 |
+| 宇感科技 (Genisom AI) | 四足 + 人形机器人量产 |
+| 逐际动力 (LimX Dynamics) | 双足 / 人形机器人 |
+| 傅利叶智能 (Fourier) | GR-1 / GR-2 人形机器人 |
+| 优必选 (UBTECH) | Walker 系列人形机器人 |
+| 达闼机器人 (CloudMinds) | 云端大脑机器人 |
+| 华为 / 诺亚方舟实验室 | 具身 AI 研究 |
+| 腾讯机器人实验室 | 机器人研究 |
+| 小米机器人 | CyberOne 人形机器人 |
+| 深势科技 | 科学 AI / 世界模型 |
+| PaXini (帕西尼) | 具身数据出口/流通 |
+
+### 🏛️ 科研机构
+
+| 机构 | 代表方向 |
+|------|---------|
+| Stanford Robotics Center | 移动操作 / 通用机器人 |
+| UC Berkeley (RAIL) | RL / 仿真到现实 |
+| MIT CSAIL | 规划 / 操作 |
+| CMU Robotics Institute | 感知 / 操作 / 移动 |
+| ETH Zurich (RSL) | 四足运动控制 / 全身控制 |
+| University of Washington | 人机交互 / 操作 |
+| Google DeepMind Robotics | RT 系列 / Gemini Robotics |
+| 清华大学 (CoRE) | VLA / 具身推理 |
+| 北京大学 | 具身智能 / 世界模型 |
+| 上海 AI Lab | 开源具身模型 |
+| 浙江大学 | 灵巧手 / 操作 |
+| 中科院自动化所 | 具身认知 |
+| 香港中文大学 | 双手操作 |
+
+### 搜索模板
+
+遍历上述实体时，使用以下查询格式：
+```
+"[公司名]" robotics news 2026
+"[公司名]" announcement [本月] 2026
+site:twitter.com "[公司名]" (需 API，暂不支持)
+```
+
 ## 注意事项
 
 1. **时效性**:优先最近 7 天
