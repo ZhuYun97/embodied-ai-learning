@@ -8,8 +8,17 @@ description: 国际与国内具身智能公司、科研机构一览——代表�
 收录全球主要具身智能公司与科研机构，涵盖人形机器人、VLA 模型、四足机器人及机器人基础平台。列表持续更新，欢迎在 [GitHub](https://github.com/ZhuYun97/embodied-ai-learning) 提交补充。
 
 <script setup>
+import EcosystemGraph from '../.vitepress/theme/components/EcosystemGraph.vue'
 import EcosystemMap from '../.vitepress/theme/components/EcosystemMap.vue'
 </script>
+
+## 🕸 关系图谱
+
+节点为公司与投资方/机构，连线表示投资、合作、控股、孵化关系。
+
+<EcosystemGraph />
+
+## 🗂 公司卡片
 
 <EcosystemMap />
 

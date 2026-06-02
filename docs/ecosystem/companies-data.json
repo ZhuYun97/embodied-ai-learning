@@ -456,5 +456,38 @@
     { "id": "工业", "label": "工业场景", "category": "应用" },
     { "id": "家庭服务", "label": "家庭服务", "category": "应用" },
     { "id": "医疗", "label": "医疗康复", "category": "应用" }
+  ],
+  "connectors": [
+    { "id": "hyundai", "name": "现代汽车", "nameEn": "Hyundai", "type": "corporate", "country": "KR" },
+    { "id": "google", "name": "Google", "type": "bigtech", "country": "US" },
+    { "id": "openai", "name": "OpenAI", "type": "bigtech", "country": "US" },
+    { "id": "microsoft", "name": "Microsoft", "type": "bigtech", "country": "US" },
+    { "id": "softbank", "name": "软银", "nameEn": "SoftBank", "type": "investor", "country": "JP" },
+    { "id": "bytedance", "name": "字节跳动", "nameEn": "ByteDance", "type": "bigtech", "country": "CN" },
+    { "id": "meituan", "name": "美团", "nameEn": "Meituan", "type": "bigtech", "country": "CN" },
+    { "id": "idg", "name": "IDG 资本", "nameEn": "IDG Capital", "type": "investor", "country": "CN" },
+    { "id": "framework", "name": "Framework Ventures", "type": "investor", "country": "US" },
+    { "id": "sf-group", "name": "顺丰", "nameEn": "SF Group", "type": "corporate", "country": "CN" },
+    { "id": "tsinghua", "name": "清华大学", "nameEn": "Tsinghua", "type": "institution", "country": "CN" },
+    { "id": "pku", "name": "北京大学", "nameEn": "Peking Univ.", "type": "institution", "country": "CN" }
+  ],
+  "relationships": [
+    { "source": "hyundai", "target": "boston-dynamics", "type": "own", "label": "控股" },
+    { "source": "google", "target": "boston-dynamics", "type": "partner", "label": "Gemini Robotics" },
+    { "source": "nvidia", "target": "unitree", "type": "partner", "label": "Isaac GR00T" },
+    { "source": "nvidia", "target": "figure-ai", "type": "invest", "label": "投资" },
+    { "source": "microsoft", "target": "figure-ai", "type": "invest", "label": "投资" },
+    { "source": "openai", "target": "figure-ai", "type": "partner", "label": "曾合作" },
+    { "source": "openai", "target": "physical-intelligence", "type": "invest", "label": "投资" },
+    { "source": "google", "target": "apptronik", "type": "partner", "label": "合作" },
+    { "source": "softbank", "target": "skild-ai", "type": "invest", "label": "领投 C 轮" },
+    { "source": "bytedance", "target": "x-humanoid", "type": "invest", "label": "投资" },
+    { "source": "meituan", "target": "x-humanoid", "type": "invest", "label": "投资" },
+    { "source": "tsinghua", "target": "x-humanoid", "type": "incubate", "label": "孵化" },
+    { "source": "pku", "target": "galbot", "type": "incubate", "label": "创始团队" },
+    { "source": "idg", "target": "robotera", "type": "invest", "label": "投资" },
+    { "source": "sf-group", "target": "robotera", "type": "invest", "label": "领投 B 轮" },
+    { "source": "idg", "target": "joyin", "type": "invest", "label": "投资" },
+    { "source": "framework", "target": "mecka-ai", "type": "invest", "label": "领投" }
   ]
 }
