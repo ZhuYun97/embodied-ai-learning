@@ -1,17 +1,23 @@
 <template>
   <div class="graph-wrap" ref="wrapEl">
+    <!-- 背景动态网格 -->
+    <canvas ref="bgCanvas" class="graph-bg"></canvas>
+
     <!-- 图例 -->
     <div class="graph-legend">
-      <span class="lg-item"><i class="dot dot-cn"></i>国内公司</span>
-      <span class="lg-item"><i class="dot dot-intl"></i>国际公司</span>
-      <span class="lg-item"><i class="dot dot-conn"></i>投资方/机构</span>
-      <span class="lg-sep"></span>
-      <span class="lg-item"><i class="line line-invest"></i>投资</span>
-      <span class="lg-item"><i class="line line-partner"></i>合作</span>
-      <span class="lg-item"><i class="line line-own"></i>控股/孵化</span>
+      <div class="lg-row">
+        <span class="lg-item"><i class="dot dot-cn"></i>国内公司</span>
+        <span class="lg-item"><i class="dot dot-intl"></i>国际公司</span>
+        <span class="lg-item"><i class="dot dot-conn"></i>投资方/机构</span>
+      </div>
+      <div class="lg-row">
+        <span class="lg-item"><i class="line line-invest"></i>投资</span>
+        <span class="lg-item"><i class="line line-partner"></i>合作</span>
+        <span class="lg-item"><i class="line line-own"></i>控股/孵化</span>
+      </div>
     </div>
 
-    <div class="graph-hint">拖拽节点 · 滚轮缩放 · 悬停高亮关联 · 点击访问官网</div>
+    <div class="graph-hint">拖拽节点 · 滚轮缩放 · 悬停高亮 · 点击访问</div>
 
     <svg
       ref="svgEl"
@@ -22,8 +28,68 @@
       @pointerup="onPointerUp"
       @pointerleave="onPointerUp"
     >
+      <defs>
+        <!-- 渐变定义 -->
+        <radialGradient id="glow-cn" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ef4444" stop-opacity="1" />
+          <stop offset="70%" stop-color="#dc2626" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#991b1b" stop-opacity="0.4" />
+        </radialGradient>
+        <radialGradient id="glow-intl" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#60a5fa" stop-opacity="1" />
+          <stop offset="70%" stop-color="#3b82f6" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#1e40af" stop-opacity="0.4" />
+        </radialGradient>
+        <radialGradient id="glow-conn" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fbbf24" stop-opacity="1" />
+          <stop offset="70%" stop-color="#f59e0b" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#d97706" stop-opacity="0.4" />
+        </radialGradient>
+
+        <!-- 边流动动画 -->
+        <linearGradient id="flow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="transparent" />
+          <stop offset="50%" stop-color="currentColor" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="transparent" />
+          <animate attributeName="x1" values="-100%;100%" dur="2.5s" repeatCount="indefinite" />
+          <animate attributeName="x2" values="0%;200%" dur="2.5s" repeatCount="indefinite" />
+        </linearGradient>
+
+        <!-- 辉光滤镜 -->
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+
+        <filter id="glow-strong" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="6" result="blur1" />
+          <feGaussianBlur stdDeviation="12" result="blur2" />
+          <feMerge>
+            <feMergeNode in="blur2"/>
+            <feMergeNode in="blur1"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
       <g :transform="`translate(${pan.x},${pan.y}) scale(${zoom})`">
-        <!-- 边 -->
+        <!-- 边（底层光晕） -->
+        <g class="edges-glow">
+          <line
+            v-for="(e, i) in edges"
+            :key="'eg' + i"
+            :x1="nodeMap[e.source].x"
+            :y1="nodeMap[e.source].y"
+            :x2="nodeMap[e.target].x"
+            :y2="nodeMap[e.target].y"
+            :class="['edge-glow', `edge-${e.type}`, { active: edgeActive(e) }]"
+          />
+        </g>
+
+        <!-- 边（实体） -->
         <g class="edges">
           <line
             v-for="(e, i) in edges"
@@ -32,9 +98,22 @@
             :y1="nodeMap[e.source].y"
             :x2="nodeMap[e.target].x"
             :y2="nodeMap[e.target].y"
-            :class="['edge', `edge-${e.type}`, { dim: hoverId && !edgeActive(e) }]"
+            :class="['edge', `edge-${e.type}`, { dim: hoverId && !edgeActive(e), active: edgeActive(e) }]"
           />
         </g>
+
+        <!-- 节点（底层光环） -->
+        <g class="nodes-halo">
+          <circle
+            v-for="n in nodes"
+            :key="'h' + n.id"
+            :cx="n.x"
+            :cy="n.y"
+            :r="n.r + 8"
+            :class="['node-halo', `halo-${n.kind}`, { active: hoverId === n.id }]"
+          />
+        </g>
+
         <!-- 节点 -->
         <g
           v-for="n in nodes"
@@ -46,8 +125,34 @@
           @pointerleave="hoverId = null"
           @click="onNodeClick(n)"
         >
-          <circle :r="n.r" class="node-circle" />
-          <text class="node-label" :y="n.r + 13">{{ n.label }}</text>
+          <!-- 外环脉动 -->
+          <circle :r="n.r + 4" class="node-pulse">
+            <animate
+              v-if="hoverId === n.id"
+              attributeName="r"
+              :from="n.r + 4"
+              :to="n.r + 12"
+              dur="1.2s"
+              repeatCount="indefinite"
+            />
+            <animate
+              v-if="hoverId === n.id"
+              attributeName="opacity"
+              from="0.6"
+              to="0"
+              dur="1.2s"
+              repeatCount="indefinite"
+            />
+          </circle>
+
+          <!-- 主圆 -->
+          <circle :r="n.r" class="node-circle" :fill="`url(#glow-${n.kind})`" />
+
+          <!-- 内环高光 -->
+          <circle :r="n.r * 0.5" class="node-inner" />
+
+          <!-- 标签 -->
+          <text class="node-label" :y="n.r + 16">{{ n.label }}</text>
         </g>
       </g>
     </svg>
@@ -206,114 +311,300 @@ function onNodeClick(n) {
   if (n.website) window.open(n.website, '_blank', 'noopener')
 }
 
-onMounted(() => { reheat() })
-onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
+// ===== 背景星空粒子 =====
+const bgCanvas = ref(null)
+let bgRaf = null
+let particles = []
+
+function initBg() {
+  const canvas = bgCanvas.value
+  if (!canvas) return
+  const dpr = window.devicePixelRatio || 1
+  const rect = canvas.getBoundingClientRect()
+  canvas.width = rect.width * dpr
+  canvas.height = rect.height * dpr
+  const ctx = canvas.getContext('2d')
+  ctx.scale(dpr, dpr)
+
+  particles = Array.from({ length: 60 }, () => ({
+    x: Math.random() * rect.width,
+    y: Math.random() * rect.height,
+    vx: (Math.random() - 0.5) * 0.15,
+    vy: (Math.random() - 0.5) * 0.15,
+    r: Math.random() * 1.4 + 0.4,
+    a: Math.random() * 0.5 + 0.2,
+  }))
+
+  function draw() {
+    const w = rect.width, h = rect.height
+    ctx.clearRect(0, 0, w, h)
+    for (const p of particles) {
+      p.x += p.vx; p.y += p.vy
+      if (p.x < 0) p.x = w; if (p.x > w) p.x = 0
+      if (p.y < 0) p.y = h; if (p.y > h) p.y = 0
+      ctx.beginPath()
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(125, 211, 252, ${p.a})`
+      ctx.fill()
+    }
+    bgRaf = requestAnimationFrame(draw)
+  }
+  draw()
+}
+
+onMounted(() => { reheat(); initBg() })
+onBeforeUnmount(() => {
+  if (raf) cancelAnimationFrame(raf)
+  if (bgRaf) cancelAnimationFrame(bgRaf)
+})
 </script>
 
 <style scoped>
+/* ============================================================
+   舞台:深色科技蓝 + 极光 + 微网格
+   ============================================================ */
 .graph-wrap {
   position: relative;
   margin: 1.5rem 0 2.5rem;
-  border: 1px solid var(--vp-c-divider);
   border-radius: 16px;
-  background:
-    radial-gradient(ellipse 70% 60% at 50% 0%, var(--vp-c-brand-softer), transparent 70%),
-    var(--vp-c-bg-soft);
   overflow: hidden;
+  /* 主背景:深空蓝(亮色站点也保持暗舞台,避免发光被白底吃掉) */
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 20%, rgba(37, 99, 235, 0.35), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 75% 75%, rgba(139, 92, 246, 0.28), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(34, 211, 238, 0.12), transparent 70%),
+    linear-gradient(180deg, #0a1024 0%, #0d1530 50%, #0a1024 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(56, 189, 248, 0.18),
+    0 20px 60px -20px rgba(37, 99, 235, 0.3);
 }
+/* 微网格层 */
+.graph-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(125, 211, 252, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(125, 211, 252, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 40%, transparent 100%);
+}
+/* 顶部扫描线 */
+.graph-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(34, 211, 238, 0.7) 30%,
+    rgba(139, 92, 246, 0.7) 70%,
+    transparent 100%);
+}
+
+.graph-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .graph-svg {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
   touch-action: none;
   cursor: grab;
 }
+.graph-svg:active { cursor: grabbing; }
 
-/* 图例 */
+/* ============================================================
+   HUD 图例
+   ============================================================ */
 .graph-legend {
   position: absolute;
-  top: 12px; left: 14px;
-  z-index: 2;
+  top: 14px; left: 16px;
+  z-index: 3;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  font-size: 0.74rem;
-  color: var(--vp-c-text-2);
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 10px;
-  backdrop-filter: blur(8px);
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 14px;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: rgba(186, 230, 253, 0.85);
+  background: rgba(13, 21, 48, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 8px;
+  backdrop-filter: blur(10px) saturate(1.4);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  box-shadow:
+    inset 0 0 0 1px rgba(125, 211, 252, 0.06),
+    0 4px 16px rgba(37, 99, 235, 0.2);
 }
-.lg-item { display: inline-flex; align-items: center; gap: 5px; }
-.lg-sep { width: 1px; height: 14px; background: var(--vp-c-divider); }
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot-cn { background: #ef4444; }
-.dot-intl { background: #3b82f6; }
-.dot-conn { background: #f59e0b; }
-.line { width: 16px; height: 0; border-top-width: 2px; border-top-style: solid; }
-.line-invest { border-color: #22c55e; }
-.line-partner { border-color: #3b82f6; border-top-style: dashed; }
-.line-own { border-color: #a855f7; }
+.lg-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.lg-item { display: inline-flex; align-items: center; gap: 6px; }
+.dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+}
+.dot-cn { background: #f87171; color: #ef4444; }
+.dot-intl { background: #60a5fa; color: #3b82f6; }
+.dot-conn { background: #fbbf24; color: #f59e0b; }
+.line {
+  width: 18px; height: 0;
+  border-top-width: 2px;
+  border-top-style: solid;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+.line-invest { border-color: #22d3ee; color: #22d3ee; }
+.line-partner { border-color: #a78bfa; color: #a78bfa; border-top-style: dashed; }
+.line-own { border-color: #f472b6; color: #f472b6; }
 
 .graph-hint {
   position: absolute;
-  bottom: 10px; right: 14px;
-  z-index: 2;
-  font-size: 0.72rem;
-  color: var(--vp-c-text-3);
+  bottom: 12px; right: 16px;
+  z-index: 3;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: rgba(186, 230, 253, 0.55);
+  pointer-events: none;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+}
+
+/* ============================================================
+   边:霓虹流光双层(底层模糊光晕 + 上层主线)
+   ============================================================ */
+.edges-glow .edge-glow {
+  fill: none;
+  stroke-width: 6;
+  opacity: 0.18;
+  filter: blur(4px);
+  transition: opacity 0.25s;
+}
+.edges-glow .edge-glow.active { opacity: 0.65; }
+
+.edge {
+  fill: none;
+  stroke-width: 1.4;
+  opacity: 0.5;
+  transition: opacity 0.25s, stroke-width 0.25s;
+}
+.edge.active { stroke-width: 2.2; opacity: 1; }
+.edge.dim { opacity: 0.08; }
+
+.edge-invest { stroke: #22d3ee; }
+.edge-partner { stroke: #a78bfa; stroke-dasharray: 6 4; }
+.edge-own { stroke: #f472b6; }
+.edge-incubate { stroke: #f472b6; stroke-dasharray: 3 4; }
+
+.edges-glow .edge-invest { stroke: #22d3ee; }
+.edges-glow .edge-partner { stroke: #a78bfa; }
+.edges-glow .edge-own { stroke: #f472b6; }
+.edges-glow .edge-incubate { stroke: #f472b6; }
+
+/* ============================================================
+   节点:多层光球(光环 + 主圆 + 内核高光 + 脉冲扩散)
+   ============================================================ */
+.node-halo {
+  fill: none;
+  stroke-width: 2;
+  opacity: 0;
+  transition: opacity 0.3s;
+  filter: blur(6px);
+}
+.halo-cn { stroke: #ef4444; }
+.halo-intl { stroke: #3b82f6; }
+.halo-conn { stroke: #f59e0b; }
+.node-halo.active { opacity: 0.9; }
+
+.node { cursor: pointer; }
+.node-conn { cursor: default; }
+
+.node-pulse {
+  fill: none;
+  stroke-width: 1.5;
+  opacity: 0;
   pointer-events: none;
 }
+.node-cn .node-pulse { stroke: #f87171; }
+.node-intl .node-pulse { stroke: #60a5fa; }
+.node-conn .node-pulse { stroke: #fbbf24; }
 
-/* 边 */
-.edge { stroke-width: 1.6; opacity: 0.55; transition: opacity 0.2s; }
-.edge-invest { stroke: #22c55e; }
-.edge-partner { stroke: #3b82f6; stroke-dasharray: 5 4; }
-.edge-own { stroke: #a855f7; }
-.edge-incubate { stroke: #a855f7; stroke-dasharray: 2 3; }
-.edge.dim { opacity: 0.07; }
-
-/* 节点 */
-.node { cursor: pointer; }
 .node-circle {
-  stroke: var(--vp-c-bg);
-  stroke-width: 2;
-  transition: opacity 0.2s, filter 0.2s;
+  stroke-width: 1.5;
+  stroke: rgba(255, 255, 255, 0.25);
+  filter: drop-shadow(0 0 6px currentColor);
+  transition: filter 0.25s, opacity 0.25s;
 }
-.node-cn .node-circle { fill: #ef4444; }
-.node-intl .node-circle { fill: #3b82f6; }
-.node-conn .node-circle { fill: #f59e0b; }
-.node-conn { cursor: default; }
-.node.focus .node-circle { filter: drop-shadow(0 0 7px currentColor); }
-.node-cn.focus .node-circle { color: #ef4444; }
-.node-intl.focus .node-circle { color: #3b82f6; }
-.node-conn.focus .node-circle { color: #f59e0b; }
-.node.dim { opacity: 0.18; }
+.node-cn .node-circle { color: #ef4444; }
+.node-intl .node-circle { color: #3b82f6; }
+.node-conn .node-circle { color: #f59e0b; }
+
+.node.focus .node-circle {
+  filter: drop-shadow(0 0 14px currentColor) drop-shadow(0 0 4px currentColor);
+}
+
+.node-inner {
+  fill: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  transform: translate(-25%, -25%);
+}
+
+.node.dim .node-circle,
+.node.dim .node-inner { opacity: 0.2; }
+.node.dim .node-label { opacity: 0.3; }
 
 .node-label {
   text-anchor: middle;
   font-size: 11px;
-  font-weight: 500;
-  fill: var(--vp-c-text-1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  fill: rgba(226, 232, 240, 0.95);
   paint-order: stroke;
-  stroke: var(--vp-c-bg);
+  stroke: rgba(10, 16, 36, 0.95);
   stroke-width: 3px;
   pointer-events: none;
   user-select: none;
+  transition: opacity 0.25s, fill 0.25s;
+}
+.node.focus .node-label {
+  fill: #fff;
+  stroke-width: 4px;
 }
 
-/* 暗色 */
-:global(.dark) .node-circle { stroke: var(--vp-c-bg-soft); }
-:global(.dark) .node-label { stroke: var(--vp-c-bg-soft); }
-
-/* 档案皮 */
-:global(html.skin-archive) .node-cn .node-circle { fill: #9A3324; }
-:global(html.skin-archive) .node-intl .node-circle { fill: #4A6FA5; }
-:global(html.skin-archive) .node-conn .node-circle { fill: #C97B5A; }
+/* 档案皮:暖纸纸面感,降低发光,改深棕舞台 */
+:global(html.skin-archive) .graph-wrap {
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 20%, rgba(154, 51, 36, 0.18), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 75% 75%, rgba(201, 123, 90, 0.18), transparent 70%),
+    linear-gradient(180deg, #2a1a14 0%, #1f130d 50%, #2a1a14 100%);
+}
+:global(html.skin-archive) .edge-invest,
+:global(html.skin-archive) .edges-glow .edge-invest { stroke: #f59e0b; }
+:global(html.skin-archive) .edge-partner,
+:global(html.skin-archive) .edges-glow .edge-partner { stroke: #fb923c; }
+:global(html.skin-archive) .edge-own,
+:global(html.skin-archive) .edge-incubate,
+:global(html.skin-archive) .edges-glow .edge-own,
+:global(html.skin-archive) .edges-glow .edge-incubate { stroke: #ef4444; }
 
 @media (max-width: 640px) {
-  .graph-legend { font-size: 0.66rem; gap: 6px; padding: 6px 8px; }
+  .graph-legend { font-size: 0.62rem; padding: 8px 10px; gap: 4px; }
+  .lg-row { gap: 8px; }
   .graph-hint { display: none; }
+  .node-label { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node-pulse animate { display: none; }
 }
 </style>
