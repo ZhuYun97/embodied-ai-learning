@@ -27,7 +27,7 @@ sidebar: false
 
 ---
 
-## 2026-07
+## 2026-07(月内事件)
 
 ### 📌 RoboCup 2026 将在韩国仁川举办 ✅
 
@@ -37,7 +37,7 @@ RoboCup 2026 官网确认赛事将于 **7 月 2–6 日**在韩国**仁川松岛
 
 ---
 
-## 2026-06
+## 2026-06-01
 
 ### 🔥 Unitree(宇树科技)通过上交所科创板 IPO 审核,拟融资 42 亿元 ✅
 
@@ -47,7 +47,17 @@ Caixin Global 报道,**Unitree Robotics(宇树科技)** 于 6 月 1 日通过上
 
 ---
 
-## 2026-05
+## 2026-05-27
+
+### ⭐ Figure 03 制造产能 24× 提速:从 1 台/天 提升到 1 台/小时 ⚠️
+
+Robotics & Automation News 报道(5 月 27 日),**Figure AI BotQ 工厂在 120 天内将 Figure 03 产能提升 24 倍**——从 1 台/天到 1 台/小时。⚠️ 报道明确注明 Figure 自身声明的速度数据**无法独立验证**,但反映出人形机器人量产竞赛进入新阶段。
+
+**来源**:[Robotics & Automation News](https://roboticsandautomationnews.com/2026/05/27/figure-ramps-humanoid-robot-manufacturing-at-unprecedented-speed/101954/)  ·  **类别**:#产品发布 #人形机器人
+
+---
+
+## 2026-05-22
 
 ### 🔥 Hyundai 承诺部署 25,000 台 Atlas 机器人到现代/起亚工厂 ✅
 
@@ -57,6 +67,8 @@ TechTimes 报道(5 月 22 日),**Hyundai Motor Group** 承诺在现代/起亚工
 
 ---
 
+## 2026-05-13
+
 ### ⭐ Figure AI 发布 Helix-02 完成 8 小时自主连续工作演示 ⚠️
 
 TechTimes 报道(5 月 13 日),**Figure AI** 直播展示 **Helix-02 机器人完成全程 8 小时自主班次**,无人为干预、达到人类工作水平。⚠️ **强烈待核**:演示场景可能预设(staged)、可靠性主张未经第三方独立验证;Figure 自身声明也注明部分指标"无法独立核实"。
@@ -65,13 +77,7 @@ TechTimes 报道(5 月 13 日),**Figure AI** 直播展示 **Helix-02 机器人�
 
 ---
 
-### ⭐ Figure 03 制造产能 24× 提速:从 1 台/天 提升到 1 台/小时 ⚠️
-
-Robotics & Automation News 报道(5 月 27 日),**Figure AI BotQ 工厂在 120 天内将 Figure 03 产能提升 24 倍**——从 1 台/天到 1 台/小时。⚠️ 报道明确注明 Figure 自身声明的速度数据**无法独立验证**,但反映出人形机器人量产竞赛进入新阶段。
-
-**来源**:[Robotics & Automation News](https://roboticsandautomationnews.com/2026/05/27/figure-ramps-humanoid-robot-manufacturing-at-unprecedented-speed/101954/)  ·  **类别**:#产品发布 #人形机器人
-
----
+## 2026-05(月内事件)
 
 ### ⭐ 1X × EQT 战略合作:在 EQT 全球投资组合部署 10,000 台 Neo 机器人 ✅
 
@@ -89,23 +95,7 @@ arXiv 2605.09613 论文发布 **SABER 数据集**,包含 **100+ 小时超市真�
 
 ---
 
-## 2026-04
-
-### 🔥 π0.7 发布:可组合的机器人基础模型,具备涌现能力 ✅
-
-TechCrunch 报道(4 月 16 日),**Physical Intelligence** 发布 **π0.7**,展示**组合泛化能力**——能将不同情境下学到的技能组合解决全新任务(以操作空气炸锅为案例)。论文 arXiv:[2604.15483](https://arxiv.org/abs/2604.15483),站内已有[细读](/vla/papers/pi07)。⚠️ PI 自评不微调追平 π*0.6 RL 专家。
-
-**来源**:[TechCrunch](https://techcrunch.com/2026/04/16/physical-intelligence-a-hot-robotics-startup-says-its-new-robot-brain-can-figure-out-tasks-it-was-never-taught/) · [arXiv:2604.15483](https://arxiv.org/abs/2604.15483)  ·  **类别**:#论文发表 #模型发布  ·  **相关**:[π0.7 细读](/vla/papers/pi07) · [π0 细读](/vla/papers/pi0)
-
----
-
-### ⭐ Google DeepMind 发布 Gemini Robotics-ER 1.6 ✅
-
-SiliconANGLE 报道(4 月 15 日),**Google DeepMind** 发布 **Gemini Robotics-ER 1.6**(Embodied Reasoning 1.6),增强**空间推理、精确物体检测与约束推理**能力,API 同期上线。
-
-**来源**:[SiliconANGLE](https://siliconangle.com/2026/04/15/deepmind-launches-gemini-robotics-er-1-6-meet-precise-physical-ai-demands/)  ·  **类别**:#模型发布  ·  **相关**:[Gemini Robotics 细读](/vla/papers/gemini-robotics)
-
----
+## 2026-04-20
 
 ### ⭐ X²Robot(自变量机器人)完成 2.76 亿美元 B 轮融资,小米与红杉中国联合领投 ✅
 
@@ -115,6 +105,28 @@ InforCapital 报道(4 月 20 日),**X²Robot(自变量机器人)** 完成约 **2
 
 ---
 
+## 2026-04-16
+
+### 🔥 π0.7 发布:可组合的机器人基础模型,具备涌现能力 ✅
+
+TechCrunch 报道(4 月 16 日),**Physical Intelligence** 发布 **π0.7**,展示**组合泛化能力**——能将不同情境下学到的技能组合解决全新任务(以操作空气炸锅为案例)。论文 arXiv:[2604.15483](https://arxiv.org/abs/2604.15483),站内已有[细读](/vla/papers/pi07)。⚠️ PI 自评不微调追平 π*0.6 RL 专家。
+
+**来源**:[TechCrunch](https://techcrunch.com/2026/04/16/physical-intelligence-a-hot-robotics-startup-says-its-new-robot-brain-can-figure-out-tasks-it-was-never-taught/) · [arXiv:2604.15483](https://arxiv.org/abs/2604.15483)  ·  **类别**:#论文发表 #模型发布  ·  **相关**:[π0.7 细读](/vla/papers/pi07) · [π0 细读](/vla/papers/pi0)
+
+---
+
+## 2026-04-15
+
+### ⭐ Google DeepMind 发布 Gemini Robotics-ER 1.6 ✅
+
+SiliconANGLE 报道(4 月 15 日),**Google DeepMind** 发布 **Gemini Robotics-ER 1.6**(Embodied Reasoning 1.6),增强**空间推理、精确物体检测与约束推理**能力,API 同期上线。
+
+**来源**:[SiliconANGLE](https://siliconangle.com/2026/04/15/deepmind-launches-gemini-robotics-er-1-6-meet-precise-physical-ai-demands/)  ·  **类别**:#模型发布  ·  **相关**:[Gemini Robotics 细读](/vla/papers/gemini-robotics)
+
+---
+
+## 2026-04(月内事件)
+
 ### 📌 StarVLA:模块化 VLA 开发框架 ✅
 
 arXiv 2604.05014 论文发布 **StarVLA**,提出综合性开源 VLA 框架,具有模块化架构、可重用训练策略和集成基准——降低 VLA 研究的工程门槛。
@@ -123,7 +135,7 @@ arXiv 2604.05014 论文发布 **StarVLA**,提出综合性开源 VLA 框架,具�
 
 ---
 
-## 2026-03
+## 2026-03-15
 
 ### ⭐ 银河通用(Galaxy General)A+ 轮融资 25 亿元人民币 ✅
 
@@ -133,15 +145,7 @@ arXiv 2604.05014 论文发布 **StarVLA**,提出综合性开源 VLA 框架,具�
 
 ---
 
-## 2026-02
-
-### 🔥 Apptronik 完成 5.2 亿美元 A-X 轮融资,累计超 9.35 亿美元,估值 50 亿美元 ✅
-
-Apptronik 官方公告(2 月 11 日),**Apptronik** 完成 **5.2 亿美元 Series A-X 延伸融资**,累计 A 轮融资额超 **9.35 亿美元**,估值 **50 亿美元**,加速 Apollo 人形机器人商业化。
-
-**来源**:[Apptronik 官方](https://apptronik.com/news-collection/apptronik-closes-over-935-million-series-a)  ·  **类别**:#融资上市 #人形机器人
-
----
+## 2026-02-19
 
 ### ⭐ Agility Robotics × Toyota 加拿大:7 台 Digit 机器人投入工厂运营 ✅
 
@@ -151,6 +155,18 @@ TechCrunch 报道(2 月 19 日),**Agility Robotics** 与 **Toyota Motor Manufact
 
 ---
 
+## 2026-02-11
+
+### 🔥 Apptronik 完成 5.2 亿美元 A-X 轮融资,累计超 9.35 亿美元,估值 50 亿美元 ✅
+
+Apptronik 官方公告(2 月 11 日),**Apptronik** 完成 **5.2 亿美元 Series A-X 延伸融资**,累计 A 轮融资额超 **9.35 亿美元**,估值 **50 亿美元**,加速 Apollo 人形机器人商业化。
+
+**来源**:[Apptronik 官方](https://apptronik.com/news-collection/apptronik-closes-over-935-million-series-a)  ·  **类别**:#融资上市 #人形机器人
+
+---
+
+## 2026-02-02
+
 ### ⭐ LimX Dynamics(逐际动力)完成 2 亿美元 B 轮融资 ✅
 
 SiliconANGLE 报道(2 月 2 日),**LimX Dynamics(逐际动力)** 完成 **2 亿美元 B 轮融资**,投资方包括 Stone Venture、Oriental Fortune Capital、京东(JD.com)、中鼎股份等。公司主要产品为四足机器人及人形机器人。
@@ -158,6 +174,8 @@ SiliconANGLE 报道(2 月 2 日),**LimX Dynamics(逐际动力)** 完成 **2 亿�
 **来源**:[SiliconANGLE](https://siliconangle.com/2026/02/02/limx-raises-200m-build-embodied-intelligence-humanoid-robotics)  ·  **类别**:#融资上市 #人形机器人
 
 ---
+
+## 2026-02(月内事件)
 
 ### 📌 WorldArena:统一评估具身世界模型的感知与功能效用基准 ✅
 
@@ -167,15 +185,7 @@ arXiv 2602.08971 论文发布 **WorldArena 基准**,从「视频感知质量、�
 
 ---
 
-## 2026-01
-
-### 🔥 Skild AI 完成 14 亿美元 C 轮融资,估值超 140 亿美元 ✅
-
-TechCrunch 报道(1 月 14 日),**Skild AI** 完成由 **SoftBank 领投的 14 亿美元 C 轮融资**,估值超过 **140 亿美元**——较 2025 年夏季的 45 亿美元估值**增长 3 倍**,刷新机器人软件领域融资纪录。
-
-**来源**:[TechCrunch](https://techcrunch.com/2026/01/14/robotic-software-maker-skild-ai-hits-14b-valuation/)  ·  **类别**:#融资上市
-
----
+## 2026-01-28
 
 ### 🔥 Tesla 承认 Optimus 无实际工作,与 1 万台量产承诺落差显著 ✅
 
@@ -185,6 +195,8 @@ Electrek 报道,Musk 在 2026 年 1 月 Tesla 投资者电话会议(Q4 2025 财�
 
 ---
 
+## 2026-01-25
+
 ### 🔥 Boston Dynamics × Google DeepMind 战略合作:Gemini Robotics 接入 Atlas ✅
 
 Boston Dynamics 与 Google DeepMind 在 **CES 2026** 宣布战略合作,计划将 **Gemini Robotics 模型整合到 Atlas 人形机器人**中用于工业任务。Hyundai Motor Group 为 Boston Dynamics 多数股东,5 月又承诺部署 25K 台 Atlas(见上)。
@@ -192,6 +204,18 @@ Boston Dynamics 与 Google DeepMind 在 **CES 2026** 宣布战略合作,计划�
 **来源**:[Robotics and Automation News](https://roboticsandautomationnews.com/2026/01/25/boston-dynamics-and-google-deepmind-announce-ai-partnership-focused-on-humanoid-robots/98270/)  ·  **类别**:#行业动态 #合作协议  ·  **相关**:[Gemini Robotics 细读](/vla/papers/gemini-robotics)
 
 ---
+
+## 2026-01-14
+
+### 🔥 Skild AI 完成 14 亿美元 C 轮融资,估值超 140 亿美元 ✅
+
+TechCrunch 报道(1 月 14 日),**Skild AI** 完成由 **SoftBank 领投的 14 亿美元 C 轮融资**,估值超过 **140 亿美元**——较 2025 年夏季的 45 亿美元估值**增长 3 倍**,刷新机器人软件领域融资纪录。
+
+**来源**:[TechCrunch](https://techcrunch.com/2026/01/14/robotic-software-maker-skild-ai-hits-14b-valuation/)  ·  **类别**:#融资上市
+
+---
+
+## 2026-01-05
 
 ### 🔥 Boston Dynamics 量产版电动 Atlas 在 CES 2026 亮相 ✅
 
@@ -201,6 +225,8 @@ CES 2026(1 月 5 日),**Boston Dynamics** 展出量产版电动 Atlas 人形机�
 
 ---
 
+## 2026-01(月内事件)
+
 ### ⭐ InternVLA-A1:统一理解-生成-动作的机器人操作模型 ✅
 
 arXiv 2601.02456 论文发布 **InternVLA-A1**,采用**统一 Mixture-of-Transformers 架构**,协调三个专家完成场景理解、动作预测、物理交互。⚠️ 作者自评:**通用任务 75.1% 成功率**(对比 π0 基线 60.6%)。
@@ -209,7 +235,7 @@ arXiv 2601.02456 论文发布 **InternVLA-A1**,采用**统一 Mixture-of-Transfo
 
 ---
 
-## 2025-11
+## 2025-11(月内事件)
 
 ### 🔥 Physical Intelligence 完成超 10 亿美元 C 轮融资,估值 56 亿美元 ✅
 
@@ -219,7 +245,7 @@ arXiv 2601.02456 论文发布 **InternVLA-A1**,采用**统一 Mixture-of-Transfo
 
 ---
 
-## 2025-10
+## 2025-10-09
 
 ### ⭐ Figure AI 发布 Figure 03 人形机器人,面向家庭与商业应用 ✅
 
@@ -229,7 +255,7 @@ Figure AI 于 10 月 9 日官方宣布发布 **Figure 03 人形机器人**,配�
 
 ---
 
-## 2025-09
+## 2025-09-16
 
 ### 🔥 Figure AI 完成超 10 亿美元 C 轮融资,估值达 390 亿美元 ✅
 
@@ -239,6 +265,8 @@ TechCrunch 报道,**Figure AI** 于 9 月 16 日完成超 **10 亿美元 C 轮�
 
 ---
 
+## 2025-09(月内事件)
+
 ### 📌 CoRL 2025 最佳论文:Fabrica 双臂装配系统 ✅
 
 **CoRL 2025** 授予 MIT 等团队的论文 **「Fabrica: Dual-Arm Assembly of General Multi-Part Objects via Integrated Planning and Learning」** 最佳论文奖。该工作集成规划与学习,实现通用多部件物体的双臂装配。
@@ -247,7 +275,7 @@ TechCrunch 报道,**Figure AI** 于 9 月 16 日完成超 **10 亿美元 C 轮�
 
 ---
 
-## 2025-08
+## 2025-08(月内事件)
 
 ### ⭐ EO-1:交织视觉-文本-动作的统一具身基础模型 ✅
 
@@ -265,7 +293,7 @@ arXiv 2508.13998 论文发布 **Embodied-R1**,**3B 参数 VLM** 专为具身推�
 
 ---
 
-## 2025-06
+## 2025-06(月内事件)
 
 ### ⭐ SmolVLA:Hugging Face 发布 4.5 亿参数小型 VLA ✅
 
@@ -275,7 +303,17 @@ arXiv 2506.01844 论文发布 **SmolVLA**,**450M 参数紧凑 VLA**,可单 GPU �
 
 ---
 
-## 2025-03
+## 2025-04(月内事件)
+
+### ⭐ Physical Intelligence 发布 π0.5:开放世界泛化的 VLA ✅
+
+arXiv 2504.16054 论文发布 **π0.5**,Physical Intelligence 的 VLA 模型,通过**多机器人数据 + 网络数据**实现广泛的机器人操作泛化。本站已有[细读](/vla/papers/pi05)。
+
+**来源**:[arXiv:2504.16054](https://arxiv.org/abs/2504.16054)  ·  **类别**:#论文发表 #模型发布  ·  **相关**:[π0.5 细读](/vla/papers/pi05)
+
+---
+
+## 2025-03-12
 
 ### ⭐ Google DeepMind 发布 Gemini Robotics 与 Gemini Robotics-ER 模型 ✅
 
@@ -285,6 +323,8 @@ Google DeepMind 于 3 月 12 日发布两款基于 **Gemini 2.0** 的 VLA 模型
 
 ---
 
+## 2025-03(月内事件)
+
 ### 📌 EMMOE:开放环境具身移动操纵综合基准 ✅
 
 arXiv 2503.08604 论文发布 **EMMOE 基准**,整合高层与低层具身任务,评估智能家居机器人在**连续环境**中执行长时序日常任务的能力。
@@ -293,7 +333,7 @@ arXiv 2503.08604 论文发布 **EMMOE 基准**,整合高层与低层具身任务
 
 ---
 
-## 2025-02
+## 2025-02(月内事件)
 
 ### 📌 EmbodiedBench:全面评估多模态大模型具身智能能力 ✅
 
@@ -303,7 +343,7 @@ arXiv 2503.08604 论文发布 **EMMOE 基准**,整合高层与低层具身任务
 
 ---
 
-## 2025-01
+## 2025-01(月内事件)
 
 ### ⭐ FAST+:通用机器人动作分词器 ✅
 
@@ -313,7 +353,7 @@ arXiv 2501.09747 论文发布 **FAST+**,通用动作分词器,在 100 万条真�
 
 ---
 
-## 2025
+## 2025(年内事件)
 
 ### 📌 Instant Policy:基于图扩散的上下文模仿学习(ICLR 2025 Oral)✅
 
@@ -331,7 +371,7 @@ arXiv 2501.09747 论文发布 **FAST+**,通用动作分词器,在 100 万条真�
 
 ---
 
-## 2024-10(历史里程碑)
+## 2024-10-31
 
 ### 🔥 Physical Intelligence 发布 π0 机器人基础模型 ✅
 
@@ -341,7 +381,7 @@ arXiv 2501.09747 论文发布 **FAST+**,通用动作分词器,在 100 万条真�
 
 ---
 
-## 2024-09
+## 2024-09(月内事件)
 
 ### ⭐ TinyVLA:快速、数据高效的紧凑 VLA ✅
 
@@ -351,17 +391,7 @@ arXiv 2409.12514 论文发布 **TinyVLA**,紧凑型 VLA 模型在推理速度和
 
 ---
 
-## 2024-04(早期里程碑)
-
-### ⭐ Physical Intelligence 发布 π0.5:开放世界泛化的 VLA ✅
-
-arXiv 2504.16054 论文发布 **π0.5**,Physical Intelligence 的 VLA 模型,通过**多机器人数据 + 网络数据**实现广泛的机器人操作泛化。本站已有[细读](/vla/papers/pi05)。
-
-**来源**:[arXiv:2504.16054](https://arxiv.org/abs/2504.16054)  ·  **类别**:#论文发表 #模型发布  ·  **相关**:[π0.5 细读](/vla/papers/pi05)
-
----
-
-## 2023-10(基础设施奠基)
+## 2023-10(月内事件)
 
 ### 🔥 Open X-Embodiment:1M+ 真实机器人轨迹的跨机构数据集 ✅
 

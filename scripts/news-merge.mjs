@@ -109,29 +109,59 @@ function renderItem(n) {
 }
 // 🤖 标识:bot 写入的条目尾巴加机器人 emoji,与人工整理区分
 
-// ===== 按 month_key 分组待插入 =====
-function monthKeyOf(date) {
-  // YYYY-MM-DD → YYYY-MM;YYYY-MM → 原样
-  const m = String(date).match(/^(\d{4})-(\d{2})/)
-  return m ? `${m[1]}-${m[2]}` : '未知'
-}
-const byMonth = new Map()
-for (const n of toAdd) {
-  const mk = monthKeyOf(n.date)
-  if (!byMonth.has(mk)) byMonth.set(mk, [])
-  byMonth.get(mk).push(n)
+// ===== 按 date_key 分组待插入(支持日级 + 月级两种粒度)=====
+// - 完整日期 YYYY-MM-DD → 日级 H2(每天独立块)
+// - 仅月份 YYYY-MM → 月级 H2,显示「YYYY-MM(月内事件)」,排在该月所有日级块之后
+// - 仅年份 YYYY → 年级 H2,显示「YYYY(年内事件)」,排在该年所有月级块之后
+function dateKeyOf(date) {
+  const ds = String(date || '').trim()
+  // YYYY-MM-DD 完整日期
+  let m = ds.match(/^(\d{4})-(\d{2})-(\d{2})/)
+  if (m) {
+    const key = `${m[1]}-${m[2]}-${m[3]}`
+    return { key, level: 'day', sortKey: key, headerLine: `## ${key}\n` }
+  }
+  // YYYY-MM
+  m = ds.match(/^(\d{4})-(\d{2})/)
+  if (m) {
+    const key = `${m[1]}-${m[2]}`
+    // sortKey 用 -00 让月级排在该月日级之后(倒序 02 > 00,即日级靠顶)
+    return { key, level: 'month', sortKey: `${key}-00`, headerLine: `## ${key}(月内事件)\n` }
+  }
+  // YYYY
+  m = ds.match(/^(\d{4})/)
+  if (m) {
+    const key = m[1]
+    return { key, level: 'year', sortKey: `${key}-00-00`, headerLine: `## ${key}(年内事件)\n` }
+  }
+  return { key: '未知', level: 'unknown', sortKey: '0000-00-00', headerLine: `## 未知日期\n` }
 }
 
-// ===== 找到 markdown 里现有的月份分隔位置 =====
-// 期望结构:每月以 `## YYYY-MM` 开头,以下一个 `## ` 或 `---\n\n## 条目格式说明` 结尾
-const MONTH_HEADER_RE = /^## (\d{4})-(\d{2})(?:\([^)]*\))?\s*$/gm
-const headerMatches = []
-let mm
-const tmpRe = new RegExp(MONTH_HEADER_RE.source, 'gm')
-while ((mm = tmpRe.exec(markdown)) !== null) {
-  headerMatches.push({ key: `${mm[1]}-${mm[2]}`, index: mm.index, headerLine: mm[0] })
+const byDate = new Map() // key → { meta, items[] }
+for (const n of toAdd) {
+  const meta = dateKeyOf(n.date)
+  if (!byDate.has(meta.key)) byDate.set(meta.key, { meta, items: [] })
+  byDate.get(meta.key).items.push(n)
 }
-console.log(`  · markdown 现有月份分组:${headerMatches.length} 个`)
+
+// ===== 找到 markdown 里现有的日期/月份/年份分隔位置 =====
+// 同时匹配:
+//   ## YYYY-MM-DD                     (日级)
+//   ## YYYY-MM(月内事件)              (月级,带或不带括号说明)
+//   ## YYYY-MM(历史里程碑)            (旧版月级带说明也保留)
+//   ## YYYY(年内事件)                 (年级)
+const HEADER_RE = /^## (\d{4}(?:-\d{2}(?:-\d{2})?)?)(?:\(([^)]*)\))?\s*$/gm
+const headerMatches = []
+{
+  const tmpRe = new RegExp(HEADER_RE.source, 'gm')
+  let mm
+  while ((mm = tmpRe.exec(markdown)) !== null) {
+    const ds = mm[1]
+    const meta = dateKeyOf(ds)
+    headerMatches.push({ ...meta, index: mm.index, headerLine: mm[0] })
+  }
+}
+console.log(`  · markdown 现有分组:${headerMatches.length} 个(日/月/年级混合)`)
 
 // 找正文结束位置(开始格式说明的地方)= 第一个 `## 条目格式说明` 或 `## 相关页面`
 const FOOTER_RE = /^## (条目格式说明|相关页面)/m
@@ -155,19 +185,20 @@ const firstHeaderIdx = headerMatches.length > 0 ? headerMatches[0].index : foote
 const head = markdown.slice(0, firstHeaderIdx)
 const tail = markdown.slice(footerIndex)
 
-// 解析现有月份段为 { key, content }[]
-const existingMonths = []
+// 解析现有分组段为 { key, meta, headerLine, body }[]
+const existingSegments = []
 for (let i = 0; i < headerMatches.length; i++) {
   const start = headerMatches[i].index
   const end = i + 1 < headerMatches.length ? headerMatches[i + 1].index : footerIndex
-  existingMonths.push({
+  existingSegments.push({
     key: headerMatches[i].key,
-    headerLine: headerMatches[i].headerLine,
-    body: markdown.slice(start + headerMatches[i].headerLine.length, end), // 不含 header 自身
+    sortKey: headerMatches[i].sortKey,
+    headerLine: headerMatches[i].headerLine + '\n',
+    body: markdown.slice(start + headerMatches[i].headerLine.length, end), // 不含 header 自身,但含其后的 \n
   })
 }
 
-// 在每个月段里把待插入条目并入(同月按 🔥→⭐→📌 排序)
+// 在每个段里把待插入条目并入(段内按 🔥→⭐→📌 排序)
 const ORDER = { hot: 0, major: 1, normal: 2 }
 function rankOf(content) {
   // 给现有条目估算 rank:看 ### 开头第一个图标
@@ -176,54 +207,46 @@ function rankOf(content) {
   return m[1] === '🔥' ? 0 : m[1] === '⭐' ? 1 : 2
 }
 
-for (const month of existingMonths) {
-  if (!byMonth.has(month.key)) continue
-  const newItems = byMonth.get(month.key) // 待插入到该月的
-  byMonth.delete(month.key) // 标记已处理
+for (const seg of existingSegments) {
+  if (!byDate.has(seg.key)) continue
+  const newItems = byDate.get(seg.key).items
+  byDate.delete(seg.key) // 标记已处理
 
-  // 把月段 body 拆成「单条事件」数组(以 `### ` 切,保留 `### ` 前缀)
-  // 第一段(在第一个 ### 之前)是「月段引导文本」(罕见,但保留)
-  const parts = []
-  let cur = month.body
-  const itemRe = /(^|\n)(### .+(?:\n(?!### |## )[^\n]*)*)/g
-  // 简化:用 split('### ') 然后给每段加回 '### ' 前缀
-  const split = month.body.split(/\n(?=### )/)
-  const monthIntro = split.shift() || '' // 第一段(无 ### 前缀)
-  const items = split // 后续每段都以 `### ...` 开头
+  // 把段 body 拆成「单条事件」数组(以 `### ` 切)
+  const split = seg.body.split(/\n(?=### )/)
+  const intro = split.shift() || '' // 第一段(段头到第一个 ### 之前)
+  const items = split.map((s) => (s.endsWith('\n') ? s : s + '\n')) // 每段以 ### 开头
 
-  // 组合 = monthIntro + items + newItems(渲染后),整体按 rank 排序
-  const allItems = [...items.map((s) => ({ rank: rankOf(s), content: '### ' + s.trimStart().slice(4) /* keep */, isOld: true })),
-                    ...newItems.map((n) => ({ rank: ORDER[n.importance], content: renderItem(n), isOld: false }))]
-  // 简化:items 字符串以 '### ' 开头,rankOf 已正常
-  const reItems = items.map((s) => ({ rank: rankOf(s), content: s.endsWith('\n') ? s : s + '\n' }))
+  const oldRendered = items.map((s) => ({ rank: rankOf(s), content: s }))
   const newRendered = newItems.map((n) => ({ rank: ORDER[n.importance], content: renderItem(n) }))
-  const merged = [...reItems, ...newRendered].sort((a, b) => a.rank - b.rank)
+  const merged = [...oldRendered, ...newRendered].sort((a, b) => a.rank - b.rank)
 
-  month.body = monthIntro + (monthIntro && !monthIntro.endsWith('\n\n') ? '\n' : '') + merged.map((m) => m.content).join('')
+  seg.body = intro + (intro && !intro.endsWith('\n\n') ? '\n' : '') + merged.map((m) => m.content).join('')
 }
 
-// 剩下的(byMonth 里还有的)= 新月份段,需要按时间倒序插入到 existingMonths 之中
-const newMonthSegments = []
-for (const [key, items] of byMonth.entries()) {
+// 剩下的(byDate 里还有的)= 全新分组段,按 sortKey 倒序插入
+const newSegments = []
+for (const [key, { meta, items }] of byDate.entries()) {
   const sortedItems = [...items].sort((a, b) => ORDER[a.importance] - ORDER[b.importance])
-  newMonthSegments.push({
+  newSegments.push({
     key,
-    headerLine: `## ${key}\n`,
+    sortKey: meta.sortKey,
+    headerLine: meta.headerLine,
     body: '\n' + sortedItems.map(renderItem).join(''),
   })
 }
 
-// 合并 existing + new,按 key(YYYY-MM)倒序排序
-const allMonths = [...existingMonths, ...newMonthSegments].sort((a, b) => {
-  if (a.key < b.key) return 1
-  if (a.key > b.key) return -1
+// 合并 existing + new,按 sortKey 倒序(日级在月级之前,月级在年级之前,新在旧前)
+const allSegments = [...existingSegments, ...newSegments].sort((a, b) => {
+  if (a.sortKey < b.sortKey) return 1
+  if (a.sortKey > b.sortKey) return -1
   return 0
 })
 
 // ===== 重组 markdown =====
 let newMarkdown = head
-for (const m of allMonths) {
-  newMarkdown += m.headerLine + m.body
+for (const seg of allSegments) {
+  newMarkdown += seg.headerLine + seg.body
 }
 newMarkdown += tail
 
@@ -233,43 +256,51 @@ newMarkdown = newMarkdown.replace(
   `<!--BOT-LAST-FETCH-->\n> 🤖 **最后自动更新于** ${(fetched.fetched_at || new Date().toISOString()).replace('T', ' ').replace(/\.\d+Z$/, ' UTC')} · 由 news-bot 维护(本批新增 **${toAdd.length}** 条)\n<!--/BOT-LAST-FETCH-->`,
 )
 
-// ===== 自动归档(超过 80 条时把最老月份移到 archive/) =====
+// ===== 自动归档(超过 80 条时把最老月份的所有日级 + 月级段移到 archive/)=====
+// 归档以「月」为单位:把同月所有日级段 + 月级段一起搬走。
 let archivedMonth = null
 const totalEvents = (newMarkdown.match(/^### [🔥⭐📌]/gm) || []).length
-if (totalEvents > ARCHIVE_THRESHOLD && allMonths.length > 1) {
-  const oldest = allMonths[allMonths.length - 1] // 最旧的月份(已倒序排序)
-  archivedMonth = oldest.key
+if (totalEvents > ARCHIVE_THRESHOLD && allSegments.length > 1) {
+  // 找最旧的月份(从 sortKey 提取 YYYY-MM)
+  const oldestSeg = allSegments[allSegments.length - 1]
+  const oldestMonth = oldestSeg.sortKey.slice(0, 7) // "YYYY-MM"
+  archivedMonth = oldestMonth
 
-  // 创建 archive 文件
-  fs.mkdirSync(ARCHIVE_DIR, { recursive: true })
-  const archivePath = path.join(ARCHIVE_DIR, `${archivedMonth}.md`)
-  const archiveContent = [
-    '---',
-    `title: 具身智能新闻归档 · ${archivedMonth}`,
-    `description: 具身智能新闻 ${archivedMonth} 月份归档`,
-    'sidebar: false',
-    '---',
-    '',
-    `# 具身智能新闻 · ${archivedMonth} 归档`,
-    '',
-    `> 这是从 [新闻主页](/news/) 自动归档的 ${archivedMonth} 月内容。回到 [最新](/news/)。`,
-    '',
-    '---',
-    '',
-    `${oldest.headerLine}${oldest.body}`,
-  ].join('\n')
-  fs.writeFileSync(archivePath, archiveContent, 'utf-8')
-  console.log(`  · 已归档 ${archivedMonth} → ${archivePath}`)
+  // 收集该月所有 segments(日级 + 月级)
+  const sameMonthSegs = allSegments.filter((s) => s.sortKey.startsWith(oldestMonth))
+  if (sameMonthSegs.length === allSegments.length) {
+    // 全部都是同月,不归档(否则主页会空)
+    archivedMonth = null
+  } else {
+    // 创建 archive 文件
+    fs.mkdirSync(ARCHIVE_DIR, { recursive: true })
+    const archivePath = path.join(ARCHIVE_DIR, `${oldestMonth}.md`)
+    const archiveContent = [
+      '---',
+      `title: 具身智能新闻归档 · ${oldestMonth}`,
+      `description: 具身智能新闻 ${oldestMonth} 月份归档`,
+      'sidebar: false',
+      '---',
+      '',
+      `# 具身智能新闻 · ${oldestMonth} 归档`,
+      '',
+      `> 这是从 [新闻主页](/news/) 自动归档的 ${oldestMonth} 月内容。回到 [最新](/news/)。`,
+      '',
+      '---',
+      '',
+      sameMonthSegs.map((s) => s.headerLine + s.body).join(''),
+    ].join('\n')
+    fs.writeFileSync(archivePath, archiveContent, 'utf-8')
+    console.log(`  · 已归档 ${oldestMonth} (${sameMonthSegs.length} 段) → ${archivePath}`)
 
-  // 从主文件里移除该月段
-  const idx = allMonths.findIndex((m) => m.key === archivedMonth)
-  allMonths.splice(idx, 1)
-  // 重新组装 markdown
-  newMarkdown = head
-  for (const m of allMonths) {
-    newMarkdown += m.headerLine + m.body
+    // 从主文件里移除该月所有 segments
+    const remaining = allSegments.filter((s) => !s.sortKey.startsWith(oldestMonth))
+    newMarkdown = head
+    for (const seg of remaining) {
+      newMarkdown += seg.headerLine + seg.body
+    }
+    newMarkdown += tail
   }
-  newMarkdown += tail
 }
 
 // ===== 写回 markdown =====
