@@ -65,9 +65,28 @@
       <div
         v-for="company in filteredCompanies"
         :key="company.id"
-        :class="['company-card', `stage-${company.stage}`]"
+        :class="['company-card', `stage-${company.stage}`, { clickable: !!company.website }]"
+        :title="company.website ? `点击访问 ${company.website}` : ''"
         @click="openCompanyDetail(company)"
       >
+        <!-- 跳转指示图标:仅在有 website 时显示 -->
+        <svg
+          v-if="company.website"
+          class="card-go"
+          viewBox="0 0 24 24"
+          width="14"
+          height="14"
+          aria-hidden="true"
+        >
+          <path
+            d="M14 5h5v5M19 5l-9 9M12 5H6a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1v-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
         <div class="card-header">
           <div class="company-logo">
             <img
@@ -273,7 +292,7 @@ function resetFilters() {
 
 function openCompanyDetail(company) {
   if (company.website) {
-    window.open(company.website, '_blank')
+    window.open(company.website, '_blank', 'noopener,noreferrer')
   }
 }
 </script>
@@ -394,9 +413,26 @@ function openCompanyDetail(company) {
   border-radius: 10px;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  cursor: pointer;
+  cursor: default;
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
   overflow: hidden;
+}
+.company-card.clickable { cursor: pointer; }
+
+/* 跳转指示图标:右下角,默认半透明,hover 时高亮(避开右上角阶段徽章) */
+.card-go {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: var(--vp-c-text-3);
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 0.2s, color 0.2s, transform 0.2s;
+}
+.company-card.clickable:hover .card-go {
+  opacity: 1;
+  color: var(--vp-c-brand-1);
+  transform: translate(2px, -2px);
 }
 
 .company-card::before {

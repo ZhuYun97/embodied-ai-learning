@@ -216,6 +216,7 @@
       "products": ["L7 人形", "Q5 轮足", "XHAND1"],
       "description": "顺丰/IDG 领投，物流场景千台级部署",
       "tags": ["人形", "物流", "灵巧手"],
+      "website": "https://www.robotera.com",
       "country": "CN"
     },
     {
@@ -229,6 +230,7 @@
       "products": ["灵巧手"],
       "description": "专注机器人灵巧手，估值行业领先",
       "tags": ["灵巧手", "零部件"],
+      "website": "https://www.linkerbot.cn",
       "country": "CN"
     },
     {
@@ -288,6 +290,7 @@
       "products": ["人形机器人"],
       "description": "清华交叉信息研究院孵化，字节/美团投资",
       "tags": ["人形", "清华", "高融资"],
+      "website": "https://www.x-humanoid.com",
       "country": "CN"
     },
     {
@@ -345,6 +348,7 @@
       "products": ["Wall-OSS VLA 系列"],
       "description": "专注 VLA 模型与开源具身平台",
       "tags": ["VLA", "开源", "平台"],
+      "website": "https://x2robot.com",
       "country": "CN"
     },
     {
