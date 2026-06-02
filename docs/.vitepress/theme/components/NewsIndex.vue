@@ -66,19 +66,25 @@ const filteredData = computed(() => {
   return data
 })
 
-// 按 fetched_at 分组(降序),组内按重要程度排序
+// 全局排序:重要程度优先(hot→major→normal),同级按事件日期降序
+const sortedData = computed(() => {
+  const order = { hot: 0, major: 1, normal: 2 }
+  return filteredData.value.slice().sort((a, b) => {
+    const impDiff = order[a.importance] - order[b.importance]
+    if (impDiff !== 0) return impDiff
+    return b.date.localeCompare(a.date)
+  })
+})
+
+// 按 fetched_at 分组(降序),组内已按重要程度排序
 const groups = computed(() => {
   const map = new Map()
-  for (const item of filteredData.value) {
+  for (const item of sortedData.value) {
     const key = item.fetched_at
     if (!map.has(key)) map.set(key, [])
     map.get(key).push(item)
   }
-  const order = { hot: 0, major: 1, normal: 2 }
-  const arr = Array.from(map.entries()).map(([date, items]) => ({
-    date,
-    items: items.sort((a, b) => order[a.importance] - order[b.importance])
-  }))
+  const arr = Array.from(map.entries()).map(([date, items]) => ({ date, items }))
   return arr.sort((a, b) => b.date.localeCompare(a.date))
 })
 
