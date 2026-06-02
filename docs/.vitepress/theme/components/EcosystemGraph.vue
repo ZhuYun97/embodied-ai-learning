@@ -109,7 +109,7 @@
             :key="'h' + n.id"
             :cx="n.x"
             :cy="n.y"
-            :r="n.r + 8"
+            :r="n.r + 5"
             :class="['node-halo', `halo-${n.kind}`, { active: hoverId === n.id }]"
           />
         </g>
@@ -126,19 +126,19 @@
           @click="onNodeClick(n)"
         >
           <!-- 外环脉动 -->
-          <circle :r="n.r + 4" class="node-pulse">
+          <circle :r="n.r + 3" class="node-pulse">
             <animate
               v-if="hoverId === n.id"
               attributeName="r"
-              :from="n.r + 4"
-              :to="n.r + 12"
+              :from="n.r + 3"
+              :to="n.r + 8"
               dur="1.2s"
               repeatCount="indefinite"
             />
             <animate
               v-if="hoverId === n.id"
               attributeName="opacity"
-              from="0.6"
+              from="0.5"
               to="0"
               dur="1.2s"
               repeatCount="indefinite"
@@ -183,7 +183,7 @@ const companyNodes = (data.companies || [])
     id: c.id,
     label: c.name,
     kind: c.region === 'china' ? 'cn' : 'intl',
-    r: 10 + Math.min(14, Math.sqrt((c.fundingAmount || 0) / 1e8) * 3),
+    r: 7 + Math.min(10, Math.sqrt((c.fundingAmount || 0) / 1e8) * 2.2),
     website: c.website || null,
     x: W / 2 + (Math.random() - 0.5) * 320,
     y: H / 2 + (Math.random() - 0.5) * 320,
@@ -196,7 +196,7 @@ const connectorNodes = connectors
     id: c.id,
     label: c.name,
     kind: 'conn',
-    r: 13,
+    r: 10,
     website: null,
     x: W / 2 + (Math.random() - 0.5) * 320,
     y: H / 2 + (Math.random() - 0.5) * 320,
@@ -516,15 +516,15 @@ onBeforeUnmount(() => {
    ============================================================ */
 .node-halo {
   fill: none;
-  stroke-width: 2;
+  stroke-width: 1.5;
   opacity: 0;
   transition: opacity 0.3s;
-  filter: blur(6px);
+  filter: blur(4px);
 }
 .halo-cn { stroke: #ef4444; }
 .halo-intl { stroke: #3b82f6; }
 .halo-conn { stroke: #f59e0b; }
-.node-halo.active { opacity: 0.9; }
+.node-halo.active { opacity: 0.7; }
 
 .node { cursor: pointer; }
 .node-conn { cursor: default; }
@@ -540,9 +540,9 @@ onBeforeUnmount(() => {
 .node-conn .node-pulse { stroke: #fbbf24; }
 
 .node-circle {
-  stroke-width: 1.5;
+  stroke-width: 1.2;
   stroke: rgba(255, 255, 255, 0.25);
-  filter: drop-shadow(0 0 6px currentColor);
+  filter: drop-shadow(0 0 3px currentColor);
   transition: filter 0.25s, opacity 0.25s;
 }
 .node-cn .node-circle { color: #ef4444; }
@@ -550,7 +550,7 @@ onBeforeUnmount(() => {
 .node-conn .node-circle { color: #f59e0b; }
 
 .node.focus .node-circle {
-  filter: drop-shadow(0 0 14px currentColor) drop-shadow(0 0 4px currentColor);
+  filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 2px currentColor);
 }
 
 .node-inner {
