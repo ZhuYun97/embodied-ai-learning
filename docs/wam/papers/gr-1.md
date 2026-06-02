@@ -58,7 +58,7 @@ GR-1 是字节 **GR 系**的开端：
 - 谱系链条为 GR-1 → GR-2 →（本站）[GR-3](/vla/papers/gr-3)（字节 Seed）。GR-1 奠定了「视频生成预训练 + GPT 式骨架迁移到机器人」这一路线，后续 GR 系沿此演进。
 - 在 WAM 综述中，GR-1 是**自回归支的奠基之一**：taxonomy 归入**联合·自回归（显式解耦）**（综述 Table 2：GPT 式因果 Transformer，视觉/动作经独立输出头）。WAM 内可对照 [WorldVLA](/wam/papers/worldvla)。
 - **命名辨析**：GR-1 与 NVIDIA 的 [GR00T N1](/vla/papers/groot-n1) 名字相近，但**机构不同**——GR00T 是 NVIDIA，GR 系是字节；二者不应混淆。
-- CALVIN 作为评测基准，参见本站 [评测基准](/vla/papers/benchmarks)。
+- CALVIN 作为评测基准，参见本站 [数据集与基准](/vla/papers/benchmarks)。
 
 换言之，GR-1 是「把大规模视频生成式预训练显式接入机器人操作、并在单一自回归主干上联合预测帧与动作」这一形态的起点，是后续 GR 系与 WAM 自回归类工作共同的参照原点之一。
 

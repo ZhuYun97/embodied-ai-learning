@@ -39,9 +39,19 @@
           markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="#c084fc" />
         </marker>
-        <!-- 柔和辉光:克制,仅给节点用 -->
-        <filter id="soft-glow" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="2.5" result="b" />
+        <!-- 节点球渐变(三类):左上高光 → 深色边缘,做出立体球感 -->
+        <radialGradient id="grad-cn" cx="36%" cy="30%" r="78%">
+          <stop offset="0%" stop-color="#ff9d92" /><stop offset="52%" stop-color="#ef4d44" /><stop offset="100%" stop-color="#bb2c26" />
+        </radialGradient>
+        <radialGradient id="grad-intl" cx="36%" cy="30%" r="78%">
+          <stop offset="0%" stop-color="#9cc4ff" /><stop offset="52%" stop-color="#3f7fe0" /><stop offset="100%" stop-color="#1f4fae" />
+        </radialGradient>
+        <radialGradient id="grad-conn" cx="36%" cy="30%" r="78%">
+          <stop offset="0%" stop-color="#ffe39a" /><stop offset="52%" stop-color="#eaa12c" /><stop offset="100%" stop-color="#b9741a" />
+        </radialGradient>
+        <!-- 焦点辉光:仅悬停节点用 -->
+        <filter id="focus-glow" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="3.2" result="b" />
           <feMerge>
             <feMergeNode in="b" />
             <feMergeNode in="SourceGraphic" />
@@ -49,7 +59,7 @@
         </filter>
       </defs>
 
-      <g :transform="`translate(${pan.x},${pan.y}) scale(${zoom})`">
+      <g :transform="`translate(${pan.x},${pan.y}) scale(${zoom})`" :class="{ 'is-hovering': hoverId }">
         <!-- 边:曲线 + 方向箭头 -->
         <g class="edges">
           <path
@@ -182,14 +192,14 @@ function tick() {
       let dx = a.x - b.x, dy = a.y - b.y
       let d2 = dx * dx + dy * dy || 0.01
       let d = Math.sqrt(d2)
-      const rep = 5200 / d2
+      const rep = 6200 / d2
       const fx = (dx / d) * rep, fy = (dy / d) * rep
       a.vx += fx; a.vy += fy
       b.vx -= fx; b.vy -= fy
     }
   }
 
-  const LINK = 165
+  const LINK = 185
   for (const e of edges) {
     const a = nodeMap.value[e.source], b = nodeMap.value[e.target]
     let dx = b.x - a.x, dy = b.y - a.y
@@ -341,12 +351,12 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
 /* 边:细曲线 + 方向箭头 */
 .edge {
   fill: none;
-  stroke-width: 1.3;
-  opacity: 0.42;
+  stroke-width: 1.1;
+  opacity: 0.2;
   transition: opacity 0.22s, stroke-width 0.22s;
 }
-.edge.active { stroke-width: 2; opacity: 0.95; }
-.edge.dim { opacity: 0.06; }
+.edge.active { stroke-width: 2.4; opacity: 0.95; }
+.edge.dim { opacity: 0.04; }
 .edge-invest { stroke: #38bdf8; }
 .edge-partner { stroke: #818cf8; stroke-dasharray: 5 4; }
 .edge-own { stroke: #c084fc; }
@@ -357,64 +367,52 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
 .node.clickable { cursor: pointer; }
 
 .node-ring {
-  stroke-width: 2;
-  filter: url(#soft-glow);
+  stroke-width: 1.6;
+  filter: drop-shadow(0 2px 5px rgba(5, 10, 24, 0.55));
   transition: fill 0.2s, stroke 0.2s, opacity 0.2s;
 }
-.node-cn .node-ring   { fill: rgba(248, 113, 113, 0.22); stroke: #f87171; }
-.node-intl .node-ring { fill: rgba(96, 165, 250, 0.22);  stroke: #60a5fa; }
-.node-conn .node-ring { fill: rgba(251, 191, 36, 0.24);  stroke: #fbbf24; }
+.node-cn .node-ring   { fill: url(#grad-cn);   stroke: #ffb0a4; }
+.node-intl .node-ring { fill: url(#grad-intl); stroke: #aecbff; }
+.node-conn .node-ring { fill: url(#grad-conn); stroke: #ffdf94; }
 
-.node.focus .node-ring {
-  stroke-width: 2.5;
-}
-.node-cn.focus .node-ring   { fill: rgba(248, 113, 113, 0.4); }
-.node-intl.focus .node-ring { fill: rgba(96, 165, 250, 0.4); }
-.node-conn.focus .node-ring { fill: rgba(251, 191, 36, 0.42); }
+.node.focus .node-ring { stroke-width: 2.4; filter: url(#focus-glow); }
 
-.node.dim { opacity: 0.22; }
+.node.dim { opacity: 0.2; }
 
-/* 节点内首字母 */
+/* 节点内首字母:白字叠在彩球上 */
 .node-initial {
   text-anchor: middle;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: -0.02em;
+  fill: #fff;
+  fill-opacity: 0.96;
+  paint-order: stroke;
+  stroke: rgba(8, 14, 30, 0.28);
+  stroke-width: 0.6px;
   pointer-events: none;
   user-select: none;
 }
-.node-cn .node-initial   { fill: #fecaca; }
-.node-intl .node-initial { fill: #bfdbfe; }
-.node-conn .node-initial { fill: #fde68a; }
 
-/* 标签:默认半隐,焦点/机构强调 */
+/* 标签:默认隐藏,仅在悬停时显示「焦点节点 + 其邻居」,大幅减少拥挤 */
 .node-label {
   text-anchor: middle;
   font-size: 10.5px;
-  font-weight: 500;
-  fill: rgba(203, 213, 225, 0.7);
+  font-weight: 600;
+  fill: #e8eefc;
   paint-order: stroke;
-  stroke: rgba(11, 19, 34, 0.92);
+  stroke: rgba(8, 14, 30, 0.95);
   stroke-width: 3px;
   pointer-events: none;
   user-select: none;
-  transition: fill 0.2s;
+  opacity: 0;
+  transition: opacity 0.18s;
 }
-.node-conn .node-label { fill: rgba(253, 230, 138, 0.82); font-weight: 600; }
-.node.focus .node-label { fill: #fff; font-weight: 600; }
+.is-hovering .node:not(.dim) .node-label { opacity: 0.97; }
+.is-hovering .node-conn:not(.dim) .node-label { fill: #fde9b0; }
+.node.focus .node-label { opacity: 1; }
 
-/* 档案皮:暖纸深棕舞台 */
-:global(html.skin-archive) .graph-wrap {
-  background: radial-gradient(ellipse 90% 75% at 50% 42%, #2c1d14 0%, #21150d 60%, #1b1009 100%);
-  border-color: rgba(201, 123, 90, 0.22);
-}
-:global(html.skin-archive) .node-cn .node-ring   { fill: rgba(154, 51, 36, 0.18);  stroke: #c2693f; }
-:global(html.skin-archive) .node-intl .node-ring { fill: rgba(74, 111, 165, 0.18); stroke: #6f9bc9; }
-:global(html.skin-archive) .node-conn .node-ring { fill: rgba(201, 123, 90, 0.2);  stroke: #d9954f; }
-:global(html.skin-archive) .edge-invest { stroke: #d9954f; }
-:global(html.skin-archive) .edge-partner { stroke: #b5805a; }
-:global(html.skin-archive) .edge-own,
-:global(html.skin-archive) .edge-incubate { stroke: #c2693f; }
+/* 档案皮覆盖见下方非 scoped <style> 块(scoped 下 :global() 的多级后代会被错误折叠) */
 
 @media (max-width: 640px) {
   .graph-legend { font-size: 0.62rem; padding: 8px 10px; gap: 4px; }
@@ -423,4 +421,27 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
   .node-label { font-size: 9.5px; }
   .node-initial { font-size: 11px; }
 }
+</style>
+
+<!-- 档案皮覆盖:放在非 scoped 块,html.skin-archive 多级后代选择器才能正确编译 -->
+<style>
+html.skin-archive .graph-wrap {
+  background: radial-gradient(ellipse 90% 75% at 50% 42%, #2c1d14 0%, #21150d 60%, #1b1009 100%);
+  border-color: rgba(201, 123, 90, 0.22);
+}
+html.skin-archive .node-cn .node-ring   { fill: #9a3324; stroke: #e0a08a; }
+html.skin-archive .node-intl .node-ring { fill: #466da0; stroke: #9fbcde; }
+html.skin-archive .node-conn .node-ring { fill: #b06a2e; stroke: #e6b27e; }
+html.skin-archive .node-initial { fill: #fff8ef; }
+html.skin-archive .edge-invest { stroke: #d9954f; }
+html.skin-archive .edge-partner { stroke: #b5805a; }
+html.skin-archive .edge-own,
+html.skin-archive .edge-incubate { stroke: #c2693f; }
+/* 图例随皮肤变暖 */
+html.skin-archive .dot-cn   { background: #9a3324; }
+html.skin-archive .dot-intl { background: #466da0; }
+html.skin-archive .dot-conn { background: #b06a2e; }
+html.skin-archive .line-invest  { border-color: #d9954f; }
+html.skin-archive .line-partner { border-color: #b5805a; }
+html.skin-archive .line-own     { border-color: #c2693f; }
 </style>

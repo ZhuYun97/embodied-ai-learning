@@ -54,33 +54,27 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 
 | 论文 | 机构 | 一句话 | 细读 |
 |---|---|---|---|
-| ECoT (2024.07) | 伯克利/Stanford/华沙大学 | reasoning-VLA 奠基,OpenVLA 上先生成具身推理链(plan→subtask→motion→bbox)再出动作 | [→ 细读](papers/ecot.md) |
-| TinyVLA (2024.09) | 美的/华东师大 等 | VLM 初始化+扩散策略头,跳过大规模机器人预训练,高数据效率、快推理 | [→ 细读](papers/tinyvla.md) |
-| RoboVLMs (2024.12) | 字节 Research/清华 等 | 系统性实证+框架家族(主干/架构/跨本体数据消融),"建 VLA 什么最重要"的系统实证+常用 baseline | [→ 细读](papers/robovlms.md) |
-| SimpleVLA-RL (2025.09) | 清华/上海AI Lab/北大 | VLA 专用在线 RL(veRL/GRPO),作用于 OpenVLA-OFT,⚠️ LIBERO-Long 97.6 超 π0 | [→ 细读](papers/simplevla-rl.md) |
 | GR-3 (2025.07) | 字节跳动 Seed | Qwen2.5-VL-3B + flow-matching DiT(4B),三源配方(网页VL+VR人类轨迹+真机),双臂移动本体 ByteMini,自评超 π0 | [→ 细读](papers/gr-3.md) |
 | RDT-1B (2024.10) | 清华 TSAIL | 1.2B 扩散 DiT 双臂基座,物理可解释统一动作空间,纯扩散一体化(第三种架构) | [→ 细读](papers/rdt-1b.md) |
 | GO-1 (2025.03) | 智元 AgiBot | ViLLA:VLM 出潜动作 token → Latent Planner → 动作专家,潜动作升为推理期架构桥接 | [→ 细读](papers/go-1.md) |
 | MemoryVLA (2025.08) | 清华黄高组等 | 感知-认知双记忆库打破单步马尔可夫假设,补长程时序短板(CogACT 加记忆版) | [→ 细读](papers/memoryvla.md) |
 | SpatialVLA (2025.01) | 上海 AI Lab 等 | Ego3D 位置编码 + 自适应动作网格,给 2D VLA 注入 3D(含 3D-VLA/PointVLA 对照) | [→ 细读](papers/spatialvla.md) |
 | Helix (2025.02) | Figure AI | 单权重 35-DoF 人形上半身双系统(7B@7-9Hz + 80M@200Hz),隐向量窄接口(⚠️ 无论文) | [→ 细读](papers/helix.md) |
-| SmolVLA (2025.06) | Hugging Face / LeRobot | 0.45B 小型高效开源:冻结 SmolVLM-2 + ~100M 流匹配动作专家,层跳过/64token/异步推理;⚠️ LIBERO 87.3 追平 π0(3.3B)、超 OpenVLA(7B),训练快 40%/省显存 6× | [→ 细读](papers/smolvla.md) |
-| SteerVLA (2026.02) | Stanford / UC Berkeley | 首篇自动驾驶域:高层 VLM 出语言 meta-action「操控」低层 VLA 回归 waypoint,VLM 事后稠密标注;⚠️ 闭环 Bench2Drive 长尾 +8.04 | [→ 细读](papers/steervla.md) |
 
-**具身基础专题(VLA × WAM 共用)**
+**专题综述**
 
 | 专题 | 范围 | 一句话 | 细读 |
 |---|---|---|---|
 | 具身数据全景 | 数据来源 / 采集 / 配比 / scaling | 四层数据金字塔 + 10 个真机数据集横评 + 采集范式成本 + co-training/scaling,8 条规模数字经对抗核查确认 | [→ 细读](papers/embodied-data.md) |
 | 具身数据处理 | 清洗 / 标注 / 动作&观测处理 / 伪标签 / 配比 / 格式 | 从原始采集到可训练样本的处理流水线:归一化/分词/分块、IDM/潜动作伪标签、Re-Mix/n^0.43 配比、RLDS/LeRobot 格式 | [→ 专题](papers/data-processing.md) |
-| 评测基准 | SimplerEnv / LIBERO / CALVIN / RoboCasa | 四大评测全景 + 逐模型成绩表(含 RoboCasa 同口径排行榜) | [→ 专题](papers/benchmarks.md) |
+| 数据集与基准 | SimplerEnv / LIBERO / CALVIN / RoboCasa | 四大评测全景 + 逐模型成绩表(含 RoboCasa 同口径排行榜) | [→ 专题](papers/benchmarks.md) |
 | 实验机器人本体 | 单臂 / 双臂 / 人形 / 跨本体 | 19 个实验本体对照表(平台/厂商/形态/DoF/关联模型与数据集)+ 跨本体迁移要点 | [→ 专题](papers/robots.md) |
 
 **横切分析专题(跨模型对照,重组本站已核查内容)**
 
 | 专题 | 范围 | 一句话 | 链接 |
 |---|---|---|---|
-| 全模型规格对比 | 30 模型 × 12 维 | 主干/视觉编码器/参数/动作表示/频率/语料/单体or双系统/许可一表打尽(成绩见基准、年代见时间线) | [→ 大表](papers/models-spec.md) |
+| 全模型规格对比 | 24 模型 × 12 维 | 主干/视觉编码器/参数/动作表示/频率/语料/单体or双系统/许可一表打尽(成绩见基准、年代见时间线) | [→ 大表](papers/models-spec.md) |
 | 双系统架构原理 | System 1/2 / 分层 / 知识隔离 | 辨析"频率解耦 vs 语义分层 vs 梯度隔离"三种常被混用的解耦,含跨系统对比表与单模型反例 | [→ 专题](papers/dual-system-architecture.md) |
 | 预测式 VLA | 世界模型作策略主体 | VPP/DreamVLA/WorldVLA:推理时预演未来→反推动作,区别于 RynnVLA 的"预测只当训练先验" | [→ 专题](papers/predictive-vla.md) |
 | 知识隔离训练配方 | KI(arXiv:2505.23705) | stop-gradient 挡住动作专家梯度 + FAST 离散监督主干 + co-training,π0.6/π0.7 背后的训练技法 | [→ 细读](papers/knowledge-insulation.md) |
@@ -93,7 +87,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | 页面 | 用途 | 链接 |
 |---|---|---|
 | 术语速查表 | 流匹配/动作分块/双系统/co-training 等术语一页速查 | [→ 术语表](papers/glossary.md) |
-| 发展时间线 | 2022→2026 里程碑一览(30 篇细读定位) | [→ 时间线](papers/timeline.md) |
+| 发展时间线 | 2022→2026 里程碑一览(24 篇细读定位) | [→ 时间线](papers/timeline.md) |
 | 参考文献 | 全站一手信源(arXiv/官网)聚合 | [→ 信源](papers/references.md) |
 | 外部资源导航 | 站外高质量 Awesome 论文合集 / 综述 / 基准仿真官方站 / 数据集 / 机构博客 | [→ 资源](papers/resources.md) |
 
@@ -195,7 +189,7 @@ flowchart LR
 
 # 二、代表性模型
 
-> 本节只展开**精选代表**以勾勒两条路线与双系统的脉络;**完整 30 篇模型细读清单见开头的 [📄 论文细读导航](#-论文细读导航)**。下文未单独展开的模型(如 RT-1 离散前史、π0-FAST 频域分词)在第三、四部分与对应细读中讨论。
+> 本节只展开**精选代表**以勾勒两条路线与双系统的脉络;**完整 24 篇模型细读清单见开头的 [📄 论文细读导航](#-论文细读导航)**。下文未单独展开的模型(如 RT-1 离散前史、π0-FAST 频域分词)在第三、四部分与对应细读中讨论。
 
 ## 2.1 离散 token 路线
 
@@ -295,7 +289,7 @@ flowchart LR
 
 ---
 
-# 四、评测基准
+# 四、数据集与基准
 
 ## 4.1 训练语料
 
@@ -308,7 +302,7 @@ flowchart LR
 
 > ⚠️ **读表须知**:① 多数为提出方论文自评,非独立复现;② SimplerEnv Google Robot 有 3 任务子集 vs 4 任务平均两种口径(故 RT-1-X 42.4 vs 49.4);③ LIBERO 有 4 vs 5 套件两种平均口径(故 OpenVLA 75.9 vs 76.5);④ π0-FAST 的 LIBERO 85.0% 额外用了本体感知+腕部相机,非严格同条件;⑤ "SOTA" 均以各论文发表时(2024–2025)为限。
 >
-> 📌 **权威源约定**:四大基准**最全的逐模型成绩与口径细节以 [《评测基准全景》专题](papers/benchmarks.md) 为准**(含第三方复现、扩展基准与更多口径对照)。本节是面向报告读者的**精选横评**,与专题同源;若两处数字出现不一致,以专题页为准并回报修订。
+> 📌 **权威源约定**:四大基准**最全的逐模型成绩与口径细节以 [《数据集与基准全景》专题](papers/benchmarks.md) 为准**(含第三方复现、扩展基准与更多口径对照)。本节是面向报告读者的**精选横评**,与专题同源;若两处数字出现不一致,以专题页为准并回报修订。
 
 ### SimplerEnv
 
@@ -404,7 +398,7 @@ flowchart LR
 - **原论文 24 atomic single-task**:BC-Transformer Human-50 **28.8%** / Generated-3000 **47.6%**(CoRL 2024,同行评审)。
 - **Isaac-GR00T repo 25-task**:N1.6 **66.2%** / N1.7 **70.8%** ⚠️ NVIDIA 自评。
 
-⚠️ **仍开放**:OpenVLA / Octo 在 RoboCasa 无官方或维护方提供的可比条目;π0/π0.5/DP 在 30-demo 低数据档(与 GR00T 47.5/17.4 同口径)的对照未公开。详见 [评测基准专题](papers/benchmarks.md)。
+⚠️ **仍开放**:OpenVLA / Octo 在 RoboCasa 无官方或维护方提供的可比条目;π0/π0.5/DP 在 30-demo 低数据档(与 GR00T 47.5/17.4 同口径)的对照未公开。详见 [数据集与基准专题](papers/benchmarks.md)。
 
 ---
 

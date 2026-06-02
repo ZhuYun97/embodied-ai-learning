@@ -6,7 +6,7 @@ description: 世界-行动模型(WAM)是 2025–2026 兴起的具身基础模型
 # 世界-行动模型 WAM:联合预测未来状态与动作
 
 > **WAM 调研 · 总览** · 2025–2026 前沿范式 · 联合分布建模(未来状态 + 动作)· 权威源:综述 arXiv:2605.12090(OpenMOSS)
-> [← VLA 调研报告](/vla/) · **16 篇细读**(按路线,亦见侧栏):级联 [UniPi](/wam/papers/unipi)·[Gen2Act](/wam/papers/gen2act)·[VPP](/wam/papers/vpp)·[LAPA](/wam/papers/lapa)·[LaDi-WM](/wam/papers/ladi-wm) ｜ 联合 [GR-1](/wam/papers/gr-1)·[WorldVLA](/wam/papers/worldvla)·[UWM](/wam/papers/uwm)·[UVA](/wam/papers/uva)·[FLARE](/wam/papers/flare)·[DreamZero](/wam/papers/dreamzero)·[X-WAM](/wam/papers/x-wam)·[LingBot-VA](/wam/papers/lingbot-va)·[τ0-WM](/wam/papers/tau0-wm)·[Genie Envisioner](/wam/papers/genie-envisioner)·[GR00T N2](/wam/papers/groot-n2)
+> [← VLA 调研报告](/vla/) · **13 篇细读**(按路线,亦见侧栏):级联 [UniPi](/wam/papers/unipi)·[Gen2Act](/wam/papers/gen2act)·[VPP](/wam/papers/vpp)·[LAPA](/wam/papers/lapa) ｜ 联合 [GR-1](/wam/papers/gr-1)·[WorldVLA](/wam/papers/worldvla)·[UWM](/wam/papers/uwm)·[DreamZero](/wam/papers/dreamzero)·[X-WAM](/wam/papers/x-wam)·[LingBot-VA](/wam/papers/lingbot-va)·[τ0-WM](/wam/papers/tau0-wm)·[Genie Envisioner](/wam/papers/genie-envisioner)·[GR00T N2](/wam/papers/groot-n2)
 
 > 本页系统梳理「世界-行动模型」(World Action Models, WAM)这一 2025–2026 前沿范式:它是「统一预测式状态建模与动作生成、对未来状态与动作的**联合分布**建模」的具身基础模型。内容覆盖定义辨析、综述 taxonomy、代表模型细读、数据生态与评测协议,以及 WAM 与本站既有 VLA 谱系的对位关系。可信度体例:⚠️ = 提出方/厂商自评(本页绝大多数定量属此类);✅ = 经基准维护方统一第三方评测(本语料中几乎缺位);**待核** = 一手源未给出、不以外部记忆或常识补全。所标 arXiv 编号均取自语料。
 
@@ -90,7 +90,6 @@ NVIDIA 还补充了一个值得注意的运行机制细节:其 WAM 在运行时 
 | 显式解耦表征 | 各模态保留异构格式、经独立输出头解码(靠 [ACT]/[OBS] 控制 token 路由) | GR-1(195M)· GR-MG · GR-2(30–719M),GPT 式因果 Transformer |
 | 统一离散表征 | 视觉与动作全量化进同一词表、共享 next-token 头 | CoT-VLA(7B,VILA-U)· WorldVLA(7B,Chameleon)· RynnVLA-002(5B,Chameleon+动作头) |
 | 预测式潜表征 | 不生成显式 token,在抽象连续潜空间自回归 | VLA-JEPA(2B,Qwen3-VL;JEPA 式,future 仅作监督、结构无泄漏)· F1(4.2B,MoT) |
-| 混合架构 | 结合自回归与扩散优势,或用潜表征对齐未来与动作 | UVA(统一视频动作模型,自回归+扩散)· FLARE(未来潜表征对齐) |
 
 > 注:本站 [RynnVLA-001](/vla/papers/rynnvla) 细读的对象是 RynnVLA;综述 Table 2 列的 **RynnVLA-002** 是其后继(Chameleon + 动作头,5B)。
 
@@ -99,7 +98,7 @@ NVIDIA 还补充了一个值得注意的运行机制细节:其 WAM 在运行时 
 用多步去噪 / 流匹配**并行**生成未来与动作,绕开自回归的串行瓶颈,利于高频闭环。综述按"预测流如何耦合"分两型(见综述 Fig 6):
 
 - **单流(Unified-Stream)**:世界与动作变量进**同一个 DiT 主干**联合去噪,靠共享注意力同步。再分:
-  - **显式未来预测**(未来观测/其潜代理作直接去噪目标):**PAD**(拼接未来图像潜 + 动作 token,可掺无动作网络视频)、**VideoVLA**(CogVideoX-5B 主干、7-DoF)、**UWM**(给世界与动作各自独立噪声步 → 一套权重可切策略/正向动力学/逆动力学/视频生成)、**Cosmos Policy**(Cosmos-Predict2 主干、潜帧注入 → 同一 checkpoint 兼作策略+世界模型+价值函数、best-of-N 规划)、**DreamZero**、**GigaWorld-Policy**(同 DreamZero 设计但推理只注意历史/当前观测 → 无需在线生成未来视频)、**X-WAM**(复制 DiT 末块作交错深度分支 → 显式 RGB-D)、**UD-VLA**(离散扩散 mask-and-predict)、**LaDi-WM**(潜扩散世界模型)。
+  - **显式未来预测**(未来观测/其潜代理作直接去噪目标):**PAD**(拼接未来图像潜 + 动作 token,可掺无动作网络视频)、**VideoVLA**(CogVideoX-5B 主干、7-DoF)、**UWM**(给世界与动作各自独立噪声步 → 一套权重可切策略/正向动力学/逆动力学/视频生成)、**Cosmos Policy**(Cosmos-Predict2 主干、潜帧注入 → 同一 checkpoint 兼作策略+世界模型+价值函数、best-of-N 规划)、**DreamZero**、**GigaWorld-Policy**(同 DreamZero 设计但推理只注意历史/当前观测 → 无需在线生成未来视频)、**X-WAM**(复制 DiT 末块作交错深度分支 → 显式 RGB-D)、**UD-VLA**(离散扩散 mask-and-predict)。
   - **隐式未来预测**(未来仅作内部对齐约束、不显式生成):**FLARE**(可学习 future token 经 MLP 投影、对齐冻结教师编码的真实未来特征;可单独用于无动作视频)、**FRAPPE**(冻结 RDT 主干 + 多对齐专家,Mixture-of-Prefix-and-LoRA)。
 - **多流(Multi-Stream)**:世界与动作分到**不同分支/专家**,经显式耦合交互——综述给出三种(Fig 6):**跨注意力**(CA-Coupled)、**隐状态传递**(Hidden-State,视频 DiT 的隐状态条件化动作 DiT)、**共享编码器**(Shared-Rep,先过统一编码器再各自解码)。蚂蚁灵波 [LingBot-VA](/wam/papers/lingbot-va) 用 Mixture-of-Transformers 把视觉与动作 token 整合进共享潜空间,即属此支(MoT 专家分担,单/多流确切归属待核)。
 
@@ -161,7 +160,7 @@ flowchart TD
   - 提出 **Asynchronous Noise Sampling(ANS)**:推理时异步去噪调度——动作用更少步数快速解码以实时执行、视频用完整步数保高保真;训练时从联合分布采样以对齐推理分布。
 - **关键数字**(作者自评 ⚠️):
   - 预训练于 **"over 5,800 hours of robotic data"** ⚠️
-  - RoboCasa **"79.2%"**、RoboTwin 2.0 **"90.7%"** 平均成功率 ⚠️(RoboCasa 见本站 [评测基准](/vla/papers/benchmarks))
+  - RoboCasa **"79.2%"**、RoboTwin 2.0 **"90.7%"** 平均成功率 ⚠️(RoboCasa 见本站 [数据集与基准](/vla/papers/benchmarks))
   - 4D 重建/生成在视觉与几何指标上「超越现有方法」(具体数值待核)
 
 ### 3.3 UWM(arXiv 2504.02792) · [完整细读 →](/wam/papers/uwm)
@@ -229,7 +228,7 @@ NVIDIA 词条与此呼应——其 WAM 在「大规模视频(含互联网视频�
 
 这正是 WAM 的「可解释性」主张的评测落点:NVIDIA 称可通过检视预测帧来定位失败⚠️——这一诊断方式在纯成功率评测下根本无从谈起,因为成功率只给出 0/1 结果而不暴露过程。
 
-需要强调:三维评测与成功率并非互斥,而是互补。旗舰模型仍在传统成功率基准上报告结果,以与 SOTA VLA 可比。X-WAM 在 [评测基准](/vla/papers/benchmarks) 收录的 **RoboCasa 报 79.2%**、在 RoboTwin 2.0 报 90.7% 平均成功率⚠️;同时它声称 4D 重建/生成在视觉与几何指标上超越现有方法⚠️——后者正对应「视觉保真/物理常识」一维,是传统成功率无法覆盖的部分。可以说,WAM 的完整评测 = 成功率(动作端结果)+ 三维协议(世界想象端的过程质量)。
+需要强调:三维评测与成功率并非互斥,而是互补。旗舰模型仍在传统成功率基准上报告结果,以与 SOTA VLA 可比。X-WAM 在 [数据集与基准](/vla/papers/benchmarks) 收录的 **RoboCasa 报 79.2%**、在 RoboTwin 2.0 报 90.7% 平均成功率⚠️;同时它声称 4D 重建/生成在视觉与几何指标上超越现有方法⚠️——后者正对应「视觉保真/物理常识」一维,是传统成功率无法覆盖的部分。可以说,WAM 的完整评测 = 成功率(动作端结果)+ 三维协议(世界想象端的过程质量)。
 
 综述 Fig 2 为每一维列出了具体评测手段(本身多为视频生成 / 世界模型领域已有基准,被借来评 WAM 的"世界想象"质量):
 
@@ -238,7 +237,7 @@ NVIDIA 词条与此呼应——其 WAM 在「大规模视频(含互联网视频�
 - **动作合理性**:WorldSimBench 等——测预测里"可执行的信息含量"。
 - **动作策略(成功率,与 VLA 可比)**:综述同时罗列 LIBERO、CALVIN、RoboCasa、ManiSkill2、SimplerEnv、RoboTwin、HumanoidBench、HomeRobot、RoboArena 等数十个基准(双臂/人形、移动操作、接触与形变、真机榜各成一组)。
 
-> 需强调:综述将这些"世界想象"指标与传统成功率**并列**,正因为它指出当前协议**仍缺**直接评估"世界预测与动作生成之间因果对齐"的统一方法(见 §5.2 开放挑战)。本站 [评测基准](/vla/papers/benchmarks) 目前以成功率为主轴;上述视觉/物理类指标如何落到具体模型上,各家口径不一,**待核**。
+> 需强调:综述将这些"世界想象"指标与传统成功率**并列**,正因为它指出当前协议**仍缺**直接评估"世界预测与动作生成之间因果对齐"的统一方法(见 §5.2 开放挑战)。本站 [数据集与基准](/vla/papers/benchmarks) 目前以成功率为主轴;上述视觉/物理类指标如何落到具体模型上,各家口径不一,**待核**。
 
 > 对照阅读:本站 [预测式 VLA](/vla/papers/predictive-vla)(VPP / DreamVLA / WorldVLA)在评测上多沿用成功率口径,而它们在综述 taxonomy 中横跨级联与联合(VPP 属 Cascaded·隐式、WorldVLA 属 Joint·自回归)——三维评测协议正是 WAM 伞形范式对这些早期点提出的更高要求。另见 [RynnVLA](/vla/papers/rynnvla):它把视频生成仅当作训练先验、推理时丢弃未来帧,因而天然落在「成功率」一维里,与 WAM「预演未来再反推动作、需审视想象质量」的评测诉求形成鲜明对照。
 
@@ -302,4 +301,4 @@ WAM 不是凭空出现的范式,本站此前已分散记录了它的若干早期
 - Awesome-WAM(OpenMOSS 同组维护清单):本页各代表模型 arXiv 编号与 Cascaded/Joint 归类来源,含 UniPi、VLP(2310.10625)、Gen2Act(2409.16283)、Dreamitate(2406.16862)、4DGen(2507.01099)、LV-P(2512.15840)、GR-1(2312.13139)、WorldVLA(2506.21539)、CoT-VLA(2503.22020)、PAD(2411.18179)、VideoVLA(2512.06963)、Motus(2512.13030)、MotuBrain(2604.27792)等。
 - AGIBOT(智元)Genie Envisioner 相关报道(含 The Robot Report 对 Genie Envisioner 2.0 由「world action model」向「world simulator」演进的报道):「industry's first action-driven world model」陈述来源(⚠️;技术细节、论文编号待核)。
 
-参见:[预测式 VLA](/vla/papers/predictive-vla)、[RynnVLA](/vla/papers/rynnvla)、[GR00T N1](/vla/papers/groot-n1)、[GO-1](/vla/papers/go-1)、[具身数据全景](/vla/papers/embodied-data)、[评测基准](/vla/papers/benchmarks)、[主报告](/vla/)。
+参见:[预测式 VLA](/vla/papers/predictive-vla)、[RynnVLA](/vla/papers/rynnvla)、[GR00T N1](/vla/papers/groot-n1)、[GO-1](/vla/papers/go-1)、[具身数据全景](/vla/papers/embodied-data)、[数据集与基准](/vla/papers/benchmarks)、[主报告](/vla/)。

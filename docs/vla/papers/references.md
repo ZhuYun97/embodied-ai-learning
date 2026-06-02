@@ -34,7 +34,7 @@ graph LR
 | # | 主题 | 条数 | 一句话 |
 |---|---|---|---|
 | [1](#1-奠基模型) | 奠基模型 | 9 | RT 系列、Octo、OpenVLA(-OFT)、π0(-FAST)、Diffusion Policy |
-| [2](#2-前沿模型2024-2026) | 前沿模型 | 15 | GR00T N1.x、Gemini Robotics、WALL-OSS、Qwen-VLA、RynnVLA、π0.5/π*0.6、CogACT、Helix、ECoT、TinyVLA、RoboVLMs、SimpleVLA-RL |
+| [2](#2-前沿模型2024-2026) | 前沿模型 | 11 | GR00T N1.x、Gemini Robotics、WALL-OSS、Qwen-VLA、RynnVLA、π0.5/π*0.6、CogACT、Helix |
 | [3](#3-基准-benchmark) | 基准 | 6 | SimplerEnv、LIBERO、CALVIN、MemoryVLA、VOTE、3D Diffuser Actor、GR-1 |
 | [4](#4-数据集) | 数据集 | 16 | OXE、BridgeData V2、DROID、AgiBot World、Ego4D、Cosmos … |
 | [5](#5-采集范式与数据生成) | 采集范式 | 11 | ALOHA 系列、UMI、AirExo、DexCap、MimicGen、DreamGen、Genie/LAPA … |
@@ -66,18 +66,12 @@ graph LR
 | **GR00T N1.5 / N1.6 / N1.7** | NVIDIA GEAR 2025 | research.nvidia.com/labs/gear/gr00t-n1_5/ · …/gr00t-n1_6/ · huggingface.co/blog/nvidia/gr00t-n1-7 · github.com/NVIDIA/Isaac-GR00T | [📄 groot-n1](groot-n1.md) | 迭代版本(官方页面,⚠️ 自评) |
 | **Gemini Robotics** | Google DeepMind 2025 | arxiv.org/abs/2503.20020 | [📄 gemini-robotics](gemini-robotics.md) | Gemini 2.0 基座的 VLA |
 | **CogACT** | Microsoft 2024 | arxiv.org/abs/2411.19650 · github.com/microsoft/CogACT · huggingface.co/CogACT | [📄 cogact](cogact.md) | 认知-动作组件化 VLA |
-| **ECoT** | 伯克利/Stanford/华沙大学 2024 | arxiv.org/abs/2407.08693 | [📄 ecot](ecot.md) | reasoning-VLA 奠基,OpenVLA 上先生成具身推理链再出动作 |
-| **TinyVLA** | 美的/华东师大 2024 | arxiv.org/abs/2409.12514 | [📄 tinyvla](tinyvla.md) | VLM 初始化+扩散策略头,高数据效率、快推理 ⚠️ |
-| **RoboVLMs** | 字节 Research/清华 2024 | arxiv.org/abs/2412.14058 | [📄 robovlms](robovlms.md) | 系统性实证+框架家族,S2 引 95/影响性 6 |
-| **SimpleVLA-RL** | 清华/上海AI Lab/北大 2025 | arxiv.org/abs/2509.09674 | [📄 simplevla-rl](simplevla-rl.md) | VLA 专用在线 RL(veRL/GRPO),⚠️ LIBERO-Long 97.6 超 π0 |
 | **WALL-OSS** | X-Square Robot 2025 | arxiv.org/abs/2509.11766 · github.com/X-Square-Robot/wall-x · huggingface.co/x-square-robot | [📄 wall-oss](wall-oss.md) | 端到端具身基座,Qwen2.5-VL MoE ~4B,流匹配 + FAST 双分支 ⚠️ |
 | **Qwen-VLA** | Qwen 团队 2026 | arxiv.org/abs/2605.30280 · github.com/QwenLM/Qwen-VLA | [📄 qwen-vla](qwen-vla.md) | ⚠️ arXiv 编号落在 2026,极新 |
 | **RynnVLA-001** | 达摩院 + 湖畔 2025 (ICRA 2026) | arxiv.org/abs/2509.15212 · huggingface.co/Alibaba-DAMO-Academy/RynnVLA-001-7B-Base | [📄 rynnvla](rynnvla.md) | 7B,视频生成预训练→动作"第三条路" ⚠️ |
 | **π0.5 (pi-zero-five)** | Physical Intelligence 2025 | arxiv.org/abs/2504.16054 · pi.website/blog/pi05 | [📄 pi05](pi05.md) | 开放世界泛化 |
 | **π*0.6 (pi-star-0.6 / RECAP)** | Physical Intelligence 2025.11 | arxiv.org/abs/2511.14759 · pi.website/blog/pistar06 · website.pi-asset.com/pi06star/PI06_model_card.pdf | [📄 pi06](pi06.md) | 真机 RL 改进,最难任务吞吐翻倍、失败率约减半 ⚠️ |
 | **Figure Helix** | Figure AI 2025 | figure.ai/news/helix | — | 仅官方新闻页(无论文) ⚠️ |
-| **SmolVLA** | Hugging Face / LeRobot 2025 | arxiv.org/abs/2506.01844 · github.com/huggingface/lerobot · huggingface.co/blog/smolvla | [📄 smolvla](smolvla.md) | 0.45B 小型高效开源 VLA,冻结 SmolVLM-2 + 流匹配动作专家;⚠️ LIBERO 87.3 追平 π0(3.3B),全开源 Apache |
-| **SteerVLA** | Stanford/Berkeley 2026 | arxiv.org/abs/2602.08440 · steervla.github.io · openreview.net/forum?id=fS6UPyXF4A | [📄 steervla](steervla.md) | 自动驾驶域:高层 VLM 语言 meta-action 操控低层 VLA waypoint;⚠️ ICLR 2026 投稿,Bench2Drive 长尾 +8.04 |
 
 ---
 
@@ -201,9 +195,7 @@ graph LR
 | 2405.14093 | 首篇 VLA 综述 | 综述 |
 | 2406.02523 | RoboCasa | 数据集 |
 | 2406.09246 | OpenVLA | 奠基模型 |
-| 2407.08693 | ECoT | 前沿模型 |
 | 2408.14037 | Re-Mix | 方法 |
-| 2409.12514 | TinyVLA | 前沿模型 |
 | 2410.00425 | ManiSkill3 | 数据集 |
 | 2410.11758 | LAPA | 采集范式 |
 | 2410.18647 | Data Scaling Laws | 方法 |
@@ -211,7 +203,6 @@ graph LR
 | 2410.24221 | EgoMimic | 采集范式 |
 | 2411.19650 | CogACT | 前沿模型 |
 | 2412.13877 | RoboMIND | 数据集 |
-| 2412.14058 | RoboVLMs | 前沿模型 |
 | 2501.03575 | Cosmos | 数据集 |
 | 2501.09747 | π0-FAST | 奠基模型 |
 | 2502.19645 | OpenVLA-OFT | 奠基模型 |
@@ -228,7 +219,6 @@ graph LR
 | 2507.01925 | Action Tokenization 综述 | 综述 |
 | 2507.05116 | VOTE | 基准 |
 | 2508.19236 | MemoryVLA | 基准 |
-| 2509.09674 | SimpleVLA-RL | 前沿模型 |
 | 2509.11766 | WALL-OSS | 前沿模型 |
 | 2509.15212 | RynnVLA-001 | 前沿模型 |
 | 2510.08022 | FastUMI-100K | 采集范式 |
@@ -238,4 +228,4 @@ graph LR
 
 ---
 
-*本页为《VLA 发展深度调研报告》信源聚合,综合主报告附录 + 30 篇细读 + 具身数据专题第八节,去重整理。⚠️ 标记处为提出方/厂商自评数据。*
+*本页为《VLA 发展深度调研报告》信源聚合,综合主报告附录 + 24 篇细读 + 具身数据专题第八节,去重整理。⚠️ 标记处为提出方/厂商自评数据。*

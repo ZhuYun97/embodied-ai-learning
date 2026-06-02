@@ -39,7 +39,7 @@ VPP 的方法可拆为三个逐字要点(均据摘要):
 | CALVIN ABC-D 泛化基准 | 相对 SOTA 提升 | **+18.6%** | ⚠️ 作者自评 |
 | 复杂真实世界灵巧操作任务 | 成功率提升 | **+31.6%** | ⚠️ 作者自评 |
 
-- **CALVIN ABC-D 泛化提升** ⚠️:在 CALVIN ABC-D 泛化基准上相对 SOTA **提升 18.6%**。对比的具体 SOTA 方法、绝对分数 **待核**。CALVIN 基准本身见本站 [评测基准](/vla/papers/benchmarks)。
+- **CALVIN ABC-D 泛化提升** ⚠️:在 CALVIN ABC-D 泛化基准上相对 SOTA **提升 18.6%**。对比的具体 SOTA 方法、绝对分数 **待核**。CALVIN 基准本身见本站 [数据集与基准](/vla/papers/benchmarks)。
 - **真机灵巧操作成功率提升** ⚠:在复杂真实世界灵巧操作任务上成功率 **提升 31.6%**。任务集合、试验次数、对比基线 **待核**。
 - **实时性**:VPP 被定位为 Cascaded · Implicit 支中 **首个做到实时** 的代表——这是其相对"需解码像素未来再行动"路线的关键工程优势;但 **具体实时指标(运行频率、推理时延)在本语料中未给出,待核**。
 
@@ -63,6 +63,6 @@ VPP 在本站谱系中处于 WAM 与 VLA 两侧的交汇点。
 ## 参考文献
 
 - VPP:《Video Prediction Policy: A Generalist Robot Policy with Predictive Visual Representations》,arXiv **2412.14803**(提交 2024-12-19,v2 2025-05-04),**ICML 2025 Spotlight**。作者:Yucheng Hu, Yanjiang Guo, Pengchao Wang, Xiaoyu Chen, Yen-Jen Wang, Jianke Zhang, Koushil Sreenath, Chaochao Lu, Jianyu Chen(机构未在该页明列,待核)。VDM 内部"预测性视觉表征"、以其为条件的隐式逆动力学、机器人+互联网人类操作数据微调视频基础模型、CALVIN ABC-D +18.6%、真机灵巧操作 +31.6% 等要点的一手来源。
-- 本站交叉链接:[预测式 VLA 专题](/vla/papers/predictive-vla)、[评测基准](/vla/papers/benchmarks)。
+- 本站交叉链接:[预测式 VLA 专题](/vla/papers/predictive-vla)、[数据集与基准](/vla/papers/benchmarks)。
 
 > 体例声明:⚠️ 标注的结论均为作者自评,尚未经基准维护方统一第三方评测;**待核** 表示一手源在本语料中未给出、不以外部记忆或常识补全。

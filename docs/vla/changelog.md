@@ -6,38 +6,6 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 
 本站持续生长,这里按时间倒序记录主要更新。⚠️ 标记的自评数据与"待核"缺口在各页内就地标注。
 
-## 2026-06-01
-
-**新增「具身智能新闻」一级板块**
-- 📰 **新建 [新闻板块](/news/)**(顶栏一级菜单,位于 WAM 调研之后、速查之前):跟踪具身智能领域近期动态——重要论文与模型发布、头部公司战略、融资上市、数据集/基准/竞赛。首期上线 **15 条经核实新闻**,覆盖 2024-10 至 2026-07。
-- 🔎 **检索与核查管线**:经 workflow 5 路并行检索(重要论文/头部公司/中国公司/融资上市/数据集竞赛)+ 链接真实性逐条核验;23 条候选筛出 15 条 `source_alive` 确认项,**严禁编造、不杜撰来源**。
-- 🏷️ **可信度与体例**:延续 ⚠️/✅/待核 体系——✅ 已核(官方/权威媒体/会议官网/交易所公告)、⚠️ 待核(社媒/转述/传闻);厂商自评数字就地标 ⚠️(如 Figure 03 视觉规格、SABER 的 GR00T +2.19× 增益);Unitree 科创板「上市委过会 ≠ 正式挂牌」等口径在条目内注明。
-- 🔗 **交叉链接**:新闻条目与本站细读双向链(π0/Gemini Robotics/Wall-OSS/Helix/GR00T N1/评测基准全景等);与[发展时间线](/vla/papers/timeline)(学术里程碑)、[更新日志](/vla/changelog)(本站内容演进)分工互补。
-
-**新增 4 篇细读(ECoT/RoboVLMs/SimpleVLA-RL/TinyVLA),模型细读扩到 30 篇**
-- 📄 **新增 4 篇细读**:
-  - **[ECoT](/vla/papers/ecot)**(arXiv:2407.08693,伯克利/Stanford/华沙大学,CoRL 2024):**reasoning-VLA 奠基**——在 OpenVLA 基础上先生成具身推理链(plan→subtask→motion→bbox/位姿)再出动作,被 Fast ECoT/Emma-X 等 build-on。
-  - **[TinyVLA](/vla/papers/tinyvla)**(arXiv:2409.12514,美的/华东师大,RA-L 2025):**高数据效率、快推理的紧凑 VLA**——VLM 初始化+扩散策略头,跳过大规模机器人预训练;⚠️ +21.5% 数据效率/+25.7% 推理速度提升;S2 引 331(量级高),被高效 VLA 广泛当 baseline。
-  - **[RoboVLMs](/vla/papers/robovlms)**(arXiv:2412.14058,字节 Research/清华,Nature Machine Intelligence):**"建 VLA 什么最重要"的系统实证**——主干/架构/跨本体数据消融,提供常用 baseline 框架家族;S2 引 95/影响性 6;~471★;被 VITA 等当 baseline。
-  - **[SimpleVLA-RL](/vla/papers/simplevla-rl)**(arXiv:2509.09674,清华/上海AI Lab/北大,ICLR 2026):**VLA 专用在线 RL 后训练框架**——veRL/GRPO 作用于 OpenVLA-OFT;⚠️ LIBERO-Long 97.6 超 π0,冷启动→刷新 LIBERO SOTA;S2 引 91/影响性 14;GitHub ~1.7k★。
-- 🧭 **全站接入**:顶栏「VLA 调研 · 更多代表模型」与 `/vla/` 侧栏加 4 个入口(ECoT/TinyVLA/RoboVLMs/SimpleVLA-RL);首页「VLA:按技术路线浏览」**新范式探索**卡加 ECoT/RoboVLMs/SimpleVLA-RL、**连续·扩散/流匹配**卡加 TinyVLA;[总报告导航表](/vla/)、[发展时间线](/vla/papers/timeline)(2024.07/2024.09/2024.12/2025.09 节点)、[参考文献](/vla/papers/references)、[规格大表](/vla/papers/models-spec)(30 模型 × 12 维)同步登记;自动联动「相关细读」页脚与可信度透镜。
-- 🔢 **数量口径 26→30**:全站指代「模型细读数」处(首页 feature 卡、guide、resources、references、models-spec、时间线定位)统一更新为 **30 篇**。
-- 🔎 **事实纪律**:四篇定量均为**作者自评**(标 ⚠️);ECoT 推理链数据通过 GPT-4V 生成;TinyVLA 原文未给确切参数量/主干型号,标待核;RoboVLMs 为系统实证、多配置 baseline;SimpleVLA-RL 的 LIBERO-Long 97.6 需第三方验证。
-- 🎯 **三大空白路线补齐**:① **推理 CoT**(ECoT 奠基)② **系统实证与 baseline 框架**(RoboVLMs)③ **在线 RL 后训练**(SimpleVLA-RL),加上高效紧凑路线(TinyVLA),填补了此前 26 篇细读的方法论空白。
-
-**新增 SmolVLA 细读(小型高效开源 VLA),模型细读扩到 26 篇**
-- 📄 **新增 [SmolVLA 细读](/vla/papers/smolvla)**(arXiv:2506.01844,Hugging Face / LeRobot 团队):**平民化 VLA**——主力仅 **0.45B 参数**(冻结 **SmolVLM-2** 主干 + ~100M 流匹配动作专家),三连砍计算(**冻结 VLM** 只训动作专家 + **层跳过**只用前 16 层 LLM + 每帧 **64 视觉 token**),配 **异步推理栈**(Client-Server 解耦感知/预测与执行,任务完成快约 30%)。只吃 **481 个社区数据集筛出的 2.29 万条 episode**(Qwen2.5-VL-3B 自动清洗标注)。⚠️ **LIBERO 平均 87.3** 追平 π0(3.3B)的 86.0、超 OpenVLA(7B)的 76.5;真机 SO-100 多任务 **78.3**;相比 π0 **训练快约 40%、显存少 6×**;单 GPU 可训、消费级 GPU/CPU 可部署,代码/权重/数据全开源(Apache,集成 LeRobot)。
-- 🧭 **全站接入**:顶栏「VLA 调研 · 更多代表模型」与 `/vla/` 侧栏加入口;首页「VLA:按技术路线浏览」**连续·扩散/流匹配**卡、[总报告导航表](/vla/)、[发展时间线](/vla/papers/timeline)(2025.06 节点)、[参考文献](/vla/papers/references)、[规格大表](/vla/papers/models-spec)(26 模型 × 12 维)同步登记;自动联动「相关细读」页脚与可信度透镜。
-- 🔢 **数量口径 25→26**:全站指代「模型细读数」处(首页 feature 卡、guide、resources、references、models-spec、时间线定位)统一更新为 **26 篇**。**顺带修正**:上轮 SteerVLA 声称已更新 guide/resources 至 25,实际两文件仍停在 24——本轮一并直接修到真实值 **26**。
-- 🔎 **事实纪律**:LIBERO/Meta-World/真机数字均为**作者自评**(未见独立第三方同口径复现,尽管已全开源、复现门槛低);原文 episode 数标注不一致(Table 1 标题「~10M」vs 表体「22.9K episode / 10.6M 帧」),采信 **22.9K episode** 并就地标注;SimplerEnv 原文未评测,不予补造。
-
-**新增 SteerVLA 细读(本站首篇自动驾驶域 VLA),模型细读扩到 25 篇**
-- 📄 **新增 [SteerVLA 细读](/vla/papers/steervla)**(arXiv:2602.08440,Stanford/UC Berkeley,Levine/Finn/Sadigh/Mees 等;ICLR 2026 投稿):把机器人圈的「可操控(steerability)」分层范式迁到**自动驾驶长尾**——高层 VLM 规划器读场景/历史车状态/路由指令,产出**短推理链 + 细粒度语言 meta-action**;低层 VLA 据观测 + meta-action **回归未来 waypoint**;核心是两级间的**「语言接口」**(高层推理锚定到低层控制)+ 用 **VLM 对真机/仿真数据做事后(hindsight)稠密语言标注**喂监督。⚠️ 闭环 **Bench2Drive 总驾驶分 +4.77、长尾子集 Bench2Drive-LongTail +8.04**(长尾对照前 SOTA SimLingo)。
-- 🌐 **首次进入自动驾驶域**:此前 24 篇细读全为机器人操作/人形,SteerVLA 是首篇驾驶 VLA;在 [规格大表](/vla/papers/models-spec) 标「自动驾驶」域、动作空间为 waypoint 轨迹,**横比成功率不与操作类基准混算**。
-- 🧭 **全站接入**:顶栏「VLA 调研 · 更多代表模型」与 `/vla/` 侧栏加入口;[总报告导航表](/vla/)、[发展时间线](/vla/papers/timeline)(2026.02 节点)、[参考文献](/vla/papers/references)、[规格大表](/vla/papers/models-spec)(25 模型 × 12 维)同步登记;自动联动「相关细读」页脚与可信度透镜。
-- 🔢 **数量口径 24→25**:全站指代「模型细读数」处(首页 feature 卡、guide、resources、references、models-spec、时间线定位)统一更新为 **25 篇**(历史 changelog 行不改写)。
-- 🔎 **事实纪律**:论文为投稿中、2026-02 极新预印本、无第三方复现,定量全标 ⚠️;**meta-action 确切词表、高低层主干型号、模仿学习具名数据集、完整结果表与五项城市驾驶技能逐项分**一手摘要/项目页未给出,一律标 **待核** 不予编造(arXiv PDF ~13.5MB、全文 HTML 整理时尚未可解析,定量以 arXiv 摘要 / 项目页 / OpenReview 三处交叉为准)。
-
 ## 2026-05-31
 
 **WAM 细读扩到 12 篇 + 首页「WAM 按范式浏览」路线网格**
@@ -74,7 +42,7 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 - 🧭 **统一数量口径为 17 篇**:全站(OG/Twitter meta、报告导航、参考文献、本站结构)从历史的"16 篇"统一更新为 **17 篇模型细读 / 24 个 papers 页面**(新增 π0.7 后的真实计数)。
 - 🔗 **顶栏「论文细读」改逐篇下拉**:从仅锚点跳转扩成"奠基与两条路线 / 2025H2–2026 前沿"两组逐篇入口;专题/速查名称与侧边栏对齐。
 - 📝 **主报告补全失配条目**:§二补 Diffusion Policy、CogACT 介绍并声明"只展开精选代表、完整清单见导航";§五新增 5.4 Gemini Robotics、5.5 π0.7 正文小节(此前导航表已列、正文却无落点);摘要补 2025H2–2026 前沿覆盖。
-- 📊 **去重与权威源约定**:报告 §4.2 标注四大基准"以[《评测基准全景》](papers/benchmarks)为权威源";导航表注明"按时间排序里程碑以[发展时间线](papers/timeline)为准";§5.4 重复的 GR00T 迭代并回 §2.3。
+- 📊 **去重与权威源约定**:报告 §4.2 标注四大基准"以[《数据集与基准全景》](papers/benchmarks)为权威源";导航表注明"按时间排序里程碑以[发展时间线](papers/timeline)为准";§5.4 重复的 GR00T 迭代并回 §2.3。
 - 🛠️ **guide / changelog 纳入源真相管线**:此前两页只活在发布镜像、无法从源端维护,现移回 `具身智能/` 源端并由 `sync.sh` 同步,消除脱管线风险。
 - 🧹 **细读模板统一**:实验小节标题统一为「实验与关键结果」,返回链接统一引用块样式,frontmatter 补 `title`;内部链接相对写法统一。
 - 🗄️ **清理站点边界**:与主题无关的孤儿文件移出源根目录。
@@ -87,7 +55,7 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 
 **此前累积内容(并入本次日志补记)**
 - 🆕 **新增 π0.7 细读**(Physical Intelligence,2026.04):可操控通才 + 组合泛化,不微调追平 π*0.6 RL 专家。
-- 🧪 **基准专题深度版**:《评测基准全景》扩展为 12 节,SimplerEnv/LIBERO/CALVIN/RoboCasa 逐模型成绩 + 口径对照 + 第三方复现。
+- 🧪 **基准专题深度版**:《数据集与基准全景》扩展为 12 节,SimplerEnv/LIBERO/CALVIN/RoboCasa 逐模型成绩 + 口径对照 + 第三方复现。
 - 🛠️ **新增专题《具身数据处理》**:从原始采集到可训练样本的清洗/标注/动作&观测处理/伪标签/配比/格式流水线。
 - 🎨 **首页科技感 + 机器人配图**:渐变辉光标题、科技网格/极光背景、原创霓虹线稿机器人 hero 与四形态分组图标。
 
@@ -96,7 +64,7 @@ description: 具身智能学习站更新日志,按时间倒序记录 VLA 深度�
 **内容**
 - 📊 **补充实验结果表**:为 rt2 / openvla / pi0 / pi0-fast / groot-n1 / pi05 / wall-oss 七篇细读的「实验与关键结果」补上定量速览表(数字取自已核语料,8 条新数字经对抗核查全部为真实"待核"缺口,0 条证伪)。至此当时的 16 篇细读均带实验表。
 - 🤖 **新增专题《实验机器人本体》**:19 个实验本体对照表(平台/厂商/形态/自由度/末端/真机或仿真/关联模型与数据集)+ 跨本体迁移要点。
-- 🧪 **新增专题《评测基准全景》**:SimplerEnv / LIBERO / CALVIN / RoboCasa 四大评测逐模型成绩表;**补齐了一直缺失的 RoboCasa 排行榜**(同口径 DP < π0 < π0.5 < GR00T N1.5)。
+- 🧪 **新增专题《数据集与基准全景》**:SimplerEnv / LIBERO / CALVIN / RoboCasa 四大评测逐模型成绩表;**补齐了一直缺失的 RoboCasa 排行榜**(同口径 DP < π0 < π0.5 < GR00T N1.5)。
 - 📚 **细读扩充到 16 篇**:新增 RT-1、Diffusion Policy、CogACT、Gemini Robotics。
 - 📖 **新增速查页**:术语速查表 / 发展时间线 / 参考文献聚合。
 - 📊 **新增专题《具身数据全景》**:四层数据金字塔 + 10 个真机数据集横评 + 采集范式成本 + co-training / scaling。

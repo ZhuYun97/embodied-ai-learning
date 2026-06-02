@@ -52,7 +52,7 @@ X-WAM 的方法由三块组成,逐层回应上面的动机。
 
 要点:
 
-- 在两个操作基准上,X-WAM 给出 RoboCasa 79.2% 与 RoboTwin 2.0 90.7% 的平均成功率 ⚠️。RoboCasa 基准的背景见 [评测基准](/vla/papers/benchmarks)。
+- 在两个操作基准上,X-WAM 给出 RoboCasa 79.2% 与 RoboTwin 2.0 90.7% 的平均成功率 ⚠️。RoboCasa 基准的背景见 [数据集与基准](/vla/papers/benchmarks)。
 - 在 4D 重建/生成侧,作者称在视觉与几何指标上均超越现有方法,但**具体数值待核**——摘要未逐一给出指标名与数字,本站不代为填补。
 - 与基线的对照关系上,UWM 被作为「只建模 2D 像素空间」的对照(详见 [UWM 细读](/wam/papers/uwm)),X-WAM 借 RGB-D 与异步调度声称在效率与质量上同时改善 ⚠️。
 
@@ -61,7 +61,7 @@ X-WAM 的方法由三块组成,逐层回应上面的动机。
 - **对照基线:UWM。** X-WAM 的整篇论证建立在对 UWM 一类「2D 像素空间统一模型」的批评之上,二者宜对读,见 [UWM 细读](/wam/papers/uwm)。
 - **taxonomy 归类。** 在本站 WAM 谱系中,X-WAM 属 **Joint · 扩散类**:动作与世界在同一扩散框架内联合建模,与把世界模型和策略分离的路线相对。
 - **同谱系邻居。** 同属扩散/生成式世界模型路线、可横向参照的还有 [DreamZero](/wam/papers/dreamzero) 与 [Genie Envisioner](/wam/papers/genie-envisioner)。
-- **基准衔接。** 评测所用的 RoboCasa 等基准,可在 [评测基准](/vla/papers/benchmarks) 查到背景;若关心同期统一/通用机器人模型的对照,可参看 [GR00T N1](/vla/papers/groot-n1)。
+- **基准衔接。** 评测所用的 RoboCasa 等基准,可在 [数据集与基准](/vla/papers/benchmarks) 查到背景;若关心同期统一/通用机器人模型的对照,可参看 [GR00T N1](/vla/papers/groot-n1)。
 
 ## 五、局限与存疑
 

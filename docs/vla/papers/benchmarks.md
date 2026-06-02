@@ -1,15 +1,15 @@
 ---
-description: 具身智能评测基准全景(VLA × WAM 通用),系统梳理 SimplerEnv/LIBERO/CALVIN/RoboCasa 四大主流仿真操作基准的逐模型成绩表,并新增仿真操作扩展基准、双臂/人形/移动操作基准、真机评测与竞技场、具身推理与 VQA、视觉语言导航五大维度,以及评测方法论与陷阱(读表铁律)。讲清各基准口径为何不可直接横比、自评为何普遍高估、benchmark 饱和为何失真。
-title: 评测基准全景
+description: VLA 评测深度版,系统梳理 SimplerEnv/LIBERO/CALVIN/RoboCasa 四大主流仿真操作基准的逐模型成绩表,并新增仿真操作扩展基准、双臂/人形/移动操作基准、真机评测与竞技场、具身推理与 VQA、视觉语言导航五大维度,以及评测方法论与陷阱(读表铁律)。讲清各基准口径为何不可直接横比、自评为何普遍高估、benchmark 饱和为何失真。
+title: VLA 评测基准全景
 ---
 
 > [← 返回主报告](../index.md)
 
-# 评测基准深度版:从四大基准到五维全景
+# VLA 评测深度版:从四大基准到五维全景
 
-> **定位**:本篇是 VLA 与 WAM 共用的「评测」基础专题(两条主线同样在 SimplerEnv / LIBERO / CALVIN / RoboCasa 上报成绩)。与姊妹篇 [《具身数据全景梳理》](embodied-data.md)互补——那篇聚焦**训练语料**(数据从哪来、怎么采、怎么配),本篇聚焦**评测**(在哪测、怎么读表、各模型成绩几何)。延伸阅读:[实验机器人本体](robots.md)(评测平台硬件侧)、[具身数据处理](data-processing.md)(数据清洗/对齐侧)。
+> **定位**:本篇是《VLA 发展深度调研报告》的「评测」专题子文档。与姊妹篇 [《具身数据全景梳理》](embodied-data.md)互补——那篇聚焦**训练语料**(数据从哪来、怎么采、怎么配),本篇聚焦**评测**(在哪测、怎么读表、各模型成绩几何)。延伸阅读:[实验机器人本体](robots.md)(评测平台硬件侧)、[具身数据处理](data-processing.md)(数据清洗/对齐侧)。
 >
-> **覆盖**:本版在原「四大仿真操作基准」(SimplerEnv / LIBERO / CALVIN / RoboCasa,逐模型成绩表完整保留)之上,新增 **仿真操作扩展基准 → 双臂/人形/移动操作 → 真机评测与竞技场 → 具身推理/VQA → 视觉语言导航 → 评测方法论与陷阱** 六大章节,把具身评测从「四大全景」升级到「五维全景 + 读表铁律」。
+> **覆盖**:本版在原「四大仿真操作基准」(SimplerEnv / LIBERO / CALVIN / RoboCasa,逐模型成绩表完整保留)之上,新增 **仿真操作扩展基准 → 双臂/人形/移动操作 → 真机评测与竞技场 → 具身推理/VQA → 视觉语言导航 → 评测方法论与陷阱** 六大章节,把 VLA 评测从「四大全景」升级到「五维全景 + 读表铁律」。
 >
 > **可信度标注**:凡标 ⚠️ 者为提出方/厂商自评、未经独立第三方复现的数字;低可信或待核者标 ⚠️/「待核」。经本轮对抗核查确认的数字标「✅ 核查确认」。
 >
@@ -17,9 +17,9 @@ title: 评测基准全景
 
 ---
 
-## 〇、评测全景:VLA 五大类 + WAM 过程可信度
+## 〇、VLA 评测全景:五大类基准
 
-没有任何单一基准能回答"这个模型好不好"。**VLA(操作策略)评测**沿五个正交维度铺开,**度量的物理量不同、口径互不兼容、绝对不可直接横比**;而 **WAM(世界-行动模型)** 因为多了「预演未来」这一环,引入了 VLA 不评的**第六维——过程可信度**(预测的世界像不像、守不守物理),详见 [§九半 WAM 评测](#九半wam-评测从成功率到过程可信度)。
+没有任何单一基准能回答"这个 VLA 好不好"。VLA 评测沿五个正交维度铺开,**度量的物理量不同、口径互不兼容、绝对不可直接横比**:
 
 ```mermaid
 mindmap
@@ -64,7 +64,6 @@ mindmap
 | **真机竞技场** | 真机泛化排名·鲁棒性 | RoboArena·RoboChallenge·OXE·VLA-REPLICA | 成对偏好排名 / 真机SR | §七 |
 | **具身推理/VQA** | VLM 离线问答·指点准确率 | ERQA·RoboVQA·VLABench·RoboSpatial·BLINK | 多选 accuracy / 点命中% | §八 |
 | **视觉语言导航** | 移动到达·路径效率 | R2R·RxR·REVERIE·VLN-CE·ObjectNav | SR / SPL / nDTW / OSR | §九 |
-| **WAM 过程可信度** | 预测的未来世界像不像 / 守不守物理 / 能否落地为动作 | FVD·VideoPhy·Physics-IQ·WorldSimBench·WorldModelBench·EWMBench·WorldBench | 视觉保真 / 物理常识 / 动作合理性 | §九半 |
 
 > ⚠️ **贯穿全篇的第一原则**:**口径(setting)决定数字含义**。同一模型在不同 split、不同任务子集、不同输入模态、不同训练协议下分数可差数十个百分点。读任何成绩表前先看 setting 列,再看分数。本篇 §十「评测方法论与陷阱」是这条原则的系统化展开,堪称本版灵魂章节。
 
@@ -573,129 +572,6 @@ SimplerEnv 两协议作真机代理的「可靠性」量化(Google Robot 三任�
 
 ---
 
-# WAM 评测:从成功率到过程可信度
-
-> 本章把 [WAM 总览](../../wam/index.md#42-评测三维从成功率到过程可信度) 提到的「三维评测协议」拍平成可读的基准表;讲清 **VLA 评测**(只问动作端结果)与 **WAM 评测**(同时审视世界想象端的过程质量)在度量哲学上的结构差,以及二者的**重叠区**(WAM 模型为与 VLA 可比仍在 LIBERO/CALVIN/RoboCasa 报成功率)和**互斥区**(WAM 独有的视觉保真/物理常识/动作合理性指标)。
-
-## 九半、WAM 评测:从成功率到过程可信度
-
-### 9.5.1 度量哲学的结构差:为何 VLA 表不够用
-
-**VLA(操作策略)**输出动作,评测自然只问「任务是否完成」——这是对最终结果的**单点 0/1 判定**(成功率 / 平均链长)。**WAM(世界-行动模型)**联合建模「未来状态 + 动作」,推理时**先预演未来,再据此反推动作**(NVIDIA 称之为潜空间想象、不生成完整图像;X-WAM 则预测多视角 RGB-D 视频)。因此 WAM 评测必须**同时审视它想象出的世界与它导出的动作**。
-
-按 [WAM 综述](https://arxiv.org/abs/2605.12090)(arXiv:2605.12090,Fig 2 / §5),WAM 评测协议是**三维**的——视觉保真、物理常识、动作合理性——加上传统的成功率轴,构成完整四轴。这与 VLA 单看成功率形成结构性区别。
-
-| 评测轴 | 度量什么 | 谁在评 | 与 VLA 关系 |
-|---|---|---|---|
-| **A · 成功率(action)** | 任务是否完成 | LIBERO/CALVIN/RoboCasa/SimplerEnv 等 | **重叠**(WAM 模型为与 VLA 可比也报这一轴) |
-| **B · 视觉保真(world)** | 预测帧/视频是否清晰可信 | FVD / PSNR / SSIM / LPIPS / DreamSim / DINO | **WAM 独有**(VLA 无未来预测) |
-| **C · 物理常识(world)** | 预测演化是否守物理 | VideoPhy / Physics-IQ / WorldModelBench / WorldBench / VBench-2.0 | **WAM 独有** |
-| **D · 动作合理性(bridging)** | 想象里能否抽出可执行动作 | WorldSimBench / EWMBench / RoboWM-Bench / WorldArena / WoWBench | **WAM 独有**(三轴的「桥接」一维) |
-
-> 📌 **可解释性的评测落点**:NVIDIA 称 WAM 的「可视未来预测」让失败可读——纯成功率评测下根本无从谈起,因为 0/1 结果不暴露过程。这也是为什么综述把过程可信度抬到与成功率**并列**的位置(综述 §5.2 同时指出当前协议**仍缺**直接评估「世界预测↔动作生成因果对齐」的统一方法,**待核**)。
-
-### 9.5.2 WAM 评测基准对照表(按四轴归类)
-
-> ⚠️ 以下基准 ID 与口径全部经一手核查;具体模型在各基准上的成绩多为厂商自评、横比要看 split 与版本,与本页前九章铁律同。
-
-#### A · 成功率轴(WAM × VLA 重叠)
-
-WAM 旗舰模型在传统操作基准上**同台报告**以保持可比性。这不是新基准,只是**复用**前九章已表中的数字;真正可比的口径见对应章节的「读表须知」。
-
-| 基准 | 用法 | WAM 报告样例(⚠️ 自评) | 见本页 |
-|---|---|---|---|
-| **SimplerEnv** | Google Robot / Bridge real-to-sim | DreamZero / X-WAM 等多在此报 SR | [§一](#一simplerenv) |
-| **LIBERO** | 终身学习四套件 | UVA 0.5B 报 LIBERO-10 90%、LaDi-WM LIBERO-LONG +27.9% | [§二](#二libero) |
-| **CALVIN** | 长程语言链 ABCD/ABC→D | 早期 [GR-1](../../wam/papers/gr-1.md) avg-len 4.21 在该基准奠基 | [§三](#三calvin) |
-| **RoboCasa** | 厨房 multitask | [X-WAM](../../wam/papers/x-wam.md) 自评 79.2% 平均(⚠️ 见 §四 与 N1.5/π0.5 同口径) | [§四](#四robocasa本轮重点补齐) |
-| **RoboTwin 2.0** | 域随机化双臂 | [X-WAM](../../wam/papers/x-wam.md) 自评 90.7%(⚠️) | [§六](#六双臂人形移动操作基准) |
-
-> ⚠️ **关键提醒**:WAM 在这些基准上的数字**不能直接与 VLA 模型横比**。原因:① 同样适用前九章 §10 的所有「口径不可比」铁律(版本/任务子集/输入模态/演示数);② WAM 论文常报多种 inference 模式(纯模仿 vs 用世界模型作 RL 模拟器 vs 想象引导精炼),哪条数字属哪种模式需逐篇核对——例:[SimpleVLA-RL](../papers/simplevla-rl.md) 用世界模型做 RL 后训练,LIBERO 99.1 不能与裸 SFT 模型并列。
-
-#### B · 视觉保真(WAM 独有)
-
-借自视频生成领域的标准保真指标,被借来评 WAM 的「世界想象」清晰度。
-
-| 指标 / 基准 | 来源 | 测什么 |
-|---|---|---|
-| **FVD**(Fréchet Video Distance) | NeurIPS 2018 系列 | 生成视频与真实视频在 I3D 特征空间的分布距离(越低越好) |
-| **PSNR / SSIM / LPIPS** | 经典视频/图像质量指标 | 帧级保真;LPIPS 用学习特征更贴近人感 |
-| **DreamSim** | Fu et al., NeurIPS 2023 | 中层语义相似度,补 LPIPS 在结构变化下的盲区 |
-| **DINO 特征距离** | DINOv2 嵌入对齐 | 自监督特征空间下的视觉一致性 |
-
-> 📌 **使用样例**:[UVA](../../wam/papers/uva.md) 在 LIBERO-10 报 8 步自回归 **FVD 51.10**(优于 [UniPi](../../wam/papers/unipi.md) 的 56.55);[LaDi-WM](../../wam/papers/ladi-wm.md) 用 DINO + SigLip 双流潜空间预测,本身就是被这一类保真指标驱动的设计。
-
-#### C · 物理常识(WAM 独有)
-
-**这是 WAM 评测最年轻、最分裂的一轴**——多个并行基准、口径互不兼容。
-
-| 基准 | arXiv | 团队 | 测什么 | 备注 |
-|---|---|---|---|---|
-| **VideoPhy** | [2406.03520](https://arxiv.org/abs/2406.03520)(系列) | UCLA/Adobe | 文本→视频中物理规律(刚体/流体/接触)的违例 | 较早的物理评测,被 [WAM 综述](https://arxiv.org/abs/2605.12090) 列为代表 |
-| **Physics-IQ** | [2504.02918](https://arxiv.org/abs/2504.02918) | Google DeepMind | 用**真实物理实验视频**反向考问视频生成模型 | 强调「真相基准」,VLM 远不如人类 |
-| **WorldModelBench** | [2502.20694](https://arxiv.org/abs/2502.20694)(CVPR'25) | NVIDIA / UCSD 等 | 指令跟随 + 物理符合双维 | 覆盖机器人、自驾、人类活动 |
-| **WorldBench**(physical-world bench) | [world-bench.github.io](https://world-bench.github.io/) | — | 425 场景跨运动/恒存/支撑等概念诊断 | **诊断式**,逐概念定位失败 |
-| **VBench-2.0** | VBench 系列 | 北大等 | 视频生成多维评测套件中的物理子集 | 被综述借用 |
-
-> ⚠️ **本站立场**:这类指标**各家口径不一、绝对不可拼盘**(综述措辞「待核」);且**绝大多数 WAM 论文未跨基准报这一轴**。引用具体模型的物理一致性数字时,请连同 split / 任务子集 / 评估器版本一并标注。
-
-#### D · 动作合理性(过程→动作的桥接)
-
-这是 WAM 独有的、最贴近「为机器人评 WAM」的一维:**预测的未来里能否抽出可执行动作**。
-
-| 基准 | arXiv | 团队 | 测什么 | 备注 |
-|---|---|---|---|---|
-| **WorldSimBench** | [2410.18072](https://arxiv.org/abs/2410.18072) | OpenGVLab / 复旦 等 | 视频生成模型作世界模拟器:显式感知 + 隐式操控双轨 | 「Implicit Manipulative Evaluation」直接看动作能否驱动 |
-| **EWMBench** | [2505.09694](https://arxiv.org/abs/2505.09694) | 智元 / Genie Envisioner 团队 | 场景/运动/语义三维:视觉一致性、运动正确性、语义对齐 | 与 [Genie Envisioner](../../wam/papers/genie-envisioner.md) **同源发布**;指令-动作对齐 |
-| **RoboWM-Bench** | [2604.19092](https://arxiv.org/abs/2604.19092) | — | 把生成视频转**embodied action**,在物理仿真里执行 | 「视觉看似合理 ≠ 可执行」是核心论点 |
-| **WorldArena** | [2602.08971](https://arxiv.org/abs/2602.08971) | — | 三维:视频感知 / 任务功能 / 平台稳定性 | 把世界模型当**数据引擎**也单列一维 |
-| **WoWBench** | 随 [WoW](https://arxiv.org/abs/2509.22642) | 智元 等 | 物理一致性 + 因果推理(视频) | WoW 主张「通过具身交互获得物理直觉」 |
-| **WMLab(扩展版)** | [2605.17912](https://arxiv.org/abs/2605.17912) | — | 把 EWM 评测扩到模态/功能/平台三轴 | 综述化扩展 |
-
-> 📌 **判读指南**:这一轴在六个基准里口径最分裂——「指令-动作对齐」「感知-执行落差」「视频-动作可转换性」三套提法各有侧重。**最佳实践**:看 WAM 论文时同时核对「该模型在哪个动作合理性基准上报数」+「该基准是否独立维护方评测(✅)还是模型作者自评(⚠️)」。当前几乎全是 ⚠️。
-
-### 9.5.3 重叠区(VLA × WAM 共用)与互斥区(WAM 独有)
-
-把 §0 全景与上面四轴叠起来,VLA × WAM 评测的关系图:
-
-```mermaid
-graph TB
-  subgraph SHARED["重叠区:WAM 模型也报这些(为与 VLA 可比)"]
-    direction LR
-    A1["SimplerEnv"]
-    A2["LIBERO"]
-    A3["CALVIN"]
-    A4["RoboCasa"]
-    A5["RoboTwin"]
-  end
-  subgraph WAMONLY["WAM 独有:过程可信度三维"]
-    direction TB
-    B["B·视觉保真<br/>FVD / PSNR / SSIM / LPIPS / DreamSim"]
-    C["C·物理常识<br/>VideoPhy / Physics-IQ / WorldModelBench / WorldBench"]
-    D["D·动作合理性<br/>WorldSimBench / EWMBench / RoboWM-Bench / WorldArena"]
-  end
-  VLA["VLA 评测<br/>(成功率轴)"] --> SHARED
-  WAM["WAM 评测<br/>(成功率 + 过程可信度)"] --> SHARED
-  WAM --> WAMONLY
-  style WAMONLY fill:#fef3c7,stroke:#d4a017
-  style SHARED fill:#dbeafe,stroke:#3b82f6
-```
-
-**重叠区(共用基准)**:LIBERO / CALVIN / RoboCasa / SimplerEnv / RoboTwin。WAM 模型为与 VLA SOTA 可比,在这些基准上**也报成功率**(见上表 A 轴样例)。读表完全适用本页前九章的口径铁律,**不可绕过 §10 的「LIBERO 95%+ ≠ 泛化」「RoboCasa 版本/口径/数据档断层」等警告**。
-
-**WAM 独有(过程可信度)**:视觉保真 / 物理常识 / 动作合理性三维(B/C/D 轴),共约 **15+ 个并行基准**,几乎全部是 2024–2026 新发布,口径互不兼容、覆盖率参差。**当前 WAM 论文很少跨基准报全 B/C/D 三轴**,多数只报其中一个、加上 A 轴成功率作业。
-
-> ⚠️ **本页结论**:WAM 评测目前处于**「成功率仍是最硬指标、过程可信度三维处于建设期」**的阶段。综述本身也承认「仍缺直接评估世界预测↔动作生成因果对齐的统一方法」(§5.2)。引用 WAM 模型成绩时,**A 轴(成功率)用本页前九章的铁律解读 + B/C/D 轴标 ⚠️ 自评 + 标注具体基准与版本**——这与本页 §〇「口径决定数字含义」的第一原则完全一致。
-
-### 9.5.4 一手信源
-
-- **WAM 综述(权威源)**:World Action Models: The Next Frontier in Embodied AI. [arXiv:2605.12090](https://arxiv.org/abs/2605.12090)(Fudan/OpenMOSS,2026-05;§5 评测协议、Fig 2 三维评测手段对照)
-- **本站对应**:[WAM 总览 §4.2](../../wam/index.md#42-评测三维从成功率到过程可信度) 给出综述视角的更详尽辨析
-- **WAM 独有基准**:WorldSimBench [2410.18072](https://arxiv.org/abs/2410.18072)、EWMBench [2505.09694](https://arxiv.org/abs/2505.09694)、Physics-IQ [2504.02918](https://arxiv.org/abs/2504.02918)、WorldModelBench [2502.20694](https://arxiv.org/abs/2502.20694)、RoboWM-Bench [2604.19092](https://arxiv.org/abs/2604.19092)、WorldArena [2602.08971](https://arxiv.org/abs/2602.08971)、WoWBench(随 WoW [2509.22642](https://arxiv.org/abs/2509.22642))、WMLab 扩展 [2605.17912](https://arxiv.org/abs/2605.17912)
-- **关联细读**:[Genie Envisioner](../../wam/papers/genie-envisioner.md)(EWMBench 同源)、[X-WAM](../../wam/papers/x-wam.md)(同时报 RoboCasa/RoboTwin 成功率与 4D 重建/生成保真)、[UVA](../../wam/papers/uva.md)(报 LIBERO SR + FVD)、[LaDi-WM](../../wam/papers/ladi-wm.md)(DINO+SigLip 潜空间双流)
-
----
-
 # 评测方法论与陷阱(读表铁律)
 
 > 本章是全版**灵魂章节**:把前九章散落的口径警告系统化为「指标层级 → 协议形式化 → 统计严谨性 → 口径不可比 → 自评 vs 复现 → 评测成本 → 过拟合风险」七条铁律。多篇 2025–2026 专文已用实证坐实:**LIBERO 95%+ 不等于泛化能力**。
@@ -826,4 +702,4 @@ graph TB
 
 ---
 
-*本篇为 VLA × WAM 共用的「评测」基础专题,与 [具身数据全景](embodied-data.md)(训练语料侧)、[实验机器人本体](robots.md)(评测平台硬件侧)、[具身数据处理](data-processing.md)(数据清洗/对齐侧)互补。在原「VLA 五维全景(§一–九)」之上,新增 §九半「WAM 评测:从成功率到过程可信度」,把视觉保真 / 物理常识 / 动作合理性三维基准与 LIBERO/CALVIN/RoboCasa 等共用基准的重叠/互斥关系拍平;§十「评测方法论与陷阱(读表铁律)」对 VLA 与 WAM 同样适用。基于六维调研 + 对抗式事实核查综合而成;以 verdicts 更正值为准(CogACT=74.8、RoboTwin 掉点为绝对 pp、ERQA 81.4 作废、自评正偏被证伪等)。⚠️ 标记处为提出方/厂商自评数据,非独立第三方复现;低可信或待核者另标 ⚠️/待核。*
+*本篇为《VLA 发展深度调研报告》「评测」专题子文档,与 [具身数据全景](embodied-data.md)(训练语料侧)、[实验机器人本体](robots.md)(评测平台硬件侧)、[具身数据处理](data-processing.md)(数据清洗/对齐侧)互补。本版在原「四大仿真操作基准全景」之上,新增 仿真操作扩展基准 / 双臂·人形·移动操作 / 真机评测与竞技场 / 具身推理·VQA / 视觉语言导航 五大维度,以及 §十「评测方法论与陷阱(读表铁律)」,升级为 VLA 评测深度版。基于六维调研 + 对抗式事实核查综合而成;以 verdicts 更正值为准(CogACT=74.8、RoboTwin 掉点为绝对 pp、ERQA 81.4 作废、自评正偏被证伪等)。⚠️ 标记处为提出方/厂商自评数据,非独立第三方复现;低可信或待核者另标 ⚠️/待核。*

@@ -86,23 +86,17 @@ flowchart TD
 | **2023.07** | ⭐ **RT-2** | Google DeepMind | 离散 token | **全场分水岭**:把动作塞进 VLM 词表当文本 token,首次证明互联网视觉-语言知识可迁移到机器人控制,VLA 范式诞生 | [→ 细读](rt2.md) |
 | **2024.05** | **Octo** | UC Berkeley 等 | 连续(扩散) | 模块化开源框架,OXE 80 万轨迹训练 transformer 扩散策略,消费级 GPU 数小时可微调到新本体 | [→ 细读](octo.md) |
 | **2024.06** | **OpenVLA** | Stanford 等 | 离散 token | 7B 全开源,Llama2 + DINOv2/SigLIP;⚠️ 用 1/7 参数在 29 任务上超 55B RT-2-X 16.5%,把范式平民化 | [→ 细读](openvla.md) |
-| **2024.07** | **ECoT** | 伯克利/Stanford/华沙大学 | 离散 token(推理 CoT) | **reasoning-VLA 奠基**:OpenVLA 上先生成具身推理链(plan→subtask→motion→bbox)再出动作,被 Fast ECoT/Emma-X 等 build-on | [→ 细读](ecot.md) |
-| **2024.09** | **TinyVLA** | 美的/华东师大 等 | 连续(扩散) | VLM 初始化 + 扩散策略头,跳过大规模机器人预训练;⚠️ 高数据效率(+21.5%)、快推理(+25.7%),被高效 VLA 广泛当 baseline | [→ 细读](tinyvla.md) |
 | **2024.10** | **π0** | Physical Intelligence | 连续(流匹配) | PaliGemma + 独立流匹配动作专家;流匹配 + 动作分块达 50 Hz 高频灵巧控制(叠衣服) | [→ 细读](pi0.md) |
 | **2024.11** | **CogACT** | 清华 / 微软亚研院 | 连续(组件化 DiT) | **组件化 VLA**:VLM 只出"认知 token",动作交给专门的 DiT 扩散专家;⚠️ SimplerEnv Google Robot VM 74.8%(原传 82.7 已更正) | [→ 细读](cogact.md) |
-| **2024.12** | **RoboVLMs** | 字节 Research/清华 等 | 系统实证 | **"建 VLA 什么最重要"的系统实证**:主干/架构/跨本体数据消融,提供常用 baseline 框架家族;S2 引 95/影响性 6;被 VITA 等当 baseline | [→ 细读](robovlms.md) |
 | **2025.01** | **π0-FAST** | Physical Intelligence | 离散(高效化) | DCT 频域分词压缩动作 token,让自回归离散 VLA 也能高频运行,补齐离散路线短板 | [→ 细读](pi0-fast.md) |
 | **2025.02** | **OpenVLA-OFT** | Stanford 等 | 连续(L1 回归) | OFT 配方 = 并行解码 + 动作分块 + 连续表示 + L1 回归;⚠️ 提速 26×、LIBERO 97.1% 刷新 SOTA | [→ 细读](openvla-oft.md) |
 | **2025.02** | **Helix** | Figure AI | 双系统 | ⚠️ 厂商自评:7B VLM(7–9 Hz)+ 80M 控制器(200 Hz),35-DoF 控制人形上半身,首个驱动双协作机器人的 VLA(无细读) | — |
 | **2025.03** | **Gemini Robotics** | Google DeepMind | 双系统(云-端) | 云端跑蒸馏 Gemini backbone(<160 ms)+ 本机 action decoder,端到端 250 ms / 50 Hz;配套 ER 把具身推理拉成可评测能力层 | [→ 细读](gemini-robotics.md) |
 | **2025.03** | **GR00T N1** | NVIDIA | 双系统(DiT 流匹配) | 工业级双系统:VL 模块(~10 Hz)推理 + DiT(16 步块)实时动作;"数据金字塔"(真机 + 人类视频 + 合成) | [→ 细读](groot-n1.md) |
 | **2025.04** | **π0.5** | Physical Intelligence | 混合 | 基于 π0 实现开放世界泛化,首次让端到端机器人在全新住宅做长程操作;高层离散 FAST + 底层流匹配,两路合一 | [→ 细读](pi05.md) |
-| **2025.06** | **SmolVLA** | Hugging Face / LeRobot | 连续(流匹配·小型化) | **平民版 VLA**:0.45B 冻结 SmolVLM-2 + ~100M 流匹配动作专家,层跳过/64token/异步推理;⚠️ 只用 2.29 万条社区数据,LIBERO 87.3 追平 π0(3.3B)、超 OpenVLA(7B),训练快 40%/省显存 6×,单 GPU 训、CPU 部署,全开源 | [→ 细读](smolvla.md) |
 | **2025.09** | **WALL-OSS** | 自变量 X²Robot | 混合(端到端基座) | Qwen2.5-VL MoE(~4B)端到端具身基座,FAST 分支 + 流匹配分支并存,"统一跨层级 CoT";⚠️ Wall-OSS-0.5 零样本真机 | [→ 细读](wall-oss.md) |
 | **2025.09** | **RynnVLA-001** | 阿里达摩院 + 湖畔 | 第三条路(视频生成) | 基于 Chameleon 文生图扩展的自回归视频生成基座 + ActionVAE;⚠️ 三项真机均 90.6%,优于 π0/GR00T N1.5 | [→ 细读](rynnvla.md) |
-| **2025.09** | **SimpleVLA-RL** | 清华/上海AI Lab/北大 | 连续(L1 回归 + RL) | **VLA 专用在线 RL 后训练框架**:veRL/GRPO 作用于 OpenVLA-OFT;⚠️ LIBERO-Long 97.6 超 π0,冷启动→刷新 LIBERO SOTA | [→ 细读](simplevla-rl.md) |
 | **2025.11** | **π0.6 / π\*0.6** | Physical Intelligence | 混合 + 真机 RL | 知识隔离训练(动作专家梯度不回传主干)+ RECAP 真机强化学习;⚠️ 最难任务吞吐翻倍、失败率约减半;从模仿迈向"从经验学习" | [→ 细读](pi06.md) |
-| **2026.02** | **SteerVLA** | Stanford / UC Berkeley | 分层(自动驾驶) | **本站首篇自动驾驶域 VLA**:高层 VLM 出语言 meta-action「操控」低层 VLA 回归 waypoint,VLM 事后稠密标注喂监督;⚠️ 闭环 Bench2Drive 总分 +4.77 / 长尾 +8.04(对照 SimLingo) | [→ 细读](steervla.md) |
 | **2026.04** | **π0.7** | Physical Intelligence | 可操控通才(分层混合) | 富上下文条件化(子任务/视觉子目标/策略元数据)+ 混合质量数据;⚠️ 单一通才不微调追平 π*0.6 RL 专家,零样本跨本体叠衣 80% 接近人类遥操作;初步组合泛化 | [→ 细读](pi07.md) |
 | **2026.05** | **Qwen-VLA** | 阿里 Qwen | 连续(统一基座) | Qwen3.5-4B + 1.15B DiT 流匹配,一个架构统一操作/导航/轨迹;⚠️ LIBERO 97.9%、R2R 69.0% OSR | [→ 细读](qwen-vla.md) |
 
@@ -142,23 +136,17 @@ flowchart TD
 | RT-2 | arxiv.org/abs/2307.15818 |
 | Octo | arxiv.org/abs/2405.12213 |
 | OpenVLA | arxiv.org/abs/2406.09246 |
-| ECoT | arxiv.org/abs/2407.08693 |
-| TinyVLA | arxiv.org/abs/2409.12514 |
 | π0 | arxiv.org/abs/2410.24164 |
 | CogACT | arxiv.org/abs/2411.19650 · cogact.github.io |
-| RoboVLMs | arxiv.org/abs/2412.14058 |
 | π0-FAST | arxiv.org/abs/2501.09747 · pi.website/research/fast |
 | OpenVLA-OFT | arxiv.org/abs/2502.19645 · openvla-oft.github.io |
 | Helix | figure.ai/news/helix |
 | Gemini Robotics | arxiv.org/abs/2503.20020 · deepmind.google/discover/blog/gemini-robotics |
 | GR00T N1 | arxiv.org/abs/2503.14734 · github.com/NVIDIA/Isaac-GR00T |
 | π0.5 | arxiv.org/abs/2504.16054 · pi.website/blog/pi05 |
-| SmolVLA | arxiv.org/abs/2506.01844 · github.com/huggingface/lerobot · huggingface.co/blog/smolvla |
 | WALL-OSS | arxiv.org/abs/2509.11766 · github.com/X-Square-Robot/wall-x |
 | RynnVLA-001 | arxiv.org/abs/2509.15212 · huggingface.co/Alibaba-DAMO-Academy |
-| SimpleVLA-RL | arxiv.org/abs/2509.09674 |
 | π0.6 / π\*0.6 | arxiv.org/abs/2511.14759 · pi.website/blog/pistar06 |
-| SteerVLA | arxiv.org/abs/2602.08440 · steervla.github.io · openreview.net/forum?id=fS6UPyXF4A |
 | π0.7 | arxiv.org/abs/2604.15483 · pi.website/blog/pi07 |
 | Qwen-VLA | arxiv.org/abs/2605.30280 · github.com/QwenLM/Qwen-VLA |
 
