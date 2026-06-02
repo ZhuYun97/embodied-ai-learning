@@ -96,20 +96,23 @@ function renderItem(n) {
   const related = n.related_site_page
     ? `  ·  **相关**:[${n.related_site_page.split('/').pop()}](${n.related_site_page})`
     : ''
+  // 📅 事件时间:显示事件实际发生/发表日期(与 H2 收录日期区分)
+  const eventDate = n.date ? `📅 **事件时间**: ${n.date}  \n` : ''
   return [
     `### ${imp} ${n.title} ${cred} 🤖`,
     '',
     n.summary,
     '',
-    `**来源**:[${n.source_name}](${n.source_url})  ·  ${cat}${related}`,
-    '',
+    `**来源**:[${n.source_name}](${n.source_url})  ·  ${cat}${related}  `,
+    eventDate, // 📅 行插在来源后、--- 前
     '---',
     '',
   ].join('\n')
 }
 // 🤖 标识:bot 写入的条目尾巴加机器人 emoji,与人工整理区分
 
-// ===== 按 date_key 分组待插入(支持日级 + 月级两种粒度)=====
+// ===== 按 fetched_at(收录日期)分组待插入(支持日级 + 月级两种粒度)=====
+// **语义**:H2 分组按「收录日期」(fetched_at),卡片内 📅 事件时间 显示事件实际日期(date)
 // - 完整日期 YYYY-MM-DD → 日级 H2(每天独立块)
 // - 仅月份 YYYY-MM → 月级 H2,显示「YYYY-MM(月内事件)」,排在该月所有日级块之后
 // - 仅年份 YYYY → 年级 H2,显示「YYYY(年内事件)」,排在该年所有月级块之后
@@ -139,7 +142,8 @@ function dateKeyOf(date) {
 
 const byDate = new Map() // key → { meta, items[] }
 for (const n of toAdd) {
-  const meta = dateKeyOf(n.date)
+  // ⚠️ 分组用 fetched_at(收录日期),非 date(事件日期)
+  const meta = dateKeyOf(n.fetched_at)
   if (!byDate.has(meta.key)) byDate.set(meta.key, { meta, items: [] })
   byDate.get(meta.key).items.push(n)
 }

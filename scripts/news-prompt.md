@@ -89,7 +89,8 @@
   "news": [
     {
       "title": "中文标题(简洁、可包含原文重要词)",
-      "date": "YYYY-MM-DD 或 YYYY-MM(只有月份的事件)",
+      "date": "YYYY-MM-DD 或 YYYY-MM(事件实际发生/发表日期)",
+      "fetched_at": "YYYY-MM-DD(本条新闻收录日期,通常是今天,用于 H2 分组)",
       "category": "论文发表 | 模型发布 | 数据集发布 | 评测基准 | 产品发布 | 行业动态 | 融资上市 | 学术会议 | 竞赛 | 合作协议 | 政策法规 | 开源代码",
       "summary": "2-3 句客观事实摘要,只陈述可核实信息,中英文金额并列标注",
       "source_url": "完整可访问 URL",
@@ -102,6 +103,11 @@
   ]
 }
 ```
+
+**字段语义说明**:
+- **`date`**:事件实际发生/发表日期(如论文 arXiv 上线日、融资交割日、产品发布会日期)
+- **`fetched_at`**:本条新闻**收录**日期(通常是今天 {{TODAY}}),news/index.md 的 H2 分组按此字段组织
+- **渲染结果**:H2 显示「## 2026-06-02(news-bot 自动收录)」,卡片内显示「📅 事件时间: 2026-04-16」
 
 **fingerprint 示例**:
 - 标题「Unitree IPO 过会」+ 来源 caixinglobal.com → `"unitree-ipo-guohui|caixinglobal"`
