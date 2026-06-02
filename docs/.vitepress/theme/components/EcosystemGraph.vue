@@ -70,7 +70,7 @@
             v-for="(e, i) in edges"
             :key="'e' + i"
             :d="edgePath(e)"
-            :class="['edge', `edge-${e.type}`, { dim: hoverId && !edgeActive(e), active: edgeActive(e) }]"
+            :class="['edge', `edge-${e.type}`, { primary: e.primary, dim: hoverId && !edgeActive(e), active: edgeActive(e) }]"
           />
         </g>
 
@@ -83,7 +83,7 @@
         <g
           v-for="n in nodes"
           :key="n.id"
-          :class="['node', `node-${n.kind}`, { dim: hoverId && !nodeActive(n.id), focus: hoverId === n.id, clickable: !!n.website }]"
+          :class="['node', `node-${n.kind}`, { showlabel: n.show, dim: hoverId && !nodeActive(n.id), focus: hoverId === n.id, clickable: !!n.website }]"
           @pointerenter="hoverId = n.id"
           @pointerleave="hoverId = null"
           @click="onNodeClick(n)"
@@ -105,7 +105,7 @@ const W = 1040, H = 940
 const CX = W / 2, CY = H / 2 + 6
 const Rh = 232          // hub 内环
 const Rl = 388          // leaf 外环
-const orbitRings = [120, 232, 320, 388, 430]
+const orbitRings = [126, 232, 348]
 
 const svgEl = ref(null)
 const wrapEl = ref(null)
@@ -153,32 +153,39 @@ for (const lf of leafList) { const h = pickHub(lf.id); if (h) childrenOf[h].push
 const kindOf = (n) => (hubIds.has(n.id) || connectors.some((c) => c.id === n.id) ? (companies.some((c) => c.id === n.id) ? null : 'conn') : null)
 const isCompany = (id) => companies.some((c) => c.id === id)
 const regionKind = (n) => (isCompany(n.id) ? (n.region === 'china' ? 'cn' : 'intl') : 'conn')
-const hubR = (h) => 15 + Math.min(8, (deg[h.id] || 0) * 1.4)
-const leafR = (n) => (isCompany(n.id) ? 9 + Math.min(8, Math.sqrt((n.fundingAmount || 0) / 1e8) * 2.1) : 11)
+const hubR = (h) => 18 + Math.min(12, (deg[h.id] || 0) * 1.7)
+const leafR = (n) => (isCompany(n.id) ? 7 + Math.min(7, Math.sqrt((n.fundingAmount || 0) / 1e8) * 1.9) : 10)
 
 const pos = {}
+const assignedHub = {}
 const Hn = Math.max(1, hubList.length)
-// hub:按子节点数降序,均匀铺在内环(多子的分散开)
+// hub:按子节点数降序,均匀铺在内环
 hubList.sort((a, b) => childrenOf[b.id].length - childrenOf[a.id].length)
 hubList.forEach((h, i) => {
   const ang = (i / Hn) * Math.PI * 2 - Math.PI / 2
   pos[h.id] = { x: CX + Math.cos(ang) * Rh, y: CY + Math.sin(ang) * Rh, ang, r: hubR(h) }
 })
-const sector = (Math.PI * 2 / Hn) * 0.94
+// 每个 hub 的公司聚成一簇「枝叶」紧贴 hub 外侧(短辐射,不再是一圈机械的点)
 hubList.forEach((h) => {
   const base = pos[h.id].ang
   const kids = childrenOf[h.id]
   const m = kids.length
+  const arc = Math.min(Math.PI / 6, 0.18 + m * 0.055) // 扇面随子数增大,封顶防重叠
   kids.forEach((c, k) => {
     const t = m === 1 ? 0 : k / (m - 1) - 0.5
-    const ang = base + t * sector
-    const rr = Rl + (k % 2 === 0 ? -24 : 22)
+    const ang = base + t * arc
+    const rr = Rh + 94 + (k % 2) * 36 // 紧贴 hub 外侧,双层错开
     pos[c.id] = { x: CX + Math.cos(ang) * rr, y: CY + Math.sin(ang) * rr, ang, r: leafR(c) }
+    assignedHub[c.id] = h.id
   })
 })
+// 孤立叶子:放在已定位邻居的平均角度外侧(无邻居则按序铺)
 orphans.forEach((c, k) => {
-  const ang = (k / Math.max(1, orphans.length)) * Math.PI * 2 + 0.2
-  pos[c.id] = { x: CX + Math.cos(ang) * (Rl + 44), y: CY + Math.sin(ang) * (Rl + 44), ang, r: leafR(c) }
+  let ax = 0, ay = 0, cnt = 0
+  for (const nb of adj[c.id]) if (pos[nb]) { ax += Math.cos(pos[nb].ang); ay += Math.sin(pos[nb].ang); cnt++ }
+  const ang = cnt ? Math.atan2(ay, ax) : (k / Math.max(1, orphans.length)) * Math.PI * 2 + 0.2
+  const rr = Rh + 150
+  pos[c.id] = { x: CX + Math.cos(ang) * rr, y: CY + Math.sin(ang) * rr, ang, r: leafR(c) }
 })
 
 const allRaw = [...hubList, ...leafList]
@@ -192,13 +199,16 @@ const nodes = reactive(allRaw.filter((n) => pos[n.id]).map((n) => {
     kind: regionKind(n), r: p.r, website: n.website || null,
     x: p.x, y: p.y, ang: p.ang, lx, ly,
     anchor: Math.cos(p.ang) >= 0 ? 'start' : 'end',
+    show: hubIds.has(n.id) || (isCompany(n.id) && (n.fundingAmount || 0) >= 1e9), // 默认只标 hub + 大公司
   }
 }))
 const hubs = nodes.filter((n) => hubIds.has(n.id))
 
 const nodeMap = computed(() => Object.fromEntries(nodes.map((n) => [n.id, n])))
 const validIds = new Set(nodes.map((n) => n.id))
-const edges = rels.filter((e) => validIds.has(e.source) && validIds.has(e.target))
+const edges = rels
+  .filter((e) => validIds.has(e.source) && validIds.has(e.target))
+  .map((e) => ({ ...e, primary: assignedHub[e.source] === e.target || assignedHub[e.target] === e.source }))
 
 const nbset = {}
 nodes.forEach((n) => (nbset[n.id] = new Set([n.id])))
@@ -206,14 +216,16 @@ edges.forEach((e) => { nbset[e.source].add(e.target); nbset[e.target].add(e.sour
 const nodeActive = (id) => hoverId.value && nbset[hoverId.value]?.has(id)
 const edgeActive = (e) => hoverId.value && (e.source === hoverId.value || e.target === hoverId.value)
 
+// 控制点向「远离中心」方向外推 —— 连线绕开核心成弧,不再横切中央
 function edgePath(e) {
   const a = nodeMap.value[e.source], b = nodeMap.value[e.target]
-  const dx = b.x - a.x, dy = b.y - a.y
-  const dist = Math.sqrt(dx * dx + dy * dy) || 1
   const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2
-  const nx = -dy / dist, ny = dx / dist
-  const off = dist * 0.12
-  return `M ${a.x} ${a.y} Q ${mx + nx * off} ${my + ny * off} ${b.x} ${b.y}`
+  const dist = Math.hypot(b.x - a.x, b.y - a.y) || 1
+  let cdx = mx - CX, cdy = my - CY
+  const cl = Math.hypot(cdx, cdy) || 1
+  const off = Math.min(dist * 0.24, 130)
+  const qx = mx + (cdx / cl) * off, qy = my + (cdy / cl) * off
+  return `M ${a.x} ${a.y} Q ${qx} ${qy} ${b.x} ${b.y}`
 }
 
 // ===== 平移 / 缩放 / 点击 =====
@@ -292,10 +304,11 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
   pointer-events: none; user-select: none;
 }
 
-/* 关系边 */
-.edge { fill: none; stroke-width: 1.1; opacity: 0.5; transition: opacity 0.2s, stroke-width 0.2s; }
+/* 关系边:主辐射(hub→子公司)亮,跨投资等次要边默认很淡,悬停再点亮 */
+.edge { fill: none; stroke-width: 1; opacity: 0.12; transition: opacity 0.2s, stroke-width 0.2s; }
+.edge.primary { opacity: 0.5; stroke-width: 1.3; }
 .edge.active { stroke-width: 2.2; opacity: 1; }
-.edge.dim { opacity: 0.07; }
+.edge.dim { opacity: 0.045; }
 .edge-invest { stroke: #38bdf8; }
 .edge-partner { stroke: #a78bfa; stroke-dasharray: 5 4; }
 .edge-own { stroke: #e879f9; }
@@ -321,14 +334,17 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
   paint-order: stroke; stroke: rgba(5, 8, 24, 0.3); stroke-width: 0.6px;
   pointer-events: none; user-select: none;
 }
+/* 标签:默认只显 hub + 大公司(showlabel);悬停时显焦点邻居,大幅去拥挤 */
 .node-label {
-  font-size: 9.5px; font-weight: 500; fill: rgba(214, 225, 250, 0.78);
+  font-size: 9.5px; font-weight: 500; fill: rgba(220, 230, 252, 0.85);
   paint-order: stroke; stroke: rgba(4, 6, 16, 0.92); stroke-width: 2.6px;
-  pointer-events: none; user-select: none; transition: fill 0.2s;
+  pointer-events: none; user-select: none; opacity: 0; transition: opacity 0.2s, fill 0.2s;
 }
-.node-conn .node-label { fill: rgba(253, 230, 138, 0.85); }
-.node.focus .node-label { fill: #fff; font-weight: 600; }
-.is-hovering .node.dim .node-label { fill-opacity: 0; }
+.node.showlabel .node-label { opacity: 0.82; }
+.node-conn .node-label { fill: rgba(253, 230, 138, 0.9); }
+.is-hovering .node:not(.dim) .node-label { opacity: 1; fill: #fff; }
+.is-hovering .node.dim .node-label { opacity: 0; }
+.node.focus .node-label { opacity: 1; fill: #fff; font-weight: 600; }
 
 .kg-legend {
   position: absolute; top: 14px; left: 16px; z-index: 3;
