@@ -350,6 +350,9 @@ img.zoom-lightbox__content {
   padding: 20px;
   background: var(--vp-c-bg-alt);
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  /* 修复:防止 ::before 流光/装饰溢出卡片边界(创建独立堆叠上下文) */
+  overflow: hidden;
+  isolation: isolate;
 }
 .route-card:hover {
   transform: translateY(-3px);
@@ -382,6 +385,28 @@ img.zoom-lightbox__content {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  /* 修复:限制链接区高度,链接多时可滚动,保证多卡片高度对齐 */
+  max-height: 200px;
+  overflow-y: auto;
+  /* 美化滚动条(Firefox) */
+  scrollbar-width: thin;
+  scrollbar-color: var(--vp-c-divider) transparent;
+  /* 给滚动条留出右侧空间,避免遮住链接 */
+  padding-right: 4px;
+}
+/* 美化滚动条(WebKit) */
+.route-links::-webkit-scrollbar {
+  width: 6px;
+}
+.route-links::-webkit-scrollbar-track {
+  background: transparent;
+}
+.route-links::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 3px;
+}
+.route-links::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-brand-1);
 }
 .route-links a {
   display: inline-flex;
@@ -400,6 +425,10 @@ img.zoom-lightbox__content {
   .route-links a {
     min-height: 44px;
     padding: 10px 14px;
+  }
+  /* 触摸下每个链接更高,链接区高度也要相应放宽 */
+  .route-links {
+    max-height: 280px;
   }
 }
 .route-links a:hover {
