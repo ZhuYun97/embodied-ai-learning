@@ -69,6 +69,27 @@
     "bot": true
   },
   {
+    "id": "meckaai6000-20260601",
+    "title": "Mecka AI 完成 6000 万美元融资:用人体传感器和 iPhone 采集人类动作数据训练机器人",
+    "date": "2026-06-01",
+    "fetched_at": "2026-06-02",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "数据集发布"
+    ],
+    "summary": "**Mecka AI**(纽约,40人)完成共 **6000 万美元融资**(2025年11月 2500万美元 Series A + 3500万美元跟进轮),由 Framework Ventures、Menlo Ventures、SV Angel 等投资。核心思路:**用人类真实动作数据而非遥操作训练机器人**——通过自研可穿戴身体传感器和 iPhone 采集人体运动数据,公司已签约年化合同金额预计超 **1亿美元**。⚠️ 年化收入预测为公司自述,尚未经第三方核实。",
+    "sources": [
+      {
+        "name": "Fortune",
+        "url": "https://fortune.com/2026/06/01/mecka-ai-series-a-60-million-robotics-data-training/"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "test-paper-2602-08440-arxiv",
     "title": "测试论文 arXiv 2602.08440 发布",
     "date": "2026-02-15",
@@ -158,6 +179,73 @@
     "bot": true
   },
   {
+    "id": "humanarchive820-20260530",
+    "title": "Human Archive 完成 820 万美元种子轮:全球部署 1000+ 头戴设备采集具身数据",
+    "date": "2026-05-30",
+    "fetched_at": "2026-06-02",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "数据集发布"
+    ],
+    "summary": "**Human Archive**(旧金山/中国,YC 孵化)完成 **820 万美元种子轮**,Wing VC、NVP Capital、YC 及多位 AI 实验室天使领投。方案:头戴相机 + 触觉手套 + 动作捕捉同步采集**视频/音频/力度/运动**四模态数据。已在**印度/东南亚/美国**部署超 **1,000 套设备**——以折扣服务换取用户数据授权。",
+    "sources": [
+      {
+        "name": "The AI Insider",
+        "url": "https://theaiinsider.tech/2026/05/30/human-archive-raises-8-2m-in-seed-round-funding-to-model-human-embodied-intelligence-to-train-robots/"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "agibotworld2026-202605",
+    "title": "AgiBotWorld 2026 数据集发布:100% 真实环境机器人操作数据",
+    "date": "2026-05",
+    "fetched_at": "2026-06-02",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "数据集发布"
+    ],
+    "summary": "**AgiBot** 在 Hugging Face 发布 **AgiBotWorld2026** 数据集,数据 **100% 采集自真实环境**(商业空间、家居、通用场景),使用 **AGIBOT G2** 机器人平台。相比仿真数据在 sim-to-real 迁移上具有天然优势,是目前最新的大规模真实机器人操作数据集之一。",
+    "sources": [
+      {
+        "name": "Hugging Face",
+        "url": "http://huggingface.co/datasets/agibot-world/AgiBotWorld2026"
+      }
+    ],
+    "related": [
+      {
+        "label": "embodied-data",
+        "url": "/vla/papers/embodied-data"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "antdidiembodied-202605",
+    "title": "蚂蚁集团 × 滴滴联合投资具身 AI「数据基础设施」公司",
+    "date": "2026-05",
+    "fetched_at": "2026-06-02",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "数据集发布"
+    ],
+    "summary": "**蚂蚁集团** 与 **滴滴** 联合投资一家专注具身 AI **数据基础设施**的公司(Delian Capital 跟投),是国内大型互联网公司首次以「数据基础设施」为切入点联合布局具身 AI。投资逻辑:蚂蚁(支付/零售)、滴滴(出行/地图)拥有大量真实场景数据资产,可转化为具身 AI 训练语料。",
+    "sources": [
+      {
+        "name": "Gasgoo",
+        "url": "https://autonews.gasgoo.com/articles/news/seeds-ant-group-and-didi-team-up-to-invest-in-embodied-ai-data-infrastructure-company-2061440957235662849"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "sanctuaryai37-20260516",
     "title": "Sanctuary AI 预测:人形机器人 3-7 年内进入家庭",
     "date": "2026-05-16",
@@ -172,6 +260,27 @@
       {
         "name": "Forbes",
         "url": "https://www.forbes.com/sites/johnkoetsier/2026/05/16/sanctuary-ai-humanoid-robots-will-hit-homes-in-3-7-years/"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "microagishift-20260529",
+    "title": "MicroAGI 推出「免费清洁换数据」:家庭场景机器人训练数据的新采集模式",
+    "date": "2026-05-29",
+    "fetched_at": "2026-06-02",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "数据集发布",
+      "行业动态"
+    ],
+    "summary": "**MicroAGI**(德国)旗下 App **Shift** 在纽约推出「免费上门清洁」服务,条件是允许头戴相机的清洁工录制全程操作。录像打码人脸/个人信息后用于机器人操作训练数据,引发具身 AI「**以服务换数据**」商业模式讨论和家庭隐私争议。",
+    "sources": [
+      {
+        "name": "Semafor",
+        "url": "https://www.semafor.com/article/05/29/2026/ai-startup-offers-free-home-cleaning-to-train-its-robots"
       }
     ],
     "related": [],
