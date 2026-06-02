@@ -1,15 +1,15 @@
 ---
-description: 具身智能与 VLA 视觉-语言-动作模型高频术语速查表,按主题分组,涵盖 VLM、离散动作 token、流匹配与扩散策略等概念,每条给出中英术语、一句话定义与代表工作出处。
-title: VLA 术语速查表
+description: 具身智能高频术语速查表(VLA × WAM),按主题分组,涵盖 VLM、离散动作 token、流匹配与扩散策略、WAM 世界-行动模型(级联/联合 taxonomy、过程可信度三维评测)等概念,每条给出中英术语、一句话定义与代表工作出处。
+title: 术语速查表
 ---
 
-# 具身智能 / VLA 术语速查表
+# 具身智能 / VLA · WAM 术语速查表
 
 > [← 返回主报告](../index.md)
 
-> **用途**:VLA(视觉-语言-动作)/具身智能高频术语的一句话速查,按主题分组。每条给出术语中英、一句话定义、出处/代表工作,并链到相关细读。
+> **用途**:VLA(视觉-语言-动作)/ WAM(世界-行动模型)/ 具身智能高频术语的一句话速查,按主题分组。每条给出术语中英、一句话定义、出处/代表工作,并链到相关细读。
 > **可信度标注**:凡标 ⚠️ 者为提出方/厂商自评数据,非同行评审或独立第三方复现,采信时请注意。
-> **配套阅读**:[VLA 发展深度调研报告](../index.md) · [具身数据全景梳理](embodied-data.md)
+> **配套阅读**:[VLA 发展深度调研报告](../index.md) · [WAM 总览](../../wam/index.md) · [具身数据全景梳理](embodied-data.md)
 
 ---
 
@@ -19,6 +19,12 @@ title: VLA 术语速查表
 flowchart TD
     subgraph MODEL["模型与范式"]
         VLM["VLM 视觉-语言模型"] --> VLA["VLA 视觉-语言-动作模型"]
+        VLA -.联合预测未来+动作.-> WAM["WAM 世界-行动模型"]
+    end
+    subgraph WAMTAX["WAM taxonomy"]
+        CASC["级联 Cascaded<br/>先预测后动作"]
+        JOINT["联合 Joint<br/>共建一个分布"]
+        PROC["过程可信度三维<br/>视觉保真/物理常识/动作合理性"]
     end
     subgraph ACT["动作生成"]
         DISC["离散动作 token"]
@@ -44,6 +50,7 @@ flowchart TD
     end
     VLA --> ACT
     VLA --> SYS
+    WAM --> WAMTAX
     SYS --> DATA
 ```
 
@@ -58,6 +65,25 @@ flowchart TD
 | **行为克隆 / 模仿学习** / Behavior Cloning, Imitation Learning | 用专家演示(状态→动作)做监督学习,是 VLA 主流训练范式;上限受演示分布限制 | RT-1、几乎所有 VLA;突破见 π*0.6 RL | [embodied-data §6.5](embodied-data.md) |
 | **涌现泛化** / Emergent Generalization | 借互联网知识 co-train 后,机器人涌现出训练动作集之外的符号理解/推理/物体泛化能力 | RT-2(RT-2-X 较 RT-2 emergent skill 约 +50% ⚠️) | [RT-2 细读](rt2.md) |
 | **具身思维链 / ECoT** / Embodied Chain-of-Thought | 让 VLA 在出动作前先显式生成一段中间推理(子任务分解 / 物体定位 / 计划),把 LLM 的"想清楚再答"迁移到机器人控制;是"推理式 VLA"的统称 | ECoT(arXiv:2407.08693);π0.5 高层 FAST 子任务、WALL-OSS"统一跨层级 CoT"、Gemini Robotics 具身推理均属此类实现 | [π0.5 细读](pi05.md) · [WALL-OSS 细读](wall-oss.md) |
+
+---
+
+## 一半、WAM 世界-行动模型
+
+> WAM(World Action Model)是 2025–2026 兴起的具身基础范式:**联合预测「未来状态 + 动作」而非仅生成动作**。权威源:综述 arXiv:2605.12090(OpenMOSS)。完整辨析见 [WAM 总览](../../wam/index.md)。
+
+| 术语(中/英) | 一句话定义 | 出处 / 代表工作 | 细读 |
+|---|---|---|---|
+| **WAM(世界-行动模型)** / World Action Model | 统一「预测式状态建模」与「动作生成」的具身基础模型,建模目标是**未来状态与动作的联合分布** $p(o',a\mid o,l)$,而非仅动作 $p(a\mid o,l)$(VLA);把"世界会怎么变"与"机器人该做什么"放进同一分布求解 | 综述 arXiv:2605.12090(OpenMOSS);NVIDIA WAM 厂商定义 | [WAM 总览](../../wam/index.md) |
+| **WAM 两条硬性判据** / WAM Criteria | 必须**同时满足**:① **前向预测建模**——以某表征预测环境物理演化 $o'$(显式像素/视频或隐式潜表征);② **耦合动作生成**——动作 $a$ 必须与所预测未来 $o'$ **对齐**地导出。二者缺一即非 WAM | 综述 §2 形式化(三目标函数 $\mathcal{L}_{VLA}/\mathcal{L}_{WM}/\mathcal{L}_{WAM}$) | [WAM 总览 §1.4](../../wam/index.md) |
+| **级联式 WAM** / Cascaded | 显式因子分解 $p(o',a\mid o,l)=p(a\mid o',o,l)\,p(o'\mid o,l)$:**先想象未来、再据此反推动作**,组件分离;代价是误差沿级联链累积。再分**显式**(像素/视频/几何级预测)与**隐式**(潜空间规划) | UniPi、Gen2Act(显式);VPP、LAPA、LaDi-WM(隐式) | [UniPi](../../wam/papers/unipi.md) · [LaDi-WM](../../wam/papers/ladi-wm.md) |
+| **联合式 WAM** / Joint | 在**单一模型/共享表征**里直接建模联合分布 $p(o',a\mid o,l)$,状态预测与动作生成共同优化、不硬解耦。再分**自回归**(token 化因果解码)与**扩散**(并行去噪) | GR-1、WorldVLA(自回归);UWM、UVA、FLARE、X-WAM(扩散) | [WorldVLA](../../wam/papers/worldvla.md) · [UWM](../../wam/papers/uwm.md) |
+| **预测当策略主体 vs 预测当先验** / Prediction-as-Policy vs Prediction-as-Prior | WAM **推理时预演未来再反推动作**(预测是策略主体);对照 RynnVLA 用视频生成仅作**训练先验**、推理时丢弃未来帧 | WAM(预演未来)vs RynnVLA-001(丢弃未来帧) | [RynnVLA 细读](rynnvla.md) · [预测式 VLA](predictive-vla.md) |
+| **VAM(视频-动作模型)** / Video-Action Model | 把视频预测与动作对齐;是 WAM 的**子集**——WAM 模态无关(也可用单图/点云/触觉),即 **WAM ⊃ VAM** | 综述 §2.2 辨析 | [WAM 总览 §2.2](../../wam/index.md) |
+| **视频策略** / Video Policy | 用视频生成骨干(如 DiT)抽时空表征后**直接** obs→action 映射 $p(a\mid o)$,**不要求**对未来作预测承诺;与 WAM 的区别在于无显式世界建模监督 | 综述 §2.2(由"结构血统"定义,非 WAM) | [WAM 总览 §2.2](../../wam/index.md) |
+| **AWM(动作世界模型)** / Action World Model | 与 WAM 同构 $p(o',a\mid o,l)$,但中心词是"世界模型"(系统看作增强模拟器);综述标 **WAM = AWM** 等价 | 综述 Fig 3 | [WAM 总览 §2.2](../../wam/index.md) |
+| **世界基础模型** / World Foundation Model | 大规模预训练的世界模型基础设施;WAM 是其"**动作使能**(action-enabled)"变体——把世界模型用于机器人控制 | NVIDIA Cosmos(基础设施)→ WAM(控制用途)⚠️ 厂商辨析 | [embodied-data §4](embodied-data.md) |
+| **过程可信度三维** / Process-Credibility Protocol | WAM 独有的评测轴(VLA 只看成功率):**视觉保真**(预测帧像不像,FVD/LPIPS)+ **物理常识**(守不守物理,VideoPhy/Physics-IQ)+ **动作合理性**(想象里能否抽出可执行动作,WorldSimBench/EWMBench) | 综述 §5;详见 [评测基准全景 §九半](benchmarks.md) | [评测基准 §九半](benchmarks.md) |
 
 ---
 
@@ -156,6 +182,7 @@ VLA 的核心分歧:动作如何生成。两大主线为**离散自回归 token*
 ## 相关链接
 
 - **主报告**:[VLA(视觉-语言-动作)模型发展深度调研报告](../index.md)
+- **WAM 总览**:[世界-行动模型 WAM:联合预测未来状态与动作](../../wam/index.md)(级联/联合 taxonomy、过程可信度评测)
 - **数据专题**:[具身数据全景梳理:从真机轨迹到数据金字塔](embodied-data.md)
 - **核心论文细读**:[RT-2](rt2.md) · [OpenVLA](openvla.md) · [Octo](octo.md) · [π0](pi0.md) · [π0-FAST](pi0-fast.md) · [OpenVLA-OFT](openvla-oft.md) · [GR00T N1](groot-n1.md) · [π0.5](pi05.md) · [π0.6 / π*0.6](pi06.md) · [WALL-OSS](wall-oss.md) · [Qwen-VLA](qwen-vla.md) · [RynnVLA-001](rynnvla.md)
 
@@ -168,7 +195,8 @@ VLA 的核心分歧:动作如何生成。两大主线为**离散自回归 token*
 - 数据金字塔 / GR00T research.nvidia.com/labs/gear · OXE arxiv.org/abs/2310.08864
 - 潜动作 Genie arxiv.org/abs/2402.15391 · LAPA arxiv.org/abs/2410.11758 · DreamGen arxiv.org/abs/2505.12705
 - Data Scaling Laws arxiv.org/abs/2410.18647 · MimicGen arxiv.org/abs/2310.17596 · RoboCasa arxiv.org/abs/2406.02523
+- **WAM 综述(权威源)** arxiv.org/abs/2605.12090(OpenMOSS)· WAM 评测基准 WorldSimBench arxiv.org/abs/2410.18072 · EWMBench arxiv.org/abs/2505.09694
 
 ---
 
-*本速查表提炼自《VLA 发展深度调研报告》与《具身数据全景梳理》。⚠️ 标记处为提出方/厂商自评数据,非独立第三方复现。*
+*本速查表提炼自《VLA 发展深度调研报告》《WAM 总览》与《具身数据全景梳理》。⚠️ 标记处为提出方/厂商自评数据,非独立第三方复现。*
