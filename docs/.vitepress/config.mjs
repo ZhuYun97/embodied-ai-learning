@@ -130,6 +130,64 @@ export default withMermaid(defineConfig({
         fs.writeFileSync(outRaw, raw, 'utf-8')
       }
 
+      // 特殊处理:news/index.md 从 news-data.json 生成纯文本镜像
+      const newsDataPath = path.join(srcDir, 'news/news-data.json')
+      if (fs.existsSync(newsDataPath)) {
+        const newsData = JSON.parse(fs.readFileSync(newsDataPath, 'utf-8'))
+
+        // 按 fetched_at 分组
+        const groups = new Map()
+        for (const item of newsData) {
+          const key = item.fetched_at
+          if (!groups.has(key)) groups.set(key, [])
+          groups.get(key).push(item)
+        }
+
+        // 生成 markdown 格式
+        const newsMd = ['# 具身智能新闻\n']
+        const sortedGroups = Array.from(groups.entries()).sort((a, b) => b[0].localeCompare(a[0]))
+
+        for (const [date, items] of sortedGroups) {
+          newsMd.push(`## ${date} (${items.length} 条)\n`)
+
+          // 按重要程度排序
+          items.sort((a, b) => {
+            const order = { hot: 0, major: 1, normal: 2 }
+            return order[a.importance] - order[b.importance]
+          })
+
+          for (const item of items) {
+            const impIcon = { hot: '🔥', major: '⭐', normal: '📌' }[item.importance]
+            const credIcon = item.credibility === 'verified' ? '✅' : '⚠️'
+            const botIcon = item.bot ? ' 🤖' : ''
+
+            newsMd.push(`### ${impIcon} ${item.title} ${credIcon}${botIcon}\n`)
+            newsMd.push(`${item.summary}\n`)
+
+            // 元信息
+            const meta = []
+            if (item.sources && item.sources.length > 0) {
+              meta.push(`来源: ${item.sources.map(s => `${s.name}(${s.url})`).join(' · ')}`)
+            }
+            if (item.category && item.category.length > 0) {
+              meta.push(`类别: ${item.category.map(c => `#${c}`).join(' ')}`)
+            }
+            if (item.date) {
+              meta.push(`事件时间: ${item.date}`)
+            }
+            if (item.related && item.related.length > 0) {
+              meta.push(`相关: ${item.related.map(r => r.label).join(' · ')}`)
+            }
+            newsMd.push(meta.join(' · ') + '\n')
+          }
+        }
+
+        // 写入 news/index.md.txt
+        const newsOutPath = path.join(outDir, 'news/index.md.txt')
+        fs.mkdirSync(path.dirname(newsOutPath), { recursive: true })
+        fs.writeFileSync(newsOutPath, newsMd.join('\n'), 'utf-8')
+      }
+
       const header = `# 具身智能学习站 · Embodied AI Learning\n\n> VLA 模型发展深度调研 + 24 篇论文细读 + 横切分析专题。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
       fs.writeFileSync(path.join(outDir, 'llms.txt'), header + index.join('\n') + '\n', 'utf-8')
       fs.writeFileSync(path.join(outDir, 'llms-full.txt'), header + fullParts.join('\n\n---\n\n') + '\n', 'utf-8')

@@ -1,0 +1,895 @@
+[
+  {
+    "id": "unitreexxxxxxxxxxxxi-20260601",
+    "title": "Unitree(宇树科技)通过上交所科创板 IPO 审核,拟融资 42 亿元",
+    "date": "2026-06-01",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "人形机器人"
+    ],
+    "summary": "Caixin Global 报道,**Unitree Robotics(宇树科技)** 于 6 月 1 日通过上交所科创板上市委审核,计划融资 **42 亿元人民币(约 6.18 亿美元)**;审核周期约 73 天,**人形机器人领域中国 A 股第一股**。⚠️ **注**:上市委审核通过仅为中间环节,仍需中国证监会注册备案方可正式挂牌。",
+    "sources": [
+      {
+        "name": "Caixin Global",
+        "url": "https://www.caixinglobal.com/2026-06-02/humanoid-robot-maker-unitree-advances-toward-618-million-shanghai-ipo-102449940.html"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "hyundaixxxx25000xatl-20260522",
+    "title": "Hyundai 承诺部署 25,000 台 Atlas 机器人到现代/起亚工厂",
+    "date": "2026-05-22",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "人形机器人"
+    ],
+    "summary": "TechTimes 报道(5 月 22 日),**Hyundai Motor Group** 承诺在现代/起亚工厂部署 **25,000 台 Boston Dynamics Atlas 人形机器人**——这是有史以来最大规模的人形机器人产业部署承诺。⚠️ 工会需先就劳工协议达成一致,部署条件性。Hyundai 是 Boston Dynamics 多数股东,与 1 月 BD×DeepMind 战略合作呼应。",
+    "sources": [
+      {
+        "name": "TechTimes",
+        "url": "https://techtimes.com/articles/317005/20260522/hyundai-commits-25000-atlas-robots-own-factories-union-blocks-deployment-without-labor-deal.htm"
+      }
+    ],
+    "related": [
+      {
+        "label": "Helix 细读",
+        "url": "/vla/papers/helix"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "π07xxxxxxxxxxxxxxxxx-20260416",
+    "title": "π0.7 发布:可组合的机器人基础模型,具备涌现能力",
+    "date": "2026-04-16",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模型发布"
+    ],
+    "summary": "TechCrunch 报道(4 月 16 日),**Physical Intelligence** 发布 **π0.7**,展示**组合泛化能力**——能将不同情境下学到的技能组合解决全新任务(以操作空气炸锅为案例)。论文 arXiv:[2604.15483](https://arxiv.org/abs/2604.15483),站内已有[细读](/vla/papers/pi07)。⚠️ PI 自评不微调追平 π*0.6 RL 专家。",
+    "sources": [
+      {
+        "name": "TechCrunch",
+        "url": "https://techcrunch.com/2026/04/16/physical-intelligence-a-hot-robotics-startup-says-its-new-robot-brain-can-figure-out-tasks-it-was-never-taught/"
+      },
+      {
+        "name": "arXiv:2604.15483",
+        "url": "https://arxiv.org/abs/2604.15483"
+      }
+    ],
+    "related": [
+      {
+        "label": "π0.7 细读",
+        "url": "/vla/papers/pi07"
+      },
+      {
+        "label": "π0 细读",
+        "url": "/vla/papers/pi0"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "apptronikxx52xxxaxxx-20260211",
+    "title": "Apptronik 完成 5.2 亿美元 A-X 轮融资,累计超 9.35 亿美元,估值 50 亿美元",
+    "date": "2026-02-11",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "人形机器人"
+    ],
+    "summary": "Apptronik 官方公告(2 月 11 日),**Apptronik** 完成 **5.2 亿美元 Series A-X 延伸融资**,累计 A 轮融资额超 **9.35 亿美元**,估值 **50 亿美元**,加速 Apollo 人形机器人商业化。",
+    "sources": [
+      {
+        "name": "Apptronik 官方",
+        "url": "https://apptronik.com/news-collection/apptronik-closes-over-935-million-series-a"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "teslaxxoptimusxxxxxx-20260128",
+    "title": "Tesla 承认 Optimus 无实际工作,与 1 万台量产承诺落差显著",
+    "date": "2026-01-28",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "人形机器人"
+    ],
+    "summary": "Electrek 报道,Musk 在 2026 年 1 月 Tesla 投资者电话会议(Q4 2025 财报会)上**承认 Tesla 工厂中没有任何 Optimus 机器人在做有用工作**——这与 2025 年初定下的 **\"年内量产 1 万台\"** 目标形成显著落差。报道引发对人形机器人量产难度的反思。",
+    "sources": [
+      {
+        "name": "Electrek",
+        "url": "https://electrek.co/2026/01/28/musk-admits-no-optimus-robots-are-doing-useful-work-at-tesla-after-claiming-otherwise/"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "bostondynamicsgoogle-20260125",
+    "title": "Boston Dynamics × Google DeepMind 战略合作:Gemini Robotics 接入 Atlas",
+    "date": "2026-01-25",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "合作协议"
+    ],
+    "summary": "Boston Dynamics 与 Google DeepMind 在 **CES 2026** 宣布战略合作,计划将 **Gemini Robotics 模型整合到 Atlas 人形机器人**中用于工业任务。Hyundai Motor Group 为 Boston Dynamics 多数股东,5 月又承诺部署 25K 台 Atlas(见上)。",
+    "sources": [
+      {
+        "name": "Robotics and Automation News",
+        "url": "https://roboticsandautomationnews.com/2026/01/25/boston-dynamics-and-google-deepmind-announce-ai-partnership-focused-on-humanoid-robots/98270/"
+      }
+    ],
+    "related": [
+      {
+        "label": "Gemini Robotics 细读",
+        "url": "/vla/papers/gemini-robotics"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "skildaixx14xxxcxxxxx-20260114",
+    "title": "Skild AI 完成 14 亿美元 C 轮融资,估值超 140 亿美元",
+    "date": "2026-01-14",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市"
+    ],
+    "summary": "TechCrunch 报道(1 月 14 日),**Skild AI** 完成由 **SoftBank 领投的 14 亿美元 C 轮融资**,估值超过 **140 亿美元**——较 2025 年夏季的 45 亿美元估值**增长 3 倍**,刷新机器人软件领域融资纪录。",
+    "sources": [
+      {
+        "name": "TechCrunch",
+        "url": "https://techcrunch.com/2026/01/14/robotic-software-maker-skild-ai-hits-14b-valuation/"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "bostondynamicsxxxxxa-20260105",
+    "title": "Boston Dynamics 量产版电动 Atlas 在 CES 2026 亮相",
+    "date": "2026-01-05",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "人形机器人"
+    ],
+    "summary": "CES 2026(1 月 5 日),**Boston Dynamics** 展出量产版电动 Atlas 人形机器人,2026 年产能据报道**全部分配给 Hyundai 与 Google DeepMind**。⚠️ 部分细节(如收购价)在不同报道间存在差异,引用前请交叉核实。",
+    "sources": [
+      {
+        "name": "Blog Robozaps",
+        "url": "https://blog.robozaps.com/b/boston-dynamics-atlas-review"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "physicalintelligence-202511",
+    "title": "Physical Intelligence 完成超 10 亿美元 C 轮融资,估值 56 亿美元",
+    "date": "2025-11",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市"
+    ],
+    "summary": "**Physical Intelligence** 完成 **6 亿美元+ Series C 融资**,投后估值 **56 亿美元**——刷新机器人基础模型公司融资纪录。π 系列(π0/π0.5/π0.6/π*0.6/π0.7)的研发方,本站收录其全部主要论文细读。",
+    "sources": [
+      {
+        "name": "Sphere Inc - Physical AI Explained",
+        "url": "https://www.sphereinc.com/blogs/physical-ai-explained/"
+      }
+    ],
+    "related": [
+      {
+        "label": "π0",
+        "url": "/vla/papers/pi0"
+      },
+      {
+        "label": "π0.5",
+        "url": "/vla/papers/pi05"
+      },
+      {
+        "label": "π0.6/π*0.6",
+        "url": "/vla/papers/pi06"
+      },
+      {
+        "label": "π0.7",
+        "url": "/vla/papers/pi07"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "figureaixxx10xxxcxxx-20250916",
+    "title": "Figure AI 完成超 10 亿美元 C 轮融资,估值达 390 亿美元",
+    "date": "2025-09-16",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "人形机器人"
+    ],
+    "summary": "TechCrunch 报道,**Figure AI** 于 9 月 16 日完成超 **10 亿美元 C 轮融资**,投后估值 **390 亿美元**。融资用于大规模生产和芯片采购。",
+    "sources": [
+      {
+        "name": "TechCrunch",
+        "url": "https://techcrunch.com/2025/09/16/figure-reaches-39b-valuation-in-latest-funding-round"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "physicalintelligence-20241031",
+    "title": "Physical Intelligence 发布 π0 机器人基础模型",
+    "date": "2024-10-31",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模型发布"
+    ],
+    "summary": "**Physical Intelligence** 于 10 月 31 日发布基于**视觉-语言-动作流匹配架构**的 **π0** 机器人通用基础模型(arXiv:2410.24164),在多种机器人平台完成折叠衣物、清洁桌面等任务,后于 **2025 年发表于 RSS**。π 系列由此开启,后续迭代至 π0.5/π0.6/π*0.6/π0.7。",
+    "sources": [
+      {
+        "name": "arXiv:2410.24164",
+        "url": "https://arxiv.org/abs/2410.24164"
+      },
+      {
+        "name": "Physical Intelligence 博客",
+        "url": "https://www.physicalintelligence.company/blog/pi0"
+      }
+    ],
+    "related": [
+      {
+        "label": "π0 细读",
+        "url": "/vla/papers/pi0"
+      },
+      {
+        "label": "π0.5",
+        "url": "/vla/papers/pi05"
+      },
+      {
+        "label": "π0.6/π*0.6",
+        "url": "/vla/papers/pi06"
+      },
+      {
+        "label": "π0.7",
+        "url": "/vla/papers/pi07"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "openxembodiment1mxxx-202310",
+    "title": "Open X-Embodiment:1M+ 真实机器人轨迹的跨机构数据集",
+    "date": "2023-10",
+    "fetched_at": "2026-06-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "数据集发布"
+    ],
+    "summary": "**Google DeepMind 联合 34 个研究实验室**发布 **Open X-Embodiment** 数据集:**100 万+ 真实机器人轨迹、22 个本体、527 项技能**——RT-1-X 与 RT-2-X 模型的训练基础,具身智能领域跨本体数据集的奠基性工作。",
+    "sources": [
+      {
+        "name": "Google DeepMind 官方网站",
+        "url": "https://robotics-transformer-x.github.io/"
+      }
+    ],
+    "related": [
+      {
+        "label": "RT-2 细读",
+        "url": "/vla/papers/rt2"
+      },
+      {
+        "label": "具身数据全景",
+        "url": "/vla/papers/embodied-data"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "figure03xxxx24xxx1xx-20260527",
+    "title": "Figure 03 制造产能 24× 提速:从 1 台/天 提升到 1 台/小时",
+    "date": "2026-05-27",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "todo",
+    "category": [
+      "产品发布",
+      "人形机器人"
+    ],
+    "summary": "Robotics & Automation News 报道(5 月 27 日),**Figure AI BotQ 工厂在 120 天内将 Figure 03 产能提升 24 倍**——从 1 台/天到 1 台/小时。⚠️ 报道明确注明 Figure 自身声明的速度数据**无法独立验证**,但反映出人形机器人量产竞赛进入新阶段。",
+    "sources": [
+      {
+        "name": "Robotics & Automation News",
+        "url": "https://roboticsandautomationnews.com/2026/05/27/figure-ramps-humanoid-robot-manufacturing-at-unprecedented-speed/101954/"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "figureaixxhelix02xx8-20260513",
+    "title": "Figure AI 发布 Helix-02 完成 8 小时自主连续工作演示",
+    "date": "2026-05-13",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "todo",
+    "category": [
+      "产品发布",
+      "人形机器人"
+    ],
+    "summary": "TechTimes 报道(5 月 13 日),**Figure AI** 直播展示 **Helix-02 机器人完成全程 8 小时自主班次**,无人为干预、达到人类工作水平。⚠️ **强烈待核**:演示场景可能预设(staged)、可靠性主张未经第三方独立验证;Figure 自身声明也注明部分指标\"无法独立核实\"。",
+    "sources": [
+      {
+        "name": "TechTimes",
+        "url": "https://www.techtimes.com/articles/316632/20260514/figure-ais-helix-02-robots-complete-full-8-hour-autonomous-shifts-humanoid-race-intensifies.htm"
+      }
+    ],
+    "related": [
+      {
+        "label": "Helix 细读",
+        "url": "/vla/papers/helix"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "1xeqtxxxxxeqtxxxxxxx-202605",
+    "title": "1X × EQT 战略合作:在 EQT 全球投资组合部署 10,000 台 Neo 机器人",
+    "date": "2026-05",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "合作协议",
+      "人形机器人"
+    ],
+    "summary": "AFP 报道,**1X Technologies** 与欧洲私募巨头 **EQT** 达成战略合作,计划在 EQT 旗下全球投资组合部署 **最多 10,000 台 Neo 人形机器人**。",
+    "sources": [
+      {
+        "name": "AFP",
+        "url": "https://www.afp.com/index.php/en/infos/1x-announces-strategic-partnership-make-10000-humanoid-robots-available-eqts-global-portfolio"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "x²robotxxxxxxxx276xx-20260420",
+    "title": "X²Robot(自变量机器人)完成 2.76 亿美元 B 轮融资,小米与红杉中国联合领投",
+    "date": "2026-04-20",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市"
+    ],
+    "summary": "InforCapital 报道(4 月 20 日),**X²Robot(自变量机器人)** 完成约 **2.76 亿美元(20 亿元人民币)B 轮融资**,由**小米与红杉中国**联合领投,字节跳动、美团、阿里巴巴等参投。16 个月累计融资超 4 亿美元。该公司是 [Wall-OSS](/vla/papers/wall-oss) / [Wall-OSS-0.5](/vla/papers/wall-oss-05) 的研发方。",
+    "sources": [
+      {
+        "name": "InforCapital",
+        "url": "https://inforcapital.com/news/embodied-ai-startup-x-square-robot-raises-nearly-276m-in-series-b-led-by-xiaomi-and-sequoia-china/"
+      }
+    ],
+    "related": [
+      {
+        "label": "Wall-OSS 细读",
+        "url": "/vla/papers/wall-oss"
+      },
+      {
+        "label": "Wall-OSS-0.5",
+        "url": "/vla/papers/wall-oss-05"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "googledeepmindxxgemi-20260415",
+    "title": "Google DeepMind 发布 Gemini Robotics-ER 1.6",
+    "date": "2026-04-15",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "模型发布"
+    ],
+    "summary": "SiliconANGLE 报道(4 月 15 日),**Google DeepMind** 发布 **Gemini Robotics-ER 1.6**(Embodied Reasoning 1.6),增强**空间推理、精确物体检测与约束推理**能力,API 同期上线。",
+    "sources": [
+      {
+        "name": "SiliconANGLE",
+        "url": "https://siliconangle.com/2026/04/15/deepmind-launches-gemini-robotics-er-1-6-meet-precise-physical-ai-demands/"
+      }
+    ],
+    "related": [
+      {
+        "label": "Gemini Robotics 细读",
+        "url": "/vla/papers/gemini-robotics"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "xxxxgalaxygeneralaxx-20260315",
+    "title": "银河通用(Galaxy General)A+ 轮融资 25 亿元人民币",
+    "date": "2026-03-15",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市"
+    ],
+    "summary": "36Kr 报道(3 月 15 日),**Galaxy General(银河通用)** 完成 **25 亿元人民币 A+ 轮融资**(中国机器人单笔融资纪录),投后估值超 200 亿元。⚠️ **修正提醒**:工作流初步报告金额为 25 亿\"美元\"系误读,正确为 **25 亿元人民币(约 3.5 亿美元)**。",
+    "sources": [
+      {
+        "name": "36Kr",
+        "url": "https://eu.36kr.com/en/p/3716564621489796"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "agilityroboticstoyot-20260219",
+    "title": "Agility Robotics × Toyota 加拿大:7 台 Digit 机器人投入工厂运营",
+    "date": "2026-02-19",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "合作协议",
+      "人形机器人"
+    ],
+    "summary": "TechCrunch 报道(2 月 19 日),**Agility Robotics** 与 **Toyota Motor Manufacturing Canada** 在为期一年的试点后,正式部署 **7 台 Digit 人形机器人**进行仓库箱体卸载作业——双足人形机器人商用部署的代表性案例。",
+    "sources": [
+      {
+        "name": "TechCrunch",
+        "url": "https://techcrunch.com/2026/02/19/toyota-hires-seven-agility-humanoid-robots-for-canadian-factory"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "limxdynamicsxxxxxx2x-20260202",
+    "title": "LimX Dynamics(逐际动力)完成 2 亿美元 B 轮融资",
+    "date": "2026-02-02",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "人形机器人"
+    ],
+    "summary": "SiliconANGLE 报道(2 月 2 日),**LimX Dynamics(逐际动力)** 完成 **2 亿美元 B 轮融资**,投资方包括 Stone Venture、Oriental Fortune Capital、京东(JD.com)、中鼎股份等。公司主要产品为四足机器人及人形机器人。",
+    "sources": [
+      {
+        "name": "SiliconANGLE",
+        "url": "https://siliconangle.com/2026/02/02/limx-raises-200m-build-embodied-intelligence-humanoid-robotics"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "internvlaa1xxxxxxxxx-202601",
+    "title": "InternVLA-A1:统一理解-生成-动作的机器人操作模型",
+    "date": "2026-01",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模型发布"
+    ],
+    "summary": "arXiv 2601.02456 论文发布 **InternVLA-A1**,采用**统一 Mixture-of-Transformers 架构**,协调三个专家完成场景理解、动作预测、物理交互。⚠️ 作者自评:**通用任务 75.1% 成功率**(对比 π0 基线 60.6%)。",
+    "sources": [
+      {
+        "name": "arXiv:2601.02456",
+        "url": "https://arxiv.org/html/2601.02456v1"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "figureaixxfigure03xx-20251009",
+    "title": "Figure AI 发布 Figure 03 人形机器人,面向家庭与商业应用",
+    "date": "2025-10-09",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "人形机器人"
+    ],
+    "summary": "Figure AI 于 10 月 9 日官方宣布发布 **Figure 03 人形机器人**,配备升级视觉系统(⚠️ 厂商自评:**帧率翻倍、延迟降低 75%、视野扩大 60%**),支持洗碗、折叠衣物等日常任务。",
+    "sources": [
+      {
+        "name": "Figure AI 官方公告",
+        "url": "https://figure.ai/news/introducing-figure-03"
+      }
+    ],
+    "related": [
+      {
+        "label": "Helix 细读",
+        "url": "/vla/papers/helix"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "eo1xxxxxxxxxxxxxxxxx-202508",
+    "title": "EO-1:交织视觉-文本-动作的统一具身基础模型",
+    "date": "2025-08",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模型发布",
+      "数据集发布"
+    ],
+    "summary": "arXiv 2508.21112 论文发布 **EO-1**,通过**视觉-文本-动作交织预训练**,在多模态具身推理与机器人控制上达到 SOTA;同步发布 **EO-Data1.5M 数据集**。",
+    "sources": [
+      {
+        "name": "arXiv:2508.21112",
+        "url": "https://arxiv.org/abs/2508.21112"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "embodiedr1xxxxxxxx3b-202508",
+    "title": "Embodied-R1:面向机器人操作的 3B 具身推理 VLM",
+    "date": "2025-08",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表"
+    ],
+    "summary": "arXiv 2508.13998 论文发布 **Embodied-R1**,**3B 参数 VLM** 专为具身推理与场景接地设计,在 11 个具身基准上达到 SOTA,**已被 ICLR 2026 接收**。",
+    "sources": [
+      {
+        "name": "arXiv:2508.13998",
+        "url": "https://arxiv.org/abs/2508.13998"
+      }
+    ],
+    "related": [
+      {
+        "label": "ECoT 细读",
+        "url": "/vla/papers/ecot"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "smolvlahuggingfacexx-202506",
+    "title": "SmolVLA:Hugging Face 发布 4.5 亿参数小型 VLA",
+    "date": "2025-06",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模型发布"
+    ],
+    "summary": "arXiv 2506.01844 论文发布 **SmolVLA**,**450M 参数紧凑 VLA**,可单 GPU 训练、消费级硬件部署,平民化 VLA 范式。本站已有[细读](/vla/papers/smolvla)。",
+    "sources": [
+      {
+        "name": "arXiv:2506.01844",
+        "url": "https://arxiv.org/abs/2506.01844"
+      }
+    ],
+    "related": [
+      {
+        "label": "SmolVLA 细读",
+        "url": "/vla/papers/smolvla"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "physicalintelligence-202504",
+    "title": "Physical Intelligence 发布 π0.5:开放世界泛化的 VLA",
+    "date": "2025-04",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模型发布"
+    ],
+    "summary": "arXiv 2504.16054 论文发布 **π0.5**,Physical Intelligence 的 VLA 模型,通过**多机器人数据 + 网络数据**实现广泛的机器人操作泛化。本站已有[细读](/vla/papers/pi05)。",
+    "sources": [
+      {
+        "name": "arXiv:2504.16054",
+        "url": "https://arxiv.org/abs/2504.16054"
+      }
+    ],
+    "related": [
+      {
+        "label": "π0.5 细读",
+        "url": "/vla/papers/pi05"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "googledeepmindxxgemi-20250312",
+    "title": "Google DeepMind 发布 Gemini Robotics 与 Gemini Robotics-ER 模型",
+    "date": "2025-03-12",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "模型发布"
+    ],
+    "summary": "Google DeepMind 于 3 月 12 日发布两款基于 **Gemini 2.0** 的 VLA 模型:**Gemini Robotics** 与 **Gemini Robotics-ER**(Embodied Reasoning),主要使用 ALOHA 2 平台的训练数据,与 **Apptronik、Boston Dynamics** 等合作。",
+    "sources": [
+      {
+        "name": "Google DeepMind 官方博客",
+        "url": "https://deepmind.google/blog/gemini-robotics-brings-ai-into-the-physical-world/"
+      }
+    ],
+    "related": [
+      {
+        "label": "Gemini Robotics 细读",
+        "url": "/vla/papers/gemini-robotics"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "fastxxxxxxxxxx-202501",
+    "title": "FAST+:通用机器人动作分词器",
+    "date": "2025-01",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表"
+    ],
+    "summary": "arXiv 2501.09747 论文发布 **FAST+**,通用动作分词器,在 100 万条真实机器人轨迹上训练,可作为黑盒应用于多样化机器人动作序列。本站已有 [π0-FAST 细读](/vla/papers/pi0-fast)。",
+    "sources": [
+      {
+        "name": "arXiv:2501.09747",
+        "url": "https://arxiv.org/abs/2501.09747"
+      }
+    ],
+    "related": [
+      {
+        "label": "π0-FAST 细读",
+        "url": "/vla/papers/pi0-fast"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "tinyvlaxxxxxxxxxvla-202409",
+    "title": "TinyVLA:快速、数据高效的紧凑 VLA",
+    "date": "2024-09",
+    "fetched_at": "2026-06-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模型发布"
+    ],
+    "summary": "arXiv 2409.12514 论文发布 **TinyVLA**,紧凑型 VLA 模型在推理速度和性能上显著超越 OpenVLA。本站已有[细读](/vla/papers/tinyvla)。",
+    "sources": [
+      {
+        "name": "arXiv:2409.12514",
+        "url": "https://arxiv.org/abs/2409.12514"
+      }
+    ],
+    "related": [
+      {
+        "label": "TinyVLA 细读",
+        "url": "/vla/papers/tinyvla"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "robocup2026xxxxxxxx-202607",
+    "title": "RoboCup 2026 将在韩国仁川举办",
+    "date": "2026-07",
+    "fetched_at": "2026-06-01",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "竞赛"
+    ],
+    "summary": "RoboCup 2026 官网确认赛事将于 **7 月 2–6 日**在韩国**仁川松岛国际展览中心(ConvensiA)** 举办,涵盖足球、救援、家居(@Home)、工业(@Work)、青少年等多个联赛。RoboCup 是全球规模最大的机器人与人工智能竞赛之一,首届于 1997 年举办。",
+    "sources": [
+      {
+        "name": "RoboCup 2026 官方网站",
+        "url": "https://2026.robocup.org/"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "saberxxxxxxxxxxxxxxx-202605",
+    "title": "SABER:真实零售环境具身机器人动作数据集发布",
+    "date": "2026-05",
+    "fetched_at": "2026-06-01",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "数据集发布"
+    ],
+    "summary": "arXiv 2605.09613 论文发布 **SABER 数据集**,包含 **100+ 小时超市真实录像与 44.8K 训练样本**,涵盖三种动作表示;作者称在 **NVIDIA GR00T 上实现 2.19 倍性能提升**(⚠️ 作者自评)。覆盖零售商业场景应用。",
+    "sources": [
+      {
+        "name": "arXiv:2605.09613",
+        "url": "https://arxiv.org/abs/2605.09613"
+      }
+    ],
+    "related": [
+      {
+        "label": "GR00T N1 细读",
+        "url": "/vla/papers/groot-n1"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "starvlaxxxvlaxxxx-202604",
+    "title": "StarVLA:模块化 VLA 开发框架",
+    "date": "2026-04",
+    "fetched_at": "2026-06-01",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "开源代码"
+    ],
+    "summary": "arXiv 2604.05014 论文发布 **StarVLA**,提出综合性开源 VLA 框架,具有模块化架构、可重用训练策略和集成基准——降低 VLA 研究的工程门槛。",
+    "sources": [
+      {
+        "name": "arXiv:2604.05014",
+        "url": "https://arxiv.org/abs/2604.05014"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "worldarenaxxxxxxxxxx-202602",
+    "title": "WorldArena:统一评估具身世界模型的感知与功能效用基准",
+    "date": "2026-02",
+    "fetched_at": "2026-06-01",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "评测基准",
+      "数据集发布"
+    ],
+    "summary": "arXiv 2602.08971 论文发布 **WorldArena 基准**,从「视频感知质量、具身任务功能、人类评价」三个维度统一评测世界模型,提出 **EWMScore** 整体评分指标,揭示感知-功能差距。本站基准页 [§九半 WAM 评测](/vla/papers/benchmarks#九半wam-评测从成功率到过程可信度) 已收录。",
+    "sources": [
+      {
+        "name": "arXiv:2602.08971",
+        "url": "https://arxiv.org/abs/2602.08971"
+      },
+      {
+        "name": "WAM 总览",
+        "url": "/wam/"
+      }
+    ],
+    "related": [
+      {
+        "label": "评测基准全景 §九半",
+        "url": "/vla/papers/benchmarks"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "corl2025xxxxfabricax-202509",
+    "title": "CoRL 2025 最佳论文:Fabrica 双臂装配系统",
+    "date": "2025-09",
+    "fetched_at": "2026-06-01",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "学术会议",
+      "论文发表"
+    ],
+    "summary": "**CoRL 2025** 授予 MIT 等团队的论文 **「Fabrica: Dual-Arm Assembly of General Multi-Part Objects via Integrated Planning and Learning」** 最佳论文奖。该工作集成规划与学习,实现通用多部件物体的双臂装配。",
+    "sources": [
+      {
+        "name": "CoRL 2025 颁奖页",
+        "url": "https://2025.corl.org/program/awards"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "emmoexxxxxxxxxxxxxx-202503",
+    "title": "EMMOE:开放环境具身移动操纵综合基准",
+    "date": "2025-03",
+    "fetched_at": "2026-06-01",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "数据集发布",
+      "评测基准"
+    ],
+    "summary": "arXiv 2503.08604 论文发布 **EMMOE 基准**,整合高层与低层具身任务,评估智能家居机器人在**连续环境**中执行长时序日常任务的能力。",
+    "sources": [
+      {
+        "name": "arXiv:2503.08604",
+        "url": "https://arxiv.org/abs/2503.08604"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
+    "id": "embodiedbenchxxxxxxx-202502",
+    "title": "EmbodiedBench:全面评估多模态大模型具身智能能力",
+    "date": "2025-02",
+    "fetched_at": "2026-06-01",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "数据集发布",
+      "评测基准"
+    ],
+    "summary": "**EmbodiedBench**(arXiv:2502.09560)作为 **ICML 2025 口头报告**发布,评估 **24+ 多模态大语言模型**在高层、低层具身任务中的表现,涵盖 4 个仿真环境、6 项关键能力。已纳入 CVPR 2026 Workshop 延伸竞赛。",
+    "sources": [
+      {
+        "name": "EmbodiedBench 官方网站",
+        "url": "https://embodiedbench.github.io/"
+      },
+      {
+        "name": "arXiv:2502.09560",
+        "url": "https://arxiv.org/abs/2502.09560"
+      }
+    ],
+    "related": [
+      {
+        "label": "评测基准全景",
+        "url": "/vla/papers/benchmarks"
+      }
+    ],
+    "bot": false
+  }
+]

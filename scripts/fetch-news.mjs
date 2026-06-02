@@ -145,6 +145,19 @@ for (const n of parsed.news) {
   // importance / credibility 取值正规化
   if (!['hot', 'major', 'normal'].includes(n.importance)) n.importance = 'normal'
   if (!['verified', 'todo'].includes(n.credibility)) n.credibility = 'todo'
+
+  // category 规范化为数组(兼容 LLM 输出字符串的情况)
+  if (typeof n.category === 'string') {
+    n.category = [n.category]
+  } else if (!Array.isArray(n.category)) {
+    n.category = []
+  }
+
+  // fetched_at 默认为今天(如果 LLM 漏填)
+  if (!n.fetched_at) {
+    n.fetched_at = TODAY
+  }
+
   validNews.push(n)
 }
 
