@@ -39,6 +39,14 @@
           markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="#c084fc" />
         </marker>
+        <!-- 柔和辉光:克制,仅给节点用 -->
+        <filter id="soft-glow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="2.5" result="b" />
+          <feMerge>
+            <feMergeNode in="b" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
       </defs>
 
       <g :transform="`translate(${pan.x},${pan.y}) scale(${zoom})`">
@@ -79,7 +87,7 @@
 import { ref, reactive, computed, onMounted, onBeforeUnmount } from 'vue'
 import data from '../../../ecosystem/companies-data.json'
 
-const W = 900, H = 620
+const W = 1100, H = 780
 const svgEl = ref(null)
 const wrapEl = ref(null)
 
@@ -111,8 +119,8 @@ const connectorNodes = connectorList.map((c, i) => {
   const ang = (i / connectorList.length) * Math.PI * 2 - Math.PI / 2
   return {
     id: c.id, label: c.name, initial: initialOf(c.name),
-    kind: 'conn', r: 17, website: null,
-    x: CX + Math.cos(ang) * 250, y: CY + Math.sin(ang) * 200,
+    kind: 'conn', r: 16, website: null,
+    x: CX + Math.cos(ang) * 360, y: CY + Math.sin(ang) * 290,
     vx: 0, vy: 0, fixed: false,
   }
 })
@@ -122,9 +130,9 @@ const companyNodes = companyList.map((c, i) => {
   return {
     id: c.id, label: c.name, initial: initialOf(c.name),
     kind: c.region === 'china' ? 'cn' : 'intl',
-    r: 13 + Math.min(9, Math.sqrt((c.fundingAmount || 0) / 1e8) * 2),
+    r: 12 + Math.min(9, Math.sqrt((c.fundingAmount || 0) / 1e8) * 2),
     website: c.website || null,
-    x: CX + Math.cos(ang) * 110, y: CY + Math.sin(ang) * 90,
+    x: CX + Math.cos(ang) * 160, y: CY + Math.sin(ang) * 130,
     vx: 0, vy: 0, fixed: false,
   }
 })
@@ -174,19 +182,19 @@ function tick() {
       let dx = a.x - b.x, dy = a.y - b.y
       let d2 = dx * dx + dy * dy || 0.01
       let d = Math.sqrt(d2)
-      const rep = 3400 / d2
+      const rep = 5200 / d2
       const fx = (dx / d) * rep, fy = (dy / d) * rep
       a.vx += fx; a.vy += fy
       b.vx -= fx; b.vy -= fy
     }
   }
 
-  const LINK = 150
+  const LINK = 165
   for (const e of edges) {
     const a = nodeMap.value[e.source], b = nodeMap.value[e.target]
     let dx = b.x - a.x, dy = b.y - a.y
     let d = Math.sqrt(dx * dx + dy * dy) || 0.01
-    const f = (d - LINK) * 0.022
+    const f = (d - LINK) * 0.02
     const fx = (dx / d) * f, fy = (dy / d) * f
     a.vx += fx; a.vy += fy
     b.vx -= fx; b.vy -= fy
@@ -195,14 +203,14 @@ function tick() {
   for (const n of nodes) {
     if (n.fixed) { n.vx = 0; n.vy = 0; continue }
     // 公司向中心,机构被往外推,形成分层
-    const pull = n.kind === 'conn' ? 0.0012 : 0.004
+    const pull = n.kind === 'conn' ? 0.0010 : 0.0035
     n.vx += (CX - n.x) * pull
     n.vy += (CY - n.y) * pull
     n.vx *= 0.85; n.vy *= 0.85
     n.x += n.vx * alpha * 4
     n.y += n.vy * alpha * 4
-    n.x = Math.max(n.r + 50, Math.min(W - n.r - 50, n.x))
-    n.y = Math.max(n.r + 24, Math.min(H - n.r - 24, n.y))
+    n.x = Math.max(n.r + 56, Math.min(W - n.r - 56, n.x))
+    n.y = Math.max(n.r + 26, Math.min(H - n.r - 26, n.y))
   }
 
   raf = requestAnimationFrame(tick)
@@ -261,6 +269,7 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
   overflow: hidden;
   background: radial-gradient(ellipse 90% 75% at 50% 42%, #16203c 0%, #0e1729 60%, #0b1322 100%);
   border: 1px solid rgba(96, 130, 200, 0.16);
+  box-shadow: inset 0 0 60px rgba(56, 130, 230, 0.08), 0 12px 40px -16px rgba(20, 40, 90, 0.5);
 }
 .graph-wrap::before {
   content: '';
@@ -271,6 +280,15 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
   background-size: 26px 26px;
   -webkit-mask-image: radial-gradient(ellipse 78% 70% at 50% 45%, #000 35%, transparent 100%);
   mask-image: radial-gradient(ellipse 78% 70% at 50% 45%, #000 35%, transparent 100%);
+}
+/* 顶部一道渐变扫描线,克制的科技点缀 */
+.graph-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 8%; right: 8%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.55) 35%, rgba(129, 140, 248, 0.55) 65%, transparent);
 }
 .graph-svg {
   position: relative;
@@ -340,19 +358,19 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
 
 .node-ring {
   stroke-width: 2;
+  filter: url(#soft-glow);
   transition: fill 0.2s, stroke 0.2s, opacity 0.2s;
 }
-.node-cn .node-ring   { fill: rgba(248, 113, 113, 0.16); stroke: #f87171; }
-.node-intl .node-ring { fill: rgba(96, 165, 250, 0.16);  stroke: #60a5fa; }
-.node-conn .node-ring { fill: rgba(251, 191, 36, 0.18);  stroke: #fbbf24; }
+.node-cn .node-ring   { fill: rgba(248, 113, 113, 0.22); stroke: #f87171; }
+.node-intl .node-ring { fill: rgba(96, 165, 250, 0.22);  stroke: #60a5fa; }
+.node-conn .node-ring { fill: rgba(251, 191, 36, 0.24);  stroke: #fbbf24; }
 
 .node.focus .node-ring {
-  filter: drop-shadow(0 0 6px currentColor);
   stroke-width: 2.5;
 }
-.node-cn.focus .node-ring   { color: #f87171; }
-.node-intl.focus .node-ring { color: #60a5fa; }
-.node-conn.focus .node-ring { color: #fbbf24; }
+.node-cn.focus .node-ring   { fill: rgba(248, 113, 113, 0.4); }
+.node-intl.focus .node-ring { fill: rgba(96, 165, 250, 0.4); }
+.node-conn.focus .node-ring { fill: rgba(251, 191, 36, 0.42); }
 
 .node.dim { opacity: 0.22; }
 
