@@ -2,14 +2,15 @@
   <div class="kg-wrap" ref="wrapEl">
     <div class="kg-legend">
       <div class="lg-row">
-        <span class="lg-item"><i class="dot dot-cn"></i>国内公司</span>
-        <span class="lg-item"><i class="dot dot-intl"></i>国际公司</span>
-        <span class="lg-item"><i class="dot dot-conn"></i>投资方/机构</span>
+        <span class="lg-item"><i class="dot dot-hub"></i>投资方/机构(大·枢纽)</span>
+        <span class="lg-item"><i class="dot dot-leaf"></i>公司(小)</span>
       </div>
       <div class="lg-row">
-        <span class="lg-item"><i class="ln ln-invest"></i>投资</span>
-        <span class="lg-item"><i class="ln ln-partner"></i>合作</span>
-        <span class="lg-item"><i class="ln ln-own"></i>控股/孵化</span>
+        <span class="lg-item">同色 = 同一投资集群</span>
+      </div>
+      <div class="lg-row">
+        <span class="lg-item"><i class="ln ln-solid"></i>投资/控股</span>
+        <span class="lg-item"><i class="ln ln-dash"></i>合作/孵化</span>
       </div>
     </div>
     <div class="kg-hint">拖拽平移 · 滚轮缩放 · 悬停高亮关联 · 点击访问官网</div>
@@ -71,12 +72,13 @@
             :key="'e' + i"
             :d="edgePath(e)"
             :class="['edge', `edge-${e.type}`, { primary: e.primary, dim: hoverId && !edgeActive(e), active: edgeActive(e) }]"
+            :style="{ stroke: e.color || undefined }"
           />
         </g>
 
         <!-- 中心核(装饰) -->
-        <circle :cx="CX" :cy="CY" :r="86" class="core-halo" />
-        <circle :cx="CX" :cy="CY" :r="46" class="core" />
+        <circle :cx="CX" :cy="CY" :r="106" class="core-halo" />
+        <circle :cx="CX" :cy="CY" :r="58" class="core" />
         <text :x="CX" :y="CY" class="core-label" dy="0.34em">具身智能</text>
 
         <!-- 节点 -->
@@ -84,6 +86,7 @@
           v-for="n in nodes"
           :key="n.id"
           :class="['node', `node-${n.kind}`, { showlabel: n.show, dim: hoverId && !nodeActive(n.id), focus: hoverId === n.id, clickable: !!n.website }]"
+          :style="{ '--c': n.color }"
           @pointerenter="hoverId = n.id"
           @pointerleave="hoverId = null"
           @click="onNodeClick(n)"
@@ -161,6 +164,10 @@ const assignedHub = {}
 const Hn = Math.max(1, hubList.length)
 // hub:按子节点数降序,均匀铺在内环
 hubList.sort((a, b) => childrenOf[b.id].length - childrenOf[a.id].length)
+// 每个枢纽一种珠宝色 —— 枢纽与其旗下公司共用同一色调(对标参考的「集群配色」)
+const HUB_HUES = ['#22d3ee', '#6366f1', '#d946ef', '#2dd4bf', '#3b82f6', '#a855f7', '#ec4899', '#f59e0b', '#60a5fa', '#8b5cf6', '#f472b6', '#34d399']
+const hubHue = {}
+hubList.forEach((h, i) => { hubHue[h.id] = HUB_HUES[i % HUB_HUES.length] })
 hubList.forEach((h, i) => {
   const ang = (i / Hn) * Math.PI * 2 - Math.PI / 2
   pos[h.id] = { x: CX + Math.cos(ang) * Rh, y: CY + Math.sin(ang) * Rh, ang, r: hubR(h) }
@@ -188,6 +195,9 @@ orphans.forEach((c, k) => {
   pos[c.id] = { x: CX + Math.cos(ang) * rr, y: CY + Math.sin(ang) * rr, ang, r: leafR(c) }
 })
 
+// 节点颜色 = 所属集群色(枢纽用自身色,公司用其枢纽色,孤立点用中性钢蓝)
+const colorOf = (id) => (hubIds.has(id) ? hubHue[id] : assignedHub[id] ? hubHue[assignedHub[id]] : '#9fb1d4')
+
 const allRaw = [...hubList, ...leafList]
 const nodes = reactive(allRaw.filter((n) => pos[n.id]).map((n) => {
   const p = pos[n.id]
@@ -196,7 +206,7 @@ const nodes = reactive(allRaw.filter((n) => pos[n.id]).map((n) => {
   const ly = p.y + Math.sin(p.ang) * out
   return {
     id: n.id, label: n.name, initial: initialOf(n.name),
-    kind: regionKind(n), r: p.r, website: n.website || null,
+    kind: regionKind(n), r: p.r, website: n.website || null, color: colorOf(n.id),
     x: p.x, y: p.y, ang: p.ang, lx, ly,
     anchor: Math.cos(p.ang) >= 0 ? 'start' : 'end',
     show: hubIds.has(n.id) || (isCompany(n.id) && (n.fundingAmount || 0) >= 1e9), // 默认只标 hub + 大公司
@@ -208,7 +218,11 @@ const nodeMap = computed(() => Object.fromEntries(nodes.map((n) => [n.id, n])))
 const validIds = new Set(nodes.map((n) => n.id))
 const edges = rels
   .filter((e) => validIds.has(e.source) && validIds.has(e.target))
-  .map((e) => ({ ...e, primary: assignedHub[e.source] === e.target || assignedHub[e.target] === e.source }))
+  .map((e) => {
+    const primary = assignedHub[e.source] === e.target || assignedHub[e.target] === e.source
+    const hubEnd = hubIds.has(e.source) ? e.source : e.target
+    return { ...e, primary, color: primary ? hubHue[hubEnd] || null : null }
+  })
 
 const nbset = {}
 nodes.forEach((n) => (nbset[n.id] = new Set([n.id])))
@@ -305,28 +319,24 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 }
 
 /* 关系边:主辐射(hub→子公司)亮,跨投资等次要边默认很淡,悬停再点亮 */
-.edge { fill: none; stroke-width: 1; opacity: 0.12; transition: opacity 0.2s, stroke-width 0.2s; }
-.edge.primary { opacity: 0.5; stroke-width: 1.3; }
-.edge.active { stroke-width: 2.2; opacity: 1; }
-.edge.dim { opacity: 0.045; }
-.edge-invest { stroke: #38bdf8; }
-.edge-partner { stroke: #a78bfa; stroke-dasharray: 5 4; }
-.edge-own { stroke: #e879f9; }
-.edge-incubate { stroke: #e879f9; stroke-dasharray: 2 5; }
+/* 主辐射边用集群色(行内 stroke);次要/跨投资边中性极淡;虚线区分合作/孵化 */
+.edge { fill: none; stroke: #6e80ad; stroke-width: 1; opacity: 0.12; transition: opacity 0.2s, stroke-width 0.2s; }
+.edge.primary { opacity: 0.55; stroke-width: 1.4; }
+.edge.active { stroke-width: 2.4; opacity: 1; }
+.edge.dim { opacity: 0.04; }
+.edge-partner { stroke-dasharray: 5 4; }
+.edge-incubate { stroke-dasharray: 2 5; }
 
 /* 节点:发光球 */
 .node { cursor: default; }
 .node.clickable { cursor: pointer; }
-.node-orb { stroke-width: 1.3; fill-opacity: 0.38; filter: url(#kg-glow); transition: opacity 0.2s, fill-opacity 0.2s; }
-.node-cn   { --c: #d946ef; }
-.node-intl { --c: #22d3ee; }
-.node-conn { --c: #f59e0b; }
-/* 扁平纯色(去掉立体渐变球感),靠半透明 + 亮环 + 柔光呈现 */
-.node-cn .node-orb   { fill: #d946ef; stroke: #f5d0fe; }
-.node-intl .node-orb { fill: #22d3ee; stroke: #cffafe; }
-.node-conn .node-orb { fill: #f59e0b; stroke: #fde68a; }
-.node.focus .node-orb { filter: url(#kg-glow-strong); stroke-width: 2; fill-opacity: 0.85; }
-.is-hovering .node:not(.dim) .node-orb { fill-opacity: 0.7; }
+/* 节点色 = 所属集群色(行内 --c);扁平半透明 + 同色亮环 + 同色柔光 */
+.node-orb {
+  fill: var(--c); fill-opacity: 0.4; stroke: var(--c); stroke-width: 1.4;
+  filter: url(#kg-glow); transition: opacity 0.2s, fill-opacity 0.2s;
+}
+.node.focus .node-orb { filter: url(#kg-glow-strong); stroke-width: 2.4; fill-opacity: 0.88; }
+.is-hovering .node:not(.dim) .node-orb { fill-opacity: 0.72; }
 .node.dim { opacity: 0.16; }
 
 .node-initial {
@@ -341,7 +351,7 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
   pointer-events: none; user-select: none; opacity: 0; transition: opacity 0.2s, fill 0.2s;
 }
 .node.showlabel .node-label { opacity: 0.82; }
-.node-conn .node-label { fill: rgba(253, 230, 138, 0.9); }
+/* 标签统一浅色(不再按类别上色,颜色已交给集群)*/
 .is-hovering .node:not(.dim) .node-label { opacity: 1; fill: #fff; }
 .is-hovering .node.dim .node-label { opacity: 0; }
 .node.focus .node-label { opacity: 1; fill: #fff; font-weight: 600; }
@@ -355,14 +365,11 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 }
 .lg-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 .lg-item { display: inline-flex; align-items: center; gap: 6px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 7px currentColor; }
-.dot-cn { background: #d946ef; color: #d946ef; }
-.dot-intl { background: #22d3ee; color: #22d3ee; }
-.dot-conn { background: #f59e0b; color: #f59e0b; }
-.ln { width: 18px; height: 0; border-top-width: 2px; border-top-style: solid; }
-.ln-invest { border-color: #38bdf8; }
-.ln-partner { border-color: #a78bfa; border-top-style: dashed; }
-.ln-own { border-color: #e879f9; }
+.dot { border-radius: 50%; background: #cbd5f0; box-shadow: 0 0 7px rgba(180, 200, 255, 0.7); }
+.dot-hub { width: 13px; height: 13px; }
+.dot-leaf { width: 7px; height: 7px; }
+.ln { width: 18px; height: 0; border-top: 2px solid rgba(190, 205, 240, 0.85); }
+.ln-dash { border-top-style: dashed; }
 
 .kg-hint {
   position: absolute; bottom: 12px; right: 16px; z-index: 3;
