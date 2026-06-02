@@ -12,7 +12,9 @@
     "news:run": "npm run news:fetch && npm run news:merge"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.39.0"
+    "@anthropic-ai/sdk": "^0.39.0",
+    "cytoscape": "^3.33.4",
+    "cytoscape-fcose": "^2.2.0"
   },
   "devDependencies": {
     "markdown-it-mathjax3": "^4.3.2",
