@@ -5,3 +5,4 @@ docs/.vitepress/cache/
 *.log
 .omc/
 .claude/
+tmp/

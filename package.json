@@ -6,7 +6,13 @@
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "news:fetch": "node scripts/fetch-news.mjs",
+    "news:merge": "node scripts/news-merge.mjs",
+    "news:run": "npm run news:fetch && npm run news:merge"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
   },
   "devDependencies": {
     "markdown-it-mathjax3": "^4.3.2",

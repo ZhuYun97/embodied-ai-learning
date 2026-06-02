@@ -21,6 +21,10 @@ sidebar: false
 >
 > **声明**:本页为人工整理 + 多源核查的新闻速递,**不编造、不杜撰来源**;一手未确认的事件宁可不收或标「⚠️ 待核」。同月内按 🔥 → ⭐ → 📌 排序,整体按时间倒序。欢迎在 [GitHub 仓库](https://github.com/ZhuYun97/embodied-ai-learning) 提交新闻线索(附可核实来源)。
 
+<!--BOT-LAST-FETCH-->
+> 🤖 **自动维护说明**:本页支持由 [news-bot](https://github.com/ZhuYun97/embodied-ai-learning/blob/main/.github/workflows/news-bot.yml) 每日定时通过 Claude API + web_search/web_fetch 自动检索更新(配置见仓库 README)。**条目尾部带 🤖 标识为机器人添加,无人工审核**;如发现错误请提 [Issue](https://github.com/ZhuYun97/embodied-ai-learning/issues) 或 PR。
+<!--/BOT-LAST-FETCH-->
+
 ---
 
 ## 2026-07

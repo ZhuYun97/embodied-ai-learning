@@ -1,0 +1,111 @@
+name: News Bot - 自动检索具身智能新闻
+
+# ⚠️ 高风险全自动方案(C 方案):无人审核,LLM 直接 commit 上线。
+#    出错时用 git revert 回滚。
+#
+# 触发方式:
+#  · cron 定时(下方 schedule)
+#  · 手动:Actions → News Bot → Run workflow
+#
+# 配置(必读 README.md「news-bot 配置」章节):
+#  1. 创建 Anthropic API key:https://console.anthropic.com/settings/keys
+#  2. 加到 GitHub Secret:Settings → Secrets and variables → Actions → New repository secret
+#     - Name:  ANTHROPIC_API_KEY
+#     - Value: sk-ant-...
+#  3. 确认 Workflow permissions = Read and write:Settings → Actions → General
+
+on:
+  # ⏰ 默认每日 UTC 02:00 = 北京时间 10:00
+  # 首次部署时**先注释掉 schedule**,只用手动触发测试,稳定后再启用
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: '回溯检索天数(默认 7 天)'
+        required: false
+        default: '7'
+      max_news:
+        description: '单次最多生成新闻条数(默认 20)'
+        required: false
+        default: '20'
+      dry_run:
+        description: 'dry_run = 只 fetch + merge 但不 commit(用于测试)'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write  # 需要 push commit
+
+concurrency:
+  group: news-bot
+  cancel-in-progress: false
+
+jobs:
+  fetch-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch news (Claude API + web_search/fetch)
+        run: node scripts/fetch-news.mjs
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NEWS_LOOKBACK_DAYS: ${{ inputs.lookback_days || '7' }}
+          NEWS_MAX_NEWS: ${{ inputs.max_news || '20' }}
+
+      - name: Merge into news/index.md
+        run: node scripts/news-merge.mjs
+
+      - name: Show merge report
+        run: |
+          if [ -f tmp/merge-report.json ]; then
+            echo "=== Merge Report ==="
+            cat tmp/merge-report.json
+          fi
+
+      - name: Build site (验证 markdown 不被破坏)
+        run: npm run docs:build
+
+      - name: Commit and push (跳过若无变更或 dry_run)
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name "news-bot"
+          git config user.email "news-bot@users.noreply.github.com"
+          git add docs/news/index.md docs/news/.bot-state.json docs/news/archive/ 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "✓ 无新事件,跳过 commit"
+            exit 0
+          fi
+          ADDED=$(jq -r '.added_count // 0' tmp/merge-report.json)
+          DATE=$(date -u +%F)
+          ARCHIVED=$(jq -r '.archived_month // empty' tmp/merge-report.json)
+          MSG="news-bot: 自动新增 ${ADDED} 条新闻 (${DATE})"
+          if [ -n "$ARCHIVED" ]; then
+            MSG="${MSG} · 归档 ${ARCHIVED}"
+          fi
+          git commit -m "$MSG" -m "🤖 自动检索 + LLM 核验 + 直接发布(C 方案,无人审核)。如发现错误请 git revert 或提 issue。"
+          git push
+
+      - name: Upload fetched JSON as artifact (调试用)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: news-bot-output-${{ github.run_id }}
+          path: |
+            tmp/news-fetched.json
+            tmp/merge-report.json
+            tmp/news-fetched-raw.txt
+          if-no-files-found: ignore
+          retention-days: 7
