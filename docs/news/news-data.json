@@ -90,26 +90,6 @@
     "bot": true
   },
   {
-    "id": "test-paper-2602-08440-arxiv",
-    "title": "测试论文 arXiv 2602.08440 发布",
-    "date": "2026-02-15",
-    "fetched_at": "2026-06-02",
-    "importance": "major",
-    "credibility": "verified",
-    "category": [
-      "论文发表"
-    ],
-    "summary": "这是一篇测试论文,用于验证 news-merge.mjs 的 fetched_at 分组逻辑。事件时间是 2 月,收录时间是今天。",
-    "sources": [
-      {
-        "name": "arXiv",
-        "url": "https://arxiv.org/abs/2602.08440"
-      }
-    ],
-    "related": [],
-    "bot": true
-  },
-  {
     "id": "genisomai10000-20260601",
     "title": "Genisom AI(智叟科技)具身机器人累计产能突破 10,000 台",
     "date": "2026-06-01",
