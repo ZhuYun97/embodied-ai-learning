@@ -308,11 +308,7 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
   pointer-events: none;
   background: radial-gradient(circle, rgba(56, 150, 255, 0.18), transparent 65%);
   filter: blur(20px);
-  animation: stageBreathe 6s ease-in-out infinite;
-}
-@keyframes stageBreathe {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 1; }
+  opacity: 0.85;   /* 静态能量辉光,不再呼吸明灭 */
 }
 .graph-svg {
   position: relative;
@@ -368,19 +364,16 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
   fill: none;
   stroke-width: 1.4;
   opacity: 0.5;
-  stroke-dasharray: 7 11;
+  stroke-dasharray: 7 11;   /* 静态虚线,有电路感但不流动 */
   stroke-linecap: round;
-  animation: dataFlow 1.7s linear infinite;
   transition: opacity 0.22s, stroke-width 0.22s;
 }
-@keyframes dataFlow { to { stroke-dashoffset: -18; } }
 .edge.active {
   stroke-width: 2.6;
   opacity: 1;
-  animation-duration: 0.7s;   /* 高亮时电流更快 */
   filter: drop-shadow(0 0 4px rgba(125, 185, 255, 0.9));
 }
-.edge.dim { opacity: 0.08; animation-play-state: paused; }
+.edge.dim { opacity: 0.08; }
 .edge-invest { stroke: #38bdf8; }
 .edge-partner { stroke: #818cf8; stroke-dasharray: 4 8; }
 .edge-own { stroke: #c084fc; }
@@ -402,7 +395,8 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
 .node-cn .node-halo   { stroke: #ff7a6e; }
 .node-intl .node-halo { stroke: #7db4ff; }
 .node-conn .node-halo { stroke: #ffcf6a; }
-.node.focus .node-halo { animation: nodePing 1.5s ease-out infinite; }
+/* 焦点光环:悬停时只 ping 一次(非持续循环) */
+.node.focus .node-halo { animation: nodePing 1.1s ease-out; }
 @keyframes nodePing {
   0%   { transform: scale(1);   opacity: 0.7; }
   100% { transform: scale(2.6); opacity: 0; }
