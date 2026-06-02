@@ -304,15 +304,15 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 /* 节点:发光球 */
 .node { cursor: default; }
 .node.clickable { cursor: pointer; }
-.node-orb { stroke-width: 1.3; fill-opacity: 0.58; filter: url(#kg-glow); transition: opacity 0.2s, fill-opacity 0.2s; }
+.node-orb { stroke-width: 1.3; fill-opacity: 0.38; filter: url(#kg-glow); transition: opacity 0.2s, fill-opacity 0.2s; }
 .node-cn   { --c: #d946ef; }
 .node-intl { --c: #22d3ee; }
 .node-conn { --c: #f59e0b; }
 .node-cn .node-orb   { fill: url(#kg-cn);   stroke: #f5d0fe; }
 .node-intl .node-orb { fill: url(#kg-intl); stroke: #cffafe; }
 .node-conn .node-orb { fill: url(#kg-conn); stroke: #fde68a; }
-.node.focus .node-orb { filter: url(#kg-glow-strong); stroke-width: 2; fill-opacity: 0.9; }
-.is-hovering .node:not(.dim) .node-orb { fill-opacity: 0.85; }
+.node.focus .node-orb { filter: url(#kg-glow-strong); stroke-width: 2; fill-opacity: 0.85; }
+.is-hovering .node:not(.dim) .node-orb { fill-opacity: 0.7; }
 .node.dim { opacity: 0.16; }
 
 .node-initial {
