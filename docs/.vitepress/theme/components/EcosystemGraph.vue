@@ -60,11 +60,6 @@
           <circle v-for="(r, i) in orbitRings" :key="'o' + i" :cx="CX" :cy="CY" :r="r" class="orbit" />
         </g>
 
-        <!-- 核心 → hub 辐射骨架 -->
-        <g class="spokes">
-          <line v-for="h in hubs" :key="'s' + h.id" :x1="CX" :y1="CY" :x2="h.x" :y2="h.y" class="spoke" />
-        </g>
-
         <!-- 关系边(发光) -->
         <g class="edges" filter="url(#kg-edge-glow)">
           <path
@@ -75,11 +70,6 @@
             :style="{ stroke: e.color || undefined }"
           />
         </g>
-
-        <!-- 中心核(装饰) -->
-        <circle :cx="CX" :cy="CY" :r="106" class="core-halo" />
-        <circle :cx="CX" :cy="CY" :r="58" class="core" />
-        <text :x="CX" :y="CY" class="core-label" dy="0.34em">具身智能</text>
 
         <!-- 节点 -->
         <g
@@ -106,9 +96,9 @@ import data from '../../../ecosystem/companies-data.json'
 
 const W = 1040, H = 940
 const CX = W / 2, CY = H / 2 + 6
-const Rh = 232          // hub 内环
+const Rh = 178          // hub 内环(去中心核后向内收,避免空心太大)
 const Rl = 388          // leaf 外环
-const orbitRings = [126, 232, 348]
+const orbitRings = [178, 286]
 
 const svgEl = ref(null)
 const wrapEl = ref(null)
@@ -305,18 +295,6 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 
 /* 轨道环 */
 .orbit { fill: none; stroke: rgba(120, 150, 230, 0.12); stroke-width: 1; }
-
-/* 核心 → hub 辐射线 */
-.spoke { stroke: rgba(130, 170, 255, 0.16); stroke-width: 1; }
-
-/* 中心核:发光等离子球 */
-.core-halo { fill: rgba(99, 102, 241, 0.22); filter: url(#kg-glow-strong); }
-.core { fill: url(#kg-core); filter: url(#kg-glow-strong); }
-.core-label {
-  text-anchor: middle; fill: #fff; font-size: 15px; font-weight: 700; letter-spacing: 0.04em;
-  paint-order: stroke; stroke: rgba(5, 8, 24, 0.6); stroke-width: 3px;
-  pointer-events: none; user-select: none;
-}
 
 /* 关系边:主辐射(hub→子公司)亮,跨投资等次要边默认很淡,悬停再点亮 */
 /* 主辐射边用集群色(行内 stroke);次要/跨投资边中性极淡;虚线区分合作/孵化 */
