@@ -69,6 +69,22 @@
         @click="openCompanyDetail(company)"
       >
         <div class="card-header">
+          <div class="company-logo">
+            <img
+              v-if="getLogoUrl(company) && !logoErrors[company.id]"
+              :src="getLogoUrl(company)"
+              :alt="company.name"
+              loading="lazy"
+              @error="logoErrors[company.id] = true"
+            />
+            <div
+              v-else
+              class="logo-fallback"
+              :style="{ background: getLogoColor(company.id) }"
+            >
+              {{ getInitial(company.name) }}
+            </div>
+          </div>
           <div class="company-name">
             <h3>{{ company.name }}</h3>
             <span v-if="company.nameEn || company.nameZh" class="name-alt">{{ company.nameEn || company.nameZh }}</span>
@@ -100,12 +116,60 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import companiesData from '../../../ecosystem/companies-data.json'
 
 const searchQuery = ref('')
 const activeRegion = ref('all')
 const activeStages = ref(['public', 'unicorn', 'growth', 'early', 'vertical', 'mature'])
+
+// logo 加载失败回退记录(响应式 map)
+const logoErrors = reactive({})
+
+// 从 website 派生 favicon URL;若公司数据里直接给了 logo 字段则优先用它
+function getLogoUrl(company) {
+  if (company.logo) return company.logo
+  if (!company.website) return null
+  try {
+    const host = new URL(company.website).hostname
+    return `https://www.google.com/s2/favicons?domain=${host}&sz=64`
+  } catch {
+    return null
+  }
+}
+
+// 字母徽章配色:基于 id 哈希取 12 色板
+const LOGO_COLORS = [
+  'linear-gradient(135deg, #667eea, #764ba2)',
+  'linear-gradient(135deg, #f093fb, #f5576c)',
+  'linear-gradient(135deg, #4facfe, #00f2fe)',
+  'linear-gradient(135deg, #43e97b, #38f9d7)',
+  'linear-gradient(135deg, #fa709a, #fee140)',
+  'linear-gradient(135deg, #30cfd0, #330867)',
+  'linear-gradient(135deg, #a8edea, #fed6e3)',
+  'linear-gradient(135deg, #ff9a9e, #fecfef)',
+  'linear-gradient(135deg, #ffecd2, #fcb69f)',
+  'linear-gradient(135deg, #84fab0, #8fd3f4)',
+  'linear-gradient(135deg, #a1c4fd, #c2e9fb)',
+  'linear-gradient(135deg, #fbc2eb, #a6c1ee)',
+]
+function getLogoColor(id) {
+  let h = 0
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0
+  return LOGO_COLORS[Math.abs(h) % LOGO_COLORS.length]
+}
+
+// 取首字母:中文取首字,英文取前两字母大写
+function getInitial(name) {
+  if (!name) return '?'
+  const trimmed = name.trim()
+  // 中文(Unicode 4E00-9FFF)
+  if (/[一-鿿]/.test(trimmed[0])) return trimmed[0]
+  // 英文取首词前两字母
+  const m = trimmed.match(/[A-Za-z]+/g)
+  if (m && m[0]) return m[0].slice(0, 2).toUpperCase()
+  return trimmed[0].toUpperCase()
+}
 
 const stages = [
   { id: 'public', label: '上市' },
@@ -366,6 +430,42 @@ function openCompanyDetail(company) {
   gap: 0.5rem;
 }
 
+/* logo 容器:圆角方形 + favicon/字母徽章 */
+.company-logo {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  overflow: hidden;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
+}
+.logo-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+.company-name {
+  flex: 1;
+  min-width: 0;
+}
 .company-name h3 {
   margin: 0;
   font-size: 0.95rem;
@@ -373,6 +473,8 @@ function openCompanyDetail(company) {
   color: var(--vp-c-text-1);
   line-height: 1.3;
   letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .name-alt {
