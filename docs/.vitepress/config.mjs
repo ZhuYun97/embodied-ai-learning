@@ -357,6 +357,11 @@ export default withMermaid(defineConfig({
         activeMatch: '^/news/',
       },
       {
+        text: '生态图谱',
+        link: '/ecosystem/',
+        activeMatch: '^/ecosystem/',
+      },
+      {
         text: '速查',
         items: [
           { text: '术语速查表', link: '/vla/papers/glossary' },
