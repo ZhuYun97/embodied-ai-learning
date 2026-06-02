@@ -50,8 +50,8 @@
           <stop offset="0%" stop-color="#ffe39a" /><stop offset="52%" stop-color="#eaa12c" /><stop offset="100%" stop-color="#b9741a" />
         </radialGradient>
         <!-- 焦点辉光:仅悬停节点用 -->
-        <filter id="focus-glow" x="-80%" y="-80%" width="260%" height="260%">
-          <feGaussianBlur stdDeviation="3.2" result="b" />
+        <filter id="focus-glow" x="-120%" y="-120%" width="340%" height="340%">
+          <feGaussianBlur stdDeviation="4" result="b" />
           <feMerge>
             <feMergeNode in="b" />
             <feMergeNode in="SourceGraphic" />
@@ -82,6 +82,7 @@
           @pointerleave="hoverId = null"
           @click="onNodeClick(n)"
         >
+          <circle :r="n.r" class="node-halo" />
           <circle :r="n.r" class="node-ring" />
           <text class="node-initial" dy="0.34em">{{ n.initial }}</text>
           <!-- 标签:带底衬,默认仅机构与大节点显示,hover 时全显 -->
@@ -271,34 +272,47 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
 
 
 <style scoped>
-/* 舞台:克制深蓝,低饱和,无极光/粒子 — 数据图而非游戏特效 */
+/* 舞台:深空 + 星点网格 + 呼吸辉光 — 科技数据星图 */
 .graph-wrap {
   position: relative;
   margin: 1.5rem 0 2.5rem;
   border-radius: 14px;
   overflow: hidden;
-  background: radial-gradient(ellipse 90% 75% at 50% 42%, #16203c 0%, #0e1729 60%, #0b1322 100%);
-  border: 1px solid rgba(96, 130, 200, 0.16);
-  box-shadow: inset 0 0 60px rgba(56, 130, 230, 0.08), 0 12px 40px -16px rgba(20, 40, 90, 0.5);
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 38%, rgba(38, 86, 180, 0.28), transparent 70%),
+    radial-gradient(ellipse 110% 90% at 50% 35%, #142554 0%, #0a1336 45%, #050a1f 100%);
+  border: 1px solid rgba(96, 140, 230, 0.22);
+  box-shadow: inset 0 0 80px rgba(40, 90, 200, 0.12), 0 18px 50px -18px rgba(12, 28, 80, 0.65);
 }
+/* 星点网格 */
 .graph-wrap::before {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: radial-gradient(rgba(120, 160, 220, 0.10) 1px, transparent 1px);
-  background-size: 26px 26px;
-  -webkit-mask-image: radial-gradient(ellipse 78% 70% at 50% 45%, #000 35%, transparent 100%);
-  mask-image: radial-gradient(ellipse 78% 70% at 50% 45%, #000 35%, transparent 100%);
+  background-image:
+    radial-gradient(rgba(150, 190, 255, 0.16) 1px, transparent 1.4px),
+    radial-gradient(rgba(120, 160, 230, 0.08) 1px, transparent 1.2px);
+  background-size: 30px 30px, 17px 17px;
+  background-position: 0 0, 9px 13px;
+  -webkit-mask-image: radial-gradient(ellipse 82% 75% at 50% 42%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 82% 75% at 50% 42%, #000 30%, transparent 100%);
 }
-/* 顶部一道渐变扫描线,克制的科技点缀 */
+/* 中心呼吸辉光(缓慢明灭),营造"能量场" */
 .graph-wrap::after {
   content: '';
   position: absolute;
-  top: 0; left: 8%; right: 8%;
-  height: 1px;
+  left: 50%; top: 36%;
+  width: 60%; height: 55%;
+  transform: translate(-50%, -50%);
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.55) 35%, rgba(129, 140, 248, 0.55) 65%, transparent);
+  background: radial-gradient(circle, rgba(56, 150, 255, 0.18), transparent 65%);
+  filter: blur(20px);
+  animation: stageBreathe 6s ease-in-out infinite;
+}
+@keyframes stageBreathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
 }
 .graph-svg {
   position: relative;
@@ -348,36 +362,69 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
   pointer-events: none;
 }
 
-/* 边:细曲线 + 方向箭头 */
+/* 边:流动数据电流(stroke-dashoffset 动画)+ 方向箭头。
+   默认不加 filter(动画期逐帧重算太贵),辉光只给高亮的少数边。 */
 .edge {
   fill: none;
-  stroke-width: 1.1;
-  opacity: 0.2;
+  stroke-width: 1.4;
+  opacity: 0.5;
+  stroke-dasharray: 7 11;
+  stroke-linecap: round;
+  animation: dataFlow 1.7s linear infinite;
   transition: opacity 0.22s, stroke-width 0.22s;
 }
-.edge.active { stroke-width: 2.4; opacity: 0.95; }
-.edge.dim { opacity: 0.04; }
+@keyframes dataFlow { to { stroke-dashoffset: -18; } }
+.edge.active {
+  stroke-width: 2.6;
+  opacity: 1;
+  animation-duration: 0.7s;   /* 高亮时电流更快 */
+  filter: drop-shadow(0 0 4px rgba(125, 185, 255, 0.9));
+}
+.edge.dim { opacity: 0.08; animation-play-state: paused; }
 .edge-invest { stroke: #38bdf8; }
-.edge-partner { stroke: #818cf8; stroke-dasharray: 5 4; }
+.edge-partner { stroke: #818cf8; stroke-dasharray: 4 8; }
 .edge-own { stroke: #c084fc; }
-.edge-incubate { stroke: #c084fc; stroke-dasharray: 2 4; }
+.edge-incubate { stroke: #c084fc; stroke-dasharray: 2 7; }
 
 /* 节点:扁平描边圆 + 内嵌首字母,无过曝光晕 */
 .node { cursor: default; }
 .node.clickable { cursor: pointer; }
 
+/* 霓虹光环:默认隐藏,焦点时 ping 扩散 */
+.node-halo {
+  fill: none;
+  stroke-width: 1.6;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  pointer-events: none;
+}
+.node-cn .node-halo   { stroke: #ff7a6e; }
+.node-intl .node-halo { stroke: #7db4ff; }
+.node-conn .node-halo { stroke: #ffcf6a; }
+.node.focus .node-halo { animation: nodePing 1.5s ease-out infinite; }
+@keyframes nodePing {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* 每类一种霓虹色(供光晕用) */
+.node-cn   { --glow: rgba(239, 77, 68, 0.7); }
+.node-intl { --glow: rgba(63, 127, 224, 0.7); }
+.node-conn { --glow: rgba(234, 161, 44, 0.7); }
+
 .node-ring {
   stroke-width: 1.6;
-  filter: drop-shadow(0 2px 5px rgba(5, 10, 24, 0.55));
-  transition: fill 0.2s, stroke 0.2s, opacity 0.2s;
+  filter: drop-shadow(0 0 5px var(--glow)) drop-shadow(0 1px 3px rgba(3, 8, 22, 0.6));
+  transition: stroke-width 0.2s, opacity 0.2s;
 }
-.node-cn .node-ring   { fill: url(#grad-cn);   stroke: #ffb0a4; }
-.node-intl .node-ring { fill: url(#grad-intl); stroke: #aecbff; }
-.node-conn .node-ring { fill: url(#grad-conn); stroke: #ffdf94; }
+.node-cn .node-ring   { fill: url(#grad-cn);   stroke: #ffb6ab; }
+.node-intl .node-ring { fill: url(#grad-intl); stroke: #b8d2ff; }
+.node-conn .node-ring { fill: url(#grad-conn); stroke: #ffe6a6; }
 
-.node.focus .node-ring { stroke-width: 2.4; filter: url(#focus-glow); }
+.node.focus .node-ring { stroke-width: 2.6; filter: url(#focus-glow) drop-shadow(0 0 10px var(--glow)); }
 
-.node.dim { opacity: 0.2; }
+.node.dim { opacity: 0.18; }
 
 /* 节点内首字母:白字叠在彩球上 */
 .node-initial {
@@ -412,6 +459,13 @@ onBeforeUnmount(() => { if (raf) cancelAnimationFrame(raf) })
 .is-hovering .node-conn:not(.dim) .node-label { fill: #fde9b0; }
 .node.focus .node-label { opacity: 1; }
 
+/* 尊重 reduced-motion:关闭电流流动 / 呼吸辉光 / 焦点 ping */
+@media (prefers-reduced-motion: reduce) {
+  .edge { animation: none; }
+  .graph-wrap::after { animation: none; }
+  .node.focus .node-halo { animation: none; }
+}
+
 /* 档案皮覆盖见下方非 scoped <style> 块(scoped 下 :global() 的多级后代会被错误折叠) */
 
 @media (max-width: 640px) {
@@ -433,6 +487,14 @@ html.skin-archive .node-cn .node-ring   { fill: #9a3324; stroke: #e0a08a; }
 html.skin-archive .node-intl .node-ring { fill: #466da0; stroke: #9fbcde; }
 html.skin-archive .node-conn .node-ring { fill: #b06a2e; stroke: #e6b27e; }
 html.skin-archive .node-initial { fill: #fff8ef; }
+/* 暖色霓虹光晕 + 电流辉光 */
+html.skin-archive .node-cn   { --glow: rgba(201, 90, 60, 0.6); }
+html.skin-archive .node-intl { --glow: rgba(90, 130, 190, 0.6); }
+html.skin-archive .node-conn { --glow: rgba(201, 140, 70, 0.6); }
+html.skin-archive .node-cn .node-halo   { stroke: #e08a6e; }
+html.skin-archive .node-intl .node-halo { stroke: #8fb0d6; }
+html.skin-archive .node-conn .node-halo { stroke: #e6b27e; }
+html.skin-archive .edge.active { filter: drop-shadow(0 0 4px rgba(224, 150, 95, 0.9)); }
 html.skin-archive .edge-invest { stroke: #d9954f; }
 html.skin-archive .edge-partner { stroke: #b5805a; }
 html.skin-archive .edge-own,
