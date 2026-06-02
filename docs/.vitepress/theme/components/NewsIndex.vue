@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { withBase } from 'vitepress'
 import newsData from '../../../news/news-data.json'
 
 // 筛选状态
@@ -129,6 +130,26 @@ const formatDate = (d) => {
   if (parts.length === 2) return `${parts[0]}年${+parts[1]}月`
   return d
 }
+
+// 轻量内联 markdown 渲染:仅处理摘要里实际用到的 **加粗** 与 [文字](链接)。
+// 先做 HTML 转义防 XSS,再按内联语法替换;站内相对链接补 base 前缀。
+const escapeHtml = (s) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+const renderMarkdown = (text) => {
+  if (!text) return ''
+  let html = escapeHtml(text)
+  // [文字](url):外链新窗口,站内链接补 base
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
+    const isExternal = /^https?:\/\//.test(url)
+    const href = isExternal ? url : withBase(url)
+    const attrs = isExternal ? ' target="_blank" rel="noopener"' : ''
+    return `<a href="${href}"${attrs}>${label}</a>`
+  })
+  // **加粗**
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+  return html
+}
 </script>
 
 <template>
@@ -221,7 +242,7 @@ const formatDate = (d) => {
           </div>
 
           <h3 class="news-card__title">{{ item.title }}</h3>
-          <p class="news-card__summary" v-html="item.summary"></p>
+          <p class="news-card__summary" v-html="renderMarkdown(item.summary)"></p>
 
           <!-- 类别标签 -->
           <div v-if="item.category.length" class="news-card__tags">
