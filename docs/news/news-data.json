@@ -1,5 +1,183 @@
 [
   {
+    "id": "nvidiaunitreeblackwellgpu-20260601",
+    "title": "Nvidia × Unitree 发布首个人形机器人参考设计,搭载 Blackwell GPU",
+    "date": "2026-06-01",
+    "fetched_at": "2026-06-02",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "行业动态",
+      "人形机器人"
+    ],
+    "summary": "**Nvidia** 在 GTC Taipei 发布基于 **Isaac GR00T 平台**的首个开放人形机器人参考设计,选用 **Unitree H2** 作为硬件本体(6英尺高/150磅重/31自由度),搭载 **Jetson AGX Thor T5000**(Blackwell GPU/2070 FP4 TFLOPS)+ Sharpa Wave 触觉五指灵巧手(44自由度)。面向高校/研究机构(Stanford、ETH Zurich、UC San Diego 等),覆盖数据采集(Isaac Teleop)→仿真训练(Isaac Sim/Lab)→部署(Isaac ROS)全栈。⚠️ 价格未公布,H2 Plus 升级版预计 10 月发售。",
+    "sources": [
+      {
+        "name": "Interesting Engineering",
+        "url": "https://interestingengineering.com/ai-robotics/nvidias-new-humanoid-robot-platform"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "openai-20260602",
+    "title": "OpenAI 正式宣布成立机器人部门,押注具身智能",
+    "date": "2026-06-02",
+    "fetched_at": "2026-06-02",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "公司战略"
+    ],
+    "summary": "**OpenAI** 正式成立 **Robotics 部门**,由 DALL-E 发明者 **Aditya Ramesh** 领导(过去一年主导世界模拟研究项目 World Simulation Research Project,现转型为机器人部门)。Sam Altman 公开招募全栈硬件/运营/系统/机器学习工程师。分阶段计划:**短期**构建帮助技术工人建设基础设施的机器人;**长期**交付面向每个人的通用个人机器人。OpenAI 近期终止了与多家机器人创业公司的合作(技术路线分歧),转向**软硬垂直一体化**自研,与 Tesla 在具身智能领域形成直接竞争。",
+    "sources": [
+      {
+        "name": "AIBase",
+        "url": "https://news.aibase.com/news/28544"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "xrobotwalloss05-20260528",
+    "title": "X²Robot 开源 Wall-OSS-0.5 具身大模型",
+    "date": "2026-05-28",
+    "fetched_at": "2026-06-02",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "模型发布",
+      "开源代码"
+    ],
+    "summary": "**X²Robot(自变量机器人)** 于 5 月开源 **Wall-OSS-0.5**,这是一个在 **20+ 种机器人本体、数百万轨迹、9000 万条多模态语料**上预训练的 VLA(视觉-语言-动作)模型。**零样本部署**(无任务微调)在 17 项挑战任务上测试,400k 步版本在 4 项任务上得分 >80/100(「拧紧绳索」任务 82 分),相同数据预算下平均比 π0.5 基线高 **17.5 分**。四大创新:**Gradient Bridging**(动作监督注入预训练主干)、**Visual Alignment Tokenizer**(动作 token 绑定视觉语义)、**Action Space Supervision**(聚焦轨迹结构而非高频细节)、**DMuon 分布式优化**(异构计算成本降低 100 倍)。已开源模型权重、训练代码、数据集接口。",
+    "sources": [
+      {
+        "name": "AIBase",
+        "url": "https://news.aibase.com/news/28418"
+      }
+    ],
+    "related": [
+      {
+        "label": "wall-oss-05",
+        "url": "/vla/papers/wall-oss-05"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "test-paper-2602-08440-arxiv",
+    "title": "测试论文 arXiv 2602.08440 发布",
+    "date": "2026-02-15",
+    "fetched_at": "2026-06-02",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表"
+    ],
+    "summary": "这是一篇测试论文,用于验证 news-merge.mjs 的 fetched_at 分组逻辑。事件时间是 2 月,收录时间是今天。",
+    "sources": [
+      {
+        "name": "arXiv",
+        "url": "https://arxiv.org/abs/2602.08440"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "genisomai10000-20260601",
+    "title": "Genisom AI(智叟科技)具身机器人累计产能突破 10,000 台",
+    "date": "2026-06-01",
+    "fetched_at": "2026-06-02",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "产能里程碑"
+    ],
+    "summary": "**Genisom AI(智叟科技,2023年创立)** 于 6 月 1 日宣布累计产能突破 **10,000 台具身机器人**——从 2025 年底的 5,000 台到本次突破仅用约 5 个月。产品线涵盖四足机器人(Gangbeng L1/L2 安防巡检系列,Tongchui M1/M1 Pro/M1 Ultra 重载系列,其中 M1 Pro 为**行业首款支持 3D 多层导航**的四足,M1 Ultra 配备**720° 3D 环绕感知**)与人形机器人 Pofengzhe RX。月产能:关节模组 >60,000 个/月,Gangbeng 系列 >3,500 台/月,Tongchui 系列 >700 台/月。已签署 8 亿元合作协议,2026 年目标:四足机器人销量第一 + 营收破 10 亿元。",
+    "sources": [
+      {
+        "name": "Gasgoo",
+        "url": "https://autonews.gasgoo.com/articles/icv/genisom-ais-embodied-robots-surpass-10000-unit-production-milestone-2061438385384919041"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "figure031120-20260527",
+    "title": "Figure 03 产能提升至 1 台/小时,120 天内实现 24× 增长",
+    "date": "2026-05-27",
+    "fetched_at": "2026-06-02",
+    "importance": "major",
+    "credibility": "todo",
+    "category": [
+      "产品发布",
+      "人形机器人"
+    ],
+    "summary": "Robotics & Automation News 报道(5 月 27 日),**Figure AI BotQ 工厂在 120 天内将 Figure 03 产能从 1 台/天提升至 1 台/小时**——**24 倍增长**,累计产出超 350 台。⚠️ 报道明确注明 Figure 自身声明的速度数据**无法独立验证**,但反映出人形机器人量产竞赛进入新阶段。",
+    "sources": [
+      {
+        "name": "Robotics & Automation News",
+        "url": "https://roboticsandautomationnews.com/2026/05/27/figure-ramps-humanoid-robot-manufacturing-at-unprecedented-speed/101954/"
+      }
+    ],
+    "related": [
+      {
+        "label": "helix",
+        "url": "/vla/papers/helix"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "humanoidschaeffler10002000-20260513",
+    "title": "Humanoid × Schaeffler 合作升级:部署规模扩至 1,000-2,000 台,采购百万级执行器",
+    "date": "2026-05-13",
+    "fetched_at": "2026-06-02",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "合作协议",
+      "人形机器人"
+    ],
+    "summary": "**Humanoid(英国,2024 年 Artem Sokolov 创立)** 与 **Schaeffler** 合作升级:计划至 2032 年在 Schaeffler 全球制造工厂部署 **1,000-2,000 台 HMND 01 人形机器人**。Humanoid 承诺在合作期内向 Schaeffler 采购**七位数数量执行器**(暗示 Humanoid 意图至 2031 年出货 **10 万台级别**)。同时宣布 **Bosch 将为欧洲市场制造 HMND 01**,使用 Schaeffler 零部件——形成「Humanoid 设计 + Bosch 生产 + Schaeffler 供应链」铁三角。Reuters 确认合作真实性,但未披露合同金额与精确部署数量。",
+    "sources": [
+      {
+        "name": "Forbes / Reuters",
+        "url": "https://www.forbes.com/sites/johnkoetsier/2026/05/13/humanoids-1000-robot-deal-with-schaeffler-hints-at-100000-units-by-2031/"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "sanctuaryai37-20260516",
+    "title": "Sanctuary AI 预测:人形机器人 3-7 年内进入家庭",
+    "date": "2026-05-16",
+    "fetched_at": "2026-06-02",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "行业动态"
+    ],
+    "summary": "**Sanctuary AI** 预测人形机器人将在 **3-7 年内进入家庭市场**。**1X** 已开启 Neo 人形机器人全面量产,明确面向家庭市场(Forbes 作者称认识已预订 Neo 的用户)。行业共识:工业/商业部署先行,家用市场跟随;但家用机器人的安全性、成本、伦理问题仍需解决。",
+    "sources": [
+      {
+        "name": "Forbes",
+        "url": "https://www.forbes.com/sites/johnkoetsier/2026/05/16/sanctuary-ai-humanoid-robots-will-hit-homes-in-3-7-years/"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "unitreexxxxxxxxxxxxi-20260601",
     "title": "Unitree(宇树科技)通过上交所科创板 IPO 审核,拟融资 42 亿元",
     "date": "2026-06-01",

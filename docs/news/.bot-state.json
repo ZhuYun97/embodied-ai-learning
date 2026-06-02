@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-06-02T13:00:00Z",
+  "last_fetched_at": "2026-06-02",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -38,7 +38,15 @@
     "mode-diffusion-policy-专家混合去噪-transformer-iclr-2025|github",
     "physical-intelligence-发布-π0-机器人基础模型|arxiv",
     "tinyvla-快速-数据高效的紧凑-vla|arxiv",
-    "open-x-embodiment-1m--真实机器人轨迹的跨机构数据集|robotics-transformer-x"
+    "open-x-embodiment-1m--真实机器人轨迹的跨机构数据集|robotics-transformer-x",
+    "test-paper-2602-08440|arxiv",
+    "nvidiaunitreeblackwellgpu|20260601",
+    "openai|20260602",
+    "genisomai10000|20260601",
+    "xrobotwalloss05|20260528",
+    "figure031120|20260527",
+    "humanoidschaeffler10002000|20260513",
+    "sanctuaryai37|20260516"
   ],
   "_seeded_from_initial_curation": true,
   "_count": 38
