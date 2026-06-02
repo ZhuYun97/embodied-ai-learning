@@ -32,6 +32,11 @@ features:
     details: 所有结论经 deep-research 工作流(多源检索 + 3 票对抗核查)整理;⚠️ 自评 / ✅ 已核 / 待核 三级标记,绝不把厂商自评洗成裸事实。
     link: /vla/guide
     linkText: 看可信度体例
+  - icon: { src: /icons/newspaper.svg, width: 28, height: 28 }
+    title: 具身智能新闻
+    details: 跟踪领域近期动态——重要论文与模型发布、头部公司战略、融资上市、数据集/基准/竞赛。每条标注一手来源,延续 ✅/⚠️ 可信度体系,严禁编造。
+    link: /news/
+    linkText: 看最新动态
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
     title: 基准硬数据 + 速查
     details: SimplerEnv / LIBERO / CALVIN / RoboCasa 四大基准逐模型成绩表,标注口径与可信度;另备术语表 / 时间线 / 参考文献速查。
