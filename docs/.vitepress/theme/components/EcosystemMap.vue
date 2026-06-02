@@ -71,58 +71,21 @@
         <div class="card-header">
           <div class="company-name">
             <h3>{{ company.name }}</h3>
-            <span v-if="company.nameEn || company.nameZh" class="name-alt">
-              {{ company.nameEn || company.nameZh }}
-            </span>
+            <span v-if="company.nameEn || company.nameZh" class="name-alt">{{ company.nameEn || company.nameZh }}</span>
           </div>
-          <div class="stage-badge" :data-stage="company.stage">
-            {{ getStageLabel(company.stage) }}
-          </div>
+          <div class="stage-badge" :data-stage="company.stage">{{ getStageLabel(company.stage) }}</div>
         </div>
 
-        <div class="card-body">
-          <div class="company-info">
-            <div v-if="company.founded" class="info-item">
-              <span class="info-icon">📅</span>
-              <span>{{ company.founded }}年</span>
-            </div>
-            <div v-if="company.country" class="info-item">
-              <span class="info-icon">🌍</span>
-              <span>{{ company.country }}</span>
-            </div>
-          </div>
+        <p class="description">{{ company.description }}</p>
 
-          <p class="description">{{ company.description }}</p>
-
-          <div v-if="company.products && company.products.length" class="products">
-            <span class="products-label">产品:</span>
-            <span class="product-list">{{ company.products.join(' · ') }}</span>
-          </div>
-
-          <div v-if="company.tags && company.tags.length" class="tags">
-            <span
-              v-for="tag in company.tags.slice(0, 4)"
-              :key="tag"
-              class="tag"
-            >
-              {{ tag }}
-            </span>
-          </div>
+        <div class="card-meta">
+          <span v-if="company.founded" class="meta-item">{{ company.founded }}</span>
+          <span v-if="company.country" class="meta-item">{{ company.country }}</span>
+          <span v-if="company.funding" class="meta-funding">{{ company.funding }}</span>
         </div>
 
-        <div class="card-footer">
-          <div v-if="company.funding" class="funding-badge">
-            💰 {{ company.funding }}
-          </div>
-          <a
-            v-if="company.website"
-            :href="company.website"
-            target="_blank"
-            class="website-link"
-            @click.stop
-          >
-            访问官网 →
-          </a>
+        <div v-if="company.tags && company.tags.length" class="tags">
+          <span v-for="tag in company.tags.slice(0, 3)" :key="tag" class="tag">{{ tag }}</span>
         </div>
       </div>
     </div>
@@ -356,19 +319,19 @@ function openCompanyDetail(company) {
 /* 公司卡片网格 */
 .companies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .company-card {
   position: relative;
-  padding: 1.5rem;
-  border-radius: 16px;
+  padding: 0.875rem 1rem 0.875rem;
+  border-radius: 10px;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
   overflow: hidden;
 }
 
@@ -378,15 +341,15 @@ function openCompanyDetail(company) {
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 2px;
   background: linear-gradient(90deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.2s;
 }
 
 .company-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
   border-color: var(--vp-c-brand-1);
 }
 
@@ -399,32 +362,35 @@ function openCompanyDetail(company) {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
-  gap: 1rem;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
 }
 
 .company-name h3 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
   line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 
 .name-alt {
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.72rem;
   color: var(--vp-c-text-3);
-  margin-top: 0.25rem;
+  margin-top: 0.125rem;
+  font-family: var(--vp-font-family-mono, monospace);
 }
 
 .stage-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
   font-weight: 600;
   white-space: nowrap;
   flex-shrink: 0;
+  letter-spacing: 0.02em;
 }
 
 .stage-badge[data-stage="public"] {
@@ -457,93 +423,53 @@ function openCompanyDetail(company) {
   color: #1a1a1a;
 }
 
-/* 卡片主体 */
-.card-body {
-  margin-bottom: 1rem;
-}
-
-.company-info {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-}
-
-.info-item {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.875rem;
-  color: var(--vp-c-text-2);
-}
-
-.info-icon {
-  font-size: 1rem;
-}
-
+/* 描述:限制 2 行 */
 .description {
-  margin: 0.75rem 0;
-  font-size: 0.9rem;
-  line-height: 1.6;
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
   color: var(--vp-c-text-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.products {
-  margin: 0.75rem 0;
-  font-size: 0.875rem;
-  color: var(--vp-c-text-2);
-}
-
-.products-label {
-  font-weight: 600;
-  margin-right: 0.5rem;
-}
-
-.product-list {
+/* 紧凑 meta:成立年/国家/融资 同行 */
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem 0.625rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.7rem;
   color: var(--vp-c-text-3);
+  font-family: var(--vp-font-family-mono, monospace);
 }
 
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.meta-funding {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+}
+
+/* 标签 */
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
+  gap: 0.25rem;
 }
 
 .tag {
-  padding: 0.25rem 0.625rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
   background: var(--vp-c-default-soft);
   color: var(--vp-c-text-2);
-  border: 1px solid var(--vp-c-divider);
-}
-
-/* 卡片底部 */
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 1rem;
-  border-top: 1px solid var(--vp-c-divider);
-  margin-top: auto;
-}
-
-.funding-badge {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--vp-c-brand-1);
-}
-
-.website-link {
-  font-size: 0.875rem;
-  color: var(--vp-c-brand-1);
-  text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.2s;
-}
-
-.website-link:hover {
-  opacity: 0.7;
+  letter-spacing: -0.01em;
 }
 
 /* 空状态 */
@@ -577,7 +503,7 @@ function openCompanyDetail(company) {
 }
 
 /* 响应式 */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .companies-grid {
     grid-template-columns: 1fr;
   }
