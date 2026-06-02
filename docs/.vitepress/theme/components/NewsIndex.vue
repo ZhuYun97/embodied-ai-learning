@@ -505,32 +505,53 @@ const renderMarkdown = (text) => {
 }
 
 /* ============================================================
-   卡片网格
+   卡片网格:瀑布流(column-count)按自然高度排列
    ============================================================ */
 .news-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 18px;
+  column-count: 3;
+  column-gap: 18px;
 }
 
 .news-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 20px 22px;
+  padding: 20px 22px 22px;
+  margin-bottom: 18px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
-  background: var(--vp-c-bg-soft);
+  background: var(--tech-card-bg);
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
   overflow: hidden;
+  /* 防止卡片在列断裂中间被截断 */
+  break-inside: avoid;
+  page-break-inside: avoid;
   transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
 }
+/* 微网格纹理层(极淡,纯装饰) */
+.news-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+  background-size: 16px 16px;
+  pointer-events: none;
+  opacity: 0.6;
+  z-index: 0;
+}
+.news-card > * { position: relative; z-index: 1; }
+
 /* 顶部重要程度色条(渐变) */
 .news-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  opacity: 0.9;
+  opacity: 0.85;
+  z-index: 2;
   transition: opacity 0.22s;
 }
 .news-card[data-importance="hot"]::before {
@@ -545,9 +566,13 @@ const renderMarkdown = (text) => {
 .news-card:hover {
   transform: translateY(-4px);
   border-color: transparent;
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4), 0 14px 40px rgba(37, 99, 235, 0.14);
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.45),
+    inset 0 0 0 1px rgba(56, 189, 248, 0.08),
+    0 16px 44px rgba(37, 99, 235, 0.16);
 }
 .news-card:hover::before { opacity: 1; }
+.news-card:hover::after { opacity: 0.8; }
 
 /* 徽章行 */
 .news-card__header {
@@ -676,15 +701,21 @@ const renderMarkdown = (text) => {
 }
 
 /* ============================================================
-   响应式
+   响应式:瀑布流列数自适应
    ============================================================ */
-@media (max-width: 768px) {
-  .news-grid { grid-template-columns: 1fr; gap: 14px; }
-  .news-card { padding: 18px; }
+@media (min-width: 1280px) {
+  .news-grid { column-count: 3; }
+}
+@media (min-width: 768px) and (max-width: 1279px) {
+  .news-grid { column-count: 2; }
+}
+@media (max-width: 767px) {
+  .news-grid { column-count: 1; column-gap: 0; }
+  .news-card { padding: 18px; margin-bottom: 14px; }
   .news-card__title { font-size: 1rem; }
   .news-toolbar { padding: 14px; gap: 12px; }
   .seg-control { width: 100%; justify-content: space-between; }
-  .seg-btn { flex: 1; text-align: center; padding: 7px 4px; }
+  .seg-btn { flex: 1; text-align: center; padding: 7px 4px; font-size: 0.78rem; }
   .toolbar-selects { width: 100%; }
   .select-wrap { flex: 1; }
   .filter-select { width: 100%; }
@@ -696,11 +727,24 @@ const renderMarkdown = (text) => {
 }
 
 /* ============================================================
-   暗色:辉光更克制,色条更亮
+   暗色:玻璃更通透、辉光更强、微网格更亮
    ============================================================ */
-:global(.dark) .news-card:hover {
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5), 0 14px 40px rgba(37, 99, 235, 0.22);
+:global(.dark) .news-card {
+  background: var(--tech-card-bg);
 }
+:global(.dark) .news-card::after {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  opacity: 0.7;
+}
+:global(.dark) .news-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.55),
+    inset 0 0 0 1px rgba(56, 189, 248, 0.12),
+    0 16px 44px rgba(37, 99, 235, 0.24);
+}
+:global(.dark) .news-card:hover::after { opacity: 0.9; }
 :global(.dark) .news-badge--hot { background: rgba(239, 68, 68, 0.2); color: #f87171; }
 :global(.dark) .news-badge--major { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
 :global(.dark) .news-badge--normal { background: rgba(148, 163, 184, 0.18); color: #cbd5e1; }
