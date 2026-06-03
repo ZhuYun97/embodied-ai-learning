@@ -32,38 +32,49 @@ mindmap
       ManiSkill / RLBench
       Meta-World / COLOSSEUM
       VIMA-Bench / GenManip
+      robosuite 底座 / ARNOLD 连续状态
+      FurnitureBench 装配 / LIBERO-Plus 鲁棒
     双臂人形移动
       RoboTwin 1.0/2.0
       BiGym 移动双臂
       HumanoidBench 全身
       Habitat 3.0 人机协作
       AgiBot World / GO-1
+      BEHAVIOR Challenge / BRS
+      LeVERB 语言全身控制
     真机竞技场
       RoboArena 众包双盲
       RoboChallenge 云托管
       AgiBot World Challenge
-      Open X-Embodiment
+      Open X-Embodiment / DROID
       VLA-REPLICA 低成本
+      RRC2022 TriFinger / ManipulationNet
     具身推理 VQA
       ERQA / ERQA+
       RoboVQA 长程
       VLABench 双轨
       RoboSpatial / Where2Place
       BLINK / EmbodiedBench
+      OpenEQA 具身问答 / VSI-Bench 视频空间
+      SafeAgentBench 安全
     视觉语言导航
       R2R / RxR
       REVERIE 导航+定位
       VLN-CE 连续环境
       ObjectNav / GOAT
+      CityNav 航拍无人机
+    世界模型评测 WAM线
+      WorldModelBench 视频生成
 ```
 
 | 大类 | 度量什么 | 代表基准 | 主指标 | 在本篇 |
 |---|---|---|---|---|
-| **仿真操作** | 策略在线动作成功率 | SimplerEnv·LIBERO·CALVIN·RoboCasa·ManiSkill·RLBench·COLOSSEUM·VIMA | 成功率% / 链长 / 退化% | §一–四、§五 |
-| **双臂/人形/移动** | 双臂协调·全身控制·导航+操作耦合 | RoboTwin·BiGym·HumanoidBench·Habitat 3.0·AgiBot | 成功率% / reward / RE | §六 |
-| **真机竞技场** | 真机泛化排名·鲁棒性 | RoboArena·RoboChallenge·OXE·VLA-REPLICA | 成对偏好排名 / 真机SR | §七 |
-| **具身推理/VQA** | VLM 离线问答·指点准确率 | ERQA·RoboVQA·VLABench·RoboSpatial·BLINK | 多选 accuracy / 点命中% | §八 |
-| **视觉语言导航** | 移动到达·路径效率 | R2R·RxR·REVERIE·VLN-CE·ObjectNav | SR / SPL / nDTW / OSR | §九 |
+| **仿真操作** | 策略在线动作成功率 | SimplerEnv·LIBERO·CALVIN·RoboCasa·ManiSkill·RLBench·COLOSSEUM·VIMA·robosuite·ARNOLD·FurnitureBench·LIBERO-Plus | 成功率% / 链长 / 退化% | §一–四、§五 |
+| **双臂/人形/移动** | 双臂协调·全身控制·导航+操作耦合 | RoboTwin·BiGym·HumanoidBench·Habitat 3.0·AgiBot·BEHAVIOR Challenge·BRS·LeVERB | 成功率% / reward / RE / Q-score | §六 |
+| **真机竞技场** | 真机泛化排名·鲁棒性 | RoboArena·RoboChallenge·OXE·DROID·VLA-REPLICA·RRC2022·ManipulationNet | 成对偏好排名 / 真机SR | §七 |
+| **具身推理/VQA** | VLM 离线问答·指点准确率·具身问答 | ERQA·RoboVQA·VLABench·RoboSpatial·BLINK·OpenEQA·VSI-Bench·SafeAgentBench | 多选 accuracy / 点命中% / LLM-Match | §八 |
+| **视觉语言导航** | 移动到达·路径效率 | R2R·RxR·REVERIE·VLN-CE·ObjectNav·CityNav(航拍) | SR / SPL / nDTW / OSR | §九 |
+| **世界模型评测**(附·WAM 线) | 视频生成作世界模型的物理/常识/指令一致性 | WorldModelBench | 三轴人评 / judger | §九 后「附」 |
 
 > ⚠️ **贯穿全篇的第一原则**:**口径(setting)决定数字含义**。同一模型在不同 split、不同任务子集、不同输入模态、不同训练协议下分数可差数十个百分点。读任何成绩表前先看 setting 列,再看分数。本篇 §十「评测方法论与陷阱」是这条原则的系统化展开,堪称本版灵魂章节。
 
@@ -364,6 +375,10 @@ flowchart TD
 | **ALOHA 仿真套件** | Stanford (Tony Zhao) | 2023 (2304.13705) | 双臂模仿**最小验证环境**,仅 Transfer-Cube + Bimanual-Insertion 两任务 | 成功率% | LeRobot 报 transfer-cube ~87.6%(单任务自评);**常被误当大型基准** | medium |
 | **BEHAVIOR-1K / OmniGibson** | Stanford (Fei-Fei Li 等) | 2023 CoRL / 2024 (2403.09227) | 以人为中心,1000 日常活动/50 场景/9000+物体,支持流体/可变形 | 谓词逻辑目标满足 | 任务极长程,端到端 VLA 较少完整报分(多作场景/资产来源) | high |
 | **RoboTwin 1.0/2.0** | 上交/上海AI Lab/港大 | 2025 CVPR Highlight / 2506 | 大规模**双臂**数据生成器+基准(详见 §六) | 成功率% | ⚠️自评:某 VLA 微调后相对提升 367%;详见双臂章节 | medium |
+| **robosuite** | Stanford SVL/UT Austin/NVIDIA(ARISE) | 2020;v1.5 2024-10 (2009.12293) | MuJoCo 模块化操作框架与标准任务集,**LIBERO/RoboCasa/ALOHA-sim 的底座** | 成功率% | Lift/Stack/PickPlace/NutAssembly/Door 等标准任务族;框架型非封闭榜 | high |
+| **ARNOLD** | UCLA/北大/清华/Columbia/BIGAI | 2023 ICCV (2304.04321) | Isaac Sim 照片级场景,**连续目标状态 + 语言落地** 8 任务 | 成功率%(7 划分含 Novel State/State*) | ⚠️自评,无第三方榜;Novel-State 泛化显著掉点;区别于离散目标的 VIMA/CALVIN | medium |
+| **FurnitureBench / FurnitureSim** | KAIST/UC Berkeley | 2023 RSS (2305.12821) | 真实**家具装配**长程高精度插接,3D 打印件可复现 + 5100 demos | **完成阶段数**(非二元成功率) | 整体成功率常≈0,IL/offline-RL 真机难完成全装配(阶段成绩⚠️自评);本页长程操作未覆盖装配 | high |
+| **LIBERO-Plus** | 复旦/同济/上海创智/NUS(邱锡鹏) | 2025 (2510.13626) | 在 LIBERO 上注入 7 类扰动(21 组件)/10,030 任务,专测**鲁棒性** | 各扰动成功率% + 掉点 | ✅维护方统一跑多模型;温和扰动(视角/初始态)下 95%→<30%,且模型几乎忽略语言指令 | high |
 
 ### 5.1 读表须知:口径分裂是最大陷阱 ⚠️
 
@@ -373,7 +388,7 @@ flowchart TD
 > ④ **ManiSkill3 性能数是「up to」峰值/最佳情形**:1000× 上界不对应单一文档化对比,真实头对头(Cartpole vs Isaac Lab v1.2.0)仅「略快」、训练加速 ~5×;显存 4.4 vs 14.1GB 是带真实相机渲染的最佳情形。
 > ⑤ **Meta-World ≠ VLA 基准**:它多被 multi-task RL / 表征学习论文使用,主流 VLA(OpenVLA、π0)极少报分。VLA 真正高频使用的是 RLBench(3D 策略系)、ManiSkill(SimplerEnv 底座、RL-VLA 如 RLinf-VLA 报 ManiSkill 25-task ~97.66%)与 VIMA-Bench(多模态提示)。
 
-**来源**:ManiSkill2(2302.04659)· ManiSkill3(2410.00425)· RLBench(1909.12271、RVT 2306.14896、RVT-2 2406.08545、SAM2Act 2501.18564、BridgeVLA 2506.07961)· Meta-World(1910.10897、Meta-World+ 2505.11289)· COLOSSEUM(2402.08191、robot-colosseum.github.io)· VIMA(2210.03094)· GenManip(2506.10966)· ALOHA(tonyzhaozh/act)· BEHAVIOR-1K(2403.09227)
+**来源**:ManiSkill2(2302.04659)· ManiSkill3(2410.00425)· RLBench(1909.12271、RVT 2306.14896、RVT-2 2406.08545、SAM2Act 2501.18564、BridgeVLA 2506.07961)· Meta-World(1910.10897、Meta-World+ 2505.11289)· COLOSSEUM(2402.08191、robot-colosseum.github.io)· VIMA(2210.03094)· GenManip(2506.10966)· ALOHA(tonyzhaozh/act)· BEHAVIOR-1K(2403.09227)· robosuite(2009.12293)· ARNOLD(2304.04321)· FurnitureBench(2305.12821)· LIBERO-Plus(2510.13626)
 
 ---
 
@@ -394,6 +409,9 @@ flowchart TD
 | **Habitat 3.0** | Meta FAIR;Spot+humanoid | 2023 (2310.13724) | 人机协作移动 | Habitat | SR / Relative Efficiency | Social Rearrange 77.79%,RE 可>100%;真人在环 RE 123–134% | high |
 | **AgiBot World + GO-1** | 智元/上海AI Lab;G1 双臂移动 | 2025 (2503.06669) | 双臂移动 | 真机(sim 在建) | normalized score | ⚠️自评:GO-1 复杂长程 60%+,比 RDT 高 32%,无第三方复现 | medium |
 | **RoboCasa(移动维度)** | UT Austin/NVIDIA;Franka+移动底座 | 2024–26 | 单臂移动 | robosuite+Omniverse | 成功率% | 成绩见 §四;移动+长程是主要难点 | high |
+| **BEHAVIOR Challenge 2025** | Stanford SVL;OmniGibson | 2025(NeurIPS 竞赛) | 家庭长程(仿真) | OmniGibson/Isaac Sim | Q-score(子目标完成比) | ✅隐藏测试集 + 组织方核验;冠军隐藏集仅 Q≈0.26(全任务成功 12.4%);Public 榜自报⚠️ / Held-out✅ | high |
+| **BEHAVIOR Robot Suite (BRS)** | Stanford(Fei-Fei Li 等);Galaxea R1 | 2025 CoRL (2503.05652) | 真机全身·双臂移动 | 真机 + JoyLo 遥操作 | 端到端/子任务成功率% | ⚠️自评(真机仅 5 任务);WB-VIMA 均 58%/峰 93%;「相对 13×/21×」实为基线近乎全败;NeurIPS25 BEHAVIOR 官方基线 | medium |
+| **LeVERB-Bench** | UC Berkeley/CMU/SFU;Unitree G1 | 2025 (2506.13751) | 人形全身控制(WBC) | IsaacSim 光追 + 动力学 | 闭环视觉-语言任务 SR% | ⚠️自评:零样本整体 58.5%、简单视觉导航 80%(单点);首个 sim-to-real-ready 视觉语言闭环 WBC 基准 | medium |
 
 ### 6.2 RoboTwin 2.0:域随机化前后的断崖(Table 6,13 任务抽样均,⚠️ 提出方自评)
 
@@ -428,7 +446,7 @@ flowchart TD
 > ⑤ **同名不同代**:RoboTwin 1.0(2409.02920 早期 Workshop 版 / 2504.13059 CVPR Highlight)vs 2.0(2506.18088,加 731 物体库+五轴域随机化+5 本体)口径不同;RoboCasa vs RoboCasa365(2500 厨房/365 任务)亦两代。引用务必标版本与 arXiv 号。
 > ⑥ **自评 vs 第三方**:HumanoidBench/Habitat 3.0/BiGym 开源代码+固定 demo,可复现性较好;**AgiBot GO-1 真机数无法独立复现**,RoboTwin 真机挑战赛分数依赖特定 AgileX 硬件,迁移到其他本体不保证。
 
-**来源**:RoboTwin 2.0(2506.18088)· RoboTwin 1.0 + 挑战赛(2504.13059、2506.23351、2409.02920)· BiGym(2407.07788)· HumanoidBench(2403.10506)· Habitat 3.0(2310.13724)· AgiBot World/GO-1(2503.06669)
+**来源**:RoboTwin 2.0(2506.18088)· RoboTwin 1.0 + 挑战赛(2504.13059、2506.23351、2409.02920)· BiGym(2407.07788)· HumanoidBench(2403.10506)· Habitat 3.0(2310.13724)· AgiBot World/GO-1(2503.06669)· BEHAVIOR Challenge(behavior.stanford.edu/challenge)· BRS(2503.05652)· LeVERB(2506.13751)
 
 ---
 
@@ -457,6 +475,9 @@ flowchart TD
 | **Open X-Embodiment (RT-X)** | Google DeepMind + 34 实验室 | 2023 (2310.08864) | 集中式多实验室真机 | 22 种本体 | 二值成功率 | ~3600 真机 trials/6 机器人;RT-2-X 涌现技能 ~3× RT-2 | high |
 | **VLA-REPLICA** | (2605.20774) | 2026 | 低成本可复现真机台(~$1050) | SO-101 | SR | 90 场景(50 ID+40 OOD),7 方法,跨站点可迁移 | medium |
 | **Eva-VLA** | (2509.18953) | 2025 | 物理扰动鲁棒性 | 真机 | SR 衰减曲线 | 测 RT-1/OpenVLA/π0/UniVLA,物理变化下可测量下降 | medium |
+| **DROID** | 13 机构/18 台(Stanford/Berkeley/GDM/TRI…) | 2024 RSS (2403.12945) | 大规模 in-the-wild 真机**数据集**(非榜) | Franka Panda 7-DoF | 数据规模 | 76k 轨迹/350h、564 场景/86 任务;✅规模可核;「DROID 成功率」均为用它训练的策略自评;VLA 预训练/微调事实底座 | high |
+| **Real Robot Challenge 2022** | MPI-IS(NeurIPS22 竞赛) | 2022 (2308.07741) | 云托管真机集群 + 从离线数据学 | 7×TriFinger 三指 | 任务成功度/位姿精度 | ✅组织方共享集群随机派机统一跑;云端真机评测先驱(RoboArena 引为对照);灵巧 Push/Lift | high |
+| **ManipulationNet** | NIST 谱系发起·多机构(MIT 等 23 作者) | 2026 (2603.04363) | **标准件寄送本地执行 + 集中核验** | 异构(标准硬件套件) | 真机技能/推理双轨 | ⚠️数字 test-period preliminary 自评;峰插孔间隙至 0.02mm;与 RoboArena(众包)/RoboChallenge(云托管)拓扑互补 | medium |
 
 ### 7.3 RoboChallenge Table30 真机成绩(维护方统一评测,非厂商自评)
 
@@ -512,6 +533,9 @@ SimplerEnv 两协议作真机代理的「可靠性」量化(Google Robot 三任�
 | **SpatialVLA** | Google DeepMind | 2024 (2401.12168) | 3D 空间 VQA 合成数据范式 | 距离落入 GT 0.5–2× | ⚠️自评:37.2% 落入区间,超 GPT-4V | medium |
 | **RefSpatial** | 北航/北大 | 2025 (2506.04308) | 空间指代+多步推理,Bench 200 图 >70% 多步 | 指点 SR | ⚠️自评:RoboRefer-SFT 89.6%,RFT 超 Gemini-2.5-Pro +17.4% | medium |
 | **EmbodiedBench** | UIUC 等 | 2025 (2502.09560) | MLLM 作具身 agent,1128 任务/4 环境 | 在线 agent SR | 最佳 GPT-4o 仅 28.9%(再证推理强≠控制强) | high |
+| **OpenEQA** | Meta FAIR | 2024 CVPR | 开放词表**具身问答(EQA)**:回忆历史(EM)/主动探索(A) | LLM-Match(1–5 归一) | ⚠️自评:最强 GPT-4V ~49–55%,人类 ~86%;空间题上多模态≈「盲」LLM;EQA 旗舰 | high |
+| **VSI-Bench** | NYU/Yale/Stanford(谢赛宁/李飞飞) | 2024 (2412.14171) | **视频视觉-空间智能**:288 室内扫描视频/5000+ QA/8 任务 | MRA(数值)/MCA(选择) | ✅被第三方广泛统一报;人类 ~79% vs 最佳 Gemini-1.5Pro ~49%;CoT 无效、显式 cognitive map 才提升 | high |
+| **SafeAgentBench** | 上海交大/上海AI Lab 等 | 2024 (2412.13178) | 具身 LLM agent **安全任务规划**:750 任务/10 类危险 | 危险指令拒绝率 + 安全成功率 | ⚠️自评:ReAct 安全成功 69% 却几乎不拒危险指令(detailed~10%);本页首个「安全」维度 | medium |
 
 ### 8.2 ERQA「81.4%」营销口径陷阱 ✅(高度警惕)
 
@@ -536,7 +560,7 @@ SimplerEnv 两协议作真机代理的「可靠性」量化(Google Robot 三任�
 > ④ **RoboVQA 是自由生成式**(非多选),主指标 BLEU + 认知干预率,与多选 accuracy 完全不同口径。
 > ⑤ **训练-评测同源风险**:RoboSpatial/SpatialVLM/RefSpatial 既造大规模合成空间 VQA 数据、又在自家配套小 benchmark(150/200 题)上报 SOTA,样本量小且同源,跨方法横比应警惕过拟合与口径自洽偏差。
 
-**来源**:ERQA(2503.20020、embodiedreasoning/ERQA)· ERQA+(flageval-baai.github.io/ERQA-Plus-page)· RoboVQA(2311.00899)· VLABench(2412.18194)· RoboSpatial(2411.16537)· Where2Place(2406.10721)· PointArena(2505.09990)· BLINK(2404.12390)· SpatialVLM(2401.12168)· RefSpatial(2506.04308)· EmbodiedBench(2502.09560)
+**来源**:ERQA(2503.20020、embodiedreasoning/ERQA)· ERQA+(flageval-baai.github.io/ERQA-Plus-page)· RoboVQA(2311.00899)· VLABench(2412.18194)· RoboSpatial(2411.16537)· Where2Place(2406.10721)· PointArena(2505.09990)· BLINK(2404.12390)· SpatialVLM(2401.12168)· RefSpatial(2506.04308)· EmbodiedBench(2502.09560)· OpenEQA(open-eqa.github.io)· VSI-Bench(2412.14171)· SafeAgentBench(2412.13178)
 
 ---
 
@@ -557,6 +581,7 @@ SimplerEnv 两协议作真机代理的「可靠性」量化(Google Robot 三任�
 | **ObjectNav** | AI Habitat/FAIR | 2022–23 | 目标式·只给物体类别 | SR/SPL(**无 nDTW**) | PIRLNav SR 65.0/SPL 34.1;SR 60+ 但 SPL 仅 30 量级 | high |
 | **GOAT-Bench** | Khanna 等 (CVPR24) | 2024 | 多模态·终身·有记忆 | SR/SPL(按模态分) | GOAT 真机系统整体 SR 83%(仿真基线数待查) | medium |
 | **Qwen-VLA 导航纳入** | 阿里 Qwen | 2026 (2605.30280) | 统一基座把导航纳入同一 DiT | OSR/SR | ⚠️自评:R2R OSR 69.0% / RxR SR 59.6%,无第三方复现 | low |
+| **CityNav** | 东京科学大/东大/NII/京大/Sony | 2024 (2406.14240;ICCV25) | **真实城市点云·航拍(无人机)VLN** | SR/NE(m)/OSR/SPL | ⚠️自评;远未饱和:Test-Unseen 最佳 SR~6.7%/NE~85m vs 人类~87–90%;首个航拍 VLN(合成对照 AerialVLN 2308.06735) | medium |
 
 ### 9.2 读表须知:导航评测铁律 ⚠️
 
@@ -568,7 +593,19 @@ SimplerEnv 两协议作真机代理的「可靠性」量化(Google Robot 三任�
 > ⑥ **GOAT 真机数 ≠ 仿真基线**:GOAT 真机系统在 9 个真实家庭、675 目标跑出整体 SR 83%(首目标 60%→探索后 90%),**不能等同 GOAT-Bench 仿真基准上的模型成绩**;「随探索提升」是终身/记忆设定特有现象。
 > ⑦ **统一 VLA 把导航纳入多为厂商自评**:Qwen-VLA(2605.30280)用一个 DiT 解码器同时出操作动作与导航路径,但 R2R/RxR 数全为作者自报、口径(离散 vs CE、single-run vs beam-search)披露不全、社区未复现,与 ScaleVLN(R2R test SR ~80%)、Efficient-VLN(RxR-CE SR 67.0,含 ScaleVLN-150K 增强;无增强 52.1)横比时应保留 ⚠️。
 
-**来源**:R2R(ScaleVLN scalevln.github.io、DUET CVPR22)· RxR(google-research-datasets/RxR)· REVERIE(1904.10151、yuankaiqi.github.io/REVERIE_Challenge)· VLN-CE(jacobkrantz/VLN-CE、Efficient-VLN 2512.10310)· ObjectNav(aihabitat.org/challenge/2023、PIRLNav 2301.07302)· GOAT-Bench(2404.06609)· Qwen-VLA(2605.30280,见 [Qwen-VLA 细读](qwen-vla.md))
+**来源**:R2R(ScaleVLN scalevln.github.io、DUET CVPR22)· RxR(google-research-datasets/RxR)· REVERIE(1904.10151、yuankaiqi.github.io/REVERIE_Challenge)· VLN-CE(jacobkrantz/VLN-CE、Efficient-VLN 2512.10310)· ObjectNav(aihabitat.org/challenge/2023、PIRLNav 2301.07302)· GOAT-Bench(2404.06609)· Qwen-VLA(2605.30280,见 [Qwen-VLA 细读](qwen-vla.md))· CityNav(2406.14240)· WorldModelBench(2502.20694)
+
+---
+
+## 附、世界模型 / 视频生成评测(与 WAM 调研线呼应)
+
+五大类之外,**WAM(世界-行动模型)线** 还关心一个正交问题:**视频生成模型能否当「世界模型」用**——评的不是像素保真(FID),而是**物理一致性 / 常识 / 指令遵循**。
+
+| 基准 | 机构 | 年份 | 测什么 | 主指标 | 关键数(⚠️=自评) | 可信度 |
+|---|---|---|---|---|---|---|
+| **WorldModelBench** | UC Berkeley/UCSD/MIT/NVIDIA(Song Han 等) | 2025 (2502.20694) | 把视频生成模型当世界模型判定:7 领域×56 子域/350 条件,三轴(指令遵循/常识/物理一致性) | 三轴人评 + 2B 自动 judger | ⚠️自评:67K 人标校准、评 14 前沿视频模型、judger 较 GPT-4o +8.6%;判别协议 + 可复用 judger 已开源 | medium |
+
+> 与本站 [WAM 调研](/wam/) 互补:WAM 线讲「联合预测未来 + 动作」的模型本身,WorldModelBench 提供「世界模型质量」的**评测口径**(物理守恒 / 常识 / 指令遵循),而非动作成功率——二者不可互推。
 
 ---
 
