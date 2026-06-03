@@ -2,8 +2,8 @@
   <div class="kg-wrap" ref="wrapEl">
     <div class="kg-legend">
       <div class="lg-row">
-        <span class="lg-item"><i class="dot dot-hub"></i>投资方/机构(大·枢纽)</span>
-        <span class="lg-item"><i class="dot dot-leaf"></i>公司(小)</span>
+        <span class="lg-item"><i class="dot dot-leaf"></i>公司(发光主体)</span>
+        <span class="lg-item"><i class="dot dot-hub"></i>投资方/机构(枢纽)</span>
       </div>
       <div class="lg-row">
         <span class="lg-item">同色 = 同一投资集群</span>
@@ -105,7 +105,7 @@
           @click="onNodeClick(n)"
         >
           <circle :cx="n.x" :cy="n.y" :r="n.r" class="node-orb" />
-          <text :x="n.x" :y="n.y" class="node-initial" dy="0.34em" :style="{ fontSize: n.r > 13 ? '12px' : '10px' }">{{ n.initial }}</text>
+          <text :x="n.x" :y="n.y" class="node-initial" dy="0.34em" :style="{ fontSize: Math.round(Math.max(9, Math.min(14, n.r * 0.82))) + 'px' }">{{ n.initial }}</text>
           <text :x="n.lx" :y="n.ly" :text-anchor="n.anchor" class="node-label" dy="0.32em">{{ n.label }}</text>
         </g>
       </g>
@@ -169,8 +169,9 @@ for (const lf of leafList) { const h = pickHub(lf.id); if (h) childrenOf[h].push
 const kindOf = (n) => (hubIds.has(n.id) || connectors.some((c) => c.id === n.id) ? (companies.some((c) => c.id === n.id) ? null : 'conn') : null)
 const isCompany = (id) => companies.some((c) => c.id === id)
 const regionKind = (n) => (isCompany(n.id) ? (n.region === 'china' ? 'cn' : 'intl') : 'conn')
-const hubR = (h) => 18 + Math.min(12, (deg[h.id] || 0) * 1.7)
-const leafR = (n) => (isCompany(n.id) ? 7 + Math.min(7, Math.sqrt((n.fundingAmount || 0) / 1e8) * 1.9) : 10)
+const hubR = (h) => 17 + Math.min(11, (deg[h.id] || 0) * 1.6)
+// 公司=生态主体,放大并抬高下限,确保都能被注意到(10–21px);次要连接点 11px
+const leafR = (n) => (isCompany(n.id) ? 10 + Math.min(11, Math.sqrt((n.fundingAmount || 0) / 1e8) * 2.4) : 11)
 
 const pos = {}
 const assignedHub = {}
@@ -190,11 +191,11 @@ hubList.forEach((h) => {
   const base = pos[h.id].ang
   const kids = childrenOf[h.id]
   const m = kids.length
-  const arc = Math.min(Math.PI / 6, 0.18 + m * 0.055) // 扇面随子数增大,封顶防重叠
+  const arc = Math.min(Math.PI / 5.2, 0.2 + m * 0.062) // 扇面随子数增大,封顶防重叠
   kids.forEach((c, k) => {
     const t = m === 1 ? 0 : k / (m - 1) - 0.5
     const ang = base + t * arc
-    const rr = Rh + 94 + (k % 2) * 36 // 紧贴 hub 外侧,双层错开
+    const rr = Rh + 98 + (k % 2) * 46 // 紧贴 hub 外侧,双层错开(节点变大故拉开层距)
     pos[c.id] = { x: CX + Math.cos(ang) * rr, y: CY + Math.sin(ang) * rr, ang, r: leafR(c) }
     assignedHub[c.id] = h.id
   })
@@ -203,10 +204,46 @@ hubList.forEach((h) => {
 orphans.forEach((c, k) => {
   let ax = 0, ay = 0, cnt = 0
   for (const nb of adj[c.id]) if (pos[nb]) { ax += Math.cos(pos[nb].ang); ay += Math.sin(pos[nb].ang); cnt++ }
-  const ang = cnt ? Math.atan2(ay, ax) : (k / Math.max(1, orphans.length)) * Math.PI * 2 + 0.2
-  const rr = Rh + 150
+  const baseAng = cnt ? Math.atan2(ay, ax) : (k / Math.max(1, orphans.length)) * Math.PI * 2 + 0.2
+  const ang = baseAng + (k % 2 ? 0.14 : -0.14) // 轻微错开,避免互为孤点者初始重合
+  const rr = Rh + 150 + (k % 3) * 16
   pos[c.id] = { x: CX + Math.cos(ang) * rr, y: CY + Math.sin(ang) * rr, ang, r: leafR(c) }
 })
+
+// 去重叠:结构化布局后做若干次同步松弛,保证节点不相互压盖(一次性静态计算,无动画)
+// 枢纽固定为骨架;仅推开相互重叠的公司/孤点;并设中心留白区,防止侵入机器人
+{
+  const ids = Object.keys(pos)
+  const movable = new Set(ids.filter((id) => !hubIds.has(id)))
+  const PAD = 6, KEEPOUT = 134
+  for (let iter = 0; iter < 70; iter++) {
+    for (let a = 0; a < ids.length; a++) {
+      for (let b = a + 1; b < ids.length; b++) {
+        const A = pos[ids[a]], B = pos[ids[b]]
+        const dx = B.x - A.x, dy = B.y - A.y
+        let d = Math.hypot(dx, dy), ux, uy
+        if (d < 0.5) { const ja = a * 2.3999; ux = Math.cos(ja); uy = Math.sin(ja); d = 0 } // 重合:用确定性方向强制分开
+        else { ux = dx / d; uy = dy / d }
+        const need = A.r + B.r + PAD
+        if (d < need) {
+          const push = need - d
+          const am = movable.has(ids[a]), bm = movable.has(ids[b])
+          if (am && bm) { A.x -= ux * push / 2; A.y -= uy * push / 2; B.x += ux * push / 2; B.y += uy * push / 2 }
+          else if (am) { A.x -= ux * push; A.y -= uy * push }
+          else if (bm) { B.x += ux * push; B.y += uy * push }
+        }
+      }
+    }
+    for (const id of movable) {
+      const N = pos[id]
+      const dx = N.x - CX, dy = N.y - CY
+      const d = Math.hypot(dx, dy) || 0.01
+      const minD = KEEPOUT + N.r
+      if (d < minD) { N.x = CX + (dx / d) * minD; N.y = CY + (dy / d) * minD }
+    }
+  }
+  for (const id of ids) pos[id].ang = Math.atan2(pos[id].y - CY, pos[id].x - CX) // 标签方向按最终位置重算
+}
 
 // 节点颜色 = 所属集群色(枢纽用自身色,公司用其枢纽色,孤立点用中性钢蓝)
 const colorOf = (id) => (hubIds.has(id) ? hubHue[id] : assignedHub[id] ? hubHue[assignedHub[id]] : '#9fb1d4')
@@ -222,7 +259,7 @@ const nodes = reactive(allRaw.filter((n) => pos[n.id]).map((n) => {
     kind: regionKind(n), r: p.r, website: n.website || null, color: colorOf(n.id),
     x: p.x, y: p.y, ang: p.ang, lx, ly,
     anchor: Math.cos(p.ang) >= 0 ? 'start' : 'end',
-    show: hubIds.has(n.id) || (isCompany(n.id) && (n.fundingAmount || 0) >= 1e9), // 默认只标 hub + 大公司
+    show: hubIds.has(n.id) || (isCompany(n.id) && ((n.fundingAmount || 0) >= 3e8 || (n.valuation || 0) >= 1.5e9)), // 默认标 hub + 重点公司
   }
 }))
 const hubs = nodes.filter((n) => hubIds.has(n.id))
@@ -343,6 +380,10 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
   fill: var(--c); fill-opacity: 0.4; stroke: var(--c); stroke-width: 1.4;
   filter: url(#kg-glow); transition: opacity 0.2s, fill-opacity 0.2s;
 }
+/* 公司=生态主体:环更亮更实,把视觉焦点拉到公司上(填充仍半透明) */
+.node-cn .node-orb, .node-intl .node-orb { fill-opacity: 0.44; stroke-width: 2.2; }
+/* 投资方/机构=枢纽:更透明、环更柔,退为结构骨架,让位给公司 */
+.node-conn .node-orb { fill-opacity: 0.18; stroke-width: 1.2; stroke-opacity: 0.7; }
 .node.focus .node-orb { filter: url(#kg-glow-strong); stroke-width: 2.4; fill-opacity: 0.88; }
 .is-hovering .node:not(.dim) .node-orb { fill-opacity: 0.72; }
 .node.dim { opacity: 0.16; }
@@ -374,8 +415,8 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 .lg-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 .lg-item { display: inline-flex; align-items: center; gap: 6px; }
 .dot { border-radius: 50%; background: #cbd5f0; box-shadow: 0 0 7px rgba(180, 200, 255, 0.7); }
-.dot-hub { width: 13px; height: 13px; }
-.dot-leaf { width: 7px; height: 7px; }
+.dot-hub { width: 12px; height: 12px; opacity: 0.7; }
+.dot-leaf { width: 11px; height: 11px; }
 .ln { width: 18px; height: 0; border-top: 2px solid rgba(190, 205, 240, 0.85); }
 .ln-dash { border-top-style: dashed; }
 
