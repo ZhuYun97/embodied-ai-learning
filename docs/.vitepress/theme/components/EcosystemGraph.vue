@@ -98,11 +98,11 @@
           </g>
         </g>
 
-        <!-- 节点 -->
+        <!-- 节点:球 + 首字(可交互) -->
         <g
           v-for="n in nodes"
           :key="n.id"
-          :class="['node', `node-${n.kind}`, { showlabel: n.show, dim: hoverId && !nodeActive(n.id), focus: hoverId === n.id, clickable: !!n.website }]"
+          :class="['node', `node-${n.kind}`, { dim: hoverId && !nodeActive(n.id), focus: hoverId === n.id, clickable: !!n.website }]"
           :style="{ '--c': n.color }"
           @pointerenter="hoverId = n.id"
           @pointerleave="hoverId = null"
@@ -110,7 +110,15 @@
         >
           <circle :cx="n.x" :cy="n.y" :r="n.r" class="node-orb" />
           <text :x="n.x" :y="n.y" class="node-initial" dy="0.34em" :style="{ fontSize: Math.round(Math.max(9, Math.min(14, n.r * 0.82))) + 'px' }">{{ n.initial }}</text>
-          <text :x="n.lx" :y="n.ly" :text-anchor="n.anchor" class="node-label" dy="0.32em">{{ n.label }}</text>
+        </g>
+        <!-- 标签:单独置于最上层,任何时候都清晰可读(不被相邻节点压住) -->
+        <g class="labels">
+          <text
+            v-for="n in nodes"
+            :key="'l' + n.id"
+            :x="n.lx" :y="n.ly" :text-anchor="n.anchor" dy="0.32em"
+            :class="['node-label', { showlabel: n.show, dim: hoverId && !nodeActive(n.id), focus: hoverId === n.id }]"
+          >{{ n.label }}</text>
         </g>
       </g>
     </svg>
@@ -256,7 +264,7 @@ const colorOf = (id) => (hubIds.has(id) ? hubHue[id] : assignedHub[id] ? hubHue[
 const allRaw = [...hubList, ...leafList]
 const nodes = reactive(allRaw.filter((n) => pos[n.id]).map((n) => {
   const p = pos[n.id]
-  const out = p.r + 7
+  const out = p.r + 9
   const lx = p.x + Math.cos(p.ang) * out
   const ly = p.y + Math.sin(p.ang) * out
   return {
@@ -404,11 +412,11 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
   paint-order: stroke; stroke: rgba(4, 6, 16, 0.92); stroke-width: 2.6px;
   pointer-events: none; user-select: none; opacity: 0; transition: opacity 0.2s, fill 0.2s;
 }
-.node.showlabel .node-label { opacity: 0.82; }
+.node-label.showlabel { opacity: 0.82; }
 /* 标签统一浅色(不再按类别上色,颜色已交给集群)*/
-.is-hovering .node:not(.dim) .node-label { opacity: 1; fill: #fff; }
-.is-hovering .node.dim .node-label { opacity: 0; }
-.node.focus .node-label { opacity: 1; fill: #fff; font-weight: 600; }
+.is-hovering .node-label:not(.dim) { opacity: 1; fill: #fff; }
+.is-hovering .node-label.dim { opacity: 0; }
+.node-label.focus { opacity: 1; fill: #fff; font-weight: 600; }
 
 .kg-legend {
   position: absolute; top: 14px; left: 16px; z-index: 3;
