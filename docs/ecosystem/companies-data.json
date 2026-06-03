@@ -533,6 +533,41 @@
     { "source": "alibaba", "target": "gaussian", "type": "invest", "label": "投资" },
     { "source": "xiaomi", "target": "ninebot", "type": "invest", "label": "战略投资" },
     { "source": "idg", "target": "orionstar", "type": "invest", "label": "投资" },
-    { "source": "nvidia", "target": "tesla", "type": "partner", "label": "算力供应" }
+    { "source": "nvidia", "target": "tesla", "type": "partner", "label": "算力供应" },
+
+    { "source": "m-sergey-levine", "target": "physical-intelligence", "type": "found", "label": "联合创始人" },
+    { "source": "m-chelsea-finn", "target": "physical-intelligence", "type": "found", "label": "联合创始人" },
+    { "source": "m-karol-hausman", "target": "physical-intelligence", "type": "found", "label": "联合创始人" },
+    { "source": "m-deepak-pathak", "target": "skild-ai", "type": "found", "label": "联合创始人" },
+    { "source": "m-abhinav-gupta", "target": "skild-ai", "type": "found", "label": "联合创始人" },
+    { "source": "m-jonathan-hurst", "target": "agility-robotics", "type": "found", "label": "联合创始人" },
+    { "source": "m-marc-raibert", "target": "boston-dynamics", "type": "found", "label": "创始人" },
+    { "source": "m-he-wang", "target": "galbot", "type": "found", "label": "创始人" },
+    { "source": "m-jianyu-chen", "target": "x-humanoid", "type": "found", "label": "创始人" },
+    { "source": "m-yang-gao", "target": "spirit-ai", "type": "found", "label": "联合创始人" },
+    { "source": "m-wei-zhang", "target": "limx", "type": "found", "label": "创始人" },
+    { "source": "m-wang-xingxing", "target": "unitree", "type": "found", "label": "创始人" },
+    { "source": "m-zhihui-peng", "target": "agibot", "type": "found", "label": "联合创始人" },
+    { "source": "m-qian-wang", "target": "x2robot", "type": "found", "label": "创始人" },
+    { "source": "m-jim-fan", "target": "nvidia", "type": "found", "label": "GEAR Lab 联合创始人" },
+    { "source": "m-jianlan-luo", "target": "agibot", "type": "advise", "label": "首席科学家" }
+  ],
+  "mentors": [
+    { "id": "m-sergey-levine", "name": "Sergey Levine", "affiliation": "UC Berkeley 副教授", "role": "联合创始人", "source": "https://www.sequoiacap.com/founder/sergey-levine/" },
+    { "id": "m-chelsea-finn", "name": "Chelsea Finn", "affiliation": "Stanford 助理教授", "role": "联合创始人", "source": "https://en.wikipedia.org/wiki/Chelsea_Finn" },
+    { "id": "m-karol-hausman", "name": "Karol Hausman", "affiliation": "Physical Intelligence CEO / 前 Google", "role": "联合创始人兼 CEO", "source": "https://www.emcap.com/portfolio/physical-intelligence" },
+    { "id": "m-deepak-pathak", "name": "Deepak Pathak", "affiliation": "CMU 机器人研究所", "role": "联合创始人", "source": "https://lsvp.com/stories/skild-is-bringing-generative-ai-to-the-real-world/" },
+    { "id": "m-abhinav-gupta", "name": "Abhinav Gupta", "affiliation": "CMU 机器人研究所 / 前 Meta FAIR", "role": "联合创始人", "source": "https://sequoiacap.com/article/partnering-with-skild/" },
+    { "id": "m-jonathan-hurst", "name": "Jonathan Hurst", "affiliation": "俄勒冈州立大学 机器人学教授", "role": "联合创始人兼 CTO", "source": "https://www.agilityrobotics.com/company" },
+    { "id": "m-marc-raibert", "name": "Marc Raibert", "affiliation": "Boston Dynamics 创始人 / RAI Institute", "role": "创始人", "source": "https://en.wikipedia.org/wiki/Marc_Raibert" },
+    { "id": "m-he-wang", "name": "He Wang", "nameZh": "王鹤", "affiliation": "北京大学 助理教授 / 北大-银河通用联合实验室", "role": "创始人", "source": "https://www.thewirechina.com/whos_who/wang-he-%E7%8E%8B%E9%B9%A4/" },
+    { "id": "m-jianyu-chen", "name": "Chen Jianyu", "nameZh": "陈建宇", "affiliation": "清华大学交叉信息研究院 助理教授", "role": "创始人", "source": "https://iiis.tsinghua.edu.cn/rydw/qzjs/chenjianyu.htm" },
+    { "id": "m-yang-gao", "name": "Gao Yang", "nameZh": "高阳", "affiliation": "清华大学交叉信息研究院 助理教授", "role": "联合创始人", "source": "https://www.prnewswire.com/news-releases/spirit-ai-lands-280m-to-scale-embodied-ai-through-dirty-data-302697085.html" },
+    { "id": "m-wei-zhang", "name": "Wei Zhang", "nameZh": "张巍", "affiliation": "南方科技大学 教授", "role": "创始人兼 CEO", "source": "https://www.yicaiglobal.com/news/robot-maker-limx-closes-latest-fundraiser-led-by-china-merchants-vc-shang-qi" },
+    { "id": "m-wang-xingxing", "name": "Wang Xingxing", "nameZh": "王兴兴", "affiliation": "宇树科技 创始人", "role": "创始人", "source": "https://en.wikipedia.org/wiki/Wang_Xingxing" },
+    { "id": "m-zhihui-peng", "name": "Peng Zhihui", "nameZh": "彭志辉(稚晖君)", "affiliation": "智元机器人 联合创始人兼 CTO / 原华为天才少年", "role": "联合创始人兼 CTO", "source": "https://english.news.cn/20260503/3616ad8aae584ea6a5501dbb0fd78111/c.html" },
+    { "id": "m-qian-wang", "name": "Wang Qian", "nameZh": "王潜", "affiliation": "自变量机器人 创始人兼 CEO", "role": "创始人", "source": "https://fgw.sz.gov.cn/ztzl/qtztzl/szscjmyjjfzzhfwpt/mqfc/myqyjdxsj/content/post_12762911.html" },
+    { "id": "m-jim-fan", "name": "Jim Fan", "nameZh": "范麟熙", "affiliation": "NVIDIA GEAR Lab 联合负责人 / GR00T", "role": "GEAR Lab 联合创始人", "source": "https://research.nvidia.com/labs/gear/" },
+    { "id": "m-jianlan-luo", "name": "Jianlan Luo", "nameZh": "罗剑岚", "affiliation": "智元机器人 / 前 Google", "role": "首席科学家", "source": "https://en.tmtpost.com/news/7522022" }
   ]
 }

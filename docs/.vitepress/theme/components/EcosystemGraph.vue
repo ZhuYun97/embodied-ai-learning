@@ -4,6 +4,7 @@
       <div class="lg-row">
         <span class="lg-item"><i class="dot dot-leaf"></i>公司(发光主体)</span>
         <span class="lg-item"><i class="dot dot-hub"></i>投资方/机构(枢纽)</span>
+        <span class="lg-item"><i class="dot dot-mentor"></i>知名导师/科学家</span>
       </div>
       <div class="lg-row">
         <span class="lg-item">同色 = 同一投资集群</span>
@@ -110,7 +111,12 @@
         >
           <circle :cx="n.x" :cy="n.y" :r="n.r" class="node-orb" />
           <svg
-            v-if="n.logo"
+            v-if="n.kind === 'mentor'"
+            :x="n.x - n.r" :y="n.y - n.r" :width="n.r * 2" :height="n.r * 2"
+            viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" class="node-person"
+          ><path d="M12 12.3a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 1.9c-3.3 0-6.4 1.8-6.4 5V20h12.8v-.8c0-3.2-3.1-5-6.4-5Z" /></svg>
+          <svg
+            v-else-if="n.logo"
             :x="n.x - n.logoS / 2" :y="n.y - n.logoS / 2" :width="n.logoS" :height="n.logoS"
             :viewBox="n.logo.vb" preserveAspectRatio="xMidYMid meet" class="node-logo"
             v-html="n.logo.body"
@@ -123,7 +129,7 @@
             v-for="n in nodes"
             :key="'l' + n.id"
             :x="n.lx" :y="n.ly" :text-anchor="n.anchor" dy="0.32em"
-            :class="['node-label', { showlabel: n.show, dim: hoverId && !nodeActive(n.id), focus: hoverId === n.id }]"
+            :class="['node-label', n.kind === 'mentor' && 'lbl-mentor', { showlabel: n.show, dim: hoverId && !nodeActive(n.id), focus: hoverId === n.id }]"
           >{{ n.label }}</text>
         </g>
       </g>
@@ -161,13 +167,14 @@ rels.forEach((r) => { linked.add(r.source); linked.add(r.target) })
 
 const companies = (data.companies || []).filter((c) => linked.has(c.id))
 const connectors = (data.connectors || []).filter((c) => linked.has(c.id))
+const mentors = (data.mentors || []).filter((c) => linked.has(c.id)) // 知名导师/科学家
 
 const deg = {}
-;[...companies, ...connectors].forEach((n) => (deg[n.id] = 0))
+;[...companies, ...connectors, ...mentors].forEach((n) => (deg[n.id] = 0))
 rels.forEach((r) => { if (deg[r.source] != null) deg[r.source]++; if (deg[r.target] != null) deg[r.target]++ })
 
 const adj = {}
-;[...companies, ...connectors].forEach((n) => (adj[n.id] = []))
+;[...companies, ...connectors, ...mentors].forEach((n) => (adj[n.id] = []))
 rels.forEach((r) => { if (adj[r.source] && adj[r.target]) { adj[r.source].push(r.target); adj[r.target].push(r.source) } })
 
 // hub = 有 ≥2 关系的投资方/机构(生态枢纽);其余皆为叶子
@@ -187,11 +194,14 @@ for (const lf of leafList) { const h = pickHub(lf.id); if (h) childrenOf[h].push
 
 const kindOf = (n) => (hubIds.has(n.id) || connectors.some((c) => c.id === n.id) ? (companies.some((c) => c.id === n.id) ? null : 'conn') : null)
 const isCompany = (id) => companies.some((c) => c.id === id)
-const regionKind = (n) => (isCompany(n.id) ? (n.region === 'china' ? 'cn' : 'intl') : 'conn')
+const isMentor = (id) => mentors.some((m) => m.id === id)
+const MENTOR_HUE = '#fcd34d' // 导师/科学家统一学术金,自成一类
+const regionKind = (n) => (isMentor(n.id) ? 'mentor' : isCompany(n.id) ? (n.region === 'china' ? 'cn' : 'intl') : 'conn')
 // 投资方枢纽适当收敛,让位给公司(17.5–23px)
 const hubR = (h) => 15 + Math.min(8, (deg[h.id] || 0) * 1.25)
 // 公司=生态主体,做成最醒目的节点(重点公司 ≥ 枢纽;12–23px);次要连接点 11px
 const leafR = (n) => (isCompany(n.id) ? 12 + Math.min(11, Math.sqrt((n.fundingAmount || 0) / 1e8) * 2.6) : 11)
+const mentorR = 11 // 导师固定小尺寸,靠金色 + 姓名标签吸睛,不与公司争大小
 
 const pos = {}
 const assignedHub = {}
@@ -230,6 +240,25 @@ orphans.forEach((c, k) => {
   pos[c.id] = { x: CX + Math.cos(ang) * rr, y: CY + Math.sin(ang) * rr, ang, r: leafR(c) }
 })
 
+// 导师/科学家:沿径向放到所属公司更外侧(公司在内、导师在外),多位则张开扇面,再交给松弛去重叠
+const mByComp = {}
+mentors.forEach((mt) => {
+  const comp = (adj[mt.id] || []).find((nb) => isCompany(nb) && pos[nb])
+  if (comp) (mByComp[comp] = mByComp[comp] || []).push(mt)
+})
+Object.entries(mByComp).forEach(([comp, list]) => {
+  const cp = pos[comp]
+  const baseR = Math.hypot(cp.x - CX, cp.y - CY)
+  const m = list.length
+  const spread = Math.min(Math.PI / 6, 0.16 + m * 0.07)
+  list.forEach((mt, k) => {
+    const t = m === 1 ? 0 : k / (m - 1) - 0.5
+    const ang = cp.ang + t * spread
+    const rr = baseR + cp.r + 26 + (k % 2) * 20
+    pos[mt.id] = { x: CX + Math.cos(ang) * rr, y: CY + Math.sin(ang) * rr, ang, r: mentorR }
+  })
+})
+
 // 去重叠:结构化布局后做若干次同步松弛,保证节点不相互压盖(一次性静态计算,无动画)
 // 枢纽固定为骨架;仅推开相互重叠的公司/孤点;并设中心留白区,防止侵入机器人
 {
@@ -265,22 +294,23 @@ orphans.forEach((c, k) => {
   for (const id of ids) pos[id].ang = Math.atan2(pos[id].y - CY, pos[id].x - CX) // 标签方向按最终位置重算
 }
 
-// 节点颜色 = 所属集群色(枢纽用自身色,公司用其枢纽色,孤立点用中性钢蓝)
-const colorOf = (id) => (hubIds.has(id) ? hubHue[id] : assignedHub[id] ? hubHue[assignedHub[id]] : '#9fb1d4')
+// 节点颜色 = 所属集群色(导师用学术金;枢纽用自身色,公司用其枢纽色,孤立点用中性钢蓝)
+const colorOf = (id) => (isMentor(id) ? MENTOR_HUE : hubIds.has(id) ? hubHue[id] : assignedHub[id] ? hubHue[assignedHub[id]] : '#9fb1d4')
 
-const allRaw = [...hubList, ...leafList]
+const allRaw = [...hubList, ...leafList, ...mentors]
 const nodes = reactive(allRaw.filter((n) => pos[n.id]).map((n) => {
   const p = pos[n.id]
   const out = p.r + 9
   const lx = p.x + Math.cos(p.ang) * out
   const ly = p.y + Math.sin(p.ang) * out
+  const lbl = isMentor(n.id) ? (n.nameZh || n.name) : n.name
   return {
-    id: n.id, label: n.name, initial: initialOf(n.name),
+    id: n.id, label: lbl, initial: initialOf(lbl),
     kind: regionKind(n), r: p.r, website: n.website || null, color: colorOf(n.id),
     x: p.x, y: p.y, ang: p.ang, lx, ly,
     anchor: Math.cos(p.ang) >= 0 ? 'start' : 'end',
     logo: logos[n.id] || null, logoS: Math.round(p.r * 1.3), // 投资方/机构有 logo 则用 logo,否则回退首字
-    show: hubIds.has(n.id) || (isCompany(n.id) && ((n.fundingAmount || 0) >= 3e8 || (n.valuation || 0) >= 1.5e9)), // 默认标 hub + 重点公司
+    show: hubIds.has(n.id) || isMentor(n.id) || (isCompany(n.id) && ((n.fundingAmount || 0) >= 3e8 || (n.valuation || 0) >= 1.5e9)), // 默认标 hub + 导师 + 重点公司
   }
 }))
 const hubs = nodes.filter((n) => hubIds.has(n.id))
@@ -392,6 +422,9 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 .edge.dim { opacity: 0.04; }
 .edge-partner { stroke-dasharray: 5 4; }
 .edge-incubate { stroke-dasharray: 2 5; }
+/* 导师→公司连线:学术金,比普通次要边更显眼;顾问为虚线 */
+.edge-found, .edge-advise { stroke: #d9b24f; opacity: 0.42; }
+.edge-advise { stroke-dasharray: 4 4; }
 
 /* 节点:发光球 */
 .node { cursor: default; }
@@ -405,6 +438,9 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 .node-cn .node-orb, .node-intl .node-orb { fill-opacity: 0.44; stroke-width: 2.2; }
 /* 投资方/机构=枢纽:更透明、柔光更弱,退为结构骨架,让位给公司 */
 .node-conn .node-orb { fill-opacity: 0.2; stroke-width: 1.3; stroke-opacity: 0.6; filter: url(#kg-glow-soft); }
+/* 导师/科学家=学术金小节点,自成一类(人物图标 + 默认姓名) */
+.node-mentor .node-orb { fill-opacity: 0.14; stroke-width: 1.5; stroke-opacity: 0.95; filter: url(#kg-glow-soft); }
+.node-person { fill: #fde9a8; pointer-events: none; }
 .node.focus .node-orb { filter: url(#kg-glow-strong); stroke-width: 2.4; fill-opacity: 0.88; }
 .is-hovering .node:not(.dim) .node-orb { fill-opacity: 0.72; }
 .node.dim { opacity: 0.16; }
@@ -424,6 +460,8 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
   pointer-events: none; user-select: none; opacity: 0; transition: opacity 0.2s, fill 0.2s;
 }
 .node-label.showlabel { opacity: 0.82; }
+/* 导师姓名标签:学术金,区别于公司/枢纽的浅色标签 */
+.node-label.lbl-mentor { fill: #fcd34d; }
 /* 标签统一浅色(不再按类别上色,颜色已交给集群)*/
 .is-hovering .node-label:not(.dim) { opacity: 1; fill: #fff; }
 .is-hovering .node-label.dim { opacity: 0; }
@@ -441,6 +479,7 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 .dot { border-radius: 50%; background: #cbd5f0; box-shadow: 0 0 7px rgba(180, 200, 255, 0.7); }
 .dot-hub { width: 12px; height: 12px; opacity: 0.7; }
 .dot-leaf { width: 11px; height: 11px; }
+.dot-mentor { width: 11px; height: 11px; background: #fcd34d; box-shadow: 0 0 7px rgba(252, 211, 77, 0.7); }
 .ln { width: 18px; height: 0; border-top: 2px solid rgba(190, 205, 240, 0.85); }
 .ln-dash { border-top-style: dashed; }
 
