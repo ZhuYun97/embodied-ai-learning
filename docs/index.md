@@ -172,3 +172,18 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 
 > 📌 入口推荐:VLA 线先读 [发展深度调研总报告](/vla/) 把握全局,再按[论文细读导航](/vla/#-论文细读导航)逐篇深入;WAM 线从 [WAM 总览(定义 / taxonomy)](/wam/) 进入。第一次来?看 [如何阅读本站](/vla/guide) 与[更新日志](/vla/changelog)。
 
+<div class="home-coda">
+  <div class="home-coda__main">
+    <span class="home-coda__eyebrow">// CONTINUE · 继续探索</span>
+    <p class="home-coda__title">两条主线 · 逐篇细读 · 持续更新</p>
+    <p class="home-coda__sub">所有结论经 <code>deep-research</code> 多源检索 + 3 票对抗式事实核查整理,⚠️ 自评 / ✅ 已核 / 待核 三级标注,绝不把厂商自评洗成裸事实。</p>
+  </div>
+  <nav class="home-coda__links" aria-label="更多入口">
+    <a href="ecosystem/">生态图谱</a>
+    <a href="news/">最新新闻</a>
+    <a href="vla/papers/benchmarks">基准速查</a>
+    <a href="vla/guide">如何阅读</a>
+    <a href="https://github.com/ZhuYun97/embodied-ai-learning" target="_blank" rel="noreferrer">GitHub 开源 ↗</a>
+  </nav>
+</div>
+

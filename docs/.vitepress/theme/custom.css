@@ -1643,3 +1643,155 @@ html.skin-archive .delight-particle { color: var(--reg-mark); }
   .hero-robot-wrap.delight-spin { animation: none; }
   .delight-toast { transition: opacity 0.2s ease; transform: translateX(-50%); }
 }
+
+/* ============================================================
+   首页优化 ③:Hero 数据读出条 + 区块眉标 + 收束控制台带
+   数字与首页 feature 卡口径一致(VLA 30 + WAM 16 = 46 篇 · 2 主线 · 38 公司 · 4 基准)。
+   语言沿用全站:等宽数字 · 三色渐变 · 蓝图发丝 · › 规格行。仅 .VPHome。
+   ============================================================ */
+
+/* —— Hero 数据条(home-hero-actions-after):仪表盘读数 —— */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: 30px;
+  max-width: 560px;
+  background: var(--vp-c-divider);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--tech-feature-bg, var(--vp-c-bg-soft));
+  backdrop-filter: blur(8px) saturate(1.15);
+  -webkit-backdrop-filter: blur(8px) saturate(1.15);
+}
+.hero-stat__n {
+  font-family: var(--vp-font-family-mono);
+  font-size: 1.6rem;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, #2563eb 0%, #22d3ee 55%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.dark .hero-stat__n { filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.35)); }
+.hero-stat__label {
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+  color: var(--vp-c-text-2);
+}
+@media (max-width: 560px) {
+  .hero-stats { grid-template-columns: repeat(2, 1fr); margin-top: 24px; }
+  .hero-stat__n { font-size: 1.4rem; }
+}
+
+/* —— 首页区块标题:加 mono 区段眉标(// 0N),与 hero 眉标 / 卡片序号同语言(仅科技皮)—— */
+html:not(.skin-archive) .VPHome .vp-doc { counter-reset: hsec; }
+html:not(.skin-archive) .VPHome .vp-doc h2 { counter-increment: hsec; }
+html:not(.skin-archive) .VPHome .vp-doc h2::before {
+  content: "// " counter(hsec, decimal-leading-zero);
+  display: block;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  margin-bottom: 9px;
+  color: var(--vp-c-brand-1);
+  opacity: 0.82;
+}
+
+/* —— 收束控制台带:页面结尾的身份 + hero 之外的入口 —— */
+.home-coda {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px 40px;
+  padding: 28px 30px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
+  background: var(--tech-card-bg, var(--vp-c-bg-soft));
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+}
+.home-coda::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
+  opacity: 0.8;
+}
+.dark .home-coda { box-shadow: inset 0 0 30px rgba(34, 211, 238, 0.05); }
+.home-coda__main { flex: 1 1 320px; min-width: 0; }
+.home-coda__eyebrow {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--vp-c-brand-1);
+  opacity: 0.9;
+}
+.home-coda__title {
+  margin: 9px 0 6px !important;
+  font-size: 1.15rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  color: var(--vp-c-text-1) !important;
+}
+.home-coda__sub {
+  margin: 0 !important;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--vp-c-text-2) !important;
+}
+.home-coda__sub code { font-size: 0.8em; }
+.home-coda__links { display: flex; flex-wrap: wrap; gap: 10px; }
+.home-coda__links a {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 9px 14px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  color: var(--vp-c-text-1) !important;
+  text-decoration: none !important;
+  transition: border-color .18s ease, color .18s ease, background-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.home-coda__links a::before { content: '› '; color: var(--vp-c-brand-1); font-weight: 700; }
+.home-coda__links a:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1) !important;
+  background: var(--vp-c-brand-softer);
+  transform: translateY(-2px);
+}
+.dark .home-coda__links a:hover {
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5), 0 8px 24px rgba(37, 99, 235, 0.2);
+}
+@media (max-width: 640px) {
+  .home-coda { padding: 22px 18px; gap: 18px; }
+  .home-coda__links a { font-size: 0.8rem; padding: 8px 12px; }
+}
+
+/* —— 档案皮兜底:数字 / 发丝换成档案强调色,避免蓝紫渐变与暖纸冲突 —— */
+html.skin-archive .hero-stat__n {
+  background: none;
+  -webkit-text-fill-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  filter: none;
+}
+html.skin-archive .home-coda::before { background: var(--vp-c-brand-1); opacity: 0.55; }

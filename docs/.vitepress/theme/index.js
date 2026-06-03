@@ -394,6 +394,30 @@ const HeroRobot = {
   },
 }
 
+// Hero 数据读出条(home-hero-actions-after):本站规模一览
+// 数字与首页 feature 卡口径一致:VLA 30 + WAM 16 = 46 篇细读;2 主线;38 公司;4 基准。
+const HERO_STATS = [
+  { n: '46', label: '篇论文细读' },
+  { n: '2', label: '研究主线' },
+  { n: '38', label: '生态公司' },
+  { n: '4', label: '硬核基准' },
+]
+const HeroStats = {
+  setup() {
+    return () =>
+      h(
+        'div',
+        { class: 'hero-stats', role: 'list', 'aria-label': '本站规模一览' },
+        HERO_STATS.map((s) =>
+          h('div', { class: 'hero-stat', role: 'listitem' }, [
+            h('span', { class: 'hero-stat__n' }, s.n),
+            h('span', { class: 'hero-stat__label' }, s.label),
+          ])
+        )
+      )
+  },
+}
+
 // 文档页档案编号行(doc-before):ENTRY · 轨道 · 标题 · REV
 const AccessionLine = {
   setup() {
@@ -591,6 +615,7 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'home-hero-info-before': () => h(HomeMasthead),
       'home-hero-image': () => h(HeroRobot),
+      'home-hero-actions-after': () => h(HeroStats),
       'nav-bar-content-after': () => [h(SkinToggle), h(ConfidenceLens), h(ZenToggle)],
       'doc-before': () => [h(AccessionLine), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
