@@ -45,6 +45,8 @@ import EcosystemMap from '../.vitepress/theme/components/EcosystemMap.vue'
 | **Mecka AI** | 2024 | 人体动作数据平台 | 采集高质量人体运动数据用于机器人训练 | [mecka.ai](https://mecka.ai) |
 | **Tesla** | — | Optimus | 量产人形机器人，自研 FSD 芯片 + 端到端 AI | [tesla.com](https://tesla.com) |
 | **NVIDIA** | — | Isaac GR00T | 机器人开发平台，GR00T 基础模型 + 仿真工具链 | [nvidia.com](https://nvidia.com) |
+| **World Labs** | 2024 | 大世界模型 / 空间智能 | 李飞飞创办，聚焦空间智能与世界模型，a16z 领投、估值破 10 亿美元 | [worldlabs.ai](https://www.worldlabs.ai) |
+| **Covariant** | 2017 | RFM-1 / Covariant Brain | 仓储机械臂操作 AI；2024/08 核心团队被亚马逊收购式招聘 + 技术授权 | [covariant.ai](https://covariant.ai) |
 
 ---
 
@@ -107,6 +109,33 @@ import EcosystemMap from '../.vitepress/theme/components/EcosystemMap.vue'
 | **浙江大学** | 灵巧手操作、双臂协作 |
 | **中科院自动化所** | 具身认知、类脑智能 |
 | **香港中文大学** | 双臂操作、机器人学习 |
+
+---
+
+## 🎓 知名导师 / 科学家
+
+> 与上述公司有创始 / 联合创始 / 首席科学家关系的知名学者与科学家（经多源交叉核查）。
+
+| 姓名 | 单位 / 背景 | 关联公司 | 角色 |
+|------|------------|----------|------|
+| **Sergey Levine** | UC Berkeley 副教授 | Physical Intelligence | 联合创始人 |
+| **Chelsea Finn** | Stanford 助理教授 | Physical Intelligence | 联合创始人 |
+| **Karol Hausman** | 前 Google，斯坦福兼职 | Physical Intelligence | 联合创始人兼 CEO |
+| **Deepak Pathak** | CMU 机器人研究所 | Skild AI | 联合创始人 |
+| **Abhinav Gupta** | CMU 机器人研究所 / 前 Meta FAIR | Skild AI | 联合创始人 |
+| **Jonathan Hurst** | 俄勒冈州立大学机器人学教授 | Agility Robotics | 联合创始人兼 CTO |
+| **Marc Raibert** | Boston Dynamics 创始人 / RAI Institute | Boston Dynamics | 创始人 |
+| **李飞飞 (Fei-Fei Li)** | 斯坦福大学教授 | World Labs | 创始人兼 CEO |
+| **Pieter Abbeel** | UC Berkeley 教授 / BAIR | Covariant | 联合创始人 |
+| **王鹤 (He Wang)** | 北京大学助理教授 | 银河通用 (Galbot) | 创始人 |
+| **陈建宇 (Chen Jianyu)** | 清华大学交叉信息研究院 | 星动纪元 (X-Humanoid) | 创始人 |
+| **高阳 (Gao Yang)** | 清华大学交叉信息研究院 | 千寻智能 (Spirit AI) | 联合创始人 |
+| **张巍 (Wei Zhang)** | 南方科技大学教授 | 逐际动力 (LimX) | 创始人兼 CEO |
+| **王兴兴 (Wang Xingxing)** | 宇树科技 | 宇树科技 (Unitree) | 创始人 |
+| **彭志辉 (稚晖君)** | 原华为"天才少年" | 智元机器人 (AgiBot) | 联合创始人兼 CTO |
+| **罗剑岚 (Jianlan Luo)** | 前 Google | 智元机器人 (AgiBot) | 首席科学家 |
+| **王潜 (Wang Qian)** | 自变量机器人 | 自变量机器人 (X²Robot) | 创始人 |
+| **范麟熙 (Jim Fan)** | NVIDIA GEAR Lab / GR00T | NVIDIA | GEAR Lab 联合创始人 |
 
 ---
 
