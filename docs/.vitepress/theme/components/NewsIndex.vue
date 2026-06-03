@@ -9,6 +9,15 @@ const selectedImportance = ref('全部')
 const selectedYear = ref('全部')
 const searchQuery = ref('')
 
+// 卡片展开态:默认折叠(只显标题+元信息),点击卡片再展开详情(摘要+来源)
+const expandedIds = ref(new Set())
+const isExpanded = (id) => expandedIds.value.has(id)
+const toggleCard = (id) => {
+  const s = new Set(expandedIds.value)
+  s.has(id) ? s.delete(id) : s.add(id)
+  expandedIds.value = s
+}
+
 // 从 localStorage 恢复筛选偏好
 onMounted(() => {
   const saved = localStorage.getItem('news-filter')
@@ -234,7 +243,14 @@ const renderMarkdown = (text) => {
           v-for="item in group.items"
           :key="item.id"
           class="news-card"
+          :class="{ 'is-expanded': isExpanded(item.id) }"
           :data-importance="item.importance"
+          role="button"
+          tabindex="0"
+          :aria-expanded="isExpanded(item.id)"
+          @click="toggleCard(item.id)"
+          @keydown.enter.prevent="toggleCard(item.id)"
+          @keydown.space.prevent="toggleCard(item.id)"
         >
           <div class="news-card__header">
             <span :class="['news-badge', `news-badge--${item.importance}`]">
@@ -245,32 +261,39 @@ const renderMarkdown = (text) => {
             </span>
             <span v-if="item.bot" class="news-badge news-badge--bot" title="机器人自动收录">🤖 bot</span>
             <time class="news-card__date" :datetime="item.date">{{ formatDate(item.date) }}</time>
+            <svg class="news-card__chevron" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
 
           <h3 class="news-card__title">{{ item.title }}</h3>
-          <p class="news-card__summary" v-html="renderMarkdown(item.summary)"></p>
 
-          <!-- 类别标签 -->
+          <!-- 类别标签(始终显示,便于扫读) -->
           <div v-if="item.category.length" class="news-card__tags">
             <span v-for="cat in item.category" :key="cat" class="news-tag">{{ cat }}</span>
           </div>
 
-          <!-- 底部:来源 + 相关 -->
-          <div class="news-card__footer">
-            <span v-if="item.sources.length" class="footer-sources">
-              <a
-                v-for="(src, idx) in item.sources"
-                :key="idx"
-                :href="src.url"
-                target="_blank"
-                rel="noopener"
-                class="source-link"
-              >{{ src.name }}<svg class="ext-icon" viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path d="M14 5h5v5M19 5l-9 9M12 5H6a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1v-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </span>
-            <span v-if="item.related.length" class="footer-related">
-              <a v-for="(rel, idx) in item.related" :key="idx" :href="rel.url" class="related-link">{{ rel.label }}</a>
-            </span>
+          <!-- 详情:点击卡片后展开(摘要 + 来源 + 相关) -->
+          <div v-if="isExpanded(item.id)" class="news-card__detail">
+            <p class="news-card__summary" v-html="renderMarkdown(item.summary)"></p>
+            <div class="news-card__footer">
+              <span v-if="item.sources.length" class="footer-sources">
+                <a
+                  v-for="(src, idx) in item.sources"
+                  :key="idx"
+                  :href="src.url"
+                  target="_blank"
+                  rel="noopener"
+                  class="source-link"
+                  @click.stop
+                >{{ src.name }}<svg class="ext-icon" viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path d="M14 5h5v5M19 5l-9 9M12 5H6a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1v-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </span>
+              <span v-if="item.related.length" class="footer-related">
+                <a v-for="(rel, idx) in item.related" :key="idx" :href="rel.url" class="related-link" @click.stop>{{ rel.label }}</a>
+              </span>
+            </div>
           </div>
+
+          <!-- 折叠态提示 -->
+          <span v-else class="news-card__more">阅读详情</span>
         </article>
       </div>
     </div>
@@ -550,6 +573,41 @@ const renderMarkdown = (text) => {
 }
 .news-card > * { position: relative; z-index: 1; }
 
+/* 整卡可点击展开/折叠 */
+.news-card { cursor: pointer; }
+.news-card:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}
+.news-card__chevron {
+  margin-left: 6px;
+  color: var(--vp-c-text-3);
+  flex-shrink: 0;
+  transition: transform 0.25s ease, color 0.2s;
+}
+.news-card.is-expanded .news-card__chevron {
+  transform: rotate(180deg);
+  color: var(--vp-c-brand-1);
+}
+/* 折叠态:提示"阅读详情" */
+.news-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+  opacity: 0.85;
+}
+.news-card__more::after { content: '›'; font-size: 1.05rem; line-height: 1; }
+.news-card:hover .news-card__more { opacity: 1; text-decoration: underline; }
+/* 展开态:详情淡入 */
+.news-card__detail { animation: news-reveal 0.24s ease both; }
+@keyframes news-reveal {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: none; }
+}
+
 /* 顶部重要程度色条(渐变) */
 .news-card::before {
   content: '';
@@ -730,6 +788,8 @@ const renderMarkdown = (text) => {
 @media (prefers-reduced-motion: reduce) {
   .news-card { transition: none; }
   .news-card:hover { transform: none; }
+  .news-card__chevron { transition: none; }
+  .news-card__detail { animation: none; }
 }
 
 /* ============================================================

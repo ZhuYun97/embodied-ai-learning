@@ -1,5 +1,36 @@
 [
   {
+    "id": "china-embodied-ai-standard-20260601",
+    "title": "国内首个具身智能行业标准 6 月 1 日实施:统一基准测试方法(YD/T 6770—2026)",
+    "date": "2026-06-01",
+    "fetched_at": "2026-06-03",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "政策标准",
+      "基准评测"
+    ],
+    "summary": "**工信部**批准发布具身智能领域**首个行业标准**——《YD/T 6770—2026 人工智能 关键基础技术 具身智能基准测试方法》,已于 **2026 年 6 月 1 日正式实施**。标准统一了具身智能系统在**仿真环境与真机环境**下的**基准测试框架、任务库构建、测试流程与指标计算方法**,填补行业测评标准空白,使估算超 **4600 亿元**的市场「有标可依」。这是继 3 月《人形机器人与具身智能标准体系(2026 版)》顶层设计之后,落地的首个可执行行业标准。",
+    "sources": [
+      {
+        "name": "新华网",
+        "url": "https://www.news.cn/tech/20260401/20e6b03022bb49ef991e19b1ccb9bb6d/c.html"
+      },
+      {
+        "name": "人民网",
+        "url": "http://finance.people.com.cn/n1/2026/0330/c1004-40691845.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "基准硬数据速查",
+        "url": "/vla/papers/benchmarks"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "nvidiaunitreeblackwellgpu-20260601",
     "title": "Nvidia × Unitree 发布首个人形机器人参考设计,搭载 Blackwell GPU",
     "date": "2026-06-01",
