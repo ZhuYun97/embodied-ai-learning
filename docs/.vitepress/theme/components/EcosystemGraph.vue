@@ -1,18 +1,13 @@
 <template>
   <div class="kg-wrap" ref="wrapEl">
     <div class="kg-legend">
-      <div class="lg-row">
-        <span class="lg-item"><i class="dot dot-leaf"></i>公司(发光主体)</span>
-        <span class="lg-item"><i class="dot dot-hub"></i>投资方/机构(枢纽)</span>
-        <span class="lg-item"><i class="dot dot-mentor"></i>知名导师/科学家</span>
-      </div>
-      <div class="lg-row">
-        <span class="lg-item">同色 = 同一投资集群</span>
-      </div>
-      <div class="lg-row">
-        <span class="lg-item"><i class="ln ln-solid"></i>投资/控股</span>
-        <span class="lg-item"><i class="ln ln-dash"></i>合作/孵化</span>
-      </div>
+      <span class="lg-item"><i class="dot dot-leaf"></i>公司</span>
+      <span class="lg-item"><i class="dot dot-hub"></i>投资方/机构</span>
+      <span class="lg-item"><i class="dot dot-mentor"></i>导师/科学家</span>
+      <span class="lg-sep"></span>
+      <span class="lg-item">同色 = 同一投资集群</span>
+      <span class="lg-item"><i class="ln ln-solid"></i>投资/控股</span>
+      <span class="lg-item"><i class="ln ln-dash"></i>合作/孵化</span>
     </div>
     <div class="kg-hint">拖拽平移 · 滚轮缩放 · 悬停高亮关联 · 点击访问官网</div>
 
@@ -467,15 +462,16 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 .is-hovering .node-label.dim { opacity: 0; }
 .node-label.focus { opacity: 1; fill: #fff; font-weight: 600; }
 
+/* 图例:置于图谱上方的独立横条,不再浮在画布上遮挡节点 */
 .kg-legend {
-  position: absolute; top: 14px; left: 16px; z-index: 3;
-  display: flex; flex-direction: column; gap: 7px;
-  padding: 9px 13px; font-size: 0.72rem; color: rgba(203, 213, 235, 0.86);
-  background: rgba(6, 10, 26, 0.5); border: 1px solid rgba(96, 130, 220, 0.22);
-  border-radius: 9px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  position: relative; z-index: 2;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 7px 16px;
+  padding: 10px 16px; font-size: 0.72rem; color: rgba(203, 213, 235, 0.86);
+  background: rgba(8, 12, 28, 0.62); border-bottom: 1px solid rgba(96, 130, 220, 0.18);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
 }
-.lg-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 .lg-item { display: inline-flex; align-items: center; gap: 6px; }
+.lg-sep { width: 1px; height: 13px; background: rgba(150, 170, 230, 0.28); }
 .dot { border-radius: 50%; background: #cbd5f0; box-shadow: 0 0 7px rgba(180, 200, 255, 0.7); }
 .dot-hub { width: 12px; height: 12px; opacity: 0.7; }
 .dot-leaf { width: 11px; height: 11px; }
