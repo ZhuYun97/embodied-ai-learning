@@ -61,7 +61,7 @@ import EcosystemMap from '../.vitepress/theme/components/EcosystemMap.vue'
 | 公司 | 成立 | 代表产品 | 最新融资/估值 | 简介 | 链接 |
 |------|------|----------|--------------|------|------|
 | **优必选 (UBTECH)** | 2012 | Walker 系列 | **港股上市** | 最早商业化人形机器人之一 | [ubtrobot.com](https://ubtrobot.com) |
-| **宇树科技 (Unitree)** | 2016 | H2 / G1 / 四足系列 | **IPO 在审**(估值 62 亿美元) | 国内出货量最大的四足+人形厂商，科创板在审 | [unitree.com](https://unitree.com) |
+| **宇树科技 (Unitree)** | 2016 | H2 / G1 / 四足系列 | **IPO 过会**(2026/06,拟募 42 亿元) | 国内出货量最大的四足+人形厂商,科创板 IPO 过会,有望成 A 股人形机器人第一股 | [unitree.com](https://unitree.com) |
 | **达闼机器人 (CloudMinds)** | 2015 | 云端大脑机器人 | **纳斯达克上市** | 云端智能 + 5G 控制机器人体系 | [cloudminds.com](https://cloudminds.com) |
 | **Robotera (睿尔曼)** | 2023 | L7 人形 / Q5 轮足 / XHAND1 | **2 亿美元 B 轮**(估值 15 亿美元,2026/05) | 顺丰/IDG 领投，物流场景千台级部署 | — |
 | **来福谐波 (LinkerBot)** | 2019 | 灵巧手 | **估值 60 亿美元**(2026) | 专注机器人灵巧手，估值行业领先 | — |
