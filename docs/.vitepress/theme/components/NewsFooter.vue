@@ -16,9 +16,10 @@ const credibility = [
 
 <template>
   <footer class="news-footer">
-    <!-- 图例:HUD 面板 -->
+    <!-- 图例:深空 HUD 面板 -->
     <section class="nf-card nf-legend">
       <span class="nf-corners" aria-hidden="true"></span>
+      <span class="nf-tag" aria-hidden="true">// LEGEND</span>
       <div class="nf-group">
         <span class="nf-key">重要程度</span>
         <ul class="nf-items">
@@ -59,44 +60,42 @@ const credibility = [
 </template>
 
 <style scoped>
-.news-footer {
-  margin-top: 40px;
-  padding-top: 28px;
-  border-top: 1px solid var(--vp-c-divider);
-}
+.news-footer { margin-top: 44px; }
 
 /* ============================================================
-   图例:HUD 面板 —— 玻璃 + 青光描边 + 电路网格 + 角标 + 发光发丝
+   图例:深空 HUD 控制台(无论亮/暗都是深色面板,与生态图谱呼应)
    ============================================================ */
 .nf-card {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  gap: 18px 30px;
-  padding: 24px 26px;
-  border: 1px solid rgba(34, 211, 238, 0.24);
-  border-radius: 14px;
+  gap: 20px 36px;
+  padding: 28px 28px 26px;
+  border: 1px solid rgba(34, 211, 238, 0.32);
+  border-radius: 16px;
   background:
-    linear-gradient(180deg, rgba(34, 211, 238, 0.05), transparent 42%),
-    var(--tech-card-bg, var(--vp-c-bg-soft));
+    radial-gradient(ellipse 90% 70% at 50% -10%, rgba(34, 211, 238, 0.12), transparent 60%),
+    radial-gradient(ellipse 70% 90% at 100% 100%, rgba(124, 58, 237, 0.12), transparent 60%),
+    linear-gradient(180deg, #0c1530 0%, #070b1c 100%);
   box-shadow:
-    inset 0 0 24px rgba(34, 211, 238, 0.05),
-    0 10px 34px -18px rgba(37, 99, 235, 0.35);
-  backdrop-filter: blur(10px) saturate(1.2);
-  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    inset 0 0 40px rgba(34, 211, 238, 0.06),
+    0 16px 46px -20px rgba(13, 30, 80, 0.8);
   overflow: hidden;
 }
+/* 星点纹理 */
+.nf-card > .nf-group,
+.nf-card > .nf-divider { position: relative; z-index: 1; }
 /* 顶部发光扫描线 */
 .nf-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #2563eb 18%, #22d3ee 50%, #8b5cf6 82%, transparent);
-  box-shadow: 0 0 14px rgba(34, 211, 238, 0.7);
-  z-index: 2;
+  background: linear-gradient(90deg, transparent, #2563eb 16%, #22d3ee 50%, #a855f7 84%, transparent);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.9);
+  z-index: 3;
 }
-/* 电路网格(顶部渐隐) */
+/* 电路网格 */
 .nf-card::after {
   content: '';
   position: absolute;
@@ -104,46 +103,57 @@ const credibility = [
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(to right, rgba(34, 211, 238, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
-  background-size: 22px 22px;
-  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 0%, #000 10%, transparent 78%);
-  mask-image: radial-gradient(ellipse 85% 75% at 50% 0%, #000 10%, transparent 78%);
+    linear-gradient(to right, rgba(56, 189, 248, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 12%, transparent 80%);
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 12%, transparent 80%);
 }
-.nf-card > .nf-group,
-.nf-card > .nf-divider { position: relative; z-index: 1; }
-/* HUD 角标(左上 + 右下) */
-.nf-corners { position: absolute; inset: 8px; z-index: 1; pointer-events: none; }
+/* HUD 角标(四角) */
+.nf-corners { position: absolute; inset: 9px; z-index: 2; pointer-events: none; }
 .nf-corners::before,
 .nf-corners::after {
   content: '';
   position: absolute;
-  width: 14px; height: 14px;
-  border: 1.5px solid rgba(34, 211, 238, 0.55);
+  width: 16px; height: 16px;
+  border: 1.5px solid rgba(56, 224, 255, 0.75);
+  filter: drop-shadow(0 0 3px rgba(56, 224, 255, 0.6));
 }
-.nf-corners::before { top: 0; left: 0; border-right: 0; border-bottom: 0; border-radius: 3px 0 0 0; }
-.nf-corners::after { right: 0; bottom: 0; border-left: 0; border-top: 0; border-radius: 0 0 3px 0; }
+.nf-corners::before { top: 0; left: 0; border-right: 0; border-bottom: 0; border-radius: 4px 0 0 0; }
+.nf-corners::after { right: 0; bottom: 0; border-left: 0; border-top: 0; border-radius: 0 0 4px 0; }
+/* 角落系统标签 */
+.nf-tag {
+  position: absolute;
+  top: 11px; right: 16px;
+  z-index: 2;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: rgba(56, 224, 255, 0.6);
+}
 
 .nf-group { flex: 1 1 320px; min-width: 0; }
 .nf-key {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 14px;
+  gap: 7px;
+  margin-bottom: 15px;
   font-family: var(--vp-font-family-mono, monospace);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--vp-c-brand-1);
+  color: #38e0ff;
+  text-shadow: 0 0 12px rgba(56, 224, 255, 0.5);
 }
-.nf-key::before { content: '❯'; color: #06b6d4; font-weight: 700; }
-.nf-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-.nf-items li { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.nf-key::before { content: '❯'; color: #38e0ff; }
+.nf-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.nf-items li { display: flex; align-items: center; gap: 11px; flex-wrap: wrap; }
 .nf-divider {
   width: 1px;
   align-self: stretch;
-  background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.3), transparent);
+  background: linear-gradient(180deg, transparent, rgba(56, 189, 248, 0.4), transparent);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
 }
 
 .nf-chip {
@@ -151,122 +161,103 @@ const credibility = [
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 3px 11px;
+  padding: 4px 12px;
   border-radius: 999px;
   font-family: var(--vp-font-family-mono, monospace);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
   white-space: nowrap;
   border: 1px solid transparent;
 }
-.nf-chip--hot { background: rgba(239, 68, 68, 0.1); color: #dc2626; border-color: rgba(239, 68, 68, 0.32); box-shadow: 0 0 12px -3px rgba(239, 68, 68, 0.5); }
-.nf-chip--major { background: rgba(245, 158, 11, 0.12); color: #d97706; border-color: rgba(245, 158, 11, 0.34); box-shadow: 0 0 12px -3px rgba(245, 158, 11, 0.5); }
-.nf-chip--normal { background: rgba(100, 116, 139, 0.1); color: #475569; border-color: rgba(100, 116, 139, 0.3); }
-.nf-chip--ok { background: rgba(34, 197, 94, 0.1); color: #16a34a; border-color: rgba(34, 197, 94, 0.32); box-shadow: 0 0 12px -3px rgba(34, 197, 94, 0.5); }
-.nf-chip--todo { background: rgba(234, 179, 8, 0.12); color: #ca8a04; border-color: rgba(234, 179, 8, 0.34); box-shadow: 0 0 12px -3px rgba(234, 179, 8, 0.5); }
-.nf-desc { font-size: 0.82rem; color: var(--vp-c-text-2); line-height: 1.5; }
+.nf-chip--hot { background: rgba(239, 68, 68, 0.16); color: #fca5a5; border-color: rgba(239, 68, 68, 0.5); box-shadow: 0 0 14px -2px rgba(239, 68, 68, 0.7); }
+.nf-chip--major { background: rgba(245, 158, 11, 0.16); color: #fcd34d; border-color: rgba(245, 158, 11, 0.5); box-shadow: 0 0 14px -2px rgba(245, 158, 11, 0.7); }
+.nf-chip--normal { background: rgba(148, 163, 184, 0.16); color: #cbd5e1; border-color: rgba(148, 163, 184, 0.4); }
+.nf-chip--ok { background: rgba(34, 197, 94, 0.16); color: #86efac; border-color: rgba(34, 197, 94, 0.5); box-shadow: 0 0 14px -2px rgba(34, 197, 94, 0.7); }
+.nf-chip--todo { background: rgba(234, 179, 8, 0.16); color: #fde047; border-color: rgba(234, 179, 8, 0.5); box-shadow: 0 0 14px -2px rgba(234, 179, 8, 0.7); }
+.nf-desc { font-size: 0.82rem; color: rgba(203, 213, 235, 0.72); line-height: 1.5; }
 
 /* ============================================================
-   关于本页:HUD 信息条
+   关于本页:深空信息条
    ============================================================ */
-.nf-notes { display: grid; gap: 10px; margin-top: 16px; }
+.nf-notes { display: grid; gap: 11px; margin-top: 14px; }
 .nf-note {
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 13px 16px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 12px;
-  background: var(--vp-c-bg-soft);
+  gap: 13px;
+  padding: 14px 18px;
+  border: 1px solid rgba(56, 189, 248, 0.16);
+  border-radius: 13px;
+  background: linear-gradient(180deg, #0b1228, #080d1e);
   overflow: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
-/* 左侧青色光条 */
 .nf-note::before {
   content: '';
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  width: 2px;
+  width: 2.5px;
   background: linear-gradient(180deg, #22d3ee, #2563eb);
-  opacity: 0.5;
-  transition: opacity 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
 }
 .nf-note:hover {
-  border-color: rgba(34, 211, 238, 0.35);
-  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.12);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.18), 0 10px 30px -16px rgba(34, 211, 238, 0.5);
 }
-.nf-note:hover::before { opacity: 1; box-shadow: 0 0 10px rgba(34, 211, 238, 0.7); }
 .nf-note__ic {
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  width: 30px; height: 30px;
-  font-size: 0.95rem;
+  width: 32px; height: 32px;
+  font-size: 0.98rem;
   border-radius: 9px;
-  background: var(--vp-c-default-soft);
-  border: 1px solid var(--vp-c-divider);
-  box-shadow: inset 0 0 10px rgba(34, 211, 238, 0.08);
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  box-shadow: inset 0 0 12px rgba(34, 211, 238, 0.12);
 }
-.nf-note p { margin: 0; font-size: 0.84rem; line-height: 1.65; color: var(--vp-c-text-2); }
-.nf-note p strong { color: var(--vp-c-text-1); font-weight: 700; margin-right: 2px; }
-.nf-note a { color: var(--vp-c-brand-1); text-decoration: none; font-weight: 500; }
-.nf-note a:hover { text-decoration: underline; }
-.nf-note--bot { background: var(--vp-c-brand-softer); }
-.nf-note--bot::before { background: linear-gradient(180deg, #60a5fa, #8b5cf6); opacity: 0.7; }
-.nf-note--bot .nf-note__ic { background: rgba(37, 99, 235, 0.12); border-color: rgba(37, 99, 235, 0.2); }
+.nf-note p { margin: 0; font-size: 0.84rem; line-height: 1.65; color: rgba(203, 213, 235, 0.8); }
+.nf-note p strong { color: #eaf2ff; font-weight: 700; margin-right: 2px; }
+.nf-note a { color: #5cc8ff; text-decoration: none; font-weight: 600; }
+.nf-note a:hover { text-decoration: underline; text-shadow: 0 0 8px rgba(92, 200, 255, 0.5); }
+.nf-note--bot { border-color: rgba(139, 92, 246, 0.28); }
+.nf-note--bot::before { background: linear-gradient(180deg, #818cf8, #a855f7); box-shadow: 0 0 10px rgba(139, 92, 246, 0.6); }
+.nf-note--bot .nf-note__ic { background: rgba(139, 92, 246, 0.14); border-color: rgba(139, 92, 246, 0.3); }
 .nf-note--bot p { font-family: var(--vp-font-family-mono, monospace); font-size: 0.8rem; }
 
 @media (max-width: 640px) {
   .nf-divider { display: none; }
-  .nf-card { gap: 18px; padding: 20px; }
+  .nf-card { gap: 18px; padding: 22px 18px; }
+  .nf-tag { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .nf-note, .nf-note::before { transition: none; }
+  .nf-note { transition: none; }
 }
 
 /* ============================================================
-   暗色:深空 + 强霓虹
+   档案皮肤:深暖棕 HUD(去青光,改氧化红/琥珀)
    ============================================================ */
-:global(.dark) .nf-card {
-  border-color: rgba(34, 211, 238, 0.28);
-  background:
-    linear-gradient(180deg, rgba(34, 211, 238, 0.07), transparent 42%),
-    var(--tech-card-bg, var(--vp-c-bg-soft));
-  box-shadow:
-    inset 0 0 30px rgba(34, 211, 238, 0.07),
-    0 12px 40px -18px rgba(34, 211, 238, 0.3);
-}
-:global(.dark) .nf-card::after {
-  background-image:
-    linear-gradient(to right, rgba(34, 211, 238, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(34, 211, 238, 0.1) 1px, transparent 1px);
-}
-:global(.dark) .nf-chip--hot { background: rgba(239, 68, 68, 0.18); color: #f87171; box-shadow: 0 0 14px -3px rgba(248, 113, 113, 0.6); }
-:global(.dark) .nf-chip--major { background: rgba(245, 158, 11, 0.18); color: #fbbf24; box-shadow: 0 0 14px -3px rgba(251, 191, 36, 0.6); }
-:global(.dark) .nf-chip--normal { background: rgba(148, 163, 184, 0.16); color: #cbd5e1; }
-:global(.dark) .nf-chip--ok { background: rgba(34, 197, 94, 0.18); color: #4ade80; box-shadow: 0 0 14px -3px rgba(74, 222, 128, 0.6); }
-:global(.dark) .nf-chip--todo { background: rgba(234, 179, 8, 0.18); color: #fde047; box-shadow: 0 0 14px -3px rgba(253, 224, 71, 0.6); }
-
-/* ============================================================
-   档案皮肤:暖纸 + 氧化红角标(去青光)
-   ============================================================ */
-:global(html.skin-archive) .nf-card,
-:global(html.skin-archive) .nf-note { background: #F5F1E8; border-color: #D4C4A8; box-shadow: none; }
 :global(html.skin-archive) .nf-card {
-  border-color: rgba(154, 51, 36, 0.25);
-  background: linear-gradient(180deg, rgba(154, 51, 36, 0.04), transparent 42%), #F5F1E8;
+  border-color: rgba(201, 123, 90, 0.4);
+  background:
+    radial-gradient(ellipse 90% 70% at 50% -10%, rgba(201, 123, 90, 0.16), transparent 60%),
+    linear-gradient(180deg, #1c1108, #120a04);
+  box-shadow: inset 0 0 40px rgba(201, 123, 90, 0.06), 0 16px 46px -22px rgba(40, 20, 8, 0.8);
 }
-:global(html.skin-archive) .nf-card::before { background: linear-gradient(90deg, transparent, #9A3324 30%, #C97B5A 70%, transparent); box-shadow: none; }
-:global(html.skin-archive) .nf-card::after,
-:global(html.skin-archive) .nf-chip { box-shadow: none; }
+:global(html.skin-archive) .nf-card::before { background: linear-gradient(90deg, transparent, #9A3324 30%, #C97B5A 70%, transparent); box-shadow: 0 0 14px rgba(201, 123, 90, 0.7); }
+:global(html.skin-archive) .nf-card::after {
+  background-image:
+    linear-gradient(to right, rgba(201, 123, 90, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(201, 123, 90, 0.1) 1px, transparent 1px);
+}
 :global(html.skin-archive) .nf-corners::before,
-:global(html.skin-archive) .nf-corners::after { border-color: rgba(154, 51, 36, 0.5); }
-:global(html.skin-archive) .nf-key { color: #9A3324; }
-:global(html.skin-archive) .nf-key::before { color: #C97B5A; }
-:global(html.skin-archive) .nf-divider { background: linear-gradient(180deg, transparent, rgba(154, 51, 36, 0.3), transparent); }
-:global(html.skin-archive) .nf-note::before { background: linear-gradient(180deg, #C97B5A, #9A3324); }
-:global(html.skin-archive) .nf-note--bot { background: rgba(154, 51, 36, 0.06); }
-:global(html.skin-archive) .nf-note a { color: #9A3324; }
+:global(html.skin-archive) .nf-corners::after { border-color: rgba(244, 184, 106, 0.75); filter: drop-shadow(0 0 3px rgba(244, 184, 106, 0.6)); }
+:global(html.skin-archive) .nf-tag,
+:global(html.skin-archive) .nf-key,
+:global(html.skin-archive) .nf-key::before { color: #f4b86a; text-shadow: 0 0 12px rgba(244, 184, 106, 0.4); }
+:global(html.skin-archive) .nf-divider { background: linear-gradient(180deg, transparent, rgba(201, 123, 90, 0.4), transparent); }
+:global(html.skin-archive) .nf-note { background: linear-gradient(180deg, #1c1108, #140b04); border-color: rgba(201, 123, 90, 0.22); }
+:global(html.skin-archive) .nf-note::before { background: linear-gradient(180deg, #C97B5A, #9A3324); box-shadow: 0 0 10px rgba(201, 123, 90, 0.6); }
+:global(html.skin-archive) .nf-note__ic { background: rgba(201, 123, 90, 0.14); border-color: rgba(201, 123, 90, 0.3); box-shadow: inset 0 0 12px rgba(201, 123, 90, 0.12); }
+:global(html.skin-archive) .nf-note a { color: #f0a868; }
+:global(html.skin-archive) .nf-note--bot::before { background: linear-gradient(180deg, #f4b86a, #C97B5A); }
 </style>
