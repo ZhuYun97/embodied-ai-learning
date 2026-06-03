@@ -329,9 +329,9 @@ function openCompanyDetail(company) {
 
 .search-input:focus {
   outline: none;
-  border-color: var(--vp-c-brand-1);
+  border-color: #22d3ee;
   background: var(--vp-c-bg);
-  box-shadow: 0 0 0 3px rgba(var(--vp-c-brand-rgb), 0.1);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.16);
 }
 
 .filters, .stage-filters {
@@ -341,26 +341,31 @@ function openCompanyDetail(company) {
 }
 
 .filter-btn, .stage-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.45rem 0.9rem;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
+  border-radius: 7px;
   background: var(--vp-c-bg-soft);
   color: var(--vp-c-text-2);
   cursor: pointer;
-  transition: all 0.2s;
-  font-size: 0.875rem;
+  transition: border-color 0.18s, color 0.18s, background-color 0.18s, box-shadow 0.18s;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.78rem;
   font-weight: 500;
 }
 
 .filter-btn:hover, .stage-btn:hover {
-  border-color: var(--vp-c-brand-1);
+  border-color: #22d3ee;
   color: var(--vp-c-brand-1);
 }
 
 .filter-btn.active {
-  background: var(--vp-c-brand-1);
-  color: white;
-  border-color: var(--vp-c-brand-1);
+  background: linear-gradient(120deg, #2563eb, #22d3ee);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4), 0 4px 14px rgba(37, 99, 235, 0.22);
+}
+.dark .filter-btn.active {
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6), 0 0 18px rgba(56, 189, 248, 0.3);
 }
 
 .stage-btn.active {
@@ -368,34 +373,59 @@ function openCompanyDetail(company) {
   color: var(--vp-c-brand-1);
   border-color: var(--vp-c-brand-1);
 }
+.dark .stage-btn.active { box-shadow: 0 0 12px rgba(56, 189, 248, 0.18); }
 
-/* 统计摘要 */
+/* 统计摘要 —— 玻璃 HUD 面板 + mono 渐变数字(对齐首页 hero 读出条 / 图谱)*/
 .stats-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
 }
 
 .stat-card {
-  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  padding: 1.15rem 1.4rem;
   border-radius: 12px;
-  background: linear-gradient(135deg,
-    var(--vp-c-brand-soft) 0%,
-    var(--vp-c-bg-soft) 100%);
+  background: var(--tech-card-bg, var(--vp-c-bg-soft));
   border: 1px solid var(--vp-c-divider);
-  text-align: center;
+  text-align: left;
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
 }
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
+  opacity: 0.8;
+}
+.dark .stat-card { box-shadow: inset 0 0 24px rgba(34, 211, 238, 0.05); }
 
 .stat-number {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--vp-c-brand-1);
-  margin-bottom: 0.25rem;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 1.9rem;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.45rem;
+  background: linear-gradient(120deg, #2563eb 0%, #22d3ee 55%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: fit-content;
 }
+.dark .stat-number { filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.28)); }
 
 .stat-label {
-  font-size: 0.875rem;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
   color: var(--vp-c-text-2);
 }
 
@@ -411,11 +441,13 @@ function openCompanyDetail(company) {
   position: relative;
   padding: 0.875rem 1rem 0.875rem;
   border-radius: 10px;
-  background: var(--vp-c-bg-soft);
+  background: var(--tech-card-bg, var(--vp-c-bg-soft));
   border: 1px solid var(--vp-c-divider);
   cursor: default;
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
   overflow: hidden;
+  backdrop-filter: blur(8px) saturate(1.15);
+  -webkit-backdrop-filter: blur(8px) saturate(1.15);
 }
 .company-card.clickable { cursor: pointer; }
 
@@ -442,19 +474,19 @@ function openCompanyDetail(company) {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
   opacity: 0;
   transition: opacity 0.2s;
 }
 
 .company-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-  border-color: var(--vp-c-brand-1);
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 14px 40px rgba(37, 99, 235, 0.16);
+  border-color: transparent;
 }
 
 .company-card:hover::before {
-  opacity: 1;
+  opacity: 0.85;
 }
 
 /* 卡片头部 */
@@ -522,44 +554,23 @@ function openCompanyDetail(company) {
 }
 
 .stage-badge {
-  padding: 0.125rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.65rem;
-  font-weight: 600;
+  padding: 0.14rem 0.5rem;
+  border-radius: 5px;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.64rem;
+  font-weight: 700;
   white-space: nowrap;
   flex-shrink: 0;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 
-.stage-badge[data-stage="public"] {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.stage-badge[data-stage="unicorn"] {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
-}
-
-.stage-badge[data-stage="growth"] {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: white;
-}
-
-.stage-badge[data-stage="early"] {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  color: #1a1a1a;
-}
-
-.stage-badge[data-stage="mature"] {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  color: #1a1a1a;
-}
-
-.stage-badge[data-stage="vertical"] {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  color: #1a1a1a;
-}
+/* 阶段色:统一为冷调珠宝色板(呼应图谱集群色),amber 作唯一暖色强调;均保证对比度 */
+.stage-badge[data-stage="public"]   { background: #2563eb; color: #fff; }
+.stage-badge[data-stage="unicorn"]  { background: #a855f7; color: #fff; }
+.stage-badge[data-stage="mature"]   { background: #0d9488; color: #fff; }
+.stage-badge[data-stage="growth"]   { background: #0284c7; color: #fff; }
+.stage-badge[data-stage="early"]    { background: #f59e0b; color: #3a2600; }
+.stage-badge[data-stage="vertical"] { background: #64748b; color: #fff; }
 
 /* 描述:限制 2 行 */
 .description {
@@ -602,13 +613,16 @@ function openCompanyDetail(company) {
 }
 
 .tag {
-  padding: 0.125rem 0.375rem;
-  border-radius: 4px;
-  font-size: 0.65rem;
+  padding: 0.14rem 0.45rem;
+  border-radius: 5px;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.64rem;
   background: var(--vp-c-default-soft);
   color: var(--vp-c-text-2);
-  letter-spacing: -0.01em;
+  border: 1px solid var(--vp-c-divider);
+  letter-spacing: 0;
 }
+.dark .tag { background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.16); }
 
 /* 空状态 */
 .empty-state {
@@ -661,11 +675,12 @@ function openCompanyDetail(company) {
 
 /* 暗色模式 */
 .dark .company-card {
-  background: var(--vp-c-bg-soft);
+  background: var(--tech-card-bg, var(--vp-c-bg-soft));
 }
 
 .dark .company-card:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  border-color: transparent;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6), 0 0 26px rgba(56, 189, 248, 0.2), 0 16px 44px rgba(37, 99, 235, 0.26);
 }
 
 .dark .search-input {
@@ -676,33 +691,4 @@ function openCompanyDetail(company) {
   background: var(--vp-c-bg);
 }
 
-/* 档案皮肤适配 */
-:global(html.skin-archive) .company-card {
-  background: #faf8f5;
-  border-color: #e5dfd5;
-}
-
-:global(html.skin-archive) .company-card:hover {
-  border-color: #b8956a;
-  box-shadow: 0 4px 12px rgba(139, 104, 64, 0.15);
-}
-
-:global(html.skin-archive) .search-input {
-  background: #faf8f5;
-  border-color: #e5dfd5;
-}
-
-:global(html.skin-archive) .stat-card {
-  background: linear-gradient(135deg, #f5f0e8 0%, #faf8f5 100%);
-  border-color: #e5dfd5;
-}
-
-:global(html.skin-archive.dark) .company-card {
-  background: #2a2520;
-  border-color: #3d352d;
-}
-
-:global(html.skin-archive.dark) .company-card:hover {
-  border-color: #b8956a;
-}
 </style>

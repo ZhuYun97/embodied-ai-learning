@@ -233,31 +233,4 @@ const credibility = [
   .nf-note { transition: none; }
 }
 
-/* ============================================================
-   档案皮肤:深暖棕 HUD(去青光,改氧化红/琥珀)
-   ============================================================ */
-:global(html.skin-archive) .nf-card {
-  border-color: rgba(201, 123, 90, 0.4);
-  background:
-    radial-gradient(ellipse 90% 70% at 50% -10%, rgba(201, 123, 90, 0.16), transparent 60%),
-    linear-gradient(180deg, #1c1108, #120a04);
-  box-shadow: inset 0 0 40px rgba(201, 123, 90, 0.06), 0 16px 46px -22px rgba(40, 20, 8, 0.8);
-}
-:global(html.skin-archive) .nf-card::before { background: linear-gradient(90deg, transparent, #9A3324 30%, #C97B5A 70%, transparent); box-shadow: 0 0 14px rgba(201, 123, 90, 0.7); }
-:global(html.skin-archive) .nf-card::after {
-  background-image:
-    linear-gradient(to right, rgba(201, 123, 90, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(201, 123, 90, 0.1) 1px, transparent 1px);
-}
-:global(html.skin-archive) .nf-corners::before,
-:global(html.skin-archive) .nf-corners::after { border-color: rgba(244, 184, 106, 0.75); filter: drop-shadow(0 0 3px rgba(244, 184, 106, 0.6)); }
-:global(html.skin-archive) .nf-tag,
-:global(html.skin-archive) .nf-key,
-:global(html.skin-archive) .nf-key::before { color: #f4b86a; text-shadow: 0 0 12px rgba(244, 184, 106, 0.4); }
-:global(html.skin-archive) .nf-divider { background: linear-gradient(180deg, transparent, rgba(201, 123, 90, 0.4), transparent); }
-:global(html.skin-archive) .nf-note { background: linear-gradient(180deg, #1c1108, #140b04); border-color: rgba(201, 123, 90, 0.22); }
-:global(html.skin-archive) .nf-note::before { background: linear-gradient(180deg, #C97B5A, #9A3324); box-shadow: 0 0 10px rgba(201, 123, 90, 0.6); }
-:global(html.skin-archive) .nf-note__ic { background: rgba(201, 123, 90, 0.14); border-color: rgba(201, 123, 90, 0.3); box-shadow: inset 0 0 12px rgba(201, 123, 90, 0.12); }
-:global(html.skin-archive) .nf-note a { color: #f0a868; }
-:global(html.skin-archive) .nf-note--bot::before { background: linear-gradient(180deg, #f4b86a, #C97B5A); }
 </style>

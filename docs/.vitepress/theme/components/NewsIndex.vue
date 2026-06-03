@@ -353,8 +353,8 @@ const renderMarkdown = (text) => {
 }
 .search-input:focus {
   outline: none;
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 3px var(--vp-c-brand-softer);
+  border-color: #22d3ee;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.16);
 }
 .search-input::placeholder { color: var(--vp-c-text-3); }
 .search-clear {
@@ -380,6 +380,7 @@ const renderMarkdown = (text) => {
 }
 .seg-btn {
   padding: 6px 12px;
+  font-family: var(--vp-font-family-mono, monospace);
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--vp-c-text-2);
@@ -419,6 +420,7 @@ const renderMarkdown = (text) => {
   appearance: none;
   -webkit-appearance: none;
   padding: 8px 30px 8px 12px;
+  font-family: var(--vp-font-family-mono, monospace);
   font-size: 0.85rem;
   border: 1px solid var(--vp-c-divider);
   border-radius: 9px;
@@ -431,6 +433,7 @@ const renderMarkdown = (text) => {
 .filter-select:focus { outline: none; border-color: var(--vp-c-brand-1); }
 .filter-reset {
   padding: 8px 14px;
+  font-family: var(--vp-font-family-mono, monospace);
   font-size: 0.85rem;
   color: var(--vp-c-text-2);
   background: transparent;
@@ -528,7 +531,8 @@ const renderMarkdown = (text) => {
   background: linear-gradient(180deg, #2563eb, #22d3ee);
 }
 .news-group__count {
-  font-size: 0.8rem;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--vp-c-text-3);
 }
@@ -709,13 +713,16 @@ const renderMarkdown = (text) => {
 .news-tag {
   display: inline-block;
   padding: 2px 9px;
-  font-size: 0.72rem;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.68rem;
   font-weight: 500;
   color: var(--vp-c-text-2);
   background: var(--vp-c-default-soft);
+  border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
+:global(.dark) .news-tag { background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.16); }
 
 /* 底部:来源 + 相关 */
 .news-card__footer {
@@ -821,52 +828,4 @@ const renderMarkdown = (text) => {
 :global(.dark) .stat-chip--major { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
 :global(.dark) .stat-chip--normal { background: rgba(148, 163, 184, 0.16); color: #cbd5e1; }
 
-/* ============================================================
-   档案皮肤:暖纸 + 氧化红 + 衬线标题,去玻璃辉光改硬阴影
-   ============================================================ */
-:global(html.skin-archive) .news-toolbar {
-  background: #F5F1E8;
-  border-color: #D4C4A8;
-}
-:global(html.skin-archive) .news-toolbar::before {
-  background: linear-gradient(90deg, #9A3324, #C97B5A);
-}
-:global(html.skin-archive) .seg-btn.active {
-  background: #9A3324;
-  box-shadow: 1px 1px 0 rgba(154, 51, 36, 0.25);
-}
-:global(html.skin-archive) .search-input,
-:global(html.skin-archive) .filter-select {
-  background: #FBF8F1;
-  border-color: #D4C4A8;
-}
-:global(html.skin-archive) .news-card {
-  background: #F5F1E8;
-  border-color: #D4C4A8;
-  box-shadow: 1px 1px 0 rgba(154, 51, 36, 0.06);
-}
-:global(html.skin-archive) .news-card:hover {
-  border-color: #9A3324;
-  box-shadow: 3px 3px 0 rgba(154, 51, 36, 0.14);
-}
-:global(html.skin-archive) .news-card__title {
-  font-family: 'Source Serif 4', serif;
-  font-weight: 600;
-}
-:global(html.skin-archive) .news-group__date {
-  font-family: 'Space Grotesk', sans-serif;
-}
-:global(html.skin-archive) .news-group__date::before {
-  background: linear-gradient(180deg, #9A3324, #C97B5A);
-}
-:global(html.skin-archive) .news-tag {
-  background: rgba(154, 51, 36, 0.08);
-  color: #9A3324;
-  font-family: 'IBM Plex Mono', monospace;
-}
-:global(html.skin-archive) .related-link {
-  background: rgba(154, 51, 36, 0.08);
-  color: #9A3324;
-}
-:global(html.skin-archive) .stat-total strong { color: #9A3324; }
 </style>

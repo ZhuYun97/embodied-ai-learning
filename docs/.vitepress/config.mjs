@@ -202,13 +202,11 @@ export default withMermaid(defineConfig({
     ['script', {}, "try{if(localStorage.getItem('zen-reading')==='1')document.documentElement.classList.add('zen-reading')}catch(e){}"],
     // 预渲染恢复「可信度透镜」状态(dim=暗化自评/待核,strict=仅显已核),避免刷新闪烁
     ['script', {}, "try{var l=localStorage.getItem('cred-lens');if(l==='dim'||l==='strict')document.documentElement.classList.add('lens-'+l)}catch(e){}"],
-    // 预渲染恢复「配色主题」(archive=实验室档案暖纸),避免刷新闪烁;默认科技蓝
-    ['script', {}, "try{if(localStorage.getItem('site-skin')==='archive')document.documentElement.classList.add('skin-archive')}catch(e){}"],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/embodied-ai-learning/favicon.svg' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
-    // 两套皮肤字体:科技蓝(Inter/JetBrains Mono,默认)+ 实验室档案(Source Serif 4/Space Grotesk/IBM Plex Mono)
-    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap' }],
+    // 站点字体:Inter(正文/标题)+ JetBrains Mono(等宽 · HUD 数字/标签)
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap' }],
     ['meta', { name: 'theme-color', content: '#2563eb' }],
     ['meta', { name: 'author', content: '具身智能学习站' }],
     ['meta', { property: 'og:type', content: 'website' }],

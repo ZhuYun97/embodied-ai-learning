@@ -11,50 +11,6 @@ import './custom.css'
 const PANEL_ICON =
   '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><line x1="5" y1="3" x2="5" y2="13"/><line x1="11" y1="3" x2="11" y2="13"/></svg>'
 
-// =====================================================================
-// 「配色主题」切换:科技蓝(默认)⇄ 实验室档案(暖纸)。
-// 在 <html> 加 .skin-archive(config head 有预渲染脚本防闪烁),存 localStorage。
-// =====================================================================
-const skin = reactive({ mode: '' }) // '' = 科技蓝(默认) | 'archive' = 实验室档案
-const SKIN_KEY = 'site-skin'
-const PALETTE_ICON =
-  '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M8 1.5a6.5 6.5 0 1 0 0 13c.9 0 1.4-.7 1.4-1.4 0-.8-.7-1.2-.7-1.9 0-.5.4-.9 1-.9H11A3.5 3.5 0 0 0 14.5 6 5 5 0 0 0 8 1.5z"/><circle cx="5" cy="7" r="0.9" fill="currentColor" stroke="none"/><circle cx="8" cy="4.8" r="0.9" fill="currentColor" stroke="none"/><circle cx="11" cy="7" r="0.9" fill="currentColor" stroke="none"/></svg>'
-
-const SkinToggle = {
-  setup() {
-    onMounted(() => {
-      try {
-        skin.mode = localStorage.getItem(SKIN_KEY) === 'archive' ? 'archive' : ''
-      } catch (e) {}
-    })
-    const toggle = () => {
-      skin.mode = skin.mode === 'archive' ? '' : 'archive'
-      document.documentElement.classList.toggle('skin-archive', skin.mode === 'archive')
-      try {
-        localStorage.setItem(SKIN_KEY, skin.mode)
-      } catch (e) {}
-    }
-    return () =>
-      h(
-        'button',
-        {
-          class: ['skin-toggle', { 'is-on': skin.mode === 'archive' }],
-          type: 'button',
-          onClick: toggle,
-          'aria-pressed': String(skin.mode === 'archive'),
-          title:
-            skin.mode === 'archive'
-              ? '当前:实验室档案(暖纸)。点击切回「科技蓝」默认主题'
-              : '当前:科技蓝(默认)。点击切换「实验室档案」暖纸主题',
-        },
-        [
-          h('span', { class: 'skin-toggle__icon', innerHTML: PALETTE_ICON }),
-          h('span', { class: 'skin-toggle__label' }, skin.mode === 'archive' ? '档案' : '配色'),
-        ]
-      )
-  },
-}
-
 const ZenToggle = {
   setup() {
     const route = useRoute()
@@ -327,26 +283,6 @@ const SeriesFooter = {
   },
 }
 
-// =====================================================================
-// 档案 signature:登记十字标 ⊕ + 编号条(accession line / masthead)
-// 把"研究档案"的世界观落到结构里:首页报头一条,文档页顶一条(每页仅一次)。
-// =====================================================================
-const REG_MARK =
-  '<svg class="reg-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="7"/><line x1="12" y1="1.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="22.5" y2="12"/></svg>'
-
-// 首页报头编号条(home-hero-info-before)
-const HomeMasthead = {
-  setup() {
-    return () => {
-      if (skin.mode !== 'archive') return null
-      return h('div', { class: 'masthead-strip' }, [
-        h('span', { class: 'masthead-strip__mark', innerHTML: REG_MARK }),
-        h('span', null, 'ARCHIVE · DOMAIN VLA × WAM · REV 2026.05 · LANG ZH / EN'),
-      ])
-    }
-  },
-}
-
 // Hero 规模读出条(home-hero-actions-after):本站规模一览。
 // 数字与 feature 卡口径完全一致(46 篇=VLA30+WAM16 · 50+ 基准 · 38 公司 · 2 主线),不引入任何新主张。
 const HERO_STATS = [
@@ -374,72 +310,17 @@ const HeroStats = {
   },
 }
 
-// Hero 机器人:技术线稿(墨线随主题 currentColor,关节氧化红;无渐变/辉光/halo)
-const ROBOT_SVG =
-  '<svg class="hero-robot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" fill="none" role="img" aria-label="具身智能机器人技术线稿">' +
-  '<g stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">' +
-  '<rect x="234" y="62" width="120" height="100" rx="26"/>' +
-  '<line x1="260" y1="110" x2="288" y2="110" stroke-width="6"/>' +
-  '<line x1="300" y1="110" x2="328" y2="110" stroke-width="6"/>' +
-  '<path d="M294 62v-22"/>' +
-  '<path d="M278 162v18 M310 162v18"/>' +
-  '<path d="M238 198 L350 198 L370 252 L338 358 L250 358 L218 252 Z"/>' +
-  '<circle cx="294" cy="264" r="34"/>' +
-  '<path d="M226 216 L184 272 L198 346"/>' +
-  '<path d="M362 216 L418 234 L444 180"/>' +
-  '<path d="M254 358 L240 414 M334 358 L348 414"/>' +
-  '<rect x="228" y="414" width="132" height="22" rx="8"/>' +
-  '<rect x="452" y="428" width="94" height="26" rx="8"/>' +
-  '<path d="M499 428 L486 360 L538 320"/>' +
-  '<path d="M538 320 l18 -9 M538 320 l5 -20"/>' +
-  '</g>' +
-  '<circle class="hero-robot__core" cx="294" cy="264" r="13"/>' +
-  '<g class="hero-robot__joint">' +
-  '<circle cx="226" cy="216" r="6"/><circle cx="184" cy="272" r="6"/>' +
-  '<circle cx="362" cy="216" r="6"/><circle cx="418" cy="234" r="6"/>' +
-  '<circle cx="499" cy="428" r="5"/><circle cx="486" cy="360" r="5"/><circle cx="538" cy="320" r="5"/>' +
-  '</g>' +
-  '<g stroke="currentColor" stroke-width="1.5" opacity="0.5">' +
-  '<path d="M462 72 L512 98 L496 152 M512 98 L556 82"/></g>' +
-  '<g class="hero-robot__joint">' +
-  '<circle cx="462" cy="72" r="4"/><circle cx="512" cy="98" r="4"/><circle cx="496" cy="152" r="4"/><circle cx="556" cy="82" r="4"/>' +
-  '</g>' +
-  '</svg>'
-
+// Hero 机器人:科技线稿概念图(public/hero-robot.svg);辉光 + 轻浮动见 custom.css
 const HeroRobot = {
   setup() {
     return () =>
-      skin.mode === 'archive'
-        ? h('div', { class: 'hero-robot-wrap', innerHTML: ROBOT_SVG })
-        : h('div', { class: 'hero-robot-wrap' }, [
-            h('img', {
-              class: 'hero-robot-img',
-              src: withBase('/hero-robot.svg'),
-              alt: '具身智能机器人概念图',
-            }),
-          ])
-  },
-}
-
-// 文档页档案编号行(doc-before):ENTRY · 轨道 · 标题 · REV
-const AccessionLine = {
-  setup() {
-    const route = useRoute()
-    const { page, frontmatter } = useData()
-    return () => {
-      if (skin.mode !== 'archive') return null
-      if (!/\/(vla|wam)\//.test(route.path)) return null
-      const track = /\/wam\//.test(route.path) ? 'WAM' : 'VLA'
-      const title =
-        (frontmatter.value && frontmatter.value.title) ||
-        (page.value && page.value.title) ||
-        ''
-      const label = `ENTRY · ${track}${title ? ' · ' + title : ''} · REV 2026.05`
-      return h('div', { class: 'accession-line', 'aria-hidden': 'true' }, [
-        h('span', { class: 'accession-line__mark', innerHTML: REG_MARK }),
-        h('span', { class: 'accession-line__text' }, label),
+      h('div', { class: 'hero-robot-wrap' }, [
+        h('img', {
+          class: 'hero-robot-img',
+          src: withBase('/hero-robot.svg'),
+          alt: '具身智能机器人概念图',
+        }),
       ])
-    }
   },
 }
 
@@ -616,11 +497,10 @@ export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
-      'home-hero-info-before': () => h(HomeMasthead),
       'home-hero-image': () => h(HeroRobot),
       'home-hero-actions-after': () => h(HeroStats),
-      'nav-bar-content-after': () => [h(SkinToggle), h(ConfidenceLens), h(ZenToggle)],
-      'doc-before': () => [h(AccessionLine), h(LensBanner)],
+      'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle)],
+      'doc-before': () => [h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
     })
   },

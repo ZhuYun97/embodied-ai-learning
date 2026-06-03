@@ -549,17 +549,3 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
   .kg-zoom__btn { width: 40px; height: 40px; }
 }
 </style>
-
-<!-- 档案皮:暖纸深空(非 scoped,确保 html.skin-archive 后代选择器正确编译) -->
-<style>
-html.skin-archive .center-robot { color: #f0d2a8; }
-html.skin-archive .cr-eye, html.skin-archive .cr-joint { fill: #f4b86a; }
-html.skin-archive .center-aura { fill: rgba(201, 140, 70, 0.13); }
-html.skin-archive .kg-wrap {
-  background:
-    radial-gradient(ellipse 50% 42% at 50% 49%, rgba(176, 106, 46, 0.2), transparent 70%),
-    radial-gradient(ellipse 80% 70% at 50% 49%, rgba(154, 51, 36, 0.14), transparent 72%),
-    radial-gradient(ellipse 120% 100% at 50% 45%, #1c1108 0%, #120a04 55%, #0a0502 100%);
-  border-color: rgba(201, 123, 90, 0.24);
-}
-</style>
