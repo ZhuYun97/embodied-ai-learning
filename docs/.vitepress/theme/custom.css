@@ -1745,3 +1745,88 @@ html:not(.skin-archive) .VPHome .vp-doc h2::before {
 
 /* —— 档案皮兜底:发丝换成档案强调色,避免蓝紫渐变与暖纸冲突 —— */
 html.skin-archive .home-coda::before { background: var(--vp-c-brand-1); opacity: 0.55; }
+
+/* ============================================================
+   首页优化 ④:Hero 规模读出条(home-hero-actions-after)
+   填补 hero 左栏按钮下方的空档;mono 渐变数字 + 发丝分隔,
+   与标题渐变 / // 眉标 / 卡片序号同语言。仅 .VPHome,reduced-motion 安全。
+   数字口径同 feature 卡:46 篇(VLA30+WAM16)· 50+ 基准 · 38 公司 · 2 主线。
+   ============================================================ */
+.VPHome .hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30px 0 0;
+  padding-top: 24px;
+  max-width: 560px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+.VPHome .hero-stat {
+  flex: 1 1 0;
+  min-width: 88px;
+  padding: 0 22px;
+  border-left: 1px solid var(--vp-c-divider);
+}
+.VPHome .hero-stat:first-child { padding-left: 2px; border-left: 0; }
+.hero-stat__n {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  margin: 0;
+  font-family: var(--vp-font-family-mono);
+  font-size: 2.15rem;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(120deg, #2563eb 0%, #22d3ee 52%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-stat__unit {
+  font-size: 0.85rem;
+  font-weight: 600;
+  -webkit-text-fill-color: initial;
+  color: var(--vp-c-text-3);
+}
+.hero-stat__label {
+  margin: 9px 0 0;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--vp-c-text-2);
+}
+.dark .hero-stat__n { filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.28)); }
+
+/* 入场:数字逐格"读出"(轻微上浮淡入,逐项错峰;复用 bpRise) */
+@media (prefers-reduced-motion: no-preference) {
+  .VPHome .hero-stat {
+    animation: bpRise 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(0.28s + var(--i, 0) * 0.07s);
+  }
+}
+
+/* 移动端:2×2 网格,去竖向发丝,改用间距 */
+@media (max-width: 640px) {
+  .VPHome .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 12px;
+    max-width: 360px;
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+  .VPHome .hero-stat,
+  .VPHome .hero-stat:first-child { padding: 0; border-left: 0; }
+  .hero-stat__n { font-size: 1.85rem; }
+}
+
+/* 档案皮兜底:数字改用档案强调色(暖纸下不用蓝紫渐变) */
+html.skin-archive .hero-stat__n {
+  background: none;
+  -webkit-text-fill-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  filter: none;
+}
+html.skin-archive .hero-stat__unit { -webkit-text-fill-color: initial; color: var(--vp-c-text-3); }

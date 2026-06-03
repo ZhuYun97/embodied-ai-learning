@@ -42,9 +42,9 @@ features:
     details: 五大类、50+ 评测基准全景——仿真操作(SimplerEnv/LIBERO/CALVIN/RoboCasa…)+ 真机竞技场 + 推理 VQA + 导航 + 世界模型,逐模型成绩表标注口径与可信度,并附「读表七条铁律」;另备术语表 / 时间线 / 参考文献速查。
     link: /vla/papers/benchmarks
     linkText: 看数据与速查
-  - icon: { src: /icons/route.svg, width: 28, height: 28 }
+  - icon: { src: /icons/globe.svg, width: 28, height: 28 }
     title: 生态图谱(力导向关系网)
-    details: 国内外 38 家具身公司 + 12 家投资方/机构,以投资/合作/控股/孵化关系连成网络。深空舞台 + 霓虹流光,可拖拽缩放、悬停高亮关联子图。
+    details: 国内外 34 家具身公司 + 22 家投资方/机构 + 18 位学者,以投资/合作/控股/孵化关系连成网络。深空舞台 + 霓虹流光,可拖拽缩放、悬停高亮关联子图。
     link: /ecosystem/
     linkText: 进入图谱
 ---

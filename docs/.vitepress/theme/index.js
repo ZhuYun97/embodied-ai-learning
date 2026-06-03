@@ -347,6 +347,33 @@ const HomeMasthead = {
   },
 }
 
+// Hero 规模读出条(home-hero-actions-after):本站规模一览。
+// 数字与 feature 卡口径完全一致(46 篇=VLA30+WAM16 · 50+ 基准 · 38 公司 · 2 主线),不引入任何新主张。
+const HERO_STATS = [
+  { n: '46', unit: '篇', label: '论文细读' },
+  { n: '50+', unit: '', label: '评测基准' },
+  { n: '34', unit: '家', label: '生态公司' },
+  { n: '2', unit: '条', label: '研究主线' },
+]
+const HeroStats = {
+  setup() {
+    return () =>
+      h(
+        'dl',
+        { class: 'hero-stats', 'aria-label': '本站规模一览' },
+        HERO_STATS.map((s, i) =>
+          h('div', { class: 'hero-stat', style: { '--i': i } }, [
+            h('dt', { class: 'hero-stat__n' }, [
+              s.n,
+              s.unit ? h('span', { class: 'hero-stat__unit' }, s.unit) : null,
+            ]),
+            h('dd', { class: 'hero-stat__label' }, s.label),
+          ])
+        )
+      )
+  },
+}
+
 // Hero 机器人:技术线稿(墨线随主题 currentColor,关节氧化红;无渐变/辉光/halo)
 const ROBOT_SVG =
   '<svg class="hero-robot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" fill="none" role="img" aria-label="具身智能机器人技术线稿">' +
@@ -591,6 +618,7 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'home-hero-info-before': () => h(HomeMasthead),
       'home-hero-image': () => h(HeroRobot),
+      'home-hero-actions-after': () => h(HeroStats),
       'nav-bar-content-after': () => [h(SkinToggle), h(ConfidenceLens), h(ZenToggle)],
       'doc-before': () => [h(AccessionLine), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],

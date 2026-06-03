@@ -8,8 +8,16 @@
       <span class="lg-item">同色 = 同一投资集群</span>
       <span class="lg-item"><i class="ln ln-solid"></i>投资/控股</span>
       <span class="lg-item"><i class="ln ln-dash"></i>合作/孵化</span>
+      <span class="lg-readout" aria-hidden="true"><b>{{ stat.companies }}</b>公司<b>{{ stat.hubs }}</b>投资方<b>{{ stat.mentors }}</b>学者<b>{{ stat.edges }}</b>关系</span>
     </div>
     <div class="kg-hint">拖拽平移 · 滚轮缩放 · 悬停高亮关联 · 点击访问官网</div>
+
+    <!-- 缩放 / 复位控制(玻璃 HUD,左下角) -->
+    <div class="kg-zoom" role="group" aria-label="图谱缩放">
+      <button type="button" class="kg-zoom__btn" @click="zoomBy(1.2)" title="放大" aria-label="放大">+</button>
+      <button type="button" class="kg-zoom__btn" @click="zoomBy(1/1.2)" title="缩小" aria-label="缩小">−</button>
+      <button type="button" class="kg-zoom__btn kg-zoom__btn--reset" @click="resetView" title="复位视图" aria-label="复位视图">↺</button>
+    </div>
 
     <svg
       ref="svgEl"
@@ -358,6 +366,12 @@ function onWheel(evt) {
   zoom.value = Math.max(0.45, Math.min(2.6, zoom.value * f))
 }
 function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noopener') }
+
+// ===== 缩放 / 复位控制(配合滚轮缩放与拖拽平移)=====
+function zoomBy(f) { zoom.value = Math.max(0.45, Math.min(2.6, zoom.value * f)) }
+function resetView() { zoom.value = 1; pan.x = 0; pan.y = 0 }
+// 规模读出:数据驱动(随 companies-data.json 自动更新,绝不写死)
+const stat = { companies: companies.length, hubs: connectors.length, mentors: mentors.length, edges: edges.length }
 </script>
 
 <style scoped>
@@ -484,10 +498,55 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
   font-size: 0.68rem; color: rgba(148, 163, 200, 0.6); pointer-events: none;
 }
 
+/* 图例右侧:规模读出(mono · 等宽数字),让顶栏成为"仪表头" */
+.lg-readout {
+  margin-left: auto; display: inline-flex; align-items: baseline;
+  font-family: var(--vp-font-family-mono); font-size: 0.68rem; letter-spacing: 0.02em;
+  color: rgba(170, 190, 230, 0.66);
+}
+.lg-readout b {
+  font-weight: 700; color: #8fd6ff; font-variant-numeric: tabular-nums;
+  margin: 0 4px 0 12px;
+}
+.lg-readout b:first-child { margin-left: 0; }
+
+/* 缩放 / 复位:玻璃 HUD 按钮(左下角) */
+.kg-zoom {
+  position: absolute; left: 14px; bottom: 12px; z-index: 5;
+  display: inline-flex; gap: 6px;
+}
+.kg-zoom__btn {
+  width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 17px; line-height: 1; font-weight: 600;
+  color: rgba(203, 220, 255, 0.9);
+  background: rgba(12, 18, 40, 0.66);
+  border: 1px solid rgba(110, 150, 230, 0.32); border-radius: 8px; cursor: pointer;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  transition: border-color 0.18s, color 0.18s, background-color 0.18s, box-shadow 0.18s, transform 0.1s;
+}
+.kg-zoom__btn:hover {
+  color: #aef0ff; border-color: rgba(120, 200, 255, 0.7); background: rgba(24, 40, 80, 0.72);
+  box-shadow: 0 0 0 1px rgba(120, 200, 255, 0.4), 0 0 16px rgba(56, 189, 248, 0.3);
+}
+.kg-zoom__btn:active { transform: translateY(1px); }
+.kg-zoom__btn--reset { font-size: 15px; }
+
+/* 中心机器人光晕:轻微"呼吸",让画面有生命感(reduced-motion 安全) */
+@media (prefers-reduced-motion: no-preference) {
+  .center-aura { animation: kgAura 5.5s ease-in-out infinite; }
+}
+@keyframes kgAura { 0%, 100% { opacity: 0.62; } 50% { opacity: 1; } }
+
 @media (max-width: 640px) {
   .kg-legend { font-size: 0.62rem; padding: 8px 10px; gap: 4px; }
   .kg-hint { display: none; }
+  .lg-readout { display: none; }
   .node-label { font-size: 8.5px; }
+  .kg-zoom__btn { width: 40px; height: 40px; font-size: 19px; }
+  .kg-zoom__btn--reset { font-size: 17px; }
+}
+@media (pointer: coarse) {
+  .kg-zoom__btn { width: 40px; height: 40px; }
 }
 </style>
 
