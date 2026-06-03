@@ -109,7 +109,13 @@
           @click="onNodeClick(n)"
         >
           <circle :cx="n.x" :cy="n.y" :r="n.r" class="node-orb" />
-          <text :x="n.x" :y="n.y" class="node-initial" dy="0.34em" :style="{ fontSize: Math.round(Math.max(9, Math.min(14, n.r * 0.82))) + 'px' }">{{ n.initial }}</text>
+          <svg
+            v-if="n.logo"
+            :x="n.x - n.logoS / 2" :y="n.y - n.logoS / 2" :width="n.logoS" :height="n.logoS"
+            :viewBox="n.logo.vb" preserveAspectRatio="xMidYMid meet" class="node-logo"
+            v-html="n.logo.body"
+          />
+          <text v-else :x="n.x" :y="n.y" class="node-initial" dy="0.34em" :style="{ fontSize: Math.round(Math.max(9, Math.min(14, n.r * 0.82))) + 'px' }">{{ n.initial }}</text>
         </g>
         <!-- 标签:单独置于最上层,任何时候都清晰可读(不被相邻节点压住) -->
         <g class="labels">
@@ -128,6 +134,7 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 import data from '../../../ecosystem/companies-data.json'
+import logos from './investor-logos.json'
 
 const W = 1040, H = 940
 const CX = W / 2, CY = H / 2 + 6
@@ -272,6 +279,7 @@ const nodes = reactive(allRaw.filter((n) => pos[n.id]).map((n) => {
     kind: regionKind(n), r: p.r, website: n.website || null, color: colorOf(n.id),
     x: p.x, y: p.y, ang: p.ang, lx, ly,
     anchor: Math.cos(p.ang) >= 0 ? 'start' : 'end',
+    logo: logos[n.id] || null, logoS: Math.round(p.r * 1.3), // 投资方/机构有 logo 则用 logo,否则回退首字
     show: hubIds.has(n.id) || (isCompany(n.id) && ((n.fundingAmount || 0) >= 3e8 || (n.valuation || 0) >= 1.5e9)), // 默认标 hub + 重点公司
   }
 }))
@@ -406,6 +414,9 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
   paint-order: stroke; stroke: rgba(5, 8, 24, 0.3); stroke-width: 0.6px;
   pointer-events: none; user-select: none;
 }
+/* 投资方/机构 logo:单色,染成所属集群色并提亮以保证在半透明球上清晰 */
+.node-logo { fill: var(--c); color: var(--c); filter: brightness(1.9) saturate(1.1); pointer-events: none; overflow: visible; }
+.node-logo :deep(path) { fill: var(--c); }
 /* 标签:默认只显 hub + 大公司(showlabel);悬停时显焦点邻居,大幅去拥挤 */
 .node-label {
   font-size: 9.5px; font-weight: 500; fill: rgba(220, 230, 252, 0.85);
