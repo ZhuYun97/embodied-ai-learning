@@ -2,6 +2,7 @@
 title: 具身智能新闻
 description: 跟踪具身智能(VLA / WAM / 人形机器人)领域最新动态——重要论文与模型发布、头部公司战略、融资上市、数据集基准与竞赛。每条标注一手来源、可信度与重要程度。
 sidebar: false
+aside: false
 ---
 
 <script setup>
