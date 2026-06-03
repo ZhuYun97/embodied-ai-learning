@@ -39,7 +39,7 @@ features:
     linkText: 看最新动态
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
     title: 基准硬数据 + 速查
-    details: SimplerEnv / LIBERO / CALVIN / RoboCasa 四大基准逐模型成绩表,标注口径与可信度;另备术语表 / 时间线 / 参考文献速查。
+    details: 五大类、50+ 评测基准全景——仿真操作(SimplerEnv/LIBERO/CALVIN/RoboCasa…)+ 真机竞技场 + 推理 VQA + 导航 + 世界模型,逐模型成绩表标注口径与可信度,并附「读表七条铁律」;另备术语表 / 时间线 / 参考文献速查。
     link: /vla/papers/benchmarks
     linkText: 看数据与速查
   - icon: { src: /icons/route.svg, width: 28, height: 28 }
