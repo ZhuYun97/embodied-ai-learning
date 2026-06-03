@@ -305,7 +305,7 @@ const nodes = reactive(allRaw.filter((n) => pos[n.id]).map((n) => {
     x: p.x, y: p.y, ang: p.ang, lx, ly,
     anchor: Math.cos(p.ang) >= 0 ? 'start' : 'end',
     logo: logos[n.id] || null, logoS: Math.round(p.r * 1.3), // 投资方/机构有 logo 则用 logo,否则回退首字
-    show: hubIds.has(n.id) || isMentor(n.id) || (isCompany(n.id) && ((n.fundingAmount || 0) >= 3e8 || (n.valuation || 0) >= 1.5e9)), // 默认标 hub + 导师 + 重点公司
+    show: hubIds.has(n.id) || isMentor(n.id) || (isCompany(n.id) && ((n.fundingAmount || 0) >= 2e8 || (n.valuation || 0) >= 1.5e9)), // 默认标 hub + 导师 + 重点公司
   }
 }))
 const hubs = nodes.filter((n) => hubIds.has(n.id))
