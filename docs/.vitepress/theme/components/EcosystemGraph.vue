@@ -52,6 +52,10 @@
         <filter id="kg-edge-glow" x="-30%" y="-30%" width="160%" height="160%">
           <feGaussianBlur stdDeviation="1.6" />
         </filter>
+        <filter id="kg-glow-soft" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="1.8" result="b" />
+          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
       </defs>
 
       <g :transform="`translate(${pan.x},${pan.y}) scale(${zoom})`" :class="{ 'is-hovering': hoverId }">
@@ -169,9 +173,10 @@ for (const lf of leafList) { const h = pickHub(lf.id); if (h) childrenOf[h].push
 const kindOf = (n) => (hubIds.has(n.id) || connectors.some((c) => c.id === n.id) ? (companies.some((c) => c.id === n.id) ? null : 'conn') : null)
 const isCompany = (id) => companies.some((c) => c.id === id)
 const regionKind = (n) => (isCompany(n.id) ? (n.region === 'china' ? 'cn' : 'intl') : 'conn')
-const hubR = (h) => 17 + Math.min(11, (deg[h.id] || 0) * 1.6)
-// 公司=生态主体,放大并抬高下限,确保都能被注意到(10–21px);次要连接点 11px
-const leafR = (n) => (isCompany(n.id) ? 10 + Math.min(11, Math.sqrt((n.fundingAmount || 0) / 1e8) * 2.4) : 11)
+// 投资方枢纽适当收敛,让位给公司(17.5–23px)
+const hubR = (h) => 15 + Math.min(8, (deg[h.id] || 0) * 1.25)
+// 公司=生态主体,做成最醒目的节点(重点公司 ≥ 枢纽;12–23px);次要连接点 11px
+const leafR = (n) => (isCompany(n.id) ? 12 + Math.min(11, Math.sqrt((n.fundingAmount || 0) / 1e8) * 2.6) : 11)
 
 const pos = {}
 const assignedHub = {}
@@ -382,8 +387,8 @@ function onNodeClick(n) { if (n.website) window.open(n.website, '_blank', 'noope
 }
 /* 公司=生态主体:环更亮更实,把视觉焦点拉到公司上(填充仍半透明) */
 .node-cn .node-orb, .node-intl .node-orb { fill-opacity: 0.44; stroke-width: 2.2; }
-/* 投资方/机构=枢纽:更透明、环更柔,退为结构骨架,让位给公司 */
-.node-conn .node-orb { fill-opacity: 0.18; stroke-width: 1.2; stroke-opacity: 0.7; }
+/* 投资方/机构=枢纽:更透明、柔光更弱,退为结构骨架,让位给公司 */
+.node-conn .node-orb { fill-opacity: 0.2; stroke-width: 1.3; stroke-opacity: 0.6; filter: url(#kg-glow-soft); }
 .node.focus .node-orb { filter: url(#kg-glow-strong); stroke-width: 2.4; fill-opacity: 0.88; }
 .is-hovering .node:not(.dim) .node-orb { fill-opacity: 0.72; }
 .node.dim { opacity: 0.16; }
