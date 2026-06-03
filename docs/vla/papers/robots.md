@@ -55,6 +55,7 @@ flowchart LR
 | **AgiBot 远征 A2** | AgiBot(智元) | 双臂人形(部分轮式) | A2/Ultra 40+;Max 67;Lite 23 DoF | 灵巧手(称 19 DoF)+ 7-DoF 力位混合臂 | real | (AgiBot World 数据平台;语料未列具体直训 VLA) | AgiBot World(约 100万/2976.4h/100 台) |
 | **Apptronik Apollo** | Apptronik | 人形 | 约 71 DoF | 夹持/灵巧手 | real | Gemini Robotics, Gemini 1.5(Motion Transfer) | — |
 | **Figure 01/02 (Helix)** | Figure AI | 人形上半身 | Figure 02 约 35 DoF;双手 16 DoF | 五指灵巧手(16 DoF) | real | Helix, Helix-02 | —(约 500h 遥操作 ⚠️,非公开数据集) |
+| **千寻 Moz1** | 千寻智能(Spirit AI) | 人形(全身力控) | 26 DoF(不含灵巧手) | 灵巧手(另计);全身高功率密度力控关节 | real | Spirit v1(自研端到端 VLA) | 千寻自采遥操作(规模未公开) |
 | **π Physical Intelligence 平台** | Physical Intelligence | 7 种机器人配置(单臂/双臂/移动操作) | 统一零填充到 18 维(双 6-DoF 臂+2 夹爪+底盘+升降躯干) | 平行夹爪等 | real | π0, π0-FAST, π0.5, π0.6/π*0.6, Knowledge Insulation | π 自有数据集(7 配置/68 任务/约 1 万 h/903M timesteps) |
 | **X Square 多本体平台** | X Square Robot(自变量) | 多本体机器人 | 待核 | 灵巧操作(egocentric+腕部相机) | real | WALL-OSS, Wall-OSS-0.5 | 自采动作 + 开源动作 + 多模态 VQA |
 | **RoboCasa 厨房仿真本体** | UT Austin / NVIDIA | 仿真厨房本体 | 仿真(robosuite/MuJoCo + Omniverse) | 仿真夹爪 | sim | GR00T N1/N1.5/N1.6/N1.7, π0, π0.5, Diffusion Policy, BC-Transformer | RoboCasa 1.0 multitask, MimicGen, DreamGen |
@@ -118,6 +119,7 @@ flowchart LR
 | **AgiBot 远征 A2** | 智元 | 23~67 | AgiBot World 数据平台 | 双臂人形+灵巧手+视触觉;4000㎡ 数据工厂;语料未列直训 VLA |
 | **Apptronik Apollo** | Apptronik | 约 71 | Gemini Robotics、Gemini 1.5 | 面向工厂/物流;Gemini 跨本体迁移落点之一 |
 | **Figure 01/02 (Helix)** | Figure AI | 约 35;双手 16 | Helix、Helix-02 | System 1 控制整个上半身,35 DoF @ 200Hz ⚠️;厂商称首个驱动两台协作机器人的 VLA(新闻稿) |
+| **千寻 Moz1** | 千寻智能(Spirit AI) | 26(不含灵巧手) | Spirit v1(自研 VLA) | WAIC 2025 首发;⚠️ 厂商称「全球首个高精度全身力控人形」、关节功率密度较 Optimus 高 ~15%;目标办公助理(整理桌面/扔垃圾/做咖啡) |
 
 **跨本体迁移要点(人形)**:人形 DoF 高、本体差异大,迁移成败取决于**动作空间是否本体无关**。GR00T 用相对末端执行器动作空间 + 具身感知编码器,使 N1.5 能从 GR-1 预训练本体迁到结构不同的 G1(详见第三节)。
 
@@ -227,6 +229,7 @@ flowchart LR
 - Unitree G1: unitree.com/g1 · Fourier GR-1: therobotreport.com(fourier gr-1) · humanoids.wiki/w/GR-1
 - 天工 Tiangong: x-humanoid.com/bt.html · AgiBot A2: agibot.com/product/169
 - Apptronik Apollo: apptronik.com/apollo · Figure Helix: figure.ai/news/helix-02
+- 千寻 Moz1: spirit-ai.com · WAIC 2025 首发(stcn.com/article/detail/2763729 · 新浪/腾讯科技探展报道);26 DoF 全身力控,搭载 Spirit v1
 
 **跨本体 / 模型**
 - GR00T N1: arxiv.org/abs/2503.14734 · π0: arxiv.org/abs/2410.24164 · π0.5: arxiv.org/abs/2504.16054
