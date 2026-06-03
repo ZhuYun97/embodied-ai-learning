@@ -65,7 +65,7 @@ import EcosystemMap from '../.vitepress/theme/components/EcosystemMap.vue'
 | **达闼机器人 (CloudMinds)** | 2015 | 云端大脑机器人 | **纳斯达克上市** | 云端智能 + 5G 控制机器人体系 | [cloudminds.com](https://cloudminds.com) |
 | **Robotera (睿尔曼)** | 2023 | L7 人形 / Q5 轮足 / XHAND1 | **2 亿美元 B 轮**(估值 15 亿美元,2026/05) | 顺丰/IDG 领投，物流场景千台级部署 | — |
 | **来福谐波 (LinkerBot)** | 2019 | 灵巧手 | **估值 60 亿美元**(2026) | 专注机器人灵巧手，估值行业领先 | — |
-| **千寻智能 (Spirit AI)** | 2024 | Spirit v1.5 | **30 亿元+ 多轮**(估值破百亿,2026) | 通用具身大模型，2026 开年 30 天连续融资,京东领投 Pre-A+、云锋/红杉中国等加注，RoboChallenge 基准领先 | [spirit-ai.com](https://www.spirit-ai.com) |
+| **千寻智能 (Spirit AI)** | 2024 | Spirit v1.5 / v1.6 | **近 50 亿元·4 轮**(估值破百亿,2026) | 通用具身大模型,2026 年 3 个月四轮融资近 50 亿元(6/3 完成 15 亿元 A+ 轮);京东领投 Pre-A+、云锋/红杉中国/顺为等加注,RoboChallenge 基准领先 | [spirit-ai.com](https://www.spirit-ai.com) |
 
 ### 成长型公司（融资 1000 万 - 1 亿美元）
 
