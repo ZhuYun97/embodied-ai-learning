@@ -10,6 +10,7 @@ description: 国际与国内具身智能公司、科研机构一览——代表�
 <script setup>
 import EcosystemGraph from '../.vitepress/theme/components/EcosystemGraph.vue'
 import EcosystemMap from '../.vitepress/theme/components/EcosystemMap.vue'
+import EcosystemJobMap from '../.vitepress/theme/components/EcosystemJobMap.vue'
 </script>
 
 ## 🕸 关系图谱
@@ -17,6 +18,12 @@ import EcosystemMap from '../.vitepress/theme/components/EcosystemMap.vue'
 节点为公司与投资方/机构，连线表示投资、合作、控股、孵化关系。
 
 <EcosystemGraph />
+
+## 🗺 就业地图 · 城市分布
+
+具身公司总部的地理分布——北京 / 上海 / 深圳 / 杭州与旧金山湾区等是人才高地。求职、看 offer、找实习时,先认地图。圆点越大代表该城公司越多。
+
+<EcosystemJobMap />
 
 ## 🗂 公司卡片
 
