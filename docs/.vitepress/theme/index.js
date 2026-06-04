@@ -288,7 +288,7 @@ const SeriesFooter = {
 const HERO_STATS = [
   { n: '46', unit: '篇', label: '论文细读' },
   { n: '50+', unit: '', label: '评测基准' },
-  { n: '34', unit: '家', label: '生态公司' },
+  { n: '49', unit: '家', label: '生态公司' },
   { n: '2', unit: '条', label: '研究主线' },
 ]
 const HeroStats = {
