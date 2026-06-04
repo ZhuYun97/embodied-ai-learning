@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 30 篇 + WAM 16 篇,每篇配官方框架图,逐模块拆解架构 / 数据 / 实验 / 局限,并附关键数据表。
+    details: VLA 31 篇 + WAM 16 篇,每篇逐模块拆解架构 / 数据 / 实验 / 局限,并附关键数据表与谱系定位。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -103,6 +103,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/pi07">π0.7</a>
       <a href="vla/papers/gemini-robotics">Gemini Robotics</a>
       <a href="vla/papers/steervla">SteerVLA（自动驾驶）</a>
+      <a href="vla/papers/steerable-policies">Steerable Policies（可操控分层）</a>
     </div>
   </div>
 </div>

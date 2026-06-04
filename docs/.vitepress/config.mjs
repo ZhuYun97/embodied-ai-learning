@@ -282,6 +282,7 @@ export default withMermaid(defineConfig({
               { text: 'SimpleVLA-RL（在线 RL）', link: '/vla/papers/simplevla-rl' },
               { text: 'SmolVLA（小型高效·开源）', link: '/vla/papers/smolvla' },
               { text: 'SteerVLA（自动驾驶·分层操控）', link: '/vla/papers/steervla' },
+              { text: 'Steerable Policies（可操控分层·操作）', link: '/vla/papers/steerable-policies' },
             ],
           },
           {
@@ -463,6 +464,7 @@ export default withMermaid(defineConfig({
             { text: 'SimpleVLA-RL（在线 RL）', link: '/vla/papers/simplevla-rl' },
             { text: 'SmolVLA（小型高效·开源）', link: '/vla/papers/smolvla' },
             { text: 'SteerVLA（自动驾驶·分层操控）', link: '/vla/papers/steervla' },
+            { text: 'Steerable Policies（可操控分层·操作）', link: '/vla/papers/steerable-policies' },
           ],
         },
         {
