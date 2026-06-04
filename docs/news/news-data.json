@@ -1,5 +1,125 @@
 [
   {
+    "id": "agibot-world-challenge-icra2026-20260604",
+    "title": "AgiBot World Challenge 真机决赛在 ICRA 2026(维也纳)收官:526 队 27 国,设推理到行动 / 世界模型双赛道",
+    "date": "2026-06-04",
+    "fetched_at": "2026-06-05",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "竞赛",
+      "学术会议",
+      "世界模型"
+    ],
+    "summary": "**ICRA 2026**(IEEE 机器人与自动化国际会议,机器人领域旗舰会议之一)于 **6 月 1–5 日**在**奥地利维也纳**举行。由**智元(AgiBot)**主办的 **AgiBot World Challenge @ ICRA 2026** 真机决赛 6 月 1 日开赛、**6 月 4 日颁奖**,设 **「推理到行动(Reasoning to Action)」与「世界模型(World Model)」双赛道**;线上轮共 **526 支队伍、来自 27 个国家 / 地区**参与。线上轮榜首:推理到行动赛道为 Sber Robotics Center 的 GreenVLA(0.885),世界模型赛道为中科院自动化所 + 高德的 NeoVerse-ABot(0.829)。⚠️ 真机决赛及各奖项**最终获奖名单待官方公布**(待核);ICRA 2026 各项最佳论文截至发稿亦多为入围名单、得主待核。",
+    "sources": [
+      {
+        "name": "GlobeNewswire(线上轮)",
+        "url": "https://www.globenewswire.com/news-release/2026/05/13/3293715/0/en/Global-Showdown-526-Teams-from-27-Countries-Compete-in-the-AGIBOT-WORLD-CHALLENGE-ICRA-2026-Online-Round.html"
+      },
+      {
+        "name": "ICRA 2026 竞赛页",
+        "url": "https://2026.ieee-icra.org/program/competitions/"
+      },
+      {
+        "name": "智元 AgiBot 官网",
+        "url": "https://www.agibot.com/article/231/detail/45.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      },
+      {
+        "label": "具身数据全景",
+        "url": "/vla/papers/embodied-data"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "byd-humanoid-robot-20260603",
+    "title": "比亚迪确认正研发人形机器人:做开放平台,未来或借汽车经销商网络销售",
+    "date": "2026-06-03",
+    "fetched_at": "2026-06-05",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "公司战略",
+      "人形机器人"
+    ],
+    "summary": "**比亚迪**集团执行副总裁**李柯(Stella Li)**在一档访谈中确认,比亚迪正在研发人形机器人,并考虑面向家庭场景部署。战略口径:打造一个**开放机器人平台**,既生产比亚迪自研机器人,也兼容与其他企业合作开发的产品;若机器人进入家庭,可借助比亚迪**全球汽车经销商网络**销售。李柯称「汽车软件复杂,移植到机器人对我们而言很容易」,把车企的 AI / 制造能力视为天然优势。⚠️ 目前仅为研发确认与战略表态——**未公布**量产时间表、产品型号或出货数字;当前重心仍在工业机器人(比亚迪自身为最大客户)。作为全球最大新能源车企入局,延续了车企跨界具身的趋势。",
+    "sources": [
+      {
+        "name": "新浪财经",
+        "url": "https://finance.sina.com.cn/tob/2026-06-03/doc-iniactak2338427.shtml"
+      },
+      {
+        "name": "CnEVPost",
+        "url": "https://cnevpost.com/2026/06/03/byd-enters-humanoid-robot-market/"
+      },
+      {
+        "name": "CarNewsChina",
+        "url": "https://carnewschina.com/2026/06/04/byd-confirms-humanoid-robot-development-says-future-sales-could-use-dealer-network/"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "wam-nav-navigation-20260603",
+    "title": "WAM-Nav:用「世界-行动」隐式建模统一视觉导航",
+    "date": "2026-06-03",
+    "fetched_at": "2026-06-05",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "世界模型"
+    ],
+    "summary": "论文 **WAM-Nav: Asymmetric Latent World-Action Modeling for Unified Visual Navigation**(arXiv:[2606.04907](https://arxiv.org/abs/2606.04907))提出面向具身视觉导航的隐式**世界-行动模型**,用一个**共享 Diffusion Transformer** 做「非对称联合扩散」——同时生成**长时域动作**与**短时域视觉预见(visual foresight)**,并配双流上下文条件与统一目标对齐模块。⚠️ 作者自评:Image-Goal 导航成功率 **+15.7%**、Point-Goal **+3.3%**,真实室内外环境平均任务成功率约 **85%**(均为作者自评,未经第三方复现)。属本站 WAM(世界-行动模型)主线的导航向新工作。",
+    "sources": [
+      {
+        "name": "arXiv:2606.04907",
+        "url": "https://arxiv.org/abs/2606.04907"
+      }
+    ],
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "robot-manipulation-benchmark-audit-20260602",
+    "title": "arXiv 论文质疑机器人操作基准有效性:LIBERO 上 0.09B 无语言探针即逼近 SOTA",
+    "date": "2026-06-02",
+    "fetched_at": "2026-06-05",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "评测基准",
+      "论文发表"
+    ],
+    "summary": "芝加哥大学 / TTIC 等团队论文 **《What Are We Actually Benchmarking in Robot Manipulation?》**(arXiv:[2606.04233](https://arxiv.org/abs/2606.04233))系统审计了 5 个主流操作基准——**LIBERO、CALVIN、SimplerEnv、RoboCasa、RoboTwin 2.0**,提出四类失效模式诊断:**捷径可解、缺乏统计显著性、渐进过拟合、数据源依赖**。核心发现:在 LIBERO 上,一个 **0.09B、不含语言编码器**的探针即可达到或逼近已报告 SOTA,且多数已报告增益**缺乏统计显著性**;在 CALVIN 上,仅在训练范围内随机化积木位姿就会让所有受测策略掉分;LIBERO、CALVIN 未通过多项诊断,RoboCasa、RoboTwin 2.0 表现相对更好。作者已开源这套诊断工具,提醒读表时勿轻信单一基准分数——与本站基准页「读表七条铁律」一脉相承。",
+    "sources": [
+      {
+        "name": "arXiv:2606.04233",
+        "url": "https://arxiv.org/abs/2606.04233"
+      }
+    ],
+    "related": [
+      {
+        "label": "基准硬数据速查",
+        "url": "/vla/papers/benchmarks"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "baai-conference-2026-embodied-20260603",
     "title": "2026 智源大会 6/12–13 举办:专设具身智能与人形机器人论坛,聚焦世界模型 / 具身智能",
     "date": "2026-06-03",
