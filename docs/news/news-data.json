@@ -791,19 +791,14 @@
       "论文发表",
       "模型发布"
     ],
-    "summary": "arXiv 2409.12514 论文发布 **TinyVLA**,紧凑型 VLA 模型在推理速度和性能上显著超越 OpenVLA。本站已有[细读](/vla/papers/tinyvla)。",
+    "summary": "arXiv 2409.12514 论文发布 **TinyVLA**,紧凑型 VLA 模型在推理速度和性能上显著超越 OpenVLA。",
     "sources": [
       {
         "name": "arXiv:2409.12514",
         "url": "https://arxiv.org/abs/2409.12514"
       }
     ],
-    "related": [
-      {
-        "label": "TinyVLA 细读",
-        "url": "/vla/papers/tinyvla"
-      }
-    ],
+    "related": [],
     "bot": false
   },
   {

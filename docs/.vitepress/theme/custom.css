@@ -1472,3 +1472,19 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .VPHome .hero-stat:first-child { padding: 0; border-left: 0; }
   .hero-stat__n { font-size: 1.85rem; }
 }
+
+/* —— 路线卡:暂未成稿的细读条目(非链接,标「待补」,避免 404)—— */
+.VPHome .route-links .route-soon {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.78rem;
+  padding: 7px 12px;
+  border: 1px dashed var(--vp-c-divider);
+  border-radius: 5px;
+  color: var(--vp-c-text-3);
+  cursor: default;
+  opacity: 0.72;
+}
+.VPHome .route-links .route-soon::before { content: '› '; opacity: 0.5; }
+.VPHome .route-links .route-soon::after { content: ' · 待补'; font-size: 0.82em; opacity: 0.7; }

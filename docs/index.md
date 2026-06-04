@@ -75,8 +75,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/pi0">π0</a>
       <a href="vla/papers/cogact">CogACT</a>
       <a href="vla/papers/groot-n1">GR00T N1</a>
-      <a href="vla/papers/tinyvla">TinyVLA（高效紧凑）</a>
-      <a href="vla/papers/smolvla">SmolVLA（小型高效）</a>
+      <span class="route-soon">TinyVLA（高效紧凑）</span>
+      <span class="route-soon">SmolVLA（小型高效）</span>
     </div>
   </div>
   <div class="route-card">
@@ -94,15 +94,15 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-card__title">统一基座 / 第三条路 / 从经验学习</div>
     <p>统一多任务多本体基座、视频生成预训练→动作、真机强化学习,以及可操控分层跨域到自动驾驶。</p>
     <div class="route-links">
-      <a href="vla/papers/ecot">ECoT（推理 CoT）</a>
-      <a href="vla/papers/robovlms">RoboVLMs（系统实证）</a>
-      <a href="vla/papers/simplevla-rl">SimpleVLA-RL（在线 RL）</a>
+      <span class="route-soon">ECoT（推理 CoT）</span>
+      <span class="route-soon">RoboVLMs（系统实证）</span>
+      <span class="route-soon">SimpleVLA-RL（在线 RL）</span>
       <a href="vla/papers/qwen-vla">Qwen-VLA</a>
       <a href="vla/papers/rynnvla">RynnVLA</a>
       <a href="vla/papers/pi06">π0.6 / π*0.6</a>
       <a href="vla/papers/pi07">π0.7</a>
       <a href="vla/papers/gemini-robotics">Gemini Robotics</a>
-      <a href="vla/papers/steervla">SteerVLA（自动驾驶）</a>
+      <span class="route-soon">SteerVLA（自动驾驶）</span>
     </div>
   </div>
 </div>
@@ -150,7 +150,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/lingbot-va">LingBot-VA</a>
       <a href="wam/papers/tau0-wm">τ0-WM</a>
       <a href="wam/papers/groot-n2">GR00T N2</a>
-      <a href="wam/papers/ladi-wm">LaDi-WM</a>
+      <span class="route-soon">LaDi-WM</span>
     </div>
   </div>
   <div class="route-card">
@@ -158,8 +158,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-card__title">自回归 + 扩散混合</div>
     <p>结合自回归与扩散优势,或用潜表征对齐未来与动作,兼顾长期规划与精细控制。</p>
     <div class="route-links">
-      <a href="wam/papers/uva">UVA</a>
-      <a href="wam/papers/flare">FLARE</a>
+      <span class="route-soon">UVA</span>
+      <span class="route-soon">FLARE</span>
     </div>
   </div>
 </div>
