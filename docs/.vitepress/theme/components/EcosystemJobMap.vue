@@ -50,13 +50,13 @@ const CITY_BY_ID = {
   'unitree': 'hangzhou',
   'cloudminds': 'shanghai',
   'robotera': 'beijing',
-  'linkerbot': null,
+  'linkerbot': 'beijing',
   'agibot': 'shanghai',
   'fourier': 'shanghai',
   'limx': 'shenzhen',
   'x-humanoid': 'beijing',
   'galbot': 'beijing',
-  'vbot': null,
+  'vbot': 'beijing',
   'joyin': null,
   'x2robot': 'shenzhen',
   'genisom': null,
@@ -140,6 +140,30 @@ onMounted(async () => {
     attribution: '© OpenStreetMap © CARTO',
   }).addTo(map)
 
+  // 聚合插件:相近城市(沪/杭、湾区四城)在低缩放下并为一个计数泡,避免互相遮挡;缩放或点击即展开
+  let hasCluster = false
+  try { await import('leaflet.markercluster'); hasCluster = !!L.markerClusterGroup } catch (e) { hasCluster = false }
+  const group = hasCluster
+    ? L.markerClusterGroup({
+        maxClusterRadius: 46,
+        showCoverageOnHover: false,
+        spiderfyOnMaxZoom: true,
+        chunkedLoading: false,
+        iconCreateFunction: (cluster) => {
+          const kids = cluster.getAllChildMarkers()
+          let total = 0, cn = 0
+          for (const m of kids) { total += m.options._n || 1; if (m.options._cn) cn += 1 }
+          const col = cn * 2 >= kids.length ? '#22d3ee' : '#a78bfa'
+          const d = Math.round((19 + Math.min(13, Math.sqrt(total) * 3)) * 2)
+          return L.divIcon({
+            html: `<div class="jm-cluster" style="--c:${col};width:${d}px;height:${d}px"><b>${total}</b></div>`,
+            className: 'jm-cluster-wrap',
+            iconSize: [d, d],
+          })
+        },
+      })
+    : null
+
   const bounds = []
   for (const [key, list] of Object.entries(byCity)) {
     const meta = CITY_META[key]
@@ -152,16 +176,25 @@ onMounted(async () => {
       weight: 2,
       opacity: 0.95,
       fillColor: col,
-      fillOpacity: 0.28,
+      fillOpacity: 0.3,
       className: 'jm-marker',
-    }).addTo(map)
+      _n: n,
+      _cn: isCN,
+    })
     marker.bindPopup(popupHtml(meta, list), { className: 'jm-popup', maxWidth: 300, autoPanPadding: [30, 30] })
     marker.bindTooltip(`${meta.label} · ${n} 家`, { direction: 'top', className: 'jm-tip', offset: [0, -4] })
+    if (group) group.addLayer(marker)
+    else marker.addTo(map)
     bounds.push([meta.lat, meta.lng])
   }
-  if (bounds.length) map.fitBounds(bounds, { padding: [44, 44], maxZoom: 5 })
+  if (group) map.addLayer(group)
   ready.value = true
-  setTimeout(() => map && map.invalidateSize(), 120)
+  // 先校正容器尺寸,再 fitBounds —— 否则用错误尺寸算缩放会只框住单个区域(如只剩北美)
+  setTimeout(() => {
+    if (!map) return
+    map.invalidateSize()
+    if (bounds.length) map.fitBounds(bounds, { padding: [40, 40], maxZoom: 5 })
+  }, 180)
 })
 
 onUnmounted(() => {
@@ -172,6 +205,23 @@ onUnmounted(() => {
 <!-- Leaflet 核心样式(全局,不能 scoped,否则破坏 leaflet 类) -->
 <style>
 @import 'leaflet/dist/leaflet.css';
+@import 'leaflet.markercluster/dist/MarkerCluster.css';
+
+/* 聚合计数泡(深空):相近城市低缩放下并为一个泡,数字=公司总数 */
+.jm-cluster-wrap { background: transparent !important; }
+.jm-cluster {
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  color: #05060f;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-weight: 800;
+  background: radial-gradient(circle at 38% 32%, color-mix(in srgb, var(--c) 92%, #fff), var(--c));
+  border: 2px solid color-mix(in srgb, var(--c) 65%, #fff);
+  box-shadow: 0 0 16px var(--c), 0 0 5px var(--c);
+  transition: transform 0.15s ease;
+}
+.jm-cluster-wrap:hover .jm-cluster { transform: scale(1.08); }
+.jm-cluster b { font-size: 0.84rem; line-height: 1; }
 
 /* 弹窗深空化 */
 .jm-popup .leaflet-popup-content-wrapper {

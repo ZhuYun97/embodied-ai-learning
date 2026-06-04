@@ -221,7 +221,7 @@
     },
     {
       "id": "linkerbot",
-      "name": "来福谐波",
+      "name": "灵心巧手",
       "nameEn": "LinkerBot",
       "founded": 2019,
       "region": "china",
@@ -311,15 +311,16 @@
     {
       "id": "vbot",
       "name": "Vbot",
-      "nameZh": "未来机器人",
-      "founded": 2023,
+      "nameZh": "维他动力",
+      "founded": 2024,
       "region": "china",
       "stage": "growth",
       "funding": "$73M Pre-A",
       "fundingAmount": 73000000,
-      "products": ["全尺寸人形"],
-      "description": "具身 AI 创业公司，快速扩产",
-      "tags": ["人形", "具身AI"],
+      "products": ["伴随机器人", "全尺寸人形"],
+      "description": "国内首个消费级具身智能;余轶南(原地平线)创办",
+      "website": "https://vbot.cn",
+      "tags": ["人形", "消费级", "具身AI"],
       "country": "CN"
     },
     {
