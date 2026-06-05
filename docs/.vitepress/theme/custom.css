@@ -2290,22 +2290,27 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
 @media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .items {
-    position: relative; width: 100%; height: 360px; margin: 8px auto 6px; padding: 0;
-    perspective: 1400px; perspective-origin: 50% 42%;   /* 略俯视的 3D 观察点 */
+    position: relative; width: 100%; height: 300px; margin: 6px auto 6px; padding: 0;
+    perspective: 1450px; perspective-origin: 50% 42%;   /* 略俯视的 3D 观察点 */
     transform-style: preserve-3d;
-    --rx: 335px;   /* 横向半径(左右更宽)*/
-    --yt: 82px;    /* 纵向倾斜抬升(后高前低)——调小让整体上下更扁 */
+    /* 关键:容器自身 z=0 平面会挡住「后排卡(z<0)」的点击 → 容器穿透,卡片可点 */
+    pointer-events: none;
+    --rx: 365px;   /* 横向半径(左右更宽)*/
+    --yt: 62px;    /* 纵向倾斜抬升(后高前低)——再调小,整体更扁 */
     --rz: 210px;   /* 深度半径(前近后远,透视自动近大远小)*/
   }
   .VPHome .VPFeatures .feat-hub { display: flex; }
-  .VPHome .VPFeatures .items:hover > .item { animation-play-state: paused; }
+  /* 卡片恢复可点(父级穿透后,前后排卡在各自可见区域都能点到);
+     用 :has 触发整环暂停(不依赖 .items:hover,兼容父级 pointer-events:none)*/
+  .VPHome .VPFeatures .items > .item { pointer-events: auto; }
+  .VPHome .VPFeatures .items:has(> .item:hover) > .item { animation-play-state: paused; }
 
   /* 3D 环绕公转:每张卡按角度 θ=--ang 放到 (Rx·sinθ, -Yt·cosθ, -Rz·cosθ):
      θ=0 在「后上远」(透视缩小)、θ=180 在「前下近」(透视放大),恒 60° 等角对称。
      卡片只平移不旋转 → 始终正面朝观者、文字清晰;近大远小由 perspective 自动完成。 */
   .VPHome .VPFeatures .items > .item {
     position: absolute; top: 50%; left: 50%; width: 198px;
-    margin: -60px 0 0 -99px;
+    margin: -54px 0 0 -99px;
     transform: translate3d(
       calc(var(--rx) * sin(var(--ang))),
       calc(var(--yt) * cos(var(--ang)) * -1),
@@ -2325,7 +2330,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
   /* 环上卡:图标+标题+序号,等高;悬停 scale 抬升(不动公转布局)。隐藏描述/链接文案。 */
   .VPHome .VPFeatures .items > .item .VPFeature {
-    height: 120px; margin: 0; padding: 14px 16px; overflow: hidden;
+    height: 108px; margin: 0; padding: 12px 16px; overflow: hidden;
     transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
   }
   .VPHome .VPFeatures .items > .item .VPFeature .box { height: 100%; justify-content: center; gap: 6px; }
@@ -2363,8 +2368,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
 /* 3D 环按断点加宽:Rx 横向半径 + Rz 深度。卡会扫到 ±Rx,故 Rx+卡半宽99 ≤ 容器半宽。 */
 @media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
-  .VPHome .VPFeatures .items { --rx: 430px; --rz: 230px; }
+  .VPHome .VPFeatures .items { --rx: 480px; --rz: 230px; }
 }
 @media (min-width: 1536px) and (prefers-reduced-motion: no-preference) {
-  .VPHome .VPFeatures .items { --rx: 455px; --rz: 240px; }
+  .VPHome .VPFeatures .items { --rx: 510px; --rz: 240px; }
 }
