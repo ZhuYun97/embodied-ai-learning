@@ -217,6 +217,8 @@ const renderMarkdown = (text) => {
 
     <!-- 统计概览 -->
     <div class="news-stats">
+      <span class="stat-live"><span class="stat-live__dot"></span>LIVE</span>
+      <span class="stat-divider"></span>
       <span class="stat-total">共 <strong>{{ stats.total }}</strong> 条<span v-if="stats.total !== stats.totalAll" class="stat-of"> / {{ stats.totalAll }}</span></span>
       <span class="stat-divider"></span>
       <span class="stat-chip stat-chip--hot">🔥 {{ stats.hot }}</span>
@@ -252,6 +254,11 @@ const renderMarkdown = (text) => {
           @keydown.enter.prevent="toggleCard(item.id)"
           @keydown.space.prevent="toggleCard(item.id)"
         >
+          <span class="nc-corner nc-corner--tl" aria-hidden="true"></span>
+          <span class="nc-corner nc-corner--tr" aria-hidden="true"></span>
+          <span class="nc-corner nc-corner--bl" aria-hidden="true"></span>
+          <span class="nc-corner nc-corner--br" aria-hidden="true"></span>
+          <span class="nc-scan" aria-hidden="true"></span>
           <div class="news-card__header">
             <span :class="['news-badge', `news-badge--${item.importance}`]">
               <span class="badge-icon">{{ importanceIcon[item.importance] }}</span>{{ importanceLabel[item.importance] }}
@@ -301,7 +308,34 @@ const renderMarkdown = (text) => {
 </template>
 
 <style scoped>
-.news-index { margin-top: 8px; }
+.news-index { margin-top: 8px; position: relative; z-index: 0; }
+
+/* 新闻页无侧栏 + 无 aside,默认正文仅 ~720px 太窄(卡片挤成 2 列)。
+   仅在新闻页(:has(.news-index))放宽容器到 3 列(!important 压过主题媒体查询)。 */
+:global(.VPDoc:has(.news-index) .container) { max-width: 1240px !important; }
+:global(.VPDoc:has(.news-index) .content) { max-width: 100% !important; }
+
+/* 深空情报台底:星云辉光 + 极淡网格 + 顶部星点(仅暗色)。
+   不用 mask-image / backdrop 合成,避免某些浏览器渲染异常(整片变黑)。 */
+:global(.dark) .news-index::before {
+  content: ''; position: absolute; inset: -60px -120px -10px; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(2px 2px at 18% 40px, rgba(186, 230, 253, 0.9), transparent 62%),
+    radial-gradient(1.6px 1.6px at 66% 22px, rgba(186, 230, 253, 0.7), transparent 62%),
+    radial-gradient(2px 2px at 85% 90px, rgba(186, 230, 253, 0.8), transparent 62%),
+    radial-gradient(1.6px 1.6px at 40% 120px, rgba(186, 230, 253, 0.6), transparent 62%),
+    radial-gradient(2px 2px at 8% 150px, rgba(186, 230, 253, 0.6), transparent 62%),
+    radial-gradient(1.6px 1.6px at 95% 200px, rgba(186, 230, 253, 0.55), transparent 62%),
+    radial-gradient(880px 500px at 12% 0%, rgba(37, 99, 235, 0.2), transparent 58%),
+    radial-gradient(800px 600px at 92% 7%, rgba(139, 92, 246, 0.15), transparent 56%),
+    linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+  background-size: auto, auto, auto, auto, auto, auto, auto, auto, 40px 40px, 40px 40px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
+}
+.news-toolbar, .news-stats, .news-group, .news-empty { position: relative; z-index: 1; }
+/* 分组日期:暗色辉光,像传输时间戳 */
+:global(.dark) .news-group__date { text-shadow: 0 0 16px rgba(56, 189, 248, 0.3); }
 
 /* ============================================================
    筛选工具栏:玻璃拟态卡 + 顶部三色发丝(呼应首页 route-card)
@@ -538,11 +572,13 @@ const renderMarkdown = (text) => {
 }
 
 /* ============================================================
-   卡片网格:瀑布流(column-count)按自然高度排列
+   卡片网格:等宽 Grid，逐行从左到右(保持重要程度排序;展开不再整列重排)
    ============================================================ */
 .news-grid {
-  column-count: 3;
-  column-gap: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+  align-items: start;
 }
 
 .news-card {
@@ -550,16 +586,12 @@ const renderMarkdown = (text) => {
   display: flex;
   flex-direction: column;
   padding: 20px 22px 22px;
-  margin-bottom: 18px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
   background: var(--tech-card-bg);
   backdrop-filter: blur(10px) saturate(1.15);
   -webkit-backdrop-filter: blur(10px) saturate(1.15);
   overflow: hidden;
-  /* 防止卡片在列断裂中间被截断 */
-  break-inside: avoid;
-  page-break-inside: avoid;
   transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
 }
 /* 微网格纹理层(极淡,纯装饰) */
@@ -683,6 +715,15 @@ const renderMarkdown = (text) => {
   letter-spacing: -0.01em;
   margin: 0 0 10px;
   color: var(--vp-c-text-1);
+  /* 折叠态:标题最多 3 行,卡片高度更整齐(展开后显示全文) */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-card.is-expanded .news-card__title {
+  -webkit-line-clamp: unset;
+  overflow: visible;
 }
 
 /* 摘要 */
@@ -774,15 +815,9 @@ const renderMarkdown = (text) => {
 /* ============================================================
    响应式:瀑布流列数自适应
    ============================================================ */
-@media (min-width: 1280px) {
-  .news-grid { column-count: 3; }
-}
-@media (min-width: 768px) and (max-width: 1279px) {
-  .news-grid { column-count: 2; }
-}
 @media (max-width: 767px) {
-  .news-grid { column-count: 1; column-gap: 0; }
-  .news-card { padding: 18px; margin-bottom: 14px; }
+  .news-grid { grid-template-columns: 1fr; }
+  .news-card { padding: 18px; }
   .news-card__title { font-size: 1rem; }
   .news-toolbar { padding: 14px; gap: 12px; }
   .seg-control { width: 100%; justify-content: space-between; }
@@ -827,5 +862,113 @@ const renderMarkdown = (text) => {
 :global(.dark) .stat-chip--hot { background: rgba(239, 68, 68, 0.18); color: #f87171; }
 :global(.dark) .stat-chip--major { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
 :global(.dark) .stat-chip--normal { background: rgba(148, 163, 184, 0.16); color: #cbd5e1; }
+
+/* ============================================================
+   炫酷「情报台 HUD」层(暗色为主)— 四角取景框 / 悬停扫描 / 霓虹发光 /
+   传输日志分组头 / 流动工具条;呼应首页深空 HUD,reduced-motion 全关动效
+   ============================================================ */
+
+/* —— 卡片四角取景框:暗色常驻微光,悬停点亮 —— */
+.nc-corner {
+  position: absolute; width: 14px; height: 14px; z-index: 3;
+  border: 1.5px solid transparent; pointer-events: none;
+  opacity: 0; transition: opacity 0.22s ease, box-shadow 0.22s ease;
+}
+.nc-corner--tl { top: 7px; left: 7px; border-right: 0; border-bottom: 0; border-top-left-radius: 4px; }
+.nc-corner--tr { top: 7px; right: 7px; border-left: 0; border-bottom: 0; border-top-right-radius: 4px; }
+.nc-corner--bl { bottom: 7px; left: 7px; border-right: 0; border-top: 0; border-bottom-left-radius: 4px; }
+.nc-corner--br { bottom: 7px; right: 7px; border-left: 0; border-top: 0; border-bottom-right-radius: 4px; }
+:global(.dark) .nc-corner { border-color: rgba(56, 189, 248, 0.6); opacity: 0.7; box-shadow: 0 0 6px rgba(56, 189, 248, 0.22); }
+.news-card:hover .nc-corner { opacity: 1; }
+:global(.dark) .news-card:hover .nc-corner { box-shadow: 0 0 9px rgba(56, 189, 248, 0.5); }
+
+/* —— 悬停扫描线:一道青光自上而下扫过卡片 —— */
+.nc-scan {
+  position: absolute; left: 0; right: 0; top: 0; height: 46%;
+  z-index: 2; pointer-events: none; opacity: 0;
+  background: linear-gradient(to bottom, rgba(56, 189, 248, 0.16), transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  :global(.dark) .news-card:hover .nc-scan { animation: ncScan 1.05s ease-out; }
+}
+@keyframes ncScan {
+  0% { opacity: 0; transform: translateY(-100%); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(260%); }
+}
+
+/* —— 卡片暗色底:更深玻璃 + 青边 + 内描边 —— */
+:global(.dark) .news-card {
+  border-color: rgba(56, 189, 248, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.04), 0 0 24px rgba(8, 13, 28, 0.5);
+}
+
+/* —— 重要程度顶条 + 徽章:霓虹发光 —— */
+:global(.dark) .news-card[data-importance="hot"]::before { box-shadow: 0 0 14px rgba(239, 68, 68, 0.7); }
+:global(.dark) .news-card[data-importance="major"]::before { box-shadow: 0 0 14px rgba(245, 158, 11, 0.6); }
+:global(.dark) .news-card[data-importance="normal"]::before { box-shadow: 0 0 12px rgba(100, 116, 139, 0.5); }
+:global(.dark) .news-badge--hot { box-shadow: 0 0 10px rgba(239, 68, 68, 0.35); }
+:global(.dark) .news-badge--major { box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+:global(.dark) .news-badge--bot { box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+:global(.dark) .news-badge--verified { box-shadow: 0 0 9px rgba(34, 197, 94, 0.28); }
+
+/* —— "阅读详情" → 等宽终端风;标题悬停发光 —— */
+.news-card__more { font-family: var(--vp-font-family-mono, monospace); letter-spacing: 0.02em; }
+:global(.dark) .news-card__more { text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+:global(.dark) .news-card:hover .news-card__title { text-shadow: 0 0 18px rgba(56, 189, 248, 0.28); }
+
+/* —— 时间分组头:HUD 传输日志条 —— */
+.news-group__head { position: relative; border-bottom: 0; padding-bottom: 12px; }
+.news-group__head::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: linear-gradient(90deg, var(--vp-c-divider), transparent 70%);
+}
+:global(.dark) .news-group__head::after {
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.55), rgba(139, 92, 246, 0.28) 45%, transparent 82%);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.22);
+}
+:global(.dark) .news-group__date::before { box-shadow: 0 0 10px rgba(34, 211, 238, 0.6); }
+.news-group__count { padding: 2px 8px; border-radius: 5px; border: 1px solid var(--vp-c-divider); }
+:global(.dark) .news-group__count { color: #7dd3fc; border-color: rgba(56, 189, 248, 0.25); background: rgba(56, 189, 248, 0.05); }
+
+/* —— 统计 + 工具条:发光 + 顶条流动 —— */
+:global(.dark) .stat-total strong { text-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
+:global(.dark) .seg-btn.active { box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4), 0 0 14px rgba(34, 211, 238, 0.4); }
+@media (prefers-reduced-motion: no-preference) {
+  :global(.dark) .news-toolbar::before {
+    background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6, #22d3ee, #2563eb);
+    background-size: 200% 100%;
+    opacity: 0.9;
+    animation: ncFiber 5s linear infinite;
+  }
+}
+@keyframes ncFiber { from { background-position: 0 0; } to { background-position: 200% 0; } }
+
+/* —— 情报流「LIVE」读出(闪烁点)—— */
+.stat-live {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em;
+  color: #16a34a;
+}
+.stat-live__dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+:global(.dark) .stat-live { color: #4ade80; }
+@media (prefers-reduced-motion: no-preference) {
+  .stat-live__dot { animation: ncBlink 1.4s steps(1, end) infinite; }
+}
+@keyframes ncBlink { 0%, 62% { opacity: 1; } 63%, 100% { opacity: 0.25; } }
+
+/* —— 悬停更猛:微缩放 + 更大青光 + 顶条流光 —— */
+.news-card:hover { transform: translateY(-4px) scale(1.012); }
+:global(.dark) .news-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.7),
+    inset 0 0 0 1px rgba(56, 189, 248, 0.14),
+    0 18px 50px rgba(37, 99, 235, 0.3),
+    0 0 30px rgba(34, 211, 238, 0.18);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .news-card:hover::before { background-size: 200% 100%; animation: ncFiber 2.4s linear infinite; }
+}
 
 </style>
