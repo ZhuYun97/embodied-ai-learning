@@ -356,6 +356,49 @@ const HeroRobot = {
 }
 
 // =====================================================================
+// Hero 科技感增强层(HeroFX):深空氛围(第二层星云 + 漂浮星场)+ HUD 接口
+// (载入启动扫描 + 四角取景框)。注入于 home-hero-before(.VPHome 内、内容 z-index:1 之下,
+// 与既有 grid/aurora 同为 z-index:0 背景层)。星点坐标确定性硬编码 → SSR 安全;
+// 动效见 custom.css,reduced-motion 全关,深空 FX(星场/扫描)以暗色为主。
+// =====================================================================
+const FX_STARS = Array.from({ length: 40 }, (_, i) => ({
+  x: (i * 73 + 13) % 100,
+  y: (i * 41 + 7) % 100,
+  s: i % 3 === 0 ? 2.4 : i % 3 === 1 ? 1.4 : 1.9,
+  tw: 3 + (i % 5),
+  dl: ((i % 7) * 0.4).toFixed(1),
+}))
+const HeroFX = {
+  setup() {
+    return () =>
+      h('div', { class: 'hero-fx', 'aria-hidden': 'true' }, [
+        h('div', { class: 'hero-fx__glow' }),
+        h(
+          'div',
+          { class: 'hero-fx__stars' },
+          FX_STARS.map((st) =>
+            h('i', {
+              class: 'hero-fx__star',
+              style: {
+                left: st.x + '%',
+                top: st.y + '%',
+                '--s': st.s + 'px',
+                '--tw': st.tw + 's',
+                '--dl': st.dl + 's',
+              },
+            })
+          )
+        ),
+        h('div', { class: 'hud-scan' }),
+        h('span', { class: 'hud-corner hud-corner--tl' }),
+        h('span', { class: 'hud-corner hud-corner--tr' }),
+        h('span', { class: 'hud-corner hud-corner--bl' }),
+        h('span', { class: 'hud-corner hud-corner--br' }),
+      ])
+  },
+}
+
+// =====================================================================
 // 自定义轻量灯箱:点击/键盘放大流程图(Mermaid SVG)或论文框架图
 // =====================================================================
 let bound = false
@@ -528,6 +571,7 @@ export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
+      'home-hero-before': () => h(HeroFX),
       'home-hero-image': () => h(HeroRobot),
       'home-hero-actions-after': () => h(HeroStats),
       'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle)],

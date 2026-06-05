@@ -1652,4 +1652,111 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .VPNavBar .VPFlyout:focus-within .button .vpi-chevron-down { transform: rotate(180deg); }
   .VPNavBar .VPMenu > .items > * { animation: none; }
 }
+
+/* ============================================================
+   首页 Hero 科技感增强层 (HeroFX) — 深空氛围 + HUD 接口 — 2026-06
+   注入于 home-hero-before(.VPHome 内、内容 z-index:1 之下),与既有 grid(::before)/
+   aurora(::after)同为 z-index:0 背景层叠加更强运动与 HUD 元素。深空 FX(星场/扫描)
+   以暗色为主;四角取景框双色皆宜。reduced-motion 全关。
+   ============================================================ */
+.hero-fx {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: min(680px, 88vh);
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* 第二层星云辉光:与 ::after 极光反向缓移,背景更「活」 */
+.hero-fx__glow {
+  position: absolute;
+  top: -140px; left: 50%;
+  width: min(1100px, 98vw); height: 620px;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(circle at 16% 32%, rgba(34, 211, 238, 0.15), transparent 60%),
+    radial-gradient(circle at 84% 26%, rgba(139, 92, 246, 0.15), transparent 60%);
+  filter: blur(64px);
+  opacity: 0.75;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-fx__glow { animation: heroGlowDrift 24s ease-in-out infinite alternate; }
+}
+@keyframes heroGlowDrift {
+  from { transform: translateX(-46%) translateY(10px) scale(1); }
+  to   { transform: translateX(-54%) translateY(-12px) scale(1.06); }
+}
+
+/* 漂浮星场:数据点 + 闪烁(仅暗色显著) */
+.hero-fx__stars { position: absolute; inset: 0; opacity: 0; }
+.dark .hero-fx__stars { opacity: 1; }
+.hero-fx__star {
+  position: absolute;
+  width: var(--s, 2px); height: var(--s, 2px);
+  border-radius: 50%;
+  background: rgba(186, 230, 253, 0.95);
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.7);
+  opacity: 0.4;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-fx__star {
+    animation: heroStarTwinkle var(--tw, 4s) ease-in-out var(--dl, 0s) infinite,
+               heroStarDrift 64s linear var(--dl, 0s) infinite;
+  }
+}
+@keyframes heroStarTwinkle { 0%, 100% { opacity: 0.16; } 50% { opacity: 0.85; } }
+@keyframes heroStarDrift { from { transform: translateY(6px); } to { transform: translateY(-34px); } }
+
+/* HUD 启动扫描:一束高光自上而下掠过一次(暗色,载入时) */
+.hud-scan {
+  position: absolute; left: 0; right: 0; top: 0;
+  height: 140px; opacity: 0;
+  background: linear-gradient(to bottom, transparent, rgba(56, 189, 248, 0.05) 55%, rgba(56, 189, 248, 0.12));
+  border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dark .hud-scan { animation: hudScanSweep 1.9s cubic-bezier(0.4, 0, 0.5, 1) 0.35s both; }
+}
+@keyframes hudScanSweep {
+  0% { transform: translateY(-150px); opacity: 0; }
+  16% { opacity: 1; }
+  92%, 100% { transform: translateY(640px); opacity: 0; }
+}
+
+/* 四角 HUD 取景框 */
+.hud-corner {
+  position: absolute;
+  width: 26px; height: 26px;
+  border: 1.5px solid color-mix(in srgb, var(--vp-c-brand-1) 50%, transparent);
+  opacity: 0.65;
+}
+.dark .hud-corner {
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.12);
+}
+.hud-corner--tl { top: 20px; left: 20px; border-right: 0; border-bottom: 0; border-top-left-radius: 4px; }
+.hud-corner--tr { top: 20px; right: 20px; border-left: 0; border-bottom: 0; border-top-right-radius: 4px; }
+.hud-corner--bl { bottom: 20px; left: 20px; border-right: 0; border-top: 0; border-bottom-left-radius: 4px; }
+.hud-corner--br { bottom: 20px; right: 20px; border-left: 0; border-top: 0; border-bottom-right-radius: 4px; }
+@media (prefers-reduced-motion: no-preference) {
+  .hud-corner { animation: hudCornerIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hud-corner--tl { animation-delay: 0.15s; }
+  .hud-corner--tr { animation-delay: 0.25s; }
+  .hud-corner--bl { animation-delay: 0.35s; }
+  .hud-corner--br { animation-delay: 0.45s; }
+}
+@keyframes hudCornerIn { from { opacity: 0; transform: scale(0.6); } to { opacity: 0.65; transform: scale(1); } }
+
+@media (max-width: 768px) {
+  .hero-fx { height: 540px; }
+  .hud-corner { width: 18px; height: 18px; }
+  .hud-corner--tl, .hud-corner--tr { top: 14px; }
+  .hud-corner--bl, .hud-corner--br { bottom: 14px; }
+  .hud-corner--tl, .hud-corner--bl { left: 14px; }
+  .hud-corner--tr, .hud-corner--br { right: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hud-scan { display: none; }
+}
 .VPHome .route-links .route-soon::after { content: ' · 待补'; font-size: 0.82em; opacity: 0.7; }
