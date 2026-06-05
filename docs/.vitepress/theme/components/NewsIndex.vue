@@ -315,24 +315,10 @@ const renderMarkdown = (text) => {
 :global(.VPDoc:has(.news-index) .container) { max-width: 1240px !important; }
 :global(.VPDoc:has(.news-index) .content) { max-width: 100% !important; }
 
-/* 深空情报台底:星云辉光 + 极淡网格 + 顶部星点(仅暗色)。
-   不用 mask-image / backdrop 合成,避免某些浏览器渲染异常(整片变黑)。 */
-:global(.dark) .news-index::before {
-  content: ''; position: absolute; inset: -60px -120px -10px; z-index: 0; pointer-events: none;
-  background:
-    radial-gradient(2px 2px at 18% 40px, rgba(186, 230, 253, 0.9), transparent 62%),
-    radial-gradient(1.6px 1.6px at 66% 22px, rgba(186, 230, 253, 0.7), transparent 62%),
-    radial-gradient(2px 2px at 85% 90px, rgba(186, 230, 253, 0.8), transparent 62%),
-    radial-gradient(1.6px 1.6px at 40% 120px, rgba(186, 230, 253, 0.6), transparent 62%),
-    radial-gradient(2px 2px at 8% 150px, rgba(186, 230, 253, 0.6), transparent 62%),
-    radial-gradient(1.6px 1.6px at 95% 200px, rgba(186, 230, 253, 0.55), transparent 62%),
-    radial-gradient(880px 500px at 12% 0%, rgba(37, 99, 235, 0.2), transparent 58%),
-    radial-gradient(800px 600px at 92% 7%, rgba(139, 92, 246, 0.15), transparent 56%),
-    linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
-  background-size: auto, auto, auto, auto, auto, auto, auto, auto, 40px 40px, 40px 40px;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
-}
+/* 深空情报台底(星云+网格+星点)放在全局 custom.css 的 `.dark .news-index::before`。
+   ⚠️ 不要在 scoped 里写 `:global(.dark) .news-index::before` —— Vue scoped 编译器会把
+   「:global() + ::before」误编译成裸 `.dark{...}`,其 pointer-events:none 落到 <html.dark>
+   上,导致暗色下整页 body 不可点击(2026-06 踩坑)。 */
 .news-toolbar, .news-stats, .news-group, .news-empty { position: relative; z-index: 1; }
 /* 分组日期:暗色辉光,像传输时间戳 */
 :global(.dark) .news-group__date { text-shadow: 0 0 16px rgba(56, 189, 248, 0.3); }
@@ -935,7 +921,7 @@ const renderMarkdown = (text) => {
 :global(.dark) .stat-total strong { text-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
 :global(.dark) .seg-btn.active { box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4), 0 0 14px rgba(34, 211, 238, 0.4); }
 @media (prefers-reduced-motion: no-preference) {
-  :global(.dark) .news-toolbar::before {
+  .news-toolbar::before {
     background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6, #22d3ee, #2563eb);
     background-size: 200% 100%;
     opacity: 0.9;

@@ -2214,3 +2214,28 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .dark .VPDoc .vp-doc :not(pre) > code { border-color: rgba(56, 189, 248, 0.18); }
 .VPDoc .vp-doc p a:hover,
 .VPDoc .vp-doc li a:hover { text-decoration-thickness: 2px; }
+
+/* ============================================================
+   新闻页深空情报台底(星云 + 网格 + 顶部星点,仅暗色)
+   放在全局文件:`.dark .news-index::before` 原样输出。
+   ⚠️ 绝不要写成 scoped 组件里的 `:global(.dark) .news-index::before` ——
+   Vue scoped 把「:global()+::before」误编译成裸 `.dark{...}`,其 pointer-events:none
+   会落到 <html.dark> 上,导致暗色下整页不可点击(2026-06 血泪教训)。
+   ============================================================ */
+.dark .news-index { position: relative; }
+.dark .news-index::before {
+  content: ''; position: absolute; inset: -60px -120px -10px; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(2px 2px at 18% 40px, rgba(186, 230, 253, 0.9), transparent 62%),
+    radial-gradient(1.6px 1.6px at 66% 22px, rgba(186, 230, 253, 0.7), transparent 62%),
+    radial-gradient(2px 2px at 85% 90px, rgba(186, 230, 253, 0.8), transparent 62%),
+    radial-gradient(1.6px 1.6px at 40% 120px, rgba(186, 230, 253, 0.6), transparent 62%),
+    radial-gradient(2px 2px at 8% 150px, rgba(186, 230, 253, 0.6), transparent 62%),
+    radial-gradient(1.6px 1.6px at 95% 200px, rgba(186, 230, 253, 0.55), transparent 62%),
+    radial-gradient(880px 500px at 12% 0%, rgba(37, 99, 235, 0.2), transparent 58%),
+    radial-gradient(800px 600px at 92% 7%, rgba(139, 92, 246, 0.15), transparent 56%),
+    linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+  background-size: auto, auto, auto, auto, auto, auto, auto, auto, 40px 40px, 40px 40px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
+}
