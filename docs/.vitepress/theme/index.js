@@ -707,6 +707,39 @@ function bindHeroUnit(reduce) {
   })
 }
 
+// =====================================================================
+// 首页功能卡「椭圆旋转环」中央能量核标签注入(纯装饰,aria-hidden)。
+// .VPFeatures .items 是 SPA 重建节点 → 注入一次后用 MutationObserver 兜底重注;
+// 标签默认 display:none,仅 ≥1080px 环形 media 内显形(见 custom.css)。
+// =====================================================================
+function setupFeatureHub() {
+  if (typeof document === 'undefined') return
+  const inject = () => {
+    const items = document.querySelector('.VPHome .VPFeatures .items')
+    if (!items || items.querySelector('.feat-hub')) return
+    const hub = document.createElement('div')
+    hub.className = 'feat-hub'
+    hub.setAttribute('aria-hidden', 'true')
+    const zh = document.createElement('span')
+    zh.className = 'feat-hub__zh'
+    zh.textContent = '具身智能'
+    const en = document.createElement('span')
+    en.className = 'feat-hub__en'
+    en.textContent = 'EMBODIED · AI'
+    hub.appendChild(zh)
+    hub.appendChild(en)
+    items.appendChild(hub)
+  }
+  inject()
+  if ('MutationObserver' in window) {
+    let t
+    new MutationObserver(() => {
+      clearTimeout(t)
+      t = setTimeout(inject, 150)
+    }).observe(document.body, { childList: true, subtree: true })
+  }
+}
+
 let delightBound = false
 function celebrateRobot() {
   delightToast('🤖 你发现了彩蛋 — ⊕ keep researching')
@@ -764,5 +797,6 @@ export default {
   setup() {
     onMounted(setupLightbox)
     onMounted(setupDelight)
+    onMounted(setupFeatureHub)
   },
 }

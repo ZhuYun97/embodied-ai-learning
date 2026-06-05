@@ -2252,21 +2252,111 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 }
 
 /* ============================================================
-   首页功能卡 → 整齐网格(2026-06 终版,旋转环三版迭代后回归)
-   旋转环三版均被否:① 倾斜 3D 环→太丑(卡片忽大忽小散乱)② 正圆环→太浪费空间
-   ③ 横向椭圆环→排版怪(等弧长分布看着散乱/不对称)。结论:6 张卡 + 旋转 + 环形
-   无法同时做到 整齐 / 不浪费 / 不怪 → 回归默认 VitePress 功能卡网格(3 列 × 2 行,
-   铺满宽度、完全对齐、信息密度高)。无需自定义布局,沿用既有「科技层」:
-     · 顶部流动霓虹边 cardNeonFlow(见上文 .VPFeature 规则)
-     · 序号角标 .VPFeature::after(counter,见上文)
-     · 悬停霓虹辉光 .dark .VPHome .VPFeature:hover(见上文)+ 错峰入场 bpRise
-   下面只补一点网格专属精修:等高对齐 + 悬停轻抬升。
-   (.feat-hub 中央标签注入已从 theme/index.js 移除。)
+   首页功能卡 → 对称椭圆旋转环(2026-06 终版 v4)
+   历程:倾斜3D环(太丑)→正圆环(太浪费空间)→椭圆·等弧长环(排版怪)→网格(用户要回环)
+   → 本版:横向椭圆 + 「等角」分布。用 @property --ang + CSS sin()/cos() 让每张卡按
+   角度 θ 平移到 (Rx·sinθ, -Ry·cosθ);6 张卡恒 60° 等角公转 → 任意时刻都左右/上下
+   对称(修「排版怪」),长轴扫满整宽(修「浪费空间」),纯平移、无缩放无翻转 →
+   文字恒清晰正立等大(修「太丑」)。窄屏 / reduced-motion 回退默认整卡网格。
    ============================================================ */
+@property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+
+/* 默认(窄屏 / reduced-motion 网格态):同行等高 + 悬停轻抬升 */
 .VPHome .VPFeatures .item .VPFeature {
-  height: 100%;                 /* 同行卡片等高对齐(VPFeatures 用 grid,撑满行高)*/
+  height: 100%;
   transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s ease, border-color 0.24s ease;
 }
 @media (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .item:hover .VPFeature { transform: translateY(-4px); }
+}
+
+/* 中央能量核标签(JS 注入;默认隐藏,仅环形 media 内显形) */
+.VPHome .VPFeatures .feat-hub {
+  display: none; position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; pointer-events: none; z-index: 1;
+}
+.VPHome .VPFeatures .feat-hub__zh {
+  font-weight: 800; font-size: 1.2rem; letter-spacing: 0.08em;
+  background: linear-gradient(120deg, #60a5fa, #22d3ee 52%, #a78bfa);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.VPHome .VPFeatures .feat-hub__en {
+  margin-top: 6px; font-family: var(--vp-font-family-mono);
+  font-size: 0.6rem; letter-spacing: 0.34em; color: #67e8f9; opacity: 0.82; padding-left: 0.34em;
+}
+.dark .VPHome .VPFeatures .feat-hub__zh { filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.45)); }
+
+@media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
+  .VPHome .VPFeatures .items {
+    position: relative; width: 100%; height: 480px; margin: 14px auto 6px; padding: 0;
+    --rx: 340px; --ry: 172px;   /* 横/纵半轴;断点放大见下方 */
+  }
+  .VPHome .VPFeatures .feat-hub { display: flex; }
+  .VPHome .VPFeatures .items:hover > .item { animation-play-state: paused; }
+
+  /* 等角公转:θ=--ang 平滑 0→360;6 张按 -12s 负延迟 → 恒 60° 等角、永远对称。
+     纯 translate 定位(margin 先把卡盒中心对到 .items 中心),不旋转不缩放 → 文字清晰。 */
+  .VPHome .VPFeatures .items > .item {
+    position: absolute; top: 50%; left: 50%; width: 198px;
+    margin: -60px 0 0 -99px;
+    transform: translate(calc(var(--rx) * sin(var(--ang))), calc(var(--ry) * cos(var(--ang)) * -1));
+    animation: featSpin 72s linear infinite;
+    animation-delay: calc(var(--i, 0) * -12s);
+    will-change: transform;
+  }
+  @keyframes featSpin { from { --ang: 0deg; } to { --ang: 360deg; } }
+  .VPHome .VPFeatures .items > .item:nth-child(1) { --i: 0; }
+  .VPHome .VPFeatures .items > .item:nth-child(2) { --i: 1; }
+  .VPHome .VPFeatures .items > .item:nth-child(3) { --i: 2; }
+  .VPHome .VPFeatures .items > .item:nth-child(4) { --i: 3; }
+  .VPHome .VPFeatures .items > .item:nth-child(5) { --i: 4; }
+  .VPHome .VPFeatures .items > .item:nth-child(6) { --i: 5; }
+
+  /* 环上卡:图标+标题+序号,等高;悬停 scale 抬升(不动公转布局)。隐藏描述/链接文案。 */
+  .VPHome .VPFeatures .items > .item .VPFeature {
+    height: 120px; margin: 0; padding: 14px 16px; overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .VPHome .VPFeatures .items > .item .VPFeature .box { height: 100%; justify-content: center; gap: 6px; }
+  .VPHome .VPFeatures .items > .item .VPFeature .details,
+  .VPHome .VPFeatures .items > .item .VPFeature .link-text { display: none; }
+  .VPHome .VPFeatures .items > .item .VPFeature .VPImage { width: 34px; height: 34px; object-fit: contain; }
+  .VPHome .VPFeatures .items > .item .VPFeature .title { font-size: 1rem; line-height: 1.3; margin: 0; }
+  .VPHome .VPFeatures .items > .item:hover { z-index: 10; }
+  .VPHome .VPFeatures .items > .item:hover .VPFeature { transform: scale(1.07); border-color: var(--vp-c-brand-1); }
+  .dark .VPHome .VPFeatures .items > .item:hover .VPFeature {
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7), 0 0 30px rgba(56, 189, 248, 0.3), 0 18px 50px rgba(37, 99, 235, 0.3);
+  }
+
+  /* 中央能量核柔和脉动光晕(标签落于其上)*/
+  .VPHome .VPFeatures .items::before {
+    content: ''; position: absolute; left: 50%; top: 50%;
+    width: 240px; height: 240px; margin: -120px 0 0 -120px;
+    border-radius: 50%; pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.26) 0%, rgba(37, 99, 235, 0.12) 42%, transparent 70%);
+    animation: featCore 5s ease-in-out infinite;
+  }
+  @keyframes featCore { 0%, 100% { opacity: 0.68; transform: scale(0.94); } 50% { opacity: 1; transform: scale(1.08); } }
+
+  /* 椭圆虚线轨道(尺寸由 --rx/--ry 决定,与卡片轨迹重合;呼吸不自转)*/
+  .VPHome .VPFeatures .items::after {
+    content: ''; position: absolute; left: 50%; top: 50%;
+    width: calc(var(--rx) * 2); height: calc(var(--ry) * 2);
+    margin: calc(var(--ry) * -1) 0 0 calc(var(--rx) * -1);
+    border-radius: 50%; pointer-events: none; z-index: 0;
+    border: 1px dashed rgba(56, 189, 248, 0.24);
+    box-shadow: inset 0 0 70px rgba(34, 211, 238, 0.05);
+    animation: featRingBreath 7s ease-in-out infinite;
+  }
+  @keyframes featRingBreath { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+}
+
+/* 椭圆按断点加宽(等角分布会让卡扫到长轴顶点 ±Rx,故 Rx+卡半宽99 ≤ 容器半宽)*/
+@media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
+  .VPHome .VPFeatures .items { --rx: 430px; --ry: 174px; }
+}
+@media (min-width: 1536px) and (prefers-reduced-motion: no-preference) {
+  .VPHome .VPFeatures .items { --rx: 450px; --ry: 178px; }
 }
