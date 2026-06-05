@@ -1,5 +1,34 @@
 [
   {
+    "id": "astribot-xingchen-bround-20260603",
+    "title": "星尘智能(Astribot)完成超 10 亿元 B 轮融资:中科创达战略注资,媒体称估值破百亿",
+    "date": "2026-06-03",
+    "fetched_at": "2026-06-05",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "公司战略"
+    ],
+    "summary": "**星尘智能(Astribot)** 于 **2026-06-03** 宣布完成**超 10 亿元 B 轮**融资,据报道为**三个月内连续第三轮**。本轮由国资与产业资本共同参与:无锡科创产业基金二期(博华资本管理)、扬州龙头兴利、中博聚合等国资,产业方含**中科创达战略注资**、科德教育等,国科投资等老股东继续加注;华兴资本任独家财务顾问。资金投向**具身基座模型迭代、真实场景高质量数据积累、研发团队扩张**,强化其「**AI 模型 — 具身 OS — 绳驱本体**」全栈架构。星尘智能由腾讯 Robotics X 前负责人**来杰**创立,代表产品为绳驱(rope-driven)全尺寸机器人 **AstriBot S1**。⚠️「估值突破 100 亿元」为媒体(新浪科技「独家」)口径,公司公告未确认具体估值,待核。",
+    "sources": [
+      {
+        "name": "新浪财经",
+        "url": "https://finance.sina.com.cn/tech/shenji/2026-06-03/doc-iniachnr0892516.shtml"
+      },
+      {
+        "name": "证券时报",
+        "url": "https://www.stcn.com/article/detail/3940845.html"
+      },
+      {
+        "name": "星尘智能官网",
+        "url": "https://www.astribot.com/news/"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "agibot-world-challenge-icra2026-20260604",
     "title": "AgiBot World Challenge 真机决赛在 ICRA 2026(维也纳)收官:526 队 27 国,设推理到行动 / 世界模型双赛道",
     "date": "2026-06-04",
