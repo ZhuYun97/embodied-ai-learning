@@ -2293,8 +2293,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     position: relative; width: 100%; height: 420px; margin: 10px auto 6px; padding: 0;
     perspective: 1400px; perspective-origin: 50% 42%;   /* 略俯视的 3D 观察点 */
     transform-style: preserve-3d;
-    --rx: 330px;   /* 横向半径 */
-    --yt: 122px;   /* 纵向倾斜抬升(后高前低)——拉大让前/后卡纵向分开、减少重叠 */
+    --rx: 270px;   /* 横向半径(收窄,更紧凑)*/
+    --yt: 128px;   /* 纵向倾斜抬升(后高前低)——略加大补偿收窄后的横向间距、减少重叠 */
     --rz: 210px;   /* 深度半径(前近后远,透视自动近大远小)*/
   }
   .VPHome .VPFeatures .feat-hub { display: flex; }
@@ -2363,8 +2363,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
 /* 3D 环按断点加宽:Rx 横向半径 + Rz 深度。卡会扫到 ±Rx,故 Rx+卡半宽99 ≤ 容器半宽。 */
 @media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
-  .VPHome .VPFeatures .items { --rx: 400px; --rz: 230px; }
+  .VPHome .VPFeatures .items { --rx: 330px; --rz: 230px; }
 }
 @media (min-width: 1536px) and (prefers-reduced-motion: no-preference) {
-  .VPHome .VPFeatures .items { --rx: 420px; --rz: 240px; }
+  .VPHome .VPFeatures .items { --rx: 350px; --rz: 240px; }
 }
