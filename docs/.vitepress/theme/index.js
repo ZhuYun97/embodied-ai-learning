@@ -425,6 +425,7 @@ const TechHero = {
     onMounted(() => {
       if (typeof window === 'undefined') return
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      bindHeroUnit(reduce)
       if (reduce) return
       document.querySelectorAll('.thero__stat-n').forEach((el) => {
         const tn = el.firstChild
@@ -506,15 +507,17 @@ const TechHero = {
               h('span', { class: 'tu-corner tu-corner--br' }),
               h('span', { class: 'tu-tag tu-tag--tl' }, 'EMBODIED-UNIT'),
               h('span', { class: 'tu-tag tu-tag--tr' }, 'VLA · WAM'),
-              h('img', {
-                class: 'thero__robot',
-                src: withBase('/hero-robot.svg'),
-                alt: '具身智能机器人概念图',
-              }),
+              h('div', { class: 'thero__robot-wrap', title: '点我 · 单元会回应' }, [
+                h('img', {
+                  class: 'thero__robot',
+                  src: withBase('/hero-robot.svg'),
+                  alt: '具身智能机器人概念图',
+                }),
+              ]),
               h('span', { class: 'tu-scan', 'aria-hidden': 'true' }),
               h('span', { class: 'tu-base' }, [
                 h('span', { class: 'tu-base-dot' }),
-                '运行中 · ONLINE',
+                h('span', { class: 'tu-base-text' }, '运行中 · ONLINE'),
               ]),
             ]),
           ]),
@@ -643,16 +646,71 @@ function setupLightbox() {
 //  ② Hero 机器人悬停"抬头"(见 custom.css)
 //  ③ Konami(↑↑↓↓←→←→BA)→ 机器人庆祝旋转 + ⊕/✦ 粒子 + 轻提示
 // =====================================================================
-let delightBound = false
-function celebrateRobot() {
-  const wrap = document.querySelector('.VPHome .hero-robot-wrap')
+// 轻提示 toast(delight 通用)
+function delightToast(msg) {
   const toast = document.createElement('div')
   toast.className = 'delight-toast'
-  toast.textContent = '🤖 你发现了彩蛋 — ⊕ keep researching'
+  toast.textContent = msg
   document.body.appendChild(toast)
   requestAnimationFrame(() => toast.classList.add('is-in'))
   setTimeout(() => { toast.classList.remove('is-in'); setTimeout(() => toast.remove(), 420) }, 2600)
+}
 
+// Hero 全息单元交互:悬停问候 + 指针视差倾斜 + 点击核心脉冲与「角色内」台词 + 连点成就。
+// 台词均与本站内容强相关(VLA π 策略 / WAM 世界模型 / 动作分块 / 三级可信度),非通用填充。
+const ROBOT_DEFAULT = '运行中 · ONLINE'
+const ROBOT_HELLO = '你好,研究员 · HELLO'
+const ROBOT_LINES = [
+  '校准位姿 · CALIBRATING',
+  '载入策略 · π-POLICY',
+  '想象未来 · WORLD-MODEL',
+  '动作分块 · ACTION-CHUNK',
+  '自评存疑,待复现 · ⚠',
+  '双主线就绪 · VLA × WAM',
+]
+function bindHeroUnit(reduce) {
+  if (typeof document === 'undefined') return
+  const unit = document.querySelector('.thero__unit')
+  if (!unit || unit.dataset.delight) return
+  unit.dataset.delight = '1'
+  const wrap = unit.querySelector('.thero__robot-wrap')
+  const baseText = unit.querySelector('.tu-base-text')
+  if (!wrap) return
+  const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
+  if (fine && !reduce) {
+    unit.addEventListener('pointermove', (e) => {
+      const r = unit.getBoundingClientRect()
+      const px = (e.clientX - r.left) / r.width - 0.5
+      const py = (e.clientY - r.top) / r.height - 0.5
+      wrap.style.setProperty('--ry', (px * 14).toFixed(2) + 'deg')
+      wrap.style.setProperty('--rx', (-py * 10).toFixed(2) + 'deg')
+    })
+  }
+  unit.addEventListener('pointerenter', () => { if (baseText) baseText.textContent = ROBOT_HELLO })
+  unit.addEventListener('pointerleave', () => {
+    wrap.style.setProperty('--ry', '0deg')
+    wrap.style.setProperty('--rx', '0deg')
+    if (baseText) baseText.textContent = ROBOT_DEFAULT
+  })
+  let clicks = 0
+  wrap.addEventListener('click', () => {
+    clicks++
+    if (baseText) baseText.textContent = ROBOT_LINES[(clicks - 1) % ROBOT_LINES.length]
+    if (!reduce) {
+      const p = document.createElement('span')
+      p.className = 'tu-pulse'
+      p.setAttribute('aria-hidden', 'true')
+      wrap.appendChild(p)
+      setTimeout(() => p.remove(), 900)
+    }
+    if (clicks === 5) delightToast('🛰 单元已校准 · 继续探索 ⊕')
+  })
+}
+
+let delightBound = false
+function celebrateRobot() {
+  delightToast('🤖 你发现了彩蛋 — ⊕ keep researching')
+  const wrap = document.querySelector('.VPHome .thero__robot-wrap')
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   if (!wrap || reduce) return
   wrap.classList.remove('delight-spin')

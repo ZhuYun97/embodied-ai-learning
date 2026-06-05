@@ -1255,22 +1255,50 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 }
 
 /* ============================================================
-   惊喜层(delight)—— 仅主页 hero;reduced-motion 安全
-   ① 机器人悬停"抬头"(辉光增强)
-   ② Konami 彩蛋:庆祝旋转 + ⊕/✦ 粒子 + 轻提示 toast
+   惊喜层(delight v2,2026-06)—— 让全息单元「活」起来;reduced-motion 安全
+   ① 悬停:抬头(指针视差倾斜)+ 辉光增强 + 扫描线加速 + 状态读出问候
+   ② 点击机器人:核心脉冲环 + 状态读出循环「角色内」台词;连点 5 次 → 成就 toast
+   ③ Konami 彩蛋:庆祝旋转 + ⊕/✦ 粒子 + 提示 toast
+   ④ 读出条数字悬停「重扫」微辉光
    ============================================================ */
-.hero-robot-wrap { position: relative; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.hero-robot-wrap:hover { transform: scale(1.035); }
-/* 科技皮:悬停辉光增强(filter 不与 heroFloat 的 transform 冲突) */
-.hero-robot-wrap:hover .hero-robot-img { filter: drop-shadow(0 0 52px rgba(56, 189, 248, 0.5)); }
+.thero__robot-wrap {
+  position: relative; display: block; cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+/* 指针视差倾斜(--rx/--ry 由 JS 写入;仅精确指针 + 允许动效) */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .thero__unit:hover .thero__robot-wrap {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.04);
+  }
+}
+.thero__unit:hover .thero__robot { filter: drop-shadow(0 0 52px rgba(56, 189, 248, 0.5)); }
+.thero__unit:hover .tu-scan { animation-duration: 2.1s; }
+.thero__unit:hover .tu-base-dot { box-shadow: 0 0 12px #22d3ee; }
 
-.hero-robot-wrap.delight-spin { animation: delightSpin 0.9s cubic-bezier(0.5, 0, 0.3, 1); }
+/* 点击核心脉冲环 */
+.tu-pulse {
+  position: absolute; left: 50%; top: 44%; width: 22px; height: 22px;
+  margin: -11px 0 0 -11px; border-radius: 50%;
+  border: 2px solid rgba(56, 189, 248, 0.85); pointer-events: none; z-index: 3;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tu-pulse { animation: tuPulse 0.85s ease-out forwards; }
+}
+@keyframes tuPulse {
+  from { transform: scale(0.4); opacity: 0.9; }
+  to   { transform: scale(7); opacity: 0; }
+}
+
+/* Konami 庆祝旋转 */
+.thero__robot-wrap.delight-spin { animation: delightSpin 0.9s cubic-bezier(0.5, 0, 0.3, 1); }
 @keyframes delightSpin { to { transform: rotate(360deg); } }
 
 .delight-particle {
-  position: absolute; left: 50%; top: 46%;
-  font-size: 16px; line-height: 1; pointer-events: none; z-index: 2;
-  color: #2563eb; transform: translate(-50%, -50%);
+  position: absolute; left: 50%; top: 44%;
+  font-size: 16px; line-height: 1; pointer-events: none; z-index: 3;
+  color: #22d3ee; transform: translate(-50%, -50%);
   animation: delightPop 1.2s ease-out forwards;
 }
 @keyframes delightPop {
@@ -1289,11 +1317,22 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
   opacity: 0; transition: opacity 0.35s ease, transform 0.35s ease;
 }
+.dark .delight-toast { border-color: rgba(56, 189, 248, 0.3); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 18px rgba(56, 189, 248, 0.18); }
 .delight-toast.is-in { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+/* 读出条数字:悬停「重扫」微辉光(数据控小确幸) */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .thero__stat:hover .thero__stat-n { animation: statRescan 0.6s ease; }
+}
+@keyframes statRescan {
+  0%   { filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.2)); }
+  45%  { filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.8)); }
+  100% { filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.3)); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-robot-wrap, .hero-robot-wrap:hover { transition: none; transform: none; }
-  .hero-robot-wrap.delight-spin { animation: none; }
+  .thero__robot-wrap { transition: none; }
+  .thero__robot-wrap.delight-spin { animation: none; }
   .delight-toast { transition: opacity 0.2s ease; transform: translateX(-50%); }
 }
 
