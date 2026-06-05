@@ -1553,4 +1553,103 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .read-progress__btn:active, .series-footer__link:active,
   .kg-zoom button:active { transform: none; }
 }
+
+/* ============================================================
+   顶栏下拉(VLA 调研 ▾ / WAM 调研 ▾ / 速查 ▾ / 关于 ▾):HUD 玻璃面板 + 展开动画 — 2026-06
+   把朴素的默认 flyout 升级为深空 HUD:青色发丝边 + 三色顶条 + 背景模糊 +
+   雪佛龙旋转 + 面板自顶展开(scaleY/位移,弹性缓动)+ 分组错峰浮入 + 条目青色高亮右滑。
+   仅作用桌面 .VPFlyout 悬停菜单;移动端手风琴(VPNavScreen)不受影响。reduced-motion 安全。
+   ============================================================ */
+
+/* 触发器:雪佛龙旋转 + 文本提亮 */
+.VPFlyout .button .vpi-chevron-down {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.VPFlyout:hover .button .vpi-chevron-down,
+.VPFlyout:focus-within .button .vpi-chevron-down { transform: rotate(180deg); }
+
+/* 展开动画:面板自顶部「展开」(scaleY + 上移,弹性缓动)取代默认平淡淡入 */
+.VPFlyout .menu {
+  transform: translateY(-8px) scaleY(0.94);
+  transform-origin: top center;
+  transition: opacity 0.26s ease, visibility 0.26s ease,
+              transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.VPFlyout:hover .menu,
+.VPFlyout:focus-within .menu { transform: translateY(0) scaleY(1); }
+
+/* 面板本体:深空玻璃 + 青色发丝边 + 三色顶条 */
+.VPMenu {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 30%, var(--vp-c-divider));
+  border-radius: 10px;
+  background: var(--tech-feature-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  overflow: hidden;
+}
+.VPMenu::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 1;
+}
+.dark .VPMenu {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55),
+              0 0 28px rgba(56, 189, 248, 0.10),
+              inset 0 0 0 1px rgba(56, 189, 248, 0.06);
+}
+
+/* 分组标题:等宽青色 + // 前缀(HUD 段落语言) */
+.VPMenu .VPMenuGroup .title {
+  font-family: var(--vp-font-family-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--vp-c-brand-1);
+}
+.VPMenu .VPMenuGroup .title::before { content: '// '; opacity: 0.55; }
+
+/* 条目:悬停青色高亮 + 右滑 + 暗色左刻度霓虹 */
+.VPMenu .VPMenuLink .link {
+  border-radius: 6px;
+  transition: background-color 0.16s ease, color 0.16s ease,
+              transform 0.16s ease, box-shadow 0.16s ease;
+}
+.VPMenu .VPMenuLink .link:hover {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 10%, transparent);
+  transform: translateX(3px);
+}
+.VPMenu .VPMenuLink .link:hover .text { color: var(--vp-c-brand-1); }
+.dark .VPMenu .VPMenuLink .link:hover {
+  background: rgba(56, 189, 248, 0.10);
+  box-shadow: inset 2px 0 0 0 #22d3ee, 0 0 16px rgba(56, 189, 248, 0.08);
+}
+
+/* 展开时:分组/条目错峰浮入(stagger) */
+@media (prefers-reduced-motion: no-preference) {
+  .VPFlyout:hover .VPMenu > .items > *,
+  .VPFlyout:focus-within .VPMenu > .items > * {
+    animation: hudMenuItemIn 0.34s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .VPMenu > .items > *:nth-child(1) { animation-delay: 0.05s; }
+  .VPMenu > .items > *:nth-child(2) { animation-delay: 0.10s; }
+  .VPMenu > .items > *:nth-child(3) { animation-delay: 0.15s; }
+  .VPMenu > .items > *:nth-child(4) { animation-delay: 0.20s; }
+  .VPMenu > .items > *:nth-child(n+5) { animation-delay: 0.24s; }
+}
+@keyframes hudMenuItemIn {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* reduced-motion:去展开/浮入动画,保留瞬时显隐 + 静态 HUD 皮肤 */
+@media (prefers-reduced-motion: reduce) {
+  .VPFlyout .menu { transform: none; transition: opacity 0.01s linear, visibility 0.01s linear; }
+  .VPFlyout:hover .button .vpi-chevron-down,
+  .VPFlyout:focus-within .button .vpi-chevron-down { transform: rotate(180deg); }
+  .VPMenu > .items > * { animation: none; }
+}
 .VPHome .route-links .route-soon::after { content: ' · 待补'; font-size: 0.82em; opacity: 0.7; }
