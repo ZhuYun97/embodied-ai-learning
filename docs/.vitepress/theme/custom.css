@@ -53,6 +53,17 @@
   --zoom-card: #ffffff;
 }
 
+/* ⚠️ 根级兜底(2026-06 血泪):本工程里 Vue scoped 的 `:global(.dark) X` 会被
+   误编译成裸 `.dark{...}`,把 X 的属性直接落到 <html class="dark"> 上。若其中含
+   pointer-events:none / opacity 等,会经继承让暗色下整页不可点击 / 整页变淡。
+   这里强制 root 永远可交互、不透明、定位正常,作为不可破防线。组件内请改用全局
+   `.dark .X`(写在本文件)而非 `:global(.dark) .X`。 */
+html.dark, body {
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+html.dark { position: static !important; }
+
 /* ---------- 配色:深色 ---------- */
 .dark {
   --vp-c-brand-1: #93b4ff;
