@@ -1926,4 +1926,57 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .thero__stat { padding: 0 12px; }
   .thero__stat-n { font-size: 1.7rem; }
 }
+
+/* ============================================================
+   首页卡片再美化(Feature 卡 + 路线卡)— 2026-06
+   发光青色图标芯片 · 青色描边 + 内角辉光 · 标题悬停转青 · 链接箭头滑出 · 更柔圆角。
+   保持现有「流动霓虹顶边 / 序号角标 / 玻璃」语言,只做精修不堆料。
+   ============================================================ */
+
+/* 描边:静息态带一点青(暗色更明显),卡片更有「定义感」 */
+.VPHome .VPFeature { border-radius: 14px; }
+.dark .VPHome .VPFeature,
+.dark .VPHome .route-card { border-color: rgba(56, 189, 248, 0.16); }
+
+/* 内角辉光:图标侧淡淡一抹深度(暗色) */
+.dark .VPHome .VPFeature {
+  background-image: radial-gradient(150px circle at 0% 0%, rgba(56, 189, 248, 0.07), transparent 72%);
+}
+
+/* Feature 图标:发光青色芯片 + 悬停上浮放大 */
+.VPHome .VPFeature .icon {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.22), rgba(34, 211, 238, 0.12)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.dark .VPHome .VPFeature .icon {
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.16), inset 0 0 14px rgba(56, 189, 248, 0.12);
+}
+.VPHome .VPFeature:hover .icon {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.34);
+}
+
+/* 标题悬停转青 */
+.VPHome .VPFeature .title { transition: color 0.2s ease; letter-spacing: -0.01em; }
+.VPHome .VPFeature:hover .title { color: var(--vp-c-brand-1); }
+
+/* 底部链接:等宽 + 箭头滑出 */
+.VPHome .VPFeature .link-text {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8rem;
+  color: var(--vp-c-brand-1);
+}
+.VPHome .VPFeature .link-text-icon { transition: transform 0.2s ease; }
+.VPHome .VPFeature:hover .link-text-icon { transform: translateX(4px); }
+
+/* 序号角标:暗色青色提亮 */
+.dark .VPHome .VPFeature::after,
+.dark .VPHome .route-card::after { color: #7dd3fc; opacity: 0.72; }
+
+@media (prefers-reduced-motion: reduce) {
+  .VPHome .VPFeature .icon,
+  .VPHome .VPFeature .link-text-icon { transition: none; }
+}
 .VPHome .route-links .route-soon::after { content: ' · 待补'; font-size: 0.82em; opacity: 0.7; }
