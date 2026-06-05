@@ -2250,3 +2250,71 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   background-size: auto, auto, auto, auto, auto, auto, auto, auto, 40px 40px, 40px 40px;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
 }
+
+/* ============================================================
+   首页功能卡 → 倾斜旋转星盘(整环 3D 旋转)— 2026-06,用户「环形旋转卡片」
+   6 张 .VPFeature 绕中央能量核排成环,整盘 rotateX 倾斜 + rotateZ 持续旋转;
+   悬停整盘暂停(卡片可读可点),单卡悬停前推高亮。
+   仅在 ≥1080px 且允许动效时启用;窄屏 / reduced-motion 回退默认网格。
+   ============================================================ */
+@media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
+  .VPHome .VPFeatures { perspective: 1500px; perspective-origin: 50% 46%; }
+  .VPHome .VPFeatures .items {
+    position: relative;
+    width: 560px; height: 540px;
+    margin: 26px auto 0;
+    transform-style: preserve-3d;
+    transform: rotateX(50deg);            /* 静态倾斜的转台平面 */
+  }
+  .VPHome .VPFeatures .items:hover > .item { animation-play-state: paused; }
+  /* 每张卡:沿倾斜椭圆轨道公转,反旋保持正立、rotateX(-50) 让卡面始终朝观者;
+     6 张用 -10s 步进的负延迟均匀铺开 60°。整环可见地旋转,但卡片不翻面、不消失。 */
+  .VPHome .VPFeatures .items > .item {
+    position: absolute; top: 50%; left: 50%;
+    width: 212px; padding: 0; margin: 0;
+    transform-style: preserve-3d;
+    animation: featOrbit 64s linear infinite;
+    animation-delay: calc(var(--i, 0) * -10.6667s);
+  }
+  @keyframes featOrbit {
+    from { transform: translate(-50%, -50%) rotateZ(0deg) translateY(-236px) rotateZ(0deg) rotateX(-50deg); }
+    to   { transform: translate(-50%, -50%) rotateZ(360deg) translateY(-236px) rotateZ(-360deg) rotateX(-50deg); }
+  }
+  .VPHome .VPFeatures .items > .item:nth-child(1) { --i: 0; }
+  .VPHome .VPFeatures .items > .item:nth-child(2) { --i: 1; }
+  .VPHome .VPFeatures .items > .item:nth-child(3) { --i: 2; }
+  .VPHome .VPFeatures .items > .item:nth-child(4) { --i: 3; }
+  .VPHome .VPFeatures .items > .item:nth-child(5) { --i: 4; }
+  .VPHome .VPFeatures .items > .item:nth-child(6) { --i: 5; }
+  /* 环上卡片精简为「图标 + 标题 + 序号」,固定高度;悬停前推高亮 */
+  .VPHome .VPFeatures .items > .item .VPFeature {
+    height: 132px; margin: 0; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .VPHome .VPFeatures .items > .item .VPFeature .details,
+  .VPHome .VPFeatures .items > .item .VPFeature .link-text { display: none; }
+  .VPHome .VPFeatures .items > .item .VPFeature .title { font-size: 1.02rem; margin: 0; }
+  .VPHome .VPFeatures .items > .item:hover .VPFeature {
+    transform: translateZ(60px) scale(1.06);
+    border-color: var(--vp-c-brand-1);
+  }
+  /* 中央能量核(脉动) */
+  .VPHome .VPFeatures .items::before {
+    content: ''; position: absolute; left: 50%; top: 50%;
+    width: 120px; height: 120px; margin: -60px 0 0 -60px;
+    border-radius: 50%; pointer-events: none; transform: translateZ(1px);
+    background: radial-gradient(circle, #e8fbff 0%, #22d3ee 36%, rgba(37, 99, 235, 0.22) 70%, transparent 78%);
+    box-shadow: 0 0 70px rgba(34, 211, 238, 0.5), 0 0 150px rgba(37, 99, 235, 0.28);
+    animation: featCore 4.5s ease-in-out infinite;
+  }
+  @keyframes featCore { 0%, 100% { opacity: 0.82; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+  /* 轨道虚线环 + 内圈 */
+  .VPHome .VPFeatures .items::after {
+    content: ''; position: absolute; left: 50%; top: 50%;
+    width: 476px; height: 476px; margin: -238px 0 0 -238px;
+    border-radius: 50%; pointer-events: none;
+    border: 1px dashed rgba(56, 189, 248, 0.3);
+    box-shadow: inset 0 0 70px rgba(34, 211, 238, 0.05), 0 0 30px rgba(34, 211, 238, 0.04);
+  }
+}
