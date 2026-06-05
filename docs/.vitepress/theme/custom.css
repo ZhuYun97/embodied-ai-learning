@@ -1662,7 +1662,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .hero-fx {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: min(720px, 92vh);
+  height: min(620px, 86vh);
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
@@ -1807,5 +1807,123 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hud-scan, .hero-fx__beam { display: none; }
+}
+
+/* ============================================================
+   自定义科技 Hero(TechHero)— 不对称「终端 / HUD」重排版 — 2026-06
+   隐藏默认 .VPHero,改用 home-hero-before 注入的 .thero:左内容 + 右机器人,
+   顶部状态读出条 + 大号渐变标题 + 「>」终端提示 + 等宽按钮 + 实时计数读出条。
+   ============================================================ */
+.VPHome .VPHero { display: none; }
+
+.thero {
+  position: relative; z-index: 1;
+  max-width: 1152px; margin: 0 auto;
+  padding: 50px 24px 8px;
+}
+
+/* 顶部状态读出条(闪烁点 + 光标) */
+.thero__bar {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 12px; letter-spacing: 0.06em;
+  color: var(--vp-c-text-3);
+  padding: 7px 14px; border-radius: 8px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--tech-card-bg);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.dark .thero__bar { border-color: rgba(56, 189, 248, 0.25); color: #7dd3fc; }
+.thero__bar-dot { width: 7px; height: 7px; border-radius: 50%; background: #22d3ee; box-shadow: 0 0 8px #22d3ee; }
+.thero__bar-cursor { width: 7px; height: 13px; background: #22d3ee; }
+@media (prefers-reduced-motion: no-preference) {
+  .thero__bar-dot, .thero__bar-cursor { animation: bpBlink 1.6s steps(1, end) infinite; }
+}
+
+/* 不对称网格:左内容(宽)+ 右机器人(窄) */
+.thero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 28px; align-items: center; margin-top: 26px;
+}
+.thero__title { margin: 0; line-height: 1.04; }
+.thero__title-zh {
+  display: block;
+  font-size: clamp(2.4rem, 5vw, 4.05rem); font-weight: 800; letter-spacing: -0.02em;
+  background: linear-gradient(100deg, #2563eb, #22d3ee 46%, #8b5cf6 92%);
+  background-size: 220% auto;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.dark .thero__title-zh { filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.55)); }
+@media (prefers-reduced-motion: no-preference) {
+  .thero__title-zh { animation: bpTitleFlow 9s ease-in-out infinite; }
+  .dark .thero__title-zh { animation: bpTitleFlow 9s ease-in-out infinite, heroTitlePulse 4s ease-in-out infinite; }
+}
+.thero__title-en {
+  display: block; margin-top: 8px;
+  font-family: var(--vp-font-family-mono);
+  font-size: clamp(1.4rem, 3.2vw, 2.5rem); font-weight: 700; letter-spacing: -0.01em;
+  color: var(--vp-c-text-1);
+}
+.thero__lede {
+  margin: 20px 0 0; max-width: 48ch;
+  font-family: var(--vp-font-family-mono); font-size: 0.92rem; line-height: 1.65;
+  color: var(--vp-c-text-2);
+}
+.thero__prompt { color: #22d3ee; font-weight: 700; }
+
+.thero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.thero__btn {
+  font-family: var(--vp-font-family-mono); font-size: 0.88rem; font-weight: 600;
+  padding: 10px 18px; border-radius: 8px; text-decoration: none;
+  border: 1px solid var(--vp-c-divider); color: var(--vp-c-text-1);
+  transition: transform 0.14s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.thero__btn:hover { transform: translateY(-1px); border-color: var(--vp-c-brand-1); }
+.thero__btn--brand {
+  border-color: transparent; color: #fff;
+  background: linear-gradient(120deg, #2563eb, #3b6cf0);
+}
+.thero__btn--brand:hover { box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5), 0 0 22px rgba(56, 189, 248, 0.3); }
+
+/* 实时读出条(数字 0→目标计数;tabular mono) */
+.thero__readout {
+  display: flex; flex-wrap: wrap; gap: 0;
+  margin: 34px 0 0; padding-top: 22px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+.thero__stat { padding: 0 24px; border-left: 1px solid var(--vp-c-divider); }
+.thero__stat:first-child { padding-left: 0; border-left: 0; }
+.thero__stat-n {
+  display: flex; align-items: baseline; gap: 3px; margin: 0;
+  font-family: var(--vp-font-family-mono); font-size: 2rem; font-weight: 750; line-height: 1;
+  letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+  background: linear-gradient(120deg, #2563eb, #22d3ee 52%, #8b5cf6);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.dark .thero__stat-n { filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.3)); }
+.thero__stat-unit { font-size: 0.8rem; font-weight: 600; -webkit-text-fill-color: initial; color: var(--vp-c-text-3); }
+.thero__stat-label { margin: 8px 0 0; font-family: var(--vp-font-family-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; color: var(--vp-c-text-2); }
+
+/* 右侧机器人 */
+.thero__visual { display: flex; justify-content: center; align-items: center; }
+.thero__robot { width: 100%; max-width: 380px; height: auto; }
+.dark .thero__robot { filter: drop-shadow(0 0 32px rgba(56, 189, 248, 0.32)); }
+@media (prefers-reduced-motion: no-preference) {
+  .thero__robot { animation: heroFloat 6s ease-in-out infinite; }
+}
+
+/* 响应式:窄屏单列,机器人移上方缩小 */
+@media (max-width: 860px) {
+  .thero { padding-top: 38px; }
+  .thero__grid { grid-template-columns: 1fr; gap: 18px; }
+  .thero__visual { order: -1; }
+  .thero__robot { max-width: 200px; }
+  .thero__stat { padding: 0 16px; }
+}
+@media (max-width: 640px) {
+  .thero__bar { font-size: 10.5px; letter-spacing: 0.03em; }
+  .thero__stat { padding: 0 12px; }
+  .thero__stat-n { font-size: 1.7rem; }
 }
 .VPHome .route-links .route-soon::after { content: ' · 待补'; font-size: 0.82em; opacity: 0.7; }

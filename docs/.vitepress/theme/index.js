@@ -414,6 +414,104 @@ const HeroFX = {
 }
 
 // =====================================================================
+// 自定义科技 Hero(TechHero):跳出默认居中布局 → 不对称「终端 / HUD」版。
+// 顶部状态读出条(闪烁光标)+ 大号渐变中文标题 + 等宽英文副标 + 「>」终端提示
+// + 等宽按钮 + 实时读出条(数字 0→目标计数)+ 右侧机器人。内容取自 frontmatter.hero
+// (单一来源,不重复维护);默认 .VPHero 由 custom.css 隐藏。reduced-motion 安全。
+// =====================================================================
+const TechHero = {
+  setup() {
+    const { frontmatter } = useData()
+    onMounted(() => {
+      if (typeof window === 'undefined') return
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (reduce) return
+      document.querySelectorAll('.thero__stat-n').forEach((el) => {
+        const tn = el.firstChild
+        if (!tn || tn.nodeType !== 3) return
+        const raw = (tn.nodeValue || '').trim()
+        const m = raw.match(/(\d+)/)
+        if (!m) return
+        const target = parseInt(m[1], 10)
+        if (!target) return
+        const prefix = raw.slice(0, m.index)
+        const suffix = raw.slice(m.index + m[1].length)
+        tn.nodeValue = prefix + '0' + suffix
+        setTimeout(() => {
+          let start = null
+          const tick = (ts) => {
+            if (start === null) start = ts
+            const p = Math.min(1, (ts - start) / 900)
+            const v = Math.round((1 - Math.pow(1 - p, 3)) * target)
+            tn.nodeValue = prefix + v + suffix
+            if (p < 1) requestAnimationFrame(tick)
+            else tn.nodeValue = raw
+          }
+          requestAnimationFrame(tick)
+        }, 420)
+      })
+    })
+    return () => {
+      const hero = (frontmatter.value && frontmatter.value.hero) || {}
+      const actions = Array.isArray(hero.actions) ? hero.actions : []
+      return h('section', { class: 'thero' }, [
+        h('div', { class: 'thero__bar' }, [
+          h('span', { class: 'thero__bar-dot' }),
+          h('span', { class: 'thero__bar-text' }, 'SYSTEM ONLINE · EMBODIED-AI ARCHIVE · VLA × WAM · 2022—2026'),
+          h('span', { class: 'thero__bar-cursor' }),
+        ]),
+        h('div', { class: 'thero__grid' }, [
+          h('div', { class: 'thero__main' }, [
+            h('h1', { class: 'thero__title' }, [
+              h('span', { class: 'thero__title-zh' }, hero.name || '具身智能学习站'),
+              h('span', { class: 'thero__title-en' }, hero.text || 'Embodied AI Learning'),
+            ]),
+            h('p', { class: 'thero__lede' }, [
+              h('span', { class: 'thero__prompt' }, '> '),
+              hero.tagline || '',
+            ]),
+            h(
+              'div',
+              { class: 'thero__cta' },
+              actions.map((a) =>
+                h(
+                  'a',
+                  {
+                    class: ['thero__btn', a.theme === 'brand' ? 'thero__btn--brand' : ''],
+                    href: withBase(a.link || '/'),
+                  },
+                  a.text || ''
+                )
+              )
+            ),
+            h(
+              'dl',
+              { class: 'thero__readout', 'aria-label': '本站规模一览' },
+              HERO_STATS.map((s, i) =>
+                h('div', { class: 'thero__stat', style: { '--i': i } }, [
+                  h('dt', { class: 'thero__stat-n' }, [
+                    s.n,
+                    s.unit ? h('span', { class: 'thero__stat-unit' }, s.unit) : null,
+                  ]),
+                  h('dd', { class: 'thero__stat-label' }, s.label),
+                ])
+              )
+            ),
+          ]),
+          h('div', { class: 'thero__visual' }, [
+            h('img', {
+              class: 'thero__robot',
+              src: withBase('/hero-robot.svg'),
+              alt: '具身智能机器人概念图',
+            }),
+          ]),
+        ]),
+      ])
+    }
+  },
+}
+
+// =====================================================================
 // 自定义轻量灯箱:点击/键盘放大流程图(Mermaid SVG)或论文框架图
 // =====================================================================
 let bound = false
@@ -586,9 +684,7 @@ export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
-      'home-hero-before': () => h(HeroFX),
-      'home-hero-image': () => h(HeroRobot),
-      'home-hero-actions-after': () => h(HeroStats),
+      'home-hero-before': () => [h(HeroFX), h(TechHero)],
       'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle)],
       'doc-before': () => [h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
