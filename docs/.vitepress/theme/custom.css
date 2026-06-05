@@ -2290,18 +2290,27 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
 @media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .items {
-    position: relative; width: 100%; height: 480px; margin: 14px auto 6px; padding: 0;
-    --rx: 340px; --ry: 172px;   /* 横/纵半轴;断点放大见下方 */
+    position: relative; width: 100%; height: 420px; margin: 10px auto 6px; padding: 0;
+    perspective: 1400px; perspective-origin: 50% 42%;   /* 略俯视的 3D 观察点 */
+    transform-style: preserve-3d;
+    --rx: 330px;   /* 横向半径 */
+    --yt: 122px;   /* 纵向倾斜抬升(后高前低)——拉大让前/后卡纵向分开、减少重叠 */
+    --rz: 210px;   /* 深度半径(前近后远,透视自动近大远小)*/
   }
   .VPHome .VPFeatures .feat-hub { display: flex; }
   .VPHome .VPFeatures .items:hover > .item { animation-play-state: paused; }
 
-  /* 等角公转:θ=--ang 平滑 0→360;6 张按 -12s 负延迟 → 恒 60° 等角、永远对称。
-     纯 translate 定位(margin 先把卡盒中心对到 .items 中心),不旋转不缩放 → 文字清晰。 */
+  /* 3D 环绕公转:每张卡按角度 θ=--ang 放到 (Rx·sinθ, -Yt·cosθ, -Rz·cosθ):
+     θ=0 在「后上远」(透视缩小)、θ=180 在「前下近」(透视放大),恒 60° 等角对称。
+     卡片只平移不旋转 → 始终正面朝观者、文字清晰;近大远小由 perspective 自动完成。 */
   .VPHome .VPFeatures .items > .item {
     position: absolute; top: 50%; left: 50%; width: 198px;
     margin: -60px 0 0 -99px;
-    transform: translate(calc(var(--rx) * sin(var(--ang))), calc(var(--ry) * cos(var(--ang)) * -1));
+    transform: translate3d(
+      calc(var(--rx) * sin(var(--ang))),
+      calc(var(--yt) * cos(var(--ang)) * -1),
+      calc(var(--rz) * cos(var(--ang)) * -1)
+    );
     animation: featSpin 72s linear infinite;
     animation-delay: calc(var(--i, 0) * -12s);
     will-change: transform;
@@ -2340,23 +2349,22 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   }
   @keyframes featCore { 0%, 100% { opacity: 0.68; transform: scale(0.94); } 50% { opacity: 1; transform: scale(1.08); } }
 
-  /* 椭圆虚线轨道(尺寸由 --rx/--ry 决定,与卡片轨迹重合;呼吸不自转)*/
+  /* 3D 版不画平面虚线轨道(平面椭圆与 3D 轨迹对不齐),改为底部柔光「地台」grounding。 */
   .VPHome .VPFeatures .items::after {
-    content: ''; position: absolute; left: 50%; top: 50%;
-    width: calc(var(--rx) * 2); height: calc(var(--ry) * 2);
-    margin: calc(var(--ry) * -1) 0 0 calc(var(--rx) * -1);
+    content: ''; position: absolute; left: 50%; top: 62%;
+    width: calc(var(--rx) * 2.1); height: 90px;
+    margin-left: calc(var(--rx) * -1.05);
     border-radius: 50%; pointer-events: none; z-index: 0;
-    border: 1px dashed rgba(56, 189, 248, 0.24);
-    box-shadow: inset 0 0 70px rgba(34, 211, 238, 0.05);
+    background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.16) 0%, rgba(37, 99, 235, 0.06) 45%, transparent 72%);
     animation: featRingBreath 7s ease-in-out infinite;
   }
   @keyframes featRingBreath { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 }
 
-/* 椭圆按断点加宽(等角分布会让卡扫到长轴顶点 ±Rx,故 Rx+卡半宽99 ≤ 容器半宽)*/
+/* 3D 环按断点加宽:Rx 横向半径 + Rz 深度。卡会扫到 ±Rx,故 Rx+卡半宽99 ≤ 容器半宽。 */
 @media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
-  .VPHome .VPFeatures .items { --rx: 430px; --ry: 174px; }
+  .VPHome .VPFeatures .items { --rx: 400px; --rz: 230px; }
 }
 @media (min-width: 1536px) and (prefers-reduced-motion: no-preference) {
-  .VPHome .VPFeatures .items { --rx: 450px; --ry: 178px; }
+  .VPHome .VPFeatures .items { --rx: 420px; --rz: 240px; }
 }
