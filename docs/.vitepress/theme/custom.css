@@ -2284,26 +2284,32 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 @media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .items {
     position: relative;
-    width: 680px; height: 650px;
-    margin: 36px auto 8px;
+    width: 100%; height: 470px;
+    margin: 14px auto 4px;
     padding: 0;
+    /* 横向加宽椭圆:Rx≫Ry → 铺满宽度、高度压扁。随断点放大(见下方 @media)。 */
+    --rx: 360px; --ry: 168px;
   }
   .VPHome .VPFeatures .feat-hub { display: flex; }
   /* 悬停整环:暂停公转,方便看清/点击 */
   .VPHome .VPFeatures .items:hover > .item { animation-play-state: paused; }
 
-  /* 每张卡:绕中心圆周公转 rotate(a)→外移 R→rotate(-a) 反旋抵消 → 始终正立等大;
-     6 张用 -duration/6=-12s 步进的负延迟在 60° 处均布。平面,无任何透视缩放。 */
+  /* 每张卡:沿「横向椭圆」公转(offset-path),offset-rotate:0 始终正立、卡片本身不缩放
+     → 文字恒清晰、等大、不变形。6 张用 -duration/6=-12s 负延迟在椭圆上均布。 */
   .VPHome .VPFeatures .items > .item {
     position: absolute; top: 50%; left: 50%;
-    width: 198px; padding: 0; margin: 0;
-    will-change: transform;
+    width: 198px; padding: 0;
+    margin: -60px 0 0 -99px;                 /* 先把卡盒中心对齐到 .items 中心 */
+    offset-path: ellipse(var(--rx) var(--ry) at 50% 50%);
+    offset-rotate: 0deg;
+    offset-anchor: 50% 50%;
+    will-change: offset-distance;
     animation: featOrbit 72s linear infinite;
     animation-delay: calc(var(--i, 0) * -12s);
   }
   @keyframes featOrbit {
-    from { transform: translate(-50%, -50%) rotate(0deg)   translateY(-258px) rotate(0deg); }
-    to   { transform: translate(-50%, -50%) rotate(360deg) translateY(-258px) rotate(-360deg); }
+    from { offset-distance: 0%; }
+    to   { offset-distance: 100%; }
   }
   .VPHome .VPFeatures .items > .item:nth-child(1) { --i: 0; }
   .VPHome .VPFeatures .items > .item:nth-child(2) { --i: 1; }
@@ -2353,14 +2359,27 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   }
   @keyframes featCore { 0%, 100% { opacity: 0.68; transform: scale(0.94); } 50% { opacity: 1; transform: scale(1.08); } }
 
-  /* 虚线轨道环(⌀516,缓慢反向自转增加生命感)*/
+  /* 虚线轨道椭圆(尺寸由 --rx/--ry 决定,与卡片轨迹重合;椭圆旋转会摆动故不自转,
+     改为极缓呼吸)*/
   .VPHome .VPFeatures .items::after {
     content: ''; position: absolute; left: 50%; top: 50%;
-    width: 516px; height: 516px; margin: -258px 0 0 -258px;
+    width: calc(var(--rx) * 2); height: calc(var(--ry) * 2);
+    margin: calc(var(--ry) * -1) 0 0 calc(var(--rx) * -1);
     border-radius: 50%; pointer-events: none; z-index: 0;
-    border: 1px dashed rgba(56, 189, 248, 0.26);
-    box-shadow: inset 0 0 60px rgba(34, 211, 238, 0.05);
-    animation: featRing 120s linear infinite;
+    border: 1px dashed rgba(56, 189, 248, 0.24);
+    box-shadow: inset 0 0 70px rgba(34, 211, 238, 0.05);
+    animation: featRingBreath 7s ease-in-out infinite;
   }
-  @keyframes featRing { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+  @keyframes featRingBreath { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+  /* 轨道卡不跑入场动画(避免与 offset-path 叠加抖动)*/
+  .VPHome .VPFeatures .items > .item .VPFeature { animation: none; }
+}
+
+/* 椭圆环按断点加宽:大屏铺满更宽,同时保证卡片不溢出内容区(Rx + 卡半宽 ≤ 容器半宽)。 */
+@media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
+  .VPHome .VPFeatures .items { --rx: 440px; --ry: 172px; }
+}
+@media (min-width: 1536px) and (prefers-reduced-motion: no-preference) {
+  .VPHome .VPFeatures .items { --rx: 470px; --ry: 176px; }
 }
