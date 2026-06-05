@@ -499,11 +499,24 @@ const TechHero = {
             ),
           ]),
           h('div', { class: 'thero__visual' }, [
-            h('img', {
-              class: 'thero__robot',
-              src: withBase('/hero-robot.svg'),
-              alt: '具身智能机器人概念图',
-            }),
+            h('div', { class: 'thero__unit' }, [
+              h('span', { class: 'tu-corner tu-corner--tl' }),
+              h('span', { class: 'tu-corner tu-corner--tr' }),
+              h('span', { class: 'tu-corner tu-corner--bl' }),
+              h('span', { class: 'tu-corner tu-corner--br' }),
+              h('span', { class: 'tu-tag tu-tag--tl' }, 'EMBODIED-UNIT'),
+              h('span', { class: 'tu-tag tu-tag--tr' }, 'VLA · WAM'),
+              h('img', {
+                class: 'thero__robot',
+                src: withBase('/hero-robot.svg'),
+                alt: '具身智能机器人概念图',
+              }),
+              h('span', { class: 'tu-scan', 'aria-hidden': 'true' }),
+              h('span', { class: 'tu-base' }, [
+                h('span', { class: 'tu-base-dot' }),
+                '运行中 · ONLINE',
+              ]),
+            ]),
           ]),
         ]),
       ])

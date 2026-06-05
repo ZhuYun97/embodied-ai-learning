@@ -1,86 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" fill="none" role="img" aria-label="具身智能机器人概念图">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 560" fill="none" role="img" aria-label="具身智能机器人概念图">
   <defs>
-    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2563eb"/>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
       <stop offset="0.5" stop-color="#22d3ee"/>
       <stop offset="1" stop-color="#8b5cf6"/>
     </linearGradient>
-    <linearGradient id="hgv" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.38"/>
+    <linearGradient id="limb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2563eb"/>
+      <stop offset="0.5" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#7c5cf0"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.22"/>
       <stop offset="1" stop-color="#2563eb" stop-opacity="0.05"/>
     </linearGradient>
-    <radialGradient id="halo" cx="0.5" cy="0.46" r="0.55">
-      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.30"/>
-      <stop offset="0.5" stop-color="#2563eb" stop-opacity="0.14"/>
-      <stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
-    </radialGradient>
+    <linearGradient id="panelV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#2563eb" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="visor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#67e8f9" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#1e3a8a" stop-opacity="0.10"/>
+    </linearGradient>
+    <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0.16"/>
+    </linearGradient>
     <radialGradient id="core" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#e0f7ff"/>
+      <stop offset="0" stop-color="#ecfeff"/>
       <stop offset="0.4" stop-color="#22d3ee"/>
-      <stop offset="1" stop-color="#2563eb" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#2563eb" stop-opacity="0.16"/>
     </radialGradient>
-    <filter id="hglow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="3.2" result="b"/>
+    <radialGradient id="ped" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.5"/>
+      <stop offset="0.55" stop-color="#2563eb" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="g" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.6" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="gp" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="9"/>
     </filter>
   </defs>
 
-  <ellipse cx="300" cy="246" rx="252" ry="240" fill="url(#halo)"/>
+  <!-- tilted orbit accent -->
+  <g opacity="0.34">
+    <ellipse cx="240" cy="252" rx="172" ry="56" stroke="url(#edge)" stroke-width="1.6" transform="rotate(-16 240 252)"/>
+  </g>
+  <circle cx="398" cy="196" r="3.6" fill="#22d3ee" filter="url(#g)" opacity="0.85"/>
 
-  <!-- decorative data constellation (subtle) -->
-  <g opacity="0.5">
-    <path d="M454 72 L500 96 L486 144 M500 96 L548 80" stroke="url(#hg)" stroke-width="1.4" stroke-linecap="round"/>
-    <g fill="#22d3ee"><circle cx="454" cy="72" r="3.4"/><circle cx="500" cy="96" r="3.4"/><circle cx="486" cy="144" r="3.4"/><circle cx="548" cy="80" r="3.4"/></g>
+  <!-- holographic pedestal -->
+  <polygon points="196,500 218,322 262,322 284,500" fill="url(#cone)"/>
+  <ellipse cx="240" cy="508" rx="166" ry="30" fill="url(#ped)" filter="url(#gp)"/>
+  <g stroke="url(#edge)" fill="none">
+    <ellipse cx="240" cy="508" rx="150" ry="25" stroke-width="2" opacity="0.7"/>
+    <ellipse cx="240" cy="508" rx="106" ry="16" stroke-width="1.6" opacity="0.5"/>
+    <ellipse cx="240" cy="508" rx="60" ry="9" stroke-width="1.4" opacity="0.4"/>
   </g>
 
-  <g stroke="url(#hg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#hglow)">
-    <!-- antenna -->
-    <path d="M300 70 V48"/>
-    <!-- head -->
-    <rect x="252" y="70" width="96" height="78" rx="22"/>
-    <!-- visor / face screen -->
-    <rect x="268" y="92" width="64" height="34" rx="13" fill="url(#hgv)"/>
-    <!-- side aural nubs -->
-    <path d="M252 102 h-10 a4 4 0 0 0 -4 4 v10 a4 4 0 0 0 4 4 h10"/>
-    <path d="M348 102 h10 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-10"/>
-    <!-- neck -->
-    <path d="M286 148 v16 M314 148 v16"/>
-    <!-- collar / shoulders -->
-    <path d="M254 182 H346"/>
-    <!-- torso: chest tapering to waist -->
-    <path d="M256 182 L344 182 L372 240 L350 300 L324 330 L276 330 L250 300 L228 240 Z"/>
-    <!-- chest seams -->
-    <path d="M300 195 V232 M300 296 V330"/>
-    <!-- core ring -->
-    <circle cx="300" cy="250" r="32"/>
-    <!-- arms -->
-    <path d="M252 190 L222 248 L234 312"/>
-    <path d="M348 190 L378 248 L366 312"/>
-    <!-- grippers -->
-    <path d="M234 312 l-12 15 M234 312 l12 15"/>
-    <path d="M366 312 l-12 15 M366 312 l12 15"/>
-    <!-- pelvis -->
-    <rect x="272" y="330" width="56" height="20" rx="8"/>
-    <!-- legs -->
-    <path d="M286 350 L281 408 L280 452"/>
-    <path d="M314 350 L319 408 L320 452"/>
-    <!-- feet -->
-    <rect x="258" y="452" width="44" height="18" rx="7"/>
-    <rect x="298" y="452" width="44" height="18" rx="7"/>
+  <!-- limbs (glowing tubes, behind body) -->
+  <g stroke="url(#limb)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" filter="url(#g)">
+    <path d="M180 208 L150 262 L156 320"/>
+    <path d="M300 208 L330 262 L324 320"/>
+    <path d="M223 348 L214 422 L212 476"/>
+    <path d="M257 348 L266 422 L268 476"/>
+  </g>
+
+  <!-- body panels (translucent holo + bright edges) -->
+  <g stroke="url(#edge)" stroke-width="2.6" stroke-linejoin="round" filter="url(#g)">
+    <path d="M240 82 V60" stroke-width="4"/>
+    <rect x="180" y="108" width="12" height="36" rx="6" fill="url(#panelV)"/>
+    <rect x="288" y="108" width="12" height="36" rx="6" fill="url(#panelV)"/>
+    <rect x="190" y="82" width="100" height="86" rx="26" fill="url(#panel)"/>
+    <rect x="204" y="102" width="72" height="44" rx="18" fill="url(#visor)" stroke-width="2"/>
+    <rect x="220" y="166" width="40" height="18" rx="6" fill="url(#panelV)"/>
+    <rect x="166" y="186" width="148" height="22" rx="11" fill="url(#panel)"/>
+    <rect x="176" y="200" width="128" height="122" rx="26" fill="url(#panel)"/>
+    <circle cx="240" cy="256" r="30" fill="none" stroke-width="3"/>
+    <path d="M240 210 V232" stroke-width="2"/>
+    <rect x="214" y="300" width="52" height="9" rx="4.5" fill="url(#panelV)" stroke-width="1.6"/>
+    <rect x="200" y="320" width="80" height="28" rx="12" fill="url(#panelV)"/>
+    <rect x="144" y="316" width="28" height="24" rx="9" fill="url(#panelV)"/>
+    <rect x="308" y="316" width="28" height="24" rx="9" fill="url(#panelV)"/>
+    <rect x="182" y="476" width="56" height="22" rx="9" fill="url(#panelV)"/>
+    <rect x="242" y="476" width="56" height="22" rx="9" fill="url(#panelV)"/>
   </g>
 
   <!-- glowing reactor core -->
-  <circle cx="300" cy="250" r="18" fill="url(#core)" filter="url(#hglow)"/>
-  <circle cx="300" cy="250" r="6.5" fill="#e8fbff"/>
+  <circle cx="240" cy="256" r="17" fill="url(#core)" filter="url(#g)"/>
+  <circle cx="240" cy="256" r="6" fill="#ecfeff"/>
 
   <!-- eyes -->
-  <g fill="#bfefff" filter="url(#hglow)">
-    <circle cx="285" cy="109" r="4.6"/><circle cx="315" cy="109" r="4.6"/>
+  <g fill="#d9f6ff" filter="url(#g)">
+    <circle cx="222" cy="125" r="6.4"/><circle cx="258" cy="125" r="6.4"/>
   </g>
-  <!-- antenna tip + joint nodes -->
-  <g fill="#22d3ee" filter="url(#hglow)">
-    <circle cx="300" cy="46" r="4.6"/>
-    <circle cx="222" cy="248" r="4.4"/><circle cx="378" cy="248" r="4.4"/>
-    <circle cx="281" cy="408" r="3.8"/><circle cx="319" cy="408" r="3.8"/>
+
+  <!-- bright joint / antenna nodes -->
+  <g fill="#67e8f9" filter="url(#g)">
+    <circle cx="240" cy="58" r="5"/>
+    <circle cx="150" cy="262" r="4.6"/><circle cx="330" cy="262" r="4.6"/>
+    <circle cx="214" cy="422" r="4.4"/><circle cx="266" cy="422" r="4.4"/>
   </g>
 </svg>

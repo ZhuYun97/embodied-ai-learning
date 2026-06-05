@@ -1754,10 +1754,10 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   border-color: rgba(56, 189, 248, 0.6);
   box-shadow: 0 0 14px rgba(56, 189, 248, 0.28);
 }
-.hud-corner--tl { top: 20px; left: 20px; border-right: 0; border-bottom: 0; border-top-left-radius: 4px; }
-.hud-corner--tr { top: 20px; right: 20px; border-left: 0; border-bottom: 0; border-top-right-radius: 4px; }
-.hud-corner--bl { bottom: 20px; left: 20px; border-right: 0; border-top: 0; border-bottom-left-radius: 4px; }
-.hud-corner--br { bottom: 20px; right: 20px; border-left: 0; border-top: 0; border-bottom-right-radius: 4px; }
+.hud-corner--tl { top: 20px; left: max(20px, calc(50% - 648px)); border-right: 0; border-bottom: 0; border-top-left-radius: 4px; }
+.hud-corner--tr { top: 20px; right: max(20px, calc(50% - 648px)); border-left: 0; border-bottom: 0; border-top-right-radius: 4px; }
+.hud-corner--bl { bottom: 20px; left: max(20px, calc(50% - 648px)); border-right: 0; border-top: 0; border-bottom-left-radius: 4px; }
+.hud-corner--br { bottom: 20px; right: max(20px, calc(50% - 648px)); border-left: 0; border-top: 0; border-bottom-right-radius: 4px; }
 @media (prefers-reduced-motion: no-preference) {
   .hud-corner { animation: hudCornerIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both, hudCornerPulse 3.4s ease-in-out 1.2s infinite; }
   .hud-corner--tl { animation-delay: 0.15s, 1.2s; }
@@ -1818,7 +1818,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
 .thero {
   position: relative; z-index: 1;
-  max-width: 1152px; margin: 0 auto;
+  max-width: 1280px; margin: 0 auto;
   padding: 50px 24px 8px;
 }
 
@@ -1843,7 +1843,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 /* 不对称网格:左内容(宽)+ 右机器人(窄) */
 .thero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
   gap: 28px; align-items: center; margin-top: 26px;
 }
 .thero__title { margin: 0; line-height: 1.04; }
@@ -1905,12 +1905,76 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .thero__stat-unit { font-size: 0.8rem; font-weight: 600; -webkit-text-fill-color: initial; color: var(--vp-c-text-3); }
 .thero__stat-label { margin: 8px 0 0; font-family: var(--vp-font-family-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; color: var(--vp-c-text-2); }
 
-/* 右侧机器人 */
+/* 右侧机器人:封装为 HUD「单元扫描」面板,撑满右栏(消除右侧留白)+ 科技感 */
 .thero__visual { display: flex; justify-content: center; align-items: center; }
-.thero__robot { width: 100%; max-width: 380px; height: auto; }
-.dark .thero__robot { filter: drop-shadow(0 0 32px rgba(56, 189, 248, 0.32)); }
+.thero__unit {
+  position: relative; isolation: isolate;
+  width: 100%; max-width: 520px;
+  padding: 30px 26px 34px;
+}
+/* 单元面板淡辉光底 + 极淡网格(仅暗色),让机器人「有容器」而非悬浮 */
+.thero__unit::before {
+  content: ''; position: absolute; inset: 6px; z-index: -1;
+  border-radius: 18px;
+  background:
+    radial-gradient(80% 70% at 50% 46%, rgba(34, 211, 238, 0.07), transparent 72%);
+}
+.dark .thero__unit::before {
+  background:
+    radial-gradient(78% 66% at 50% 44%, rgba(34, 211, 238, 0.12), transparent 72%),
+    linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px) 0 0 / 100% 34px,
+    linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px) 0 0 / 34px 100%;
+  -webkit-mask-image: radial-gradient(72% 64% at 50% 46%, #000 55%, transparent 82%);
+  mask-image: radial-gradient(72% 64% at 50% 46%, #000 55%, transparent 82%);
+}
+.thero__robot { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; }
+.dark .thero__robot { filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.30)); }
 @media (prefers-reduced-motion: no-preference) {
   .thero__robot { animation: heroFloat 6s ease-in-out infinite; }
+}
+/* 四角取景框 */
+.tu-corner {
+  position: absolute; width: 22px; height: 22px;
+  border: 1.5px solid color-mix(in srgb, var(--vp-c-brand-1) 50%, transparent);
+  opacity: 0.85;
+}
+.dark .tu-corner { border-color: rgba(56, 189, 248, 0.55); box-shadow: 0 0 12px rgba(56, 189, 248, 0.22); }
+.tu-corner--tl { top: 0; left: 0; border-right: 0; border-bottom: 0; border-top-left-radius: 5px; }
+.tu-corner--tr { top: 0; right: 0; border-left: 0; border-bottom: 0; border-top-right-radius: 5px; }
+.tu-corner--bl { bottom: 0; left: 0; border-right: 0; border-top: 0; border-bottom-left-radius: 5px; }
+.tu-corner--br { bottom: 0; right: 0; border-left: 0; border-top: 0; border-bottom-right-radius: 5px; }
+/* 规格标签 + 底部状态 */
+.tu-tag {
+  position: absolute; top: 8px;
+  font-family: var(--vp-font-family-mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; color: var(--vp-c-brand-1); opacity: 0.8;
+}
+.dark .tu-tag { color: #7dd3fc; opacity: 1; }
+.tu-tag--tl { left: 14px; }
+.tu-tag--tr { right: 14px; }
+.tu-base {
+  position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 7px; white-space: nowrap;
+  font-family: var(--vp-font-family-mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.1em; color: var(--vp-c-brand-1); opacity: 0.85;
+}
+.dark .tu-base { color: #7dd3fc; opacity: 1; }
+.tu-base-dot { width: 6px; height: 6px; border-radius: 50%; background: #22d3ee; box-shadow: 0 0 8px #22d3ee; }
+@media (prefers-reduced-motion: no-preference) { .tu-base-dot { animation: bpBlink 1.6s steps(1, end) infinite; } }
+/* 扫描线:自上而下掠过机器人(仅暗色) */
+.tu-scan {
+  position: absolute; left: 12%; right: 12%; top: 44px; height: 2px; opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.85), transparent);
+}
+.dark .tu-scan { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .dark .tu-scan { animation: tuScan 4.4s cubic-bezier(0.5, 0, 0.5, 1) infinite; }
+}
+@keyframes tuScan {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 0.9; }
+  55% { transform: translateY(380px); opacity: 0.55; }
+  72%, 100% { transform: translateY(440px); opacity: 0; }
 }
 
 /* 响应式:窄屏单列,机器人移上方缩小 */
@@ -1918,7 +1982,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .thero { padding-top: 38px; }
   .thero__grid { grid-template-columns: 1fr; gap: 18px; }
   .thero__visual { order: -1; }
-  .thero__robot { max-width: 200px; }
+  .thero__unit { max-width: 320px; padding: 24px 16px 28px; }
   .thero__stat { padding: 0 16px; }
 }
 @media (max-width: 640px) {
