@@ -714,20 +714,35 @@ function bindHeroUnit(reduce) {
 // =====================================================================
 function setupFeatureHub() {
   if (typeof document === 'undefined') return
+  const HUB_LINKS = [
+    { t: '发展总报告', href: withBase('/vla/') },
+    { t: '时间线', href: withBase('/vla/papers/timeline') },
+    { t: '术语表', href: withBase('/vla/papers/glossary') },
+    { t: 'GitHub', href: 'https://github.com/ZhuYun97/embodied-ai-learning', ext: true },
+  ]
   const inject = () => {
     const items = document.querySelector('.VPHome .VPFeatures .items')
     if (!items || items.querySelector('.feat-hub')) return
     const hub = document.createElement('div')
     hub.className = 'feat-hub'
-    hub.setAttribute('aria-hidden', 'true')
-    const zh = document.createElement('span')
-    zh.className = 'feat-hub__zh'
-    zh.textContent = '具身智能'
-    const en = document.createElement('span')
-    en.className = 'feat-hub__en'
-    en.textContent = 'EMBODIED · AI'
-    hub.appendChild(zh)
-    hub.appendChild(en)
+    const eyebrow = document.createElement('span')
+    eyebrow.className = 'feat-hub__eyebrow'
+    eyebrow.textContent = '// 快速导航'
+    hub.appendChild(eyebrow)
+    const nav = document.createElement('nav')
+    nav.className = 'feat-hub__links'
+    nav.setAttribute('aria-label', '快速导航')
+    HUB_LINKS.forEach((l) => {
+      const a = document.createElement('a')
+      a.href = l.href
+      a.textContent = l.t
+      if (l.ext) {
+        a.target = '_blank'
+        a.rel = 'noopener'
+      }
+      nav.appendChild(a)
+    })
+    hub.appendChild(nav)
     items.appendChild(hub)
   }
   inject()
