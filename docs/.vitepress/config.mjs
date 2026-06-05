@@ -342,6 +342,7 @@ export default withMermaid(defineConfig({
           {
             text: '通用专题(VLA × WAM 共用)',
             items: [
+              { text: '具身入门 · 新手起步', link: '/vla/papers/getting-started' },
               { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
               { text: '具身数据处理', link: '/vla/papers/data-processing' },
               { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
@@ -400,6 +401,7 @@ export default withMermaid(defineConfig({
           text: '通用专题(VLA × WAM 共用)',
           collapsed: false,
           items: [
+            { text: '具身入门 · 新手起步', link: '/vla/papers/getting-started' },
             { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
             { text: '具身数据处理', link: '/vla/papers/data-processing' },
             { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
@@ -539,6 +541,7 @@ export default withMermaid(defineConfig({
           text: '通用专题(VLA × WAM 共用)',
           collapsed: false,
           items: [
+            { text: '具身入门 · 新手起步', link: '/vla/papers/getting-started' },
             { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
             { text: '具身数据处理', link: '/vla/papers/data-processing' },
             { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },

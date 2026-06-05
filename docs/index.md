@@ -180,6 +180,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <p class="home-coda__sub">所有结论经 <code>deep-research</code> 多源检索 + 3 票对抗式事实核查整理,⚠️ 自评 / ✅ 已核 / 待核 三级标注,绝不把厂商自评洗成裸事实。</p>
   </div>
   <nav class="home-coda__links" aria-label="更多入口">
+    <a href="vla/papers/getting-started">新手入门</a>
     <a href="ecosystem/">生态图谱</a>
     <a href="news/">最新新闻</a>
     <a href="vla/papers/benchmarks">基准速查</a>
