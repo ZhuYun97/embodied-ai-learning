@@ -19,32 +19,32 @@ hero:
 features:
   - icon: { src: /icons/route.svg, width: 28, height: 28 }
     title: 两条主线 · VLA × WAM
-    details: 一轨梳理 VLA(视觉-语言-动作)从 RT-1 到 π0.7 的发展脉络,一轨追踪 WAM(世界-行动模型)联合预测「未来状态 + 动作」的最新前沿。
+    details: VLA(RT-1 → π0.7)× WAM(未来状态 + 动作),双轨并进。
     link: /vla/
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 31 篇 + WAM 16 篇,每篇逐模块拆解架构 / 数据 / 实验 / 局限,并附关键数据表与谱系定位。
+    details: VLA 31 + WAM 16 篇,逐模块拆架构 / 数据 / 实验。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
     title: 对抗式事实核查
-    details: 所有结论经 deep-research 工作流(多源检索 + 3 票对抗核查)整理;⚠️ 自评 / ✅ 已核 / 待核 三级标记,绝不把厂商自评洗成裸事实。
+    details: 多源检索 + 3 票核查;⚠️ 自评 / ✅ 已核 / 待核 三级标注。
     link: /vla/guide
     linkText: 看可信度体例
   - icon: { src: /icons/newspaper.svg, width: 28, height: 28 }
     title: 具身智能新闻
-    details: 跟踪领域近期动态——重要论文与模型发布、头部公司战略、融资上市、数据集/基准/竞赛。每条标注一手来源,延续 ✅/⚠️ 可信度体系,严禁编造。
+    details: 论文 / 公司 / 融资 / 数据集动态,每条标一手来源。
     link: /news/
     linkText: 看最新动态
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
     title: 基准硬数据 + 速查
-    details: 五大类、50+ 评测基准全景——仿真操作(SimplerEnv/LIBERO/CALVIN/RoboCasa…)+ 真机竞技场 + 推理 VQA + 导航 + 世界模型,逐模型成绩表标注口径与可信度,并附「读表七条铁律」;另备术语表 / 时间线 / 参考文献速查。
+    details: 50+ 评测基准成绩表,附「读表铁律」与术语速查。
     link: /vla/papers/benchmarks
     linkText: 看数据与速查
   - icon: { src: /icons/globe.svg, width: 28, height: 28 }
-    title: 生态图谱(力导向关系网)
-    details: 国内外 49 家具身公司 + 24 家投资方/机构 + 18 位学者:力导向关系图谱 + 城市就业地图 + 可筛选公司卡片。深空舞台,可拖拽缩放、悬停高亮、按城市 / 阶段筛选。
+    title: 生态图谱
+    details: 49 公司 + 24 投资方 + 18 学者:关系图谱 + 就业地图。
     link: /ecosystem/
     linkText: 进入图谱
 ---
@@ -57,7 +57,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   <div class="route-card">
     <span class="route-tag">离散 token</span>
     <div class="route-card__title">动作即文本 token</div>
-    <p>把动作离散化为词表 token,自回归逐 token 生成——简单、直接复用 VLM。</p>
+    <p>动作离散为词表 token,自回归生成。</p>
     <div class="route-links">
       <a href="vla/papers/rt1">RT-1</a>
       <a href="vla/papers/rt2">RT-2</a>
@@ -68,21 +68,21 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   <div class="route-card">
     <span class="route-tag">连续 · 扩散/流匹配</span>
     <div class="route-card__title">连续动作生成</div>
-    <p>用扩散/流匹配直接生成连续动作块,支持动作分块与高频灵巧控制。</p>
+    <p>扩散 / 流匹配生成连续动作块,高频灵巧。</p>
     <div class="route-links">
       <a href="vla/papers/diffusion-policy">Diffusion Policy</a>
       <a href="vla/papers/octo">Octo</a>
       <a href="vla/papers/pi0">π0</a>
       <a href="vla/papers/cogact">CogACT</a>
       <a href="vla/papers/groot-n1">GR00T N1</a>
-      <a href="vla/papers/tinyvla">TinyVLA（高效紧凑）</a>
-      <a href="vla/papers/smolvla">SmolVLA（小型高效）</a>
+      <a href="vla/papers/tinyvla">TinyVLA</a>
+      <a href="vla/papers/smolvla">SmolVLA</a>
     </div>
   </div>
   <div class="route-card">
     <span class="route-tag">混合 · 连续回归</span>
     <div class="route-card__title">两条路融合</div>
-    <p>高层离散 token + 底层流匹配,或改用 L1 连续回归——兼顾语义与精度。</p>
+    <p>离散高层 + 连续底层,兼顾语义与精度。</p>
     <div class="route-links">
       <a href="vla/papers/openvla-oft">OpenVLA-OFT</a>
       <a href="vla/papers/pi05">π0.5</a>
@@ -92,18 +92,18 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   <div class="route-card">
     <span class="route-tag">新范式探索</span>
     <div class="route-card__title">统一基座 / 第三条路 / 从经验学习</div>
-    <p>统一多任务多本体基座、视频生成预训练→动作、真机强化学习,以及可操控分层跨域到自动驾驶。</p>
+    <p>统一基座 / 视频预训练 / 真机 RL / 分层可操控。</p>
     <div class="route-links">
-      <a href="vla/papers/ecot">ECoT（推理 CoT）</a>
-      <a href="vla/papers/robovlms">RoboVLMs（系统实证）</a>
-      <a href="vla/papers/simplevla-rl">SimpleVLA-RL（在线 RL）</a>
+      <a href="vla/papers/ecot">ECoT</a>
+      <a href="vla/papers/robovlms">RoboVLMs</a>
+      <a href="vla/papers/simplevla-rl">SimpleVLA-RL</a>
       <a href="vla/papers/qwen-vla">Qwen-VLA</a>
       <a href="vla/papers/rynnvla">RynnVLA</a>
       <a href="vla/papers/pi06">π0.6 / π*0.6</a>
       <a href="vla/papers/pi07">π0.7</a>
       <a href="vla/papers/gemini-robotics">Gemini Robotics</a>
-      <a href="vla/papers/steervla">SteerVLA（自动驾驶）</a>
-      <a href="vla/papers/steerable-policies">Steerable Policies（可操控分层）</a>
+      <a href="vla/papers/steervla">SteerVLA</a>
+      <a href="vla/papers/steerable-policies">Steerable Policies</a>
     </div>
   </div>
 </div>
@@ -116,7 +116,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   <div class="route-card">
     <span class="route-tag">级联 · 显式</span>
     <div class="route-card__title">先生成像素未来,再抽动作</div>
-    <p>显式合成未来视频/几何,再用逆动力学或几何抽取得到动作——动作抽取可独立于本体。</p>
+    <p>显式合成未来像素,再抽取动作。</p>
     <div class="route-links">
       <a href="wam/papers/unipi">UniPi</a>
       <a href="wam/papers/gen2act">Gen2Act</a>
@@ -125,7 +125,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   <div class="route-card">
     <span class="route-tag">级联 · 隐式</span>
     <div class="route-card__title">潜空间预测 → 隐式逆动力学</div>
-    <p>在压缩潜表征上预测未来、不解码回像素,再据此出动作,以换取实时性。</p>
+    <p>潜表征预测未来,不解码回像素,换实时性。</p>
     <div class="route-links">
       <a href="wam/papers/vpp">VPP</a>
       <a href="wam/papers/lapa">LAPA</a>
@@ -134,7 +134,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   <div class="route-card">
     <span class="route-tag">联合 · 自回归</span>
     <div class="route-card__title">token 化,因果联合生成</div>
-    <p>把未来帧与动作序列化进 token 空间、因果解码联合建模;需治早期误差级联。</p>
+    <p>未来帧 + 动作 token 化,因果联合生成。</p>
     <div class="route-links">
       <a href="wam/papers/gr-1">GR-1</a>
       <a href="wam/papers/worldvla">WorldVLA</a>
@@ -143,7 +143,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   <div class="route-card">
     <span class="route-tag">联合 · 扩散</span>
     <div class="route-card__title">并行去噪,未来+动作同生</div>
-    <p>用扩散/流匹配并行生成未来与动作,绕开自回归串行瓶颈,利于高频闭环。</p>
+    <p>并行去噪,未来 + 动作同生,利于高频闭环。</p>
     <div class="route-links">
       <a href="wam/papers/uwm">UWM</a>
       <a href="wam/papers/dreamzero">DreamZero</a>
@@ -157,7 +157,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   <div class="route-card">
     <span class="route-tag">联合 · 混合</span>
     <div class="route-card__title">自回归 + 扩散混合</div>
-    <p>结合自回归与扩散优势,或用潜表征对齐未来与动作,兼顾长期规划与精细控制。</p>
+    <p>自回归 + 扩散混合,兼顾规划与控制。</p>
     <div class="route-links">
       <a href="wam/papers/uva">UVA</a>
       <a href="wam/papers/flare">FLARE</a>

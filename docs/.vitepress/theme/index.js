@@ -361,13 +361,18 @@ const HeroRobot = {
 // 与既有 grid/aurora 同为 z-index:0 背景层)。星点坐标确定性硬编码 → SSR 安全;
 // 动效见 custom.css,reduced-motion 全关,深空 FX(星场/扫描)以暗色为主。
 // =====================================================================
-const FX_STARS = Array.from({ length: 40 }, (_, i) => ({
+const FX_STARS = Array.from({ length: 64 }, (_, i) => ({
   x: (i * 73 + 13) % 100,
   y: (i * 41 + 7) % 100,
   s: i % 3 === 0 ? 2.4 : i % 3 === 1 ? 1.4 : 1.9,
   tw: 3 + (i % 5),
   dl: ((i % 7) * 0.4).toFixed(1),
 }))
+// 数据流光束:细竖线坠落(Tron 风);x 位置 + 时长 + 延迟,确定性。
+const FX_BEAMS = [
+  { x: 14, d: 5.5, dl: 0 }, { x: 30, d: 7, dl: 1.3 }, { x: 46, d: 6, dl: 2.6 },
+  { x: 62, d: 8, dl: 0.7 }, { x: 78, d: 6.5, dl: 3.1 }, { x: 91, d: 7.5, dl: 1.9 },
+]
 const HeroFX = {
   setup() {
     return () =>
@@ -386,6 +391,16 @@ const HeroFX = {
                 '--tw': st.tw + 's',
                 '--dl': st.dl + 's',
               },
+            })
+          )
+        ),
+        h(
+          'div',
+          { class: 'hero-fx__beams' },
+          FX_BEAMS.map((b) =>
+            h('i', {
+              class: 'hero-fx__beam',
+              style: { left: b.x + '%', '--bd': b.d + 's', '--bdl': b.dl + 's' },
             })
           )
         ),
