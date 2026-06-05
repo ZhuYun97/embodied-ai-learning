@@ -61,16 +61,16 @@ flowchart LR
 
 | 数据集 | 年份 | 机构 | 规模 | 本体 | 任务/技能 | 关键模态 | 采集方式 | 开源 |
 |---|---|---|---|---|---|---|---|---|
-| **[RT-1](https://arxiv.org/abs/2212.06817)** | 2022 | Google / Everyday Robots | 13万+ episodes,700+ 任务,13台机17个月 | EDR 单臂(7-DoF) | 700+ 指令 | RGB+语言+动作,无深度 | 专用站遥操作 | ✅(已并入 OXE) |
-| **[BC-Z](https://arxiv.org/abs/2202.02005)** | 2022 | Google / Berkeley / Stanford | 25,877 episodes,100 任务 | EDR 单臂 | 100 训练任务+24 未见 | RGB+语言/人类视频条件 | 遥操作+DAgger 干预 | ✅ |
-| **[Language-Table](https://arxiv.org/abs/2210.06407)** | 2022 | Google Research | 近 60万 语言标注轨迹 | 桌面平面推动臂(2D) | 开放词汇推动/重排 | RGB+实时语言+2D 动作 | 实时语言交互遥操作 | ✅ |
-| **[BridgeData V2](https://arxiv.org/abs/2308.12952)** | 2023 | UC Berkeley (RAIL) | **60,096 条轨迹** ✅(50,365 遥操作+9,731 脚本) | WidowX 250 单臂 | 13 技能×24 环境 | RGB-D+语言+本体感知 | VR 遥操作(Quest 2) | ✅ |
-| **[RH20T](https://arxiv.org/abs/2307.00595)** | 2023 | 上海交大(卢策吾组) | 11万+ 操作序列 + 配对人类示范视频 | 多臂(Flexiv/Franka/UR5/Kuka) | 147 任务/42 技能 | RGB-D+**力觉+音频** | 定制遥操作系统 | ✅ |
-| **[RoboSet](https://arxiv.org/abs/2309.01918)** | 2023 | CMU / Meta AI | 28,500 条(9,500 遥操作+19,000 示教回放)⚠️ 网传 98,500 有误 | Franka 单臂(厨房) | 12 技能×38 任务 | 4路RGB+语言+动作 | 遥操作+kinesthetic | ✅(MIT) |
-| **[DROID](https://arxiv.org/abs/2403.12945)** | 2024 | 多机构(18 实验室) | **7.6万条轨迹 / 350h** ✅,564 场景,**13 机构** ✅ | Franka Panda 单臂(统一栈) | 86 任务×125 物体 | 3视角RGB-D+标定+语言 | 分布式众包(3D 鼠标) | ✅ |
-| **[RoboMIND](https://arxiv.org/abs/2412.13877)** | 2024 | 北京人形创新中心 等 | 107k 轨迹,479 任务,含 **5k 失败示范** | 4本体(Franka/UR5e/AgileX双臂/天工人形) | 479 任务×96 物体 | 多视角RGB+本体+语言 | 遥操作 | ✅(HF) |
-| **[AgiBot World](https://arxiv.org/abs/2503.06669)** | 2025 | 智元 AgiBot / 上海AI Lab | **约 100万条轨迹(1,001,552)/ 2976.4h** ✅,100台真机 | 双臂人形+灵巧手+视触觉 | 217 任务/87 技能/106 场景 | 多视角RGB-D+**视触觉**+本体 | VR+动捕遥操作+human-in-loop 质检 | ✅(CC BY-NC-SA) |
-| **[OXE / RT-X](https://arxiv.org/abs/2310.08864)** | 2023 | Google DeepMind 牵头,**21 机构 / 34 实验室** ✅ | **约 100万+ 轨迹** ✅,527 技能,16万 tasks | **22 种本体** ✅(单/双臂/四足) | 527 技能(聚合) | RGB 多视角为主,RLDS/TFRecord | 聚合(池化 60 个已有数据集) | ✅ |
+| **[RT-1](https://robotics-transformer1.github.io/)** | 2022 | Google / Everyday Robots | 13万+ episodes,700+ 任务,13台机17个月 | EDR 单臂(7-DoF) | 700+ 指令 | RGB+语言+动作,无深度 | 专用站遥操作 | ✅(已并入 OXE) |
+| **[BC-Z](https://www.kaggle.com/datasets/google/bc-z-robot)** | 2022 | Google / Berkeley / Stanford | 25,877 episodes,100 任务 | EDR 单臂 | 100 训练任务+24 未见 | RGB+语言/人类视频条件 | 遥操作+DAgger 干预 | ✅ |
+| **[Language-Table](https://github.com/google-research/language-table)** | 2022 | Google Research | 近 60万 语言标注轨迹 | 桌面平面推动臂(2D) | 开放词汇推动/重排 | RGB+实时语言+2D 动作 | 实时语言交互遥操作 | ✅ |
+| **[BridgeData V2](https://rail-berkeley.github.io/bridgedata/)** | 2023 | UC Berkeley (RAIL) | **60,096 条轨迹** ✅(50,365 遥操作+9,731 脚本) | WidowX 250 单臂 | 13 技能×24 环境 | RGB-D+语言+本体感知 | VR 遥操作(Quest 2) | ✅ |
+| **[RH20T](https://rh20t.github.io/)** | 2023 | 上海交大(卢策吾组) | 11万+ 操作序列 + 配对人类示范视频 | 多臂(Flexiv/Franka/UR5/Kuka) | 147 任务/42 技能 | RGB-D+**力觉+音频** | 定制遥操作系统 | ✅ |
+| **[RoboSet](https://robopen.github.io/roboset/)** | 2023 | CMU / Meta AI | 28,500 条(9,500 遥操作+19,000 示教回放)⚠️ 网传 98,500 有误 | Franka 单臂(厨房) | 12 技能×38 任务 | 4路RGB+语言+动作 | 遥操作+kinesthetic | ✅(MIT) |
+| **[DROID](https://droid-dataset.github.io/)** | 2024 | 多机构(18 实验室) | **7.6万条轨迹 / 350h** ✅,564 场景,**13 机构** ✅ | Franka Panda 单臂(统一栈) | 86 任务×125 物体 | 3视角RGB-D+标定+语言 | 分布式众包(3D 鼠标) | ✅ |
+| **[RoboMIND](https://huggingface.co/datasets/x-humanoid-robomind/RoboMIND)** | 2024 | 北京人形创新中心 等 | 107k 轨迹,479 任务,含 **5k 失败示范** | 4本体(Franka/UR5e/AgileX双臂/天工人形) | 479 任务×96 物体 | 多视角RGB+本体+语言 | 遥操作 | ✅(HF) |
+| **[AgiBot World](https://huggingface.co/datasets/agibot-world/AgiBotWorld-Beta)** | 2025 | 智元 AgiBot / 上海AI Lab | **约 100万条轨迹(1,001,552)/ 2976.4h** ✅,100台真机 | 双臂人形+灵巧手+视触觉 | 217 任务/87 技能/106 场景 | 多视角RGB-D+**视触觉**+本体 | VR+动捕遥操作+human-in-loop 质检 | ✅(CC BY-NC-SA) |
+| **[OXE / RT-X](https://github.com/google-deepmind/open_x_embodiment)** | 2023 | Google DeepMind 牵头,**21 机构 / 34 实验室** ✅ | **约 100万+ 轨迹** ✅,527 技能,16万 tasks | **22 种本体** ✅(单/双臂/四足) | 527 技能(聚合) | RGB 多视角为主,RLDS/TFRecord | 聚合(池化 60 个已有数据集) | ✅ |
 
 > ⚠️ **读表须知**:
 > ① **OXE 是聚合集**——RT-1、BridgeData V2、Language-Table、BC-Z 等均为其子集,统计总量时**勿重复计数**。OXE 常见两种表述:论文摘要 "1M+",社区资料常引约 1.4M。
@@ -108,12 +108,12 @@ flowchart TD
 
 | 数据集 | 年份 | 机构 | 规模 | 性质 | 在 VLA 中的角色 |
 |---|---|---|---|---|---|
-| **[Ego4D](https://arxiv.org/abs/2110.07058)** | 2021 | Meta FAIR + 学术联盟 | **3,670 小时** ✅,931 佩戴者,74 地点 | 通用第一视角理解(无动作标签) | 金字塔"人类视频层"典型来源,需经潜动作/IDM 转换 |
-| **[Ego-Exo4D](https://arxiv.org/abs/2311.18259)** | 2023 | Meta FAIR + Project Aria | 1,286 小时,740 佩戴者 | 首个大规模 **ego+exo 同步**多视角 | exo 视角帮助弥合"第一视角→第三视角"观测 gap |
-| **[EPIC-Kitchens-100](https://arxiv.org/abs/1804.02748)** | 2020 | Bristol 等 | 100h,约 9万动作段 | 细粒度厨房手物操作标准基准 | 操作策略视觉预训练/评测 |
-| **[Something-Something V2](https://arxiv.org/abs/1706.04261)** | 2017+ | TwentyBN/Qualcomm | 220,847 短片段,174 动作类 | 细粒度时序手物动作(非头戴) | 操作相关时序表征预训练;LAPA 等潜动作训练源 |
-| **[EgoDex](https://arxiv.org/abs/2505.11709)** | 2025.05 | Apple | **829 小时**,约 33.8万示范,194 任务 | **带 3D 手/手指追踪**的灵巧操作 | 3D 手指位姿即可作可回归动作信号,绕过潜动作 |
-| **[RynnVLA 预训练集](https://arxiv.org/abs/2509.15212)** | 2025.09 | 阿里达摩院 | **约 1200万片段(11.93M)** ✅ | 第一视角人类操作视频 | I2V 生成式预训练,学动作条件视觉动态先验 |
+| **[Ego4D](https://ego4d-data.org/)** | 2021 | Meta FAIR + 学术联盟 | **3,670 小时** ✅,931 佩戴者,74 地点 | 通用第一视角理解(无动作标签) | 金字塔"人类视频层"典型来源,需经潜动作/IDM 转换 |
+| **[Ego-Exo4D](https://ego-exo4d-data.org/)** | 2023 | Meta FAIR + Project Aria | 1,286 小时,740 佩戴者 | 首个大规模 **ego+exo 同步**多视角 | exo 视角帮助弥合"第一视角→第三视角"观测 gap |
+| **[EPIC-Kitchens-100](https://epic-kitchens.github.io/)** | 2020 | Bristol 等 | 100h,约 9万动作段 | 细粒度厨房手物操作标准基准 | 操作策略视觉预训练/评测 |
+| **[Something-Something V2](https://www.qualcomm.com/developer/software/something-something-v-2-dataset)** | 2017+ | TwentyBN/Qualcomm | 220,847 短片段,174 动作类 | 细粒度时序手物动作(非头戴) | 操作相关时序表征预训练;LAPA 等潜动作训练源 |
+| **[EgoDex](https://github.com/apple/ml-egodex)** | 2025.05 | Apple | **829 小时**,约 33.8万示范,194 任务 | **带 3D 手/手指追踪**的灵巧操作 | 3D 手指位姿即可作可回归动作信号,绕过潜动作 |
+| **[RynnVLA 预训练集](https://github.com/alibaba-damo-academy/RynnVLA-001)** | 2025.09 | 阿里达摩院 | **约 1200万片段(11.93M)** ✅ | 第一视角人类操作视频 | I2V 生成式预训练,学动作条件视觉动态先验 |
 
 > ⚠️ EgoDex 的 benchmark 指标、RynnVLA "超越 SOTA"、GR00T "+40%"、EgoMimic "+34–228%" 均为作者自评,**未见独立复现**,应与同行评审过的纯数据事实(Ego4D/Ego-Exo4D/EPIC/SSv2)区别看待。
 > ⚠️ Something-Something V2 多为手部近景而非严格头戴第一视角,归入"人类操作视频层"时与 Ego4D/EPIC 性质略有差异。
@@ -144,12 +144,12 @@ flowchart TD
 
 | 系统 | 类型 | 机构/年份 | 规模/放大 | 同行评审 | 关键事实 |
 |---|---|---|---|---|---|
-| **[MimicGen](https://arxiv.org/abs/2310.17596)** | 程序化轨迹放大 | NVIDIA/UT Austin 2023 | 约 200 人工 → 50,000+,18 任务 | ✅ CoRL 2023 | 少量人工演示分段+刚体变换重放;衍生 DexMimicGen(双臂灵巧) |
-| **[RoboCasa](https://arxiv.org/abs/2406.02523)** | 高保真仿真+合成 | UT Austin/NVIDIA 2024 | 1,250 人工演示 + MimicGen 约 10万+ | ✅ CoRL 2024 | robosuite(MuJoCo)+Omniverse 渲染;sim-real co-train 真机已见物体 13.6%→24.4% ⚠️ |
-| **[ManiSkill3](https://arxiv.org/abs/2410.00425)** | GPU 并行仿真 | UCSD/Hao Su 2024 | 最高 **30,000+ FPS**,12 领域 | arXiv | 比同类快 10–1000×、显存少 2–3×(团队自评) |
-| **[Isaac Sim/Lab](https://arxiv.org/abs/2511.04831)** | 仿真+域随机化框架 | NVIDIA 2023–25 | 基础设施(数千并行环境) | arXiv | sim-to-real 与域随机化主力训练框架,非数据集本身 |
-| **[DreamGen](https://arxiv.org/abs/2505.12705)** | 视频世界模型→神经轨迹 | NVIDIA GEAR 2025 | RoboCasa 上最高 **333×** 放大 ⚠️ | arXiv | 4阶段:微调视频模型→生成机器人视频→IDM/潜动作回收伪动作→训策略;已有真机数据时仍 **+8.8%** ⚠️ |
-| **[Cosmos](https://arxiv.org/abs/2501.03575)** | 世界基础模型平台 | NVIDIA 2025–26 | 约 1亿级片段训练,4B–14B 参数 | arXiv | open-weight(CC-BY-4.0);DreamGen 神经轨迹的可选底层世界模型 |
+| **[MimicGen](https://mimicgen.github.io)** | 程序化轨迹放大 | NVIDIA/UT Austin 2023 | 约 200 人工 → 50,000+,18 任务 | ✅ CoRL 2023 | 少量人工演示分段+刚体变换重放;衍生 DexMimicGen(双臂灵巧) |
+| **[RoboCasa](https://robocasa.ai)** | 高保真仿真+合成 | UT Austin/NVIDIA 2024 | 1,250 人工演示 + MimicGen 约 10万+ | ✅ CoRL 2024 | robosuite(MuJoCo)+Omniverse 渲染;sim-real co-train 真机已见物体 13.6%→24.4% ⚠️ |
+| **[ManiSkill3](https://github.com/haosulab/ManiSkill)** | GPU 并行仿真 | UCSD/Hao Su 2024 | 最高 **30,000+ FPS**,12 领域 | arXiv | 比同类快 10–1000×、显存少 2–3×(团队自评) |
+| **[Isaac Sim/Lab](https://developer.nvidia.com/isaac/sim)** | 仿真+域随机化框架 | NVIDIA 2023–25 | 基础设施(数千并行环境) | arXiv | sim-to-real 与域随机化主力训练框架,非数据集本身 |
+| **[DreamGen](https://research.nvidia.com/labs/gear/dreamgen/)** | 视频世界模型→神经轨迹 | NVIDIA GEAR 2025 | RoboCasa 上最高 **333×** 放大 ⚠️ | arXiv | 4阶段:微调视频模型→生成机器人视频→IDM/潜动作回收伪动作→训策略;已有真机数据时仍 **+8.8%** ⚠️ |
+| **[Cosmos](https://github.com/NVIDIA/Cosmos)** | 世界基础模型平台 | NVIDIA 2025–26 | 约 1亿级片段训练,4B–14B 参数 | arXiv | open-weight(CC-BY-4.0);DreamGen 神经轨迹的可选底层世界模型 |
 
 **sim-to-real gap 仍是核心局限**:**接触丰富(contact-rich)**任务的物理仿真误差、视觉域差异最大。主流缓解手段:域随机化(纹理/材质/动力学/控制器增益/观测噪声)、域适应、real-to-sim、sim-real co-training。世界模型路线绕开物理引擎,但引入**生成幻觉 + 伪动作标签误差**这一新型 gap。
 
