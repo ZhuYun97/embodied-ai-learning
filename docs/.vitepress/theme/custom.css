@@ -2083,3 +2083,134 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .VPHome .VPFeature .link-text-icon { transition: none; }
 }
 .VPHome .route-links .route-soon::after { content: ' · 待补'; font-size: 0.82em; opacity: 0.7; }
+
+/* ============================================================
+   论文细读 / 专题页美化(.VPDoc 文章页;首页 .VPHome 不受影响)— 2026-06
+   把「朴素 Swiss」升级为与首页一致的「HUD 档案」观感:只强化结构
+   (文章头 / 论文 ID 卡 / 引用 callout / 分节标题 / 数据表 / 分隔线),
+   正文段落与列表保持干净易读。深色为主,无新增动画(reduced-motion 无关)。
+   ============================================================ */
+
+/* ---- 头部氛围:暗色下文章头后一层极淡蓝雾 ---- */
+.dark .VPDoc .vp-doc { position: relative; }
+.dark .VPDoc .vp-doc::before {
+  content: ''; position: absolute; z-index: -1; pointer-events: none;
+  top: -48px; left: -60px; right: -60px; height: 280px;
+  background: radial-gradient(58% 100% at 28% 0%, rgba(37, 99, 235, 0.12), transparent 72%);
+}
+
+/* ---- 文章标题:渐变眉标 + 收紧 + 底部渐变规则线 ---- */
+.VPDoc .vp-doc h1 {
+  position: relative;
+  margin-bottom: 26px; padding-bottom: 18px;
+  font-size: clamp(1.95rem, 3vw, 2.5rem); line-height: 1.18;
+}
+.VPDoc .vp-doc h1::before {
+  content: '// EMBODIED-AI ARCHIVE';
+  display: block; margin-bottom: 12px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em;
+  color: var(--vp-c-brand-1);
+}
+.dark .VPDoc .vp-doc h1::before { color: #7dd3fc; }
+.VPDoc .vp-doc h1::after {
+  content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee 24%, #8b5cf6 58%, transparent 100%);
+  border-radius: 2px; opacity: 0.9;
+}
+
+/* ---- 引用块 → HUD callout(返回链接 / 提示 / ⚠️ 注记)---- */
+.VPDoc .vp-doc blockquote {
+  position: relative;
+  border-left: 0; background: var(--vp-c-bg-alt);
+  border-radius: 8px; padding: 10px 18px 10px 20px;
+}
+.VPDoc .vp-doc blockquote::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  border-radius: 3px 0 0 3px;
+  background: linear-gradient(180deg, #2563eb, #22d3ee);
+}
+.dark .VPDoc .vp-doc blockquote { background: rgba(148, 163, 184, 0.06); }
+
+/* ---- 论文 ID 卡:首个含 arXiv 链接的引用块 → 等宽「档案卡」---- */
+.VPDoc .vp-doc blockquote:has(a[href*="arxiv"]) {
+  font-family: var(--vp-font-family-mono);
+  border: 1px solid var(--vp-c-divider); border-radius: 12px;
+  padding: 16px 18px 16px 22px; background: var(--vp-c-bg-soft);
+  overflow: hidden;
+}
+.VPDoc .vp-doc blockquote:has(a[href*="arxiv"])::before {
+  width: 3px; background: linear-gradient(180deg, #2563eb, #22d3ee, #8b5cf6);
+}
+.dark .VPDoc .vp-doc blockquote:has(a[href*="arxiv"]) {
+  border-color: rgba(56, 189, 248, 0.22);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.06), rgba(37, 99, 235, 0.02));
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.05), 0 0 26px rgba(37, 99, 235, 0.06);
+}
+.VPDoc .vp-doc blockquote:has(a[href*="arxiv"]) p { color: var(--vp-c-text-2); font-size: 0.9rem; line-height: 1.72; }
+.VPDoc .vp-doc blockquote:has(a[href*="arxiv"]) strong { color: var(--vp-c-text-1); }
+
+/* arXiv 链接 → 等宽 chip */
+.VPDoc .vp-doc blockquote a[href*="arxiv"] {
+  display: inline-block; font-family: var(--vp-font-family-mono); font-weight: 600;
+  padding: 1px 8px; border-radius: 6px; text-decoration: none;
+  background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1);
+  border: 1px solid transparent;
+}
+.dark .VPDoc .vp-doc blockquote a[href*="arxiv"] {
+  color: #7dd3fc; background: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.3);
+}
+
+/* ---- 分节标题 H2:顶部渐隐分隔 + 加粗渐变标签(暗色辉光)---- */
+.VPDoc .vp-doc h2 {
+  border-top: 0; margin-top: 52px; padding-top: 22px; position: relative;
+}
+.VPDoc .vp-doc h2::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+  background: linear-gradient(90deg, var(--vp-c-divider), transparent 78%);
+}
+.VPDoc .vp-doc h2::after {
+  content: ''; position: absolute; left: 0; top: -1px;
+  width: 64px; height: 3px; border-radius: 3px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee);
+}
+.dark .VPDoc .vp-doc h2::after { box-shadow: 0 0 12px rgba(34, 211, 238, 0.55); }
+
+/* ---- 子标题 H3:左侧渐变小竖条 ---- */
+.VPDoc .vp-doc h3 { position: relative; padding-left: 15px; }
+.VPDoc .vp-doc h3::before {
+  content: ''; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 3px;
+  border-radius: 3px; background: linear-gradient(180deg, #22d3ee, #2563eb);
+}
+
+/* ---- 数据表 → readout:渐变表头 + 行 HUD 高亮 + 暗色外框微辉 ---- */
+.VPDoc .vp-doc th {
+  background: linear-gradient(180deg, var(--vp-c-bg-soft), transparent);
+  border-bottom: 2px solid var(--vp-c-brand-1); font-weight: 700;
+}
+.dark .VPDoc .vp-doc th { color: #bae6fd; border-bottom-color: rgba(56, 189, 248, 0.6); }
+.VPDoc .vp-doc tbody tr { transition: background-color 0.15s ease, box-shadow 0.15s ease; }
+.VPDoc .vp-doc tbody tr:hover {
+  background: var(--vp-c-bg-soft) !important; box-shadow: inset 3px 0 0 0 #22d3ee;
+}
+.dark .VPDoc .vp-doc tbody tr:hover {
+  background: rgba(56, 189, 248, 0.07) !important;
+  box-shadow: inset 3px 0 0 0 #22d3ee, 0 0 16px rgba(34, 211, 238, 0.06);
+}
+.dark .VPDoc .vp-doc table {
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.07), 0 0 30px rgba(37, 99, 235, 0.05);
+}
+
+/* ---- 分隔线 → 渐变规则线 ---- */
+.VPDoc .vp-doc hr {
+  border: 0; height: 1px; margin: 34px 0;
+  background: linear-gradient(90deg, transparent, var(--vp-c-divider) 22%, var(--vp-c-divider) 78%, transparent);
+}
+.dark .VPDoc .vp-doc hr {
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.25) 25%, rgba(139, 92, 246, 0.22) 75%, transparent);
+}
+
+/* ---- 行内代码暗色青描边 + 正文链接悬停加粗下划线 ---- */
+.dark .VPDoc .vp-doc :not(pre) > code { border-color: rgba(56, 189, 248, 0.18); }
+.VPDoc .vp-doc p a:hover,
+.VPDoc .vp-doc li a:hover { text-decoration-thickness: 2px; }
