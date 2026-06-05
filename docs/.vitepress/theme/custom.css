@@ -1487,4 +1487,70 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   opacity: 0.72;
 }
 .VPHome .route-links .route-soon::before { content: '› '; opacity: 0.5; }
+
+/* ============================================================
+   科技感交互层 (HUD interaction polish) — 2026-06
+   克制扩展:补强「阅读页数据表 / 顶栏 / 按钮 / 选区 / 键盘焦点」的交互反馈,
+   不动首页既有炫酷层(其伪元素已占满)。全部 reduced-motion 安全,焦点环增强可达性。
+   ============================================================ */
+
+/* —— 文本选区:青色高亮(HUD 取色感)—— */
+::selection { background: rgba(56, 189, 248, 0.26); }
+.dark ::selection { background: rgba(56, 189, 248, 0.34); color: #eaf6ff; }
+
+/* —— 数据表:行悬停 = 控制台「选中行」(青色左刻度 + 轻底色 + 首列提亮)。
+       本站数据表密集,这是阅读页最被感知到的交互升级 —— */
+.vp-doc table tbody tr {
+  transition: background-color 0.16s ease, box-shadow 0.16s ease;
+}
+.vp-doc table tbody tr:hover {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 7%, transparent);
+  box-shadow: inset 2px 0 0 0 var(--vp-c-brand-1);
+}
+.vp-doc table tbody tr:hover td:first-child { color: var(--vp-c-text-1); }
+.dark .vp-doc table tbody tr:hover {
+  background: rgba(56, 189, 248, 0.07);
+  box-shadow: inset 2px 0 0 0 #22d3ee;
+}
+
+/* —— 顶栏菜单:悬停青色「扫线」下划线(background-size draw-in,不与伪元素冲突)—— */
+.VPNavBarMenuLink {
+  background-image: linear-gradient(var(--vp-c-brand-1), var(--vp-c-brand-1));
+  background-repeat: no-repeat;
+  background-position: 0 calc(100% - 6px);
+  background-size: 0% 1.5px;
+  transition: background-size 0.25s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+}
+.VPNavBarMenuLink:hover { background-size: 100% 1.5px; }
+
+/* —— 按钮:CTA 悬停霓虹 + 全站控件按下回弹(统一手感)—— */
+.VPButton.brand { transition: transform 0.12s ease, box-shadow 0.2s ease, background-color 0.2s ease; }
+.VPButton.brand:hover { box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 0 22px rgba(56, 189, 248, 0.22); }
+.VPButton:active { transform: translateY(1px); }
+.lens-toggle:active, .zen-toggle:active,
+.read-progress__btn:active, .series-footer__link:active,
+.kg-zoom button:active { transform: translateY(1px); }
+
+/* —— 键盘焦点:青色辉光环(保留 outline,可达性增强)—— */
+.vp-doc a:focus-visible,
+.VPButton:focus-visible,
+.VPNavBarMenuLink:focus-visible,
+.lens-toggle:focus-visible, .zen-toggle:focus-visible,
+.read-progress__btn:focus-visible, .series-footer__link:focus-visible,
+.route-links a:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--vp-c-brand-1) 70%, transparent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* —— 动效降级:尊重 prefers-reduced-motion —— */
+@media (prefers-reduced-motion: reduce) {
+  .vp-doc table tbody tr,
+  .VPNavBarMenuLink,
+  .VPButton.brand { transition: none; }
+  .VPButton:active,
+  .lens-toggle:active, .zen-toggle:active,
+  .read-progress__btn:active, .series-footer__link:active,
+  .kg-zoom button:active { transform: none; }
+}
 .VPHome .route-links .route-soon::after { content: ' · 待补'; font-size: 0.82em; opacity: 0.7; }

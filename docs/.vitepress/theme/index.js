@@ -293,6 +293,37 @@ const HERO_STATS = [
 ]
 const HeroStats = {
   setup() {
+    // 数字「读出」:进入首屏即从 0 计数到目标值(tabular mono → HUD 遥测感)。
+    // 直接动 text 节点,保留 .hero-stat__n 的渐变裁切;reduced-motion 直接显示终值。
+    onMounted(() => {
+      if (typeof window === 'undefined') return
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (reduce) return
+      document.querySelectorAll('.VPHome .hero-stat__n').forEach((el) => {
+        const tn = el.firstChild
+        if (!tn || tn.nodeType !== 3) return
+        const raw = (tn.nodeValue || '').trim()
+        const m = raw.match(/(\d+)/)
+        if (!m) return
+        const target = parseInt(m[1], 10)
+        if (!target) return
+        const prefix = raw.slice(0, m.index)
+        const suffix = raw.slice(m.index + m[1].length)
+        tn.nodeValue = prefix + '0' + suffix
+        setTimeout(() => {
+          let start = null
+          const tick = (ts) => {
+            if (start === null) start = ts
+            const p = Math.min(1, (ts - start) / 850)
+            const v = Math.round((1 - Math.pow(1 - p, 3)) * target)
+            tn.nodeValue = prefix + v + suffix
+            if (p < 1) requestAnimationFrame(tick)
+            else tn.nodeValue = raw
+          }
+          requestAnimationFrame(tick)
+        }, 360)
+      })
+    })
     return () =>
       h(
         'dl',
