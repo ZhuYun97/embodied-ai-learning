@@ -2287,6 +2287,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 @media (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .feat-hub__robot { animation: heroFloat 6s ease-in-out infinite; }
 }
+/* 轨道线圆点(JS 注入);默认隐藏,仅环形 media 内显形 */
+.VPHome .VPFeatures .feat-orbit-dot { display: none; }
 
 @media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .items {
@@ -2305,6 +2307,17 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
      用 :has 触发整环暂停(不依赖 .items:hover,兼容父级 pointer-events:none)*/
   .VPHome .VPFeatures .items > .item { pointer-events: auto; }
   .VPHome .VPFeatures .items:has(> .item:hover) > .item { animation-play-state: paused; }
+
+  /* 轨道线:48 个圆点沿与卡片相同的 3D 公式分布(各自 --a 角度)→ 精确勾出卡片公转轨迹,
+     带透视深度(前大后小);静止(轨道不动,卡片在其上公转)。 */
+  .VPHome .VPFeatures .feat-orbit-dot {
+    display: block; position: absolute; top: 50%; left: 50%;
+    width: 2.5px; height: 2.5px; margin: -1.25px 0 0 -1.25px;
+    border-radius: 50%; pointer-events: none; z-index: 0;
+    background: rgba(125, 235, 255, 0.85);
+    box-shadow: 0 0 5px rgba(56, 189, 248, 0.85);
+    transform: translate3d(calc(var(--rx) * sin(var(--a))), calc(var(--yt) * cos(var(--a)) * -1), calc(var(--rz) * cos(var(--a)) * -1));
+  }
 
   /* 3D 环绕公转:每张卡按角度 θ=--ang 放到 (Rx·sinθ, -Yt·cosθ, -Rz·cosθ):
      θ=0 在「后上远」(透视缩小)、θ=180 在「前下近」(透视放大),恒 60° 等角对称。

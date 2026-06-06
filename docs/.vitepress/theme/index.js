@@ -716,16 +716,30 @@ function setupFeatureHub() {
   if (typeof document === 'undefined') return
   const inject = () => {
     const items = document.querySelector('.VPHome .VPFeatures .items')
-    if (!items || items.querySelector('.feat-hub')) return
-    const hub = document.createElement('div')
-    hub.className = 'feat-hub'
-    hub.setAttribute('aria-hidden', 'true')
-    const img = document.createElement('img')
-    img.className = 'feat-hub__robot'
-    img.src = withBase('/hero-robot.svg')
-    img.alt = '具身智能机器人'
-    hub.appendChild(img)
-    items.appendChild(hub)
+    if (!items) return
+    // 中央机器人
+    if (!items.querySelector('.feat-hub')) {
+      const hub = document.createElement('div')
+      hub.className = 'feat-hub'
+      hub.setAttribute('aria-hidden', 'true')
+      const img = document.createElement('img')
+      img.className = 'feat-hub__robot'
+      img.src = withBase('/hero-robot.svg')
+      img.alt = '具身智能机器人'
+      hub.appendChild(img)
+      items.appendChild(hub)
+    }
+    // 轨道线:沿卡片同一 3D 公式 (rx·sinθ, -yt·cosθ, -rz·cosθ) 撒点 → 精确勾出卡片轨迹
+    if (!items.querySelector('.feat-orbit-dot')) {
+      const N = 48
+      for (let i = 0; i < N; i++) {
+        const d = document.createElement('i')
+        d.className = 'feat-orbit-dot'
+        d.style.setProperty('--a', (i * (360 / N)).toFixed(2) + 'deg')
+        d.setAttribute('aria-hidden', 'true')
+        items.appendChild(d)
+      }
+    }
   }
   inject()
   if ('MutationObserver' in window) {
