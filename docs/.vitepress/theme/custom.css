@@ -14,6 +14,8 @@
     'Source Han Sans SC', sans-serif;
   --vp-font-family-mono: 'JetBrains Mono', 'Roboto Mono', ui-monospace,
     SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* 科幻显示体:Orbitron 几何太空感(仅含拉丁/数字)→ 英文标题/数字/HUD 走它,中文自动回落 base */
+  --font-display: 'Orbitron', var(--vp-font-family-base);
 }
 
 /* ---------- 配色:浅色(Slate + Blue) ---------- */
@@ -1480,6 +1482,27 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 }
 /* 合并卡正文里的 deep-research 等 inline code 已是等宽;这里给路线卡描述里的「/」分隔留一点呼吸 */
 .VPHome .route-card p { letter-spacing: 0.01em; }
+
+/* ===== 科幻显示体 Orbitron:英文标题 / 数字 / HUD 标签走 Orbitron(太空几何感),中文回落 base + 宽字距增强科技感 =====
+   分三层:Orbitron=显示/HUD 顶层 · JetBrains Mono=代码层(链接 chip/inline code) · Inter=中文正文。
+   Orbitron 仅含拉丁+数字 → 纯英文元素全量生效;中英混排(章节标题)则英文 Orbitron、中文回落。 */
+/* 加 .VPHome 提特异性:这些元素的原 mono 规则在本块之后定义,需更高特异性才能覆盖 */
+.VPHome .thero__title-en,
+.VPHome .thero__bar-text,
+.VPHome .thero__stat-n,
+.VPHome .home-coda__eyebrow {
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+}
+/* 章节标题:Orbitron 渲染 "VLA"/"WAM" 等拉丁,中文回落 Inter;整体加宽字距 = HUD 感 */
+.VPHome .vp-doc h2 { font-family: var(--font-display); letter-spacing: 0.02em; }
+/* "// 0X" 章节计数眉标走 Orbitron(数字最出科幻味) */
+.VPHome .vp-doc h2::before { font-family: var(--font-display); }
+/* HUD 单元标签 / 状态:小字号,Orbitron 仍合 HUD 调性 */
+.VPHome .tu-tag, .VPHome .tu-base-text { font-family: var(--font-display); letter-spacing: 0.06em; }
+/* 中文大标题无科幻中文字体 → 宽字距 + 已有辉光/渐变营造科技感 */
+.VPHome .thero__title-zh { letter-spacing: 0.05em; }
+.VPHome .route-card__title { letter-spacing: 0.01em; }
 /* 链接收成 2 列紧凑块(原先 6 个铺成一长条 637px、把左侧文字挤到 365px;现归位:文字变宽、链接竖向更紧凑) */
 .home-coda__links {
   flex: 0 0 auto;
