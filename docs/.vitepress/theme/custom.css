@@ -350,12 +350,17 @@ img.zoom-lightbox__content {
 
 /* ---------- 首页「按技术路线浏览」卡片网格 ---------- */
 .route-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  /* flex + 居中:让不满一行的末行(如 WAM 5 卡=4+1)居中,而非左对齐留孤儿卡 */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
   margin: 24px 0 8px;
 }
 .route-card {
+  /* 240 起、264 封顶:整行卡片长到 264 填满(4×264+3×16=1104=内容宽),末行孤儿卡也封在 264 → 居中且与同行等宽 */
+  flex: 1 1 240px;
+  max-width: 264px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
   padding: 20px;
@@ -1452,7 +1457,15 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   transition: border-color 0.18s ease;
 }
 .home-coda__hint a:hover { border-bottom-color: currentColor; }
-.home-coda__links { display: flex; flex-wrap: wrap; gap: 10px; }
+/* 链接收成 2 列紧凑块(原先 6 个铺成一长条 637px、把左侧文字挤到 365px;现归位:文字变宽、链接竖向更紧凑) */
+.home-coda__links {
+  flex: 0 0 auto;
+  width: 300px;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
 .home-coda__links a {
   display: inline-flex;
   align-items: center;
