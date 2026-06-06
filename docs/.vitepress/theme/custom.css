@@ -2270,35 +2270,22 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .VPHome .VPFeatures .item:hover .VPFeature { transform: translateY(-4px); }
 }
 
-/* 环中央「快速导航」(JS 注入)。默认隐藏,仅环形 media 内显形并 translateZ 前移到所有卡之前 */
+/* 环中央机器人(JS 注入)。默认隐藏,仅环形 media 内显形并 translateZ 前移到所有卡之前 */
 .VPHome .VPFeatures .feat-hub {
   display: none; position: absolute; left: 50%; top: 50%;
   transform: translate(-50%, -50%);
-  flex-direction: column; align-items: center; gap: 9px;
-  text-align: center; pointer-events: none; z-index: 5;
+  flex-direction: column; align-items: center;
+  pointer-events: none; z-index: 5;   /* 纯装饰,点击穿透到背后卡片 */
 }
-.VPHome .VPFeatures .feat-hub__eyebrow {
-  font-family: var(--vp-font-family-mono); font-size: 0.58rem;
-  letter-spacing: 0.26em; color: #67e8f9; opacity: 0.82;
+.VPHome .VPFeatures .feat-hub__robot {
+  height: 150px; width: auto; pointer-events: none;
+  filter: drop-shadow(0 0 26px rgba(56, 189, 248, 0.45));
 }
-.VPHome .VPFeatures .feat-hub__links {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-  pointer-events: auto;   /* 容器穿透,链接本身可点 */
+.dark .VPHome .VPFeatures .feat-hub__robot {
+  filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.55));
 }
-.VPHome .VPFeatures .feat-hub__links a {
-  display: flex; align-items: center; justify-content: center;
-  min-width: 98px; padding: 8px 14px;
-  font-size: 0.82rem; font-weight: 500; white-space: nowrap; line-height: 1;
-  color: var(--vp-c-text-1); border-radius: 9px;
-  border: 1px solid var(--vp-c-divider); background: var(--tech-card-bg);
-  backdrop-filter: blur(8px) saturate(1.1); -webkit-backdrop-filter: blur(8px) saturate(1.1);
-  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-}
-.VPHome .VPFeatures .feat-hub__links a:hover {
-  color: var(--vp-c-brand-1); border-color: var(--vp-c-brand-1); transform: translateY(-2px);
-}
-.dark .VPHome .VPFeatures .feat-hub__links a:hover {
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6), 0 0 18px rgba(56, 189, 248, 0.3);
+@media (prefers-reduced-motion: no-preference) {
+  .VPHome .VPFeatures .feat-hub__robot { animation: heroFloat 6s ease-in-out infinite; }
 }
 
 @media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
