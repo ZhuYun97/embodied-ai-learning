@@ -1551,16 +1551,23 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 }
 
 /* ===== VLA/WAM 路线卡 强化悬停(科技感):随光标 3D 倾斜 + 光斑辉光 + 强霓虹环 + 顶边发光 ===== */
-/* 光斑层(JS 注入的 .route-card__spot):随光标移动的青色径向辉光;z-index:-1 → 卡底色之上、文字之下 */
+/* 「代码感」光标准星层(JS 注入的 .route-card__spot):跟随光标的青色十字引导线 + 交点小亮点,
+   像代码编辑器 / 设计工具的精确光标 / HUD 取景准星。z-index:2 浮于内容之上(细线 + pointer-events:none,不挡阅读与点击)。 */
 .VPHome .route-card__spot {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 2;
   border-radius: inherit;
-  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(125, 235, 255, 0.22), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.25s ease;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  background:
+    /* 交点光标亮点 */
+    radial-gradient(7px circle at var(--mx, 50%) var(--my, 50%), rgba(125, 235, 255, 0.8), rgba(125, 235, 255, 0) 70%),
+    /* 竖准星线 */
+    linear-gradient(to right, transparent calc(var(--mx, 50%) - 0.6px), rgba(56, 189, 248, 0.48) calc(var(--mx, 50%) - 0.6px), rgba(56, 189, 248, 0.48) calc(var(--mx, 50%) + 0.6px), transparent calc(var(--mx, 50%) + 0.6px)),
+    /* 横准星线 */
+    linear-gradient(to bottom, transparent calc(var(--my, 50%) - 0.6px), rgba(56, 189, 248, 0.48) calc(var(--my, 50%) - 0.6px), rgba(56, 189, 248, 0.48) calc(var(--my, 50%) + 0.6px), transparent calc(var(--my, 50%) + 0.6px));
 }
 .VPHome .route-card:hover .route-card__spot { opacity: 1; }
 /* 悬停霓虹环 + 描边变亮(覆盖前面较弱的 box-shadow) */
