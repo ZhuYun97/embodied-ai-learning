@@ -1458,6 +1458,28 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   transition: border-color 0.18s ease;
 }
 .home-coda__hint a:hover { border-bottom-color: currentColor; }
+
+/* ===== 首页「代码感」排版:拉丁字母 / 数字走 JetBrains Mono、中文仍走 Inter(双语 = 技术文档 / 代码味) =====
+   原理:等宽字体没有中文字形 → Latin/数字用 JetBrains Mono,中文自动回落到 base(Inter→系统中文),不伤中文可读性。
+   仅作用于首页正文区块(标题 / 章节引导 / 路线卡标题与描述 / 合并卡);路线 tag、链接 chip、HUD 标签本已等宽。 */
+.VPHome .vp-doc h2,
+.VPHome .vp-doc h2 + p,
+.VPHome .route-card__title,
+.VPHome .route-card p,
+.home-coda__title,
+.home-coda__sub,
+.home-coda__hint {
+  font-family: 'JetBrains Mono', var(--vp-font-family-base);
+}
+/* 章节引导段 → 像一行代码注释:前缀 // (等宽青色,呼应 "// 01" 眉标) */
+.VPHome .vp-doc h2 + p::before {
+  content: '// ';
+  color: var(--vp-c-brand-1);
+  opacity: 0.7;
+  font-weight: 600;
+}
+/* 合并卡正文里的 deep-research 等 inline code 已是等宽;这里给路线卡描述里的「/」分隔留一点呼吸 */
+.VPHome .route-card p { letter-spacing: 0.01em; }
 /* 链接收成 2 列紧凑块(原先 6 个铺成一长条 637px、把左侧文字挤到 365px;现归位:文字变宽、链接竖向更紧凑) */
 .home-coda__links {
   flex: 0 0 auto;
