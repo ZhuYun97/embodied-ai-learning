@@ -358,8 +358,9 @@ img.zoom-lightbox__content {
   margin: 24px 0 8px;
 }
 .route-card {
-  /* 240 起、264 封顶:整行卡片长到 264 填满(4×264+3×16=1104=内容宽),末行孤儿卡也封在 264 → 居中且与同行等宽 */
-  flex: 1 1 240px;
+  /* basis 200:让 WAM 5 卡在一行排开(5×200+4×16=1064≤1104 内容宽 → 不换行,grow 后各 ~208);
+     VLA 4 卡 grow 到 264 封顶填满整行。窄屏(<~1080)5 卡放不下时自动回落 4+1、居中(末行孤儿卡封在 264)。 */
+  flex: 1 1 200px;
   max-width: 264px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
