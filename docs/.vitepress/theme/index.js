@@ -839,6 +839,52 @@ function setupReveal() {
   }
 }
 
+// =====================================================================
+// VLA/WAM 路线卡 强化悬停:注入光斑层 + 随光标 3D 倾斜(--rx/--ry 倾角、--mx/--my 光斑位置)。
+// 仅 pointer:fine + 允许动效时绑定倾斜;光斑层始终注入(CSS 控制悬停显隐)。SPA 重建 → MutationObserver 兜底重绑。
+// =====================================================================
+let cardTiltBound = false
+function setupCardTilt() {
+  if (cardTiltBound || typeof window === 'undefined') return
+  cardTiltBound = true
+  const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const bind = () => {
+    document.querySelectorAll('.VPHome .route-card').forEach((card) => {
+      if (card.dataset.tilt) return
+      card.dataset.tilt = '1'
+      if (!card.querySelector('.route-card__spot')) {
+        const spot = document.createElement('i')
+        spot.className = 'route-card__spot'
+        spot.setAttribute('aria-hidden', 'true')
+        card.insertBefore(spot, card.firstChild)
+      }
+      if (!fine || reduce) return
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect()
+        const px = (e.clientX - r.left) / r.width
+        const py = (e.clientY - r.top) / r.height
+        card.style.setProperty('--mx', (px * 100).toFixed(1) + '%')
+        card.style.setProperty('--my', (py * 100).toFixed(1) + '%')
+        card.style.setProperty('--ry', ((px - 0.5) * 10).toFixed(2) + 'deg')
+        card.style.setProperty('--rx', (-(py - 0.5) * 8).toFixed(2) + 'deg')
+      })
+      card.addEventListener('pointerleave', () => {
+        card.style.setProperty('--rx', '0deg')
+        card.style.setProperty('--ry', '0deg')
+      })
+    })
+  }
+  bind()
+  if ('MutationObserver' in window) {
+    let t
+    new MutationObserver(() => {
+      clearTimeout(t)
+      t = setTimeout(bind, 200)
+    }).observe(document.body, { childList: true, subtree: true })
+  }
+}
+
 let delightBound = false
 function celebrateRobot() {
   delightToast('🤖 你发现了彩蛋 — ⊕ keep researching')
@@ -898,5 +944,6 @@ export default {
     onMounted(setupDelight)
     onMounted(setupFeatureHub)
     onMounted(setupReveal)
+    onMounted(setupCardTilt)
   },
 }

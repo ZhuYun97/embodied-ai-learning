@@ -1549,6 +1549,42 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   66% { clip-path: inset(0 0 0 0); transform: translate3d(1px, 0, 0); }
   82% { clip-path: inset(72% 0 6% 0); transform: translate3d(-1px, 0, 0); }
 }
+
+/* ===== VLA/WAM 路线卡 强化悬停(科技感):随光标 3D 倾斜 + 光斑辉光 + 强霓虹环 + 顶边发光 ===== */
+/* 光斑层(JS 注入的 .route-card__spot):随光标移动的青色径向辉光;z-index:-1 → 卡底色之上、文字之下 */
+.VPHome .route-card__spot {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(125, 235, 255, 0.22), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.VPHome .route-card:hover .route-card__spot { opacity: 1; }
+/* 悬停霓虹环 + 描边变亮(覆盖前面较弱的 box-shadow) */
+.VPHome .route-card:hover {
+  border-color: rgba(56, 189, 248, 0.7);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.55), 0 0 28px rgba(56, 189, 248, 0.22), 0 22px 52px rgba(37, 99, 235, 0.2);
+}
+.dark .VPHome .route-card:hover {
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.9), 0 0 44px rgba(56, 189, 248, 0.42), 0 22px 60px rgba(37, 99, 235, 0.36);
+}
+/* 顶部霓虹边:悬停变亮 + 发光 */
+.VPHome .route-card:hover::before {
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.85), 0 0 4px rgba(56, 189, 248, 0.9);
+}
+/* 随光标 3D 倾斜(仅精细指针 + 允许动效);其余环境退回基础上浮 */
+@media (prefers-reduced-motion: no-preference) and (pointer: fine) {
+  .VPHome .route-card {
+    transition: transform 0.16s ease, box-shadow 0.2s ease, background-size 0.2s ease, border-color 0.2s ease;
+  }
+  .VPHome .route-card:hover {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px) scale(1.025);
+  }
+}
 /* 链接收成 2 列紧凑块(原先 6 个铺成一长条 637px、把左侧文字挤到 365px;现归位:文字变宽、链接竖向更紧凑) */
 .home-coda__links {
   flex: 0 0 auto;
