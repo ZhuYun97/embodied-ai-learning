@@ -2108,33 +2108,36 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .thero__prompt { color: #22d3ee; font-weight: 700; }
 
 .thero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-/* 科技感按钮:霓虹描边 + 微底纹 + 悬停掠光扫过 + 抬升发光 */
+/* 科技感按钮:HUD 切角(clip-path 切左上 + 右下角)+ 悬停掠光 + drop-shadow 辉光(随切角形状)+ 抬升。
+   🩸 clip-path 会裁掉 box-shadow,故辉光一律用 filter: drop-shadow(它在裁剪后施加、跟随切角并向外溢出,等于把斜切边也用辉光勾了一道)。 */
 .thero__btn {
   position: relative; overflow: hidden;
-  font-family: var(--vp-font-family-mono); font-size: 0.86rem; font-weight: 600; letter-spacing: 0.01em;
-  padding: 10px 18px; border-radius: 7px; text-decoration: none;
-  border: 1px solid rgba(56, 189, 248, 0.38); color: var(--vp-c-text-1);
+  font-family: var(--vp-font-family-mono); font-size: 0.86rem; font-weight: 600; letter-spacing: 0.02em;
+  padding: 11px 20px; text-decoration: none;
+  border: 1px solid rgba(56, 189, 248, 0.42); color: var(--vp-c-text-1);
   background: rgba(56, 189, 248, 0.05);
-  transition: transform 0.16s ease, box-shadow 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, color 0.22s ease;
+  clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
+  transition: transform 0.16s ease, filter 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, color 0.22s ease;
 }
-/* 悬停掠光(一道高光斜扫过去)*/
+/* 悬停掠光(一道高光斜扫过去,被切角裁剪)*/
 .thero__btn::before {
-  content: ''; position: absolute; top: 0; left: -130%; width: 55%; height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(180, 235, 255, 0.35), transparent);
+  content: ''; position: absolute; top: 0; left: -130%; width: 55%; height: 100%; z-index: 1;
+  background: linear-gradient(100deg, transparent, rgba(180, 235, 255, 0.42), transparent);
   transform: skewX(-20deg); transition: left 0.55s ease; pointer-events: none;
 }
 .thero__btn:hover::before { left: 140%; }
 .thero__btn:hover {
   transform: translateY(-2px); border-color: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 0 20px rgba(56, 189, 248, 0.28);
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
 }
 .thero__btn--brand {
-  color: #fff; border-color: rgba(125, 211, 252, 0.55);
+  color: #fff; border-color: rgba(125, 211, 252, 0.6);
   background: linear-gradient(120deg, #2563eb, #3b6cf0);
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.22), 0 0 16px rgba(37, 99, 235, 0.32);
+  filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.45));
 }
 .thero__btn--brand:hover {
-  box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.8), 0 0 26px rgba(56, 189, 248, 0.5);
+  border-color: rgba(125, 211, 252, 0.9);
+  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.62));
 }
 
 /* 实时读出条(数字 0→目标计数;tabular mono) */
