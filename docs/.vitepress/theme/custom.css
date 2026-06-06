@@ -1562,12 +1562,12 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   opacity: 0;
   transition: opacity 0.18s ease;
   background:
-    /* 交点光标亮点 */
-    radial-gradient(7px circle at var(--mx, 50%) var(--my, 50%), rgba(125, 235, 255, 0.8), rgba(125, 235, 255, 0) 70%),
-    /* 竖准星线 */
-    linear-gradient(to right, transparent calc(var(--mx, 50%) - 0.6px), rgba(56, 189, 248, 0.48) calc(var(--mx, 50%) - 0.6px), rgba(56, 189, 248, 0.48) calc(var(--mx, 50%) + 0.6px), transparent calc(var(--mx, 50%) + 0.6px)),
-    /* 横准星线 */
-    linear-gradient(to bottom, transparent calc(var(--my, 50%) - 0.6px), rgba(56, 189, 248, 0.48) calc(var(--my, 50%) - 0.6px), rgba(56, 189, 248, 0.48) calc(var(--my, 50%) + 0.6px), transparent calc(var(--my, 50%) + 0.6px));
+    /* 交点光标亮点(柔和) */
+    radial-gradient(6px circle at var(--mx, 50%) var(--my, 50%), rgba(125, 235, 255, 0.5), rgba(125, 235, 255, 0) 70%),
+    /* 竖准星线(细 + 淡) */
+    linear-gradient(to right, transparent calc(var(--mx, 50%) - 0.5px), rgba(56, 189, 248, 0.2) calc(var(--mx, 50%) - 0.5px), rgba(56, 189, 248, 0.2) calc(var(--mx, 50%) + 0.5px), transparent calc(var(--mx, 50%) + 0.5px)),
+    /* 横准星线(细 + 淡) */
+    linear-gradient(to bottom, transparent calc(var(--my, 50%) - 0.5px), rgba(56, 189, 248, 0.2) calc(var(--my, 50%) - 0.5px), rgba(56, 189, 248, 0.2) calc(var(--my, 50%) + 0.5px), transparent calc(var(--my, 50%) + 0.5px));
 }
 .VPHome .route-card:hover .route-card__spot { opacity: 1; }
 /* 悬停霓虹环 + 描边变亮(覆盖前面较弱的 box-shadow) */
