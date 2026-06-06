@@ -1767,15 +1767,72 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   box-shadow: inset 2px 0 0 0 #22d3ee;
 }
 
-/* —— 顶栏菜单:悬停青色「扫线」下划线(background-size draw-in,不与伪元素冲突)—— */
-.VPNavBarMenuLink {
-  background-image: linear-gradient(var(--vp-c-brand-1), var(--vp-c-brand-1));
-  background-repeat: no-repeat;
-  background-position: 0 calc(100% - 6px);
-  background-size: 0% 1.5px;
-  transition: background-size 0.25s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+/* —— 顶栏菜单项:HUD 终端标签 —— 常驻等宽字形 + 切角芯片(悬停淡亮 / 激活点亮辉光)。
+   取代旧的悬停下划线;芯片用 ::before(isolate + z-index:-1)垫在文字下层,
+   切角与 Hero 按钮、路由卡同一套语言。让顶栏始终有一枚「亮起的终端标签」。 */
+.VPNavBar .VPNavBarMenu .VPNavBarMenuLink,
+.VPNavBar .VPNavBarMenu .VPFlyout > .button {
+  position: relative;
+  isolation: isolate;
+  font-family: 'JetBrains Mono', var(--vp-font-family-base);
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease;
 }
-.VPNavBarMenuLink:hover { background-size: 100% 1.5px; }
+.VPNavBar .VPNavBarMenu .VPNavBarMenuLink::before,
+.VPNavBar .VPNavBarMenu .VPFlyout > .button::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: -4px; right: -4px;
+  top: 50%;
+  height: 30px;
+  transform: translateY(-50%);
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  border: 1px solid transparent;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.2s ease, background-color 0.2s ease,
+              border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+/* 悬停:淡芯片亮起 + 文字转青 */
+.VPNavBar .VPNavBarMenu .VPNavBarMenuLink:hover::before,
+.VPNavBar .VPNavBarMenu .VPFlyout:hover > .button::before {
+  opacity: 1;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 8%, transparent);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 32%, transparent);
+}
+.VPNavBar .VPNavBarMenu .VPFlyout:hover > .button { color: var(--vp-c-brand-1); }
+/* 激活:点亮芯片 + 内辉光 + 切角外晕(filter 跟随切角形,不被 clip 切掉)*/
+.VPNavBar .VPNavBarMenu .VPNavBarMenuLink.active::before,
+.VPNavBar .VPNavBarMenu .VPFlyout.active > .button::before {
+  opacity: 1;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 50%, transparent);
+  box-shadow: inset 0 0 9px rgba(56, 189, 248, 0.10);
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.22));
+}
+.dark .VPNavBar .VPNavBarMenu .VPNavBarMenuLink:hover::before,
+.dark .VPNavBar .VPNavBarMenu .VPFlyout:hover > .button::before {
+  background: rgba(56, 189, 248, 0.10);
+  border-color: rgba(56, 189, 248, 0.42);
+}
+.dark .VPNavBar .VPNavBarMenu .VPNavBarMenuLink.active::before,
+.dark .VPNavBar .VPNavBarMenu .VPFlyout.active > .button::before {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(103, 232, 249, 0.62);
+  box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.12);
+  filter: drop-shadow(0 0 7px rgba(56, 189, 248, 0.32));
+}
+/* 雪佛龙(▾):常驻淡青、悬停/展开提亮,随终端标签语言统一 */
+.VPNavBar .VPNavBarMenu .VPFlyout > .button .vpi-chevron-down {
+  opacity: 0.55;
+  transition: opacity 0.2s ease, color 0.2s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.VPNavBar .VPNavBarMenu .VPFlyout:hover > .button .vpi-chevron-down,
+.VPNavBar .VPNavBarMenu .VPFlyout.active > .button .vpi-chevron-down {
+  opacity: 1;
+  color: var(--vp-c-brand-1);
+}
 
 /* —— 按钮:CTA 悬停霓虹 + 全站控件按下回弹(统一手感)—— */
 .VPButton.brand { transition: transform 0.12s ease, box-shadow 0.2s ease, background-color 0.2s ease; }
@@ -1801,6 +1858,9 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 @media (prefers-reduced-motion: reduce) {
   .vp-doc table tbody tr,
   .VPNavBarMenuLink,
+  .VPNavBar .VPNavBarMenu .VPNavBarMenuLink::before,
+  .VPNavBar .VPNavBarMenu .VPFlyout > .button::before,
+  .VPNavBar .VPNavBarMenu .VPFlyout > .button .vpi-chevron-down,
   .VPButton.brand { transition: none; }
   .VPButton:active,
   .lens-toggle:active, .zen-toggle:active,
