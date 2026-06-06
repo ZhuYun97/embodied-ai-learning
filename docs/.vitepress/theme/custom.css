@@ -1228,10 +1228,10 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.06), 0 0 24px rgba(37, 99, 235, 0.08);
 }
 
-/* —— ③ 首屏入场:Feature 卡 + 路线卡错峰升起(spring 缓动)—— */
+/* —— ③ 首屏入场:Feature 环形卡错峰升起(spring 缓动)。
+   路线卡 / 章节块改由「滚动入场」驱动(见下方 .reveal-up)——进视口才升起,而非首屏一次性放完(此前都在折叠线以下空放)。 */
 @media (prefers-reduced-motion: no-preference) {
-  .VPHome .VPFeature,
-  .VPHome .route-grid .route-card {
+  .VPHome .VPFeature {
     /* backwards:延迟期显示 from 态,结束后交还元素自身样式 —— 不会压制 hover 的 transform */
     animation: bpRise 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
   }
@@ -1239,14 +1239,30 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .VPHome .VPFeatures .item:nth-child(2) .VPFeature { animation-delay: 0.10s; }
   .VPHome .VPFeatures .item:nth-child(3) .VPFeature { animation-delay: 0.16s; }
   .VPHome .VPFeatures .item:nth-child(4) .VPFeature { animation-delay: 0.22s; }
-  .VPHome .route-grid .route-card:nth-child(1) { animation-delay: 0.06s; }
-  .VPHome .route-grid .route-card:nth-child(2) { animation-delay: 0.12s; }
-  .VPHome .route-grid .route-card:nth-child(3) { animation-delay: 0.18s; }
-  .VPHome .route-grid .route-card:nth-child(4) { animation-delay: 0.24s; }
 }
 @keyframes bpRise {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* —— 滚动入场(scroll-reveal):首页正文区块进入视口时错峰升起。
+   · 初始隐藏态 + 动画都只在「无 reduced-motion」内声明,且 .reveal-up 仅由 JS 给元素加
+     → 无 JS / reduced-motion 时一律照常显示,绝不卡在隐形态。
+   · 用独立 translate 属性(不碰 transform)做位移 → 与卡片 hover 的 transform 各走各的、互不覆盖。
+   · forwards 保留终态(opacity:1 / translate:0);--rd 控制同一网格内左→右错峰。 */
+@media (prefers-reduced-motion: no-preference) {
+  .VPHome .reveal-up {
+    opacity: 0;
+    translate: 0 26px;
+  }
+  .VPHome .reveal-up.is-in {
+    animation: revealUp 0.66s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: var(--rd, 0s);
+  }
+}
+@keyframes revealUp {
+  from { opacity: 0; translate: 0 26px; }
+  to   { opacity: 1; translate: 0 0; }
 }
 
 /* ============================================================
@@ -1417,6 +1433,25 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   color: var(--vp-c-text-2) !important;
 }
 .home-coda__sub code { font-size: 0.8em; }
+.home-coda__sub strong { color: var(--vp-c-text-1); font-weight: 650; }
+/* 📌 入口引导:并入卡片后作为小字脚注,顶部虚线分隔 */
+.home-coda__hint {
+  margin: 13px 0 0 !important;
+  padding-top: 12px;
+  border-top: 1px dashed var(--vp-c-divider);
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--vp-c-text-2) !important;
+}
+.home-coda__hint a {
+  color: var(--vp-c-brand-1) !important;
+  font-weight: 500;
+  text-decoration: none !important;
+  white-space: nowrap;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s ease;
+}
+.home-coda__hint a:hover { border-bottom-color: currentColor; }
 .home-coda__links { display: flex; flex-wrap: wrap; gap: 10px; }
 .home-coda__links a {
   display: inline-flex;

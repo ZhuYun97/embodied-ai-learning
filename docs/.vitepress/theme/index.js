@@ -760,6 +760,61 @@ function setupFeatureHub() {
   }
 }
 
+// =====================================================================
+// 滚动入场(scroll-reveal):首页正文区块进入视口时错峰升起。
+// 仅给元素「加 .reveal-up class」→ 无 JS 时元素从不隐藏;reduced-motion 直接跳过 → 全部照常显示。
+// 隐藏/动画终态见 custom.css(@media no-preference 内,用独立 translate,不干扰卡片 hover transform)。
+// 目标:章节标题 / 引导段 / 路线卡(网格内左→右错峰)/ 关于×继续 合并卡。环形 Feature 卡不动(其 transform 即轨道位姿)。
+// =====================================================================
+let revealBound = false
+function setupReveal() {
+  if (revealBound || typeof window === 'undefined') return
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (reduce || !('IntersectionObserver' in window)) return
+  revealBound = true
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue
+        e.target.classList.add('is-in')
+        io.unobserve(e.target)
+      }
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -7% 0px' }
+  )
+  const add = (el, delay) => {
+    if (!el || el.dataset.reveal) return
+    el.dataset.reveal = '1'
+    if (delay) el.style.setProperty('--rd', delay.toFixed(2) + 's')
+    el.classList.add('reveal-up')
+    io.observe(el)
+  }
+  const scan = () => {
+    const doc = document.querySelector('.VPHome .vp-doc')
+    if (!doc) return
+    // 正文被两层匿名 wrapper 包着(.vp-doc > div > div > 区块);以 route-grid 的父级为准定位真正的区块容器,避免写死层级
+    const anyGrid = doc.querySelector('.route-grid')
+    const container = anyGrid
+      ? anyGrid.parentElement
+      : doc.querySelector(':scope > div > div') || doc.querySelector(':scope > div') || doc
+    container
+      .querySelectorAll(':scope > h2, :scope > p, :scope > blockquote, :scope > .home-coda')
+      .forEach((el) => add(el, 0.04))
+    container.querySelectorAll(':scope > .route-grid').forEach((grid) => {
+      Array.from(grid.children).forEach((card, i) => add(card, 0.06 * (i + 1)))
+    })
+  }
+  scan()
+  // SPA 切回首页 / markdown 异步水合:兜底重扫(已标 data-reveal 的跳过)
+  if ('MutationObserver' in window) {
+    let t
+    new MutationObserver(() => {
+      clearTimeout(t)
+      t = setTimeout(scan, 160)
+    }).observe(document.body, { childList: true, subtree: true })
+  }
+}
+
 let delightBound = false
 function celebrateRobot() {
   delightToast('🤖 你发现了彩蛋 — ⊕ keep researching')
@@ -818,5 +873,6 @@ export default {
     onMounted(setupLightbox)
     onMounted(setupDelight)
     onMounted(setupFeatureHub)
+    onMounted(setupReveal)
   },
 }
