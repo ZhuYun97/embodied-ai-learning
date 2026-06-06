@@ -1503,6 +1503,52 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 /* 中文大标题无科幻中文字体 → 宽字距 + 已有辉光/渐变营造科技感 */
 .VPHome .thero__title-zh { letter-spacing: 0.05em; }
 .VPHome .route-card__title { letter-spacing: 0.01em; }
+
+/* ===== 科幻文字动效:英文标题逐字「启动点亮」+ 标题扫描线 + 一次性 glitch(均一次性、reduced-motion 全关) ===== */
+/* 布局(始终生效):按词 nowrap → 词内不裂行;逐字 inline-block 以便 transform */
+.thero__word { display: inline-block; white-space: nowrap; }
+.thero__char { display: inline-block; will-change: opacity, transform, filter; }
+@media (prefers-reduced-motion: no-preference) {
+  /* 每个字母:模糊上浮 → 清晰点亮,按 --ci 错峰(像终端逐字打出) */
+  .thero__char {
+    animation: charBootIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(var(--ci) * 0.045s + 0.5s);
+  }
+  /* 标题扫描线:青色细线自上而下扫过一次 */
+  .thero__title { position: relative; }
+  .thero__title::after {
+    content: '';
+    position: absolute;
+    left: -3%; right: -3%; top: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.95), transparent);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
+    opacity: 0;
+    pointer-events: none;
+    animation: titleScan 1.5s ease-out 0.15s 1 forwards;
+  }
+  /* 启动完成后,英文标题来一次极短 glitch(切片错位 + 抖动),仅一次 */
+  .VPHome .thero__title-en { animation: titleGlitch 0.4s linear 1.95s 1; }
+}
+@keyframes charBootIn {
+  0%   { opacity: 0; transform: translateY(0.4em) scaleY(0.62); filter: blur(7px); }
+  55%  { opacity: 1; text-shadow: 0 0 16px rgba(125, 211, 252, 0.95); }
+  100% { opacity: 1; transform: none; filter: blur(0); text-shadow: none; }
+}
+@keyframes titleScan {
+  0%   { top: -8%; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 108%; opacity: 0; }
+}
+@keyframes titleGlitch {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate3d(0, 0, 0); }
+  15% { clip-path: inset(14% 0 66% 0); transform: translate3d(-2px, 0, 0); }
+  32% { clip-path: inset(58% 0 18% 0); transform: translate3d(2px, 0, 0); }
+  48% { clip-path: inset(30% 0 46% 0); transform: translate3d(-1px, 0, 0); }
+  66% { clip-path: inset(0 0 0 0); transform: translate3d(1px, 0, 0); }
+  82% { clip-path: inset(72% 0 6% 0); transform: translate3d(-1px, 0, 0); }
+}
 /* 链接收成 2 列紧凑块(原先 6 个铺成一长条 637px、把左侧文字挤到 365px;现归位:文字变宽、链接竖向更紧凑) */
 .home-coda__links {
   flex: 0 0 auto;

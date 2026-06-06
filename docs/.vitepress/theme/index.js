@@ -419,6 +419,26 @@ const HeroFX = {
 // + 等宽按钮 + 实时读出条(数字 0→目标计数)+ 右侧机器人。内容取自 frontmatter.hero
 // (单一来源,不重复维护);默认 .VPHero 由 custom.css 隐藏。reduced-motion 安全。
 // =====================================================================
+// 英文标题拆成「逐字」span(科幻入场:每个字母错峰点亮)。按词分组 + nowrap → 只在词间换行,词内不裂;
+// span 全部 aria-hidden,父级用 aria-label 保留可读文本(屏幕阅读器读整句、不逐字念)。
+function splitTitleChars(text) {
+  const out = []
+  let ci = 0
+  text.split(' ').forEach((word, wi) => {
+    if (wi > 0) out.push(' ') // 词间正常空格(可换行)
+    out.push(
+      h(
+        'span',
+        { class: 'thero__word' },
+        word.split('').map((ch) =>
+          h('span', { class: 'thero__char', 'aria-hidden': 'true', style: { '--ci': ci++ } }, ch)
+        )
+      )
+    )
+  })
+  return out
+}
+
 const TechHero = {
   setup() {
     const { frontmatter } = useData()
@@ -465,7 +485,11 @@ const TechHero = {
           h('div', { class: 'thero__main' }, [
             h('h1', { class: 'thero__title' }, [
               h('span', { class: 'thero__title-zh' }, hero.name || '具身智能学习站'),
-              h('span', { class: 'thero__title-en' }, hero.text || 'Embodied AI Learning'),
+              h(
+                'span',
+                { class: 'thero__title-en', 'aria-label': hero.text || 'Embodied AI Learning' },
+                splitTitleChars(hero.text || 'Embodied AI Learning')
+              ),
             ]),
             h('p', { class: 'thero__lede' }, [
               h('span', { class: 'thero__prompt' }, '> '),
