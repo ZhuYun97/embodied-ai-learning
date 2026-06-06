@@ -1,5 +1,86 @@
 [
   {
+    "id": "nvidia-isaac-groot-ref-unitree-h2plus-20260601",
+    "title": "英伟达发布 Isaac GR00T 参考人形机器人:本体选定宇树 H2 Plus + Jetson Thor,面向高校科研",
+    "date": "2026-06-01",
+    "fetched_at": "2026-06-06",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "模型发布",
+      "公司战略",
+      "学术会议"
+    ],
+    "summary": "**2026-06-01**(COMPUTEX 2026 期间),**英伟达(NVIDIA)** 发布面向高校科研的 **Isaac GR00T 参考人形机器人(Reference Humanoid)**,整机本体选定 **宇树(Unitree)全尺寸人形 H2 Plus**(约 1.8m)。参考设计 = H2 Plus 本体 + **Jetson Thor**(含 Blackwell GPU、端侧推理)+ **Isaac GR00T** 人形基础模型 + Isaac 仿真;灵巧手由新加坡 **Sharpa** 提供。首批面向 **Ai2、ETH Zurich、斯坦福 Robotics Center、UCSD ARCL** 等机构做前沿人形研究。这是英伟达对外推广的**首个整机人形参考平台**,把「芯片 + 模型 + 仿真 + 本体」全栈打包给学界。⚠️ H2 Plus 参考设计为**厂商计划 2026 年底交付(约 10 月起发货)**、非现货;具体规格与售价以官方为准。",
+    "sources": [
+      {
+        "name": "NVIDIA Newsroom(官方)",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-open-humanoid-robot-reference-design"
+      },
+      {
+        "name": "宇树 Unitree · PRNewswire(官方)",
+        "url": "https://www.prnewswire.com/news-releases/unitree-announces-h2-plus-an-nvidia-isaac-gr00t-reference-humanoid-robot-for-academic-research-302786748.html"
+      },
+      {
+        "name": "GlobeNewswire(2026-06-01)",
+        "url": "https://www.globenewswire.com/news-release/2026/06/01/3303990/0/en/NVIDIA-Announces-NVIDIA-Isaac-GR00T-Reference-Humanoid-Robot-for-Academic-Research.html"
+      },
+      {
+        "name": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/01/nvidia-unitree-humanoid-robotics-system-researchers.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "GR00T N1 细读",
+        "url": "/vla/papers/groot-n1"
+      },
+      {
+        "label": "GR00T N2 细读",
+        "url": "/wam/papers/groot-n2"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "unitree-star-ipo-pass-register-20260602",
+    "title": "宇树科技科创板 IPO 过会(6/1)、提交注册(6/2):拟募资 42 亿,有望成「具身智能第一股」",
+    "date": "2026-06-02",
+    "fetched_at": "2026-06-06",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "公司战略"
+    ],
+    "summary": "**宇树科技(Unitree)** 科创板 IPO 快速推进:**6 月 1 日**下午上交所第 31 次上市审核委审议会议**通过(过会)**,从 3 月 20 日受理到过会**仅 73 天**;**6 月 2 日**公司**提交注册**,进入上市流程最后阶段。招股书拟**募资 42.02 亿元**,投向智能机器人模型研发、机器人本体研发、新型机器人产品开发及智能机器人制造基地。为科创板「预先审阅」机制落地后的第二单。⚠️ 目前为**过会 + 提交注册**阶段、**尚未完成证监会注册与挂牌上市**;「A 股 / 具身智能机器人第一股」为媒体说法,以注册结果与最终上市为准。时点上恰逢英伟达将其 H2 Plus 选为 Isaac GR00T 参考人形(6/1)。",
+    "sources": [
+      {
+        "name": "上交所 · IPO 审核(官方)",
+        "url": "https://www.sse.com.cn/listing/renewal/ipo/index_listing_detail.shtml?auditId=2178"
+      },
+      {
+        "name": "上海证券报 · 中国证券网",
+        "url": "https://m.cnstock.com/commonDetail/719935"
+      },
+      {
+        "name": "证券时报",
+        "url": "https://www.stcn.com/article/detail/3940715.html"
+      },
+      {
+        "name": "新浪财经",
+        "url": "https://finance.sina.com.cn/stock/zqgd/2026-06-03/doc-iniaarqw2591829.shtml"
+      }
+    ],
+    "related": [
+      {
+        "label": "生态图谱:公司 / 投资方",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": false
+  },
+  {
     "id": "astribot-xingchen-bround-20260603",
     "title": "星尘智能(Astribot)完成超 10 亿元 B 轮融资:中科创达战略注资,媒体称估值破百亿",
     "date": "2026-06-03",
