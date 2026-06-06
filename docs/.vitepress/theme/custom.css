@@ -803,8 +803,26 @@ img.zoom-lightbox__content {
   -webkit-text-fill-color: transparent;
 }
 
-/* 上述增强均为静态装饰,无新增动画;reduced-motion 无需额外处理。
-   玻璃顶栏在不支持 backdrop-filter 的浏览器回退为半透明纯色,文字对比仍达标。 */
+/* 玻璃顶栏在不支持 backdrop-filter 的浏览器回退为半透明纯色,文字对比仍达标。 */
+
+/* ---------- 顶栏 v2「再科技感」:底线发光 + 流动扫描段 + 当前项辉光 ---------- */
+/* 底部发丝线:加亮 + 发光 */
+.VPNavBar::after { height: 1.5px; opacity: 1; box-shadow: 0 0 8px rgba(34, 211, 238, 0.5); }
+/* 流动扫描段:一道亮青色段沿顶栏底边周期性掠过 → 活的 HUD 顶栏 */
+.VPNavBar::before {
+  content: ''; position: absolute; bottom: 0; left: -16%; width: 16%; height: 2px;
+  background: linear-gradient(90deg, transparent, #67e8f9, transparent);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.75);
+  pointer-events: none; z-index: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .VPNavBar::before { animation: navScan 7s linear infinite; }
+}
+@keyframes navScan { 0% { left: -16%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+/* 顶栏菜单:字距 + 当前项青色辉光(更 HUD) */
+.VPNavBarMenuLink { letter-spacing: 0.02em; }
+.VPNavBarMenuLink.active { text-shadow: 0 0 10px rgba(56, 189, 248, 0.55); }
+.dark .VPNavBarMenuLink.active { text-shadow: 0 0 12px rgba(103, 232, 249, 0.6); }
 
 /* ===================================================================
    交互功能层(地基:models-spec 解析器 + 4 个快赢)
@@ -2109,37 +2127,49 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .thero__prompt { color: #22d3ee; font-weight: 700; }
 
 .thero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-/* 科技感按钮:HUD 切角(clip-path 切左上 + 右下角)+ 悬停掠光 + drop-shadow 辉光(随切角形状)+ 抬升。
-   🩸 clip-path 会裁掉 box-shadow,故辉光一律用 filter: drop-shadow(它在裁剪后施加、跟随切角并向外溢出,等于把斜切边也用辉光勾了一道)。 */
+/* 科技感按钮 v3「HUD 指令面板」:切角 + 内框线(双线框=面板)+ 电光青填充 + 漂移扫描线纹理(屏感)+ 霓虹描边/辉光 + 掠光。
+   🩸 clip-path 会裁掉 box-shadow,故辉光一律用 filter: drop-shadow(裁剪后施加、随切角外溢,并把斜切边也勾一道)。 */
 .thero__btn {
   position: relative; overflow: hidden;
-  font-family: var(--vp-font-family-mono); font-size: 0.86rem; font-weight: 600; letter-spacing: 0.02em;
-  padding: 11px 20px; text-decoration: none;
-  border: 1px solid rgba(56, 189, 248, 0.42); color: var(--vp-c-text-1);
-  background: rgba(56, 189, 248, 0.05);
-  clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
-  transition: transform 0.16s ease, filter 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, color 0.22s ease;
+  font-family: var(--vp-font-family-mono); font-size: 0.86rem; font-weight: 600; letter-spacing: 0.05em;
+  padding: 12px 24px; text-decoration: none; color: var(--vp-c-text-1);
+  border: 1px solid rgba(125, 235, 255, 0.5);
+  background: rgba(56, 189, 248, 0.06);
+  clip-path: polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px);
+  transition: transform 0.16s ease, filter 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease;
 }
-/* 悬停掠光(一道高光斜扫过去,被切角裁剪)*/
+/* 内 HUD 框线(同切角内缩 → 双线面板感)*/
+.thero__btn::after {
+  content: ''; position: absolute; inset: 3px; pointer-events: none; z-index: 2;
+  border: 1px solid rgba(125, 235, 255, 0.22);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+/* 悬停掠光(切角内裁)*/
 .thero__btn::before {
   content: ''; position: absolute; top: 0; left: -130%; width: 55%; height: 100%; z-index: 1;
-  background: linear-gradient(100deg, transparent, rgba(180, 235, 255, 0.42), transparent);
+  background: linear-gradient(100deg, transparent, rgba(190, 240, 255, 0.5), transparent);
   transform: skewX(-20deg); transition: left 0.55s ease; pointer-events: none;
 }
 .thero__btn:hover::before { left: 140%; }
 .thero__btn:hover {
-  transform: translateY(-2px); border-color: var(--vp-c-brand-1);
-  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
+  transform: translateY(-2px); border-color: #9be8ff;
+  filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.55));
 }
 .thero__btn--brand {
-  color: #fff; border-color: rgba(125, 211, 252, 0.6);
-  background: linear-gradient(120deg, #2563eb, #3b6cf0);
-  filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.45));
+  color: #eafdff; border-color: rgba(150, 240, 255, 0.8);
+  /* 电光青蓝填充 + 极淡横向扫描线(HUD 屏感),底色够深保证白字可读 */
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px),
+    linear-gradient(125deg, #0c4ea8, #0e7fb8);
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
 }
-.thero__btn--brand:hover {
-  border-color: rgba(125, 211, 252, 0.9);
-  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.62));
+.thero__btn--brand::after { border-color: rgba(190, 245, 255, 0.42); }
+.thero__btn--brand:hover { border-color: #bdf3ff; filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.7)); }
+/* 扫描线缓缓漂移 = 通电的「活」屏(动 background-position,不碰 filter → 不与 hover 辉光打架)*/
+@media (prefers-reduced-motion: no-preference) {
+  .thero__btn--brand { animation: btnScanlines 6s linear infinite; }
 }
+@keyframes btnScanlines { to { background-position: 0 6px, 0 0; } }
 
 /* 实时读出条(数字 0→目标计数;tabular mono) */
 .thero__readout {
