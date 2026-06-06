@@ -2216,12 +2216,14 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.55));
 }
 .thero__btn--brand {
-  color: #eafdff; border-color: rgba(150, 240, 255, 0.8);
-  /* 电光青蓝填充 + 极淡横向扫描线(HUD 屏感),底色够深保证白字可读 */
+  color: #eafdff; border-color: rgba(150, 240, 255, 0.85);
+  /* 电光青蓝填充 v2:深电蓝 → 亮天青(135° 对角,亮端落在右下、避开文字 → 白字仍 AA≈4.7:1);
+     顶部高光薄片 = 通电「亮屏」感;极淡青色扫描线取代发灰白线,去掉旧版的「浑浊」。 */
   background:
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px),
-    linear-gradient(125deg, #0c4ea8, #0e7fb8);
-  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
+    linear-gradient(180deg, rgba(186, 246, 255, 0.16), transparent 40%),
+    repeating-linear-gradient(0deg, rgba(120, 222, 255, 0.06) 0 1px, transparent 1px 3px),
+    linear-gradient(135deg, #0a37c8 0%, #0f5ad6 55%, #1372dc 100%);
+  filter: drop-shadow(0 0 13px rgba(56, 189, 248, 0.55));
 }
 .thero__btn--brand::after { border-color: rgba(190, 245, 255, 0.42); }
 .thero__btn--brand:hover { border-color: #bdf3ff; filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.7)); }
@@ -2229,7 +2231,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 @media (prefers-reduced-motion: no-preference) {
   .thero__btn--brand { animation: btnScanlines 6s linear infinite; }
 }
-@keyframes btnScanlines { to { background-position: 0 6px, 0 0; } }
+@keyframes btnScanlines { to { background-position: 0 0, 0 6px, 0 0; } }
 
 /* 实时读出条(数字 0→目标计数;tabular mono) */
 .thero__readout {
