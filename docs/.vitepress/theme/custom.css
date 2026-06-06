@@ -1923,18 +1923,34 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .thero__prompt { color: #22d3ee; font-weight: 700; }
 
 .thero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+/* 科技感按钮:霓虹描边 + 微底纹 + 悬停掠光扫过 + 抬升发光 */
 .thero__btn {
-  font-family: var(--vp-font-family-mono); font-size: 0.88rem; font-weight: 600;
-  padding: 10px 18px; border-radius: 8px; text-decoration: none;
-  border: 1px solid var(--vp-c-divider); color: var(--vp-c-text-1);
-  transition: transform 0.14s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  position: relative; overflow: hidden;
+  font-family: var(--vp-font-family-mono); font-size: 0.86rem; font-weight: 600; letter-spacing: 0.01em;
+  padding: 10px 18px; border-radius: 7px; text-decoration: none;
+  border: 1px solid rgba(56, 189, 248, 0.38); color: var(--vp-c-text-1);
+  background: rgba(56, 189, 248, 0.05);
+  transition: transform 0.16s ease, box-shadow 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, color 0.22s ease;
 }
-.thero__btn:hover { transform: translateY(-1px); border-color: var(--vp-c-brand-1); }
+/* 悬停掠光(一道高光斜扫过去)*/
+.thero__btn::before {
+  content: ''; position: absolute; top: 0; left: -130%; width: 55%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(180, 235, 255, 0.35), transparent);
+  transform: skewX(-20deg); transition: left 0.55s ease; pointer-events: none;
+}
+.thero__btn:hover::before { left: 140%; }
+.thero__btn:hover {
+  transform: translateY(-2px); border-color: var(--vp-c-brand-1);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 0 20px rgba(56, 189, 248, 0.28);
+}
 .thero__btn--brand {
-  border-color: transparent; color: #fff;
+  color: #fff; border-color: rgba(125, 211, 252, 0.55);
   background: linear-gradient(120deg, #2563eb, #3b6cf0);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.22), 0 0 16px rgba(37, 99, 235, 0.32);
 }
-.thero__btn--brand:hover { box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5), 0 0 22px rgba(56, 189, 248, 0.3); }
+.thero__btn--brand:hover {
+  box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.8), 0 0 26px rgba(56, 189, 248, 0.5);
+}
 
 /* 实时读出条(数字 0→目标计数;tabular mono) */
 .thero__readout {
@@ -2260,6 +2276,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
    文字恒清晰正立等大(修「太丑」)。窄屏 / reduced-motion 回退默认整卡网格。
    ============================================================ */
 @property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@property --a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }   /* 轨道点/脉冲角度,可动画 */
 
 /* 默认(窄屏 / reduced-motion 网格态):同行等高 + 悬停轻抬升 */
 .VPHome .VPFeatures .item .VPFeature {
@@ -2287,8 +2304,9 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 @media (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .feat-hub__robot { animation: heroFloat 6s ease-in-out infinite; }
 }
-/* 轨道线圆点(JS 注入);默认隐藏,仅环形 media 内显形 */
-.VPHome .VPFeatures .feat-orbit-dot { display: none; }
+/* 轨道线圆点 + 流动能量脉冲(JS 注入);默认隐藏,仅环形 media 内显形 */
+.VPHome .VPFeatures .feat-orbit-dot,
+.VPHome .VPFeatures .feat-orbit-pulse { display: none; }
 
 @media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .items {
@@ -2308,16 +2326,29 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .VPHome .VPFeatures .items > .item { pointer-events: auto; }
   .VPHome .VPFeatures .items:has(> .item:hover) > .item { animation-play-state: paused; }
 
-  /* 轨道线:48 个圆点沿与卡片相同的 3D 公式分布(各自 --a 角度)→ 精确勾出卡片公转轨迹,
-     带透视深度(前大后小);静止(轨道不动,卡片在其上公转)。 */
+  /* 轨道线:60 个圆点沿与卡片相同的 3D 公式分布(各自 --a 角度)→ 精确勾出卡片公转轨迹,
+     带透视深度(前大后小);静止(轨道不动,卡片在其上公转)。密+亮 → 更像实线。 */
   .VPHome .VPFeatures .feat-orbit-dot {
     display: block; position: absolute; top: 50%; left: 50%;
-    width: 2.5px; height: 2.5px; margin: -1.25px 0 0 -1.25px;
+    width: 2px; height: 2px; margin: -1px 0 0 -1px;
     border-radius: 50%; pointer-events: none; z-index: 0;
-    background: rgba(125, 235, 255, 0.85);
-    box-shadow: 0 0 5px rgba(56, 189, 248, 0.85);
+    background: rgba(130, 215, 250, 0.65);
+    box-shadow: 0 0 3px rgba(56, 189, 248, 0.55);
     transform: translate3d(calc(var(--rx) * sin(var(--a))), calc(var(--yt) * cos(var(--a)) * -1), calc(var(--rz) * cos(var(--a)) * -1));
   }
+  /* 流动能量脉冲:4 个亮点,--a 动画 0→360 沿同一轨道跑(能量在轨道上流动);
+     带透视深度(到前面变大变亮);错峰 90° 铺开。 */
+  .VPHome .VPFeatures .feat-orbit-pulse {
+    display: block; position: absolute; top: 50%; left: 50%;
+    width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px;
+    border-radius: 50%; pointer-events: none; z-index: 1;
+    background: #e6fcff;
+    box-shadow: 0 0 9px 2px rgba(125, 235, 255, 0.95), 0 0 20px rgba(56, 189, 248, 0.6);
+    transform: translate3d(calc(var(--rx) * sin(var(--a))), calc(var(--yt) * cos(var(--a)) * -1), calc(var(--rz) * cos(var(--a)) * -1));
+    animation: orbitFlow 9s linear infinite;
+    animation-delay: calc(var(--p, 0) * -2.25s);
+  }
+  @keyframes orbitFlow { from { --a: 0deg; } to { --a: 360deg; } }
 
   /* 3D 环绕公转:每张卡按角度 θ=--ang 放到 (Rx·sinθ, -Yt·cosθ, -Rz·cosθ):
      θ=0 在「后上远」(透视缩小)、θ=180 在「前下近」(透视放大),恒 60° 等角对称。
@@ -2381,20 +2412,16 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   }
   @keyframes featCore { 0%, 100% { opacity: 0.66; transform: scale(0.92); } 50% { opacity: 1; transform: scale(1.1); } }
 
-  /* 科技感:中心同心轨道环(平面 radar 背景,落于机器人/卡片之后)+ 缓慢呼吸 */
+  /* 中心柔光(轨道由 .feat-orbit-dot 圆点构成;这里只留极柔能量晕,去掉了原「同心环 radar」杂乱)*/
   .VPHome .VPFeatures .items::after {
     content: ''; position: absolute; left: 50%; top: 50%;
-    width: calc(var(--rx) * 1.9); height: calc(var(--rx) * 0.92);
-    margin: calc(var(--rx) * -0.46) 0 0 calc(var(--rx) * -0.95);
+    width: calc(var(--rx) * 1.6); height: calc(var(--rx) * 0.8);
+    margin: calc(var(--rx) * -0.4) 0 0 calc(var(--rx) * -0.8);
     border-radius: 50%; pointer-events: none; z-index: 0;
-    /* 注意:绝不在此(卡片背后、卡用 backdrop-filter 的绝对定位伪元素)用 mask-image
-       —— 会触发 Chromium 合成 bug 致暗色卡片整片空白(血泪教训)。用渐变 alpha 自然淡出。 */
-    background:
-      repeating-radial-gradient(ellipse closest-side at 50% 50%, transparent 0 calc(100% / 7 - 1px), rgba(56, 189, 248, 0.11) calc(100% / 7 - 1px) calc(100% / 7)),
-      radial-gradient(ellipse closest-side at 50% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 68%);
+    background: radial-gradient(ellipse closest-side at 50% 50%, rgba(34, 211, 238, 0.07) 0%, transparent 70%);
     animation: featRingBreath 7s ease-in-out infinite;
   }
-  @keyframes featRingBreath { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.85; } }
+  @keyframes featRingBreath { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.8; } }
 }
 
 /* 3D 环按断点加宽:Rx 横向半径 + Rz 深度。卡会扫到 ±Rx,故 Rx+卡半宽99 ≤ 容器半宽。 */

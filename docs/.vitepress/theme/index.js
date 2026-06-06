@@ -729,15 +729,24 @@ function setupFeatureHub() {
       hub.appendChild(img)
       items.appendChild(hub)
     }
-    // 轨道线:沿卡片同一 3D 公式 (rx·sinθ, -yt·cosθ, -rz·cosθ) 撒点 → 精确勾出卡片轨迹
+    // 轨道线:沿卡片同一 3D 公式 (rx·sinθ, -yt·cosθ, -rz·cosθ) 撒点 → 精确勾出卡片轨迹。
+    // 60 个静止点(密=更像实线)+ 4 个沿轨道流动的能量脉冲(--a 动画,能量在轨道上跑)。
     if (!items.querySelector('.feat-orbit-dot')) {
-      const N = 48
+      const N = 90
       for (let i = 0; i < N; i++) {
         const d = document.createElement('i')
         d.className = 'feat-orbit-dot'
         d.style.setProperty('--a', (i * (360 / N)).toFixed(2) + 'deg')
         d.setAttribute('aria-hidden', 'true')
         items.appendChild(d)
+      }
+      const P = 4
+      for (let i = 0; i < P; i++) {
+        const p = document.createElement('i')
+        p.className = 'feat-orbit-pulse'
+        p.style.setProperty('--p', i)
+        p.setAttribute('aria-hidden', 'true')
+        items.appendChild(p)
       }
     }
   }
