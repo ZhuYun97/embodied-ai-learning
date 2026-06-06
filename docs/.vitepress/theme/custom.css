@@ -2345,26 +2345,58 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7), 0 0 30px rgba(56, 189, 248, 0.3), 0 18px 50px rgba(37, 99, 235, 0.3);
   }
 
-  /* 中央能量核柔和脉动光晕(标签落于其上)*/
+  /* 科技感:每张卡 HUD 四角取景框(.item::before 用 8 段渐变画 4 个角),悬停变亮 */
+  .VPHome .VPFeatures .items > .item::before {
+    content: ''; position: absolute; inset: 1px; z-index: 4; pointer-events: none;
+    --cb: rgba(103, 232, 249, 0.9); --cl: 13px; --cw: 1.5px;
+    background:
+      linear-gradient(var(--cb), var(--cb)) 0 0 / var(--cl) var(--cw) no-repeat,
+      linear-gradient(var(--cb), var(--cb)) 0 0 / var(--cw) var(--cl) no-repeat,
+      linear-gradient(var(--cb), var(--cb)) 100% 0 / var(--cl) var(--cw) no-repeat,
+      linear-gradient(var(--cb), var(--cb)) 100% 0 / var(--cw) var(--cl) no-repeat,
+      linear-gradient(var(--cb), var(--cb)) 0 100% / var(--cl) var(--cw) no-repeat,
+      linear-gradient(var(--cb), var(--cb)) 0 100% / var(--cw) var(--cl) no-repeat,
+      linear-gradient(var(--cb), var(--cb)) 100% 100% / var(--cl) var(--cw) no-repeat,
+      linear-gradient(var(--cb), var(--cb)) 100% 100% / var(--cw) var(--cl) no-repeat;
+    opacity: 0.5; transition: opacity 0.3s;
+  }
+  .VPHome .VPFeatures .items > .item:hover::before { opacity: 1; }
+  /* 缓慢扫描线(.item::after),每卡错峰,holo 感 */
+  .VPHome .VPFeatures .items > .item::after {
+    content: ''; position: absolute; inset: 1px; z-index: 3; pointer-events: none;
+    border-radius: 12px; overflow: hidden; opacity: 0.6;
+    background: linear-gradient(180deg, transparent, rgba(103, 232, 249, 0.12), transparent);
+    background-size: 100% 52%; background-repeat: no-repeat;
+    animation: cardScan 5s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * -0.8s);
+  }
+  @keyframes cardScan { 0%, 100% { background-position: 0 -65%; } 50% { background-position: 0 165%; } }
+
+  /* 中央能量核(脉动反应堆,落于机器人之后)*/
   .VPHome .VPFeatures .items::before {
     content: ''; position: absolute; left: 50%; top: 50%;
-    width: 240px; height: 240px; margin: -120px 0 0 -120px;
+    width: 230px; height: 230px; margin: -115px 0 0 -115px;
     border-radius: 50%; pointer-events: none; z-index: 0;
-    background: radial-gradient(circle, rgba(34, 211, 238, 0.26) 0%, rgba(37, 99, 235, 0.12) 42%, transparent 70%);
+    background: radial-gradient(circle, rgba(125, 235, 255, 0.4) 0%, rgba(34, 211, 238, 0.2) 32%, rgba(37, 99, 235, 0.1) 54%, transparent 72%);
+    box-shadow: 0 0 70px rgba(34, 211, 238, 0.3), inset 0 0 50px rgba(56, 189, 248, 0.18);
     animation: featCore 5s ease-in-out infinite;
   }
-  @keyframes featCore { 0%, 100% { opacity: 0.68; transform: scale(0.94); } 50% { opacity: 1; transform: scale(1.08); } }
+  @keyframes featCore { 0%, 100% { opacity: 0.66; transform: scale(0.92); } 50% { opacity: 1; transform: scale(1.1); } }
 
-  /* 3D 版不画平面虚线轨道(平面椭圆与 3D 轨迹对不齐),改为底部柔光「地台」grounding。 */
+  /* 科技感:中心同心轨道环(平面 radar 背景,落于机器人/卡片之后)+ 缓慢呼吸 */
   .VPHome .VPFeatures .items::after {
-    content: ''; position: absolute; left: 50%; top: 62%;
-    width: calc(var(--rx) * 2.1); height: 90px;
-    margin-left: calc(var(--rx) * -1.05);
+    content: ''; position: absolute; left: 50%; top: 50%;
+    width: calc(var(--rx) * 1.9); height: calc(var(--rx) * 0.92);
+    margin: calc(var(--rx) * -0.46) 0 0 calc(var(--rx) * -0.95);
     border-radius: 50%; pointer-events: none; z-index: 0;
-    background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.16) 0%, rgba(37, 99, 235, 0.06) 45%, transparent 72%);
+    /* 注意:绝不在此(卡片背后、卡用 backdrop-filter 的绝对定位伪元素)用 mask-image
+       —— 会触发 Chromium 合成 bug 致暗色卡片整片空白(血泪教训)。用渐变 alpha 自然淡出。 */
+    background:
+      repeating-radial-gradient(ellipse closest-side at 50% 50%, transparent 0 calc(100% / 7 - 1px), rgba(56, 189, 248, 0.11) calc(100% / 7 - 1px) calc(100% / 7)),
+      radial-gradient(ellipse closest-side at 50% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 68%);
     animation: featRingBreath 7s ease-in-out infinite;
   }
-  @keyframes featRingBreath { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+  @keyframes featRingBreath { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.85; } }
 }
 
 /* 3D 环按断点加宽:Rx 横向半径 + Rz 深度。卡会扫到 ±Rx,故 Rx+卡半宽99 ≤ 容器半宽。 */
