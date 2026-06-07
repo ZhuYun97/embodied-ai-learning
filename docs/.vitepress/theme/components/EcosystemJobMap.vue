@@ -194,7 +194,7 @@ onMounted(async () => {
       opacity: 0.95,
       fillColor: col,
       fillOpacity: 0.3,
-      className: 'jm-marker',
+      className: isCN ? 'jm-marker jm-marker--cn' : 'jm-marker jm-marker--intl',
       _n: n,
       _cn: isCN,
     })
@@ -264,6 +264,27 @@ a.jm-co:hover .jm-co__name { color: #8fd6ff; }
 }
 .jm-tip::before { display: none; }
 .jm-marker { filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5)); }
+/* 城市圆点呼吸灯:辉光 + 填充随节律明暗(国内青 / 海外紫;异速→自然错相,不齐步) */
+.jm-marker--cn { filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.5)); }
+.jm-marker--intl { filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.5)); }
+@media (prefers-reduced-motion: no-preference) {
+  .jm-marker--cn { animation: jmBreathCn 3.2s ease-in-out infinite; }
+  .jm-marker--intl { animation: jmBreathIntl 3.9s ease-in-out infinite; }
+  .jm-cluster { animation: jmBreathCluster 3.5s ease-in-out infinite; }
+}
+@keyframes jmBreathCn {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.38)); fill-opacity: 0.22; }
+  50%      { filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.95)); fill-opacity: 0.5; }
+}
+@keyframes jmBreathIntl {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(167, 139, 250, 0.38)); fill-opacity: 0.22; }
+  50%      { filter: drop-shadow(0 0 14px rgba(167, 139, 250, 0.92)); fill-opacity: 0.5; }
+}
+/* 聚合计数泡同步呼吸(光晕强弱) */
+@keyframes jmBreathCluster {
+  0%, 100% { box-shadow: 0 0 7px var(--c), 0 0 3px var(--c); }
+  50%      { box-shadow: 0 0 22px var(--c), 0 0 9px var(--c); }
+}
 /* leaflet 控件深空化 */
 .jobmap-stage .leaflet-bar a {
   background: rgba(12, 18, 40, 0.85); color: #cdd9f5; border-color: rgba(110, 150, 230, 0.3);
