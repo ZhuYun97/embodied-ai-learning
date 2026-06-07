@@ -1,5 +1,31 @@
 [
   {
+    "id": "ahead-dynamic-vla-world-model-20260601",
+    "title": "arXiv 论文 AHEAD:给「冻结 VLA」加运动感知潜空间世界模型,预测未来 token 以接住移动 / 飞行物体",
+    "date": "2026-06-01",
+    "fetched_at": "2026-06-07",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "世界模型"
+    ],
+    "summary": "论文 **Intercepting the Future: Latent-Space Predictive World Model for Dynamic VLA Manipulation**(arXiv:[2606.02486](https://arxiv.org/abs/2606.02486),v1 2026-06-01;作者 Syed、Jakobsson、Hao、Ichnowski,机构未在摘要页标注)针对 **VLA 在物体运动时失效**这一痛点——VLA 把当前观测映射到动作、默认观测到执行之间场景静止,物体一旦移动,推理延迟便超过可抓取窗口。方案 **AHEAD**(Anticipatory Horizon Extrapolation with Adaptive Dynamics)是一个**「预测-再行动」外挂**:在**冻结的 VLA** 之上接一个**运动感知潜空间世界模型**,用光流得到的**逐 token 速度 / 加速度**为条件,在 VLA 特征空间里**前向预测未来 patch token**;再以「语言 + 运动」显著性掩码聚焦任务相关区域,按**自适应时域**滚动预测、不确定度超阈值即停;最后把预测的未来 token 喂给冻结的动作解码器,替代当前 token。⚠️ 作者自评(预印本,未经同行评审 / 第三方复现):仅给**冻结 7B OpenVLA** 增加 **4.9M 参数**,在 20 个动态仿真场景成功率 **79–97%**(最强基线 31–58%);真机 **UFactory xArm 7** 上传送带 / 滚球任务 **29–30 / 30**、挡板拦截 **23 / 30**、抛射物接取 **19 / 30**,而所有基线均为 **0 / 30**。属本站 **VLA × WAM(世界-行动模型)** 交叉的「动态操作」向新工作。",
+    "sources": [
+      {
+        "name": "arXiv:2606.02486",
+        "url": "https://arxiv.org/abs/2606.02486"
+      }
+    ],
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "nvidia-isaac-groot-ref-unitree-h2plus-20260601",
     "title": "英伟达发布 Isaac GR00T 参考人形机器人:本体选定宇树 H2 Plus + Jetson Thor,面向高校科研",
     "date": "2026-06-01",
