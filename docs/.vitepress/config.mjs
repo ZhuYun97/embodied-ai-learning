@@ -225,7 +225,7 @@ export default withMermaid(defineConfig({
   ],
 
   themeConfig: {
-    logo: '/favicon.svg',
+    logo: { light: '/logo-light.svg', dark: '/logo-dark.svg', alt: '具身智能学习站' },
     siteTitle: '具身智能学习站',
 
     nav: [
