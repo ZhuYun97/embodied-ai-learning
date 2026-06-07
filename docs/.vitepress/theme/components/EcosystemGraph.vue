@@ -1,7 +1,5 @@
 <template>
   <div class="kg-wrap" ref="wrapEl">
-    <!-- 雷达扫掠光束(扫描仪意象,置于画布最底层) -->
-    <div class="kg-radar" aria-hidden="true"></div>
     <div class="kg-legend">
       <span class="lg-item"><i class="dot dot-leaf"></i>公司</span>
       <span class="lg-item"><i class="dot dot-hub"></i>投资方/机构</span>
@@ -46,6 +44,18 @@
         </radialGradient>
         <radialGradient id="kg-conn" cx="36%" cy="30%" r="78%">
           <stop offset="0%" stop-color="#fde68a" /><stop offset="52%" stop-color="#f59e0b" /><stop offset="100%" stop-color="#92400e" />
+        </radialGradient>
+        <!-- 中心机器人:主体青→蓝竖向渐变描边 -->
+        <linearGradient id="cr-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#cdf4ff" />
+          <stop offset="44%" stop-color="#7cc8f6" />
+          <stop offset="100%" stop-color="#4a82d8" />
+        </linearGradient>
+        <!-- 中心机器人:背景光晕(青核→蓝→透明) -->
+        <radialGradient id="cr-aura" cx="50%" cy="46%" r="58%">
+          <stop offset="0%" stop-color="rgba(125, 211, 252, 0.24)" />
+          <stop offset="55%" stop-color="rgba(99, 140, 246, 0.12)" />
+          <stop offset="100%" stop-color="rgba(99, 140, 246, 0)" />
         </radialGradient>
         <filter id="kg-glow" x="-120%" y="-120%" width="340%" height="340%">
           <feGaussianBlur stdDeviation="3.4" result="b" />
@@ -94,25 +104,58 @@
         </g>
 
         <!-- 中心:发光机器人线稿(具身智能意象,填补留白) -->
-        <circle :cx="CX" :cy="CY" r="118" class="center-aura" />
-        <g class="center-robot" :transform="`translate(${CX - 305 * 0.62}, ${CY - 240 * 0.62}) scale(0.62)`">
-          <g class="cr-stroke" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="234" y="62" width="120" height="100" rx="26" />
-            <line x1="260" y1="110" x2="288" y2="110" stroke-width="6" />
-            <line x1="300" y1="110" x2="328" y2="110" stroke-width="6" />
-            <path d="M294 62v-22" />
-            <path d="M278 162v18 M310 162v18" />
-            <path d="M238 198 L350 198 L370 252 L338 358 L250 358 L218 252 Z" />
-            <circle cx="294" cy="264" r="34" />
-            <path d="M226 216 L184 272 L198 346" />
-            <path d="M362 216 L418 234 L444 180" />
-            <path d="M254 358 L240 414 M334 358 L348 414" />
-            <rect x="228" y="414" width="132" height="22" rx="8" />
+        <circle :cx="CX" :cy="CY" r="126" class="center-aura" />
+        <g class="center-robot" :transform="`translate(${CX - 315 * 0.58}, ${CY - 264 * 0.58}) scale(0.58)`">
+          <!-- 站立平台:发光 HUD 基座 -->
+          <ellipse class="cr-base-glow" cx="315" cy="462" rx="106" ry="19" />
+          <ellipse class="cr-base" cx="315" cy="462" rx="82" ry="12" />
+
+          <!-- 主体线稿:青→蓝渐变描边 + 发光 -->
+          <g class="cr-stroke" fill="none" stroke="url(#cr-grad)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+            <!-- 天线 -->
+            <path d="M315 74 V56" />
+            <!-- 头盔(八角面盔,呼应 Sentinel 标志) -->
+            <path d="M280 74 L350 74 L363 102 L350 134 L332 148 L298 148 L280 134 L267 102 Z" />
+            <!-- 眉脊 -->
+            <path d="M287 89 H343" />
+            <!-- 颈块 -->
+            <path d="M303 148 L327 148 L330 166 L300 166 Z" />
+            <!-- 胸甲(肩最宽,胸口面板) -->
+            <path d="M270 166 L360 166 L362 206 L350 276 L280 276 L268 206 Z" />
+            <!-- 盆骨块 -->
+            <path d="M286 280 L344 280 L338 314 L292 314 Z" />
+            <!-- 左臂(下垂,分段) -->
+            <path d="M272 172 L244 236 L256 300" />
+            <!-- 右臂(上举,机械臂意象) -->
+            <path d="M358 172 L406 206 L430 162" />
+            <!-- 末端夹爪 -->
+            <path d="M424 156 L416 147 M437 158 L445 147" />
+            <!-- 腿 -->
+            <path d="M300 316 L296 388 L298 450" />
+            <path d="M330 316 L334 388 L332 450" />
+            <!-- 足 -->
+            <path d="M285 450 H311 M323 450 H347" />
           </g>
-          <circle class="cr-eye" cx="294" cy="264" r="13" />
+
+          <!-- 面盔炽亮光带(visor) -->
+          <path class="cr-visor" d="M286 100 L344 100 L338 116 L292 116 Z" />
+          <rect class="cr-visor-hot" x="306" y="102" width="18" height="11" rx="2.5" />
+
+          <!-- 胸口反应堆:同心 HUD 环 + 炽核(呼应标志 / 首页 hero) -->
+          <g class="cr-reactor">
+            <circle class="cr-ring cr-ring-1" cx="315" cy="220" r="33" />
+            <circle class="cr-ring cr-ring-2" cx="315" cy="220" r="21" />
+            <path class="cr-tick" d="M315 191 V201 M315 239 V249 M286 220 H296 M334 220 H344" />
+            <circle class="cr-core" cx="315" cy="220" r="10.5" />
+            <circle class="cr-core-hot" cx="315" cy="220" r="5" />
+          </g>
+
+          <!-- 天线灯 + 关节节点 -->
           <g class="cr-joint">
-            <circle cx="226" cy="216" r="6" /><circle cx="184" cy="272" r="6" />
-            <circle cx="362" cy="216" r="6" /><circle cx="418" cy="234" r="6" />
+            <circle cx="315" cy="52" r="4" />
+            <circle cx="272" cy="172" r="5.5" /><circle cx="358" cy="172" r="5.5" />
+            <circle cx="244" cy="236" r="4.5" /><circle cx="406" cy="206" r="4.5" />
+            <circle cx="296" cy="388" r="4.5" /><circle cx="334" cy="388" r="4.5" />
           </g>
         </g>
 
@@ -424,22 +467,6 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
   -webkit-mask-image: radial-gradient(ellipse 86% 80% at 50% 48%, #000 40%, transparent 100%);
   mask-image: radial-gradient(ellipse 86% 80% at 50% 48%, #000 40%, transparent 100%);
 }
-/* 雷达扫掠:旋转的锥形光束 + 环带蒙版,只在中段半径显形(transform 旋转 → GPU 合成,流畅) */
-.kg-radar {
-  position: absolute; z-index: 0; pointer-events: none;
-  left: 50%; top: 50.6%; width: 150%; aspect-ratio: 1 / 1;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  background: conic-gradient(from 0deg,
-    transparent 0deg, transparent 296deg,
-    rgba(56, 189, 248, 0.05) 320deg,
-    rgba(125, 211, 252, 0.16) 352deg,
-    rgba(186, 230, 253, 0.30) 359deg,
-    transparent 360deg);
-  border-radius: 50%;
-  -webkit-mask-image: radial-gradient(circle at center, transparent 13%, #000 30%, #000 41%, transparent 66%);
-  mask-image: radial-gradient(circle at center, transparent 13%, #000 30%, #000 41%, transparent 66%);
-}
 .kg-svg {
   position: relative;
   z-index: 1;
@@ -460,12 +487,25 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
   filter: drop-shadow(0 0 5px rgba(125, 211, 252, 0.85));
 }
 
-/* 中心机器人 */
-.center-aura { fill: rgba(110, 140, 255, 0.13); filter: url(#kg-glow-strong); pointer-events: none; }
-.center-robot { color: #cbdcff; pointer-events: none; }
-.cr-stroke { filter: url(#kg-glow); opacity: 0.92; }
-.cr-eye { fill: #7dd3fc; filter: url(#kg-glow); }
-.cr-joint { fill: #7dd3fc; }
+/* 中心机器人(Sentinel 风格:面盔 + 胸口反应堆 + 青蓝渐变描边 + 多层辉光) */
+.center-aura { fill: url(#cr-aura); filter: url(#kg-glow-strong); pointer-events: none; }
+.center-robot { pointer-events: none; }
+.cr-stroke { filter: url(#kg-glow); opacity: 0.96; }
+/* 面盔光带 */
+.cr-visor { fill: #6fd0ff; opacity: 0.92; filter: url(#kg-glow); }
+.cr-visor-hot { fill: #eafdff; filter: url(#kg-glow); }
+/* 胸口反应堆 */
+.cr-ring { fill: none; stroke: #7dd3fc; }
+.cr-ring-1 { stroke-width: 1.4; opacity: 0.5; stroke-dasharray: 4 7; }
+.cr-ring-2 { stroke-width: 2; opacity: 0.85; filter: url(#kg-glow); }
+.cr-tick { stroke: #aee6ff; stroke-width: 2; stroke-linecap: round; opacity: 0.75; }
+.cr-core { fill: #bdf0ff; filter: url(#kg-glow-strong); }
+.cr-core-hot { fill: #f4feff; }
+/* 关节 / 天线灯 */
+.cr-joint circle { fill: #9fe3ff; filter: url(#kg-glow-soft); }
+/* HUD 基座 */
+.cr-base { fill: none; stroke: #5aa6e8; stroke-width: 1.4; opacity: 0.5; }
+.cr-base-glow { fill: rgba(90, 150, 235, 0.12); filter: url(#kg-glow-soft); }
 
 /* 关系边:主辐射(hub→子公司)亮,跨投资等次要边默认很淡,悬停再点亮 */
 /* 主辐射边用集群色(行内 stroke);次要/跨投资边中性极淡;虚线区分合作/孵化 */
@@ -587,11 +627,10 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
 
 /* ===== 动效层:全部仅在用户未要求减少动效时启用(reduced-motion 下退回静态图) ===== */
 @media (prefers-reduced-motion: no-preference) {
-  /* 中心机器人光晕:轻微"呼吸",让画面有生命感 */
+  /* 中心机器人:光晕呼吸 + 胸口反应堆炽核脉动 + 反应堆外环 reticle 缓转 */
   .center-aura { animation: kgAura 5.5s ease-in-out infinite; }
-
-  /* 雷达扫掠:绕中心匀速旋转(transform 旋转,GPU 合成) */
-  .kg-radar { opacity: 1; animation: kgRadar 9s linear infinite; }
+  .cr-core-hot { animation: crCore 2.6s ease-in-out infinite; }
+  .cr-ring-1 { animation: crReticle 9s linear infinite; }
 
   /* 轨道环:虚线缓慢爬行(双环异速反向,似量程盘转动) */
   .orbit { animation: kgOrbit 30s linear infinite; }
@@ -613,10 +652,8 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
   .edge-flow { animation: kgFade 1.4s ease 0.3s backwards; }
 }
 @keyframes kgAura { 0%, 100% { opacity: 0.62; } 50% { opacity: 1; } }
-@keyframes kgRadar {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
+@keyframes crCore { 0%, 100% { opacity: 0.65; } 50% { opacity: 1; } }
+@keyframes crReticle { to { stroke-dashoffset: -44; } }
 @keyframes kgOrbit { to { stroke-dashoffset: -280; } }
 @keyframes kgScan { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -4034; } }
 @keyframes kgFlowCore {
