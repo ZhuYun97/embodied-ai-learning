@@ -1,5 +1,7 @@
 <template>
   <div class="kg-wrap" ref="wrapEl">
+    <!-- 雷达扫掠光束(扫描仪意象,置于画布最底层) -->
+    <div class="kg-radar" aria-hidden="true"></div>
     <div class="kg-legend">
       <span class="lg-item"><i class="dot dot-leaf"></i>公司</span>
       <span class="lg-item"><i class="dot dot-hub"></i>投资方/机构</span>
@@ -67,6 +69,8 @@
         <g class="orbits">
           <circle v-for="(r, i) in orbitRings" :key="'o' + i" :cx="CX" :cy="CY" :r="r" class="orbit" />
         </g>
+        <!-- 扫描仪光点:沿外环匀速绕行(雷达追踪意象) -->
+        <circle :cx="CX" :cy="CY" :r="orbitRings[orbitRings.length - 1]" class="orbit-scan" />
 
         <!-- 关系边(发光) -->
         <g class="edges" filter="url(#kg-edge-glow)">
@@ -77,6 +81,16 @@
             :class="['edge', `edge-${e.type}`, { primary: e.primary, dim: hoverId && !edgeActive(e), active: edgeActive(e) }]"
             :style="{ stroke: e.color || undefined }"
           />
+        </g>
+
+        <!-- 数据流光:沿主辐射边匀速流动的发光数据包(同集群色,无滤镜以保性能) -->
+        <g class="edge-flow">
+          <template v-for="(e, i) in flowEdges" :key="'f' + i">
+            <path :d="edgePath(e)" pathLength="100" class="flow flow-halo"
+              :style="{ stroke: e.color || '#7dd3fc', animationDelay: flowDelay(i) }" />
+            <path :d="edgePath(e)" pathLength="100" class="flow flow-core"
+              :style="{ stroke: e.color || '#7dd3fc', animationDelay: flowDelay(i) }" />
+          </template>
         </g>
 
         <!-- 中心:发光机器人线稿(具身智能意象,填补留白) -->
@@ -104,14 +118,17 @@
 
         <!-- 节点:球 + 首字(可交互) -->
         <g
-          v-for="n in nodes"
+          v-for="(n, ni) in nodes"
           :key="n.id"
           :class="['node', `node-${n.kind}`, { dim: hoverId && !nodeActive(n.id), focus: hoverId === n.id, clickable: !!n.website }]"
-          :style="{ '--c': n.color }"
+          :style="{ '--c': n.color, '--i': ni, '--pr': n.r + 'px' }"
           @pointerenter="hoverId = n.id"
           @pointerleave="hoverId = null"
           @click="onNodeClick(n)"
         >
+          <!-- 悬停声呐:聚焦节点向外扩散的发光环 -->
+          <circle :cx="n.x" :cy="n.y" :r="n.r" class="ping" />
+          <circle :cx="n.x" :cy="n.y" :r="n.r" class="ping ping--2" />
           <circle :cx="n.x" :cy="n.y" :r="n.r" class="node-orb" />
           <svg
             v-if="n.kind === 'mentor'"
@@ -328,6 +345,11 @@ const edges = rels
     return { ...e, primary, color: primary ? hubHue[hubEnd] || null : null }
   })
 
+// 主辐射边(hub→子公司):承载流动数据光的「干线」,数量小(≈公司数)故可常驻动画
+const flowEdges = edges.filter((e) => e.primary)
+// 负延迟把各数据包初始相位错开,铺满整个流动周期 —— 一上来就是连续流,而非齐步走
+function flowDelay(i) { return (-(((i * 0.37) % 2.9))).toFixed(2) + 's' }
+
 const nbset = {}
 nodes.forEach((n) => (nbset[n.id] = new Set([n.id])))
 edges.forEach((e) => { nbset[e.source].add(e.target); nbset[e.target].add(e.source) })
@@ -402,6 +424,22 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
   -webkit-mask-image: radial-gradient(ellipse 86% 80% at 50% 48%, #000 40%, transparent 100%);
   mask-image: radial-gradient(ellipse 86% 80% at 50% 48%, #000 40%, transparent 100%);
 }
+/* 雷达扫掠:旋转的锥形光束 + 环带蒙版,只在中段半径显形(transform 旋转 → GPU 合成,流畅) */
+.kg-radar {
+  position: absolute; z-index: 0; pointer-events: none;
+  left: 50%; top: 50.6%; width: 150%; aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  background: conic-gradient(from 0deg,
+    transparent 0deg, transparent 296deg,
+    rgba(56, 189, 248, 0.05) 320deg,
+    rgba(125, 211, 252, 0.16) 352deg,
+    rgba(186, 230, 253, 0.30) 359deg,
+    transparent 360deg);
+  border-radius: 50%;
+  -webkit-mask-image: radial-gradient(circle at center, transparent 13%, #000 30%, #000 41%, transparent 66%);
+  mask-image: radial-gradient(circle at center, transparent 13%, #000 30%, #000 41%, transparent 66%);
+}
 .kg-svg {
   position: relative;
   z-index: 1;
@@ -413,8 +451,14 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
 }
 .kg-svg:active { cursor: grabbing; }
 
-/* 轨道环 */
-.orbit { fill: none; stroke: rgba(120, 150, 230, 0.12); stroke-width: 1; }
+/* 轨道环:虚线刻度环(扫描仪/量程意象) */
+.orbit { fill: none; stroke: rgba(120, 150, 230, 0.16); stroke-width: 1; stroke-dasharray: 3 11; }
+/* 扫描光点:沿外环匀速绕行的发光弧(单段弧 + 超长间隙 → 只见一点环绕) */
+.orbit-scan {
+  fill: none; stroke: #7dd3fc; stroke-width: 2; stroke-linecap: round;
+  stroke-dasharray: 34 4000; opacity: 0; pointer-events: none;
+  filter: drop-shadow(0 0 5px rgba(125, 211, 252, 0.85));
+}
 
 /* 中心机器人 */
 .center-aura { fill: rgba(110, 140, 255, 0.13); filter: url(#kg-glow-strong); pointer-events: none; }
@@ -435,6 +479,14 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
 .edge-found, .edge-advise { stroke: #d9b24f; opacity: 0.42; }
 .edge-advise { stroke-dasharray: 4 4; }
 
+/* 数据流光:pathLength=100 归一化 → 无论边长,单个数据包以相同节奏贯穿整条边 */
+/* 核心亮包 + 外层光晕(同色低透明),不用 SVG 滤镜即得霓虹拖尾,常驻也不卡 */
+.flow { fill: none; stroke-linecap: round; stroke-dasharray: 7 93; opacity: 0; pointer-events: none; }
+.flow-halo { stroke-width: 6; }
+.flow-core { stroke-width: 2.1; }
+/* 悬停时数据流整体压暗,把视觉让给高亮子图 */
+.is-hovering .edge-flow { opacity: 0.16; transition: opacity 0.2s; }
+
 /* 节点:发光球 */
 .node { cursor: default; }
 .node.clickable { cursor: pointer; }
@@ -453,6 +505,8 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
 .node.focus .node-orb { filter: url(#kg-glow-strong); stroke-width: 2.4; fill-opacity: 0.88; }
 .is-hovering .node:not(.dim) .node-orb { fill-opacity: 0.72; }
 .node.dim { opacity: 0.16; }
+/* 声呐环:默认隐形,仅聚焦节点播放扩散动画(见下方 reduced-motion 区) */
+.ping { fill: none; stroke: var(--c); stroke-width: 1.5; opacity: 0; pointer-events: none; }
 
 .node-initial {
   text-anchor: middle; fill: #fff; fill-opacity: 0.96; font-weight: 700; letter-spacing: -0.02em;
@@ -531,11 +585,58 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
 .kg-zoom__btn:active { transform: translateY(1px); }
 .kg-zoom__btn--reset { font-size: 15px; }
 
-/* 中心机器人光晕:轻微"呼吸",让画面有生命感(reduced-motion 安全) */
+/* ===== 动效层:全部仅在用户未要求减少动效时启用(reduced-motion 下退回静态图) ===== */
 @media (prefers-reduced-motion: no-preference) {
+  /* 中心机器人光晕:轻微"呼吸",让画面有生命感 */
   .center-aura { animation: kgAura 5.5s ease-in-out infinite; }
+
+  /* 雷达扫掠:绕中心匀速旋转(transform 旋转,GPU 合成) */
+  .kg-radar { opacity: 1; animation: kgRadar 9s linear infinite; }
+
+  /* 轨道环:虚线缓慢爬行(双环异速反向,似量程盘转动) */
+  .orbit { animation: kgOrbit 30s linear infinite; }
+  .orbit:nth-child(2) { animation-duration: 44s; animation-direction: reverse; }
+  /* 扫描光点:沿外环绕行一周 */
+  .orbit-scan { opacity: 0.55; animation: kgScan 7s linear infinite; }
+
+  /* 数据流光:核心包与光晕同步流动,首尾淡入淡出避免在节点处突现 */
+  .flow-core { animation: kgFlowCore 2.9s linear infinite; }
+  .flow-halo { animation: kgFlowHalo 2.9s linear infinite; }
+
+  /* 悬停声呐:聚焦节点持续向外扩散两道环 */
+  .node.focus .ping { animation: kgPing 1.7s ease-out infinite; }
+  .node.focus .ping--2 { animation-delay: 0.85s; }
+
+  /* 上电入场:节点按序淡入(逐个点亮),边/轨道整体淡入 */
+  .node { animation: kgFade 0.5s ease backwards; animation-delay: calc(var(--i) * 9ms); }
+  .edges, .orbits, .center-robot { animation: kgFade 1.1s ease both; }
+  .edge-flow { animation: kgFade 1.4s ease 0.3s backwards; }
 }
 @keyframes kgAura { 0%, 100% { opacity: 0.62; } 50% { opacity: 1; } }
+@keyframes kgRadar {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes kgOrbit { to { stroke-dashoffset: -280; } }
+@keyframes kgScan { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -4034; } }
+@keyframes kgFlowCore {
+  0% { stroke-dashoffset: 100; opacity: 0; }
+  12% { opacity: 0.95; }
+  88% { opacity: 0.95; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes kgFlowHalo {
+  0% { stroke-dashoffset: 100; opacity: 0; }
+  12% { opacity: 0.3; }
+  88% { opacity: 0.3; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes kgPing {
+  0% { r: var(--pr); opacity: 0.5; }
+  70% { opacity: 0.12; }
+  100% { r: calc(var(--pr) + 30px); opacity: 0; }
+}
+@keyframes kgFade { from { opacity: 0; } to { opacity: 1; } }
 
 @media (max-width: 640px) {
   .kg-legend { font-size: 0.62rem; padding: 8px 10px; gap: 4px; }
@@ -544,8 +645,11 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
   .node-label { font-size: 8.5px; }
   .kg-zoom__btn { width: 40px; height: 40px; font-size: 19px; }
   .kg-zoom__btn--reset { font-size: 17px; }
+  /* 数据流光在小屏关闭(让出动画预算,保滚动流畅);雷达/扫描点保留 */
+  .edge-flow { display: none; }
 }
 @media (pointer: coarse) {
   .kg-zoom__btn { width: 40px; height: 40px; }
+  .edge-flow { display: none; }
 }
 </style>
