@@ -45,13 +45,7 @@
         <radialGradient id="kg-conn" cx="36%" cy="30%" r="78%">
           <stop offset="0%" stop-color="#fde68a" /><stop offset="52%" stop-color="#f59e0b" /><stop offset="100%" stop-color="#92400e" />
         </radialGradient>
-        <!-- 中心机器人:主体青→蓝竖向渐变描边 -->
-        <linearGradient id="cr-grad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#cdf4ff" />
-          <stop offset="44%" stop-color="#7cc8f6" />
-          <stop offset="100%" stop-color="#4a82d8" />
-        </linearGradient>
-        <!-- 中心机器人:背景光晕(青核→蓝→透明) -->
+        <!-- 中心能量核心:背景光晕(青核→蓝→透明) -->
         <radialGradient id="cr-aura" cx="50%" cy="46%" r="58%">
           <stop offset="0%" stop-color="rgba(125, 211, 252, 0.24)" />
           <stop offset="55%" stop-color="rgba(99, 140, 246, 0.12)" />
@@ -105,58 +99,31 @@
 
         <!-- 中心:发光机器人线稿(具身智能意象,填补留白) -->
         <circle :cx="CX" :cy="CY" r="126" class="center-aura" />
-        <g class="center-robot" :transform="`translate(${CX - 315 * 0.58}, ${CY - 264 * 0.58}) scale(0.58)`">
-          <!-- 站立平台:发光 HUD 基座 -->
-          <ellipse class="cr-base-glow" cx="315" cy="462" rx="106" ry="19" />
-          <ellipse class="cr-base" cx="315" cy="462" rx="82" ry="12" />
-
-          <!-- 主体线稿:青→蓝渐变描边 + 发光 -->
-          <g class="cr-stroke" fill="none" stroke="url(#cr-grad)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
-            <!-- 天线 -->
-            <path d="M315 74 V56" />
-            <!-- 头盔(八角面盔,呼应 Sentinel 标志) -->
-            <path d="M280 74 L350 74 L363 102 L350 134 L332 148 L298 148 L280 134 L267 102 Z" />
-            <!-- 眉脊 -->
-            <path d="M287 89 H343" />
-            <!-- 颈块 -->
-            <path d="M303 148 L327 148 L330 166 L300 166 Z" />
-            <!-- 胸甲(肩最宽,胸口面板) -->
-            <path d="M270 166 L360 166 L362 206 L350 276 L280 276 L268 206 Z" />
-            <!-- 盆骨块 -->
-            <path d="M286 280 L344 280 L338 314 L292 314 Z" />
-            <!-- 左臂(下垂,分段) -->
-            <path d="M272 172 L244 236 L256 300" />
-            <!-- 右臂(上举,机械臂意象) -->
-            <path d="M358 172 L406 206 L430 162" />
-            <!-- 末端夹爪 -->
-            <path d="M424 156 L416 147 M437 158 L445 147" />
-            <!-- 腿 -->
-            <path d="M300 316 L296 388 L298 450" />
-            <path d="M330 316 L334 388 L332 450" />
-            <!-- 足 -->
-            <path d="M285 450 H311 M323 450 H347" />
+        <g class="energy-core" :transform="`translate(${CX} ${CY})`">
+          <!-- 六边封装框 -->
+          <path class="ec-frame" d="M98 0 L49 84.9 L-49 84.9 L-98 0 L-49 -84.9 L49 -84.9 Z" />
+          <!-- 外层虚线 reticle 环(缓转) -->
+          <circle class="ec-reticle" r="82" />
+          <!-- 中环 + 八向刻度 -->
+          <circle class="ec-ring" r="58" />
+          <g class="ec-ticks">
+            <line x1="58" y1="0" x2="70" y2="0" /><line x1="41" y1="41" x2="49.5" y2="49.5" />
+            <line x1="0" y1="58" x2="0" y2="70" /><line x1="-41" y1="41" x2="-49.5" y2="49.5" />
+            <line x1="-58" y1="0" x2="-70" y2="0" /><line x1="-41" y1="-41" x2="-49.5" y2="-49.5" />
+            <line x1="0" y1="-58" x2="0" y2="-70" /><line x1="41" y1="-41" x2="49.5" y2="-49.5" />
           </g>
-
-          <!-- 面盔炽亮光带(visor) -->
-          <path class="cr-visor" d="M286 100 L344 100 L338 116 L292 116 Z" />
-          <rect class="cr-visor-hot" x="306" y="102" width="18" height="11" rx="2.5" />
-
-          <!-- 胸口反应堆:同心 HUD 环 + 炽核(呼应标志 / 首页 hero) -->
-          <g class="cr-reactor">
-            <circle class="cr-ring cr-ring-1" cx="315" cy="220" r="33" />
-            <circle class="cr-ring cr-ring-2" cx="315" cy="220" r="21" />
-            <path class="cr-tick" d="M315 191 V201 M315 239 V249 M286 220 H296 M334 220 H344" />
-            <circle class="cr-core" cx="315" cy="220" r="10.5" />
-            <circle class="cr-core-hot" cx="315" cy="220" r="5" />
+          <!-- 倾斜轨道 + 绕行电子(平面=倾斜+压扁;内层 ec-spin 绕中心自转→电子沿椭圆轨道运行) -->
+          <g class="ec-plane" transform="rotate(-20) scale(1 0.4)">
+            <circle class="ec-orbit-ring" r="84" />
+            <g class="ec-spin">
+              <circle class="ec-electron" cx="84" cy="0" r="5" /><circle class="ec-electron" cx="0" cy="84" r="5" />
+              <circle class="ec-electron" cx="-84" cy="0" r="5" /><circle class="ec-electron" cx="0" cy="-84" r="5" />
+            </g>
           </g>
-
-          <!-- 天线灯 + 关节节点 -->
-          <g class="cr-joint">
-            <circle cx="315" cy="52" r="4" />
-            <circle cx="272" cy="172" r="5.5" /><circle cx="358" cy="172" r="5.5" />
-            <circle cx="244" cy="236" r="4.5" /><circle cx="406" cy="206" r="4.5" />
-            <circle cx="296" cy="388" r="4.5" /><circle cx="334" cy="388" r="4.5" />
-          </g>
+          <!-- 炽核 -->
+          <circle class="ec-nucleus-glow" r="38" />
+          <circle class="ec-nucleus" r="18" />
+          <circle class="ec-hot" r="9.5" />
         </g>
 
         <!-- 节点:球 + 首字(可交互) -->
@@ -487,25 +454,20 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
   filter: drop-shadow(0 0 5px rgba(125, 211, 252, 0.85));
 }
 
-/* 中心机器人(Sentinel 风格:面盔 + 胸口反应堆 + 青蓝渐变描边 + 多层辉光) */
+/* 中心能量核心(反应堆:六边框 + 同心环/刻度 + 倾斜轨道电子 + 炽核 + 多层辉光) */
 .center-aura { fill: url(#cr-aura); filter: url(#kg-glow-strong); pointer-events: none; }
-.center-robot { pointer-events: none; }
-.cr-stroke { filter: url(#kg-glow); opacity: 0.96; }
-/* 面盔光带 */
-.cr-visor { fill: #6fd0ff; opacity: 0.92; filter: url(#kg-glow); }
-.cr-visor-hot { fill: #eafdff; filter: url(#kg-glow); }
-/* 胸口反应堆 */
-.cr-ring { fill: none; stroke: #7dd3fc; }
-.cr-ring-1 { stroke-width: 1.4; opacity: 0.5; stroke-dasharray: 4 7; }
-.cr-ring-2 { stroke-width: 2; opacity: 0.85; filter: url(#kg-glow); }
-.cr-tick { stroke: #aee6ff; stroke-width: 2; stroke-linecap: round; opacity: 0.75; }
-.cr-core { fill: #bdf0ff; filter: url(#kg-glow-strong); }
-.cr-core-hot { fill: #f4feff; }
-/* 关节 / 天线灯 */
-.cr-joint circle { fill: #9fe3ff; filter: url(#kg-glow-soft); }
-/* HUD 基座 */
-.cr-base { fill: none; stroke: #5aa6e8; stroke-width: 1.4; opacity: 0.5; }
-.cr-base-glow { fill: rgba(90, 150, 235, 0.12); filter: url(#kg-glow-soft); }
+.energy-core { pointer-events: none; }
+.ec-frame { fill: none; stroke: #3f6db0; stroke-width: 1.2; opacity: 0.45; }
+.ec-reticle { fill: none; stroke: #7dd3fc; stroke-width: 1.4; stroke-dasharray: 3 9; opacity: 0.6; }
+.ec-ring { fill: none; stroke: #7dd3fc; stroke-width: 2; opacity: 0.8; filter: url(#kg-glow); }
+.ec-ticks line { stroke: #aee6ff; stroke-width: 2; stroke-linecap: round; opacity: 0.7; }
+.ec-orbit-ring { fill: none; stroke: #9bb6e8; stroke-width: 1; opacity: 0.45; }
+.ec-electron { fill: #aef0ff; filter: url(#kg-glow-soft); }
+.ec-nucleus-glow { fill: rgba(125, 211, 252, 0.18); filter: url(#kg-glow-strong); }
+.ec-nucleus { fill: #7dd3fc; opacity: 0.55; filter: url(#kg-glow); }
+.ec-hot { fill: #eafdff; filter: url(#kg-glow); }
+/* 电子组绕中心自转(fill-box → transform-origin 落在自身 bbox 中心 = 轨道中心) */
+.ec-spin { transform-box: fill-box; transform-origin: center; }
 
 /* 关系边:主辐射(hub→子公司)亮,跨投资等次要边默认很淡,悬停再点亮 */
 /* 主辐射边用集群色(行内 stroke);次要/跨投资边中性极淡;虚线区分合作/孵化 */
@@ -627,10 +589,11 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
 
 /* ===== 动效层:全部仅在用户未要求减少动效时启用(reduced-motion 下退回静态图) ===== */
 @media (prefers-reduced-motion: no-preference) {
-  /* 中心机器人:光晕呼吸 + 胸口反应堆炽核脉动 + 反应堆外环 reticle 缓转 */
+  /* 中心能量核心:光晕呼吸 + 炽核脉动 + reticle 缓转 + 电子绕行 */
   .center-aura { animation: kgAura 5.5s ease-in-out infinite; }
-  .cr-core-hot { animation: crCore 2.6s ease-in-out infinite; }
-  .cr-ring-1 { animation: crReticle 9s linear infinite; }
+  .ec-hot { animation: crCore 2.6s ease-in-out infinite; }
+  .ec-reticle { animation: crReticle 12s linear infinite; }
+  .ec-spin { animation: ecSpin 18s linear infinite; }
 
   /* 轨道环:虚线缓慢爬行(双环异速反向,似量程盘转动) */
   .orbit { animation: kgOrbit 30s linear infinite; }
@@ -648,12 +611,13 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
 
   /* 上电入场:节点按序淡入(逐个点亮),边/轨道整体淡入 */
   .node { animation: kgFade 0.5s ease backwards; animation-delay: calc(var(--i) * 9ms); }
-  .edges, .orbits, .center-robot { animation: kgFade 1.1s ease both; }
+  .edges, .orbits, .energy-core { animation: kgFade 1.1s ease both; }
   .edge-flow { animation: kgFade 1.4s ease 0.3s backwards; }
 }
 @keyframes kgAura { 0%, 100% { opacity: 0.62; } 50% { opacity: 1; } }
 @keyframes crCore { 0%, 100% { opacity: 0.65; } 50% { opacity: 1; } }
 @keyframes crReticle { to { stroke-dashoffset: -44; } }
+@keyframes ecSpin { to { transform: rotate(360deg); } }
 @keyframes kgOrbit { to { stroke-dashoffset: -280; } }
 @keyframes kgScan { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -4034; } }
 @keyframes kgFlowCore {
