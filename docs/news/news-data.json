@@ -1,5 +1,36 @@
 [
   {
+    "id": "nvidia-cosmos-3-omnimodal-world-model-20260601",
+    "title": "NVIDIA 发布 Cosmos 3:全模态世界模型,统一 语言/图像/视频/音频/动作",
+    "date": "2026-06-01",
+    "fetched_at": "2026-06-08",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文",
+      "世界模型",
+      "开源"
+    ],
+    "summary": "NVIDIA 推出 **Cosmos 3**(arXiv 2606.02800,291 作者):用统一的 **mixture-of-transformers** 架构联合处理与生成 **语言/图像/视频/音频/动作** 五种模态,把 VLM、视频生成、世界模拟器、世界-动作模型收编进一个框架,主打具身智能(Physical AI)通用底座。代码 / 权重 / 合成数据集 / 评测基准以 **OpenMDW-1.1(Linux Foundation)开源**。⚠️ 自评多任务「新 SOTA」;被第三方 **Artificial Analysis** 评开源 文生图 / 图生视频 第一;「**RoboArena 最佳策略模型**」自带「写报告时」时间戳口径(与千寻互称第一、无中立裁定)。",
+    "sources": [
+      {
+        "name": "arXiv",
+        "url": "https://arxiv.org/abs/2606.02800"
+      }
+    ],
+    "related": [
+      {
+        "label": "📄 Cosmos 3 细读",
+        "url": "/wam/papers/cosmos3"
+      },
+      {
+        "label": "🏆 具身大脑分档榜",
+        "url": "/ecosystem/brain-ranking"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "ubtech-uworld-presale-20260605",
     "title": "优必选「优世界」全尺寸超仿生人形机器人开启预售",
     "date": "2026-06-05",

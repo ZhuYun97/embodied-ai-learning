@@ -346,6 +346,7 @@ export default withMermaid(defineConfig({
               { text: 'τ0-WM(智元/上海创智·测试时搜索)', link: '/wam/papers/tau0-wm' },
               { text: 'Genie Envisioner(智元)', link: '/wam/papers/genie-envisioner' },
               { text: 'GR00T N2(NVIDIA)', link: '/wam/papers/groot-n2' },
+              { text: 'Cosmos 3(NVIDIA·全模态世界模型)', link: '/wam/papers/cosmos3' },
             ],
           },
         ],
@@ -552,6 +553,7 @@ export default withMermaid(defineConfig({
             { text: 'τ0-WM（智元/上海创智·测试时搜索）', link: '/wam/papers/tau0-wm' },
             { text: 'Genie Envisioner（智元 AgiBot）', link: '/wam/papers/genie-envisioner' },
             { text: 'GR00T N2（NVIDIA）', link: '/wam/papers/groot-n2' },
+            { text: 'Cosmos 3（NVIDIA·全模态世界模型）', link: '/wam/papers/cosmos3' },
           ],
         },
         {

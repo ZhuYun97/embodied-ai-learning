@@ -83,7 +83,7 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 |----|------|--------------|-------------|-------------|
 | **T0** | Google DeepMind | Gemini Robotics 1.5 + Robotics-ER 1.5 | 跨本体动作迁移有 arXiv 报告+定量消融(2510.03342);VLA + 具身推理「两脑」架构 | ⚠️「15 基准聚合最强」为厂商自评、50%空间+50%QA 加权,非逐项横扫 |
 | **T0** | Physical Intelligence | π0 / π0.5 | 3 个 VLA 模型**代码+权重 Apache-2.0 全开源**(openpi);π0.5 在全新真实家庭做长程操作 | ⚠️ $5.6B 估值仅 Bloomberg 二手 · 待核;「首次」为自述 |
-| **T0** | NVIDIA | Isaac GR00T N1 | 权重+训练数据公开(HF `GR00T-N1-2B`);41 作者 GEAR 团队(Jim Fan / Yuke Zhu) | ⚠️「45% 均值超 SOTA」厂商自报;「开放」=非商用 license、非 OSI 开源 |
+| **T0** | NVIDIA | Cosmos 3(全模态世界模型)+ Isaac GR00T N1 | **Cosmos 3 全套 OpenMDW-1.1 开源**(代码/权重/合成数据/基准,arXiv 2606.02800)+ 第三方 Artificial Analysis 评其开源文生图/图生视频第一;GR00T N1 权重+数据公开(HF);GEAR 团队(Jim Fan / Yuke Zhu) | ⚠️ Cosmos 3「RoboArena 最佳策略」自带「写报告时」时间戳口径(与千寻互称第一、无中立裁定);GR00T「45% 超 SOTA」自报、其「开放」=非商用 license;技术报告非顶会 |
 | **T0** | 1X Technologies | Redwood AI(160M VLA)+ 1XWM(14B 世界模型) | GENIE 权重 + 100h 数据 Apache-2.0 开源、**被第三方复现夺冠**(arXiv 2510.07092);OpenAI 领投 | ⚠️ 1XWM 官方定位为**离线评估器**非部署策略;NEO 发布演示 100% 遥操;$10B 估值为「寻求中」· 待核 |
 | **T1** | Skild AI | 「Skild Brain」跨本体基座 | $1.4B C 轮 / 估值 >$14B(公司 + Bloomberg + TechCrunch 三源确认) | ⚠️ 模型能力公开证据薄;「业界首个统一跨本体基座」为营销定位;估值为私募 |
 | **T1** | Figure AI | Helix(双系统 VLA) | >$1B C 轮 / $39B(Parkway 领投);Helix 架构公开(7B VLM + 80M 策略) | ⚠️ $39B 估值被广泛质疑过高(2025 约 150 台、客户亏损、安全诉讼);口径为「committed」 |
@@ -172,7 +172,7 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 **海外**
 - Google DeepMind — arXiv [2503.20020](https://arxiv.org/abs/2503.20020) · [2510.03342](https://arxiv.org/abs/2510.03342) · [官博 GR1.5](https://deepmind.google/blog/gemini-robotics-15-brings-ai-agents-into-the-physical-world/)
 - Physical Intelligence — arXiv [2504.16054](https://arxiv.org/abs/2504.16054) · [github openpi](https://github.com/Physical-Intelligence/openpi)
-- NVIDIA — arXiv [2503.14734](https://arxiv.org/abs/2503.14734) · [新闻室 GR00T N1](https://nvidianews.nvidia.com/news/nvidia-isaac-gr00t-n1-open-humanoid-robot-foundation-model-simulation-frameworks)
+- NVIDIA — arXiv [2503.14734](https://arxiv.org/abs/2503.14734) · [新闻室 GR00T N1](https://nvidianews.nvidia.com/news/nvidia-isaac-gr00t-n1-open-humanoid-robot-foundation-model-simulation-frameworks) · Cosmos 3 arXiv [2606.02800](https://arxiv.org/abs/2606.02800)
 - 1X Technologies — [Redwood AI](https://www.1x.tech/discover/redwood-ai) · [github 1xgpt](https://github.com/1x-technologies/1xgpt) · arXiv [2510.07092](https://arxiv.org/abs/2510.07092)
 - Generalist Robotics — [GEN-0](https://generalistai.com/blog/nov-04-2025-GEN-0) · [GEN-1](https://generalistai.com/blog/apr-02-2026-GEN-1) · [SiliconANGLE $400M](https://siliconangle.com/2026/06/04/generalist-ai-raises-400m-2b-valuation-build-general-intelligence-real-world/)
 - Skild AI — [Business Wire $1.4B](https://www.businesswire.com/news/home/20260114335623/en/Skild-AI-Raises-$1.4B-Now-Valued-Over-$14B) · [skild.ai 官博](https://www.skild.ai/blogs/series-c)
