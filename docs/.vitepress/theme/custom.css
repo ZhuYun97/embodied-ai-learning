@@ -2875,3 +2875,89 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 @media (min-width: 1536px) and (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .items { --rx: 510px; --rz: 240px; }
 }
+
+
+/* ============ 具身大脑分档榜 — 金字塔层级 + 公司 logo(2026-06) ============ */
+.brain-pyramid{
+  --t0:#67e8f9; --t1:#7dd3fc; --t2:#c4b5fd; --na:#fca5a5;
+  margin:1.5rem auto 1rem; max-width:900px;
+  display:flex; flex-direction:column; gap:11px;
+}
+.brain-pyramid .pyr-tier{
+  --tc:var(--t1);
+  position:relative; border-radius:15px; padding:9px 16px 13px;
+  border:1px solid color-mix(in srgb, var(--tc) 32%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--tc) 9%, transparent), transparent 62%),
+    rgba(13,20,38,.55);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--tc) 18%, transparent);
+}
+.brain-pyramid .pyr-tier[data-tier=t0]{--tc:var(--t0);}
+.brain-pyramid .pyr-tier[data-tier=t1]{--tc:var(--t1);}
+.brain-pyramid .pyr-tier[data-tier=t2]{--tc:var(--t2);}
+.brain-pyramid .pyr-tier[data-tier=na]{--tc:var(--na);}
+.brain-pyramid .pyr-tier[data-tier=t0]{
+  box-shadow:inset 0 1px 0 color-mix(in srgb,var(--t0) 30%,transparent), 0 0 26px color-mix(in srgb,var(--t0) 16%,transparent);
+}
+.brain-pyramid .pyr-head{
+  display:flex; align-items:center; justify-content:center; gap:9px; margin-bottom:9px;
+}
+.brain-pyramid .pyr-lab{
+  font-family:'Orbitron', ui-monospace, monospace; font-size:12px; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--tc);
+  text-shadow:0 0 12px color-mix(in srgb, var(--tc) 55%, transparent);
+}
+.brain-pyramid .pyr-cnt{
+  font-family:'Orbitron', ui-monospace, monospace; font-size:10px; font-weight:700;
+  color:var(--tc); padding:1px 7px; border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--tc) 45%,transparent);
+  background:color-mix(in srgb,var(--tc) 12%,transparent);
+}
+.brain-pyramid .pyr-row{ display:flex; flex-wrap:wrap; gap:12px 13px; justify-content:center; }
+.brain-pyramid .pyr-tier[data-tier=t0] .pyr-row{max-width:540px;margin:0 auto;}
+.brain-pyramid .pyr-tier[data-tier=t2] .pyr-row{max-width:660px;margin:0 auto;}
+.brain-pyramid .pyr-tier[data-tier=na] .pyr-row{max-width:600px;margin:0 auto;}
+
+.brain-pyramid .pyr-node{
+  display:flex; flex-direction:column; align-items:center; gap:5px;
+  width:74px; text-decoration:none;
+}
+.brain-pyramid .pyr-ic{
+  position:relative; width:46px; height:46px; border-radius:13px;
+  display:grid; place-items:center; overflow:visible;
+  background:rgba(255,255,255,.94);
+  border:1.5px solid var(--tc, #7dd3fc);
+  box-shadow:0 0 0 1px rgba(0,0,0,.35), 0 0 15px color-mix(in srgb, var(--tc,#7dd3fc) 40%, transparent);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.brain-pyramid .pyr-tier[data-tier=t0] .pyr-ic{--tc:var(--t0);}
+.brain-pyramid .pyr-tier[data-tier=t1] .pyr-ic{--tc:var(--t1);}
+.brain-pyramid .pyr-tier[data-tier=t2] .pyr-ic{--tc:var(--t2);}
+.brain-pyramid .pyr-tier[data-tier=na] .pyr-ic{--tc:var(--na);}
+.brain-pyramid .pyr-ic img{width:100%;height:100%;object-fit:contain;border-radius:11px;padding:5px;}
+.brain-pyramid .pyr-ic i{ font-family:'Orbitron', ui-monospace, monospace; font-style:normal; font-weight:700; font-size:15px; color:#0b1120; }
+/* 字母兜底:用档位色底,而非白底 */
+.brain-pyramid .pyr-node:has(i) .pyr-ic{ background:linear-gradient(180deg, color-mix(in srgb,var(--tc) 26%, #0b1120), #0b1120); }
+.brain-pyramid .pyr-node:has(i) .pyr-ic i{ color:var(--tc); text-shadow:0 0 8px color-mix(in srgb,var(--tc) 60%, transparent); }
+.brain-pyramid .pyr-node.is-big .pyr-ic::after{
+  content:'🏢'; position:absolute; top:-7px; right:-7px; font-size:11px; line-height:1;
+  filter:drop-shadow(0 0 2px #000);
+}
+.brain-pyramid .pyr-nm{ font-size:10.5px; line-height:1.18; color:#cbd5e1; text-align:center; max-width:78px; word-break:break-word; }
+.brain-pyramid .pyr-node:hover .pyr-ic{ transform:translateY(-3px) scale(1.07); box-shadow:0 0 0 1px rgba(0,0,0,.35), 0 0 22px color-mix(in srgb, var(--tc,#7dd3fc) 75%, transparent); }
+.brain-pyramid .pyr-node:hover .pyr-nm{ color:#f1f5f9; }
+
+@media (prefers-reduced-motion: no-preference){
+  .brain-pyramid .pyr-tier[data-tier=t0]{ animation:pyrApex 3.4s ease-in-out infinite; }
+  @keyframes pyrApex{ 0%,100%{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--t0) 30%,transparent), 0 0 22px color-mix(in srgb,var(--t0) 13%,transparent);} 50%{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--t0) 40%,transparent), 0 0 34px color-mix(in srgb,var(--t0) 22%,transparent);} }
+}
+@media (max-width:640px){
+  .brain-pyramid .pyr-node{width:60px;}
+  .brain-pyramid .pyr-ic{width:40px;height:40px;}
+  .brain-pyramid .pyr-nm{font-size:9.5px;}
+}
+/* 浅色模式:logo 底仍保持白、字母底加深 */
+html:not(.dark) .brain-pyramid .pyr-tier{ background:linear-gradient(180deg, color-mix(in srgb, var(--tc) 12%, transparent), transparent 62%), rgba(241,245,249,.7); }
+html:not(.dark) .brain-pyramid .pyr-nm{ color:#334155; }
+html:not(.dark) .brain-pyramid .pyr-node:has(i) .pyr-ic i{ color:#0b1120; text-shadow:none; }
+html:not(.dark) .brain-pyramid .pyr-node:has(i) .pyr-ic{ background:linear-gradient(180deg, color-mix(in srgb,var(--tc) 30%, #fff), #fff); }
