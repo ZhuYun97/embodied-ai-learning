@@ -2939,10 +2939,6 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 /* 字母兜底:用档位色底,而非白底 */
 .brain-pyramid .pyr-node:has(i) .pyr-ic{ background:linear-gradient(180deg, color-mix(in srgb,var(--tc) 26%, #0b1120), #0b1120); }
 .brain-pyramid .pyr-node:has(i) .pyr-ic i{ color:var(--tc); text-shadow:0 0 8px color-mix(in srgb,var(--tc) 60%, transparent); }
-.brain-pyramid .pyr-node.is-big .pyr-ic::after{
-  content:'🏢'; position:absolute; top:-7px; right:-7px; font-size:11px; line-height:1;
-  filter:drop-shadow(0 0 2px #000);
-}
 .brain-pyramid .pyr-nm{ font-size:10.5px; line-height:1.18; color:#cbd5e1; text-align:center; max-width:78px; word-break:break-word; }
 .brain-pyramid .pyr-node:hover .pyr-ic{ transform:translateY(-3px) scale(1.07); box-shadow:0 0 0 1px rgba(0,0,0,.35), 0 0 22px color-mix(in srgb, var(--tc,#7dd3fc) 75%, transparent); }
 .brain-pyramid .pyr-node:hover .pyr-nm{ color:#f1f5f9; }
