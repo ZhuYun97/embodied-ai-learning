@@ -1,5 +1,504 @@
 [
   {
+    "id": "ubtech-uworld-presale-20260605",
+    "title": "优必选「优世界」全尺寸超仿生人形机器人开启预售",
+    "date": "2026-06-05",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "todo",
+    "category": [
+      "新品发布",
+      "人形机器人"
+    ],
+    "summary": "优必选消费级品牌 **「优世界」** 宣布全球首款全尺寸超仿生人形机器人开启预售,**3000 元定金**锁定首批名额,定于 6 月 30 日正式发布、9 月 15 日前交付,分男 / 女两款。⚠️ 厂商标称 88 个高自由度运动关节、续航 2–4 小时——参数为厂商自报,单一媒体源,待核。",
+    "sources": [
+      {
+        "name": "网易科技",
+        "url": "https://www.163.com/dy/article/KUM4PVO70514D3UH.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "tempovla-speed-controllable-20260604",
+    "title": "arXiv 论文 TempoVLA:学习速度可控的视觉-语言-动作策略",
+    "date": "2026-06-04",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "VLA 模型"
+    ],
+    "summary": "**TempoVLA**(arXiv:[2606.06491](https://arxiv.org/abs/2606.06491),v1 2026-06-04)针对操作中「低风险转移段需快、高风险接触段需慢」的矛盾,提出可变速轨迹增强(VSTA)对演示重新计时,使单一 VLA 可双向灵活调速。⚠️ 作者自评(预印本,未经同行评审 / 第三方复现):在快速通过低风险段、减速完成高风险操作上实现灵活速度控制。",
+    "sources": [
+      {
+        "name": "arXiv:2606.06491",
+        "url": "https://arxiv.org/abs/2606.06491"
+      }
+    ],
+    "related": [
+      {
+        "label": "VLA 模型调研",
+        "url": "/vla/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "realdexumi-wearable-dexterous-20260604",
+    "title": "arXiv 论文 RealDexUMI:面向灵巧机器人学习的可穿戴通用操作接口",
+    "date": "2026-06-04",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "灵巧操作",
+      "数据集"
+    ],
+    "summary": "**RealDexUMI**(arXiv:[2606.06033](https://arxiv.org/abs/2606.06033),v1 2026-06-04)围绕共享灵巧末端模块构建可穿戴采集接口,集成轻量灵巧手、手内视觉与指尖触觉,实现无需重定向的高保真数据采集。⚠️ 作者自评(预印本):8 项实机任务(含精细 / 接触密集 / 长时序 / 双手)平均成功率 **88.75%**,可泛化到未见初始位姿并跨 3 种本体迁移。",
+    "sources": [
+      {
+        "name": "arXiv:2606.06033",
+        "url": "https://arxiv.org/abs/2606.06033"
+      }
+    ],
+    "related": [
+      {
+        "label": "VLA 模型调研",
+        "url": "/vla/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "grail-humanoid-locomanip-datagen-20260603",
+    "title": "arXiv 论文 GRAIL:用 3D 资产 + 视频先验合成人形全身移动操作数据(NVIDIA)",
+    "date": "2026-06-03",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "人形机器人",
+      "数据集"
+    ],
+    "summary": "**GRAIL**(arXiv:[2606.05160](https://arxiv.org/abs/2606.05160),NVIDIA DAIR 等,v1 2026-06-03)通过 3D 资产组合与视频基础模型自动合成 **2 万+ 条**人形全身移动操作数据(拾取、操作、坐下、地形穿越),仅用合成数据训练第一视角策略。⚠️ 作者自评(预印本):Unitree G1 实机多样物体拾取成功率 **84%**、爬楼梯 **90%**。",
+    "sources": [
+      {
+        "name": "arXiv:2606.05160",
+        "url": "https://arxiv.org/abs/2606.05160"
+      }
+    ],
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "oscar-omni-embodiment-wm-20260603",
+    "title": "arXiv 论文 OSCAR:面向机器人的全本体动作条件世界模型",
+    "date": "2026-06-03",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "世界模型"
+    ],
+    "summary": "**OSCAR**(arXiv:[2606.04463](https://arxiv.org/abs/2606.04463),v1 2026-06-03 / v2 06-04)用 **2D 运动学骨架渲染**作为统一条件表征,使单一视频世界模型跨不同机器人本体及人手泛化,在大规模机器人 + 第一视角人类数据上训练。⚠️ 作者自评(预印本):动作跟随、画质与运动一致性优于基线且更省算力,虚拟策略评测与真实世界评测显著相关。",
+    "sources": [
+      {
+        "name": "arXiv:2606.04463",
+        "url": "https://arxiv.org/abs/2606.04463"
+      }
+    ],
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "unitree-11000-units-20260602",
+    "title": "宇树科技:单款人形机器人累计生产下线约 11000 台",
+    "date": "2026-06-02",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "量产",
+      "人形机器人"
+    ],
+    "summary": "宇树科技公布量产成绩单,称其**单款双足人形机器人累计下线约 11000 台**(不含其他型号或轮式机型),发布于科创板 IPO 过会次日。⚠️ 该数据为公司自行披露(自报)。",
+    "sources": [
+      {
+        "name": "证券时报",
+        "url": "https://www.stcn.com/article/detail/3939323.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "dobot-kongyi-wam-20260601",
+    "title": "越疆发布自研「世界-动作」模型空弈 DobotWAM 具身大模型",
+    "date": "2026-06-01",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "新品发布",
+      "世界模型"
+    ],
+    "summary": "深圳具身智能企业 **越疆(Dobot)** 发布自研世界-动作模型 **「空弈 DobotWAM」**,主打空间关系理解、物体泛化、指令理解与长时序任务执行。⚠️ 公司自报:LIBERO 四套标准任务平均成功率 **99.25%**(LIBERO-Object 满分 100/100),称领先 π0.5、GR00T-N1.5 等公开模型——为厂商自评测结果,未经第三方复现。",
+    "sources": [
+      {
+        "name": "新浪财经",
+        "url": "https://finance.sina.com.cn/wm/2026-06-01/doc-inhzwuhp5257116.shtml"
+      }
+    ],
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "robodream-compositional-wm-20260601",
+    "title": "arXiv 论文 RoboDream:面向可扩展机器人数据合成的组合式世界模型",
+    "date": "2026-06-01",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "世界模型",
+      "数据集"
+    ],
+    "summary": "**RoboDream**(arXiv:[2606.02577](https://arxiv.org/abs/2606.02577),v1 2026-06-01)提出组合式世界模型,生成含新物体 / 新场景的逼真机器人演示,支持把已有轨迹改写到新情境、以及无实物时遥操作采集。⚠️ 作者自评(预印本):跨多种操作任务持续提升下游策略性能并显著降低真实数据需求。",
+    "sources": [
+      {
+        "name": "arXiv:2606.02577",
+        "url": "https://arxiv.org/abs/2606.02577"
+      }
+    ],
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "hyundai-atlas-football-20260529",
+    "title": "现代汽车「足球学校」营销片:Boston Dynamics 电动 Atlas 演示高难度足球动作",
+    "date": "2026-05-29",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "演示",
+      "人形机器人"
+    ],
+    "summary": "现代汽车于 5/25–29 分集发布「School of Football」系列短片,展示 **Boston Dynamics 电动 Atlas** 通过基于真实人类足球动作数据的强化学习完成「Ghost Rabona」交叉腿踢球等动作。⚠️ 现代官方声明全部动作均为 Atlas 实拍、未用 CGI(厂商声明)。",
+    "sources": [
+      {
+        "name": "Hyundai / PR Newswire",
+        "url": "https://www.prnewswire.com/news-releases/hyundai-motor-launches-school-of-football-campaign-featuring-boston-dynamics-atlas-ahead-of-fifa-world-cup-2026-302785520.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "pengzhihui-shangwei-chairman-20260526",
+    "title": "智元机器人创办人彭志辉(稚晖君)出任 A 股上市公司上纬新材董事长",
+    "date": "2026-05-26",
+    "fetched_at": "2026-06-08",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "上市/IPO",
+      "人物"
+    ],
+    "summary": "智元机器人联合创始人兼 CTO **彭志辉(稚晖君)** 正式出任 A 股上市公司 **上纬新材** 董事长,公司经营范围新增人工智能与机器人相关业务,当日股价上涨约 18%。⚠️ 上纬新材公告提示:彭志辉不参与具体研发、消费级具身机器人业务存在不确定性。",
+    "sources": [
+      {
+        "name": "新浪财经",
+        "url": "https://finance.sina.com.cn/jjxw/2026-05-26/doc-inhzfshi2155565.shtml"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "figure-catalyst-brands-20260526",
+    "title": "Figure AI 与 Catalyst Brands(JCPenney 母公司)签署商业部署协议",
+    "date": "2026-05-26",
+    "fetched_at": "2026-06-08",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "落地部署",
+      "合作",
+      "人形机器人"
+    ],
+    "summary": "**Figure AI** 与零售集团 **Catalyst Brands**(旗下含 JCPenney、Aéropostale、Brooks Brothers 等)签署商业协议,将在其美国内华达州 Reno 配送中心部署人形机器人,先期协助「Joey Pouch」分拣系统的搬运分拣;系 Figure 与博枫(Brookfield)系公司的首个此类协议。",
+    "sources": [
+      {
+        "name": "Figure AI",
+        "url": "https://www.figure.ai/news/figure-signs-agreement-with-catalyst-brands"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "humanoid-bosch-manufacturing-20260521",
+    "title": "英国 Humanoid 与博世(Bosch)达成制造合作,量产 HMND 01 人形机器人",
+    "date": "2026-05-21",
+    "fetched_at": "2026-06-08",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "合作",
+      "量产",
+      "人形机器人"
+    ],
+    "summary": "英国人形机器人初创公司 **Humanoid** 宣布与 **博世(Bosch)** 签署制造合作,由博世作为代工方在德国 Gerlingen 为欧洲市场生产 **HMND 01** 人形机器人;合作基于 2026 年 3 月在博世 Bühl 工厂完成的自主搬箱概念验证。",
+    "sources": [
+      {
+        "name": "The Robot Report",
+        "url": "https://www.therobotreport.com/humanoid-partners-with-bosch-schaeffler-scale-robot-production/"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "leju-chinext-ipo-accepted-20260519",
+    "title": "乐聚智能创业板 IPO 申请获深交所受理,拟募资 26 亿元",
+    "date": "2026-05-19",
+    "fetched_at": "2026-06-08",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "上市/IPO"
+    ],
+    "summary": "深交所受理 **乐聚智能(深圳)** 创业板 IPO 申请,乐聚成为**首家适用创业板第四套上市标准并获受理**的企业,拟募资 **26 亿元**投向人形机器人产业化基地、研发中心及大规模数据集建设;股东含腾讯系、深创投等。⚠️ 公司预计最早 2028 年盈利(自报)。",
+    "sources": [
+      {
+        "name": "新浪财经",
+        "url": "https://finance.sina.com.cn/jjxw/2026-05-20/doc-inhynvwt1829510.shtml"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "sugar-human-video-humanoid-20260519",
+    "title": "arXiv 论文 SUGAR:从人类视频学习可泛化的人形全身移动操作",
+    "date": "2026-05-19",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "人形机器人"
+    ],
+    "summary": "**SUGAR**(arXiv:[2605.20373](https://arxiv.org/abs/2605.20373),v1 2026-05-19)提出三阶段框架(视频解析→物理精修→分层策略蒸馏),把人类视频直接转化为可部署的人形全身技能,无需任务专属奖励工程。⚠️ 作者自评(预印本):可零样本迁移实机,具备闭环执行、自主失败恢复与外扰下长时程稳定性,并泛化到未见物体配置。",
+    "sources": [
+      {
+        "name": "arXiv:2605.20373",
+        "url": "https://arxiv.org/abs/2605.20373"
+      }
+    ],
+    "related": [
+      {
+        "label": "VLA 模型调研",
+        "url": "/vla/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "matrix-chaozhi-matrix3-20260518",
+    "title": "矩阵超智发布第三代旗舰人形机器人 MATRIX-3,售价 58 万元起",
+    "date": "2026-05-18",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "新品发布",
+      "人形机器人"
+    ],
+    "summary": "矩阵超智在上海张江举办「2026 矩阵超智科技日」,发布全能旗舰级人形机器人 **MATRIX-3**(58 万元起)及搭载灵巧手的 **MATRIX-3 PRO**(68 万元起),采用英伟达 AGX 算力与自研直线关节,计划 2026 年下半年规模化投产。",
+    "sources": [
+      {
+        "name": "IT之家",
+        "url": "https://www.ithome.com/0/952/077.htm"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "fraunhofer-ipa-humanoid-benchmark-20260517",
+    "title": "德国 Fraunhofer IPA 推出人形机器人工业基准测试,首测对象为宇树 G1",
+    "date": "2026-05-17",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "行业标准",
+      "人形机器人"
+    ],
+    "summary": "德国弗劳恩霍夫制造工程与自动化研究所(**Fraunhofer IPA**)推出涵盖基础与复杂能力、洁净度、功能安全、网络安全、能效六大维度的**第三方人形机器人基准测试**,并以 **Unitree G1 EDU-4** 为首个评测对象。报告:碰撞冲击力可超 **500 牛顿**(高于标准疼痛阈值),并发现一处已修复的蓝牙安全漏洞。",
+    "sources": [
+      {
+        "name": "The Robot Report",
+        "url": "https://www.therobotreport.com/fraunhofer-ipa-offers-new-test-benchmark-for-humanoid-robots/"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "national-embodied-pilot-base-hangzhou-20260516",
+    "title": "国家人工智能应用中试基地(具身智能)在杭州揭牌启用",
+    "date": "2026-05-16",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "政策/标准",
+      "落地部署"
+    ],
+    "summary": "中国唯一面向具身智能领域的**国家级应用中试基地**在杭州揭牌,构建以算力保障、数据开放、模型服务、场景验证为核心的公共技术服务平台,已建成可在餐饮、电力巡检、井下作业等 **30 余个真实场景**开展技能训练与验证的平台。",
+    "sources": [
+      {
+        "name": "中国新闻网",
+        "url": "https://www.chinanews.com/cj/2026/05-16/10622334.shtml"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "boyin-hechuang-prea-20260515",
+    "title": "博银合创完成近 3 亿元 Pre-A 轮融资,并获荻捷工业近 2000 台具身机器人订单",
+    "date": "2026-05-15",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "todo",
+    "category": [
+      "融资",
+      "落地部署"
+    ],
+    "summary": "工业具身智能公司 **博银合创** 宣布完成近 **3 亿元** 人民币 Pre-A 轮融资;同时与物流分拣系统集成商 **荻捷工业** 签约,后者计划三年内采购近 **2000 台** BW10 系列具身机器人用于快递物流分拣。⚠️ 累计意向订单金额(公司自报数亿美元级)未经审计、暂为单一媒体源,待核。",
+    "sources": [
+      {
+        "name": "财联社",
+        "url": "https://www.chinastarmarket.cn/detail/2372375"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "hexagon-aeon-fill-pilot-20260515",
+    "title": "Hexagon AEON 人形机器人在奥地利 Fill Maschinenbau 工厂启动产线试点",
+    "date": "2026-05-15",
+    "fetched_at": "2026-06-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "合作",
+      "落地部署",
+      "人形机器人"
+    ],
+    "summary": "测量与自动化巨头 **Hexagon** 的机器人部门与奥地利机械制造商 **Fill Maschinenbau** 宣布合作,在 Fill 位于 Gurten 的工厂部署多用途人形机器人 **AEON**,试点上下料、检测及运维等真实制造工序。",
+    "sources": [
+      {
+        "name": "Robotics & Automation News",
+        "url": "https://roboticsandautomationnews.com/2026/05/15/hexagon-and-fill-maschinenbau-partner-to-advance-manufacturing-autonomy-using-humanoids/101578/"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "qwen-vla-unified-embodiment-20260528",
     "title": "阿里 Qwen(通义千问)团队进军具身智能:发布 Qwen-VLA,用统一视觉-语言-动作模型横跨操作 / 导航 / 轨迹预测与多种机器人本体",
     "date": "2026-05-28",
