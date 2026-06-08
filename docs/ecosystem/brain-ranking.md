@@ -19,8 +19,8 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 <div class="brain-stats">
 <div class="bs-cell"><span class="bs-n">33</span><span class="bs-l">收录公司</span></div>
 <div class="bs-cell"><span class="bs-n">7</span><span class="bs-l">T0 前沿</span></div>
-<div class="bs-cell"><span class="bs-n">16</span><span class="bs-l">海外</span></div>
 <div class="bs-cell"><span class="bs-n">17</span><span class="bs-l">国内</span></div>
+<div class="bs-cell"><span class="bs-n">16</span><span class="bs-l">海外</span></div>
 </div>
 
 <div class="brain-legend">
@@ -31,29 +31,6 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 </div>
 
 > **档位含义**:`T0` 旗舰模型有**独立背书**(顶会同行评审 / 里程碑级被业界使用的开源资产 / 第三方真机榜第一),**不只是「开源模型 + 融资」**;`T1` 有可验证模型但缺独立验证,或资本极强而模型多自评;`T2` 可信进入者;`—` 无自研大脑、不予定档。
-
----
-
-## 🌍 海外榜
-
-| 档 | 公司 | 代表大脑/模型 | ✅ 已核硬证据 | ⚠️/待核 存疑 |
-|----|------|--------------|-------------|-------------|
-| **T0** | Google DeepMind | Gemini Robotics 1.5 + Robotics-ER 1.5 | 跨本体动作迁移有 arXiv 报告+定量消融(2510.03342);VLA + 具身推理「两脑」架构 | ⚠️「15 基准聚合最强」为厂商自评、50%空间+50%QA 加权,非逐项横扫 |
-| **T0** | Physical Intelligence | π0 / π0.5 | 3 个 VLA 模型**代码+权重 Apache-2.0 全开源**(openpi);π0.5 在全新真实家庭做长程操作 | ⚠️ $5.6B 估值仅 Bloomberg 二手 · 待核;「首次」为自述 |
-| **T0** | NVIDIA | Isaac GR00T N1 | 权重+训练数据公开(HF `GR00T-N1-2B`);41 作者 GEAR 团队(Jim Fan / Yuke Zhu) | ⚠️「45% 均值超 SOTA」厂商自报;「开放」=非商用 license、非 OSI 开源 |
-| **T0** | 1X Technologies | Redwood AI(160M VLA)+ 1XWM(14B 世界模型) | GENIE 权重 + 100h 数据 Apache-2.0 开源、**被第三方复现夺冠**(arXiv 2510.07092);OpenAI 领投 | ⚠️ 1XWM 官方定位为**离线评估器**非部署策略;NEO 发布演示 100% 遥操;$10B 估值为「寻求中」· 待核 |
-| **T1** | Skild AI | 「Skild Brain」跨本体基座 | $1.4B C 轮 / 估值 >$14B(公司 + Bloomberg + TechCrunch 三源确认) | ⚠️ 模型能力公开证据薄;「业界首个统一跨本体基座」为营销定位;估值为私募 |
-| **T1** | Figure AI | Helix(双系统 VLA) | >$1B C 轮 / $39B(Parkway 领投);Helix 架构公开(7B VLM + 80M 策略) | ⚠️ $39B 估值被广泛质疑过高(2025 约 150 台、客户亏损、安全诉讼);口径为「committed」 |
-| **T1** | Generalist Robotics | GEN-0 / GEN-1 | $400M / 估值~$20 亿、NVIDIA + 李飞飞背书;团队为 RT-2/PaLM-E 作者 + 前 Boston Dynamics | ⚠️ 模型**全为自报博客**:无权重 · 无 arXiv · 无第三方评测;99%/3× 等 benchmark「无独立验证」 |
-| **T1** | Tesla Optimus | 无命名模型(复用 FSD 端到端网 + neural world simulator) | FSD 工程班底(Elluswamy 接管);算力 Cortex ~10 万 GPU | ⚠️ 无技术报告/权重/公开 benchmark;**部署被 Musk 本人否认**(2026-01「工厂无实质使用」,约数百台);语言依赖外部 xAI Grok |
-| **T1** | Boston Dynamics | Atlas LBM(450M DiT + flow-matching 全身策略) | 架构官博详披(50-DoF · 30Hz);团队顶级(Tedrake/MIT);现代 $11 亿控股 + RAI $4 亿 | ⚠️ Atlas 专属模型无独立论文/权重/benchmark;大脑依赖 **TRI(LBM 框架)+ Google DeepMind(Gemini)合作非自研**;**「已发 Science Robotics」经核验为误——实为 arXiv 预印本、且实验体是 Franka 非 Atlas** |
-| **T1** | Covariant | RFM-1(8B 多模态 any-to-any,世界模型+策略) | RFM-1 多源证实存在;Abbeel 系顶级团队;$222M / 估值 $625M;真实付费落地(McKesson / KNAPP / Würth) | ⚠️ 无论文/权重/benchmark(demo 自报);**2024-08 Abbeel 等核心团队 + 25% 员工被亚马逊招走、此后停更近「僵尸公司」** |
-| **T1** | Genesis AI | GENE-26.5(机器人基础模型,多模态 flow-matching) | $105M 种子轮(Eclipse/Khosla 领投 · 红杉中国/Schmidt);团队(周贤 CMU + Gervet ex-Mistral);开源 Genesis 物理引擎(~29k★) | ⚠️ GENE-26.5 无技术报告/权重/第三方评测、性能全在**自家仿真器**自评;开源的是仿真器非大脑模型;「业界首个人类级」营销 |
-| **T1** | Dyna Robotics | DYNA-1(单权重通用操作基础模型,RL) | 累计 $143.5M(NVIDIA/Amazon/Samsung)、估值 >$6 亿(Bloomberg);团队(Caper $3.5 亿退出 + Jason Ma ex-DeepMind/Eureka) | ⚠️ DYNA-1 无技术报告/权重/benchmark;「99.4% / 24h」自报(自家口径互相矛盾);无具名付费客户 |
-| **T1** | Field AI | Field Foundation Models(DFM + MFM,边缘自主) | 累计 $405M / 估值 $20 亿(Bezos/NVIDIA/Khosla/Temasek);DPR×Spot 18 月部署案例;2026-03 与 Boston Dynamics 官方合作;团队(Ali Agha NASA JPL/DARPA) | ⚠️ FFM 无技术报告/benchmark/权重(CEO 称涉 IP);DPR 系战略合作案例、非确认付费客户 |
-| **T1** | World Labs | Marble + RTFM(世界模型 / 空间智能) | 资本极强(累计~$1.23B、2026-02 新一轮 $1B、NVIDIA/AMD/Autodesk);团队顶级(李飞飞 / NeRF / 高斯泼溅奠基);Marble 已商用 + API;开源 Spark 渲染器 | ⚠️ **偏空间生成、非机器人控制策略**(robot 仅下游用其仿真);Marble/RTFM 无 arXiv/benchmark/权重;~$5B 估值未确认 · 待核 |
-| **—** | Apptronik | **无自研大脑**(用 DeepMind Gemini Robotics + NVIDIA GR00T) | $935M / 估值~$5.3B、Mercedes/GXO 落地——但属硬件/控制层 | ⚠️ 无任何自研大脑公开产物;内部 AIRfm 团队在建、未公开 → 不予定档 |
-| **—** | Sanctuary AI | Carbon(认知架构,仅营销描述) | 累计~$140M;团队 D-Wave/Kindred 出身;持 Apptronik 股权增值至~$125M | ⚠️ Carbon **零公开技术证据**(无报告/论文/权重/benchmark);2024 CEO/CTO 离职 + 裁员;落地仅试点 → 不予定档 |
 
 ---
 
@@ -80,6 +57,29 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 | **T2** | 穹彻智能 Noematrix | Noematrix Brain(以力为中心,双模型) | 天使 + Pre-A 累计数亿元(领投 Prosperity7 + 广发信德);卢策吾(SJTU)创办、非夕孵化 | ⚠️ 金额为模糊区间「数亿元」无工商佐证;架构为公司自述 |
 
 > 📌 **关于「降 T1」**:自变量 / 星海图 / 跨维 / Dexmal / 智平方 都很强(开源模型 + 顶级资本),降 T1 不是变弱,而是按收紧后的口径——**T0 要旗舰模型有独立背书**(顶会同行评审 / 里程碑级开源资产 / 第三方真机榜第一),它们多为 arXiv 预印本 + 自评 benchmark,故归「强实力 T1」。
+
+---
+
+## 🌍 海外榜
+
+| 档 | 公司 | 代表大脑/模型 | ✅ 已核硬证据 | ⚠️/待核 存疑 |
+|----|------|--------------|-------------|-------------|
+| **T0** | Google DeepMind | Gemini Robotics 1.5 + Robotics-ER 1.5 | 跨本体动作迁移有 arXiv 报告+定量消融(2510.03342);VLA + 具身推理「两脑」架构 | ⚠️「15 基准聚合最强」为厂商自评、50%空间+50%QA 加权,非逐项横扫 |
+| **T0** | Physical Intelligence | π0 / π0.5 | 3 个 VLA 模型**代码+权重 Apache-2.0 全开源**(openpi);π0.5 在全新真实家庭做长程操作 | ⚠️ $5.6B 估值仅 Bloomberg 二手 · 待核;「首次」为自述 |
+| **T0** | NVIDIA | Isaac GR00T N1 | 权重+训练数据公开(HF `GR00T-N1-2B`);41 作者 GEAR 团队(Jim Fan / Yuke Zhu) | ⚠️「45% 均值超 SOTA」厂商自报;「开放」=非商用 license、非 OSI 开源 |
+| **T0** | 1X Technologies | Redwood AI(160M VLA)+ 1XWM(14B 世界模型) | GENIE 权重 + 100h 数据 Apache-2.0 开源、**被第三方复现夺冠**(arXiv 2510.07092);OpenAI 领投 | ⚠️ 1XWM 官方定位为**离线评估器**非部署策略;NEO 发布演示 100% 遥操;$10B 估值为「寻求中」· 待核 |
+| **T1** | Skild AI | 「Skild Brain」跨本体基座 | $1.4B C 轮 / 估值 >$14B(公司 + Bloomberg + TechCrunch 三源确认) | ⚠️ 模型能力公开证据薄;「业界首个统一跨本体基座」为营销定位;估值为私募 |
+| **T1** | Figure AI | Helix(双系统 VLA) | >$1B C 轮 / $39B(Parkway 领投);Helix 架构公开(7B VLM + 80M 策略) | ⚠️ $39B 估值被广泛质疑过高(2025 约 150 台、客户亏损、安全诉讼);口径为「committed」 |
+| **T1** | Generalist Robotics | GEN-0 / GEN-1 | $400M / 估值~$20 亿、NVIDIA + 李飞飞背书;团队为 RT-2/PaLM-E 作者 + 前 Boston Dynamics | ⚠️ 模型**全为自报博客**:无权重 · 无 arXiv · 无第三方评测;99%/3× 等 benchmark「无独立验证」 |
+| **T1** | Tesla Optimus | 无命名模型(复用 FSD 端到端网 + neural world simulator) | FSD 工程班底(Elluswamy 接管);算力 Cortex ~10 万 GPU | ⚠️ 无技术报告/权重/公开 benchmark;**部署被 Musk 本人否认**(2026-01「工厂无实质使用」,约数百台);语言依赖外部 xAI Grok |
+| **T1** | Boston Dynamics | Atlas LBM(450M DiT + flow-matching 全身策略) | 架构官博详披(50-DoF · 30Hz);团队顶级(Tedrake/MIT);现代 $11 亿控股 + RAI $4 亿 | ⚠️ Atlas 专属模型无独立论文/权重/benchmark;大脑依赖 **TRI(LBM 框架)+ Google DeepMind(Gemini)合作非自研**;**「已发 Science Robotics」经核验为误——实为 arXiv 预印本、且实验体是 Franka 非 Atlas** |
+| **T1** | Covariant | RFM-1(8B 多模态 any-to-any,世界模型+策略) | RFM-1 多源证实存在;Abbeel 系顶级团队;$222M / 估值 $625M;真实付费落地(McKesson / KNAPP / Würth) | ⚠️ 无论文/权重/benchmark(demo 自报);**2024-08 Abbeel 等核心团队 + 25% 员工被亚马逊招走、此后停更近「僵尸公司」** |
+| **T1** | Genesis AI | GENE-26.5(机器人基础模型,多模态 flow-matching) | $105M 种子轮(Eclipse/Khosla 领投 · 红杉中国/Schmidt);团队(周贤 CMU + Gervet ex-Mistral);开源 Genesis 物理引擎(~29k★) | ⚠️ GENE-26.5 无技术报告/权重/第三方评测、性能全在**自家仿真器**自评;开源的是仿真器非大脑模型;「业界首个人类级」营销 |
+| **T1** | Dyna Robotics | DYNA-1(单权重通用操作基础模型,RL) | 累计 $143.5M(NVIDIA/Amazon/Samsung)、估值 >$6 亿(Bloomberg);团队(Caper $3.5 亿退出 + Jason Ma ex-DeepMind/Eureka) | ⚠️ DYNA-1 无技术报告/权重/benchmark;「99.4% / 24h」自报(自家口径互相矛盾);无具名付费客户 |
+| **T1** | Field AI | Field Foundation Models(DFM + MFM,边缘自主) | 累计 $405M / 估值 $20 亿(Bezos/NVIDIA/Khosla/Temasek);DPR×Spot 18 月部署案例;2026-03 与 Boston Dynamics 官方合作;团队(Ali Agha NASA JPL/DARPA) | ⚠️ FFM 无技术报告/benchmark/权重(CEO 称涉 IP);DPR 系战略合作案例、非确认付费客户 |
+| **T1** | World Labs | Marble + RTFM(世界模型 / 空间智能) | 资本极强(累计~$1.23B、2026-02 新一轮 $1B、NVIDIA/AMD/Autodesk);团队顶级(李飞飞 / NeRF / 高斯泼溅奠基);Marble 已商用 + API;开源 Spark 渲染器 | ⚠️ **偏空间生成、非机器人控制策略**(robot 仅下游用其仿真);Marble/RTFM 无 arXiv/benchmark/权重;~$5B 估值未确认 · 待核 |
+| **—** | Apptronik | **无自研大脑**(用 DeepMind Gemini Robotics + NVIDIA GR00T) | $935M / 估值~$5.3B、Mercedes/GXO 落地——但属硬件/控制层 | ⚠️ 无任何自研大脑公开产物;内部 AIRfm 团队在建、未公开 → 不予定档 |
+| **—** | Sanctuary AI | Carbon(认知架构,仅营销描述) | 累计~$140M;团队 D-Wave/Kindred 出身;持 Apptronik 股权增值至~$125M | ⚠️ Carbon **零公开技术证据**(无报告/论文/权重/benchmark);2024 CEO/CTO 离职 + 裁员;落地仅试点 → 不予定档 |
 
 ---
 
@@ -141,7 +141,7 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 
 ## ⚠️ 方法与局限 · 数据缺口
 
-- 共 **33 家**(海外 16 / 国内 17),其中 **T0 仅 7 家**(海外 4 / 国内 3)。「档位」只反映**大脑层证据的可验证度**,非估值或市场地位。
+- 共 **33 家**(国内 17 / 海外 16),其中 **T0 仅 7 家**(国内 3 / 海外 4)。「档位」只反映**大脑层证据的可验证度**,非估值或市场地位。
 - **T0 的门槛(2026-06 收紧)**:旗舰模型须有**独立背书**——顶会同行评审、或里程碑级被业界使用的开源资产、或第三方真机榜第一;「有开源模型 + 巨额融资但 benchmark 自评」归 **T1**(国内此类公司密集,故 T1 偏大)。
 - **可硬核实的「地基」(✅)** 只有几类:开源数据集计数、开源权重/license(openpi、GR00T、WALL-OSS、DM0、Spirit v1.5、G0、Thinker-4B、AgiBot World 等)、顶会收录(VPP/RoboMamba/FiS-VLA/Sim2Real-VLA/DexGraspVLA 等)、融资轮次/投资方(多源)。
 - **所有「benchmark 最强 / 超 SOTA」= 厂商自报(⚠️),禁止跨厂硬比**;**所有估值都是私募 post-money、轮次自报**。
