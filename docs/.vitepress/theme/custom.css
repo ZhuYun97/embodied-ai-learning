@@ -2957,3 +2957,46 @@ html:not(.dark) .brain-pyramid .pyr-tier{ background:linear-gradient(180deg, col
 html:not(.dark) .brain-pyramid .pyr-nm{ color:#334155; }
 html:not(.dark) .brain-pyramid .pyr-node:has(i) .pyr-ic i{ color:#0b1120; text-shadow:none; }
 html:not(.dark) .brain-pyramid .pyr-node:has(i) .pyr-ic{ background:linear-gradient(180deg, color-mix(in srgb,var(--tc) 30%, #fff), #fff); }
+
+
+/* ============ 具身大脑分档榜 · 页面精修(scoped via :has(.brain-pyramid),不影响其它页)2026-06 ============ */
+/* 「水分」核验区:有序列表 → 红色「拆穿卡」+ 发光序号徽章 */
+.vp-doc:has(.brain-pyramid) ol{
+  list-style:none; counter-reset:bust; padding-left:0;
+  display:flex; flex-direction:column; gap:10px; margin:1.1rem 0;
+}
+.vp-doc:has(.brain-pyramid) ol > li{
+  counter-increment:bust; position:relative; margin:0;
+  padding:11px 15px 11px 50px;
+  border:1px solid color-mix(in srgb,#fca5a5 22%,transparent);
+  border-left:3px solid #fca5a5; border-radius:11px;
+  background:linear-gradient(100deg, color-mix(in srgb,#fca5a5 8%,transparent), transparent 55%), rgba(13,20,38,.42);
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.vp-doc:has(.brain-pyramid) ol > li::before{
+  content:counter(bust); position:absolute; left:12px; top:11px;
+  width:27px; height:27px; border-radius:8px; display:grid; place-items:center;
+  font-family:'Orbitron', ui-monospace, monospace; font-weight:700; font-size:12px;
+  color:#fca5a5; background:color-mix(in srgb,#fca5a5 14%,transparent);
+  border:1px solid color-mix(in srgb,#fca5a5 42%,transparent);
+  box-shadow:0 0 10px color-mix(in srgb,#fca5a5 22%,transparent);
+}
+@media (prefers-reduced-motion: no-preference){
+  .vp-doc:has(.brain-pyramid) ol > li:hover{
+    transform:translateX(3px);
+    border-color:color-mix(in srgb,#fca5a5 48%,transparent);
+    box-shadow:-5px 0 18px color-mix(in srgb,#fca5a5 16%,transparent);
+  }
+}
+/* 要点列表:青色科技 marker + 加粗首标签提亮(真机榜 / 外部视角 / 方法局限 / 来源 / 怎么读) */
+.vp-doc:has(.brain-pyramid) ul > li::marker{ color:#67e8f9; }
+.vp-doc:has(.brain-pyramid) ul > li{ transition:color .15s ease; }
+.vp-doc:has(.brain-pyramid) ul > li > strong:first-child{ color:#9fe7ff; }
+/* 浅色模式 */
+html:not(.dark) .vp-doc:has(.brain-pyramid) ol > li{
+  background:linear-gradient(100deg, color-mix(in srgb,#dc2626 9%,transparent), transparent 55%), rgba(248,250,252,.75);
+  border-left-color:#dc2626; border-color:color-mix(in srgb,#dc2626 22%,transparent);
+}
+html:not(.dark) .vp-doc:has(.brain-pyramid) ol > li::before{ color:#b91c1c; background:color-mix(in srgb,#dc2626 10%,transparent); border-color:color-mix(in srgb,#dc2626 35%,transparent); }
+html:not(.dark) .vp-doc:has(.brain-pyramid) ul > li::marker{ color:#0891b2; }
+html:not(.dark) .vp-doc:has(.brain-pyramid) ul > li > strong:first-child{ color:#0369a1; }
