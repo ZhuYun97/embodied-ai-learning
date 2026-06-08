@@ -2614,6 +2614,78 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 /* 窄屏:横向滚动(min-width 已撑开),给个滚动惯性 */
 .VPDoc .vp-doc table:has(td.rk-t0) { -webkit-overflow-scrolling: touch; }
 
+/* ---- HUD 统计读出条 ---- */
+.VPDoc .vp-doc .brain-stats {
+  display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 6px;
+  position: relative; overflow: hidden;
+}
+.VPDoc .vp-doc .brain-stats .bs-cell {
+  flex: 1 1 130px; position: relative; padding: 13px 16px; border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
+  background: linear-gradient(180deg, var(--vp-c-bg-soft), var(--vp-c-bg-alt));
+}
+.dark .VPDoc .vp-doc .brain-stats .bs-cell {
+  border-color: rgba(56, 189, 248, 0.22);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.06), rgba(8, 14, 30, 0.4));
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.05), 0 0 22px rgba(37, 99, 235, 0.08);
+}
+.VPDoc .vp-doc .brain-stats .bs-n {
+  display: block; font-family: var(--font-display); font-weight: 800;
+  font-size: 1.7rem; line-height: 1; color: var(--vp-c-brand-1);
+}
+.dark .VPDoc .vp-doc .brain-stats .bs-n { color: #67e8f9; text-shadow: 0 0 14px rgba(34, 211, 238, 0.45); }
+.VPDoc .vp-doc .brain-stats .bs-l {
+  display: block; margin-top: 7px; font-family: var(--vp-font-family-mono);
+  font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--vp-c-text-2);
+}
+/* 角标取景框 */
+.VPDoc .vp-doc .brain-stats .bs-cell::before,
+.VPDoc .vp-doc .brain-stats .bs-cell::after {
+  content: ''; position: absolute; width: 10px; height: 10px; pointer-events: none;
+  border: 1.5px solid var(--vp-c-brand-1); opacity: 0.5;
+}
+.dark .VPDoc .vp-doc .brain-stats .bs-cell::before,
+.dark .VPDoc .vp-doc .brain-stats .bs-cell::after { border-color: #22d3ee; opacity: 0.55; }
+.VPDoc .vp-doc .brain-stats .bs-cell::before { top: 6px; left: 6px; border-right: 0; border-bottom: 0; }
+.VPDoc .vp-doc .brain-stats .bs-cell::after { bottom: 6px; right: 6px; border-left: 0; border-top: 0; }
+/* 缓缓掠过的扫描光(深色 + 允许动效) */
+@media (prefers-reduced-motion: no-preference) {
+  .dark .VPDoc .vp-doc .brain-stats::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 28%; pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.12), transparent);
+    animation: bsScan 6s linear infinite;
+  }
+}
+@keyframes bsScan { 0% { transform: translateX(-120%); } 100% { transform: translateX(460%); } }
+
+/* ---- 档位图例 chips ---- */
+.VPDoc .vp-doc .brain-legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; align-items: center; }
+.VPDoc .vp-doc .brain-legend .bl-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 11px 5px 8px; border-radius: 8px; font-size: 0.78rem;
+  border: 1px solid var(--vp-c-divider); background: var(--vp-c-bg-soft); color: var(--vp-c-text-2);
+}
+.VPDoc .vp-doc .brain-legend .bl-chip b {
+  font-family: var(--font-display); font-weight: 800; font-size: 0.72rem;
+  padding: 2px 7px; border-radius: 6px; border: 1px solid currentColor;
+}
+.VPDoc .vp-doc .brain-legend .bl-t0 b { color: #0e7490; background: rgba(34, 211, 238, 0.14); }
+.VPDoc .vp-doc .brain-legend .bl-t1 b { color: #1d4ed8; background: rgba(59, 130, 246, 0.12); }
+.VPDoc .vp-doc .brain-legend .bl-t2 b { color: #6d28d9; background: rgba(139, 92, 246, 0.12); }
+.VPDoc .vp-doc .brain-legend .bl-na b { color: #b91c1c; background: rgba(248, 113, 113, 0.12); }
+.dark .VPDoc .vp-doc .brain-legend .bl-chip { border-color: rgba(56, 189, 248, 0.2); background: rgba(148, 163, 184, 0.06); }
+.dark .VPDoc .vp-doc .brain-legend .bl-t0 b { color: #67e8f9; background: rgba(34, 211, 238, 0.12); box-shadow: 0 0 10px rgba(34, 211, 238, 0.35); }
+.dark .VPDoc .vp-doc .brain-legend .bl-t1 b { color: #7dd3fc; background: rgba(56, 189, 248, 0.1); }
+.dark .VPDoc .vp-doc .brain-legend .bl-t2 b { color: #c4b5fd; background: rgba(139, 92, 246, 0.12); }
+.dark .VPDoc .vp-doc .brain-legend .bl-na b { color: #fca5a5; background: rgba(248, 113, 113, 0.1); }
+
+/* ---- 档位徽章:行悬停时脉冲(深色 + 允许动效;filter 色彩无关,适配各档色) ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .dark .VPDoc .vp-doc tbody tr:hover td[class^="rk-t"] strong,
+  .dark .VPDoc .vp-doc tbody tr:hover td.rk-na strong { animation: rkBadgePulse 1.4s ease-in-out infinite; }
+}
+@keyframes rkBadgePulse { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.4); } }
+
 /* ============================================================
    新闻页深空情报台底(星云 + 网格 + 顶部星点,仅暗色)
    放在全局文件:`.dark .news-index::before` 原样输出。
