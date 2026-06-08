@@ -17,7 +17,7 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 
 <div class="brain-stats">
 <div class="bs-cell"><span class="bs-n">47</span><span class="bs-l">收录主体</span></div>
-<div class="bs-cell"><span class="bs-n">9</span><span class="bs-l">T0 前沿</span></div>
+<div class="bs-cell"><span class="bs-n">7</span><span class="bs-l">T0 前沿</span></div>
 <div class="bs-cell"><span class="bs-n">33</span><span class="bs-l">独立公司</span></div>
 <div class="bs-cell"><span class="bs-n">14</span><span class="bs-l">大厂部门</span></div>
 </div>
@@ -40,8 +40,6 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 | **T0** | 智元 AgiBot | GO-1(ViLLA 潜动作通用策略) | **AgiBot World 100 万条轨迹开源**(HF 可核,业界在用)+ IROS 2025 最佳论文入围 | ⚠️「数量级领先」为作者自比;**「+30% 超 Open-X」经核验 0-3 被否决,勿引用** |
 | **T0** | 星动纪元 Robot Era | ERA-42(对外)+ VPP / Ctrl-World / PAD / DWL(底层栈) | VPP = **ICML 2025 Spotlight 开源**、Ctrl-World = ICLR 2026(与 Chelsea Finn)开源权重;清华陈建宇(Berkeley 博士) | ⚠️ ERA-42 本身无技术报告/权重;「国内首个 VLA / 超 Optimus / 5 亿订单」为自报 |
 | **T0** | 千寻智能 Spirit AI | Spirit v1.5 / v1.6(开源 VLA) | v1.5 权重开源 + **第三方真机榜 RoboChallenge Table30 第一**(66.09,超 π0.5);高阳(EfficientZero)+ 韩峰涛 | ⚠️ v1.6「RoboArena 胜英伟达」被 NVIDIA 公开反驳、无独立复核 · 待核 |
-| **T0** | 🏢 字节跳动 Seed | GR-3(4B VLA,MoT+DiT)+ GR-1/GR-2/GR-RL | **GR-1 = ICLR 2024** + Apache-2.0 开源权重(github bytedance/GR-1)、被业界复现;GR-3 arXiv 2507.15493;团队孔涛/李航 | ⚠️ **GR-3 旗舰权重未开源**;「超 π0 17.8%」等自报无第三方;真实产线落地仍属研究演示;内部曾称世界模型「不及预期」 |
-| **T0** | 🏢 阿里 达摩院/通义 | RynnBrain(Qwen3-VL,30B-A3B MoE)+ RynnVLA-001/002 + WorldVLA + Qwen-VLA | **RynnVLA-001 = ICRA 2026** 收录 + Apache-2.0 开源权重(RynnVLA-002 1.1k★、首个开源 MoE 具身基模 + RCP 协议) | ⚠️ RynnBrain「20 具身基准 SOTA / 超 Gemini-ER」自报无第三方;**Qwen-VLA 权重未发布**;真实产线落地证据少 |
 | **T1** | 自变量 X Square | WALL-OSS(4B MoE 开源)+ WALL-A(闭源) | 权重可下载 + arXiv 2509.11766;阿里/字节/小米/红杉,估值 >100 亿($1.4B) | ⚠️ arXiv 非顶会;RoboChallenge「第二」为 1 月快照、已被千寻超越→约第三;「全球首个世界统一模型」系列营销 |
 | **T1** | 星海图 Galaxea AI | G0 / G0.5 双系统 VLA | arXiv 报告(2509.00576)+ HF 可下载权重(G0_3B/Tiny)+ 开源真机数据集(500+h,GalaxeaVLA 633★);B+轮 20 亿/估值~200 亿($2.9B,蚂蚁/高瓴/IDG);团队(高继扬 USC/Waymo · 赵行 MIT) | ⚠️ 无顶会收录;G0.5「DROID 82.5% / 大幅领先 π0.5」自评未经第三方;千台级订单自报 |
 | **T1** | 跨维智能 DexForce | Sim2Real-VLA(100% 合成数据零样本 VLA,双系统) | Sim2Real-VLA 论文 **ICLR 2026 Poster** + ICML 2025 DexScale + RSS 2026;开源 EmbodiChain 工具链(Apache-2.0,177★);团队(贾奎 CUHK-SZ 终身教授) | ⚠️ 未公开旗舰 VLA 权重(开源偏仿真/数据);「零样本超 SOTA / 99.9%」论文自报+营销(**同组反证真实世界仅 11.5–64.6%**);资本数亿元(非头部) |
@@ -55,16 +53,20 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 | **T1** | 🏢 腾讯 Robotics X | HY-Embodied-0.5(MoT,2B/32B) | Robotics X × 混元自研,MoT-2B **开源权重**(HF/GitHub)+ arXiv 2604.07430;张正友领衔(10 年计划) | ⚠️ arXiv 预印本非顶会;benchmark 全自报、真机仅 3 任务;开源很新(2026-04)无第三方复现;Tairos 平台模型未公开 |
 | **T1** | 🏢 蚂蚁 灵波 Robbyant | LingBot-VLA(4B)+ LingBot-World / VA 世界模型 | arXiv 2601.18692 + **Apache-2.0 全栈开源**(GitHub 3.9k★)、~2 万小时真机数据;第三方 RL 框架 RLinf 已集成 | ⚠️ 超 π0.5 等为自评(GM-100 第三方基准成绩系自选高亮);无顶会收录;落地多为适配验证 |
 | **T1** | 🏢 小米 | Xiaomi-Robotics-0(4.7B VLA)+ MiMo-Embodied(规划) | arXiv 2602.12684 + **Apache-2.0 开源权重**;依托自家汽车工厂早期真机(自攻螺母工站) | ⚠️ 预印本非顶会;LIBERO 98.7 / SimplerEnv SOTA 全自评;工厂 90.2% 是 VLA+RL+触觉协同非单独;社区采用早期 |
-| **T1** | 🏢 京东 JD Explore | OFA(物体中心操作策略)+ BRMData 数据集 | OFA arXiv 2505.15098 + **BRMData 开源数据集**(arXiv 2405.18860);何晓冬牵头 | ⚠️ 无顶会收录;JDVLA 系列无权重 / 未独立验证;OFA 权重未确认开放;JoyInside 是对话脑非操作;落地仅实验室 |
+| **T1** | 🏢 字节跳动 Seed | GR-3(4B VLA,MoT)+ GR-1/GR-2/GR-RL | **GR-1 = ICLR 2024 main track**(OpenReview 可核)+ Apache-2.0 开源(github bytedance/GR-1);GR-MG = RA-L 2024;团队孔涛/李航 | ⚠️ **当前旗舰 GR-3/GR-2 仅技术报告、权重未开源**;GR-1 已隔两代且采用有限(~300★);「超 π0」为自跑 baseline 自评、无第三方真机榜 → 自 T0 降 **T1** |
+| **T1** | 🏢 阿里 达摩院/通义 | RynnVLA-001/002 + WorldVLA + RynnBrain(Qwen3-VL MoE) | RynnVLA-001/002 **Apache-2.0 开源权重**(HF alibaba-damo-academy,002 ~1.1k★) | ⚠️ **「RynnVLA-001 被 ICRA 2026 收录」仅作者主页/repo 自述、IEEE Xplore 未见 · 待核**;002/WorldVLA/RynnBrain 均纯预印本;无第三方复用;RynnBrain「20 基准 SOTA」自报 → 自 T0 降 **T1** |
 | **T2** | 有鹿机器人 | LPLM(Large Physical Language Model) | 团队(陈俊波 ex-阿里达摩院 · 谷祖林 ex-阿里机器人 CEO);超 1 亿天使(创新工场/元璟/百度风投);6 亿订单获杭州市政府官网背书 | ⚠️ **LPLM 无技术报告/论文/权重**;「8 榜冠军」实为 UDeer 的 3D 感知/驾驶榜(非 VLA 操作)且历史快照;6 亿订单未审计;闭源 |
 | **T2** | 逐际动力 LimX | 无自研旗舰大脑(VGM/DreamActor/COSA/FluxVLA 工程底座) | 资本极强($2 亿 B 轮京东等 + A 轮系列 5 亿 阿里/招商局);团队(张巍 南科大 · 运控国际知名);开源 FluxVLA Engine | ⚠️ **大脑层无自研 VLA/世界模型 arXiv 报告或可下载自研权重**(FluxVLA 可下载的是第三方 Pi0.5/GR00T 的 LIBERO 微调 · 自报);arXiv 论文均为运控;TRON 落地存争议 |
 | **T2** | 戴盟机器人 Daimon | Daimon One(自述 VTLA 视-触-语-动) | 资本极强(连续 4 轮数亿元,中国移动链长基金/汇川+中国电信,多轮点名投 VTLA);团队(王煜 港科大机器人院创始院长 h81);开源 Daimon-Infinity 触觉数据集(ModelScope)+ RobOmni benchmark | ⚠️ **Daimon One 无技术报告/benchmark/权重**;**网上两篇 VTLA/OmniVTLA arXiv 论文非戴盟出品(中科院/帕西尼),勿张冠李戴**;「全球最大触觉数据集」自述 |
 | **T2** | 穹彻智能 Noematrix | Noematrix Brain(以力为中心,双模型) | 天使 + Pre-A 累计数亿元(领投 Prosperity7 + 广发信德);卢策吾(SJTU)创办、非夕孵化 | ⚠️ 金额为模糊区间「数亿元」无工商佐证;架构为公司自述 |
 | **T2** | 🏢 华为 | 盘古具身 / CloudRobo 三模型(大脑+小脑) | 真实工业落地伙伴(乐聚 / 埃夫特 / 优艾智合);朱森华团队;昇腾算力底座 | ⚠️ **无技术报告 / arXiv / 权重 / benchmark**,能力全自评;开源的盘古仅语言模型;核心具身人才大量外流(创办它石 / 智元等) |
 | **T2** | 🏢 美团 | 无旗舰 VLA;LARY / LARYBench(隐动作表征评测基准) | LARY arXiv 2604.11689 + 开源基准 / 数据集(120 万视频);机器人研究院(毛一年) | ⚠️ 仅评测基准 + 实验性原型 LAM,**无可下载旗舰策略权重**;LongCat 是 LLM 非具身脑;落地为无人配送(不计) |
+| **T2** | 🏢 京东 JD Explore | JDVLA 系列(RL/Human/Align)+ BRMData 数据集 | **BRMData 开源双臂数据集**(arXiv 2405.18860);VLA Lab 在研(何晓冬牵头) | ⚠️ JDVLA 旗舰系列**无确证 arXiv / 无开源权重 / 未独立验证**;战略偏「平台赋能」非自研旗舰;落地仅实验室 → 自 T1 降 **T2** |
 | **—** | 🏢 百度 | 无自研具身大脑(Apollo=自驾、ERNIE=LLM) | 百度智能云为第三方(北京人形 / 千寻等)提供算力 / 平台 | ⚠️ 无自研 VLA / 操作策略 / 具身世界模型的论文 / 权重;智能云仅适配第三方 RDT/π0/GR00T → 不予定档 |
 
 > 📌 **关于「降 T1」**:自变量 / 星海图 / 跨维 / Dexmal / 智平方 都很强(开源模型 + 顶级资本),降 T1 不是变弱,而是按收紧后的口径——**T0 要旗舰模型有独立背书**(顶会同行评审 / 里程碑级开源资产 / 第三方真机榜第一),它们多为 arXiv 预印本 + 自评 benchmark,故归「强实力 T1」。
+>
+> 📌 **关于大厂部门(🏢)重核**:大厂**不沿用旧档位**,一律按主榜同一口径重评,结果**无一进入 T0**——**字节 Seed**(旗舰 GR-3 仅技术报告、权重未开源;GR-1 虽 ICLR 2024 但已隔两代)、**阿里 达摩院**(「RynnVLA 被 ICRA 2026 收录」仅作者自述、未见 IEEE Xplore)**自 T0 降 T1**;**京东**证据偏「平台赋能」降 T2。Microsoft 的 Magma 虽 **CVPR 2025 main track**(大厂中独立背书最硬),但属通用 agent 基模、机器人段自评,列**强 T1**。
 
 ---
 
@@ -86,7 +88,7 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 | **T1** | Dyna Robotics | DYNA-1(单权重通用操作基础模型,RL) | 累计 $143.5M(NVIDIA/Amazon/Samsung)、估值 >$6 亿(Bloomberg);团队(Caper $3.5 亿退出 + Jason Ma ex-DeepMind/Eureka) | ⚠️ DYNA-1 无技术报告/权重/benchmark;「99.4% / 24h」自报(自家口径互相矛盾);无具名付费客户 |
 | **T1** | Field AI | Field Foundation Models(DFM + MFM,边缘自主) | 累计 $405M / 估值 $20 亿(Bezos/NVIDIA/Khosla/Temasek);DPR×Spot 18 月部署案例;2026-03 与 Boston Dynamics 官方合作;团队(Ali Agha NASA JPL/DARPA) | ⚠️ FFM 无技术报告/benchmark/权重(CEO 称涉 IP);DPR 系战略合作案例、非确认付费客户 |
 | **T1** | World Labs | Marble + RTFM(世界模型 / 空间智能) | 资本极强(累计~$1.23B、2026-02 新一轮 $1B、NVIDIA/AMD/Autodesk);团队顶级(李飞飞 / NeRF / 高斯泼溅奠基);Marble 已商用 + API;开源 Spark 渲染器 | ⚠️ **偏空间生成、非机器人控制策略**(robot 仅下游用其仿真);Marble/RTFM 无 arXiv/benchmark/权重;~$5B 估值未确认 · 待核 |
-| **T1** | 🏢 Microsoft (MSRA) | CogACT(7B VLA)+ Magma-8B | **Magma-8B = CVPR 2025 同行评审** + 开源 MIT(~1.9k★);CogACT 开源权重;高剑峰 / 郭百宁团队 | ⚠️「超 OpenVLA/RT-2-X」自报(独立 SimplerEnv 显示 π0 更强);Magma 官方注明仅研究不部署;无产线落地 |
+| **T1** | 🏢 Microsoft (MSRA) | Magma-8B(多模态 agent 基模)+ CogACT(7B VLA) | **Magma-8B = CVPR 2025 main track**(Open Access 可核)+ 开源 MIT(~1.9k★、第三方 GGUF 量化复用);CogACT 开源权重;高剑峰/郭百宁 | ⚠️ Magma 系 **GUI+操作通用 agent 基模、非机器人专精**,机器人段「超 OpenVLA」自评(独立 SimplerEnv 显示 π0 更强)、官方注明仅研究不部署 → 列**强 T1**(大厂中独立背书最硬,差「机器人专精旗舰被领域采用」一步) |
 | **T1** | 🏢 Meta (FAIR) | V-JEPA 2-AC(1.2B 世界模型,非 VLA)+ Locate 3D | arXiv 2506.09985 + 开源权重(主 MIT,并入 HF / LeRobot);**Locate 3D = ICML 2025 Spotlight** | ⚠️ 真机零样本 65–80% 为自报实验室结果、无第三方榜;**LeCun 已离职 + 2025-10 裁员**,团队稳定性降;走世界模型非 VLA 路线 |
 | **T1** | 🏢 Amazon (FAR) | DeepFleet(车队协调基座)+ Holosoma(人形 sim2real) | DeepFleet arXiv 2508.08574(部署 300+ 中心 / 百万机器人)+ Holosoma Apache-2.0 开源;团队 Abbeel/Chen/Duan(ex-Covariant) | ⚠️ 两者均窄域(物流调度 / 运控),**非通用操作 VLA**;通用操作大脑未发布;RFM-1 系收编 Covariant 授权、非自研 |
 | **—** | Apptronik | **无自研大脑**(用 DeepMind Gemini Robotics + NVIDIA GR00T) | $935M / 估值~$5.3B、Mercedes/GXO 落地——但属硬件/控制层 | ⚠️ 无任何自研大脑公开产物;内部 AIRfm 团队在建、未公开 → 不予定档 |
@@ -154,7 +156,7 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 
 ## ⚠️ 方法与局限 · 数据缺口
 
-- 共 **47 个主体**:独立公司 33(国内 17 / 海外 16)+ **大厂内部具身部门 14**(🏢 标注,已融入上面两榜);其中 **T0 共 9 个**(独立公司 7 + 大厂 2:字节 Seed、阿里达摩院)。「档位」只反映**大脑层证据的可验证度**,非估值或市场地位。
+- 共 **47 个主体**:独立公司 33(国内 17 / 海外 16)+ **大厂内部具身部门 14**(🏢 标注,已融入上面两榜);其中 **T0 共 7 个,全部为独立公司**——14 家大厂部门经按同一严格口径重核,**无一达 T0**(原列 T0 的字节、阿里已降 T1,详见国内榜下注)。「档位」只反映**大脑层证据的可验证度**,非估值或市场地位。
 - **T0 的门槛(2026-06 收紧)**:旗舰模型须有**独立背书**——顶会同行评审、或里程碑级被业界使用的开源资产、或第三方真机榜第一;「有开源模型 + 巨额融资但 benchmark 自评」归 **T1**(国内此类公司密集,故 T1 偏大)。
 - **可硬核实的「地基」(✅)** 只有几类:开源数据集计数、开源权重/license(openpi、GR00T、WALL-OSS、DM0、Spirit v1.5、G0、Thinker-4B、AgiBot World 等)、顶会收录(VPP/RoboMamba/FiS-VLA/Sim2Real-VLA/DexGraspVLA 等)、融资轮次/投资方(多源)。
 - **所有「benchmark 最强 / 超 SOTA」= 厂商自报(⚠️),禁止跨厂硬比**;**所有估值都是私募 post-money、轮次自报**。
@@ -202,7 +204,7 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 
 **大厂内部具身团队**
 - 字节 Seed — GR-3 arXiv [2507.15493](https://arxiv.org/abs/2507.15493) · [GR-1(ICLR 2024)github](https://github.com/bytedance/GR-1)
-- 阿里 达摩院 — RynnVLA-001 arXiv [2509.15212](https://arxiv.org/abs/2509.15212)(ICRA 2026) · RynnBrain arXiv [2602.14979](https://arxiv.org/abs/2602.14979) · [HF alibaba-damo-academy](https://huggingface.co/alibaba-damo-academy)
+- 阿里 达摩院 — RynnVLA-001 arXiv [2509.15212](https://arxiv.org/abs/2509.15212)(作者自述 ICRA 2026·待核) · RynnBrain arXiv [2602.14979](https://arxiv.org/abs/2602.14979) · [HF alibaba-damo-academy](https://huggingface.co/alibaba-damo-academy)
 - 腾讯 Robotics X — HY-Embodied arXiv [2604.07430](https://arxiv.org/abs/2604.07430) · [github Tencent-Hunyuan/HY-Embodied](https://github.com/Tencent-Hunyuan/HY-Embodied)
 - 蚂蚁 灵波 — LingBot-VLA arXiv [2601.18692](https://arxiv.org/abs/2601.18692) · [github robbyant/lingbot-world](https://github.com/robbyant/lingbot-world)
 - 小米 — Xiaomi-Robotics-0 arXiv [2602.12684](https://arxiv.org/abs/2602.12684) · [github XiaomiRobotics](https://github.com/XiaomiRobotics/Xiaomi-Robotics-0)
