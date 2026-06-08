@@ -58,13 +58,27 @@ export default withMermaid(defineConfig({
       }
       md.core.ruler.push('cred-cells', (state) => {
         const t = state.tokens
+        let col = -1, rowRanking = false
         for (let i = 0; i < t.length; i++) {
+          if (t[i].type === 'tr_open') { col = -1; rowRanking = false; continue }
           if (t[i].type !== 'td_open') continue
+          col++
           const inline = t[i + 1]
           if (!inline || inline.type !== 'inline') continue
           const txt = inline.content
           if (/待核/.test(txt)) addCredClass(t[i], 'cred-todo')
           else if (/⚠️|⚠/.test(txt)) addCredClass(t[i], 'cred-warn')
+          // 分档榜专用:首列「**T0/T1/T2/T0–/—**」→ rk-* 档位徽章;✅ 已核证据列(第 4 列)→ rk-ok。
+          // 仅当首列匹配档位 token 时整行视为榜单行,避免误伤其它表格。
+          if (col === 0) {
+            const m = txt.trim().match(/^\*\*(T0–|T0|T1|T2|—)\*\*$/)
+            if (m) {
+              rowRanking = true
+              addCredClass(t[i], 'rk-' + (m[1] === 'T0–' ? 't0' : m[1] === '—' ? 'na' : m[1].toLowerCase()))
+            }
+          } else if (col === 3 && rowRanking) {
+            addCredClass(t[i], 'rk-ok')
+          }
         }
       })
     },

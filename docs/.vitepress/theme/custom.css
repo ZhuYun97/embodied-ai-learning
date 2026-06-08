@@ -2524,6 +2524,97 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .VPDoc .vp-doc li a:hover { text-decoration-thickness: 2px; }
 
 /* ============================================================
+   具身大脑公司分档榜(/ecosystem/brain-ranking)— 深空 HUD 表格皮肤 2026-06
+   只命中含档位徽章的两张榜(table:has(td.rk-t0)),其余 .VPDoc 表不受影响。
+   档位单元格 rk-t0/t1/t2/na、✅证据列 rk-ok 由 config.mjs 的 cred-cells 规则标注。
+   不碰 cred-warn/cred-todo 的 opacity(归可信度透镜管),只加左缘色条。
+   ============================================================ */
+.VPDoc .vp-doc table:has(td.rk-t0) {
+  width: 100%; min-width: 760px;
+  border: 1px solid var(--vp-c-divider); border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--vp-c-bg-soft), var(--vp-c-bg-alt));
+}
+.dark .VPDoc .vp-doc table:has(td.rk-t0) {
+  border-color: rgba(56, 189, 248, 0.22);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.05), rgba(8, 14, 30, 0.45));
+  box-shadow:
+    inset 0 0 0 1px rgba(56, 189, 248, 0.06),
+    0 0 34px rgba(37, 99, 235, 0.12),
+    0 18px 44px rgba(2, 6, 18, 0.5);
+}
+/* 表头 → HUD 读出条:Orbitron 全大写 + 发光底线 */
+.VPDoc .vp-doc table:has(td.rk-t0) th {
+  font-family: var(--font-display); font-size: 0.64rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  vertical-align: middle; padding: 13px 15px;
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.10), transparent);
+  border-bottom: 2px solid var(--vp-c-brand-1);
+}
+.dark .VPDoc .vp-doc table:has(td.rk-t0) th {
+  color: #bae6fd;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.15), transparent);
+  border-bottom-color: rgba(56, 189, 248, 0.55);
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+}
+/* 单元格基线:更松留白、顶对齐、舒适行高 */
+.VPDoc .vp-doc table:has(td.rk-t0) td {
+  vertical-align: top; padding: 13px 15px;
+  font-size: 0.875rem; line-height: 1.62;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+.dark .VPDoc .vp-doc table:has(td.rk-t0) td { border-bottom-color: rgba(56, 189, 248, 0.08); }
+.VPDoc .vp-doc table:has(td.rk-t0) tr:last-child td { border-bottom: 0; }
+
+/* 档位首列:居中 + 档色左缘轨 */
+.VPDoc .vp-doc td.rk-t0, .VPDoc .vp-doc td.rk-t1,
+.VPDoc .vp-doc td.rk-t2, .VPDoc .vp-doc td.rk-na {
+  text-align: center; vertical-align: middle; white-space: nowrap;
+}
+.VPDoc .vp-doc td.rk-t0 { box-shadow: inset 4px 0 0 #22d3ee; }
+.VPDoc .vp-doc td.rk-t1 { box-shadow: inset 4px 0 0 #3b82f6; }
+.VPDoc .vp-doc td.rk-t2 { box-shadow: inset 4px 0 0 #8b5cf6; }
+.VPDoc .vp-doc td.rk-na { box-shadow: inset 4px 0 0 #f87171; }
+/* 档位徽章:首列 strong → 发光 chip(Orbitron),按档着色 */
+.VPDoc .vp-doc td.rk-t0 strong, .VPDoc .vp-doc td.rk-t1 strong,
+.VPDoc .vp-doc td.rk-t2 strong, .VPDoc .vp-doc td.rk-na strong {
+  display: inline-block; min-width: 40px;
+  font-family: var(--font-display); font-weight: 800; font-size: 0.8rem;
+  letter-spacing: 0.03em; line-height: 1;
+  padding: 6px 10px; border-radius: 7px; border: 1px solid currentColor;
+}
+.VPDoc .vp-doc td.rk-t0 strong { color: #0e7490; background: rgba(34, 211, 238, 0.14); }
+.VPDoc .vp-doc td.rk-t1 strong { color: #1d4ed8; background: rgba(59, 130, 246, 0.12); }
+.VPDoc .vp-doc td.rk-t2 strong { color: #6d28d9; background: rgba(139, 92, 246, 0.12); }
+.VPDoc .vp-doc td.rk-na strong { color: #b91c1c; background: rgba(248, 113, 113, 0.12); font-size: 1rem; }
+.dark .VPDoc .vp-doc td.rk-t0 strong { color: #67e8f9; background: rgba(34, 211, 238, 0.12); box-shadow: 0 0 15px rgba(34, 211, 238, 0.4), inset 0 0 10px rgba(34, 211, 238, 0.1); }
+.dark .VPDoc .vp-doc td.rk-t1 strong { color: #7dd3fc; background: rgba(56, 189, 248, 0.10); box-shadow: 0 0 12px rgba(56, 189, 248, 0.32); }
+.dark .VPDoc .vp-doc td.rk-t2 strong { color: #c4b5fd; background: rgba(139, 92, 246, 0.13); box-shadow: 0 0 12px rgba(139, 92, 246, 0.32); }
+.dark .VPDoc .vp-doc td.rk-na strong { color: #fca5a5; background: rgba(248, 113, 113, 0.10); box-shadow: 0 0 12px rgba(248, 113, 113, 0.28); }
+
+/* 公司名(第 2 列)醒目 + 代表模型(第 3 列)等宽如型号 ID */
+.VPDoc .vp-doc table:has(td.rk-t0) td:nth-child(2) {
+  font-weight: 700; font-size: 0.94rem; color: var(--vp-c-text-1);
+}
+.dark .VPDoc .vp-doc table:has(td.rk-t0) td:nth-child(2) { color: #f1f5f9; }
+.VPDoc .vp-doc table:has(td.rk-t0) td:nth-child(3) {
+  font-family: var(--vp-font-family-mono); font-size: 0.8rem; color: var(--vp-c-text-2);
+}
+.dark .VPDoc .vp-doc table:has(td.rk-t0) td:nth-child(3) { color: #9fb6d4; }
+
+/* ✅ 已核列 teal 左缘;⚠️/待核 列琥珀/红左缘(不动 opacity,留给透镜) */
+.VPDoc .vp-doc td.rk-ok { box-shadow: inset 3px 0 0 rgba(16, 185, 129, 0.5); }
+.dark .VPDoc .vp-doc td.rk-ok { box-shadow: inset 3px 0 0 rgba(52, 211, 153, 0.55); }
+.VPDoc .vp-doc table:has(td.rk-t0) td.cred-warn { box-shadow: inset 3px 0 0 rgba(251, 191, 36, 0.45); }
+.VPDoc .vp-doc table:has(td.rk-t0) td.cred-todo { box-shadow: inset 3px 0 0 rgba(248, 113, 113, 0.6); }
+
+/* 行悬停:scope 内更强青色辉光(覆盖通用 doc 表悬停) */
+.dark .VPDoc .vp-doc table:has(td.rk-t0) tbody tr:hover { background: rgba(56, 189, 248, 0.07) !important; }
+
+/* 窄屏:横向滚动(min-width 已撑开),给个滚动惯性 */
+.VPDoc .vp-doc table:has(td.rk-t0) { -webkit-overflow-scrolling: touch; }
+
+/* ============================================================
    新闻页深空情报台底(星云 + 网格 + 顶部星点,仅暗色)
    放在全局文件:`.dark .news-index::before` 原样输出。
    ⚠️ 绝不要写成 scoped 组件里的 `:global(.dark) .news-index::before` ——
