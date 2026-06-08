@@ -16,7 +16,7 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 - 右侧「⚠️/待核 存疑」列在全站**可信度透镜**下会被暗化——点顶栏透镜开关可只看已核证据。
 :::
 
-**档位含义**:`T0` 前沿(已验证旗舰模型 + 强信号 + 可信团队)· `T1` 强实力(有可验证模型但范围窄/证据薄,或资本极强但模型公开证据有限)· `T2` 可信进入者 · `—` 无自研大脑、不予定档。
+**档位含义**:`T0` 前沿——旗舰模型有**独立背书**(顶会同行评审 / 里程碑级被业界使用的开源资产 / 第三方真机榜第一),**不只是「开源模型 + 融资」** · `T1` 强实力(有可验证模型但缺独立验证,或资本极强而模型多为自评) · `T2` 可信进入者 · `—` 无自研大脑、不予定档。
 
 ---
 
@@ -28,9 +28,9 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 | **T0** | Physical Intelligence | π0 / π0.5 | 3 个 VLA 模型**代码+权重 Apache-2.0 全开源**(openpi);π0.5 在全新真实家庭做长程操作 | ⚠️ $5.6B 估值仅 Bloomberg 二手 · 待核;「首次」为自述 |
 | **T0** | NVIDIA | Isaac GR00T N1 | 权重+训练数据公开(HF `GR00T-N1-2B`);41 作者 GEAR 团队(Jim Fan / Yuke Zhu) | ⚠️「45% 均值超 SOTA」厂商自报;「开放」=非商用 license、非 OSI 开源 |
 | **T0** | 1X Technologies | Redwood AI(160M VLA)+ 1XWM(14B 世界模型) | GENIE 权重 + 100h 数据 Apache-2.0 开源、**被第三方复现夺冠**(arXiv 2510.07092);OpenAI 领投 | ⚠️ 1XWM 官方定位为**离线评估器**非部署策略;NEO 发布演示 100% 遥操;$10B 估值为「寻求中」· 待核 |
-| **T0–** | Generalist Robotics | GEN-0 / GEN-1 | $400M / 估值~$20 亿、NVIDIA + 李飞飞背书;团队为 RT-2/PaLM-E 作者 + 前 Boston Dynamics | ⚠️ 模型**全为自报博客**:无权重 · 无 arXiv · 无第三方评测;99%/3× 等 benchmark「无独立验证」 |
 | **T1** | Skild AI | 「Skild Brain」跨本体基座 | $1.4B C 轮 / 估值 >$14B(公司 + Bloomberg + TechCrunch 三源确认) | ⚠️ 模型能力公开证据薄;「业界首个统一跨本体基座」为营销定位;估值为私募 |
 | **T1** | Figure AI | Helix(双系统 VLA) | >$1B C 轮 / $39B(Parkway 领投);Helix 架构公开(7B VLM + 80M 策略) | ⚠️ $39B 估值被广泛质疑过高(2025 约 150 台、客户亏损、安全诉讼);口径为「committed」 |
+| **T1** | Generalist Robotics | GEN-0 / GEN-1 | $400M / 估值~$20 亿、NVIDIA + 李飞飞背书;团队为 RT-2/PaLM-E 作者 + 前 Boston Dynamics | ⚠️ 模型**全为自报博客**:无权重 · 无 arXiv · 无第三方评测;99%/3× 等 benchmark「无独立验证」 |
 | **T1** | Tesla Optimus | 无命名模型(复用 FSD 端到端网 + neural world simulator) | FSD 工程班底(Elluswamy 接管);算力 Cortex ~10 万 GPU | ⚠️ 无技术报告/权重/公开 benchmark;**部署被 Musk 本人否认**(2026-01「工厂无实质使用」,约数百台);语言依赖外部 xAI Grok |
 | **T1** | Boston Dynamics | Atlas LBM(450M DiT + flow-matching 全身策略) | 架构官博详披(50-DoF · 30Hz);团队顶级(Tedrake/MIT);现代 $11 亿控股 + RAI $4 亿 | ⚠️ Atlas 专属模型无独立论文/权重/benchmark;大脑依赖 **TRI(LBM 框架)+ Google DeepMind(Gemini)合作非自研**;**「已发 Science Robotics」经核验为误——实为 arXiv 预印本、且实验体是 Franka 非 Atlas** |
 | **T1** | Covariant | RFM-1(8B 多模态 any-to-any,世界模型+策略) | RFM-1 多源证实存在;Abbeel 系顶级团队;$222M / 估值 $625M;真实付费落地(McKesson / KNAPP / Würth) | ⚠️ 无论文/权重/benchmark(demo 自报);**2024-08 Abbeel 等核心团队 + 25% 员工被亚马逊招走、此后停更近「僵尸公司」** |
@@ -47,14 +47,14 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 
 | 档 | 公司 | 代表大脑/模型 | ✅ 已核硬证据 | ⚠️/待核 存疑 |
 |----|------|--------------|-------------|-------------|
-| **T0** | 智元 AgiBot | GO-1(ViLLA 潜动作通用策略) | **AgiBot World 100 万条轨迹开源**(HF 可核);IROS 2025 最佳论文入围 | ⚠️「数量级领先」为作者自比;**「+30% 超 Open-X」经核验 0-3 被否决,勿引用** |
+| **T0** | 智元 AgiBot | GO-1(ViLLA 潜动作通用策略) | **AgiBot World 100 万条轨迹开源**(HF 可核,业界在用)+ IROS 2025 最佳论文入围 | ⚠️「数量级领先」为作者自比;**「+30% 超 Open-X」经核验 0-3 被否决,勿引用** |
 | **T0** | 星动纪元 Robot Era | ERA-42(对外)+ VPP / Ctrl-World / PAD / DWL(底层栈) | VPP = **ICML 2025 Spotlight 开源**、Ctrl-World = ICLR 2026(与 Chelsea Finn)开源权重;清华陈建宇(Berkeley 博士) | ⚠️ ERA-42 本身无技术报告/权重;「国内首个 VLA / 超 Optimus / 5 亿订单」为自报 |
-| **T0** | 自变量 X Square | WALL-OSS(4B MoE 开源)+ WALL-A(闭源) | 权重可下载 + arXiv 2509.11766;阿里/字节/小米/红杉,估值 >100 亿($1.4B) | ⚠️ RoboChallenge「第二」为 1 月快照、已被千寻超越→约第三;「全球首个世界统一模型」系列营销 |
-| **T0** | 千寻智能 Spirit AI | Spirit v1.5 / v1.6(开源 VLA) | v1.5 权重开源 + **第三方真机榜 RoboChallenge Table30 第一**(66.09,超 π0.5);高阳(EfficientZero)+ 韩峰涛 | ⚠️ v1.6「RoboArena 胜英伟达」被 NVIDIA 公开反驳、无独立复核 · 待核(对抗审建议降 T1) |
-| **T0** | Dexmal | DM0(具身原生 VLA,开源)+ Dexbotic 工具箱 | DM0 权重全开源 + arXiv 2602.14974;Dexbotic 1.2k★ 被 RLinf 集成;旷视姚班团队;阿里独家领投 A+ | ⚠️ RoboChallenge 系 Dexmal **自建自评**;「全球首个具身原生」营销 |
-| **T0** | 星海图 Galaxea AI | G0 / G0.5 双系统 VLA | arXiv 报告(2509.00576)+ **HF 可下载权重**(G0_3B/Tiny)+ 开源真机数据集(500+h,GalaxeaVLA 633★);B+轮 20 亿/估值~200 亿($2.9B,蚂蚁/高瓴/IDG);团队(高继扬 USC/Waymo · 赵行 MIT) | ⚠️ G0.5「DROID 82.5% / 大幅领先 π0.5」自评未经第三方;顶会收录未见;千台级订单自报 |
-| **T0** | 跨维智能 DexForce | Sim2Real-VLA(100% 合成数据零样本 VLA,双系统) | Sim2Real-VLA 论文 **ICLR 2026 Poster** + ICML 2025 DexScale + RSS 2026;开源 EmbodiChain 工具链(Apache-2.0,177★);团队(贾奎 CUHK-SZ 终身教授) | ⚠️「零样本超 SOTA / 99.9%」论文自报+营销(**同组反证真实世界仅 11.5–64.6%**);未公开旗舰 VLA 权重(开源偏仿真/数据) |
-| **T0–** | 智平方 AI2Robotics | GOVLA/Alpha Brain(旗舰)+ FiS-VLA(开源版) | RoboMamba(NeurIPS 24)+ FiS-VLA(NeurIPS 25)**顶会收录**;百度/中车,B 轮 ¥1.2B($1.4B) | ⚠️ GOVLA 本身无权重;「超 π0 30%」营销(论文实测 +14%);郭彦东为中后位作者非一作 |
+| **T0** | 千寻智能 Spirit AI | Spirit v1.5 / v1.6(开源 VLA) | v1.5 权重开源 + **第三方真机榜 RoboChallenge Table30 第一**(66.09,超 π0.5);高阳(EfficientZero)+ 韩峰涛 | ⚠️ v1.6「RoboArena 胜英伟达」被 NVIDIA 公开反驳、无独立复核 · 待核 |
+| **T1** | 自变量 X Square | WALL-OSS(4B MoE 开源)+ WALL-A(闭源) | 权重可下载 + arXiv 2509.11766;阿里/字节/小米/红杉,估值 >100 亿($1.4B) | ⚠️ arXiv 非顶会;RoboChallenge「第二」为 1 月快照、已被千寻超越→约第三;「全球首个世界统一模型」系列营销 |
+| **T1** | 星海图 Galaxea AI | G0 / G0.5 双系统 VLA | arXiv 报告(2509.00576)+ HF 可下载权重(G0_3B/Tiny)+ 开源真机数据集(500+h,GalaxeaVLA 633★);B+轮 20 亿/估值~200 亿($2.9B,蚂蚁/高瓴/IDG);团队(高继扬 USC/Waymo · 赵行 MIT) | ⚠️ 无顶会收录;G0.5「DROID 82.5% / 大幅领先 π0.5」自评未经第三方;千台级订单自报 |
+| **T1** | 跨维智能 DexForce | Sim2Real-VLA(100% 合成数据零样本 VLA,双系统) | Sim2Real-VLA 论文 **ICLR 2026 Poster** + ICML 2025 DexScale + RSS 2026;开源 EmbodiChain 工具链(Apache-2.0,177★);团队(贾奎 CUHK-SZ 终身教授) | ⚠️ 未公开旗舰 VLA 权重(开源偏仿真/数据);「零样本超 SOTA / 99.9%」论文自报+营销(**同组反证真实世界仅 11.5–64.6%**);资本数亿元(非头部) |
+| **T1** | Dexmal | DM0(具身原生 VLA,开源)+ Dexbotic 工具箱 | DM0 权重全开源 + arXiv 2602.14974;Dexbotic 1.2k★ 被 RLinf 集成;旷视姚班团队;阿里独家领投 A+ | ⚠️ arXiv 非顶会;benchmark RoboChallenge 系 Dexmal **自建自评**;「全球首个具身原生」营销 |
+| **T1** | 智平方 AI2Robotics | GOVLA/Alpha Brain(旗舰)+ FiS-VLA(开源版) | RoboMamba(NeurIPS 24)+ FiS-VLA(NeurIPS 25)顶会收录;百度/中车,B 轮 ¥1.2B($1.4B) | ⚠️ 旗舰 GOVLA 本身无权重;NeurIPS 论文为中后位署名侧作;「超 π0 30%」营销(论文实测 +14%) |
 | **T1** | 银河通用 Galbot | GraspVLA(抓取基座模型) | SynGrasp-1B **十亿帧**合成数据 + CoRL2025;王鹤(PKU) | ⚠️ 纯合成数据、帧数作者自报;范围限「抓取」,未证一般操作 |
 | **T1** | 宇树 Unitree | UnifoLM-VLA-0 + UnifoLM-WMA-0(开源) | 权重可下载(CC BY-NC-SA)+ 66 数据集;科创板 IPO 2026-06 过会;2025 营收 17 亿(+335%) | ⚠️ LIBERO 98.7 为自评;招股书自认大脑「尚未规模化应用」;本体为主业 |
 | **T1** | 优必选 UBTECH | Thinker(具身 VL 基础模型,Qwen3-VL-4B,开源 4B) | Thinker **arXiv 报告(2601.21199)+ 开源 Thinker-4B 权重**(HF);港股上市(09880)腾讯最大机构股东;IPO 前超 $10 亿 / D 轮估值 312 亿 | ⚠️「9 项第一」自测自报(口径 7/9/4 矛盾、无榜单);arXiv 实证仅 2 项;Thinker-WM/VLA 仅官宣无权重;2026 高薪外招首席科学家反证 AI 领军缺口 |
@@ -64,6 +64,8 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 | **T2** | 逐际动力 LimX | 无自研旗舰大脑(VGM/DreamActor/COSA/FluxVLA 工程底座) | 资本极强($2 亿 B 轮京东等 + A 轮系列 5 亿 阿里/招商局);团队(张巍 南科大 · 运控国际知名);开源 FluxVLA Engine | ⚠️ **大脑层无自研 VLA/世界模型 arXiv 报告或可下载自研权重**(FluxVLA 可下载的是第三方 Pi0.5/GR00T 的 LIBERO 微调 · 自报);arXiv 论文均为运控;TRON 落地存争议 |
 | **T2** | 戴盟机器人 Daimon | Daimon One(自述 VTLA 视-触-语-动) | 资本极强(连续 4 轮数亿元,中国移动链长基金/汇川+中国电信,多轮点名投 VTLA);团队(王煜 港科大机器人院创始院长 h81);开源 Daimon-Infinity 触觉数据集(ModelScope)+ RobOmni benchmark | ⚠️ **Daimon One 无技术报告/benchmark/权重**;**网上两篇 VTLA/OmniVTLA arXiv 论文非戴盟出品(中科院/帕西尼),勿张冠李戴**;「全球最大触觉数据集」自述 |
 | **T2** | 穹彻智能 Noematrix | Noematrix Brain(以力为中心,双模型) | 天使 + Pre-A 累计数亿元(领投 Prosperity7 + 广发信德);卢策吾(SJTU)创办、非夕孵化 | ⚠️ 金额为模糊区间「数亿元」无工商佐证;架构为公司自述 |
+
+> 📌 **关于「降 T1」**:自变量 / 星海图 / 跨维 / Dexmal / 智平方 都很强(开源模型 + 顶级资本),降 T1 不是变弱,而是按收紧后的口径——**T0 要旗舰模型有独立背书**(顶会同行评审 / 里程碑级开源资产 / 第三方真机榜第一),它们多为 arXiv 预印本 + 自评 benchmark,故归「强实力 T1」。
 
 ---
 
@@ -91,8 +93,9 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 
 ## ⚠️ 方法与局限 · 数据缺口
 
-- 共 **33 家**(海外 16 / 国内 17)。「档位」只反映**大脑层证据的可验证度**,非估值或市场地位。
-- **可硬核实的「地基」(✅)** 只有几类:开源数据集计数、开源权重/license(openpi、GR00T、WALL-OSS、DM0、Spirit v1.5、G0、Thinker-4B、AgiBot World 等)、顶会收录(VPP/RoboMamba/FiS-VLA/Sim2Real-VLA/DexGraspVLA 等)、融资轮次/投资方(多源)。档位主要靠这些撑,**不是靠 benchmark 分**。
+- 共 **33 家**(海外 16 / 国内 17),其中 **T0 仅 7 家**(海外 4 / 国内 3)。「档位」只反映**大脑层证据的可验证度**,非估值或市场地位。
+- **T0 的门槛(2026-06 收紧)**:旗舰模型须有**独立背书**——顶会同行评审、或里程碑级被业界使用的开源资产、或第三方真机榜第一;「有开源模型 + 巨额融资但 benchmark 自评」归 **T1**(国内此类公司密集,故 T1 偏大)。
+- **可硬核实的「地基」(✅)** 只有几类:开源数据集计数、开源权重/license(openpi、GR00T、WALL-OSS、DM0、Spirit v1.5、G0、Thinker-4B、AgiBot World 等)、顶会收录(VPP/RoboMamba/FiS-VLA/Sim2Real-VLA/DexGraspVLA 等)、融资轮次/投资方(多源)。
 - **所有「benchmark 最强 / 超 SOTA」= 厂商自报(⚠️),禁止跨厂硬比**;**所有估值都是私募 post-money、轮次自报**。
 - `insufficient-data(—)≠ 弱`:Apptronik / Sanctuary 资本不弱,只是大脑非自研或零公开证据。
 - **仍待补的缺口**:帕西尼 PaXini、智源 RoboBrain(研究机构)、星尘智能、自动驾驶向 VLA(Wayve 等,口径外);银河通用与智元的**精确融资额**;多数公司的落地硬数据(订单/付费客户多为自报)。
@@ -120,11 +123,11 @@ description: 全球「具身大脑」（VLA / 机器人基础模型 / 世界模�
 **国内**
 - 智元 AgiBot — arXiv [2503.06669](https://arxiv.org/abs/2503.06669) · [github AgiBot-World](https://github.com/OpenDriveLab/AgiBot-World) · [HF agibot-world](https://huggingface.co/agibot-world)
 - 星动纪元 Robot Era — VPP arXiv [2412.14803](https://arxiv.org/abs/2412.14803) · [github roboterax/VPP](https://github.com/roboterax/video-prediction-policy) · Ctrl-World arXiv [2510.10125](https://arxiv.org/abs/2510.10125)
-- 自变量 X Square — arXiv [2509.11766](https://arxiv.org/abs/2509.11766) · [github wall-x](https://github.com/X-Square-Robot/wall-x) · [HF x-square-robot](https://huggingface.co/x-square-robot)
 - 千寻智能 Spirit AI — [github spirit-v1.5](https://github.com/Spirit-AI-Team/spirit-v1.5) · [HF Spirit-v1.5](https://huggingface.co/Spirit-AI-robotics/Spirit-v1.5) · [量子位 RoboChallenge](https://www.qbitai.com/2026/01/369107.html)
-- Dexmal — DM0 arXiv [2602.14974](https://arxiv.org/html/2602.14974v1) · [github dexbotic](https://github.com/Dexmal/dexbotic) · [HF Dexmal](https://huggingface.co/Dexmal)
+- 自变量 X Square — arXiv [2509.11766](https://arxiv.org/abs/2509.11766) · [github wall-x](https://github.com/X-Square-Robot/wall-x) · [HF x-square-robot](https://huggingface.co/x-square-robot)
 - 星海图 Galaxea — G0 arXiv [2509.00576](https://arxiv.org/abs/2509.00576) · [HF OpenGalaxea/G0-VLA](https://huggingface.co/OpenGalaxea/G0-VLA) · [G0.5 报告](https://opengalaxea.github.io/G05/Galaxea_G0_5.pdf)
 - 跨维智能 DexForce — Sim2Real-VLA [ICLR 2026 Poster](https://iclr.cc/virtual/2026/poster/10010435) · [OpenReview](https://openreview.net/forum?id=H4SyKHjd4c) · [github EmbodiChain](https://github.com/DexForce/EmbodiChain)
+- Dexmal — DM0 arXiv [2602.14974](https://arxiv.org/html/2602.14974v1) · [github dexbotic](https://github.com/Dexmal/dexbotic) · [HF Dexmal](https://huggingface.co/Dexmal)
 - 智平方 AI2Robotics — RoboMamba arXiv [2406.04339](https://arxiv.org/abs/2406.04339) · FiS-VLA arXiv [2506.01953](https://arxiv.org/abs/2506.01953) · [github Fast-in-Slow](https://github.com/CHEN-H01/Fast-in-Slow)
 - 银河通用 Galbot — arXiv [2505.03233](https://arxiv.org/abs/2505.03233) · [GraspVLA 项目页](https://pku-epic.github.io/GraspVLA-web)
 - 宇树 Unitree — [github unifolm-vla](https://github.com/unitreerobotics/unifolm-vla) · [HF unitreerobotics](https://huggingface.co/unitreerobotics)
