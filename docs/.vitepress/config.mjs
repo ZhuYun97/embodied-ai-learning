@@ -376,7 +376,7 @@ export default withMermaid(defineConfig({
         activeMatch: '^/ecosystem/',
         items: [
           { text: '生态全景图(图谱 / 地图 / 目录)', link: '/ecosystem/' },
-          { text: '🧠 具身大脑公司分档榜', link: '/ecosystem/brain-ranking' },
+          { text: '🏆 具身大脑公司分档榜', link: '/ecosystem/brain-ranking' },
         ],
       },
       {
@@ -582,7 +582,7 @@ export default withMermaid(defineConfig({
           text: '具身智能生态',
           items: [
             { text: '生态全景图(图谱 / 地图 / 目录)', link: '/ecosystem/' },
-            { text: '🧠 具身大脑公司分档榜', link: '/ecosystem/brain-ranking' },
+            { text: '🏆 具身大脑公司分档榜', link: '/ecosystem/brain-ranking' },
           ],
         },
       ],

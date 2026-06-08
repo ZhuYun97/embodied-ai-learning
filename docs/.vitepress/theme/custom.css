@@ -2920,7 +2920,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
 .brain-pyramid .pyr-node{
   display:flex; flex-direction:column; align-items:center; gap:5px;
-  width:74px; text-decoration:none;
+  width:74px; text-decoration:none; color:inherit; cursor:pointer;
 }
 .brain-pyramid .pyr-ic{
   position:relative; width:46px; height:46px; border-radius:13px;
