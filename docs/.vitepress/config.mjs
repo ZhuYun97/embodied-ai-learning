@@ -359,8 +359,11 @@ export default withMermaid(defineConfig({
       },
       {
         text: '生态图谱',
-        link: '/ecosystem/',
         activeMatch: '^/ecosystem/',
+        items: [
+          { text: '生态全景图(图谱 / 地图 / 目录)', link: '/ecosystem/' },
+          { text: '🧠 具身大脑公司分档榜', link: '/ecosystem/brain-ranking' },
+        ],
       },
       {
         text: '速查',
@@ -557,6 +560,15 @@ export default withMermaid(defineConfig({
             { text: 'RynnVLA-001(预测当先验)', link: '/vla/papers/rynnvla' },
             { text: 'GR00T N1(VLA 世代)', link: '/vla/papers/groot-n1' },
             { text: 'VLA 调研报告', link: '/vla/' },
+          ],
+        },
+      ],
+      '/ecosystem/': [
+        {
+          text: '具身智能生态',
+          items: [
+            { text: '生态全景图(图谱 / 地图 / 目录)', link: '/ecosystem/' },
+            { text: '🧠 具身大脑公司分档榜', link: '/ecosystem/brain-ranking' },
           ],
         },
       ],

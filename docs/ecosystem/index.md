@@ -7,6 +7,10 @@ description: 国际与国内具身智能公司、科研机构一览——代表�
 
 收录全球主要具身智能公司与科研机构，涵盖人形机器人、VLA 模型、四足机器人及机器人基础平台。列表持续更新，欢迎在 [GitHub](https://github.com/ZhuYun97/embodied-ai-learning) 提交补充。
 
+::: tip 🧠 想看「谁的大脑最强」?
+本页是**生态目录**(收录广、偏全)。若你想要按**可信度严格分档**的「具身大脑」公司榜——只评 VLA / 世界模型 / 基础模型,每条带一手来源 + ✅一手 / ⚠️自报 / 待核 标注、经对抗式核验——见 **[🧠 具身大脑公司分档榜](/ecosystem/brain-ranking)**。
+:::
+
 <script setup>
 import EcosystemGraph from '../.vitepress/theme/components/EcosystemGraph.vue'
 import EcosystemMap from '../.vitepress/theme/components/EcosystemMap.vue'
