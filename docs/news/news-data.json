@@ -1,5 +1,31 @@
 [
   {
+    "id": "qwen-vla-unified-embodiment-20260528",
+    "title": "阿里 Qwen(通义千问)团队进军具身智能:发布 Qwen-VLA,用统一视觉-语言-动作模型横跨操作 / 导航 / 轨迹预测与多种机器人本体",
+    "date": "2026-05-28",
+    "fetched_at": "2026-06-08",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "VLA 模型",
+      "论文发表"
+    ],
+    "summary": "论文 **Qwen-VLA: Unifying Vision-Language-Action Modeling across Tasks, Environments, and Robot Embodiments**(arXiv:[2605.30280](https://arxiv.org/abs/2605.30280),v1 2026-05-28 / v2 2026-06-01;40 位作者,含 Qwen 团队核心 Junyang Lin、Shuai Bai、Dayiheng Liu、Jingren Zhou,Hugging Face 归属 Qwen 组织)标志**阿里通义千问团队正式进军具身智能**。做法:在 **Qwen 视觉-语言模型栈**(感知 / 理解 / 推理)之上扩展一个 **DiT(扩散 Transformer)动作解码器**,把同一模型从「看懂」延伸到「连续动作与轨迹生成」;以**本体感知提示(embodiment-aware prompting)**适配单臂 / 双臂等多种机器人,混合机器人轨迹、人类示范与仿真数据训练,目标是用**一个统一模型**跨**任务 / 环境 / 本体**,免去按任务或平台分别重训。⚠️ 以下为作者自评(预印本,未经同行评审 / 第三方复现):LIBERO **97.9%**、RoboTwin-Easy / Hard **86.1% / 87.2%**、Simpler-WidowX **73.7%**、视觉语言导航 R2R **69.0% OSR** / RxR **59.6% SR**、真机 ALOHA 双臂分布外平均 **76.9%**、DOMINO 动态操作零样本 **26.6%**。意义:继 OpenAI 成立机器人部门之后,又一头部大模型团队以「**模型层 + 开放平台**」路线切入具身——不自造整机,而做可被不同本体采用的通用 VLA 基础模型。",
+    "sources": [
+      {
+        "name": "arXiv:2605.30280",
+        "url": "https://arxiv.org/abs/2605.30280"
+      }
+    ],
+    "related": [
+      {
+        "label": "VLA 模型调研",
+        "url": "/vla/"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "ahead-dynamic-vla-world-model-20260601",
     "title": "arXiv 论文 AHEAD:给「冻结 VLA」加运动感知潜空间世界模型,预测未来 token 以接住移动 / 飞行物体",
     "date": "2026-06-01",
