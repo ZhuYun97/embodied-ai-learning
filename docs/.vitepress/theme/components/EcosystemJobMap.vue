@@ -57,9 +57,9 @@ const CITY_BY_ID = {
   'x-humanoid': 'beijing',
   'galbot': 'beijing',
   'vbot': 'beijing',
-  'joyin': null,
+  'joyin': 'suzhou',
   'x2robot': 'shenzhen',
-  'genisom': null,
+  'genisom': 'beijing',
   'spirit-ai': 'hangzhou',
   'leju': 'shenzhen',
   'keenon': 'shanghai',
@@ -81,6 +81,13 @@ const CITY_BY_ID = {
   'field-ai': 'missionviejo',
   'dexterity': 'redwoodcity',
   'collaborative-robotics': 'santaclara',
+  'dexforce': 'shenzhen',
+  'dexmal': 'beijing',
+  'youlu': 'hangzhou',
+  'daimon': 'shenzhen',
+  'generalist': 'sanmateo',
+  'genesis': 'sancarlos',
+  'dyna': 'redwoodcity',
 }
 
 // 城市 → 标签 + 坐标(城市质心,公开地理常量)+ 国内/海外
@@ -103,6 +110,9 @@ const CITY_META = {
   vancouver:  { label: 'Vancouver', lat: 49.2827, lng: -123.1207, region: 'intl' },
   moss:       { label: 'Moss, 挪威', lat: 59.4344, lng: 10.6578, region: 'intl' },
   london:     { label: 'London', lat: 51.5074, lng: -0.1278, region: 'intl' },
+  suzhou:     { label: '苏州', lat: 31.2989, lng: 120.5853, region: 'china' },
+  sanmateo:   { label: 'San Mateo, CA', lat: 37.5630, lng: -122.3255, region: 'intl' },
+  sancarlos:  { label: 'San Carlos, CA', lat: 37.5072, lng: -122.2605, region: 'intl' },
 }
 
 const STAGE_LABEL = { public: '上市', unicorn: '独角兽', growth: '成长期', early: '早期', mature: '成熟', vertical: '垂直' }
