@@ -3000,3 +3000,89 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) ol > li{
 html:not(.dark) .vp-doc:has(.brain-pyramid) ol > li::before{ color:#b91c1c; background:color-mix(in srgb,#dc2626 10%,transparent); border-color:color-mix(in srgb,#dc2626 35%,transparent); }
 html:not(.dark) .vp-doc:has(.brain-pyramid) ul > li::marker{ color:#0891b2; }
 html:not(.dark) .vp-doc:has(.brain-pyramid) ul > li > strong:first-child{ color:#0369a1; }
+
+
+/* ============ 具身大脑分档榜 · 科技感强化 v2(scoped via :has(.brain-pyramid))2026-06 ============ */
+
+/* ---- A. 章节标题 → HUD「区段寄存器」:S0N 编号徽章 + 发光竖条 + 扫描下划线 ---- */
+.vp-doc:has(.brain-pyramid){ counter-reset: brsec; }
+.vp-doc:has(.brain-pyramid) h2{
+  --hi: 58px;
+  counter-increment: brsec;
+  position: relative;
+  border-top: 0;                      /* 去掉 VitePress 默认上分隔线,改用本页 HUD 下划线 */
+  margin-top: 2.6rem; padding: 7px 0 10px var(--hi);
+  letter-spacing: .005em;
+}
+.dark .vp-doc:has(.brain-pyramid) h2{ text-shadow: 0 0 18px rgba(34,211,238,.14); }
+/* [S0N] 寄存器编号徽章 */
+.vp-doc:has(.brain-pyramid) h2::before{
+  content: "S" counter(brsec, decimal-leading-zero);
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  right: auto; bottom: auto; width: auto; height: auto;   /* 抵消全局 h2::before 的 right:0/height:1px,避免拉满 */
+  display: grid; place-items: center; min-width: 42px; padding: 4px 7px;
+  font-family: 'Orbitron', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: .06em;
+  color: #67e8f9; border-radius: 9px;
+  border: 1px solid color-mix(in srgb, #22d3ee 38%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb,#22d3ee 16%,transparent), color-mix(in srgb,#22d3ee 7%,transparent));
+  box-shadow: 0 0 13px color-mix(in srgb,#22d3ee 26%,transparent), inset 0 0 9px color-mix(in srgb,#22d3ee 12%,transparent);
+  pointer-events: none;
+}
+/* 扫描下划线:左实右虚淡出 */
+.vp-doc:has(.brain-pyramid) h2::after{
+  content: ""; position: absolute; left: var(--hi); right: 0; top: auto; bottom: 0; width: auto; height: 1px;
+  border-radius: 0; box-shadow: none;   /* 抵消全局 h2::after(64px 装饰条 top:-1px)的残留 */
+  background: linear-gradient(90deg, color-mix(in srgb,#22d3ee 70%,transparent), color-mix(in srgb,#7dd3fc 20%,transparent) 45%, transparent 78%);
+}
+.dark .vp-doc:has(.brain-pyramid) h2::after{ box-shadow: 0 0 10px color-mix(in srgb,#22d3ee 30%,transparent); }
+@media (max-width: 640px){
+  .vp-doc:has(.brain-pyramid) h2{ --hi: 48px; }
+  .vp-doc:has(.brain-pyramid) h2::before{ min-width: 36px; font-size: 11px; padding: 3px 5px; }
+}
+html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-color: color-mix(in srgb,#0891b2 32%,transparent); box-shadow: 0 0 10px color-mix(in srgb,#0891b2 16%,transparent); }
+
+/* ---- B. 金字塔:中轴「数据脊柱」+ 流动光包 + 层级 HUD 角标 ---- */
+.brain-pyramid{ position: relative; }
+/* 中轴数据脊柱(在卡片缝隙间贯穿,上下淡出) */
+.brain-pyramid::before{
+  content: ""; position: absolute; top: 4px; bottom: 4px; left: 50%; width: 2px; transform: translateX(-50%);
+  z-index: 0; pointer-events: none; opacity: .48;
+  background: linear-gradient(180deg, color-mix(in srgb,#67e8f9 60%,transparent), color-mix(in srgb,#7dd3fc 28%,transparent) 48%, color-mix(in srgb,#c4b5fd 42%,transparent));
+  box-shadow: 0 0 12px color-mix(in srgb,#22d3ee 34%,transparent);
+  -webkit-mask: linear-gradient(180deg, transparent, #000 7%, #000 93%, transparent);
+          mask: linear-gradient(180deg, transparent, #000 7%, #000 93%, transparent);
+}
+.brain-pyramid .pyr-tier{ z-index: 1; }   /* 卡片浮在脊柱之上,仅缝隙露出脊柱 */
+/* 层级四角 HUD 角标(承接 tier 主色) */
+.brain-pyramid .pyr-tier > .pyr-head{ position: relative; z-index: 1; }
+.brain-pyramid .pyr-tier::before,
+.brain-pyramid .pyr-tier::after{
+  content: ""; position: absolute; width: 13px; height: 13px; pointer-events: none; opacity: .6;
+  border: 1.5px solid color-mix(in srgb, var(--tc) 60%, transparent);
+}
+.brain-pyramid .pyr-tier::before{ top: 7px; left: 7px; border-right: 0; border-bottom: 0; border-top-left-radius: 5px; }
+.brain-pyramid .pyr-tier::after{ bottom: 7px; right: 7px; border-left: 0; border-top: 0; border-bottom-right-radius: 5px; }
+.brain-pyramid .pyr-tier[data-tier=t0]::before,
+.brain-pyramid .pyr-tier[data-tier=t0]::after{ opacity: .9; }
+/* 暗色:金字塔容器内嵌一层 HUD 读数网格 + 中心辉光 */
+.dark .brain-pyramid{
+  background:
+    radial-gradient(ellipse 72% 86% at 50% 46%, color-mix(in srgb,#22d3ee 6%,transparent), transparent 80%),
+    linear-gradient(color-mix(in srgb,#22d3ee 4%,transparent) 1px, transparent 1px) 0 0/40px 40px,
+    linear-gradient(90deg, color-mix(in srgb,#22d3ee 4%,transparent) 1px, transparent 1px) 0 0/40px 40px;
+}
+@media (prefers-reduced-motion: no-preference){
+  /* 沿脊柱下行的「数据光包」 */
+  .brain-pyramid::after{
+    content: ""; position: absolute; left: 50%; top: 0; width: 6px; height: 24px; transform: translateX(-50%);
+    z-index: 0; pointer-events: none; border-radius: 6px;
+    background: radial-gradient(closest-side, color-mix(in srgb,#a5f3fc 92%,transparent), transparent);
+    box-shadow: 0 0 14px color-mix(in srgb,#67e8f9 70%,transparent);
+    animation: pyrFlow 4.6s ease-in-out infinite;
+  }
+  @keyframes pyrFlow{ 0%{ top: 1%; opacity: 0; } 12%{ opacity: .95; } 86%{ opacity: .95; } 100%{ top: 95%; opacity: 0; } }
+  /* T0 角标轻微呼吸 */
+  .brain-pyramid .pyr-tier[data-tier=t0]::before,
+  .brain-pyramid .pyr-tier[data-tier=t0]::after{ animation: pyrCorner 3.4s ease-in-out infinite; }
+  @keyframes pyrCorner{ 0%,100%{ opacity: .55; } 50%{ opacity: 1; } }
+}
