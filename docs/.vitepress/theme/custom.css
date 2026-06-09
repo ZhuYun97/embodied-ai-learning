@@ -65,6 +65,17 @@ html.dark, body {
   opacity: 1 !important;
 }
 html.dark { position: static !important; }
+/* 视觉类泄漏兜底(2026-06-09):裸 `.dark{}`(NewsIndex 的 :global(.dark) X::before/after 误编译)
+   还会把 grid 背景图 / 青色 box-shadow / 描边 / 文字辉光 灌到 <html>,造成全站异常网格、
+   右缘青蓝竖条、整体偏色。强制 root 只用页面底色、无多余背景图 / 阴影 / 描边 / 辉光。 */
+html.dark {
+  background: var(--vp-c-bg) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
 
 /* ---------- 配色:深色 ---------- */
 .dark {
