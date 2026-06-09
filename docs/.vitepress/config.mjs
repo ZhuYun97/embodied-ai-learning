@@ -202,7 +202,7 @@ export default withMermaid(defineConfig({
         fs.writeFileSync(newsOutPath, newsMd.join('\n'), 'utf-8')
       }
 
-      const header = `# 具身智能学习站 · Embodied AI Learning\n\n> VLA 模型发展深度调研 + 24 篇论文细读 + 横切分析专题。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
+      const header = `# 具身智能学习站 · Embodied AI Learning\n\n> VLA 模型发展深度调研 + 53 篇论文细读 + 横切分析专题。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
       fs.writeFileSync(path.join(outDir, 'llms.txt'), header + index.join('\n') + '\n', 'utf-8')
       fs.writeFileSync(path.join(outDir, 'llms-full.txt'), header + fullParts.join('\n\n---\n\n') + '\n', 'utf-8')
       console.log(`[buildEnd] 已导出 llms.txt / llms-full.txt + ${files.length} 页原始 .md.txt`)
@@ -228,13 +228,13 @@ export default withMermaid(defineConfig({
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:url', content: 'https://zhuyun97.github.io/embodied-ai-learning/' }],
     ['meta', { property: 'og:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 24 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
+    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 53 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
     ['meta', { property: 'og:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 24 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
+    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 53 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
     ['meta', { name: 'twitter:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
   ],
 
@@ -279,6 +279,7 @@ export default withMermaid(defineConfig({
               { text: 'π0.6 / π*0.6', link: '/vla/papers/pi06' },
               { text: 'Gemini Robotics', link: '/vla/papers/gemini-robotics' },
               { text: 'π0.7', link: '/vla/papers/pi07' },
+              { text: 'AtomicVLA(技能 MoE·CVPR26)', link: '/vla/papers/atomicvla' },
             ],
           },
           {
@@ -307,6 +308,8 @@ export default withMermaid(defineConfig({
               { text: '预测式 VLA(世界模型作策略)', link: '/vla/papers/predictive-vla' },
               { text: '知识隔离训练配方', link: '/vla/papers/knowledge-insulation' },
               { text: '推理加速与部署', link: '/vla/papers/inference-deployment' },
+              { text: 'FASTER(流匹配实时加速)', link: '/vla/papers/faster' },
+              { text: 'VLA 在线 RL(RL Token)', link: '/vla/papers/rl-token' },
               { text: '开源代码库对照', link: '/vla/papers/codebases' },
               { text: '共性失败模式', link: '/vla/papers/failure-modes' },
             ],
@@ -347,6 +350,8 @@ export default withMermaid(defineConfig({
               { text: 'Genie Envisioner(智元)', link: '/wam/papers/genie-envisioner' },
               { text: 'GR00T N2(NVIDIA)', link: '/wam/papers/groot-n2' },
               { text: 'Cosmos 3(NVIDIA·全模态世界模型)', link: '/wam/papers/cosmos3' },
+              { text: 'WALL-WM(自变量·事件锚定)', link: '/wam/papers/wall-wm' },
+              { text: 'GE-Sim 2.0(智元·闭环世界模拟器)', link: '/wam/papers/ge-sim-2' },
             ],
           },
         ],
@@ -436,6 +441,8 @@ export default withMermaid(defineConfig({
             { text: '预测式 VLA(世界模型作策略)', link: '/vla/papers/predictive-vla' },
             { text: '知识隔离:VLA 训练配方(KI)', link: '/vla/papers/knowledge-insulation' },
             { text: '推理加速与量化部署', link: '/vla/papers/inference-deployment' },
+            { text: 'FASTER（流匹配 VLA 实时加速）', link: '/vla/papers/faster' },
+            { text: 'VLA 在线 RL:RL Token（PI）', link: '/vla/papers/rl-token' },
             { text: '开源代码库与权重对照', link: '/vla/papers/codebases' },
             { text: '共性失败模式(失败显微镜)', link: '/vla/papers/failure-modes' },
           ],
@@ -468,6 +475,7 @@ export default withMermaid(defineConfig({
             { text: 'π0.6 / π*0.6', link: '/vla/papers/pi06' },
             { text: 'Gemini Robotics（DeepMind）', link: '/vla/papers/gemini-robotics' },
             { text: 'π0.7（PI 最新）', link: '/vla/papers/pi07' },
+            { text: 'AtomicVLA（技能引导 MoE·CVPR26）', link: '/vla/papers/atomicvla' },
           ],
         },
         {
@@ -554,6 +562,8 @@ export default withMermaid(defineConfig({
             { text: 'Genie Envisioner（智元 AgiBot）', link: '/wam/papers/genie-envisioner' },
             { text: 'GR00T N2（NVIDIA）', link: '/wam/papers/groot-n2' },
             { text: 'Cosmos 3（NVIDIA·全模态世界模型）', link: '/wam/papers/cosmos3' },
+            { text: 'WALL-WM（自变量·事件锚定世界-动作模型）', link: '/wam/papers/wall-wm' },
+            { text: 'GE-Sim 2.0（智元·闭环视频世界模拟器）', link: '/wam/papers/ge-sim-2' },
           ],
         },
         {
