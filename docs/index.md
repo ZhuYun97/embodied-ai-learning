@@ -104,13 +104,14 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/gemini-robotics">Gemini Robotics</a>
       <a href="vla/papers/steervla">SteerVLA</a>
       <a href="vla/papers/steerable-policies">Steerable Policies</a>
+      <a href="vla/papers/atomicvla">AtomicVLA</a>
     </div>
   </div>
 </div>
 
 ## WAM:按范式浏览
 
-世界-行动模型(WAM)按综述 taxonomy 分「级联」与「联合」两支,联合再分自回归 / 扩散,点击进入对应细读(范式总览见 [WAM 调研](wam/)):
+世界-行动模型(WAM)按综述 taxonomy 分「级联」与「联合」两支,联合再分自回归 / 扩散;此外另有跨范式的**基座 / 平台 / 仿真器**(作通用底座与数据·评测引擎,而非单一动作范式)。点击进入对应细读(范式总览见 [WAM 调研](wam/)):
 
 <div class="route-grid">
   <div class="route-card">
@@ -152,6 +153,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/tau0-wm">τ0-WM</a>
       <a href="wam/papers/groot-n2">GR00T N2</a>
       <a href="wam/papers/ladi-wm">LaDi-WM</a>
+      <a href="wam/papers/wall-wm">WALL-WM</a>
     </div>
   </div>
   <div class="route-card">
@@ -161,6 +163,16 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-links">
       <a href="wam/papers/uva">UVA</a>
       <a href="wam/papers/flare">FLARE</a>
+    </div>
+  </div>
+  <div class="route-card">
+    <span class="route-tag">跨范式 · 基座/平台/仿真</span>
+    <div class="route-card__title">世界模型基座 · 平台 · 仿真器</div>
+    <p>全模态基座 / 世界平台 / 闭环模拟器,作通用底座与数据·评测引擎,非单一动作范式。</p>
+    <div class="route-links">
+      <a href="wam/papers/cosmos3">Cosmos 3</a>
+      <a href="wam/papers/genie-envisioner">Genie Envisioner</a>
+      <a href="wam/papers/ge-sim-2">GE-Sim 2.0</a>
     </div>
   </div>
 </div>
