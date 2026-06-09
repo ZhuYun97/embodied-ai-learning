@@ -2375,6 +2375,12 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .dark .VPHome .VPFeature .icon {
   box-shadow: 0 0 16px rgba(56, 189, 248, 0.16), inset 0 0 14px rgba(56, 189, 248, 0.12);
 }
+/* 暗色:特性卡图标是 <img> SVG、描边硬编码 #2563eb(深蓝),落在青蓝瓷砖上对比过低、几乎看不见。
+   <img> 无法用 currentColor 改色,故用滤镜把深蓝提亮成亮蓝并加深色描边分离边缘,保证可见。 */
+.dark .VPHome .VPFeature .icon img,
+.dark .VPHome .VPFeature .icon .VPImage {
+  filter: brightness(1.95) saturate(1.15) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
 .VPHome .VPFeature:hover .icon {
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 0 24px rgba(56, 189, 248, 0.34);
