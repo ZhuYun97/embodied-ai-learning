@@ -63,7 +63,7 @@ flowchart LR
 |---|---|---|---|---|---|---|---|---|
 | **[RT-1](https://robotics-transformer1.github.io/)** | 2022 | Google / Everyday Robots | 13万+ episodes,700+ 任务,13台机17个月 | EDR 单臂(7-DoF) | 700+ 指令 | RGB+语言+动作,无深度 | 专用站遥操作 | ✅(已并入 OXE) |
 | **[BC-Z](https://www.kaggle.com/datasets/google/bc-z-robot)** | 2022 | Google / Berkeley / Stanford | 25,877 episodes,100 任务 | EDR 单臂 | 100 训练任务+24 未见 | RGB+语言/人类视频条件 | 遥操作+DAgger 干预 | ✅ |
-| **[Language-Table](https://github.com/google-research/language-table)** | 2022 | Google Research | 近 60万 语言标注轨迹 | 桌面平面推动臂(2D) | 开放词汇推动/重排 | RGB+实时语言+2D 动作 | 实时语言交互遥操作 | ✅ |
+| **[Language-Table](https://github.com/google-research/language-table)** | 2022 | Google Research | 近 60万 语言标注轨迹(**含仿真**:真机约 41.5万+仿真约 18.1万)✅ | 桌面平面推动臂(2D) | 开放词汇推动/重排 | RGB+实时语言+2D 动作 | 实时语言交互遥操作 | ✅ |
 | **[BridgeData V2](https://rail-berkeley.github.io/bridgedata/)** | 2023 | UC Berkeley (RAIL) | **60,096 条轨迹** ✅(50,365 遥操作+9,731 脚本) | WidowX 250 单臂 | 13 技能×24 环境 | RGB-D+语言+本体感知 | VR 遥操作(Quest 2) | ✅ |
 | **[RH20T](https://rh20t.github.io/)** | 2023 | 上海交大(卢策吾组) | 11万+ 操作序列 + 配对人类示范视频 | 多臂(Flexiv/Franka/UR5/Kuka) | 147 任务/42 技能 | RGB-D+**力觉+音频** | 定制遥操作系统 | ✅ |
 | **[RoboSet](https://robopen.github.io/roboset/)** | 2023 | CMU / Meta AI | 28,500 条(9,500 遥操作+19,000 示教回放)⚠️ 网传 98,500 有误 | Franka 单臂(厨房) | 12 技能×38 任务 | 4路RGB+语言+动作 | 遥操作+kinesthetic | ✅(MIT) |
@@ -126,7 +126,7 @@ flowchart TD
 
 | 方法 | 代表工作 | 机制 | 优点 | 局限 |
 |---|---|---|---|---|
-| **潜动作 Latent Action** | Genie(DeepMind,>20万h 游戏视频,11B)、LAPA(ICLR 2025)、GR00T 码本 | VQ-VAE 在相邻帧间学离散潜动作码本,再小规模机器人数据微调映射到真实动作 | 完全无监督,可吃互联网级无标签视频 | 潜动作非物理量,需下游对齐 |
+| **潜动作 Latent Action** | Genie(DeepMind,11B;原始>20万h 游戏视频→**过滤后约 3万h** 实训)、LAPA(ICLR 2025)、GR00T 码本 | VQ-VAE 在相邻帧间学离散潜动作码本,再小规模机器人数据微调映射到真实动作 | 完全无监督,可吃互联网级无标签视频 | 潜动作非物理量,需下游对齐 |
 | **逆动力学 IDM** | GR00T、DreamGen | 从视频帧推断伪动作(pseudo-action)标注 | 直接产出动作监督 | 伪动作有噪声,低数据时不如潜动作 |
 | **显式手部/关键点轨迹** | EgoDex、EgoMimic、RynnVLA 关键点 | 用 SLAM/手部追踪抽 3D 手腕+手指位姿作可回归动作 | 物理可解释,本体对齐好 | 依赖高质量追踪硬件 |
 
@@ -145,15 +145,15 @@ flowchart TD
 | 系统 | 类型 | 机构/年份 | 规模/放大 | 同行评审 | 关键事实 |
 |---|---|---|---|---|---|
 | **[MimicGen](https://mimicgen.github.io)** | 程序化轨迹放大 | NVIDIA/UT Austin 2023 | 约 200 人工 → 50,000+,18 任务 | ✅ CoRL 2023 | 少量人工演示分段+刚体变换重放;衍生 DexMimicGen(双臂灵巧) |
-| **[RoboCasa](https://robocasa.ai)** | 高保真仿真+合成 | UT Austin/NVIDIA 2024 | 1,250 人工演示 + MimicGen 约 10万+ | ✅ CoRL 2024 | robosuite(MuJoCo)+Omniverse 渲染;sim-real co-train 真机已见物体 13.6%→24.4% ⚠️ |
+| **[RoboCasa](https://robocasa.ai)** | 高保真仿真+合成 | UT Austin/NVIDIA 2024 | 1,250 人工演示 + MimicGen 约 10万+ | ✅ RSS 2024 | robosuite(MuJoCo)+Omniverse 渲染;sim-real co-train 真机已见物体 13.6%→24.4% ⚠️ |
 | **[ManiSkill3](https://github.com/haosulab/ManiSkill)** | GPU 并行仿真 | UCSD/Hao Su 2024 | 最高 **30,000+ FPS**,12 领域 | arXiv | 比同类快 10–1000×、显存少 2–3×(团队自评) |
 | **[Isaac Sim/Lab](https://developer.nvidia.com/isaac/sim)** | 仿真+域随机化框架 | NVIDIA 2023–25 | 基础设施(数千并行环境) | arXiv | sim-to-real 与域随机化主力训练框架,非数据集本身 |
 | **[DreamGen](https://research.nvidia.com/labs/gear/dreamgen/)** | 视频世界模型→神经轨迹 | NVIDIA GEAR 2025 | RoboCasa 上最高 **333×** 放大 ⚠️ | arXiv | 4阶段:微调视频模型→生成机器人视频→IDM/潜动作回收伪动作→训策略;已有真机数据时仍 **+8.8%** ⚠️ |
-| **[Cosmos](https://github.com/NVIDIA/Cosmos)** | 世界基础模型平台 | NVIDIA 2025–26 | 约 1亿级片段训练,4B–14B 参数 | arXiv | open-weight(CC-BY-4.0);DreamGen 神经轨迹的可选底层世界模型 |
+| **[Cosmos](https://github.com/NVIDIA/Cosmos)** | 世界基础模型平台 | NVIDIA 2025–26 | 约 1亿级片段训练,4B–14B 参数 | arXiv | open-weight(**NVIDIA Open Model License**,非 CC-BY;CC-BY-4.0 仅指 arXiv 论文);DreamGen 神经轨迹的可选底层世界模型 |
 
 **sim-to-real gap 仍是核心局限**:**接触丰富(contact-rich)**任务的物理仿真误差、视觉域差异最大。主流缓解手段:域随机化(纹理/材质/动力学/控制器增益/观测噪声)、域适应、real-to-sim、sim-real co-training。世界模型路线绕开物理引擎,但引入**生成幻觉 + 伪动作标签误差**这一新型 gap。
 
-> ⚠️ **本主题 NVIDIA 生态高度主导**(RoboCasa/MimicGen/ManiSkill 之外的 GR00T/DreamGen/Cosmos/Isaac 均为 NVIDIA 或合作),大量规模/加速数字为厂商技术报告自评。已同行评审仅 RoboCasa(CoRL)、MimicGen(CoRL)、ManiSkill2(ICLR);其余标 medium。
+> ⚠️ **本主题 NVIDIA 生态高度主导**(RoboCasa/MimicGen/ManiSkill 之外的 GR00T/DreamGen/Cosmos/Isaac 均为 NVIDIA 或合作),大量规模/加速数字为厂商技术报告自评。已同行评审仅 RoboCasa(RSS 2024)、MimicGen(CoRL 2023)、ManiSkill2(ICLR 2023);其余标 medium。
 > ⚠️ DreamGen 的 333× 仅在论文特定设置(RoboCasa 仿真)下成立,非通用结论;GR00T N1.5 的"36 小时生成 vs 3 个月人工采集"为 NVIDIA 营销框架下自评。
 
 ### 4.1 世界模型在 VLA 里的三种定位
@@ -209,7 +209,7 @@ flowchart LR
 
 ### 6.1 协同训练(co-training)产生显著正迁移
 
-`π0.5` 提供了最系统的消融(✅ 同行评审 RSS,但多以图呈现):
+`π0.5` 提供了最系统的消融(✅ 同行评审 **CoRL 2025**,但多以图呈现):
 
 ![π0.5 数据混合](images/pi05_data.webp)
 
@@ -217,13 +217,13 @@ flowchart LR
 - **消融结论** ⚠️:去掉 CE 或 ME 都显著降低性能,两者都去损害最严重;**去掉 WD(网络数据)对分布内任务影响不显著,但严重损害对未见物体(OOD)的语言理解与泛化**。
 - 两阶段配方:① 预训练(α=0,约 280k 步)整个模型当 VLM,文本+边界框+FAST 离散动作 token 统一做 next-token prediction;② 后训练(α=10,约 80k 步)新增 action expert 联合 next-token+流匹配,加入 VI、去掉 CE。
 
-`RT-2` 的 **co-fine-tune** 是这一思想的奠基:把机器人轨迹与互联网 VQA/caption **混入同一批次共同训练**,通过逐步提高机器人数据采样权重平衡配比。⚠️ 消融:仅在机器人数据上微调会**遗忘网络预训练学到的抽象视觉概念**,co-fine-tune 是泛化与涌现能力(符号理解/推理/人物识别)的关键来源。RT-2-X 相对 RT-2 在 emergent skill 泛化上约 +50% ⚠️。
+`RT-2` 的 **co-fine-tune** 是这一思想的奠基:把机器人轨迹与互联网 VQA/caption **混入同一批次共同训练**,通过逐步提高机器人数据采样权重平衡配比。⚠️ 消融:仅在机器人数据上微调会**遗忘网络预训练学到的抽象视觉概念**,co-fine-tune 是泛化与涌现能力(符号理解/推理/人物识别)的关键来源。RT-2-X 相对 RT-2 在 emergent skill 泛化上约 **3×**(成功率 27.3%→75.8%,✅ OXE 论文)。
 
 > 📌 **辟谣**:RT-2 **并未**使用 DCT+BPE 动作 tokenization(那是 π0-FAST/FAST tokenizer 的做法),RT-2 只用最朴素的 **256-bin 均匀离散化**。
 
 ### 6.2 数据多样性 >> 数据数量
 
-这是机器人模仿学习 scaling law 的最核心结论。**Lu et al. 2024《Data Scaling Laws》**(✅ ICLR 2025)在 4 任务/单臂 Franka 上拟合出幂律:
+这是机器人模仿学习 scaling law 的最核心结论。**Hu et al. 2024《Data Scaling Laws》**(✅ ICLR 2025 **Oral**,清华/上海期智)在 4 任务(**UMI 手持夹爪采集** / Franka 单臂部署)上拟合出幂律:
 
 | 泛化维度 | 幂律拟合 | 相关系数 |
 |---|---|---|
@@ -251,7 +251,7 @@ flowchart LR
 ### 6.4 配比可自动优化、仿真比例可极高
 
 - **Re-Mix**(✅ CoRL 2024,Stanford):用分布鲁棒优化(DRO)学习域权重,在 OXE 上**平均超过均匀权重 38%、超过人工专家配比 32%** ⚠️——证明人工配方并非最优。
-- **Sim-and-Real Co-Training**(MIT,medium):真机稀缺时 **sim 占比约 0.99 往往最优**,平均提升 37.9%;每任务仅 10 条真机演示即达 78–87% ⚠️。
+- **Sim-and-Real Co-Training**(**UT Austin/NVIDIA/UC Berkeley/NYU**,RSS 2025;原文非 MIT):真机稀缺时 **sim 占比约 0.99 往往最优**,平均提升 37.9% ✅(论文头条数字);每任务仅约 10 条真机演示即可显著起效 ⚠️(各本体成功率差异大,具体区间待核)。
 - **GR00T 数据 scaling 证据** ⚠️:DexMimicGen 11 小时生成 78 万条(约 6500 小时)仿真轨迹;neural trajectory(DreamGen)把约 88h 真机放大到约 827h(约 **10×**);RoboCasa 30/100/300 演示分别 +4.2%/+8.8%/+6.8%,8 个真实任务平均 +5.8%。真机仅用 10% 数据仍接近全量表现。
 
 ### 6.5 第四层:真机 RL 经验(突破模仿上限)
