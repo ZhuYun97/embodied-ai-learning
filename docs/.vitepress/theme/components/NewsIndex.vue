@@ -8,6 +8,16 @@ const selectedCategory = ref('全部')
 const selectedImportance = ref('全部')
 const selectedYear = ref('全部')
 const searchQuery = ref('')
+const selectedDate = ref('')          // 日历筛选:YYYY-MM-DD,空 = 不筛
+const showCalendar = ref(false)       // 日历面板展开态
+
+// 日历:初始定位到「最新有新闻的月份」(确定性、SSR 安全,不依赖 new Date())
+const _newsYMs = newsData.map(n => n.date || '').filter(s => s.length === 10).map(s => s.slice(0, 7))
+const _maxYM = _newsYMs.length ? _newsYMs.reduce((a, b) => (a > b ? a : b)) : '2026-01'
+const _minYM = _newsYMs.length ? _newsYMs.reduce((a, b) => (a < b ? a : b)) : _maxYM
+const calYear = ref(+_maxYM.slice(0, 4))
+const calMonth = ref(+_maxYM.slice(5, 7) - 1)   // 0-indexed
+const today = ref('')                 // 客户端在 onMounted 写入,避免 SSR 水合不一致
 
 // 卡片展开态:默认折叠(只显标题+元信息),点击卡片再展开详情(摘要+来源)
 const expandedIds = ref(new Set())
@@ -18,15 +28,18 @@ const toggleCard = (id) => {
   expandedIds.value = s
 }
 
-// 从 localStorage 恢复筛选偏好
+// 从 localStorage 恢复筛选偏好 + 写入今天(客户端)
 onMounted(() => {
+  const dt = new Date()
+  today.value = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`
   const saved = localStorage.getItem('news-filter')
   if (saved) {
     try {
-      const { category, importance, year } = JSON.parse(saved)
+      const { category, importance, year, date } = JSON.parse(saved)
       if (category) selectedCategory.value = category
       if (importance) selectedImportance.value = importance
       if (year) selectedYear.value = year
+      if (date) selectedDate.value = date
     } catch (e) {}
   }
 })
@@ -36,7 +49,8 @@ const saveFilter = () => {
   localStorage.setItem('news-filter', JSON.stringify({
     category: selectedCategory.value,
     importance: selectedImportance.value,
-    year: selectedYear.value
+    year: selectedYear.value,
+    date: selectedDate.value
   }))
 }
 
@@ -53,6 +67,55 @@ const allYears = computed(() => {
   newsData.forEach(n => years.add(n.date.split('-')[0]))
   return ['全部', ...Array.from(years).sort().reverse()]
 })
+
+// ============ 日历筛选 ============
+// 各「事件日期」的新闻条数(跳过非完整日期,如历史遗留的 '2026-07')
+const newsCountByDate = computed(() => {
+  const m = {}
+  for (const n of newsData) {
+    if (n.date && n.date.length === 10) m[n.date] = (m[n.date] || 0) + 1
+  }
+  return m
+})
+const curYM = computed(() => `${calYear.value}-${String(calMonth.value + 1).padStart(2, '0')}`)
+const canPrev = computed(() => curYM.value > _minYM)   // 不翻到无新闻的更早月份
+const canNext = computed(() => curYM.value < _maxYM)
+// 当前月份的日历格子(前导空格 + 1..N 天)
+const calCells = computed(() => {
+  const y = calYear.value, m = calMonth.value
+  const firstDow = new Date(y, m, 1).getDay()       // 0=周日
+  const days = new Date(y, m + 1, 0).getDate()
+  const cells = []
+  for (let i = 0; i < firstDow; i++) cells.push({ key: 'b' + i, day: null })
+  for (let d = 1; d <= days; d++) {
+    const ds = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+    cells.push({
+      key: ds, day: d, dateStr: ds,
+      count: newsCountByDate.value[ds] || 0,
+      isSelected: selectedDate.value === ds,
+      isToday: today.value === ds
+    })
+  }
+  return cells
+})
+const prevMonth = () => {
+  if (!canPrev.value) return
+  if (calMonth.value === 0) { calMonth.value = 11; calYear.value-- } else calMonth.value--
+}
+const nextMonth = () => {
+  if (!canNext.value) return
+  if (calMonth.value === 11) { calMonth.value = 0; calYear.value++ } else calMonth.value++
+}
+// 点选某天(仅有新闻的天可点;再点一次取消)
+const pickDate = (cell) => {
+  if (!cell.dateStr || cell.count === 0) return
+  selectedDate.value = (selectedDate.value === cell.dateStr) ? '' : cell.dateStr
+  saveFilter()
+}
+const clearDate = () => { selectedDate.value = ''; saveFilter() }
+const jumpToLatest = () => { calYear.value = +_maxYM.slice(0, 4); calMonth.value = +_maxYM.slice(5, 7) - 1 }
+const formatDateShort = (d) => { const p = d.split('-'); return p.length === 3 ? `${+p[1]}月${+p[2]}日` : d }
+
 // 筛选后的数据
 const filteredData = computed(() => {
   let data = newsData
@@ -64,6 +127,9 @@ const filteredData = computed(() => {
   }
   if (selectedYear.value !== '全部') {
     data = data.filter(n => n.date.startsWith(selectedYear.value))
+  }
+  if (selectedDate.value) {
+    data = data.filter(n => n.date === selectedDate.value)
   }
   if (searchQuery.value.trim()) {
     const q = searchQuery.value.toLowerCase()
@@ -126,6 +192,7 @@ const hasActiveFilter = computed(() =>
   selectedCategory.value !== '全部' ||
   selectedImportance.value !== '全部' ||
   selectedYear.value !== '全部' ||
+  selectedDate.value !== '' ||
   searchQuery.value.trim() !== ''
 )
 
@@ -134,6 +201,7 @@ const resetFilters = () => {
   selectedCategory.value = '全部'
   selectedImportance.value = '全部'
   selectedYear.value = '全部'
+  selectedDate.value = ''
   searchQuery.value = ''
   saveFilter()
 }
@@ -211,7 +279,66 @@ const renderMarkdown = (text) => {
             </option>
           </select>
         </div>
+        <button
+          class="cal-trigger"
+          :class="{ active: selectedDate || showCalendar }"
+          @click="showCalendar = !showCalendar"
+          :aria-expanded="showCalendar"
+          aria-label="按日期筛选"
+        >
+          <svg class="cal-trigger__icon" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+            <rect x="3" y="4.5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2"/>
+            <line x1="8" y1="2.5" x2="8" y2="6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="16" y1="2.5" x2="16" y2="6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>{{ selectedDate ? formatDateShort(selectedDate) : '日历' }}</span>
+          <span v-if="selectedDate" class="cal-trigger__x" role="button" aria-label="清除日期" @click.stop="clearDate">×</span>
+          <svg v-else class="cal-trigger__caret" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
         <button v-if="hasActiveFilter" @click="resetFilters" class="filter-reset">重置</button>
+      </div>
+    </div>
+
+    <!-- 日历筛选面板(内联展开:避开工具栏 overflow:hidden 与卡片 z-index 叠层) -->
+    <div v-if="showCalendar" class="cal-panel" role="dialog" aria-label="按日期筛选">
+      <div class="cal-head">
+        <button class="cal-nav" :disabled="!canPrev" @click="prevMonth" aria-label="上一月">‹</button>
+        <span class="cal-title">{{ calYear }}<span class="cal-title__sep">年</span>{{ calMonth + 1 }}<span class="cal-title__sep">月</span></span>
+        <button class="cal-nav" :disabled="!canNext" @click="nextMonth" aria-label="下一月">›</button>
+        <button class="cal-close" @click="showCalendar = false" aria-label="收起日历">×</button>
+      </div>
+      <div class="cal-weekdays">
+        <span v-for="w in ['日','一','二','三','四','五','六']" :key="w">{{ w }}</span>
+      </div>
+      <div class="cal-grid">
+        <template v-for="cell in calCells" :key="cell.key">
+          <span v-if="cell.day === null" class="cal-cell cal-cell--blank" aria-hidden="true"></span>
+          <button
+            v-else
+            type="button"
+            class="cal-cell"
+            :class="{ 'has-news': cell.count > 0, 'is-selected': cell.isSelected, 'is-today': cell.isToday }"
+            :disabled="cell.count === 0"
+            :title="cell.count ? cell.count + ' 条新闻' : ''"
+            :aria-label="`${calMonth + 1}月${cell.day}日` + (cell.count ? `,${cell.count} 条新闻` : ',无新闻')"
+            :aria-pressed="cell.isSelected"
+            @click="pickDate(cell)"
+          >
+            <span class="cal-day">{{ cell.day }}</span>
+            <span v-if="cell.count > 0" class="cal-dot" :class="{ 'cal-dot--multi': cell.count > 1 }"></span>
+          </button>
+        </template>
+      </div>
+      <div class="cal-foot">
+        <span class="cal-foot__hint">
+          <template v-if="selectedDate">已选 <strong>{{ formatDate(selectedDate) }}</strong></template>
+          <template v-else>点亮的日期 = 有新闻,点选即筛</template>
+        </span>
+        <span class="cal-foot__actions">
+          <button v-if="canNext" class="cal-foot__btn" @click="jumpToLatest">最新 ⟫</button>
+          <button v-if="selectedDate" class="cal-foot__btn cal-foot__btn--clear" @click="clearDate">清除</button>
+        </span>
       </div>
     </div>
 
@@ -956,5 +1083,149 @@ const renderMarkdown = (text) => {
 @media (prefers-reduced-motion: no-preference) {
   .news-card:hover::before { background-size: 200% 100%; animation: ncFiber 2.4s linear infinite; }
 }
+
+/* ============================================================
+   日历筛选:触发钮 + 内联面板(HUD 玻璃 · 电光青)
+   ============================================================ */
+.cal-trigger {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 9px 8px 12px;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.85rem;
+  color: var(--vp-c-text-1);
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s, color .2s;
+}
+.cal-trigger:hover { border-color: var(--vp-c-brand-1); }
+.cal-trigger.active { color: #0e7490; border-color: #22d3ee; box-shadow: 0 0 0 3px rgba(34, 211, 238, .14); }
+.cal-trigger__icon { flex-shrink: 0; color: var(--vp-c-text-3); }
+.cal-trigger.active .cal-trigger__icon { color: #0891b2; }
+.cal-trigger__caret { color: var(--vp-c-text-3); flex-shrink: 0; }
+.cal-trigger__x {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; font-size: 1rem; line-height: 1; border-radius: 50%;
+  color: #0891b2; background: rgba(34, 211, 238, .14); transition: background .15s;
+}
+.cal-trigger__x:hover { background: rgba(34, 211, 238, .3); }
+
+.cal-panel {
+  position: relative; z-index: 2;
+  width: 300px; max-width: 100%;
+  margin: -6px 0 20px;
+  padding: 12px 14px 10px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 13px;
+  background: var(--vp-c-bg-soft);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, .14);
+  animation: calIn .18s ease both;
+}
+@keyframes calIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+.cal-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.cal-title {
+  flex: 1; text-align: center;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.95rem; font-weight: 700; letter-spacing: .02em;
+  color: var(--vp-c-text-1);
+}
+.cal-title__sep { color: var(--vp-c-text-3); font-weight: 500; margin: 0 1px; }
+.cal-nav {
+  width: 28px; height: 28px; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; line-height: 1;
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px; cursor: pointer; transition: all .15s;
+}
+.cal-nav:hover:not(:disabled) { color: var(--vp-c-brand-1); border-color: var(--vp-c-brand-1); }
+.cal-nav:disabled { opacity: .35; cursor: not-allowed; }
+.cal-close {
+  width: 24px; height: 24px; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 1.15rem; line-height: 1;
+  color: var(--vp-c-text-3); background: transparent; border: none;
+  border-radius: 6px; cursor: pointer; transition: all .15s;
+}
+.cal-close:hover { color: var(--vp-c-text-1); background: var(--vp-c-default-soft); }
+
+.cal-weekdays, .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.cal-weekdays { margin-bottom: 4px; }
+.cal-weekdays span {
+  text-align: center; padding: 2px 0;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.68rem; font-weight: 600; color: var(--vp-c-text-3);
+}
+.cal-cell {
+  position: relative; aspect-ratio: 1 / 1; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.82rem; color: var(--vp-c-text-3);
+  background: transparent; border: 1px solid transparent; border-radius: 8px;
+  cursor: default; transition: border-color .15s, box-shadow .15s, background .15s;
+}
+.cal-cell--blank { border: 0; }
+.cal-cell.has-news {
+  color: var(--vp-c-text-1); font-weight: 600; cursor: pointer;
+  background: var(--vp-c-default-soft); border-color: var(--vp-c-divider);
+}
+.cal-cell.has-news:hover { border-color: #22d3ee; box-shadow: 0 0 0 2px rgba(34, 211, 238, .16); }
+.cal-cell.is-today { box-shadow: inset 0 0 0 1.5px rgba(34, 211, 238, .5); }
+.cal-cell.is-selected {
+  color: #06262e;
+  background: linear-gradient(180deg, #67e8f9, #22d3ee);
+  border-color: #22d3ee; box-shadow: 0 0 14px rgba(34, 211, 238, .45);
+}
+.cal-dot {
+  position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+  width: 4px; height: 4px; border-radius: 50%; background: #06b6d4;
+}
+.cal-dot--multi { width: 12px; border-radius: 3px; background: linear-gradient(90deg, #22d3ee, #0891b2); }
+.cal-cell.is-selected .cal-dot { background: #06262e; }
+
+.cal-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--vp-c-divider);
+}
+.cal-foot__hint { font-size: 0.74rem; color: var(--vp-c-text-3); }
+.cal-foot__hint strong { color: var(--vp-c-brand-1); font-weight: 700; }
+.cal-foot__actions { display: inline-flex; gap: 6px; flex-shrink: 0; }
+.cal-foot__btn {
+  padding: 3px 10px; font-size: 0.74rem;
+  font-family: var(--vp-font-family-mono, monospace);
+  color: var(--vp-c-text-2); background: transparent;
+  border: 1px solid var(--vp-c-divider); border-radius: 7px;
+  cursor: pointer; transition: all .15s; white-space: nowrap;
+}
+.cal-foot__btn:hover { color: var(--vp-c-brand-1); border-color: var(--vp-c-brand-1); }
+.cal-foot__btn--clear:hover { color: #dc2626; border-color: #dc2626; background: rgba(220, 38, 38, .06); }
+
+/* 暗色:玻璃更深 + 青边发光 */
+:global(.dark) .cal-trigger { background: var(--vp-c-bg); border-color: rgba(56, 189, 248, .18); }
+:global(.dark) .cal-trigger:hover { border-color: rgba(34, 211, 238, .6); }
+:global(.dark) .cal-trigger.active { color: #67e8f9; border-color: rgba(34, 211, 238, .7); box-shadow: 0 0 0 3px rgba(34, 211, 238, .16), 0 0 14px rgba(34, 211, 238, .25); }
+:global(.dark) .cal-trigger.active .cal-trigger__icon { color: #67e8f9; }
+:global(.dark) .cal-trigger__x { color: #67e8f9; background: rgba(34, 211, 238, .18); }
+:global(.dark) .cal-panel {
+  background: rgba(13, 20, 38, .94);
+  border-color: rgba(56, 189, 248, .22);
+  box-shadow: 0 16px 44px rgba(8, 13, 28, .6), inset 0 0 0 1px rgba(56, 189, 248, .05), 0 0 28px rgba(34, 211, 238, .1);
+}
+:global(.dark) .cal-title { text-shadow: 0 0 12px rgba(56, 189, 248, .3); }
+:global(.dark) .cal-nav { background: rgba(56, 189, 248, .06); border-color: rgba(56, 189, 248, .2); color: #cbd5e1; }
+:global(.dark) .cal-nav:hover:not(:disabled) { color: #67e8f9; border-color: rgba(34, 211, 238, .7); }
+:global(.dark) .cal-cell { color: #64748b; }
+:global(.dark) .cal-cell.has-news { color: #e2e8f0; background: rgba(56, 189, 248, .08); border-color: rgba(56, 189, 248, .18); }
+:global(.dark) .cal-cell.has-news:hover { border-color: rgba(34, 211, 238, .8); box-shadow: 0 0 0 2px rgba(34, 211, 238, .22); }
+:global(.dark) .cal-cell.is-today { box-shadow: inset 0 0 0 1.5px rgba(34, 211, 238, .6); }
+:global(.dark) .cal-cell.is-selected { color: #04181d; box-shadow: 0 0 16px rgba(34, 211, 238, .6); }
+:global(.dark) .cal-dot { background: #22d3ee; box-shadow: 0 0 5px rgba(34, 211, 238, .8); }
+:global(.dark) .cal-foot__hint strong { color: #67e8f9; }
+
+@media (prefers-reduced-motion: reduce) { .cal-panel { animation: none; } }
+@media (max-width: 767px) { .cal-panel { width: 100%; } }
 
 </style>
