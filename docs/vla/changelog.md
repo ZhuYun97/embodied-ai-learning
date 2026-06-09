@@ -1,5 +1,5 @@
 ---
-description: 具身智能学习站更新日志,按时间倒序记录站点内容与功能演进——从初版 12 篇细读成长为 VLA × WAM 双轨、53 篇论文细读、生态图谱与就业地图、具身入门与训练全流程专题,以及深色 HUD 视觉与交互升级。
+description: 具身智能学习站更新日志,按时间倒序记录站点内容与功能演进——从初版 12 篇细读成长为 VLA × WAM 双轨、56 篇论文细读、生态图谱与就业地图、具身入门与训练全流程专题,以及深色 HUD 视觉与交互升级。
 ---
 
 # 更新日志
@@ -7,6 +7,12 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 本站持续生长,这里按时间倒序记录主要更新。⚠️ 标记的自评数据与"待核"缺口在各页内就地标注。
 
 ## 2026-06-09
+
+**再补 3 篇 WAM 细读(收录第二梯队 · 世界模型线)**
+- 📄 **新增 3 篇 WAM 细读**(arXiv ID 逐一核实、自评数字一律 ⚠️,实验数值取自论文一手):[GigaWorld-Policy](/wam/papers/gigaworld-policy)(GigaAI,2603.17240,动作中心 WAM——因果掩码让动作读不到未来帧、推理期可关掉视频生成,AgileX 真机比 Motus 约快 9×)、[DexWorldModel](/wam/papers/dexworldmodel)(DexForce AI,2604.16484,以冻结 DINOv3 特征为目标的潜世界模型 + 双态 TTT 记忆 O(1) 显存 + 推测式异步推理 −50% 延迟)、[Veo-Act](/wam/papers/veo-act)(清华,2604.04502,用前沿视频模型 Veo-3 作高层规划器 + π0.5 执行器;实证「视频模型即将单独解决具身」的边界)。细读总数 **53 → 56 篇**(VLA 34 + WAM 19 → 22)。
+- 🗂️ 三篇按 WAM taxonomy 归位、接入顶栏 / 侧栏 / 首页路线卡:GigaWorld-Policy→联合·扩散、DexWorldModel→级联·隐式、Veo-Act→级联·显式。
+- 🔭 候选源自上轮 `deep-research` 召回;入选前 5 个候选 arXiv ID(含 AIM 2604.11135、BORA 2605.30226)均二次抓取核验,本轮择高价值、taxonomy 互补的 3 篇先收;AIM(与 GigaWorld 选题重叠)、BORA(VLA 在线 RL,异轨)暂缓。
+- 🩹 **首页 WAM 路线卡补全**(同日一并修复):此前漏进首页的 Cosmos 3 / Genie Envisioner / GE-Sim 2.0 / WALL-WM 已补入路线卡(新增「基座 / 平台 / 仿真」跨范式卡);WALL-WM 实验节按论文目录精确化,数值因一手源(HTML / ar5iv / 代码仓 / PDF)均不可取仍标「待核」、不编造。
 
 **深研补漏:新增 5 篇 VLA / WAM 细读(deep-research + 召回检查 → 收录)**
 - 📄 **新增 5 篇细读**(arXiv ID 逐一核实、自评数字一律 ⚠️):**WAM** — [WALL-WM](/wam/papers/wall-wm)(自变量,2606.01955,在「事件关节」处切分的世界-动作模型)、[GE-Sim 2.0](/wam/papers/ge-sim-2)(智元/上海 AI Lab,2605.27491,闭环视频世界模拟器,自评 WorldArena 榜首);**VLA / 方法** — [AtomicVLA](papers/atomicvla)(中山大/鹏城/引望,2603.07648,CVPR 2026,技能引导 MoE + 可持续学习)、[RL Token](papers/rl-token)(Physical Intelligence,2604.23073,冻结 VLA 上的轻量在线 RL)、[FASTER](papers/faster)(港大,2603.19199,流匹配 VLA 首动作时延加速;澄清「10×」为首动作 N→1 步压缩、非墙钟)。细读总数 **48 → 53 篇**(VLA 34 + WAM 19)。

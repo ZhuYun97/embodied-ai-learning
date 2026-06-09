@@ -202,7 +202,7 @@ export default withMermaid(defineConfig({
         fs.writeFileSync(newsOutPath, newsMd.join('\n'), 'utf-8')
       }
 
-      const header = `# 具身智能学习站 · Embodied AI Learning\n\n> VLA 模型发展深度调研 + 53 篇论文细读 + 横切分析专题。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
+      const header = `# 具身智能学习站 · Embodied AI Learning\n\n> VLA 模型发展深度调研 + 56 篇论文细读 + 横切分析专题。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
       fs.writeFileSync(path.join(outDir, 'llms.txt'), header + index.join('\n') + '\n', 'utf-8')
       fs.writeFileSync(path.join(outDir, 'llms-full.txt'), header + fullParts.join('\n\n---\n\n') + '\n', 'utf-8')
       console.log(`[buildEnd] 已导出 llms.txt / llms-full.txt + ${files.length} 页原始 .md.txt`)
@@ -228,13 +228,13 @@ export default withMermaid(defineConfig({
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:url', content: 'https://zhuyun97.github.io/embodied-ai-learning/' }],
     ['meta', { property: 'og:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 53 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
+    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 56 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
     ['meta', { property: 'og:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 53 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
+    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 56 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
     ['meta', { name: 'twitter:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
   ],
 
@@ -330,9 +330,11 @@ export default withMermaid(defineConfig({
             items: [
               { text: 'UniPi(文生视频规划·奠基)', link: '/wam/papers/unipi' },
               { text: 'Gen2Act(零样本人类视频)', link: '/wam/papers/gen2act' },
+              { text: 'Veo-Act(前沿视频模型 Veo-3 作规划器·清华)', link: '/wam/papers/veo-act' },
               { text: 'VPP(预测性视觉表征)', link: '/wam/papers/vpp' },
               { text: 'LAPA(潜动作预训练)', link: '/wam/papers/lapa' },
               { text: 'LaDi-WM(潜扩散世界模型·CoRL25)', link: '/wam/papers/ladi-wm' },
+              { text: 'DexWorldModel(DINOv3 潜世界模型·O(1) 记忆)', link: '/wam/papers/dexworldmodel' },
             ],
           },
           {
@@ -352,6 +354,7 @@ export default withMermaid(defineConfig({
               { text: 'Cosmos 3(NVIDIA·全模态世界模型)', link: '/wam/papers/cosmos3' },
               { text: 'WALL-WM(自变量·事件锚定)', link: '/wam/papers/wall-wm' },
               { text: 'GE-Sim 2.0(智元·闭环世界模拟器)', link: '/wam/papers/ge-sim-2' },
+              { text: 'GigaWorld-Policy(动作中心·视频可选·GigaAI)', link: '/wam/papers/gigaworld-policy' },
             ],
           },
         ],
@@ -529,6 +532,7 @@ export default withMermaid(defineConfig({
           items: [
             { text: 'UniPi（文生视频规划·奠基）', link: '/wam/papers/unipi' },
             { text: 'Gen2Act（零样本人类视频）', link: '/wam/papers/gen2act' },
+            { text: 'Veo-Act（Veo-3 作规划器 + π0.5 执行·清华）', link: '/wam/papers/veo-act' },
           ],
         },
         {
@@ -538,6 +542,7 @@ export default withMermaid(defineConfig({
             { text: 'VPP（预测性视觉表征）', link: '/wam/papers/vpp' },
             { text: 'LAPA（潜动作预训练）', link: '/wam/papers/lapa' },
             { text: 'LaDi-WM（潜扩散世界模型·CoRL25）', link: '/wam/papers/ladi-wm' },
+            { text: 'DexWorldModel（DINOv3 潜世界模型·O(1) 记忆）', link: '/wam/papers/dexworldmodel' },
           ],
         },
         {
@@ -564,6 +569,7 @@ export default withMermaid(defineConfig({
             { text: 'Cosmos 3（NVIDIA·全模态世界模型）', link: '/wam/papers/cosmos3' },
             { text: 'WALL-WM（自变量·事件锚定世界-动作模型）', link: '/wam/papers/wall-wm' },
             { text: 'GE-Sim 2.0（智元·闭环视频世界模拟器）', link: '/wam/papers/ge-sim-2' },
+            { text: 'GigaWorld-Policy（动作中心·视频可选·GigaAI）', link: '/wam/papers/gigaworld-policy' },
           ],
         },
         {

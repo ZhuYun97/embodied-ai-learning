@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 34 + WAM 19 篇,逐模块拆架构 / 数据 / 实验。
+    details: VLA 34 + WAM 22 篇,逐模块拆架构 / 数据 / 实验。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -121,6 +121,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-links">
       <a href="wam/papers/unipi">UniPi</a>
       <a href="wam/papers/gen2act">Gen2Act</a>
+      <a href="wam/papers/veo-act">Veo-Act</a>
     </div>
   </div>
   <div class="route-card">
@@ -130,6 +131,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-links">
       <a href="wam/papers/vpp">VPP</a>
       <a href="wam/papers/lapa">LAPA</a>
+      <a href="wam/papers/dexworldmodel">DexWorldModel</a>
     </div>
   </div>
   <div class="route-card">
@@ -154,6 +156,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/groot-n2">GR00T N2</a>
       <a href="wam/papers/ladi-wm">LaDi-WM</a>
       <a href="wam/papers/wall-wm">WALL-WM</a>
+      <a href="wam/papers/gigaworld-policy">GigaWorld-Policy</a>
     </div>
   </div>
   <div class="route-card">
