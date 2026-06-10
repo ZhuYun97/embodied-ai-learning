@@ -508,8 +508,6 @@ const renderMarkdown = (text) => {
    「:global() + ::before」误编译成裸 `.dark{...}`,其 pointer-events:none 落到 <html.dark>
    上,导致暗色下整页 body 不可点击(2026-06 踩坑)。 */
 .news-toolbar, .news-stats, .news-group, .news-empty { position: relative; z-index: 1; }
-/* 分组日期:暗色辉光,像传输时间戳 */
-:global(.dark) .news-group__date { text-shadow: 0 0 16px rgba(56, 189, 248, 0.3); }
 
 /* ============================================================
    筛选工具栏:玻璃拟态卡 + 顶部三色发丝(呼应首页 route-card)
@@ -937,7 +935,6 @@ const renderMarkdown = (text) => {
   border-radius: 6px;
   letter-spacing: 0;
 }
-:global(.dark) .news-tag { background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.16); }
 
 /* 底部:来源 + 相关 */
 .news-card__footer {
@@ -1008,34 +1005,9 @@ const renderMarkdown = (text) => {
   .news-card__detail { animation: none; }
 }
 
-/* ============================================================
-   暗色:玻璃更通透、辉光更强、微网格更亮
-   ============================================================ */
-:global(.dark) .news-card {
-  background: var(--tech-card-bg);
-}
-:global(.dark) .news-card::after {
-  background-image:
-    linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
-  opacity: 0.7;
-}
-:global(.dark) .news-card:hover {
-  box-shadow:
-    0 0 0 1px rgba(56, 189, 248, 0.55),
-    inset 0 0 0 1px rgba(56, 189, 248, 0.12),
-    0 16px 44px rgba(37, 99, 235, 0.24);
-}
-:global(.dark) .news-card:hover::after { opacity: 0.9; }
-:global(.dark) .news-badge--hot { background: rgba(239, 68, 68, 0.2); color: #f87171; }
-:global(.dark) .news-badge--major { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-:global(.dark) .news-badge--normal { background: rgba(148, 163, 184, 0.18); color: #cbd5e1; }
-:global(.dark) .news-badge--verified { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
-:global(.dark) .news-badge--todo { background: rgba(234, 179, 8, 0.2); color: #fde047; }
-:global(.dark) .news-badge--bot { background: rgba(59, 130, 246, 0.2); color: #93b4ff; }
-:global(.dark) .stat-chip--hot { background: rgba(239, 68, 68, 0.18); color: #f87171; }
-:global(.dark) .stat-chip--major { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
-:global(.dark) .stat-chip--normal { background: rgba(148, 163, 184, 0.16); color: #cbd5e1; }
+/* ⚠️ 本组件内禁止出现 :global(.dark) 规则——生产构建会压成裸 .dark{...} 污染全站
+   (已两次踩坑:第一次整页不可点,第二次顶栏 logo 被 .cal-dot 青底染成色块)。
+   全部暗色定制已迁至全局 custom.css「NewsIndex 暗色层」,以 html.dark 前缀书写。 */
 
 /* ============================================================
    炫酷「情报台 HUD」层(暗色为主)— 四角取景框 / 悬停扫描 / 霓虹发光 /
@@ -1052,9 +1024,7 @@ const renderMarkdown = (text) => {
 .nc-corner--tr { top: 7px; right: 7px; border-left: 0; border-bottom: 0; border-top-right-radius: 4px; }
 .nc-corner--bl { bottom: 7px; left: 7px; border-right: 0; border-top: 0; border-bottom-left-radius: 4px; }
 .nc-corner--br { bottom: 7px; right: 7px; border-left: 0; border-top: 0; border-bottom-right-radius: 4px; }
-:global(.dark) .nc-corner { border-color: rgba(56, 189, 248, 0.6); opacity: 0.7; box-shadow: 0 0 6px rgba(56, 189, 248, 0.22); }
 .news-card:hover .nc-corner { opacity: 1; }
-:global(.dark) .news-card:hover .nc-corner { box-shadow: 0 0 9px rgba(56, 189, 248, 0.5); }
 
 /* —— 悬停扫描线:一道青光自上而下扫过卡片 —— */
 .nc-scan {
@@ -1062,34 +1032,13 @@ const renderMarkdown = (text) => {
   z-index: 2; pointer-events: none; opacity: 0;
   background: linear-gradient(to bottom, rgba(56, 189, 248, 0.16), transparent);
 }
-@media (prefers-reduced-motion: no-preference) {
-  :global(.dark) .news-card:hover .nc-scan { animation: ncScan 1.05s ease-out; }
-}
-@keyframes ncScan {
-  0% { opacity: 0; transform: translateY(-100%); }
-  30% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(260%); }
-}
 
 /* —— 卡片暗色底:更深玻璃 + 青边 + 内描边 —— */
-:global(.dark) .news-card {
-  border-color: rgba(56, 189, 248, 0.16);
-  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.04), 0 0 24px rgba(8, 13, 28, 0.5);
-}
 
 /* —— 重要程度顶条 + 徽章:霓虹发光 —— */
-:global(.dark) .news-card[data-importance="hot"]::before { box-shadow: 0 0 14px rgba(239, 68, 68, 0.7); }
-:global(.dark) .news-card[data-importance="major"]::before { box-shadow: 0 0 14px rgba(245, 158, 11, 0.6); }
-:global(.dark) .news-card[data-importance="normal"]::before { box-shadow: 0 0 12px rgba(100, 116, 139, 0.5); }
-:global(.dark) .news-badge--hot { box-shadow: 0 0 10px rgba(239, 68, 68, 0.35); }
-:global(.dark) .news-badge--major { box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
-:global(.dark) .news-badge--bot { box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
-:global(.dark) .news-badge--verified { box-shadow: 0 0 9px rgba(34, 197, 94, 0.28); }
 
 /* —— "阅读详情" → 等宽终端风;标题悬停发光 —— */
 .news-card__more { font-family: var(--vp-font-family-mono, monospace); letter-spacing: 0.02em; }
-:global(.dark) .news-card__more { text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
-:global(.dark) .news-card:hover .news-card__title { text-shadow: 0 0 18px rgba(56, 189, 248, 0.28); }
 
 /* —— 时间分组头:HUD 传输日志条 —— */
 .news-group__head { position: relative; border-bottom: 0; padding-bottom: 12px; }
@@ -1097,17 +1046,9 @@ const renderMarkdown = (text) => {
   content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
   background: linear-gradient(90deg, var(--vp-c-divider), transparent 70%);
 }
-:global(.dark) .news-group__head::after {
-  background: linear-gradient(90deg, rgba(56, 189, 248, 0.55), rgba(139, 92, 246, 0.28) 45%, transparent 82%);
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.22);
-}
-:global(.dark) .news-group__date::before { box-shadow: 0 0 10px rgba(34, 211, 238, 0.6); }
 .news-group__count { padding: 2px 8px; border-radius: 5px; border: 1px solid var(--vp-c-divider); }
-:global(.dark) .news-group__count { color: #7dd3fc; border-color: rgba(56, 189, 248, 0.25); background: rgba(56, 189, 248, 0.05); }
 
 /* —— 统计 + 工具条:发光 + 顶条流动 —— */
-:global(.dark) .stat-total strong { text-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
-:global(.dark) .seg-btn.active { box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4), 0 0 14px rgba(34, 211, 238, 0.4); }
 @media (prefers-reduced-motion: no-preference) {
   .news-toolbar::before {
     background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6, #22d3ee, #2563eb);
@@ -1126,7 +1067,6 @@ const renderMarkdown = (text) => {
   color: #16a34a;
 }
 .stat-live__dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; }
-:global(.dark) .stat-live { color: #4ade80; }
 @media (prefers-reduced-motion: no-preference) {
   .stat-live__dot { animation: ncBlink 1.4s steps(1, end) infinite; }
 }
@@ -1134,13 +1074,6 @@ const renderMarkdown = (text) => {
 
 /* —— 悬停更猛:微缩放 + 更大青光 + 顶条流光 —— */
 .news-card:hover { transform: translateY(-4px) scale(1.012); }
-:global(.dark) .news-card:hover {
-  box-shadow:
-    0 0 0 1px rgba(56, 189, 248, 0.7),
-    inset 0 0 0 1px rgba(56, 189, 248, 0.14),
-    0 18px 50px rgba(37, 99, 235, 0.3),
-    0 0 30px rgba(34, 211, 238, 0.18);
-}
 @media (prefers-reduced-motion: no-preference) {
   .news-card:hover::before { background-size: 200% 100%; animation: ncFiber 2.4s linear infinite; }
 }
@@ -1263,28 +1196,6 @@ const renderMarkdown = (text) => {
 }
 .cal-foot__btn:hover { color: var(--vp-c-brand-1); border-color: var(--vp-c-brand-1); }
 .cal-foot__btn--clear:hover { color: #dc2626; border-color: #dc2626; background: rgba(220, 38, 38, .06); }
-
-/* 暗色:玻璃更深 + 青边发光 */
-:global(.dark) .cal-trigger { background: var(--vp-c-bg); border-color: rgba(56, 189, 248, .18); }
-:global(.dark) .cal-trigger:hover { border-color: rgba(34, 211, 238, .6); }
-:global(.dark) .cal-trigger.active { color: #67e8f9; border-color: rgba(34, 211, 238, .7); box-shadow: 0 0 0 3px rgba(34, 211, 238, .16), 0 0 14px rgba(34, 211, 238, .25); }
-:global(.dark) .cal-trigger.active .cal-trigger__icon { color: #67e8f9; }
-:global(.dark) .cal-trigger__x { color: #67e8f9; background: rgba(34, 211, 238, .18); }
-:global(.dark) .cal-panel {
-  background: rgba(13, 20, 38, .94);
-  border-color: rgba(56, 189, 248, .22);
-  box-shadow: 0 16px 44px rgba(8, 13, 28, .6), inset 0 0 0 1px rgba(56, 189, 248, .05), 0 0 28px rgba(34, 211, 238, .1);
-}
-:global(.dark) .cal-title { text-shadow: 0 0 12px rgba(56, 189, 248, .3); }
-:global(.dark) .cal-nav { background: rgba(56, 189, 248, .06); border-color: rgba(56, 189, 248, .2); color: #cbd5e1; }
-:global(.dark) .cal-nav:hover:not(:disabled) { color: #67e8f9; border-color: rgba(34, 211, 238, .7); }
-:global(.dark) .cal-cell { color: #64748b; }
-:global(.dark) .cal-cell.has-news { color: #e2e8f0; background: rgba(56, 189, 248, .08); border-color: rgba(56, 189, 248, .18); }
-:global(.dark) .cal-cell.has-news:hover { border-color: rgba(34, 211, 238, .8); box-shadow: 0 0 0 2px rgba(34, 211, 238, .22); }
-:global(.dark) .cal-cell.is-today { box-shadow: inset 0 0 0 1.5px rgba(34, 211, 238, .6); }
-:global(.dark) .cal-cell.is-selected { color: #04181d; box-shadow: 0 0 16px rgba(34, 211, 238, .6); }
-:global(.dark) .cal-dot { background: #22d3ee; box-shadow: 0 0 5px rgba(34, 211, 238, .8); }
-:global(.dark) .cal-foot__hint strong { color: #67e8f9; }
 
 @media (prefers-reduced-motion: reduce) { .cal-panel { animation: none; } }
 @media (max-width: 767px) { .cal-panel { width: 100%; } }

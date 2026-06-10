@@ -3707,3 +3707,99 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
 
 /* (谱系图独立页 /map/ 已应用户反馈撤销——谱系图现以 <LineageMap track> 嵌于
    VLA 总报告与 WAM 总览内;两页带侧栏,严禁再加 :has(.lineage-map) 放宽容器的规则,会破报告版面) */
+
+
+/* ============================================================
+   NewsIndex 暗色层(2026-06-10 自组件 scoped 整体迁出,根治二次踩坑):
+   scoped 的 :global(.dark) X 被生产构建压成裸 .dark{...},会命中一切
+   class 含 "dark" 的元素——本次受害者 = 顶栏 logo <img class="VPImage dark">
+   被 .cal-dot 的青底+辉光染成色块;text-shadow / color 还从 <html.dark>
+   向全站继承。组件内现已零 :global(.dark) 规则;新增新闻页暗色规则一律
+   写在这里,html.dark 前缀确保压过组件 scoped 基础规则。
+   ============================================================ */
+@keyframes ncScan {
+  0% { opacity: 0; transform: translateY(-100%); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(260%); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.dark .news-card:hover .nc-scan { animation: ncScan 1.05s ease-out; }
+}
+html.dark .news-group__date { text-shadow: 0 0 16px rgba(56, 189, 248, 0.3); }
+html.dark .news-tag { background: rgba(56, 189, 248, 0.06); border-color: rgba(56, 189, 248, 0.16); }
+html.dark .news-card {
+  background: var(--tech-card-bg);
+}
+html.dark .news-card::after {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  opacity: 0.7;
+}
+html.dark .news-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.55),
+    inset 0 0 0 1px rgba(56, 189, 248, 0.12),
+    0 16px 44px rgba(37, 99, 235, 0.24);
+}
+html.dark .news-card:hover::after { opacity: 0.9; }
+html.dark .news-badge--hot { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+html.dark .news-badge--major { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+html.dark .news-badge--normal { background: rgba(148, 163, 184, 0.18); color: #cbd5e1; }
+html.dark .news-badge--verified { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+html.dark .news-badge--todo { background: rgba(234, 179, 8, 0.2); color: #fde047; }
+html.dark .news-badge--bot { background: rgba(59, 130, 246, 0.2); color: #93b4ff; }
+html.dark .stat-chip--hot { background: rgba(239, 68, 68, 0.18); color: #f87171; }
+html.dark .stat-chip--major { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
+html.dark .stat-chip--normal { background: rgba(148, 163, 184, 0.16); color: #cbd5e1; }
+html.dark .nc-corner { border-color: rgba(56, 189, 248, 0.6); opacity: 0.7; box-shadow: 0 0 6px rgba(56, 189, 248, 0.22); }
+html.dark .news-card:hover .nc-corner { box-shadow: 0 0 9px rgba(56, 189, 248, 0.5); }
+html.dark .news-card {
+  border-color: rgba(56, 189, 248, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.04), 0 0 24px rgba(8, 13, 28, 0.5);
+}
+html.dark .news-card[data-importance="hot"]::before { box-shadow: 0 0 14px rgba(239, 68, 68, 0.7); }
+html.dark .news-card[data-importance="major"]::before { box-shadow: 0 0 14px rgba(245, 158, 11, 0.6); }
+html.dark .news-card[data-importance="normal"]::before { box-shadow: 0 0 12px rgba(100, 116, 139, 0.5); }
+html.dark .news-badge--hot { box-shadow: 0 0 10px rgba(239, 68, 68, 0.35); }
+html.dark .news-badge--major { box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+html.dark .news-badge--bot { box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+html.dark .news-badge--verified { box-shadow: 0 0 9px rgba(34, 197, 94, 0.28); }
+html.dark .news-card__more { text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+html.dark .news-card:hover .news-card__title { text-shadow: 0 0 18px rgba(56, 189, 248, 0.28); }
+html.dark .news-group__head::after {
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.55), rgba(139, 92, 246, 0.28) 45%, transparent 82%);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.22);
+}
+html.dark .news-group__date::before { box-shadow: 0 0 10px rgba(34, 211, 238, 0.6); }
+html.dark .news-group__count { color: #7dd3fc; border-color: rgba(56, 189, 248, 0.25); background: rgba(56, 189, 248, 0.05); }
+html.dark .stat-total strong { text-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
+html.dark .seg-btn.active { box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4), 0 0 14px rgba(34, 211, 238, 0.4); }
+html.dark .stat-live { color: #4ade80; }
+html.dark .news-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.7),
+    inset 0 0 0 1px rgba(56, 189, 248, 0.14),
+    0 18px 50px rgba(37, 99, 235, 0.3),
+    0 0 30px rgba(34, 211, 238, 0.18);
+}
+html.dark .cal-trigger { background: var(--vp-c-bg); border-color: rgba(56, 189, 248, .18); }
+html.dark .cal-trigger:hover { border-color: rgba(34, 211, 238, .6); }
+html.dark .cal-trigger.active { color: #67e8f9; border-color: rgba(34, 211, 238, .7); box-shadow: 0 0 0 3px rgba(34, 211, 238, .16), 0 0 14px rgba(34, 211, 238, .25); }
+html.dark .cal-trigger.active .cal-trigger__icon { color: #67e8f9; }
+html.dark .cal-trigger__x { color: #67e8f9; background: rgba(34, 211, 238, .18); }
+html.dark .cal-panel {
+  background: rgba(13, 20, 38, .94);
+  border-color: rgba(56, 189, 248, .22);
+  box-shadow: 0 16px 44px rgba(8, 13, 28, .6), inset 0 0 0 1px rgba(56, 189, 248, .05), 0 0 28px rgba(34, 211, 238, .1);
+}
+html.dark .cal-title { text-shadow: 0 0 12px rgba(56, 189, 248, .3); }
+html.dark .cal-nav { background: rgba(56, 189, 248, .06); border-color: rgba(56, 189, 248, .2); color: #cbd5e1; }
+html.dark .cal-nav:hover:not(:disabled) { color: #67e8f9; border-color: rgba(34, 211, 238, .7); }
+html.dark .cal-cell { color: #64748b; }
+html.dark .cal-cell.has-news { color: #e2e8f0; background: rgba(56, 189, 248, .08); border-color: rgba(56, 189, 248, .18); }
+html.dark .cal-cell.has-news:hover { border-color: rgba(34, 211, 238, .8); box-shadow: 0 0 0 2px rgba(34, 211, 238, .22); }
+html.dark .cal-cell.is-today { box-shadow: inset 0 0 0 1.5px rgba(34, 211, 238, .6); }
+html.dark .cal-cell.is-selected { color: #04181d; box-shadow: 0 0 16px rgba(34, 211, 238, .6); }
+html.dark .cal-dot { background: #22d3ee; box-shadow: 0 0 5px rgba(34, 211, 238, .8); }
+html.dark .cal-foot__hint strong { color: #67e8f9; }
