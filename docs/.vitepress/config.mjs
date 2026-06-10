@@ -341,6 +341,7 @@ export default withMermaid(defineConfig({
             text: 'WAM 调研',
             items: [
               { text: '总览(定义 / taxonomy)', link: '/wam/' },
+              { text: '全模型规格对比(23 篇横向)', link: '/wam/papers/models-spec' },
             ],
           },
           {
@@ -580,6 +581,7 @@ export default withMermaid(defineConfig({
           text: 'WAM 调研',
           items: [
             { text: '总览:定义 / taxonomy / 数据评测', link: '/wam/' },
+            { text: '全模型规格对比（23 篇横向）', link: '/wam/papers/models-spec' },
           ],
         },
         {

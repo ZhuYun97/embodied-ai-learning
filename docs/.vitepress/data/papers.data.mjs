@@ -20,6 +20,13 @@ const FALLBACK_DATES = {
   'tau0-wm': '2026-05', // 细读页:2026-05-31 发布(媒体转述团队发布,页面已标 ⚠️)
 }
 
+// arXiv 误抓覆盖(2026-06-10 全量审计后加):转述型页面(自身无论文)的页内首个 ID
+// 是「引用的他文」,自动提取会张冠李戴 → 显式置 null,日期走 FALLBACK_DATES(无则待核)。
+//  · tau0-wm:媒体转述型,页内首个 ID 是 WAM 综述 2605.12090(非其论文);
+//  · wall-oss-05:页面自述「arXiv 编号待核」,页内首个 ID 是前代 WALL-OSS 2509.11766。
+// 新增「转述型 / 无自身 arXiv」细读时记得在此登记,并复跑去重审计(同 ID 两篇共用 = 红旗)。
+const ARXIV_NULL = new Set(['tau0-wm', 'wall-oss-05'])
+
 // 路线展示顺序(谱系图线序;与首页卡片顺序一致)
 const ROUTE_ORDER = [
   '离散 token', '连续 · 扩散/流匹配', '混合 · 连续回归', '分层 · 双系统/推理', '新范式探索',
@@ -56,10 +63,14 @@ function extractMeta(slug, track) {
   } catch (e) {
     return { exists: false, arxivId: null, date: null }
   }
+  if (ARXIV_NULL.has(slug)) {
+    return { exists: true, arxivId: null, date: FALLBACK_DATES[slug] ?? null }
+  }
   // 取「页面前 60 行」里的第一个 arXiv ID(细读页速览表里的本论文条目;
   // 避免正文后段引用他文的 arXiv 被误抓);前 60 行没有再全文兜底。
-  // 同时认两种写法:arxiv.org/abs|pdf/ 链接,以及 `arXiv:2302.00111` / `arXiv **2409.16283**` 文本。
-  const ARX = /arxiv\.org\/(?:abs|pdf)\/(\d{4})\.(\d{4,5})|arXiv[::]?\s*\**(\d{4})\.(\d{4,5})/
+  // 认三种写法:arxiv.org/abs|pdf/ 链接、`arXiv:2302.00111` 文本、速览行 `**arXiv**: 2503.20020`
+  // (gemini-robotics 曾因漏配「arXiv 后跟 ** 再跟冒号」而全文兜底误抓到配套安全论文的 ID)。
+  const ARX = /arxiv\.org\/(?:abs|pdf)\/(\d{4})\.(\d{4,5})|arXiv\**[::]?\s*\**(\d{4})\.(\d{4,5})/
   const head = md.split('\n').slice(0, 60).join('\n')
   const m = head.match(ARX) || md.match(ARX)
   let arxivId = null
