@@ -49,6 +49,11 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | π0.6 / π*0.6 (2025.11) | Physical Intelligence | 知识隔离训练 + RECAP 真机强化学习,从经验中学习 | [→ 细读](papers/pi06.md) |
 | Gemini Robotics (2025.03→1.5 2025.09) | Google DeepMind | 云端 backbone + 本机 decoder 延迟拆分(≈250ms/50Hz)+ embodied reasoning | [→ 细读](papers/gemini-robotics.md) |
 | π0.7 (2026.04) | Physical Intelligence | 可操控通才 + 组合泛化,不微调追平 π*0.6 RL 专家,零样本跨本体叠衣 | [→ 细读](papers/pi07.md) |
+| Galaxea G0 (2025.09) | 星海图 Galaxea | 500h 一致本体 Open-World 数据集 + G0-VLM/G0-VLA 异步双系统、三段式课程;自评「单本体预训练才是涨点关键」 | [→ 细读](papers/galaxea-g0.md) |
+| GR-Dexter (2025.12) | 字节跳动 Seed | GR-3 流匹配配方搬上 56-DoF 双臂灵巧手(自研 ByteDexter V2),硬件-模型-数据一体化;全自评、无代码、明言不产品化 | [→ 细读](papers/gr-dexter.md) |
+| RynnBrain (2026.02) | 阿里达摩院 | System-2「具身大脑」基座:第一视角理解/时空定位/物理推理/规划,离散坐标 token,2B/4B/8B/30B-A3B 全开源 | [→ 细读](papers/rynnbrain.md) |
+| GigaBrain-0.5M* (2026.02) | GigaAI | RAMP:世界模型既当数据引擎(61% 预训练经验)又当 RL 引擎,自评硬任务比 RECAP 约 +30% | [→ 细读](papers/gigabrain-05m.md) |
+| MemoryVLA++ (2026.06) | 清华黄高组等 | 给 MemoryVLA 补「想象未来」分支(冻结 SVD 隐空间局部去噪),past-present-future 全时序;代码未释放 | [→ 细读](papers/memoryvla-plusplus.md) |
 
 **更多代表模型(扩散基座 / 潜动作 / 记忆 / 空间 / 人形)**
 
@@ -189,7 +194,7 @@ flowchart LR
 
 # 二、代表性模型
 
-> 本节只展开**精选代表**以勾勒两条路线与双系统的脉络;**完整 24 篇模型细读清单见开头的 [📄 论文细读导航](#-论文细读导航)**。下文未单独展开的模型(如 RT-1 离散前史、π0-FAST 频域分词)在第三、四部分与对应细读中讨论。
+> 本节只展开**精选代表**以勾勒两条路线与双系统的脉络;**完整模型细读清单见开头的 [📄 论文细读导航](#-论文细读导航)**。下文未单独展开的模型(如 RT-1 离散前史、π0-FAST 频域分词)在第三、四部分与对应细读中讨论。
 
 ## 2.1 离散 token 路线
 

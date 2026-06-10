@@ -52,6 +52,7 @@ LAPA(Latent Action Pretraining for general Action models)是一种**无监督**�
 
 - **taxonomy 归属(Cascaded·Implicit)**:综述把 LAPA 归入 **级联·隐式**(潜表征对齐路线)——先在离散潜动作这一**隐式**表征上预训练,再**级联**微调到真实动作。这与 [DreamZero](/wam/papers/dreamzero) 的 Joint(联合建模 video 与 action)路线形成对照:LAPA 把"潜动作预训练"当作可迁移的训练先验,而非把世界模型当作推理时的策略本体。
 - **与 GO-1 的对读(离散潜动作 token)**:LAPA 的"**离散潜动作**"思想与本站 [GO-1](/vla/papers/go-1) 的 ViLLA(**离散潜动作 token**)相通,二者都用一层离散潜动作把视觉-语言条件与底层控制解耦,可作一组直接对读。
+- **与 DexWorldModel 的对读(级联·隐式同格)**:本站收录的 [DexWorldModel](/wam/papers/dexworldmodel)(2026-04,以冻结 DINOv3 特征为生成目标的潜世界模型 + O(1) TTT 记忆)与 LAPA 同属「潜空间预测、不解码回像素」一格,是该思路 2026 的强化版。
 - **同一研究脉络(同一 lead 作者)**:LAPA 与 [DreamZero](/wam/papers/dreamzero) 同为 **Seonghyeon Ye** 主导,反映同一研究脉络的演进——从这里的"**潜动作预训练**"(把世界/视频信息当作训练阶段的表征先验),走向 DreamZero 的"**WAM 即策略**"(把世界模型直接放进推理主回路)。
 - 谱系内还可参看 [VPP](/wam/papers/vpp) 等条目与 [WAM 总览](/wam/) 中对级联与联合路线的整体刻画。
 

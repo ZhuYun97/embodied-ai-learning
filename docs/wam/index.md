@@ -6,7 +6,7 @@ description: 世界-行动模型(WAM)是 2025–2026 兴起的具身基础模型
 # 世界-行动模型 WAM:联合预测未来状态与动作
 
 > **WAM 调研 · 总览** · 2025–2026 前沿范式 · 联合分布建模(未来状态 + 动作)· 权威源:综述 arXiv:2605.12090(OpenMOSS)
-> [← VLA 调研报告](/vla/) · **13 篇细读**(按路线,亦见侧栏):级联 [UniPi](/wam/papers/unipi)·[Gen2Act](/wam/papers/gen2act)·[VPP](/wam/papers/vpp)·[LAPA](/wam/papers/lapa) ｜ 联合 [GR-1](/wam/papers/gr-1)·[WorldVLA](/wam/papers/worldvla)·[UWM](/wam/papers/uwm)·[DreamZero](/wam/papers/dreamzero)·[X-WAM](/wam/papers/x-wam)·[LingBot-VA](/wam/papers/lingbot-va)·[τ0-WM](/wam/papers/tau0-wm)·[Genie Envisioner](/wam/papers/genie-envisioner)·[GR00T N2](/wam/papers/groot-n2)
+> [← VLA 调研报告](/vla/) · **23 篇细读**(按范式,亦见侧栏):级联·显式 [UniPi](/wam/papers/unipi)·[Gen2Act](/wam/papers/gen2act)·[Veo-Act](/wam/papers/veo-act) ｜ 级联·隐式 [VPP](/wam/papers/vpp)·[LAPA](/wam/papers/lapa)·[DexWorldModel](/wam/papers/dexworldmodel) ｜ 联合·自回归 [GR-1](/wam/papers/gr-1)·[WorldVLA](/wam/papers/worldvla)·[RynnVLA-002](/wam/papers/rynnvla-002) ｜ 联合·扩散 [UWM](/wam/papers/uwm)·[DreamZero](/wam/papers/dreamzero)·[X-WAM](/wam/papers/x-wam)·[LingBot-VA](/wam/papers/lingbot-va)·[τ0-WM](/wam/papers/tau0-wm)·[GR00T N2](/wam/papers/groot-n2)·[LaDi-WM](/wam/papers/ladi-wm)·[WALL-WM](/wam/papers/wall-wm)·[GigaWorld-Policy](/wam/papers/gigaworld-policy) ｜ 联合·混合 [UVA](/wam/papers/uva)·[FLARE](/wam/papers/flare) ｜ 基座/平台/仿真 [Cosmos 3](/wam/papers/cosmos3)·[Genie Envisioner](/wam/papers/genie-envisioner)·[GE-Sim 2.0](/wam/papers/ge-sim-2)
 
 > 本页系统梳理「世界-行动模型」(World Action Models, WAM)这一 2025–2026 前沿范式:它是「统一预测式状态建模与动作生成、对未来状态与动作的**联合分布**建模」的具身基础模型。内容覆盖定义辨析、综述 taxonomy、代表模型细读、数据生态与评测协议,以及 WAM 与本站既有 VLA 谱系的对位关系。可信度体例:⚠️ = 提出方/厂商自评(本页绝大多数定量属此类);✅ = 经基准维护方统一第三方评测(本语料中几乎缺位);**待核** = 一手源未给出、不以外部记忆或常识补全。所标 arXiv 编号均取自语料。
 
@@ -72,8 +72,8 @@ NVIDIA 还补充了一个值得注意的运行机制细节:其 WAM 在运行时 
 
 级联式 WAM 把「预测未来」与「生成动作」拆成**分离的组件**,显式因子分解 $p(o',a\mid o,l)=p(a\mid o',o,l)\,p(o'\mid o,l)$:先想象未来、再从想象结果反推指令。组件解耦、各司其职,代价是误差可能沿级联链累积。综述(§4.1)按"未来在什么空间表示"再分两条:
 
-- **显式(Explicit)· 像素/几何级预测**:直接生成未来视频、图像或几何目标(光流、点图、位姿),再用逆动力学或几何抽取(如位姿跟踪 + 逆运动学)得到动作——动作抽取因而**可独立于机器人形态**。代表:UniPi、VLP、Gen2Act、AVDC、Im2Flow2Act、3DFlowAction、NovaFlow、Dreamitate(用工具 6-DoF 位姿作人-机桥接)、4DGen(两视角 RGB-D → 多视角 RGB + 点图)、RIGVid、LVP、TesserAct,以及综述把本站细读的 **π0.7 也归入此格**。
-- **隐式(Implicit)· 潜空间规划**:像素级合成开销大、难实时,故在压缩潜空间预测未来潜序列、不解码回像素。代表:VPP(VAE 潜 + 单步潜预测 + 轻量策略,**首次在该框架做到实时**)、VILP、Video Policy(冻结视频 U-Net + 独立动作 U-Net)、S-VAM、LAPA、villa-X、mimic-video(flow matching + 部分去噪提特征)、MWM(以语义掩码潜替代 RGB,过滤光度噪声)。
+- **显式(Explicit)· 像素/几何级预测**:直接生成未来视频、图像或几何目标(光流、点图、位姿),再用逆动力学或几何抽取(如位姿跟踪 + 逆运动学)得到动作——动作抽取因而**可独立于机器人形态**。代表:UniPi、VLP、Gen2Act、AVDC、Im2Flow2Act、3DFlowAction、NovaFlow、Dreamitate(用工具 6-DoF 位姿作人-机桥接)、4DGen(两视角 RGB-D → 多视角 RGB + 点图)、RIGVid、LVP、TesserAct,以及综述把本站细读的 **π0.7 也归入此格**。本站另收录的 [Veo-Act](/wam/papers/veo-act)(前沿视频模型 Veo-3 作高层规划器 + π0.5 执行)亦按其「先合成未来、再抽动作」机制归入此格(本站归类)。
+- **隐式(Implicit)· 潜空间规划**:像素级合成开销大、难实时,故在压缩潜空间预测未来潜序列、不解码回像素。代表:VPP(VAE 潜 + 单步潜预测 + 轻量策略,**首次在该框架做到实时**)、VILP、Video Policy(冻结视频 U-Net + 独立动作 U-Net)、S-VAM、LAPA、villa-X、mimic-video(flow matching + 部分去噪提特征)、MWM(以语义掩码潜替代 RGB,过滤光度噪声)。本站另收录的 [DexWorldModel](/wam/papers/dexworldmodel)(以冻结 DINOv3 特征为生成目标 + O(1) TTT 记忆)亦按其级联潜空间机制归入此格(本站归类)。
 
 > 说明:上表代表作与归类取自综述 Fig 2 与 §4.1;arXiv 编号见文末参考与 Awesome-WAM 清单。同一模型在不同来源的归类可能略有出入,以综述原文为准。
 
@@ -88,18 +88,18 @@ NVIDIA 还补充了一个值得注意的运行机制细节:其 WAM 在运行时 
 | 子式 | 思路 | 代表(主干 / 规模,⚠️ 取自综述 Table 2) |
 |---|---|---|
 | 显式解耦表征 | 各模态保留异构格式、经独立输出头解码(靠 [ACT]/[OBS] 控制 token 路由) | GR-1(195M)· GR-MG · GR-2(30–719M),GPT 式因果 Transformer |
-| 统一离散表征 | 视觉与动作全量化进同一词表、共享 next-token 头 | CoT-VLA(7B,VILA-U)· WorldVLA(7B,Chameleon)· RynnVLA-002(5B,Chameleon+动作头) |
+| 统一离散表征 | 视觉与动作全量化进同一词表、共享 next-token 头 | CoT-VLA(7B,VILA-U)· WorldVLA(7B,Chameleon)· [RynnVLA-002](/wam/papers/rynnvla-002)(综述 Table 2 记 5B、Chameleon+动作头;论文未公布参数量,本站细读标待核) |
 | 预测式潜表征 | 不生成显式 token,在抽象连续潜空间自回归 | VLA-JEPA(2B,Qwen3-VL;JEPA 式,future 仅作监督、结构无泄漏)· F1(4.2B,MoT) |
 
-> 注:本站 [RynnVLA-001](/vla/papers/rynnvla) 细读的对象是 RynnVLA;综述 Table 2 列的 **RynnVLA-002** 是其后继(Chameleon + 动作头,5B)。
+> 注:本站 [RynnVLA-001](/vla/papers/rynnvla) 细读的对象是 RynnVLA;综述 Table 2 列的 **RynnVLA-002** 是其后继(Chameleon + 动作头),本站已有[完整细读](/wam/papers/rynnvla-002)——注意其推理为「解耦查询」:作策略时不 roll out 未来帧,互增强发生在训练期。
 
 #### 2.2.2 Joint · 扩散生成(单流 / 多流)
 
 用多步去噪 / 流匹配**并行**生成未来与动作,绕开自回归的串行瓶颈,利于高频闭环。综述按"预测流如何耦合"分两型(见综述 Fig 6):
 
 - **单流(Unified-Stream)**:世界与动作变量进**同一个 DiT 主干**联合去噪,靠共享注意力同步。再分:
-  - **显式未来预测**(未来观测/其潜代理作直接去噪目标):**PAD**(拼接未来图像潜 + 动作 token,可掺无动作网络视频)、**VideoVLA**(CogVideoX-5B 主干、7-DoF)、**UWM**(给世界与动作各自独立噪声步 → 一套权重可切策略/正向动力学/逆动力学/视频生成)、**Cosmos Policy**(Cosmos-Predict2 主干、潜帧注入 → 同一 checkpoint 兼作策略+世界模型+价值函数、best-of-N 规划)、**DreamZero**、**GigaWorld-Policy**(同 DreamZero 设计但推理只注意历史/当前观测 → 无需在线生成未来视频)、**X-WAM**(复制 DiT 末块作交错深度分支 → 显式 RGB-D)、**UD-VLA**(离散扩散 mask-and-predict)。
-  - **隐式未来预测**(未来仅作内部对齐约束、不显式生成):**FLARE**(可学习 future token 经 MLP 投影、对齐冻结教师编码的真实未来特征;可单独用于无动作视频)、**FRAPPE**(冻结 RDT 主干 + 多对齐专家,Mixture-of-Prefix-and-LoRA)。
+  - **显式未来预测**(未来观测/其潜代理作直接去噪目标):**PAD**(拼接未来图像潜 + 动作 token,可掺无动作网络视频)、**VideoVLA**(CogVideoX-5B 主干、7-DoF)、**[UWM](/wam/papers/uwm)**(给世界与动作各自独立噪声步 → 一套权重可切策略/正向动力学/逆动力学/视频生成)、**Cosmos Policy**(Cosmos-Predict2 主干、潜帧注入 → 同一 checkpoint 兼作策略+世界模型+价值函数、best-of-N 规划)、**[DreamZero](/wam/papers/dreamzero)**、**[GigaWorld-Policy](/wam/papers/gigaworld-policy)**(同 DreamZero 设计但推理只注意历史/当前观测 → 无需在线生成未来视频)、**[X-WAM](/wam/papers/x-wam)**(复制 DiT 末块作交错深度分支 → 显式 RGB-D)、**UD-VLA**(离散扩散 mask-and-predict)。
+  - **隐式未来预测**(未来仅作内部对齐约束、不显式生成):**[FLARE](/wam/papers/flare)**(可学习 future token 经 MLP 投影、对齐冻结教师编码的真实未来特征;可单独用于无动作视频)、**FRAPPE**(冻结 RDT 主干 + 多对齐专家,Mixture-of-Prefix-and-LoRA)。
 - **多流(Multi-Stream)**:世界与动作分到**不同分支/专家**,经显式耦合交互——综述给出三种(Fig 6):**跨注意力**(CA-Coupled)、**隐状态传递**(Hidden-State,视频 DiT 的隐状态条件化动作 DiT)、**共享编码器**(Shared-Rep,先过统一编码器再各自解码)。蚂蚁灵波 [LingBot-VA](/wam/papers/lingbot-va) 用 Mixture-of-Transformers 把视觉与动作 token 整合进共享潜空间,即属此支(MoT 专家分担,单/多流确切归属待核)。
 
 ### 2.3 耦合维度辨析
@@ -172,7 +172,7 @@ flowchart TD
 ### 3.4 Genie Envisioner(智元 AgiBot) · [完整细读 →](/wam/papers/genie-envisioner)
 
 - **定位**:智元 AgiBot 的统一「世界基础平台」(arXiv:2508.05635,2025-08),把策略学习/评估/仿真整合进单一视频生成框架;与本站 [GO-1](/vla/papers/go-1)(同为智元)同机构。称其为 **"industry's first action-driven world model"** ⚠️。
-- **机制要点**:三件套——GE-Base(指令条件化视频扩散底座)/ GE-Act(轻量 flow-matching 解码器出动作轨迹)/ GE-Sim(动作条件神经仿真器)。Genie Envisioner 2.0 标志其向交互式「world simulator」演进(The Robot Report 报道;2.0 细节待核)。
+- **机制要点**:三件套——GE-Base(指令条件化视频扩散底座)/ GE-Act(轻量 flow-matching 解码器出动作轨迹)/ GE-Sim(动作条件神经仿真器,其 2.0 版本本站已有[细读](/wam/papers/ge-sim-2))。Genie Envisioner 2.0 标志其向交互式「world simulator」演进(The Robot Report 报道;2.0 细节待核)。
 - **关键数字**(厂商自评 ⚠️):GE-Base 训练于 ~3,000 小时 / >100 万 episodes(AgiBot-World-Beta);GE-Act 在商用 GPU 上 200ms 内生成 54 步力矩轨迹;跨本体迁移仅需 1 小时遥操作示范。
 
 ### 3.5 NVIDIA GR00T N2 · [完整细读 →](/wam/papers/groot-n2)

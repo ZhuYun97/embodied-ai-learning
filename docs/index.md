@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 34 + WAM 22 篇,逐模块拆架构 / 数据 / 实验。
+    details: VLA 39 + WAM 23 篇,逐模块拆架构 / 数据 / 实验。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -63,6 +63,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/rt2">RT-2</a>
       <a href="vla/papers/openvla">OpenVLA</a>
       <a href="vla/papers/pi0-fast">π0-FAST</a>
+      <a href="vla/papers/spatialvla">SpatialVLA</a>
     </div>
   </div>
   <div class="route-card">
@@ -75,6 +76,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/pi0">π0</a>
       <a href="vla/papers/cogact">CogACT</a>
       <a href="vla/papers/groot-n1">GR00T N1</a>
+      <a href="vla/papers/gr-3">GR-3</a>
+      <a href="vla/papers/rdt-1b">RDT-1B</a>
       <a href="vla/papers/tinyvla">TinyVLA</a>
       <a href="vla/papers/smolvla">SmolVLA</a>
     </div>
@@ -87,14 +90,28 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/openvla-oft">OpenVLA-OFT</a>
       <a href="vla/papers/pi05">π0.5</a>
       <a href="vla/papers/wall-oss">WALL-OSS</a>
+      <a href="vla/papers/wall-oss-05">Wall-OSS-0.5</a>
+    </div>
+  </div>
+  <div class="route-card">
+    <span class="route-tag">分层 · 双系统/推理</span>
+    <div class="route-card__title">快慢分层,推理可控</div>
+    <p>System-2 规划 + System-1 执行;具身推理链与可操控。</p>
+    <div class="route-links">
+      <a href="vla/papers/ecot">ECoT</a>
+      <a href="vla/papers/helix">Helix</a>
+      <a href="vla/papers/go-1">GO-1</a>
+      <a href="vla/papers/galaxea-g0">Galaxea G0</a>
+      <a href="vla/papers/rynnbrain">RynnBrain</a>
+      <a href="vla/papers/steervla">SteerVLA</a>
+      <a href="vla/papers/steerable-policies">Steerable Policies</a>
     </div>
   </div>
   <div class="route-card">
     <span class="route-tag">新范式探索</span>
     <div class="route-card__title">统一基座 / 第三条路 / 从经验学习</div>
-    <p>统一基座 / 视频预训练 / 真机 RL / 分层可操控。</p>
+    <p>统一基座 / 视频预训练 / 真机 RL / 记忆增强。</p>
     <div class="route-links">
-      <a href="vla/papers/ecot">ECoT</a>
       <a href="vla/papers/robovlms">RoboVLMs</a>
       <a href="vla/papers/simplevla-rl">SimpleVLA-RL</a>
       <a href="vla/papers/qwen-vla">Qwen-VLA</a>
@@ -102,8 +119,9 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/pi06">π0.6 / π*0.6</a>
       <a href="vla/papers/pi07">π0.7</a>
       <a href="vla/papers/gemini-robotics">Gemini Robotics</a>
-      <a href="vla/papers/steervla">SteerVLA</a>
-      <a href="vla/papers/steerable-policies">Steerable Policies</a>
+      <a href="vla/papers/memoryvla">MemoryVLA</a>
+      <a href="vla/papers/memoryvla-plusplus">MemoryVLA++</a>
+      <a href="vla/papers/gigabrain-05m">GigaBrain-0.5M*</a>
       <a href="vla/papers/atomicvla">AtomicVLA</a>
     </div>
   </div>
@@ -141,6 +159,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-links">
       <a href="wam/papers/gr-1">GR-1</a>
       <a href="wam/papers/worldvla">WorldVLA</a>
+      <a href="wam/papers/rynnvla-002">RynnVLA-002</a>
     </div>
   </div>
   <div class="route-card">

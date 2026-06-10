@@ -39,6 +39,7 @@ LingBot-VA 是一个**自回归扩散框架**,同时学习帧预测(frame predic
 
 - **综述归类**:LingBot-VA 在综述 Fig 2 中属 **Joint·扩散** 支(扩散基生成式联合世界-动作建模)。其 MoT 共享潜空间属"单流/多流"中偏多流(专家分担)的实现,确切单/多流归属 **待核**。
 - **机制对读**:闭环 rollout(真值观测反馈)≈ [DreamZero](/wam/papers/dreamzero) 的 KV-cache 观测替换;注意力/因果一致性与动作误差控制可与 [WorldVLA](/wam/papers/worldvla) 的注意力掩码对读;异步实时化与 [X-WAM](/wam/papers/x-wam) 的 ANS 同属"压住生成开销"的工程路线。
+- **被后来者列为基线**:[WALL-WM](/wam/papers/wall-wm)(真机 Task Progress 四套件)与 [DexWorldModel](/wam/papers/dexworldmodel)(RoboTwin)都把 LingBot-VA 列入对比(均为各自作者自评 ⚠️),可去两页看相对位置。
 - **机构**:出自**蚂蚁集团灵波(Robbyant)**,是本站收录的首个蚂蚁系 WAM 工作。
 
 ## 五、局限与存疑

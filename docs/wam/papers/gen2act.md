@@ -60,4 +60,6 @@ Gen2Act 在本站 WAM taxonomy 中被归为 **Cascaded · Explicit(级联·显�
 
 - Gen2Act:《Gen2Act: Human Video Generation in Novel Scenarios enables Generalizable Robot Manipulation》,arXiv **2409.16283**(提交 2024-09-24)。作者:Homanga Bharadhwaj, Debidatta Dwibedi, Abhinav Gupta, Shubham Tulsiani, Carl Doersch, Ted Xiao, Dhruv Shah, Fei Xia, Dorsa Sadigh, Sean Kirmani(机构未在摘要明列,待核;是否 CoRL 2025 待核)。零样本人类视频生成 + 单一策略据生成视频执行、完全不微调视频模型、机器人交互数据少一个数量级、真实世界多场景泛化到未见物体与新动作等要点的一手来源。
 
+> 同格后继:本站收录的 [Veo-Act](/wam/papers/veo-act)(2026-04,前沿视频模型 Veo-3 作高层规划器 + π0.5 执行)是 Gen2Act「视频生成 → 机器人执行」思路在 2026 的直接延长线,可对读。
+
 > 体例声明:⚠️ 标注的结论均为作者自评,尚未经基准维护方统一第三方评测;**待核** 表示一手源在本语料中未给出、不以外部记忆或常识补全(本篇摘要未提供具体成功率等基准数值,故定量一律标待核)。

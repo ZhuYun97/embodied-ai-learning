@@ -202,7 +202,7 @@ export default withMermaid(defineConfig({
         fs.writeFileSync(newsOutPath, newsMd.join('\n'), 'utf-8')
       }
 
-      const header = `# 具身智能学习站 · Embodied AI Learning\n\n> VLA 模型发展深度调研 + 56 篇论文细读 + 横切分析专题。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
+      const header = `# 具身智能学习站 · Embodied AI Learning\n\n> VLA 模型发展深度调研 + 62 篇论文细读 + 横切分析专题。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
       fs.writeFileSync(path.join(outDir, 'llms.txt'), header + index.join('\n') + '\n', 'utf-8')
       fs.writeFileSync(path.join(outDir, 'llms-full.txt'), header + fullParts.join('\n\n---\n\n') + '\n', 'utf-8')
       console.log(`[buildEnd] 已导出 llms.txt / llms-full.txt + ${files.length} 页原始 .md.txt`)
@@ -228,13 +228,13 @@ export default withMermaid(defineConfig({
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:url', content: 'https://zhuyun97.github.io/embodied-ai-learning/' }],
     ['meta', { property: 'og:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 56 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
+    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 62 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
     ['meta', { property: 'og:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 56 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
+    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 62 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
     ['meta', { name: 'twitter:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
   ],
 
@@ -280,6 +280,11 @@ export default withMermaid(defineConfig({
               { text: 'Gemini Robotics', link: '/vla/papers/gemini-robotics' },
               { text: 'π0.7', link: '/vla/papers/pi07' },
               { text: 'AtomicVLA(技能 MoE·CVPR26)', link: '/vla/papers/atomicvla' },
+              { text: 'GR-Dexter(双臂灵巧手·字节 Seed)', link: '/vla/papers/gr-dexter' },
+              { text: 'Galaxea G0(双系统+开放世界数据集·星海图)', link: '/vla/papers/galaxea-g0' },
+              { text: 'RynnBrain(System-2 具身基座·达摩院)', link: '/vla/papers/rynnbrain' },
+              { text: 'GigaBrain-0.5M*(世界模型 RL 训 VLA·GigaAI)', link: '/vla/papers/gigabrain-05m' },
+              { text: 'MemoryVLA++(记忆+想象全时序)', link: '/vla/papers/memoryvla-plusplus' },
             ],
           },
           {
@@ -342,6 +347,7 @@ export default withMermaid(defineConfig({
             items: [
               { text: 'GR-1(视频生成预训练·自回归)', link: '/wam/papers/gr-1' },
               { text: 'WorldVLA(自回归动作世界模型)', link: '/wam/papers/worldvla' },
+              { text: 'RynnVLA-002(统一 VLA+世界模型·达摩院)', link: '/wam/papers/rynnvla-002' },
               { text: 'UWM(耦合视频+动作扩散)', link: '/wam/papers/uwm' },
               { text: 'UVA(统一视频动作·解耦双头)', link: '/wam/papers/uva' },
               { text: 'FLARE(未来潜表征对齐)', link: '/wam/papers/flare' },
@@ -479,6 +485,11 @@ export default withMermaid(defineConfig({
             { text: 'Gemini Robotics（DeepMind）', link: '/vla/papers/gemini-robotics' },
             { text: 'π0.7（PI 最新）', link: '/vla/papers/pi07' },
             { text: 'AtomicVLA（技能引导 MoE·CVPR26）', link: '/vla/papers/atomicvla' },
+            { text: 'GR-Dexter（双臂灵巧手·字节 Seed）', link: '/vla/papers/gr-dexter' },
+            { text: 'Galaxea G0（双系统+开放世界数据集·星海图）', link: '/vla/papers/galaxea-g0' },
+            { text: 'RynnBrain（System-2 具身基座·达摩院）', link: '/vla/papers/rynnbrain' },
+            { text: 'GigaBrain-0.5M*（世界模型 RL 训 VLA·GigaAI）', link: '/vla/papers/gigabrain-05m' },
+            { text: 'MemoryVLA++（记忆+想象全时序）', link: '/vla/papers/memoryvla-plusplus' },
           ],
         },
         {
@@ -551,6 +562,7 @@ export default withMermaid(defineConfig({
           items: [
             { text: 'GR-1（视频生成预训练）', link: '/wam/papers/gr-1' },
             { text: 'WorldVLA（自回归动作世界模型）', link: '/wam/papers/worldvla' },
+            { text: 'RynnVLA-002（统一 VLA+世界模型·达摩院）', link: '/wam/papers/rynnvla-002' },
           ],
         },
         {
