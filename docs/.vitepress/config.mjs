@@ -9,6 +9,9 @@ export default withMermaid(defineConfig({
   description: '具身智能 (Embodied AI) 学习笔记 — 从 VLA 模型发展脉络到 2026 年最新前沿',
   lang: 'zh-CN',
   base: '/embodied-ai-learning/',
+  // 全站默认深色:科技控制台基调(深空底/辉光/数据包等效果均以暗色为最佳态)。
+  // 仅影响首访默认值;用户手动切换后由 localStorage 持久化,完全尊重用户选择。
+  appearance: 'dark',
   lastUpdated: true,
   cleanUrls: true,
   ignoreDeadLinks: true,
@@ -338,7 +341,6 @@ export default withMermaid(defineConfig({
               { text: 'Veo-Act(前沿视频模型 Veo-3 作规划器·清华)', link: '/wam/papers/veo-act' },
               { text: 'VPP(预测性视觉表征)', link: '/wam/papers/vpp' },
               { text: 'LAPA(潜动作预训练)', link: '/wam/papers/lapa' },
-              { text: 'LaDi-WM(潜扩散世界模型·CoRL25)', link: '/wam/papers/ladi-wm' },
               { text: 'DexWorldModel(DINOv3 潜世界模型·O(1) 记忆)', link: '/wam/papers/dexworldmodel' },
             ],
           },
@@ -357,6 +359,7 @@ export default withMermaid(defineConfig({
               { text: 'τ0-WM(智元/上海创智·测试时搜索)', link: '/wam/papers/tau0-wm' },
               { text: 'Genie Envisioner(智元)', link: '/wam/papers/genie-envisioner' },
               { text: 'GR00T N2(NVIDIA)', link: '/wam/papers/groot-n2' },
+              { text: 'LaDi-WM(潜扩散世界模型·CoRL25)', link: '/wam/papers/ladi-wm' },
               { text: 'Cosmos 3(NVIDIA·全模态世界模型)', link: '/wam/papers/cosmos3' },
               { text: 'WALL-WM(自变量·事件锚定)', link: '/wam/papers/wall-wm' },
               { text: 'GE-Sim 2.0(智元·闭环世界模拟器)', link: '/wam/papers/ge-sim-2' },
@@ -380,6 +383,11 @@ export default withMermaid(defineConfig({
             ],
           },
         ],
+      },
+      {
+        text: '谱系图',
+        link: '/map/',
+        activeMatch: '^/map/',
       },
       {
         text: '新闻',
@@ -552,7 +560,6 @@ export default withMermaid(defineConfig({
           items: [
             { text: 'VPP（预测性视觉表征）', link: '/wam/papers/vpp' },
             { text: 'LAPA（潜动作预训练）', link: '/wam/papers/lapa' },
-            { text: 'LaDi-WM（潜扩散世界模型·CoRL25）', link: '/wam/papers/ladi-wm' },
             { text: 'DexWorldModel（DINOv3 潜世界模型·O(1) 记忆）', link: '/wam/papers/dexworldmodel' },
           ],
         },
@@ -578,6 +585,7 @@ export default withMermaid(defineConfig({
             { text: 'τ0-WM（智元/上海创智·测试时搜索）', link: '/wam/papers/tau0-wm' },
             { text: 'Genie Envisioner（智元 AgiBot）', link: '/wam/papers/genie-envisioner' },
             { text: 'GR00T N2（NVIDIA）', link: '/wam/papers/groot-n2' },
+            { text: 'LaDi-WM（潜扩散世界模型·CoRL25）', link: '/wam/papers/ladi-wm' },
             { text: 'Cosmos 3（NVIDIA·全模态世界模型）', link: '/wam/papers/cosmos3' },
             { text: 'WALL-WM（自变量·事件锚定世界-动作模型）', link: '/wam/papers/wall-wm' },
             { text: 'GE-Sim 2.0（智元·闭环视频世界模拟器）', link: '/wam/papers/ge-sim-2' },

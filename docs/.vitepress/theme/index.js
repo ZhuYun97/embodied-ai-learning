@@ -2,6 +2,8 @@ import DefaultTheme from 'vitepress/theme'
 import { h, ref, reactive, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute, useData, withBase } from 'vitepress'
 import { data as modelData } from '../data/models.data.mjs'
+import { data as paperData } from '../data/papers.data.mjs'
+import { ROUTE_COLORS } from './route-colors.mjs'
 import './custom.css'
 
 // =====================================================================
@@ -280,6 +282,132 @@ const SeriesFooter = {
         ),
       ])
     }
+  },
+}
+
+// =====================================================================
+// 论文细读「档案化」三件套(2026-06-10):
+//  ① PaperDossier 档案头:主线 / 技术路线 / 发布年月 / arXiv 直链 / 谱系图定位 / 可信度图例。
+//     全部派生自 papers.data.mjs(首页路线卡名单 + 细读页 arXiv 链接),零手工维护、不引入新主张;
+//  ② DocReadBar 顶缘阅读进度条(真实滚动百分比,诚实遥测、非装饰假数);
+//  ③ 可信度行内徽章化:把正文里的 ✅ / ⚠️ 字形包进统一徽章(只包字形不改文本,
+//     代码块 / 链接 / 已包节点跳过,幂等可重入)。
+// 三者仅在「细读页」(首页路线卡收录名单)生效;html.paper-page 供 CSS 定向。
+// =====================================================================
+const PAPER_BY_PATH = (() => {
+  const m = {}
+  for (const p of paperData.papers || []) m[p.link] = p
+  return m
+})()
+function paperFromRoute(path) {
+  const mm = (path || '').match(/\/(vla|wam)\/papers\/([\w-]+?)(?:\.html)?\/?$/)
+  if (!mm) return null
+  return PAPER_BY_PATH[`/${mm[1]}/papers/${mm[2]}`] || null
+}
+
+// ✅/⚠️ 行内徽章化:TreeWalker 扫正文文本节点,把字形原样包进 <span class="cred-mark">。
+// 不增删任何字符 → 语料导出(llms.txt)与复制粘贴不受影响。
+function decorateCredMarks() {
+  if (typeof document === 'undefined') return
+  const root = document.querySelector('.vp-doc')
+  if (!root) return
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(n) {
+      if (!/[✅⚠]/.test(n.nodeValue || '')) return NodeFilter.FILTER_REJECT
+      if (n.parentElement && n.parentElement.closest('pre, code, a, script, style, .cred-mark')) {
+        return NodeFilter.FILTER_REJECT
+      }
+      return NodeFilter.FILTER_ACCEPT
+    },
+  })
+  const targets = []
+  while (walker.nextNode()) targets.push(walker.currentNode)
+  for (const node of targets) {
+    const parts = (node.nodeValue || '').split(/(✅|⚠️|⚠)/)
+    if (parts.length < 2) continue
+    const frag = document.createDocumentFragment()
+    for (const part of parts) {
+      if (part === '✅' || part === '⚠️' || part === '⚠') {
+        const s = document.createElement('span')
+        s.className = 'cred-mark ' + (part === '✅' ? 'cred-mark--ok' : 'cred-mark--warn')
+        s.textContent = part
+        frag.appendChild(s)
+      } else if (part) {
+        frag.appendChild(document.createTextNode(part))
+      }
+    }
+    node.parentNode && node.parentNode.replaceChild(frag, node)
+  }
+}
+
+const PaperDossier = {
+  setup() {
+    const route = useRoute()
+    const sync = (path) => {
+      if (typeof document === 'undefined') return
+      const isPaper = !!paperFromRoute(path)
+      document.documentElement.classList.toggle('paper-page', isPaper)
+      if (isPaper) {
+        // 路由切换后正文已水合,双保险(rAF + 短延时)再做徽章化
+        requestAnimationFrame(decorateCredMarks)
+        setTimeout(decorateCredMarks, 180)
+      }
+    }
+    onMounted(() => sync(route.path))
+    watch(() => route.path, (p) => nextTick(() => sync(p)))
+    onUnmounted(() => {
+      if (typeof document !== 'undefined') document.documentElement.classList.remove('paper-page')
+    })
+    return () => {
+      const p = paperFromRoute(route.path)
+      if (!p) return null
+      return h('aside', { class: 'paper-dossier', 'aria-label': '论文档案' }, [
+        h('span', { class: 'pd-chip pd-chip--track', 'data-track': p.track }, p.track),
+        h('span', { class: 'pd-chip pd-chip--route', style: { '--route-c': ROUTE_COLORS[p.route] || '#94a3b8' } }, p.route),
+        p.date
+          ? h('span', { class: 'pd-meta', title: p.arxivId ? 'arXiv ID 前四位派生的提交年月' : '发布年月(站内细读页核对)' }, '发布 ' + p.date)
+          : null,
+        p.arxivId
+          ? h('a', { class: 'pd-link', href: `https://arxiv.org/abs/${p.arxivId}`, target: '_blank', rel: 'noopener' }, `arXiv:${p.arxivId} ↗`)
+          : null,
+        h('a', { class: 'pd-map', href: withBase(`/map/#${p.slug}`), title: '在 VLA × WAM 谱系图中定位本篇' }, '谱系图 ⌖'),
+        h('span', { class: 'pd-legend', role: 'note' }, [
+          h('span', { class: 'pd-lg pd-lg--ok', title: '✅ 经核查:基准维护方 / 独立来源可核' }, '✅ 已核'),
+          h('span', { class: 'pd-lg pd-lg--warn', title: '⚠️ 厂商 / 作者自评,非第三方复现' }, '⚠️ 自评'),
+          h('span', { class: 'pd-lg pd-lg--todo', title: '待核:一手源未给出,本站不编造' }, '待核'),
+        ]),
+      ])
+    }
+  },
+}
+
+const DocReadBar = {
+  setup() {
+    const route = useRoute()
+    const pct = ref(0)
+    let onScroll = null
+    onMounted(() => {
+      onScroll = () => {
+        const doc = document.documentElement
+        const max = doc.scrollHeight - window.innerHeight
+        pct.value = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0
+      }
+      onScroll()
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onScroll, { passive: true })
+    })
+    onUnmounted(() => {
+      if (onScroll) {
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', onScroll)
+      }
+    })
+    return () =>
+      paperFromRoute(route.path)
+        ? h('div', { class: 'doc-readbar', 'aria-hidden': 'true' }, [
+            h('i', { class: 'doc-readbar__fill', style: { width: pct.value.toFixed(1) + '%' } }),
+          ])
+        : null
   },
 }
 
@@ -1095,7 +1223,7 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'home-hero-before': () => [h(HeroFX), h(TechHero), h(HomeRail)],
       'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle)],
-      'doc-before': () => [h(LensBanner)],
+      'doc-before': () => [h(DocReadBar), h(PaperDossier), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
     })
   },

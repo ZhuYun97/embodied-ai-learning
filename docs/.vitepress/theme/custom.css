@@ -3426,3 +3426,287 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
 /* 定位轨跳转落点:给 sticky 顶栏留出余量 */
 .VPHome .vp-doc h2,
 .VPHome .home-coda { scroll-margin-top: 84px; }
+
+/* ============================================================
+   论文细读「档案化」(2026-06-10):档案头 + 顶缘阅读进度条 +
+   ✅/⚠️ 行内可信度徽章 + 细读页控制台化(h2 分节轴 / 表格升级)。
+   作用域:html.paper-page(由 PaperDossier 按「首页路线卡收录名单」打标)。
+   ============================================================ */
+
+/* —— 顶缘阅读进度条(真实滚动百分比;盖在顶栏上缘,细读页专属)—— */
+.doc-readbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 61;
+  pointer-events: none;
+}
+.doc-readbar__fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #2563eb, #22d3ee);
+  transition: width 0.08s linear;
+}
+.dark .doc-readbar__fill { box-shadow: 0 0 8px rgba(34, 211, 238, 0.55); }
+@media (prefers-reduced-motion: reduce) { .doc-readbar__fill { transition: none; } }
+
+/* —— 论文档案头:正文之上的一条「档案条」(等宽芯片 + 元信息 + 可信度图例)—— */
+.paper-dossier {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 22px;
+  padding: 11px 13px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  background: var(--vp-c-bg-soft);
+  font-family: var(--vp-font-family-mono, monospace);
+  overflow: hidden;
+}
+.paper-dossier::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
+  opacity: 0.65;
+}
+.dark .paper-dossier {
+  border-color: rgba(56, 189, 248, 0.2);
+  background: rgba(13, 20, 38, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.04);
+}
+/* 芯片:双主题统一深空底(控制台语言),按主线/路线着色 */
+.pd-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #dbeafe;
+  background: #0b1322;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  white-space: nowrap;
+}
+.pd-chip--track[data-track='VLA'] { color: #93c5fd; border-color: rgba(59, 130, 246, 0.55); }
+.pd-chip--track[data-track='WAM'] { color: #c4b5fd; border-color: rgba(139, 92, 246, 0.55); }
+.pd-chip--route {
+  color: var(--route-c, #94a3b8);
+  border-color: color-mix(in srgb, var(--route-c, #94a3b8) 55%, transparent);
+}
+.pd-meta {
+  font-size: 0.74rem;
+  color: var(--vp-c-text-2);
+  font-variant-numeric: tabular-nums;
+  cursor: help;
+}
+.pd-link {
+  font-size: 0.74rem;
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+}
+.pd-link:hover { border-bottom-style: solid; }
+.pd-map {
+  font-size: 0.74rem;
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+  padding: 2px 8px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  transition: color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+.pd-map:hover { color: #22d3ee; border-color: #22d3ee; }
+.dark .pd-map:hover { box-shadow: 0 0 10px rgba(34, 211, 238, 0.25); }
+.pd-legend { margin-left: auto; display: inline-flex; gap: 5px; }
+.pd-lg { font-size: 0.68rem; padding: 2px 7px; border-radius: 5px; cursor: help; white-space: nowrap; }
+.pd-lg--ok { background: rgba(34, 197, 94, 0.12); color: #16a34a; }
+.pd-lg--warn { background: rgba(245, 158, 11, 0.14); color: #b45309; }
+.pd-lg--todo { background: rgba(148, 163, 184, 0.18); color: #64748b; }
+.dark .pd-lg--ok { background: rgba(34, 197, 94, 0.16); color: #4ade80; }
+.dark .pd-lg--warn { background: rgba(245, 158, 11, 0.16); color: #fbbf24; }
+.dark .pd-lg--todo { background: rgba(148, 163, 184, 0.14); color: #cbd5e1; }
+@media (max-width: 600px) { .pd-legend { display: none; } }
+
+/* —— 细读页 h2:控制台分节轴(左缘渐变光轴;不动标题文本,不引入编号)—— */
+.paper-page .vp-doc h2 {
+  position: relative;
+  padding-left: 16px;
+}
+.paper-page .vp-doc h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(24px + 0.18em);
+  bottom: 0.18em;
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #2563eb, #22d3ee);
+}
+.dark .paper-page .vp-doc h2::before { box-shadow: 0 0 10px rgba(34, 211, 238, 0.45); }
+
+/* —— 细读页表格:控制台读出(等宽表头 + 暗色青调隔行;悬停行为已有全局规则)—— */
+.paper-page .vp-doc th {
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
+.dark .paper-page .vp-doc th {
+  color: #7dd3fc;
+  border-bottom-color: rgba(56, 189, 248, 0.55);
+}
+.dark .paper-page .vp-doc tbody tr:nth-child(even):not(:hover) {
+  background: rgba(56, 189, 248, 0.035) !important;
+}
+
+/* —— ✅/⚠️ 行内可信度徽章(只包字形,文本不变;与档案头图例同语言)—— */
+.cred-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35em;
+  height: 1.3em;
+  margin: 0 1px;
+  border-radius: 5px;
+  font-size: 0.92em;
+  line-height: 1;
+  vertical-align: -0.18em;
+}
+.cred-mark--ok { background: rgba(34, 197, 94, 0.13); box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.32); }
+.cred-mark--warn { background: rgba(245, 158, 11, 0.15); box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.38); }
+.dark .cred-mark--ok { background: rgba(34, 197, 94, 0.15); box-shadow: inset 0 0 0 1px rgba(74, 222, 128, 0.38); }
+.dark .cred-mark--warn { background: rgba(245, 158, 11, 0.17); box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.42); }
+
+/* —— 全站细节拉齐(默认深色档配套):代码/键帽数字一律 tabular —— */
+.vp-doc :not(pre) > code,
+.vp-doc kbd { font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   新闻页「日志流」视图(2026-06-10,D):传输日志式时间线。
+   与卡片视图共存(工具栏可切换,默认日志流);条目仍整行可点展开,
+   内部详情(摘要/来源)复用 NewsIndex 组件内已有样式。
+   写在全局 custom.css:规避 Vue scoped 里 :global(.dark)+伪元素的编译坑(组件内有记档)。
+   ============================================================ */
+.news-toolbar .seg-control--view { margin-left: auto; }
+@media (max-width: 767px) { .news-toolbar .seg-control--view { margin-left: 0; width: 100%; } }
+
+.news-log { display: flex; flex-direction: column; }
+.nlog {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  padding: 10px 12px 0 2px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+.nlog:hover { background: var(--vp-c-bg-soft); }
+.dark .nlog:hover { background: rgba(56, 189, 248, 0.05); }
+.nlog:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }
+
+/* 左缘时间轨 + 节点(重要程度着色;hot/major 暗色发光) */
+.nlog__rail { position: relative; width: 16px; flex-shrink: 0; display: flex; justify-content: center; }
+.nlog__rail::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: var(--vp-c-divider);
+}
+.dark .nlog__rail::before { background: linear-gradient(180deg, rgba(56, 189, 248, 0.32), rgba(56, 189, 248, 0.12)); }
+.nlog:first-child .nlog__rail::before { top: 16px; }
+.nlog:last-child .nlog__rail::before { bottom: auto; height: 16px; }
+.nlog:first-child:last-child .nlog__rail::before { display: none; }
+.nlog__node {
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--vp-c-bg);
+  border: 2px solid #64748b;
+  flex-shrink: 0;
+}
+.dark .nlog__node { background: #0b1322; }
+.nlog[data-importance='hot'] .nlog__node { border-color: #ef4444; }
+.nlog[data-importance='major'] .nlog__node { border-color: #f59e0b; }
+.dark .nlog[data-importance='hot'] .nlog__node { box-shadow: 0 0 9px rgba(239, 68, 68, 0.6); }
+.dark .nlog[data-importance='major'] .nlog__node { box-shadow: 0 0 9px rgba(245, 158, 11, 0.5); }
+
+.nlog__body { flex: 1; min-width: 0; padding-bottom: 12px; border-bottom: 1px dashed var(--vp-c-divider); }
+.nlog:last-child .nlog__body { border-bottom: none; }
+.dark .nlog__body { border-bottom-color: rgba(56, 189, 248, 0.12); }
+
+/* 头行:等宽时间戳 + 等级/可信度徽章 + #类别 + 折叠箭头 */
+.nlog__head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 9px;
+  font-family: var(--vp-font-family-mono, monospace);
+}
+.nlog__ts {
+  font-size: 0.74rem;
+  color: var(--vp-c-text-3);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.dark .nlog__ts { color: #7dd3fc; }
+.nlog__lvl {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 1px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.nlog__lvl--hot { background: rgba(239, 68, 68, 0.12); color: #dc2626; }
+.nlog__lvl--major { background: rgba(245, 158, 11, 0.14); color: #b45309; }
+.nlog__lvl--normal { background: rgba(100, 116, 139, 0.12); color: #475569; }
+.nlog__lvl--verified { background: rgba(34, 197, 94, 0.12); color: #16a34a; }
+.nlog__lvl--todo { background: rgba(234, 179, 8, 0.14); color: #a16207; }
+.nlog__lvl--bot { background: rgba(59, 130, 246, 0.12); color: #2563eb; }
+.dark .nlog__lvl--hot { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+.dark .nlog__lvl--major { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.dark .nlog__lvl--normal { background: rgba(148, 163, 184, 0.18); color: #cbd5e1; }
+.dark .nlog__lvl--verified { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+.dark .nlog__lvl--todo { background: rgba(234, 179, 8, 0.2); color: #fde047; }
+.dark .nlog__lvl--bot { background: rgba(59, 130, 246, 0.2); color: #93b4ff; }
+.nlog__cats { display: inline-flex; flex-wrap: wrap; gap: 7px; margin-left: auto; }
+.nlog__cat { font-size: 0.68rem; color: var(--vp-c-text-3); white-space: nowrap; }
+.dark .nlog__cat { color: #94a3b8; }
+.nlog__chev { color: var(--vp-c-text-3); flex-shrink: 0; transition: transform 0.25s ease, color 0.2s; }
+.nlog.is-expanded .nlog__chev { transform: rotate(180deg); color: var(--vp-c-brand-1); }
+
+.nlog__title {
+  margin: 5px 0 0;
+  font-size: 0.98rem;
+  font-weight: 650;
+  line-height: 1.55;
+  color: var(--vp-c-text-1);
+  border: none;
+  padding: 0;
+  letter-spacing: -0.01em;
+}
+.dark .nlog:hover .nlog__title { text-shadow: 0 0 16px rgba(56, 189, 248, 0.22); }
+.nlog__detail { margin-top: 10px; }
+
+@media (max-width: 560px) {
+  .nlog__cats { display: none; }
+  .nlog { gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nlog, .nlog__chev { transition: none; }
+}
+
+/* ============================================================
+   谱系图页(2026-06-10,B):无侧栏页放宽容器(与新闻页同方案)
+   ============================================================ */
+.VPDoc:has(.lineage-map) .container { max-width: 1240px !important; }
+.VPDoc:has(.lineage-map) .content { max-width: 100% !important; }

@@ -10,6 +10,8 @@ const selectedYear = ref('全部')
 const searchQuery = ref('')
 const selectedDate = ref('')          // 日历筛选:YYYY-MM-DD,空 = 不筛
 const showCalendar = ref(false)       // 日历面板展开态
+const viewMode = ref('log')           // 'log' 日志流(默认)| 'card' 卡片;持久化于 news-filter
+const setView = (v) => { viewMode.value = v; saveFilter() }
 
 // 日历:初始定位到「最新有新闻的月份」(确定性、SSR 安全,不依赖 new Date())
 const _newsYMs = newsData.map(n => n.date || '').filter(s => s.length === 10).map(s => s.slice(0, 7))
@@ -35,11 +37,12 @@ onMounted(() => {
   const saved = localStorage.getItem('news-filter')
   if (saved) {
     try {
-      const { category, importance, year, date } = JSON.parse(saved)
+      const { category, importance, year, date, view } = JSON.parse(saved)
       if (category) selectedCategory.value = category
       if (importance) selectedImportance.value = importance
       if (year) selectedYear.value = year
       if (date) selectedDate.value = date
+      if (view === 'log' || view === 'card') viewMode.value = view
     } catch (e) {}
   }
 })
@@ -50,7 +53,8 @@ const saveFilter = () => {
     category: selectedCategory.value,
     importance: selectedImportance.value,
     year: selectedYear.value,
-    date: selectedDate.value
+    date: selectedDate.value,
+    view: viewMode.value
   }))
 }
 
@@ -298,6 +302,12 @@ const renderMarkdown = (text) => {
         </button>
         <button v-if="hasActiveFilter" @click="resetFilters" class="filter-reset">重置</button>
       </div>
+
+      <!-- 视图切换:日志流(默认)/ 卡片 -->
+      <div class="seg-control seg-control--view" role="group" aria-label="视图切换">
+        <button :class="['seg-btn', { active: viewMode === 'log' }]" @click="setView('log')" title="日志流视图">▤ 日志流</button>
+        <button :class="['seg-btn', { active: viewMode === 'card' }]" @click="setView('card')" title="卡片视图">▦ 卡片</button>
+      </div>
     </div>
 
     <!-- 日历筛选面板(内联展开:避开工具栏 overflow:hidden 与卡片 z-index 叠层) -->
@@ -367,7 +377,7 @@ const renderMarkdown = (text) => {
         <span class="news-group__count">{{ group.items.length }} 条收录</span>
       </div>
 
-      <div class="news-grid">
+      <div v-if="viewMode === 'card'" class="news-grid">
         <article
           v-for="item in group.items"
           :key="item.id"
@@ -428,6 +438,57 @@ const renderMarkdown = (text) => {
 
           <!-- 折叠态提示 -->
           <span v-else class="news-card__more">阅读详情</span>
+        </article>
+      </div>
+
+      <!-- 日志流视图(默认):传输日志式时间线,样式见全局 custom.css(.nlog-*) -->
+      <div v-else class="news-log">
+        <article
+          v-for="item in group.items"
+          :key="item.id"
+          class="nlog"
+          :class="{ 'is-expanded': isExpanded(item.id) }"
+          :data-importance="item.importance"
+          role="button"
+          tabindex="0"
+          :aria-expanded="isExpanded(item.id)"
+          @click="toggleCard(item.id)"
+          @keydown.enter.prevent="toggleCard(item.id)"
+          @keydown.space.prevent="toggleCard(item.id)"
+        >
+          <span class="nlog__rail" aria-hidden="true"><i class="nlog__node"></i></span>
+          <div class="nlog__body">
+            <div class="nlog__head">
+              <time class="nlog__ts" :datetime="item.date">{{ item.date }}</time>
+              <span :class="['nlog__lvl', `nlog__lvl--${item.importance}`]">{{ importanceIcon[item.importance] }} {{ importanceLabel[item.importance] }}</span>
+              <span :class="['nlog__lvl', `nlog__lvl--${item.credibility}`]">{{ credibilityLabel[item.credibility] }}</span>
+              <span v-if="item.bot" class="nlog__lvl nlog__lvl--bot" title="机器人自动收录">bot</span>
+              <span class="nlog__cats">
+                <span v-for="cat in item.category" :key="cat" class="nlog__cat">#{{ cat }}</span>
+              </span>
+              <svg class="nlog__chev" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="nlog__title">{{ item.title }}</h3>
+            <div v-if="isExpanded(item.id)" class="news-card__detail nlog__detail">
+              <p class="news-card__summary" v-html="renderMarkdown(item.summary)"></p>
+              <div class="news-card__footer">
+                <span v-if="item.sources.length" class="footer-sources">
+                  <a
+                    v-for="(src, idx) in item.sources"
+                    :key="idx"
+                    :href="src.url"
+                    target="_blank"
+                    rel="noopener"
+                    class="source-link"
+                    @click.stop
+                  >{{ src.name }}<svg class="ext-icon" viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path d="M14 5h5v5M19 5l-9 9M12 5H6a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1v-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </span>
+                <span v-if="item.related.length" class="footer-related">
+                  <a v-for="(rel, idx) in item.related" :key="idx" :href="rel.url" class="related-link" @click.stop>{{ rel.label }}</a>
+                </span>
+              </div>
+            </div>
+          </div>
         </article>
       </div>
     </div>
