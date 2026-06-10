@@ -374,17 +374,64 @@ const FX_BEAMS = [
   { x: 62, d: 8, dl: 0.7 }, { x: 78, d: 6.5, dl: 3.1 }, { x: 91, d: 7.5, dl: 1.9 },
 ]
 // 电路数据包:沿背景网格的横线(44px 行距,与 .VPHome::before 同原点)滑行的信号光点;
-// 行号 / 时长 / 延迟全部确定性(SSR 安全),大部分时间留白、低频掠过。
+// 行号 / 时长 / 延迟全部确定性(SSR 安全)。v2 加重:6 个、更快、可见窗口更长。
 const FX_PACKETS = [
-  { row: 3, d: 9, dl: 1.2, rev: 0 },
-  { row: 6, d: 12, dl: 5.4, rev: 1 },
-  { row: 9, d: 10, dl: 8.8, rev: 0 },
-  { row: 12, d: 13, dl: 3.1, rev: 1 },
+  { row: 2, d: 6.5, dl: 0.8, rev: 0 },
+  { row: 4, d: 8, dl: 3.9, rev: 1 },
+  { row: 6, d: 7, dl: 6.2, rev: 0 },
+  { row: 9, d: 8.5, dl: 2.1, rev: 1 },
+  { row: 11, d: 7.5, dl: 5.0, rev: 0 },
+  { row: 13, d: 9, dl: 7.6, rev: 1 },
 ]
 const HeroFX = {
   setup() {
+    // 指针感应网格(D):光标吸附到 44px 网格 → 高亮所在单元格 + 行列引导线 + 柔光跟随。
+    // 刻意不用 mask-image(站内有 mask × backdrop-filter 的 Chromium 黑屏血泪),全 transform 实现。
+    const fxRoot = ref(null)
+    let fxCleanup = null
+    onMounted(() => {
+      const root = fxRoot.value
+      if (!root || typeof window === 'undefined') return
+      const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
+      if (!fine) return
+      const wrap = root.querySelector('.hero-fx__cellwrap')
+      const cell = root.querySelector('.fx-cell')
+      const rowL = root.querySelector('.fx-row')
+      const colL = root.querySelector('.fx-col')
+      const glow = root.querySelector('.fx-glow')
+      if (!wrap || !cell) return
+      const move = (e) => {
+        const r = root.getBoundingClientRect()
+        const x = e.clientX - r.left
+        const y = e.clientY - r.top
+        if (x < 0 || y < 0 || x > r.width || y > r.height) {
+          wrap.classList.remove('is-on')
+          return
+        }
+        wrap.classList.add('is-on')
+        glow.style.setProperty('--gx', x + 'px')
+        glow.style.setProperty('--gy', y + 'px')
+        const cx = Math.floor(x / 44) * 44
+        const cy = Math.floor(y / 44) * 44
+        cell.style.transform = `translate(${cx}px, ${cy}px)`
+        rowL.style.transform = `translateY(${cy}px)`
+        colL.style.transform = `translateX(${cx}px)`
+      }
+      const off = () => wrap.classList.remove('is-on')
+      window.addEventListener('pointermove', move, { passive: true })
+      window.addEventListener('blur', off)
+      document.documentElement.addEventListener('pointerleave', off)
+      fxCleanup = () => {
+        window.removeEventListener('pointermove', move)
+        window.removeEventListener('blur', off)
+        document.documentElement.removeEventListener('pointerleave', off)
+      }
+    })
+    onUnmounted(() => {
+      if (fxCleanup) fxCleanup()
+    })
     return () =>
-      h('div', { class: 'hero-fx', 'aria-hidden': 'true' }, [
+      h('div', { class: 'hero-fx', 'aria-hidden': 'true', ref: fxRoot }, [
         h('div', { class: 'hero-fx__glow' }),
         h(
           'div',
@@ -422,6 +469,12 @@ const HeroFX = {
             })
           )
         ),
+        h('div', { class: 'hero-fx__cellwrap' }, [
+          h('i', { class: 'fx-glow' }),
+          h('i', { class: 'fx-row' }),
+          h('i', { class: 'fx-col' }),
+          h('i', { class: 'fx-cell' }),
+        ]),
         h('div', { class: 'hud-scan' }),
         h('span', { class: 'hud-corner hud-corner--tl' }),
         h('span', { class: 'hud-corner hud-corner--tr' }),

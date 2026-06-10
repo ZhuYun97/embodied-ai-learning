@@ -1577,7 +1577,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     animation: titleScan 1.5s ease-out 0.15s 1 forwards;
   }
   /* 启动完成后,英文标题来一次极短 glitch(切片错位 + 抖动),仅一次 */
-  .VPHome .thero__title-en { animation: titleGlitch 0.4s linear 1.95s 1; }
+  /* 入场一次 glitch + 此后每 ~13s 一次极短复闪(E1,运行感) */
+  .VPHome .thero__title-en { animation: titleGlitch 0.4s linear 1.95s 1, titleReGlitch 13s linear 7s infinite; }
 }
 @keyframes charBootIn {
   0%   { opacity: 0; transform: translateY(0.4em) scaleY(0.62); filter: blur(7px); }
@@ -3245,44 +3246,150 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
   100% { top: 97%; opacity: 0; }
 }
 
-/* —— C 电路数据包:沿背景网格横线滑行的信号光点(暗色;与 44px 网格同原点对齐)—— */
+/* —— C 电路数据包 v2(加重档):双皮肤(亮色蓝 / 暗色青)、6 个、更快、可见窗口更长 —— */
 .hero-fx__packets {
   position: absolute;
   inset: 0;
-  opacity: 0;
+  opacity: 0.55;   /* 亮色也给一层(蓝调、较淡) */
 }
 .dark .hero-fx__packets { opacity: 1; }
 .hero-fx__packet {
+  --pk1: rgba(37, 99, 235, 0.5);
+  --pk2: #3b82f6;
   position: absolute;
   left: 0;
-  width: 64px;
+  width: 88px;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, transparent, rgba(125, 235, 255, 0.6), #bdf3ff);
-  filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.5));
+  background: linear-gradient(90deg, transparent, var(--pk1), var(--pk2));
+  filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.55));
   opacity: 0;
-  transform: translateX(-80px);
+  transform: translateX(-100px);
+}
+.dark .hero-fx__packet {
+  --pk1: rgba(125, 235, 255, 0.65);
+  --pk2: #bdf3ff;
 }
 .hero-fx__packet.is-rev {
-  background: linear-gradient(270deg, transparent, rgba(125, 235, 255, 0.6), #bdf3ff);
+  background: linear-gradient(270deg, transparent, var(--pk1), var(--pk2));
 }
 @media (prefers-reduced-motion: no-preference) {
-  .hero-fx__packet { animation: fxPacket var(--pd, 10s) linear var(--pdl, 0s) infinite; }
+  .hero-fx__packet { animation: fxPacket var(--pd, 8s) linear var(--pdl, 0s) infinite; }
   .hero-fx__packet.is-rev { animation-name: fxPacketRev; }
 }
 @keyframes fxPacket {
-  0% { transform: translateX(-80px); opacity: 0; }
-  3% { opacity: 0.8; }
-  30% { opacity: 0.8; }
-  34% { transform: translateX(100vw); opacity: 0; }
+  0% { transform: translateX(-100px); opacity: 0; }
+  3% { opacity: 0.95; }
+  42% { opacity: 0.95; }
+  46% { transform: translateX(100vw); opacity: 0; }
   100% { transform: translateX(100vw); opacity: 0; }
 }
 @keyframes fxPacketRev {
   0% { transform: translateX(100vw); opacity: 0; }
-  3% { opacity: 0.8; }
-  30% { opacity: 0.8; }
-  34% { transform: translateX(-80px); opacity: 0; }
-  100% { transform: translateX(-80px); opacity: 0; }
+  3% { opacity: 0.95; }
+  42% { opacity: 0.95; }
+  46% { transform: translateX(-100px); opacity: 0; }
+  100% { transform: translateX(-100px); opacity: 0; }
+}
+
+/* —— D 指针感应网格:光标吸附 44px 单元格(高亮格 + 行列引导线 + 柔光跟随)——
+   纯 transform / background,不用 mask(规避 mask × backdrop-filter 的 Chromium 黑屏坑);
+   仅 pointer:fine 由 JS 激活(hero-fx__cellwrap.is-on)。 —— */
+.hero-fx__cellwrap {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.hero-fx__cellwrap.is-on { opacity: 1; }
+.fx-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(190px circle at var(--gx, 50%) var(--gy, 40%), rgba(34, 211, 238, 0.10), transparent 72%);
+}
+.dark .fx-glow {
+  background: radial-gradient(190px circle at var(--gx, 50%) var(--gy, 40%), rgba(34, 211, 238, 0.16), transparent 72%);
+}
+.fx-row, .fx-col {
+  position: absolute;
+  background: rgba(37, 99, 235, 0.12);
+  transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.dark .fx-row, .dark .fx-col { background: rgba(56, 189, 248, 0.16); }
+.fx-row { left: 0; right: 0; top: 0; height: 1px; }
+.fx-col { top: 0; bottom: 0; left: 0; width: 1px; }
+.fx-cell {
+  position: absolute;
+  left: 0; top: 0;
+  width: 44px; height: 44px;
+  border: 1px solid rgba(37, 99, 235, 0.5);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.22), inset 0 0 10px rgba(56, 189, 248, 0.10);
+  transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.dark .fx-cell {
+  border-color: rgba(125, 235, 255, 0.55);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.3), inset 0 0 12px rgba(56, 189, 248, 0.14);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-cell, .fx-row, .fx-col, .hero-fx__cellwrap { transition: none; }
+}
+
+/* —— E1 英文标题低频复闪(配合 .thero__title-en 的 titleReGlitch 引用;只占周期 ~1.5%)—— */
+@keyframes titleReGlitch {
+  0%, 96.2%, 98.2%, 100% { transform: none; text-shadow: none; opacity: 1; }
+  96.6% {
+    transform: translateX(2px) skewX(-5deg);
+    text-shadow: -3px 0 rgba(34, 211, 238, 0.75), 3px 0 rgba(139, 92, 246, 0.75);
+  }
+  97.0% { transform: translateX(-2px) skewX(3deg); opacity: 0.85; }
+  97.6% {
+    transform: translateX(1px);
+    text-shadow: 2px 0 rgba(34, 211, 238, 0.6), -2px 0 rgba(139, 92, 246, 0.6);
+  }
+}
+
+/* —— E2 轨道环中央雷达 ping:从机器人核心扩散的细圈(仅 ≥1080 环形态可见,feat-hub 默认 display:none)—— */
+@media (prefers-reduced-motion: no-preference) {
+  .VPHome .VPFeatures .feat-hub::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 46%;
+    width: 60px; height: 60px;
+    margin: -30px 0 0 -30px;
+    border-radius: 50%;
+    border: 1px solid rgba(125, 235, 255, 0.7);
+    pointer-events: none;
+    animation: hubPing 4.2s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+  }
+}
+@keyframes hubPing {
+  0% { transform: scale(0.25); opacity: 0; }
+  8% { opacity: 0.85; }
+  70% { transform: scale(2.6); opacity: 0; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* —— E3 Coda 终端签名:$ keep_researching --forever ▌(纯装饰,aria-hidden)—— */
+.home-coda__term {
+  margin: 13px 0 0 !important;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  color: var(--vp-c-text-3) !important;
+}
+.home-coda__term .home-coda__flag { color: var(--vp-c-brand-1); opacity: 0.85; }
+.home-coda__caret {
+  display: inline-block;
+  width: 7px; height: 12px;
+  margin-left: 6px;
+  vertical-align: -1px;
+  background: #22d3ee;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-coda__caret { animation: bpBlink 1.2s steps(1, end) infinite; }
 }
 
 /* —— B2 右缘章节定位轨(≥1280px;真导航:滚动高亮 + 点击跳转)—— */
