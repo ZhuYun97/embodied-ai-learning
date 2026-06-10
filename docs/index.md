@@ -113,7 +113,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 
 世界-行动模型(WAM)按综述 taxonomy 分「级联」与「联合」两支,联合再分自回归 / 扩散;此外另有跨范式的**基座 / 平台 / 仿真器**(作通用底座与数据·评测引擎,而非单一动作范式)。点击进入对应细读(范式总览见 [WAM 调研](wam/)):
 
-<div class="route-grid">
+<div class="route-grid route-grid--wam">
   <div class="route-card">
     <span class="route-tag">级联 · 显式</span>
     <div class="route-card__title">先生成像素未来,再抽动作</div>

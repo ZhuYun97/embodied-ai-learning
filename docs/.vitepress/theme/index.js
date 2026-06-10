@@ -885,6 +885,37 @@ function setupCardTilt() {
   }
 }
 
+// =====================================================================
+// 路线卡「×N 入口计数」chip:从 DOM 数出每张卡的链接数,追加到链接区末尾。
+// 数字完全派生自页面已有链接 → 不引入第 5 个手工维护的「篇数」面,永不失同步。
+// SPA 重建 → MutationObserver 兜底重注(已注入的卡跳过)。
+// =====================================================================
+let routeCountBound = false
+function setupRouteCounts() {
+  if (routeCountBound || typeof document === 'undefined') return
+  routeCountBound = true
+  const inject = () => {
+    document.querySelectorAll('.VPHome .route-links').forEach((box) => {
+      if (box.querySelector('.route-count')) return
+      const n = box.querySelectorAll('a').length
+      if (!n) return
+      const s = document.createElement('span')
+      s.className = 'route-count'
+      s.textContent = '×' + n
+      s.title = `本卡 ${n} 个细读入口`
+      box.appendChild(s)
+    })
+  }
+  inject()
+  if ('MutationObserver' in window) {
+    let t
+    new MutationObserver(() => {
+      clearTimeout(t)
+      t = setTimeout(inject, 200)
+    }).observe(document.body, { childList: true, subtree: true })
+  }
+}
+
 let delightBound = false
 function celebrateRobot() {
   delightToast('🤖 你发现了彩蛋 — ⊕ keep researching')
@@ -945,5 +976,6 @@ export default {
     onMounted(setupFeatureHub)
     onMounted(setupReveal)
     onMounted(setupCardTilt)
+    onMounted(setupRouteCounts)
   },
 }

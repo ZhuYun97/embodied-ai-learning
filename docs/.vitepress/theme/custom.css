@@ -416,9 +416,10 @@ img.zoom-lightbox__content {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  /* 修复:限制链接区高度,链接多时可滚动,保证多卡片高度对齐 */
-  max-height: 200px;
+  /* 安全阀:链接极多时才滚动(常态下所有链接全部可见,不允许内滚动条吃掉内容) */
+  max-height: 280px;
   overflow-y: auto;
+  overscroll-behavior: contain;
   /* 美化滚动条(Firefox) */
   scrollbar-width: thin;
   scrollbar-color: var(--vp-c-divider) transparent;
@@ -442,9 +443,9 @@ img.zoom-lightbox__content {
 .route-links a {
   display: inline-flex;
   align-items: center;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  padding: 7px 12px;
+  padding: 6px 10px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 7px;
   color: var(--vp-c-text-1);
@@ -466,6 +467,21 @@ img.zoom-lightbox__content {
   border-color: var(--vp-c-brand-1);
   color: var(--vp-c-brand-1);
   background: var(--vp-c-brand-softer);
+}
+/* 键盘可达:链接 chip 焦点环(与 hover 同语言,外加 outline) */
+.route-links a:focus-visible,
+.home-coda__links a:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+}
+
+/* WAM 6 卡:加宽为 3×2 网格(卡宽 ~357 → 9 链卡 4 行排完,链接全可见、无内滚动;
+   亦消除 5+1 末行孤儿卡)。VLA 4 卡仍走默认 basis 200 / cap 264 一行排满。 */
+.route-grid--wam .route-card {
+  flex-basis: 304px;
+  max-width: 357px;
 }
 
 /* ---------- 「本系列」页脚导航(细读/专题页底部跨页入口) ---------- */
@@ -2152,7 +2168,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   display: inline-flex; align-items: center; gap: 10px;
   font-family: var(--vp-font-family-mono);
   font-size: 12px; letter-spacing: 0.06em;
-  color: var(--vp-c-text-3);
+  color: var(--vp-c-text-2);
   padding: 7px 14px; border-radius: 8px;
   border: 1px solid var(--vp-c-divider);
   background: var(--tech-card-bg);
@@ -2179,7 +2195,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   background-size: 220% auto;
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
-.dark .thero__title-zh { filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.55)); }
+/* 辉光收敛(2026-06-10):0.55→0.38、30→22px,标题更清晰、青蓝不过曝 */
+.dark .thero__title-zh { filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.38)); }
 @media (prefers-reduced-motion: no-preference) {
   .thero__title-zh { animation: bpTitleFlow 9s ease-in-out infinite; }
   .dark .thero__title-zh { animation: bpTitleFlow 9s ease-in-out infinite, heroTitlePulse 4s ease-in-out infinite; }
@@ -2204,10 +2221,18 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   position: relative; overflow: hidden;
   font-family: var(--vp-font-family-mono); font-size: 0.86rem; font-weight: 600; letter-spacing: 0.05em;
   padding: 12px 24px; text-decoration: none; color: var(--vp-c-text-1);
-  border: 1px solid rgba(125, 235, 255, 0.5);
+  /* 亮色:淡青描边在白底上几乎不可见 → 用品牌蓝 42% 保证按钮轮廓清晰;暗色仍走电光青(下方覆写) */
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 42%, transparent);
   background: rgba(56, 189, 248, 0.06);
   clip-path: polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px);
   transition: transform 0.16s ease, filter 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease;
+}
+.dark .thero__btn { border-color: rgba(125, 235, 255, 0.5); }
+/* 键盘可达:clip-path 会裁掉 outline → 焦点态复用 hover 的描边+辉光语言 */
+.thero__btn:focus-visible {
+  outline: none;
+  border-color: #9be8ff;
+  filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.55));
 }
 /* 内 HUD 框线(同切角内缩 → 双线面板感)*/
 .thero__btn::after {
@@ -2867,8 +2892,9 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     content: ''; position: absolute; left: 50%; top: 50%;
     width: 230px; height: 230px; margin: -115px 0 0 -115px;
     border-radius: 50%; pointer-events: none; z-index: 0;
-    background: radial-gradient(circle, rgba(125, 235, 255, 0.4) 0%, rgba(34, 211, 238, 0.2) 32%, rgba(37, 99, 235, 0.1) 54%, transparent 72%);
-    box-shadow: 0 0 70px rgba(34, 211, 238, 0.3), inset 0 0 50px rgba(56, 189, 248, 0.18);
+    /* 辉光收敛(2026-06-10):中央能量核降一档,不再压过卡片内容 */
+    background: radial-gradient(circle, rgba(125, 235, 255, 0.32) 0%, rgba(34, 211, 238, 0.16) 32%, rgba(37, 99, 235, 0.08) 54%, transparent 72%);
+    box-shadow: 0 0 54px rgba(34, 211, 238, 0.22), inset 0 0 50px rgba(56, 189, 248, 0.12);
     animation: featCore 5s ease-in-out infinite;
   }
   @keyframes featCore { 0%, 100% { opacity: 0.66; transform: scale(0.92); } 50% { opacity: 1; transform: scale(1.1); } }
@@ -3102,4 +3128,50 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
   .brain-pyramid .pyr-tier[data-tier=t0]::before,
   .brain-pyramid .pyr-tier[data-tier=t0]::after{ animation: pyrCorner 3.4s ease-in-out infinite; }
   @keyframes pyrCorner{ 0%,100%{ opacity: .55; } 50%{ opacity: 1; } }
+}
+
+/* ============================================================
+   首页精修(2026-06-10):路线卡 ×N 入口计数 · Feature 卡焦点环 · 小屏 stats 2×2
+   原则:不加新特效,只补信息密度与可达性;计数 chip 由 JS 从 DOM 数出(见 theme/index.js
+   setupRouteCounts),不引入第 5 个手工维护的「篇数」面。
+   ============================================================ */
+
+/* 路线卡链接区末尾的 ×N 计数 chip(虚线框 = 元数据,非链接;与链接 chip 同节奏) */
+.route-links .route-count {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 6px 9px;
+  border: 1px dashed color-mix(in srgb, var(--vp-c-text-3) 55%, transparent);
+  border-radius: 5px;
+  color: var(--vp-c-text-3);
+  user-select: none;
+  cursor: default;
+}
+.dark .route-links .route-count {
+  border-color: rgba(125, 211, 252, 0.28);
+  color: rgba(125, 211, 252, 0.6);
+}
+@media (pointer: coarse) {
+  .route-links .route-count { min-height: 0; padding: 6px 9px; }
+}
+
+/* Feature 整卡即链接:键盘焦点环(box-shadow 不受卡片圆角/玻璃影响) */
+.VPHome .VPFeature:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--vp-c-brand-1);
+}
+
+/* 小屏 hero 读出条:4 项一行太挤 → 2×2 网格,奇数列去左边框 */
+@media (max-width: 480px) {
+  .thero__readout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 0;
+  }
+  .thero__stat { padding: 0 14px; }
+  .thero__stat:nth-child(odd) { padding-left: 0; border-left: 0; }
 }
