@@ -9,6 +9,11 @@ import { data as paperData } from '../../data/papers.data.mjs'
 import { ROUTE_COLORS } from '../route-colors.mjs'
 
 const VLA_SET = new Set(['离散 token', '连续 · 扩散/流匹配', '混合 · 连续回归', '分层 · 双系统/推理', '新范式探索'])
+// track: 'all' = 双面板(/map/ 总览页);'vla' | 'wam' = 单面板(嵌入对应调研总报告)。
+// 单面板模式仍与总览共用同一时间刻度与数据源,口径不分叉。
+const props = defineProps({
+  track: { type: String, default: 'all' },
+})
 const targetSlug = ref('')
 
 const monthIdx = (ym) => {
@@ -107,7 +112,7 @@ const panels = computed(() => {
   return [
     mkPanel('vla', 'VLA 主线 · 按动作生成路线', routes.filter((r) => VLA_SET.has(r))),
     mkPanel('wam', 'WAM 主线 · 按范式(级联 / 联合 / 跨范式)', routes.filter((r) => !VLA_SET.has(r))),
-  ].filter((p) => p.lines.length)
+  ].filter((p) => p.lines.length && (props.track === 'all' || p.key === props.track))
 })
 
 onMounted(() => {

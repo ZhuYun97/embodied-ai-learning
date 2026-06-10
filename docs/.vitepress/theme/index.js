@@ -4,6 +4,7 @@ import { useRoute, useData, withBase } from 'vitepress'
 import { data as modelData } from '../data/models.data.mjs'
 import { data as paperData } from '../data/papers.data.mjs'
 import { ROUTE_COLORS } from './route-colors.mjs'
+import LineageMap from './components/LineageMap.vue'
 import './custom.css'
 
 // =====================================================================
@@ -1226,6 +1227,11 @@ export default {
       'doc-before': () => [h(DocReadBar), h(PaperDossier), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
     })
+  },
+  // 全局注册谱系图:SRC 同步的 markdown(VLA 报告 / WAM 总览)可直接写 <LineageMap track="vla|wam"/>,
+  // 无需在同步内容里维护相对 import 路径(extends 链上 DefaultTheme 的 enhanceApp 由 VitePress 自动先行调用)。
+  enhanceApp({ app }) {
+    app.component('LineageMap', LineageMap)
   },
   setup() {
     onMounted(setupLightbox)
