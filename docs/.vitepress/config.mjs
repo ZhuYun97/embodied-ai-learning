@@ -385,11 +385,6 @@ export default withMermaid(defineConfig({
         ],
       },
       {
-        text: '谱系图',
-        link: '/map/',
-        activeMatch: '^/map/',
-      },
-      {
         text: '新闻',
         link: '/news/',
         activeMatch: '^/news/',

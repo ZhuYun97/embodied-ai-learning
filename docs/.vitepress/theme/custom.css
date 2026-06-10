@@ -3705,8 +3705,5 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
   .nlog, .nlog__chev { transition: none; }
 }
 
-/* ============================================================
-   谱系图页(2026-06-10,B):无侧栏页放宽容器(与新闻页同方案)
-   ============================================================ */
-.VPDoc:has(.lineage-map) .container { max-width: 1240px !important; }
-.VPDoc:has(.lineage-map) .content { max-width: 100% !important; }
+/* (谱系图独立页 /map/ 已应用户反馈撤销——谱系图现以 <LineageMap track> 嵌于
+   VLA 总报告与 WAM 总览内;两页带侧栏,严禁再加 :has(.lineage-map) 放宽容器的规则,会破报告版面) */

@@ -51,7 +51,7 @@ features:
 
 ## VLA:按技术路线浏览
 
-VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文细读;也可在 [谱系图](map/) 上按时间轴一图总览两条主线:
+VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文细读;按时间轴的谱系图已嵌入 [VLA 调研总报告](vla/) 与 [WAM 总览](wam/):
 
 <div class="route-grid">
   <div class="route-card">
@@ -210,7 +210,6 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <nav class="home-coda__links" aria-label="更多入口">
     <a href="vla/papers/getting-started">新手入门</a>
-    <a href="map/">谱系图</a>
     <a href="ecosystem/">生态图谱</a>
     <a href="news/">最新新闻</a>
     <a href="vla/papers/benchmarks">基准速查</a>

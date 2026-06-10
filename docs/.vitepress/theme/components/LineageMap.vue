@@ -9,8 +9,8 @@ import { data as paperData } from '../../data/papers.data.mjs'
 import { ROUTE_COLORS } from '../route-colors.mjs'
 
 const VLA_SET = new Set(['离散 token', '连续 · 扩散/流匹配', '混合 · 连续回归', '分层 · 双系统/推理', '新范式探索'])
-// track: 'all' = 双面板(/map/ 总览页);'vla' | 'wam' = 单面板(嵌入对应调研总报告)。
-// 单面板模式仍与总览共用同一时间刻度与数据源,口径不分叉。
+// track: 'vla' | 'wam' = 单面板(嵌入对应调研总报告,当前唯一用法);'all' = 双面板(原独立页
+// /map/ 已应用户反馈撤销,保留此档以备复用)。各面板共用同一时间刻度与数据源,口径不分叉。
 const props = defineProps({
   track: { type: String, default: 'all' },
 })
@@ -126,6 +126,10 @@ onMounted(() => {
     const wrap = g.closest('.lm-scroll')
     const x = parseFloat(g.dataset.x || '0')
     if (wrap) wrap.scrollLeft = Math.max(0, x - wrap.clientWidth / 2)
+    // 面板嵌在报告长页中段:还需把页面垂直滚到面板处(reduced-motion 即时定位)
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const panel = g.closest('.lm-panel')
+    if (panel) panel.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
   })
 })
 </script>

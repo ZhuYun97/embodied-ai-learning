@@ -371,7 +371,7 @@ const PaperDossier = {
         p.arxivId
           ? h('a', { class: 'pd-link', href: `https://arxiv.org/abs/${p.arxivId}`, target: '_blank', rel: 'noopener' }, `arXiv:${p.arxivId} ↗`)
           : null,
-        h('a', { class: 'pd-map', href: withBase(`/map/#${p.slug}`), title: '在 VLA × WAM 谱系图中定位本篇' }, '谱系图 ⌖'),
+        h('a', { class: 'pd-map', href: withBase(`${p.track === 'VLA' ? '/vla/' : '/wam/'}#${p.slug}`), title: '在调研总报告内的谱系图中定位本篇' }, '谱系图 ⌖'),
         h('span', { class: 'pd-legend', role: 'note' }, [
           h('span', { class: 'pd-lg pd-lg--ok', title: '✅ 经核查:基准维护方 / 独立来源可核' }, '✅ 已核'),
           h('span', { class: 'pd-lg pd-lg--warn', title: '⚠️ 厂商 / 作者自评,非第三方复现' }, '⚠️ 自评'),
