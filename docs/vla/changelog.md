@@ -8,6 +8,12 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 ## 2026-06-10
 
+**UI 对标深研落地三件套:细节按需信息卡 + 表面抬升 token + 开机可跳过**
+- 🔭 **方法**:`deep-research` 工作流对标调研(5 路检索 → 24 源 → 119 候选断言 → 抽 25 做 3 票对抗核查:**24 通过 / 1 否决**,2026-06-10 实时复核主源),覆盖暗色科技感标杆指南 / 科幻 HUD·终端体系(Arwes/augmented-ui/Terminal CSS)/ 数据密集阅读(Distill/Observable)/ 地铁图实证(八线性、反径向炫技);**A 类 Linear/Stripe/Raycast 具体做法与 E 类 2025-26 趋势无断言通过核验,诚实记为缺口**;「读者偏好滚动叙事」被 0-3 否决不予引用。
+- 🛰️ **细节按需信息卡**(源:Shneiderman「details-on-demand」/ Distill):**谱系图**站点 hover / 键盘聚焦 → **元素锚定**信息卡(名称 / 年月 / 路线 / arXiv;锚定在站点坐标、不随光标——不越「指针跟随」红线;pointer-events:none 防闪烁;aria-label 给读屏同等信息;触屏点按直接进细读不丢信息);**生态关系图**新增右下角「TARGET READOUT」**固定读出坞**——悬停节点读出主体档案(类型 / 成立 / 融资 / 简介,字段缺失即不渲染不编造);图谱有平移缩放,固定坞比跟随气泡稳,也更贴雷达控制台语言。
+- 🪟 **表面抬升 + 去强调 token**(源:Observable Framework themes「alt 背景交换让卡片浮起,仪表盘推荐做法」+ 9-token 体系):新增 `--surface-panel / --surface-raised / --edge-faintest` 三枚 token 并写明与 VitePress 文字/边线/底色三档变量的映射;应用于右侧「本页目录」(裸 border-left 清单 → 浮起圆角面板 + 青色发光定位标)与细读页表格(整表面板浮起 + 表头再亮一档,描边辉光退为辅助)。
+- ⏯️ **开机序列可跳过**(源:Vercel Web Interface Guidelines「Animations are cancelable by user input」):首页打字机 / 计数读出 / 机器人物化 / 逐字点亮,任意点击或按键即**瞬间定格终态**(JS finisher 注册制 + `html.boot-done` 定格 CSS 一次性动画;常驻氛围动效照常),自然播完 2.6s 后自动收尾清监听;reduced-motion 路径不受影响。
+
 **修复:顶栏 logo 被染成青色块(scoped 暗色规则泄漏二次复发,已根治)**
 - 🐛 **现象**(用户截图报告):暗色顶栏 logo 变青色实心块、机器人几乎不可见。**根因**:logo `<img class="VPImage dark">` 自带 `dark` class,被新闻组件 scoped 样式里 `:global(.dark) X` 经生产构建误压成的**裸 `.dark{...}`** 规则命中——`.cal-dot`(日历圆点)的青底 #22d3ee + 辉光整套落到了 logo 上;同批 52 条泄漏规则的 text-shadow / color 还会从 `<html class="dark">` 向全站文字继承。此为 6 月初「暗色全站不可点击」同源坑的**二次复发**(日历等后加规则当时未迁)。
 - 🔧 **根治**:NewsIndex.vue 内 **51 条 `:global(.dark)` 规则 + ncScan 关键帧全部迁入全局 custom.css**(`html.dark` 前缀确保盖过组件 scoped 基础规则),组件内清零并留禁用注释;新闻页暗色观感(徽章辉光/卡片玻璃/日历/LIVE 点)逐项保留。**新增构建审计法**:产物 `style.*.css` 中「裸 `.dark{}` 且含非变量属性」必须为 0(本次实测 0,51 条迁移规则在位)。
