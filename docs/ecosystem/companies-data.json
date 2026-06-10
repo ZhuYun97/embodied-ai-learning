@@ -9,9 +9,16 @@
       "stage": "growth",
       "funding": "$400M Series B",
       "fundingAmount": 400000000,
-      "products": ["π0", "π0.7"],
+      "products": [
+        "π0",
+        "π0.7"
+      ],
       "description": "专注 VLA 系列基础模型，面向灵巧操作",
-      "tags": ["VLA", "操作", "基础模型"],
+      "tags": [
+        "VLA",
+        "操作",
+        "基础模型"
+      ],
       "website": "https://physicalintelligence.company",
       "country": "US"
     },
@@ -24,9 +31,16 @@
       "funding": "$675M Series B",
       "fundingAmount": 675000000,
       "valuation": 2600000000,
-      "products": ["Figure 03", "Helix-02"],
+      "products": [
+        "Figure 03",
+        "Helix-02"
+      ],
       "description": "商业人形机器人，Helix-02 为端到端神经网络控制",
-      "tags": ["人形", "端到端", "商业化"],
+      "tags": [
+        "人形",
+        "端到端",
+        "商业化"
+      ],
       "website": "https://figure.ai",
       "country": "US"
     },
@@ -37,9 +51,16 @@
       "region": "international",
       "stage": "mature",
       "funding": "Acquired by Hyundai",
-      "products": ["Atlas", "Spot"],
+      "products": [
+        "Atlas",
+        "Spot"
+      ],
       "description": "全电驱 Atlas 人形机器人，四足 Spot 商业落地",
-      "tags": ["人形", "四足", "运动控制"],
+      "tags": [
+        "人形",
+        "四足",
+        "运动控制"
+      ],
       "website": "https://bostondynamics.com",
       "country": "US"
     },
@@ -51,9 +72,15 @@
       "stage": "growth",
       "funding": "$150M Series B",
       "fundingAmount": 150000000,
-      "products": ["Digit"],
+      "products": [
+        "Digit"
+      ],
       "description": "双足仓储机器人，已在亚马逊部署",
-      "tags": ["双足", "物流", "商业落地"],
+      "tags": [
+        "双足",
+        "物流",
+        "商业落地"
+      ],
       "website": "https://agilityrobotics.com",
       "country": "US"
     },
@@ -65,9 +92,15 @@
       "stage": "growth",
       "funding": "$125M Series B",
       "fundingAmount": 125000000,
-      "products": ["Neo"],
+      "products": [
+        "Neo"
+      ],
       "description": "轮式+双足人形，专注家庭场景",
-      "tags": ["人形", "家庭服务", "轮式"],
+      "tags": [
+        "人形",
+        "家庭服务",
+        "轮式"
+      ],
       "website": "https://1x.tech",
       "country": "Norway"
     },
@@ -79,9 +112,15 @@
       "stage": "growth",
       "funding": "$100M+ Series A",
       "fundingAmount": 100000000,
-      "products": ["Apollo"],
+      "products": [
+        "Apollo"
+      ],
       "description": "工业人形机器人，与 NASA 合作背景",
-      "tags": ["人形", "工业", "NASA"],
+      "tags": [
+        "人形",
+        "工业",
+        "NASA"
+      ],
       "website": "https://apptronik.com",
       "country": "US"
     },
@@ -93,9 +132,16 @@
       "stage": "growth",
       "funding": "$140M Series B",
       "fundingAmount": 140000000,
-      "products": ["Phoenix", "Carbon AI"],
+      "products": [
+        "Phoenix",
+        "Carbon AI"
+      ],
       "description": "人形机器人 + Carbon AI 控制系统",
-      "tags": ["人形", "AI控制", "商业化"],
+      "tags": [
+        "人形",
+        "AI控制",
+        "商业化"
+      ],
       "website": "https://sanctuary.ai",
       "country": "Canada"
     },
@@ -107,9 +153,15 @@
       "stage": "growth",
       "funding": "$300M Series A",
       "fundingAmount": 300000000,
-      "products": ["General Robot Brain"],
+      "products": [
+        "General Robot Brain"
+      ],
       "description": "通用机器人大脑，跨形态迁移",
-      "tags": ["VLA", "通用智能", "迁移学习"],
+      "tags": [
+        "VLA",
+        "通用智能",
+        "迁移学习"
+      ],
       "website": "https://skild.ai",
       "country": "US"
     },
@@ -119,9 +171,14 @@
       "founded": 2024,
       "region": "international",
       "stage": "early",
-      "products": ["HMND 01"],
+      "products": [
+        "HMND 01"
+      ],
       "description": "面向工业场景的人形机器人",
-      "tags": ["人形", "工业"],
+      "tags": [
+        "人形",
+        "工业"
+      ],
       "website": "https://humanoid.com",
       "country": "UK"
     },
@@ -131,9 +188,15 @@
       "founded": 2024,
       "region": "international",
       "stage": "early",
-      "products": ["人体动作数据平台"],
+      "products": [
+        "人体动作数据平台"
+      ],
       "description": "采集高质量人体运动数据用于机器人训练",
-      "tags": ["数据", "动作捕捉", "训练"],
+      "tags": [
+        "数据",
+        "动作捕捉",
+        "训练"
+      ],
       "website": "https://mecka.ai",
       "country": "US"
     },
@@ -142,9 +205,15 @@
       "name": "Tesla",
       "region": "international",
       "stage": "public",
-      "products": ["Optimus"],
+      "products": [
+        "Optimus"
+      ],
       "description": "量产人形机器人，自研 FSD 芯片 + 端到端 AI",
-      "tags": ["人形", "端到端", "量产"],
+      "tags": [
+        "人形",
+        "端到端",
+        "量产"
+      ],
       "website": "https://tesla.com",
       "country": "US"
     },
@@ -153,9 +222,15 @@
       "name": "NVIDIA",
       "region": "international",
       "stage": "public",
-      "products": ["Isaac GR00T"],
+      "products": [
+        "Isaac GR00T"
+      ],
       "description": "机器人开发平台，GR00T 基础模型 + 仿真工具链",
-      "tags": ["平台", "仿真", "基础模型"],
+      "tags": [
+        "平台",
+        "仿真",
+        "基础模型"
+      ],
       "website": "https://nvidia.com",
       "country": "US"
     },
@@ -167,9 +242,15 @@
       "region": "china",
       "stage": "public",
       "funding": "港股上市",
-      "products": ["Walker 系列"],
+      "products": [
+        "Walker 系列"
+      ],
       "description": "最早商业化人形机器人之一",
-      "tags": ["人形", "商业化", "上市"],
+      "tags": [
+        "人形",
+        "商业化",
+        "上市"
+      ],
       "website": "https://ubtrobot.com",
       "country": "CN"
     },
@@ -183,9 +264,17 @@
       "funding": "IPO 过会 (2026/06)",
       "fundingAmount": 6200000000,
       "valuation": 6200000000,
-      "products": ["H2", "G1", "四足系列"],
+      "products": [
+        "H2",
+        "G1",
+        "四足系列"
+      ],
       "description": "国内出货量最大的四足+人形厂商，科创板 IPO 过会(拟募 42 亿元),有望成 A 股人形第一股",
-      "tags": ["人形", "四足", "高出货量"],
+      "tags": [
+        "人形",
+        "四足",
+        "高出货量"
+      ],
       "website": "https://unitree.com",
       "country": "CN"
     },
@@ -197,9 +286,15 @@
       "region": "china",
       "stage": "public",
       "funding": "纳斯达克上市",
-      "products": ["云端大脑机器人"],
+      "products": [
+        "云端大脑机器人"
+      ],
       "description": "云端智能 + 5G 控制机器人体系",
-      "tags": ["云端", "5G", "上市"],
+      "tags": [
+        "云端",
+        "5G",
+        "上市"
+      ],
       "website": "https://cloudminds.com",
       "country": "CN"
     },
@@ -213,9 +308,17 @@
       "funding": "$200M Series B",
       "fundingAmount": 200000000,
       "valuation": 1500000000,
-      "products": ["L7 人形", "Q5 轮足", "XHAND1"],
+      "products": [
+        "L7 人形",
+        "Q5 轮足",
+        "XHAND1"
+      ],
       "description": "顺丰/IDG 领投，物流场景千台级部署",
-      "tags": ["人形", "物流", "灵巧手"],
+      "tags": [
+        "人形",
+        "物流",
+        "灵巧手"
+      ],
       "website": "https://www.robotera.com",
       "country": "CN"
     },
@@ -227,9 +330,14 @@
       "region": "china",
       "stage": "unicorn",
       "valuation": 6000000000,
-      "products": ["灵巧手"],
+      "products": [
+        "灵巧手"
+      ],
       "description": "专注机器人灵巧手，估值行业领先",
-      "tags": ["灵巧手", "零部件"],
+      "tags": [
+        "灵巧手",
+        "零部件"
+      ],
       "website": "https://www.linkerbot.cn",
       "country": "CN"
     },
@@ -242,9 +350,16 @@
       "stage": "growth",
       "funding": "10亿元+ A轮",
       "fundingAmount": 140000000,
-      "products": ["A2", "AgiBotWorld"],
-      "description": "人形机器人 + 开源数据集，2025 年市占率 31%",
-      "tags": ["人形", "开源", "市场领先"],
+      "products": [
+        "A2",
+        "AgiBotWorld"
+      ],
+      "description": "人形机器人 + 开源数据集,2025 年市占率 31%;元苼计划 5 年 20+亿生态投入(2026-06 官方)",
+      "tags": [
+        "人形",
+        "开源",
+        "市场领先"
+      ],
       "website": "https://agibot.com",
       "country": "CN"
     },
@@ -257,9 +372,16 @@
       "stage": "growth",
       "funding": "数亿元 B+ 轮",
       "fundingAmount": 50000000,
-      "products": ["GR-1", "GR-2"],
+      "products": [
+        "GR-1",
+        "GR-2"
+      ],
       "description": "医疗康复起家，转型通用人形",
-      "tags": ["人形", "医疗", "康复"],
+      "tags": [
+        "人形",
+        "医疗",
+        "康复"
+      ],
       "website": "https://fftai.com",
       "country": "CN"
     },
@@ -272,9 +394,16 @@
       "stage": "growth",
       "funding": "近亿美元 A 轮",
       "fundingAmount": 90000000,
-      "products": ["双足", "人形系列"],
+      "products": [
+        "双足",
+        "人形系列"
+      ],
       "description": "全身控制与步态规划，仿人运动能力突出",
-      "tags": ["人形", "运动控制", "双足"],
+      "tags": [
+        "人形",
+        "运动控制",
+        "双足"
+      ],
       "website": "https://limxdynamics.com",
       "country": "CN"
     },
@@ -287,9 +416,15 @@
       "stage": "growth",
       "funding": "$100M 天使轮",
       "fundingAmount": 100000000,
-      "products": ["人形机器人"],
+      "products": [
+        "人形机器人"
+      ],
       "description": "清华交叉信息研究院孵化，字节/美团投资",
-      "tags": ["人形", "清华", "高融资"],
+      "tags": [
+        "人形",
+        "清华",
+        "高融资"
+      ],
       "website": "https://www.x-humanoid.com",
       "country": "CN"
     },
@@ -302,9 +437,15 @@
       "stage": "growth",
       "funding": "数亿元 A 轮",
       "fundingAmount": 40000000,
-      "products": ["Galbot G1"],
+      "products": [
+        "Galbot G1"
+      ],
       "description": "轮式人形，聚焦工业+商业场景",
-      "tags": ["人形", "轮式", "工业"],
+      "tags": [
+        "人形",
+        "轮式",
+        "工业"
+      ],
       "website": "https://galbot.cn",
       "country": "CN"
     },
@@ -317,10 +458,17 @@
       "stage": "growth",
       "funding": "$73M Pre-A",
       "fundingAmount": 73000000,
-      "products": ["伴随机器人", "全尺寸人形"],
+      "products": [
+        "伴随机器人",
+        "全尺寸人形"
+      ],
       "description": "国内首个消费级具身智能;余轶南(原地平线)创办",
       "website": "https://vbot.cn",
-      "tags": ["人形", "消费级", "具身AI"],
+      "tags": [
+        "人形",
+        "消费级",
+        "具身AI"
+      ],
       "country": "CN"
     },
     {
@@ -332,10 +480,16 @@
       "stage": "growth",
       "funding": "$70M (3轮)",
       "fundingAmount": 70000000,
-      "products": ["Z-Bot 室内机器人", "W-Bot 室外机器人"],
+      "products": [
+        "Z-Bot 室内机器人",
+        "W-Bot 室外机器人"
+      ],
       "description": "苏州乐享智能;郭人杰(ex-追觅)创办",
       "website": "https://joyinai.com",
-      "tags": ["陪伴", "家庭服务"],
+      "tags": [
+        "陪伴",
+        "家庭服务"
+      ],
       "country": "CN"
     },
     {
@@ -347,9 +501,15 @@
       "stage": "early",
       "funding": "数千万元天使轮",
       "fundingAmount": 5000000,
-      "products": ["Wall-OSS VLA 系列"],
+      "products": [
+        "Wall-OSS VLA 系列"
+      ],
       "description": "专注 VLA 模型与开源具身平台",
-      "tags": ["VLA", "开源", "平台"],
+      "tags": [
+        "VLA",
+        "开源",
+        "平台"
+      ],
       "website": "https://x2robot.com",
       "country": "CN"
     },
@@ -362,10 +522,17 @@
       "stage": "early",
       "funding": "数千万元 Pre-A",
       "fundingAmount": 5000000,
-      "products": ["四足", "人形量产"],
+      "products": [
+        "四足",
+        "人形量产"
+      ],
       "description": "四足/人形机器人量产(钢镚/铜锤/破风者);GENISOM AI",
       "website": "https://zsibot.com",
-      "tags": ["四足", "人形", "量产"],
+      "tags": [
+        "四足",
+        "人形",
+        "量产"
+      ],
       "country": "CN"
     },
     {
@@ -378,9 +545,16 @@
       "funding": "近50亿元 (2026·4轮)",
       "fundingAmount": 700000000,
       "valuation": 1400000000,
-      "products": ["Spirit v1.5", "Spirit v1.6"],
-      "description": "通用具身大模型，2026 年 3 个月四轮融资近 50 亿元、估值破百亿，RoboChallenge 基准领先",
-      "tags": ["具身模型", "基准", "通用"],
+      "products": [
+        "Spirit v1.5",
+        "Spirit v1.6"
+      ],
+      "description": "通用具身大模型，2026 年 3 个月四轮融资近 50 亿元、估值破百亿，RoboChallenge 基准前列(曾登顶,榜面随提交变动)",
+      "tags": [
+        "具身模型",
+        "基准",
+        "通用"
+      ],
       "website": "https://www.spirit-ai.com",
       "country": "CN"
     },
@@ -393,9 +567,15 @@
       "stage": "early",
       "funding": "数千万元 A 轮",
       "fundingAmount": 5000000,
-      "products": ["Kuavo 系列"],
+      "products": [
+        "Kuavo 系列"
+      ],
       "description": "双足人形，运动控制见长",
-      "tags": ["人形", "运动控制", "双足"],
+      "tags": [
+        "人形",
+        "运动控制",
+        "双足"
+      ],
       "website": "https://lejurobot.com",
       "country": "CN"
     },
@@ -406,9 +586,15 @@
       "founded": 2010,
       "region": "china",
       "stage": "vertical",
-      "products": ["送餐机器人"],
+      "products": [
+        "送餐机器人"
+      ],
       "description": "餐饮服务机器人",
-      "tags": ["餐饮", "服务", "商业化"],
+      "tags": [
+        "餐饮",
+        "服务",
+        "商业化"
+      ],
       "website": "https://keenon.com",
       "country": "CN"
     },
@@ -419,9 +605,15 @@
       "founded": 2016,
       "region": "china",
       "stage": "vertical",
-      "products": ["豹小秘系列"],
+      "products": [
+        "豹小秘系列"
+      ],
       "description": "商场导览/咖啡机器人",
-      "tags": ["导览", "服务", "商场"],
+      "tags": [
+        "导览",
+        "服务",
+        "商场"
+      ],
       "website": "https://orionstar.com",
       "country": "CN"
     },
@@ -432,9 +624,14 @@
       "founded": 2013,
       "region": "china",
       "stage": "vertical",
-      "products": ["清洁机器人"],
+      "products": [
+        "清洁机器人"
+      ],
       "description": "商用清洁机器人",
-      "tags": ["清洁", "商用"],
+      "tags": [
+        "清洁",
+        "商用"
+      ],
       "website": "https://gaussianrobotics.com",
       "country": "CN"
     },
@@ -445,9 +642,14 @@
       "founded": 2012,
       "region": "china",
       "stage": "vertical",
-      "products": ["配送机器人"],
+      "products": [
+        "配送机器人"
+      ],
       "description": "末端配送机器人",
-      "tags": ["配送", "物流"],
+      "tags": [
+        "配送",
+        "物流"
+      ],
       "website": "https://ninebot.com",
       "country": "CN"
     },
@@ -460,9 +662,15 @@
       "funding": "$230M",
       "fundingAmount": 230000000,
       "valuation": 1000000000,
-      "products": ["大世界模型", "空间智能"],
+      "products": [
+        "大世界模型",
+        "空间智能"
+      ],
       "description": "李飞飞创办，聚焦空间智能 / 大世界模型，2024 年估值破 10 亿美元",
-      "tags": ["世界模型", "空间智能"],
+      "tags": [
+        "世界模型",
+        "空间智能"
+      ],
       "website": "https://www.worldlabs.ai",
       "country": "US"
     },
@@ -474,9 +682,16 @@
       "stage": "growth",
       "funding": "$222M",
       "fundingAmount": 222000000,
-      "products": ["RFM-1", "Covariant Brain"],
+      "products": [
+        "RFM-1",
+        "Covariant Brain"
+      ],
       "description": "仓储机械臂操作 AI；2024/08 核心团队被亚马逊收购式招聘 + 技术授权",
-      "tags": ["操作", "仓储", "基础模型"],
+      "tags": [
+        "操作",
+        "仓储",
+        "基础模型"
+      ],
       "website": "https://covariant.ai",
       "country": "US"
     },
@@ -490,9 +705,15 @@
       "funding": "B 轮超 1 亿美元·独角兽",
       "fundingAmount": 100000000,
       "valuation": 1000000000,
-      "products": ["自适应机器人", "力控"],
+      "products": [
+        "自适应机器人",
+        "力控"
+      ],
       "description": "斯坦福团队;工业级力控 + 视觉 + AI 自适应机器人",
-      "tags": ["操作", "工业"],
+      "tags": [
+        "操作",
+        "工业"
+      ],
       "website": "https://www.flexiv.cn",
       "country": "CN"
     },
@@ -506,9 +727,16 @@
       "funding": "B 轮 10 亿元·估值百亿",
       "fundingAmount": 140000000,
       "valuation": 1400000000,
-      "products": ["R1 轮式人形", "VLA 一体机", "DEXO 灵巧手"],
+      "products": [
+        "R1 轮式人形",
+        "VLA 一体机",
+        "DEXO 灵巧手"
+      ],
       "description": "具身基础模型 + 全栈;R1 全尺寸轮式人形",
-      "tags": ["人形", "VLA"],
+      "tags": [
+        "人形",
+        "VLA"
+      ],
       "website": "https://galaxea-ai.com",
       "country": "CN"
     },
@@ -521,9 +749,13 @@
       "stage": "early",
       "funding": "$120M 天使轮·国内具身天使纪录",
       "fundingAmount": 120000000,
-      "products": ["具身基础模型"],
+      "products": [
+        "具身基础模型"
+      ],
       "description": "陈亦伦(原华为车 BU CTO)创办;超级具身 AI",
-      "tags": ["VLA"],
+      "tags": [
+        "VLA"
+      ],
       "country": "CN"
     },
     {
@@ -535,9 +767,14 @@
       "stage": "growth",
       "funding": "数亿元 Pre-A+(红杉/P7)",
       "fundingAmount": 50000000,
-      "products": ["具身操作大模型"],
+      "products": [
+        "具身操作大模型"
+      ],
       "description": "卢策吾(上海交大)联合创办;面向真实世界的操作",
-      "tags": ["操作", "VLA"],
+      "tags": [
+        "操作",
+        "VLA"
+      ],
       "website": "https://www.noematrix.ai",
       "country": "CN"
     },
@@ -551,9 +788,15 @@
       "funding": "B 轮 10 亿元·估值超百亿",
       "fundingAmount": 140000000,
       "valuation": 1400000000,
-      "products": ["AlphaBot 爱宝", "GOVLA"],
+      "products": [
+        "AlphaBot 爱宝",
+        "GOVLA"
+      ],
       "description": "郭彦东创办;GOVLA 具身大模型 + AlphaBot 系列",
-      "tags": ["人形", "VLA"],
+      "tags": [
+        "人形",
+        "VLA"
+      ],
       "website": "https://ai2robotics.com",
       "country": "CN"
     },
@@ -566,9 +809,16 @@
       "stage": "growth",
       "funding": "$140M Pre-A++/A1(京东/小鹏星航)",
       "fundingAmount": 140000000,
-      "products": ["SE01 人形", "PM01", "SA01"],
+      "products": [
+        "SE01 人形",
+        "PM01",
+        "SA01"
+      ],
       "description": "拟人自然步态人形;前空翻演示",
-      "tags": ["人形", "运动控制"],
+      "tags": [
+        "人形",
+        "运动控制"
+      ],
       "website": "https://www.engineai.com.cn",
       "country": "CN"
     },
@@ -581,9 +831,14 @@
       "stage": "growth",
       "funding": "A 系列近 5 亿元(深创投/IDG)",
       "fundingAmount": 70000000,
-      "products": ["Booster T1 人形"],
+      "products": [
+        "Booster T1 人形"
+      ],
       "description": "清华机器人控制实验室 / 火神队;RoboCup",
-      "tags": ["人形", "运动控制"],
+      "tags": [
+        "人形",
+        "运动控制"
+      ],
       "website": "https://www.booster.tech",
       "country": "CN"
     },
@@ -596,9 +851,16 @@
       "stage": "growth",
       "funding": "C 轮超 5 亿元(招银国际/华夏)",
       "fundingAmount": 70000000,
-      "products": ["绝影 X30 四足", "人形"],
+      "products": [
+        "绝影 X30 四足",
+        "人形"
+      ],
       "description": "朱秋国(浙大)创办;工业巡检四足 + 人形;杭州六小龙",
-      "tags": ["四足", "人形", "工业"],
+      "tags": [
+        "四足",
+        "人形",
+        "工业"
+      ],
       "website": "https://www.deeprobotics.cn",
       "country": "CN"
     },
@@ -612,9 +874,15 @@
       "funding": "C 轮 $220M·独角兽(软银/小米)",
       "fundingAmount": 220000000,
       "valuation": 1000000000,
-      "products": ["力控机械臂", "精密装配"],
+      "products": [
+        "力控机械臂",
+        "精密装配"
+      ],
       "description": "DLR / 哈工大背景;慕尼黑 + 北京双总部;力控 + AI",
-      "tags": ["操作", "工业"],
+      "tags": [
+        "操作",
+        "工业"
+      ],
       "website": "https://www.agile-robots.cn",
       "country": "CN"
     },
@@ -626,9 +894,16 @@
       "region": "china",
       "stage": "public",
       "funding": "港股上市(2432.HK)",
-      "products": ["协作机器人", "Dobot Atom 人形"],
+      "products": [
+        "协作机器人",
+        "Dobot Atom 人形"
+      ],
       "description": "刘培超创办;桌面协作机器人全球出货超 10 万台;Atom 人形",
-      "tags": ["操作", "人形", "商业化"],
+      "tags": [
+        "操作",
+        "人形",
+        "商业化"
+      ],
       "website": "https://www.dobot.cn",
       "country": "CN"
     },
@@ -641,9 +916,14 @@
       "stage": "growth",
       "funding": "Pre-A(高瓴/蓝驰/智元领投)",
       "fundingAmount": 50000000,
-      "products": ["Psi R1 分层 VLA"],
+      "products": [
+        "Psi R1 分层 VLA"
+      ],
       "description": "杨耀东(北大)任首席科学家;端到端分层 VLA + 灵巧操作",
-      "tags": ["VLA", "操作"],
+      "tags": [
+        "VLA",
+        "操作"
+      ],
       "website": "https://www.psibot.ai",
       "country": "CN"
     },
@@ -656,9 +936,16 @@
       "stage": "growth",
       "funding": "近 10 亿元 B 轮(晨道资本)",
       "fundingAmount": 140000000,
-      "products": ["N2 运动健将", "Bumi", "E1"],
+      "products": [
+        "N2 运动健将",
+        "Bumi",
+        "E1"
+      ],
       "description": "姜哲源(清华辍学)创办;人形;亦庄半马亚军",
-      "tags": ["人形", "运动控制"],
+      "tags": [
+        "人形",
+        "运动控制"
+      ],
       "website": "https://noetixrobotics.com",
       "country": "CN"
     },
@@ -671,9 +958,13 @@
       "funding": "$405M·估值 $2B",
       "fundingAmount": 405000000,
       "valuation": 2000000000,
-      "products": ["Field Foundation Models"],
+      "products": [
+        "Field Foundation Models"
+      ],
       "description": "physics-first 机器人基础模型;野外 / 通用自主",
-      "tags": ["VLA"],
+      "tags": [
+        "VLA"
+      ],
       "website": "https://www.fieldai.com",
       "country": "US"
     },
@@ -686,9 +977,14 @@
       "funding": "$95M·估值 $1.65B",
       "fundingAmount": 95000000,
       "valuation": 1650000000,
-      "products": ["DexR 双臂装卸"],
+      "products": [
+        "DexR 双臂装卸"
+      ],
       "description": "仓储 / 装卸操作 AI;视觉 + 力控 + 运动规划",
-      "tags": ["操作", "物流"],
+      "tags": [
+        "操作",
+        "物流"
+      ],
       "website": "https://www.dexterity.ai",
       "country": "US"
     },
@@ -701,9 +997,14 @@
       "stage": "growth",
       "funding": "B 轮 $100M(General Catalyst / Sequoia)",
       "fundingAmount": 100000000,
-      "products": ["移动操作机器人"],
+      "products": [
+        "移动操作机器人"
+      ],
       "description": "Brad Porter(原 Amazon Robotics VP)创办",
-      "tags": ["操作", "物流"],
+      "tags": [
+        "操作",
+        "物流"
+      ],
       "country": "US"
     },
     {
@@ -714,9 +1015,16 @@
       "region": "china",
       "stage": "growth",
       "funding": "数亿元 A2轮",
-      "products": ["Sim2Real-VLA", "EmbodiChain 平台"],
+      "products": [
+        "Sim2Real-VLA",
+        "EmbodiChain 平台"
+      ],
       "description": "100% 合成数据零样本 VLA;贾奎(CUHK-SZ 教授)创办",
-      "tags": ["VLA", "Sim2Real", "操作"],
+      "tags": [
+        "VLA",
+        "Sim2Real",
+        "操作"
+      ],
       "website": "https://dexforce.com",
       "country": "CN"
     },
@@ -729,9 +1037,16 @@
       "stage": "growth",
       "funding": "A+轮·累计近12亿元(阿里领投)",
       "fundingAmount": 1200000000,
-      "products": ["DM0 具身原生大模型", "Dexbotic 框架"],
+      "products": [
+        "DM0 具身原生大模型",
+        "Dexbotic 框架"
+      ],
       "description": "具身原生大模型(开源);唐文斌(清华姚班/旷视)团队;北京运营",
-      "tags": ["VLA", "开源", "具身原生"],
+      "tags": [
+        "VLA",
+        "开源",
+        "具身原生"
+      ],
       "website": "https://dexmal.com",
       "country": "CN"
     },
@@ -744,9 +1059,15 @@
       "stage": "early",
       "funding": "超1亿元天使轮",
       "fundingAmount": 100000000,
-      "products": ["LPLM 大物理语言模型", "Master2000"],
+      "products": [
+        "LPLM 大物理语言模型",
+        "Master2000"
+      ],
       "description": "通用具身大脑 LPLM;陈俊波(ex-阿里达摩院)创办",
-      "tags": ["具身大脑", "通用操作"],
+      "tags": [
+        "具身大脑",
+        "通用操作"
+      ],
       "website": "https://udeer.ai",
       "country": "CN"
     },
@@ -758,9 +1079,16 @@
       "region": "china",
       "stage": "early",
       "funding": "天使++轮·累计数亿元",
-      "products": ["Daimon One 视触觉 VTLA", "DM-Tac 触觉传感器"],
+      "products": [
+        "Daimon One 视触觉 VTLA",
+        "DM-Tac 触觉传感器"
+      ],
       "description": "视-触-语-动 VTLA + 视触觉传感;王煜(港科大)孵化",
-      "tags": ["VTLA", "触觉", "操作"],
+      "tags": [
+        "VTLA",
+        "触觉",
+        "操作"
+      ],
       "website": "https://dmrobot.com",
       "country": "CN"
     },
@@ -772,9 +1100,15 @@
       "stage": "growth",
       "funding": "$400M Series A",
       "fundingAmount": 400000000,
-      "products": ["GEN-0", "GEN-1"],
+      "products": [
+        "GEN-0",
+        "GEN-1"
+      ],
       "description": "通用机器人基础模型;RT-2/PaLM-E 作者 + 前 Boston Dynamics 团队",
-      "tags": ["基础模型", "通用操作"],
+      "tags": [
+        "基础模型",
+        "通用操作"
+      ],
       "website": "https://generalistai.com",
       "country": "US"
     },
@@ -786,9 +1120,15 @@
       "stage": "early",
       "funding": "$105M Seed",
       "fundingAmount": 105000000,
-      "products": ["GENE-26.5", "Genesis 物理引擎(开源)"],
+      "products": [
+        "GENE-26.5",
+        "Genesis 物理引擎(开源)"
+      ],
       "description": "通用机器人基础模型 + 仿真;San Carlos / 巴黎双总部;周贤(CMU)创办",
-      "tags": ["基础模型", "仿真"],
+      "tags": [
+        "基础模型",
+        "仿真"
+      ],
       "website": "https://www.genesis.ai",
       "country": "US"
     },
@@ -800,156 +1140,902 @@
       "stage": "growth",
       "funding": "$143.5M 累计",
       "fundingAmount": 143500000,
-      "products": ["DYNA-1"],
+      "products": [
+        "DYNA-1"
+      ],
       "description": "机器人基础模型 DYNA-1;Caper AI 创始团队 + Jason Ma(ex-DeepMind)",
-      "tags": ["基础模型", "操作"],
+      "tags": [
+        "基础模型",
+        "操作"
+      ],
       "website": "https://www.dyna.co",
       "country": "US"
+    },
+    {
+      "id": "gigaai",
+      "name": "极佳视界 GigaAI",
+      "nameEn": "GigaAI",
+      "founded": 2023,
+      "region": "china",
+      "stage": "unicorn",
+      "funding": "累计6轮·B1近15亿元 (2026.04)",
+      "fundingAmount": 400000000,
+      "valuation": 1400000000,
+      "products": [
+        "GigaWorld",
+        "GigaBrain-0.5",
+        "GigaWorld-Policy"
+      ],
+      "description": "世界模型驱动具身智能(清华系,黄冠/朱政):GigaWorld 既当数据引擎又当 RL 引擎训 GigaBrain 基座;基座权重开源,GigaBrain-0.1 列 RoboChallenge Table30 第 3(2026-06 实查)",
+      "tags": [
+        "世界模型",
+        "VLA",
+        "数据引擎"
+      ],
+      "website": "https://gigaai.cc",
+      "country": "CN"
     }
   ],
   "tags": [
-    { "id": "VLA", "label": "VLA 模型", "category": "技术路线" },
-    { "id": "人形", "label": "人形机器人", "category": "形态" },
-    { "id": "四足", "label": "四足机器人", "category": "形态" },
-    { "id": "双足", "label": "双足机器人", "category": "形态" },
-    { "id": "操作", "label": "灵巧操作", "category": "能力" },
-    { "id": "运动控制", "label": "运动控制", "category": "能力" },
-    { "id": "端到端", "label": "端到端", "category": "技术路线" },
-    { "id": "商业化", "label": "商业化落地", "category": "阶段" },
-    { "id": "开源", "label": "开源", "category": "特征" },
-    { "id": "物流", "label": "物流场景", "category": "应用" },
-    { "id": "工业", "label": "工业场景", "category": "应用" },
-    { "id": "家庭服务", "label": "家庭服务", "category": "应用" },
-    { "id": "医疗", "label": "医疗康复", "category": "应用" }
+    {
+      "id": "VLA",
+      "label": "VLA 模型",
+      "category": "技术路线"
+    },
+    {
+      "id": "人形",
+      "label": "人形机器人",
+      "category": "形态"
+    },
+    {
+      "id": "四足",
+      "label": "四足机器人",
+      "category": "形态"
+    },
+    {
+      "id": "双足",
+      "label": "双足机器人",
+      "category": "形态"
+    },
+    {
+      "id": "操作",
+      "label": "灵巧操作",
+      "category": "能力"
+    },
+    {
+      "id": "运动控制",
+      "label": "运动控制",
+      "category": "能力"
+    },
+    {
+      "id": "端到端",
+      "label": "端到端",
+      "category": "技术路线"
+    },
+    {
+      "id": "商业化",
+      "label": "商业化落地",
+      "category": "阶段"
+    },
+    {
+      "id": "开源",
+      "label": "开源",
+      "category": "特征"
+    },
+    {
+      "id": "物流",
+      "label": "物流场景",
+      "category": "应用"
+    },
+    {
+      "id": "工业",
+      "label": "工业场景",
+      "category": "应用"
+    },
+    {
+      "id": "家庭服务",
+      "label": "家庭服务",
+      "category": "应用"
+    },
+    {
+      "id": "医疗",
+      "label": "医疗康复",
+      "category": "应用"
+    }
   ],
   "connectors": [
-    { "id": "hyundai", "name": "现代汽车", "nameEn": "Hyundai", "type": "corporate", "country": "KR" },
-    { "id": "google", "name": "Google", "type": "bigtech", "country": "US" },
-    { "id": "openai", "name": "OpenAI", "type": "bigtech", "country": "US" },
-    { "id": "microsoft", "name": "Microsoft", "type": "bigtech", "country": "US" },
-    { "id": "amazon", "name": "Amazon", "type": "bigtech", "country": "US" },
-    { "id": "softbank", "name": "软银", "nameEn": "SoftBank", "type": "investor", "country": "JP" },
-    { "id": "bytedance", "name": "字节跳动", "nameEn": "ByteDance", "type": "bigtech", "country": "CN" },
-    { "id": "meituan", "name": "美团", "nameEn": "Meituan", "type": "bigtech", "country": "CN" },
-    { "id": "tencent", "name": "腾讯", "nameEn": "Tencent", "type": "bigtech", "country": "CN" },
-    { "id": "alibaba", "name": "阿里巴巴", "nameEn": "Alibaba", "type": "bigtech", "country": "CN" },
-    { "id": "ant", "name": "蚂蚁集团", "nameEn": "Ant Group", "type": "bigtech", "country": "CN" },
-    { "id": "xiaomi", "name": "小米", "nameEn": "Xiaomi", "type": "bigtech", "country": "CN" },
-    { "id": "jd", "name": "京东", "nameEn": "JD.com", "type": "corporate", "country": "CN" },
-    { "id": "idg", "name": "IDG 资本", "nameEn": "IDG Capital", "type": "investor", "country": "CN" },
-    { "id": "hongshan", "name": "红杉中国", "nameEn": "HongShan", "type": "investor", "country": "CN" },
-    { "id": "sequoia", "name": "Sequoia", "type": "investor", "country": "US" },
-    { "id": "framework", "name": "Framework Ventures", "type": "investor", "country": "US" },
-    { "id": "yc", "name": "Y Combinator", "type": "investor", "country": "US" },
-    { "id": "sf-group", "name": "顺丰", "nameEn": "SF Group", "type": "corporate", "country": "CN" },
-    { "id": "tsinghua", "name": "清华大学", "nameEn": "Tsinghua", "type": "institution", "country": "CN" },
-    { "id": "pku", "name": "北京大学", "nameEn": "Peking Univ.", "type": "institution", "country": "CN" },
-    { "id": "a16z", "name": "a16z", "nameEn": "Andreessen Horowitz", "type": "investor", "country": "US" },
-    { "id": "gl", "name": "高瓴创投", "nameEn": "GL Ventures", "type": "investor", "country": "CN" },
-    { "id": "lanchi", "name": "蓝驰创投", "nameEn": "Lanchi Ventures", "type": "investor", "country": "CN" }
+    {
+      "id": "hyundai",
+      "name": "现代汽车",
+      "nameEn": "Hyundai",
+      "type": "corporate",
+      "country": "KR"
+    },
+    {
+      "id": "google",
+      "name": "Google",
+      "type": "bigtech",
+      "country": "US"
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "type": "bigtech",
+      "country": "US"
+    },
+    {
+      "id": "microsoft",
+      "name": "Microsoft",
+      "type": "bigtech",
+      "country": "US"
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon",
+      "type": "bigtech",
+      "country": "US"
+    },
+    {
+      "id": "softbank",
+      "name": "软银",
+      "nameEn": "SoftBank",
+      "type": "investor",
+      "country": "JP"
+    },
+    {
+      "id": "bytedance",
+      "name": "字节跳动",
+      "nameEn": "ByteDance",
+      "type": "bigtech",
+      "country": "CN"
+    },
+    {
+      "id": "meituan",
+      "name": "美团",
+      "nameEn": "Meituan",
+      "type": "bigtech",
+      "country": "CN"
+    },
+    {
+      "id": "tencent",
+      "name": "腾讯",
+      "nameEn": "Tencent",
+      "type": "bigtech",
+      "country": "CN"
+    },
+    {
+      "id": "alibaba",
+      "name": "阿里巴巴",
+      "nameEn": "Alibaba",
+      "type": "bigtech",
+      "country": "CN"
+    },
+    {
+      "id": "ant",
+      "name": "蚂蚁集团",
+      "nameEn": "Ant Group",
+      "type": "bigtech",
+      "country": "CN"
+    },
+    {
+      "id": "xiaomi",
+      "name": "小米",
+      "nameEn": "Xiaomi",
+      "type": "bigtech",
+      "country": "CN"
+    },
+    {
+      "id": "jd",
+      "name": "京东",
+      "nameEn": "JD.com",
+      "type": "corporate",
+      "country": "CN"
+    },
+    {
+      "id": "idg",
+      "name": "IDG 资本",
+      "nameEn": "IDG Capital",
+      "type": "investor",
+      "country": "CN"
+    },
+    {
+      "id": "hongshan",
+      "name": "红杉中国",
+      "nameEn": "HongShan",
+      "type": "investor",
+      "country": "CN"
+    },
+    {
+      "id": "sequoia",
+      "name": "Sequoia",
+      "type": "investor",
+      "country": "US"
+    },
+    {
+      "id": "framework",
+      "name": "Framework Ventures",
+      "type": "investor",
+      "country": "US"
+    },
+    {
+      "id": "yc",
+      "name": "Y Combinator",
+      "type": "investor",
+      "country": "US"
+    },
+    {
+      "id": "sf-group",
+      "name": "顺丰",
+      "nameEn": "SF Group",
+      "type": "corporate",
+      "country": "CN"
+    },
+    {
+      "id": "tsinghua",
+      "name": "清华大学",
+      "nameEn": "Tsinghua",
+      "type": "institution",
+      "country": "CN"
+    },
+    {
+      "id": "pku",
+      "name": "北京大学",
+      "nameEn": "Peking Univ.",
+      "type": "institution",
+      "country": "CN"
+    },
+    {
+      "id": "a16z",
+      "name": "a16z",
+      "nameEn": "Andreessen Horowitz",
+      "type": "investor",
+      "country": "US"
+    },
+    {
+      "id": "gl",
+      "name": "高瓴创投",
+      "nameEn": "GL Ventures",
+      "type": "investor",
+      "country": "CN"
+    },
+    {
+      "id": "lanchi",
+      "name": "蓝驰创投",
+      "nameEn": "Lanchi Ventures",
+      "type": "investor",
+      "country": "CN"
+    }
   ],
   "relationships": [
-    { "source": "meituan", "target": "flexiv", "type": "invest", "label": "投资" },
-    { "source": "gl", "target": "galaxea", "type": "invest", "label": "持续加码" },
-    { "source": "lanchi", "target": "tars", "type": "invest", "label": "领投天使" },
-    { "source": "hongshan", "target": "noematrix", "type": "invest", "label": "领投 Pre-A+" },
-    { "source": "jd", "target": "engineai", "type": "invest", "label": "领投 A1" },
-    { "source": "idg", "target": "booster", "type": "invest", "label": "投资" },
-    { "source": "softbank", "target": "agile-robots", "type": "invest", "label": "领投 C 轮" },
-    { "source": "xiaomi", "target": "agile-robots", "type": "invest", "label": "投资" },
-    { "source": "hongshan", "target": "agile-robots", "type": "invest", "label": "跟投" },
-    { "source": "gl", "target": "agile-robots", "type": "invest", "label": "跟投" },
-    { "source": "gl", "target": "psibot", "type": "invest", "label": "领投" },
-    { "source": "lanchi", "target": "psibot", "type": "invest", "label": "领投" },
-    { "source": "agibot", "target": "psibot", "type": "invest", "label": "战略投资" },
-    { "source": "sequoia", "target": "collaborative-robotics", "type": "invest", "label": "投资" },
-    { "source": "tsinghua", "target": "noetix", "type": "incubate", "label": "清华系" },
-    { "source": "hyundai", "target": "boston-dynamics", "type": "own", "label": "控股" },
-    { "source": "google", "target": "boston-dynamics", "type": "partner", "label": "Gemini Robotics" },
-    { "source": "nvidia", "target": "unitree", "type": "partner", "label": "Isaac GR00T" },
-    { "source": "nvidia", "target": "figure-ai", "type": "invest", "label": "投资" },
-    { "source": "microsoft", "target": "figure-ai", "type": "invest", "label": "投资" },
-    { "source": "openai", "target": "figure-ai", "type": "partner", "label": "曾合作" },
-    { "source": "openai", "target": "physical-intelligence", "type": "invest", "label": "投资" },
-    { "source": "google", "target": "apptronik", "type": "partner", "label": "合作" },
-    { "source": "softbank", "target": "skild-ai", "type": "invest", "label": "领投 C 轮" },
-    { "source": "softbank", "target": "agility-robotics", "type": "invest", "label": "投资" },
-    { "source": "amazon", "target": "agility-robotics", "type": "partner", "label": "仓储部署" },
-    { "source": "openai", "target": "1x-technologies", "type": "invest", "label": "领投" },
-    { "source": "bytedance", "target": "x-humanoid", "type": "invest", "label": "投资" },
-    { "source": "meituan", "target": "x-humanoid", "type": "invest", "label": "投资" },
-    { "source": "tsinghua", "target": "x-humanoid", "type": "incubate", "label": "孵化" },
-    { "source": "tsinghua", "target": "robotera", "type": "incubate", "label": "孵化" },
-    { "source": "pku", "target": "galbot", "type": "incubate", "label": "创始团队" },
-    { "source": "idg", "target": "robotera", "type": "invest", "label": "投资" },
-    { "source": "sf-group", "target": "robotera", "type": "invest", "label": "领投 B 轮" },
-    { "source": "idg", "target": "joyin", "type": "invest", "label": "投资" },
-    { "source": "framework", "target": "mecka-ai", "type": "invest", "label": "领投" },
-    { "source": "tencent", "target": "agibot", "type": "invest", "label": "投资" },
-    { "source": "hongshan", "target": "agibot", "type": "invest", "label": "投资" },
-    { "source": "bytedance", "target": "galbot", "type": "invest", "label": "投资" },
-    { "source": "meituan", "target": "unitree", "type": "invest", "label": "投资" },
-    { "source": "alibaba", "target": "unitree", "type": "invest", "label": "投资" },
-    { "source": "xiaomi", "target": "x2robot", "type": "invest", "label": "领投 B 轮" },
-    { "source": "hongshan", "target": "x2robot", "type": "invest", "label": "联合领投" },
-    { "source": "jd", "target": "limx", "type": "invest", "label": "投资" },
-    { "source": "hongshan", "target": "spirit-ai", "type": "invest", "label": "投资" },
-    { "source": "jd", "target": "spirit-ai", "type": "invest", "label": "领投 Pre-A+" },
-    { "source": "hongshan", "target": "fourier", "type": "invest", "label": "投资" },
-    { "source": "sequoia", "target": "1x-technologies", "type": "invest", "label": "投资" },
-    { "source": "tencent", "target": "ubtech", "type": "invest", "label": "投资" },
-    { "source": "softbank", "target": "cloudminds", "type": "invest", "label": "投资" },
-    { "source": "yc", "target": "vbot", "type": "invest", "label": "孵化" },
-    { "source": "hongshan", "target": "linkerbot", "type": "invest", "label": "投资" },
-    { "source": "xiaomi", "target": "leju", "type": "invest", "label": "投资" },
-    { "source": "alibaba", "target": "genisom", "type": "invest", "label": "投资" },
-    { "source": "tencent", "target": "sanctuary-ai", "type": "invest", "label": "投资" },
-    { "source": "amazon", "target": "humanoid-uk", "type": "partner", "label": "试点" },
-    { "source": "ant", "target": "keenon", "type": "invest", "label": "投资" },
-    { "source": "alibaba", "target": "gaussian", "type": "invest", "label": "投资" },
-    { "source": "xiaomi", "target": "ninebot", "type": "invest", "label": "战略投资" },
-    { "source": "idg", "target": "orionstar", "type": "invest", "label": "投资" },
-    { "source": "nvidia", "target": "tesla", "type": "partner", "label": "算力供应" },
-
-    { "source": "m-sergey-levine", "target": "physical-intelligence", "type": "found", "label": "联合创始人" },
-    { "source": "m-chelsea-finn", "target": "physical-intelligence", "type": "found", "label": "联合创始人" },
-    { "source": "m-karol-hausman", "target": "physical-intelligence", "type": "found", "label": "联合创始人" },
-    { "source": "m-deepak-pathak", "target": "skild-ai", "type": "found", "label": "联合创始人" },
-    { "source": "m-abhinav-gupta", "target": "skild-ai", "type": "found", "label": "联合创始人" },
-    { "source": "m-jonathan-hurst", "target": "agility-robotics", "type": "found", "label": "联合创始人" },
-    { "source": "m-marc-raibert", "target": "boston-dynamics", "type": "found", "label": "创始人" },
-    { "source": "m-he-wang", "target": "galbot", "type": "found", "label": "创始人" },
-    { "source": "m-jianyu-chen", "target": "x-humanoid", "type": "found", "label": "创始人" },
-    { "source": "m-yang-gao", "target": "spirit-ai", "type": "found", "label": "联合创始人" },
-    { "source": "m-wei-zhang", "target": "limx", "type": "found", "label": "创始人" },
-    { "source": "m-wang-xingxing", "target": "unitree", "type": "found", "label": "创始人" },
-    { "source": "m-zhihui-peng", "target": "agibot", "type": "found", "label": "联合创始人" },
-    { "source": "m-qian-wang", "target": "x2robot", "type": "found", "label": "创始人" },
-    { "source": "m-jim-fan", "target": "nvidia", "type": "found", "label": "GEAR Lab 联合创始人" },
-    { "source": "m-jianlan-luo", "target": "agibot", "type": "advise", "label": "首席科学家" },
-    { "source": "a16z", "target": "world-labs", "type": "invest", "label": "领投" },
-    { "source": "amazon", "target": "covariant", "type": "partner", "label": "团队并入+授权(2024)" },
-    { "source": "m-feifei-li", "target": "world-labs", "type": "found", "label": "创始人兼 CEO" },
-    { "source": "m-pieter-abbeel", "target": "covariant", "type": "found", "label": "联合创始人" }
+    {
+      "source": "meituan",
+      "target": "flexiv",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "gl",
+      "target": "galaxea",
+      "type": "invest",
+      "label": "持续加码"
+    },
+    {
+      "source": "lanchi",
+      "target": "tars",
+      "type": "invest",
+      "label": "领投天使"
+    },
+    {
+      "source": "hongshan",
+      "target": "noematrix",
+      "type": "invest",
+      "label": "领投 Pre-A+"
+    },
+    {
+      "source": "jd",
+      "target": "engineai",
+      "type": "invest",
+      "label": "领投 A1"
+    },
+    {
+      "source": "idg",
+      "target": "booster",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "softbank",
+      "target": "agile-robots",
+      "type": "invest",
+      "label": "领投 C 轮"
+    },
+    {
+      "source": "xiaomi",
+      "target": "agile-robots",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "hongshan",
+      "target": "agile-robots",
+      "type": "invest",
+      "label": "跟投"
+    },
+    {
+      "source": "gl",
+      "target": "agile-robots",
+      "type": "invest",
+      "label": "跟投"
+    },
+    {
+      "source": "gl",
+      "target": "psibot",
+      "type": "invest",
+      "label": "领投"
+    },
+    {
+      "source": "lanchi",
+      "target": "psibot",
+      "type": "invest",
+      "label": "领投"
+    },
+    {
+      "source": "agibot",
+      "target": "psibot",
+      "type": "invest",
+      "label": "战略投资"
+    },
+    {
+      "source": "sequoia",
+      "target": "collaborative-robotics",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "tsinghua",
+      "target": "noetix",
+      "type": "incubate",
+      "label": "清华系"
+    },
+    {
+      "source": "hyundai",
+      "target": "boston-dynamics",
+      "type": "own",
+      "label": "控股"
+    },
+    {
+      "source": "google",
+      "target": "boston-dynamics",
+      "type": "partner",
+      "label": "Gemini Robotics"
+    },
+    {
+      "source": "nvidia",
+      "target": "unitree",
+      "type": "partner",
+      "label": "Isaac GR00T"
+    },
+    {
+      "source": "nvidia",
+      "target": "figure-ai",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "microsoft",
+      "target": "figure-ai",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "openai",
+      "target": "figure-ai",
+      "type": "partner",
+      "label": "曾合作"
+    },
+    {
+      "source": "openai",
+      "target": "physical-intelligence",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "google",
+      "target": "apptronik",
+      "type": "partner",
+      "label": "合作"
+    },
+    {
+      "source": "softbank",
+      "target": "skild-ai",
+      "type": "invest",
+      "label": "领投 C 轮"
+    },
+    {
+      "source": "softbank",
+      "target": "agility-robotics",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "amazon",
+      "target": "agility-robotics",
+      "type": "partner",
+      "label": "仓储部署"
+    },
+    {
+      "source": "openai",
+      "target": "1x-technologies",
+      "type": "invest",
+      "label": "领投"
+    },
+    {
+      "source": "bytedance",
+      "target": "x-humanoid",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "meituan",
+      "target": "x-humanoid",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "tsinghua",
+      "target": "x-humanoid",
+      "type": "incubate",
+      "label": "孵化"
+    },
+    {
+      "source": "tsinghua",
+      "target": "robotera",
+      "type": "incubate",
+      "label": "孵化"
+    },
+    {
+      "source": "pku",
+      "target": "galbot",
+      "type": "incubate",
+      "label": "创始团队"
+    },
+    {
+      "source": "idg",
+      "target": "robotera",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "sf-group",
+      "target": "robotera",
+      "type": "invest",
+      "label": "领投 B 轮"
+    },
+    {
+      "source": "idg",
+      "target": "joyin",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "framework",
+      "target": "mecka-ai",
+      "type": "invest",
+      "label": "领投"
+    },
+    {
+      "source": "tencent",
+      "target": "agibot",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "hongshan",
+      "target": "agibot",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "bytedance",
+      "target": "galbot",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "meituan",
+      "target": "unitree",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "alibaba",
+      "target": "unitree",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "xiaomi",
+      "target": "x2robot",
+      "type": "invest",
+      "label": "领投 B 轮"
+    },
+    {
+      "source": "hongshan",
+      "target": "x2robot",
+      "type": "invest",
+      "label": "联合领投"
+    },
+    {
+      "source": "jd",
+      "target": "limx",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "hongshan",
+      "target": "spirit-ai",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "jd",
+      "target": "spirit-ai",
+      "type": "invest",
+      "label": "领投 Pre-A+"
+    },
+    {
+      "source": "hongshan",
+      "target": "fourier",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "sequoia",
+      "target": "1x-technologies",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "tencent",
+      "target": "ubtech",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "softbank",
+      "target": "cloudminds",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "yc",
+      "target": "vbot",
+      "type": "invest",
+      "label": "孵化"
+    },
+    {
+      "source": "hongshan",
+      "target": "linkerbot",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "xiaomi",
+      "target": "leju",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "alibaba",
+      "target": "genisom",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "tencent",
+      "target": "sanctuary-ai",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "amazon",
+      "target": "humanoid-uk",
+      "type": "partner",
+      "label": "试点"
+    },
+    {
+      "source": "ant",
+      "target": "keenon",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "alibaba",
+      "target": "gaussian",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "xiaomi",
+      "target": "ninebot",
+      "type": "invest",
+      "label": "战略投资"
+    },
+    {
+      "source": "idg",
+      "target": "orionstar",
+      "type": "invest",
+      "label": "投资"
+    },
+    {
+      "source": "nvidia",
+      "target": "tesla",
+      "type": "partner",
+      "label": "算力供应"
+    },
+    {
+      "source": "m-sergey-levine",
+      "target": "physical-intelligence",
+      "type": "found",
+      "label": "联合创始人"
+    },
+    {
+      "source": "m-chelsea-finn",
+      "target": "physical-intelligence",
+      "type": "found",
+      "label": "联合创始人"
+    },
+    {
+      "source": "m-karol-hausman",
+      "target": "physical-intelligence",
+      "type": "found",
+      "label": "联合创始人"
+    },
+    {
+      "source": "m-deepak-pathak",
+      "target": "skild-ai",
+      "type": "found",
+      "label": "联合创始人"
+    },
+    {
+      "source": "m-abhinav-gupta",
+      "target": "skild-ai",
+      "type": "found",
+      "label": "联合创始人"
+    },
+    {
+      "source": "m-jonathan-hurst",
+      "target": "agility-robotics",
+      "type": "found",
+      "label": "联合创始人"
+    },
+    {
+      "source": "m-marc-raibert",
+      "target": "boston-dynamics",
+      "type": "found",
+      "label": "创始人"
+    },
+    {
+      "source": "m-he-wang",
+      "target": "galbot",
+      "type": "found",
+      "label": "创始人"
+    },
+    {
+      "source": "m-jianyu-chen",
+      "target": "x-humanoid",
+      "type": "found",
+      "label": "创始人"
+    },
+    {
+      "source": "m-yang-gao",
+      "target": "spirit-ai",
+      "type": "found",
+      "label": "联合创始人"
+    },
+    {
+      "source": "m-wei-zhang",
+      "target": "limx",
+      "type": "found",
+      "label": "创始人"
+    },
+    {
+      "source": "m-wang-xingxing",
+      "target": "unitree",
+      "type": "found",
+      "label": "创始人"
+    },
+    {
+      "source": "m-zhihui-peng",
+      "target": "agibot",
+      "type": "found",
+      "label": "联合创始人"
+    },
+    {
+      "source": "m-qian-wang",
+      "target": "x2robot",
+      "type": "found",
+      "label": "创始人"
+    },
+    {
+      "source": "m-jim-fan",
+      "target": "nvidia",
+      "type": "found",
+      "label": "GEAR Lab 联合创始人"
+    },
+    {
+      "source": "m-jianlan-luo",
+      "target": "agibot",
+      "type": "advise",
+      "label": "首席科学家"
+    },
+    {
+      "source": "a16z",
+      "target": "world-labs",
+      "type": "invest",
+      "label": "领投"
+    },
+    {
+      "source": "amazon",
+      "target": "covariant",
+      "type": "partner",
+      "label": "团队并入+授权(2024)"
+    },
+    {
+      "source": "m-feifei-li",
+      "target": "world-labs",
+      "type": "found",
+      "label": "创始人兼 CEO"
+    },
+    {
+      "source": "m-pieter-abbeel",
+      "target": "covariant",
+      "type": "found",
+      "label": "联合创始人"
+    },
+    {
+      "source": "tsinghua",
+      "target": "gigaai",
+      "type": "incubate",
+      "label": "清华系"
+    }
   ],
   "mentors": [
-    { "id": "m-sergey-levine", "name": "Sergey Levine", "affiliation": "UC Berkeley 副教授", "role": "联合创始人", "source": "https://www.sequoiacap.com/founder/sergey-levine/" },
-    { "id": "m-chelsea-finn", "name": "Chelsea Finn", "affiliation": "Stanford 助理教授", "role": "联合创始人", "source": "https://en.wikipedia.org/wiki/Chelsea_Finn" },
-    { "id": "m-karol-hausman", "name": "Karol Hausman", "affiliation": "Physical Intelligence CEO / 前 Google", "role": "联合创始人兼 CEO", "source": "https://www.emcap.com/portfolio/physical-intelligence" },
-    { "id": "m-deepak-pathak", "name": "Deepak Pathak", "affiliation": "CMU 机器人研究所", "role": "联合创始人", "source": "https://lsvp.com/stories/skild-is-bringing-generative-ai-to-the-real-world/" },
-    { "id": "m-abhinav-gupta", "name": "Abhinav Gupta", "affiliation": "CMU 机器人研究所 / 前 Meta FAIR", "role": "联合创始人", "source": "https://sequoiacap.com/article/partnering-with-skild/" },
-    { "id": "m-jonathan-hurst", "name": "Jonathan Hurst", "affiliation": "俄勒冈州立大学 机器人学教授", "role": "联合创始人兼 CTO", "source": "https://www.agilityrobotics.com/company" },
-    { "id": "m-marc-raibert", "name": "Marc Raibert", "affiliation": "Boston Dynamics 创始人 / RAI Institute", "role": "创始人", "source": "https://en.wikipedia.org/wiki/Marc_Raibert" },
-    { "id": "m-he-wang", "name": "He Wang", "nameZh": "王鹤", "affiliation": "北京大学 助理教授 / 北大-银河通用联合实验室", "role": "创始人", "source": "https://www.thewirechina.com/whos_who/wang-he-%E7%8E%8B%E9%B9%A4/" },
-    { "id": "m-jianyu-chen", "name": "Chen Jianyu", "nameZh": "陈建宇", "affiliation": "清华大学交叉信息研究院 助理教授", "role": "创始人", "source": "https://iiis.tsinghua.edu.cn/rydw/qzjs/chenjianyu.htm" },
-    { "id": "m-yang-gao", "name": "Gao Yang", "nameZh": "高阳", "affiliation": "清华大学交叉信息研究院 助理教授", "role": "联合创始人", "source": "https://www.prnewswire.com/news-releases/spirit-ai-lands-280m-to-scale-embodied-ai-through-dirty-data-302697085.html" },
-    { "id": "m-wei-zhang", "name": "Wei Zhang", "nameZh": "张巍", "affiliation": "南方科技大学 教授", "role": "创始人兼 CEO", "source": "https://www.yicaiglobal.com/news/robot-maker-limx-closes-latest-fundraiser-led-by-china-merchants-vc-shang-qi" },
-    { "id": "m-wang-xingxing", "name": "Wang Xingxing", "nameZh": "王兴兴", "affiliation": "宇树科技 创始人", "role": "创始人", "source": "https://en.wikipedia.org/wiki/Wang_Xingxing" },
-    { "id": "m-zhihui-peng", "name": "Peng Zhihui", "nameZh": "彭志辉(稚晖君)", "affiliation": "智元机器人 联合创始人兼 CTO / 原华为天才少年", "role": "联合创始人兼 CTO", "source": "https://english.news.cn/20260503/3616ad8aae584ea6a5501dbb0fd78111/c.html" },
-    { "id": "m-qian-wang", "name": "Wang Qian", "nameZh": "王潜", "affiliation": "自变量机器人 创始人兼 CEO", "role": "创始人", "source": "https://fgw.sz.gov.cn/ztzl/qtztzl/szscjmyjjfzzhfwpt/mqfc/myqyjdxsj/content/post_12762911.html" },
-    { "id": "m-jim-fan", "name": "Jim Fan", "nameZh": "范麟熙", "affiliation": "NVIDIA GEAR Lab 联合负责人 / GR00T", "role": "GEAR Lab 联合创始人", "source": "https://research.nvidia.com/labs/gear/" },
-    { "id": "m-jianlan-luo", "name": "Jianlan Luo", "nameZh": "罗剑岚", "affiliation": "智元机器人 / 前 Google", "role": "首席科学家", "source": "https://en.tmtpost.com/news/7522022" },
-    { "id": "m-feifei-li", "name": "Fei-Fei Li", "nameZh": "李飞飞", "affiliation": "斯坦福大学教授 / World Labs CEO", "role": "创始人兼 CEO", "source": "https://www.geekpark.net/news/360360" },
-    { "id": "m-pieter-abbeel", "name": "Pieter Abbeel", "affiliation": "UC Berkeley 教授 / BAIR", "role": "联合创始人", "source": "https://en.wikipedia.org/wiki/Pieter_Abbeel" }
+    {
+      "id": "m-sergey-levine",
+      "name": "Sergey Levine",
+      "affiliation": "UC Berkeley 副教授",
+      "role": "联合创始人",
+      "source": "https://www.sequoiacap.com/founder/sergey-levine/"
+    },
+    {
+      "id": "m-chelsea-finn",
+      "name": "Chelsea Finn",
+      "affiliation": "Stanford 助理教授",
+      "role": "联合创始人",
+      "source": "https://en.wikipedia.org/wiki/Chelsea_Finn"
+    },
+    {
+      "id": "m-karol-hausman",
+      "name": "Karol Hausman",
+      "affiliation": "Physical Intelligence CEO / 前 Google",
+      "role": "联合创始人兼 CEO",
+      "source": "https://www.emcap.com/portfolio/physical-intelligence"
+    },
+    {
+      "id": "m-deepak-pathak",
+      "name": "Deepak Pathak",
+      "affiliation": "CMU 机器人研究所",
+      "role": "联合创始人",
+      "source": "https://lsvp.com/stories/skild-is-bringing-generative-ai-to-the-real-world/"
+    },
+    {
+      "id": "m-abhinav-gupta",
+      "name": "Abhinav Gupta",
+      "affiliation": "CMU 机器人研究所 / 前 Meta FAIR",
+      "role": "联合创始人",
+      "source": "https://sequoiacap.com/article/partnering-with-skild/"
+    },
+    {
+      "id": "m-jonathan-hurst",
+      "name": "Jonathan Hurst",
+      "affiliation": "俄勒冈州立大学 机器人学教授",
+      "role": "联合创始人兼 CTO",
+      "source": "https://www.agilityrobotics.com/company"
+    },
+    {
+      "id": "m-marc-raibert",
+      "name": "Marc Raibert",
+      "affiliation": "Boston Dynamics 创始人 / RAI Institute",
+      "role": "创始人",
+      "source": "https://en.wikipedia.org/wiki/Marc_Raibert"
+    },
+    {
+      "id": "m-he-wang",
+      "name": "He Wang",
+      "nameZh": "王鹤",
+      "affiliation": "北京大学 助理教授 / 北大-银河通用联合实验室",
+      "role": "创始人",
+      "source": "https://www.thewirechina.com/whos_who/wang-he-%E7%8E%8B%E9%B9%A4/"
+    },
+    {
+      "id": "m-jianyu-chen",
+      "name": "Chen Jianyu",
+      "nameZh": "陈建宇",
+      "affiliation": "清华大学交叉信息研究院 助理教授",
+      "role": "创始人",
+      "source": "https://iiis.tsinghua.edu.cn/rydw/qzjs/chenjianyu.htm"
+    },
+    {
+      "id": "m-yang-gao",
+      "name": "Gao Yang",
+      "nameZh": "高阳",
+      "affiliation": "清华大学交叉信息研究院 助理教授",
+      "role": "联合创始人",
+      "source": "https://www.prnewswire.com/news-releases/spirit-ai-lands-280m-to-scale-embodied-ai-through-dirty-data-302697085.html"
+    },
+    {
+      "id": "m-wei-zhang",
+      "name": "Wei Zhang",
+      "nameZh": "张巍",
+      "affiliation": "南方科技大学 教授",
+      "role": "创始人兼 CEO",
+      "source": "https://www.yicaiglobal.com/news/robot-maker-limx-closes-latest-fundraiser-led-by-china-merchants-vc-shang-qi"
+    },
+    {
+      "id": "m-wang-xingxing",
+      "name": "Wang Xingxing",
+      "nameZh": "王兴兴",
+      "affiliation": "宇树科技 创始人",
+      "role": "创始人",
+      "source": "https://en.wikipedia.org/wiki/Wang_Xingxing"
+    },
+    {
+      "id": "m-zhihui-peng",
+      "name": "Peng Zhihui",
+      "nameZh": "彭志辉(稚晖君)",
+      "affiliation": "智元机器人 联合创始人兼 CTO / 原华为天才少年",
+      "role": "联合创始人兼 CTO",
+      "source": "https://english.news.cn/20260503/3616ad8aae584ea6a5501dbb0fd78111/c.html"
+    },
+    {
+      "id": "m-qian-wang",
+      "name": "Wang Qian",
+      "nameZh": "王潜",
+      "affiliation": "自变量机器人 创始人兼 CEO",
+      "role": "创始人",
+      "source": "https://fgw.sz.gov.cn/ztzl/qtztzl/szscjmyjjfzzhfwpt/mqfc/myqyjdxsj/content/post_12762911.html"
+    },
+    {
+      "id": "m-jim-fan",
+      "name": "Jim Fan",
+      "nameZh": "范麟熙",
+      "affiliation": "NVIDIA GEAR Lab 联合负责人 / GR00T",
+      "role": "GEAR Lab 联合创始人",
+      "source": "https://research.nvidia.com/labs/gear/"
+    },
+    {
+      "id": "m-jianlan-luo",
+      "name": "Jianlan Luo",
+      "nameZh": "罗剑岚",
+      "affiliation": "智元机器人 / 前 Google",
+      "role": "首席科学家",
+      "source": "https://en.tmtpost.com/news/7522022"
+    },
+    {
+      "id": "m-feifei-li",
+      "name": "Fei-Fei Li",
+      "nameZh": "李飞飞",
+      "affiliation": "斯坦福大学教授 / World Labs CEO",
+      "role": "创始人兼 CEO",
+      "source": "https://www.geekpark.net/news/360360"
+    },
+    {
+      "id": "m-pieter-abbeel",
+      "name": "Pieter Abbeel",
+      "affiliation": "UC Berkeley 教授 / BAIR",
+      "role": "联合创始人",
+      "source": "https://en.wikipedia.org/wiki/Pieter_Abbeel"
+    }
   ]
 }

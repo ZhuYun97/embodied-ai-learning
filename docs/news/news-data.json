@@ -1,15 +1,53 @@
 [
   {
+    "id": "agibot-yuansheng-aima-20260609",
+    "title": "智元发布 AIMA 具身生态技术体系,「元苼」计划 5 年投入 20+ 亿元",
+    "date": "2026-06-09",
+    "fetched_at": "2026-06-10",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "公司动态",
+      "生态"
+    ],
+    "summary": "智元机器人发布致开发者公开信,推出 **AIMA**(AI Machine Architecture)具身智能生态技术体系,并启动「**元苼**」生态计划。官方开放平台页可核:**未来 5 年总投入 20+ 亿元**(✅ 一手);「今年首期投入超 1 亿元」为媒体报道口径 ⚠️。注:06-09 公开信原文暂无干净官网 URL(官网新闻列表止于 06-08,待核),AIMA 与 20 亿事实以官方平台页为准。",
+    "sources": [
+      {
+        "name": "智元开放平台 · 元苼计划(官方)",
+        "url": "https://open.agibot.com/ecosystem/yuansheng"
+      },
+      {
+        "name": "新浪财经(公开信报道,⚠️ 转述)",
+        "url": "https://finance.sina.com.cn/tech/it/2026-06-09/"
+      }
+    ],
+    "related": [],
+    "bot": false
+  },
+  {
     "id": "amap-abot-earth-city-world-model-20260608",
     "title": "高德发布 3D 原生城市世界模型 ABot-Earth0.5:一张卫星图约 10 分钟生成公里级可编辑 3D 场景",
     "date": "2026-06-08",
     "fetched_at": "2026-06-09",
     "importance": "hot",
     "credibility": "verified",
-    "category": ["世界模型", "模型发布"],
+    "category": [
+      "世界模型",
+      "模型发布"
+    ],
     "summary": "阿里旗下 **高德** 发布面向具身智能的 **ABot-Earth0.5**:输入一张卫星图或一段文字,在消费级 GPU 上约 **10 分钟** 生成 **公里级 3D 城市场景**,输出可编辑 3DGS 素材并可导入 Unity / UE,用于压缩开放环境训练数据的构建成本;已驱动高德城市级仿真训练场、支撑其「高德途途」自主机器人训练。目前开放内测(abot-earth.amap.com)。⚠️「全球首个 3D 原生城市世界模型」为厂商表述;生成速度 / 规模为官方自报,未见第三方复现。",
-    "sources": [{ "name": "新浪财经", "url": "https://finance.sina.com.cn/tech/it/2026-06-08/doc-iniatatn7027266.shtml" }],
-    "related": [{ "label": "WAM 调研(世界模型)", "url": "/wam/" }],
+    "sources": [
+      {
+        "name": "新浪财经",
+        "url": "https://finance.sina.com.cn/tech/it/2026-06-08/doc-iniatatn7027266.shtml"
+      }
+    ],
+    "related": [
+      {
+        "label": "WAM 调研(世界模型)",
+        "url": "/wam/"
+      }
+    ],
     "bot": true
   },
   {
@@ -19,10 +57,27 @@
     "fetched_at": "2026-06-09",
     "importance": "hot",
     "credibility": "verified",
-    "category": ["融资上市", "公司战略"],
+    "category": [
+      "融资上市",
+      "公司战略"
+    ],
     "summary": "据 36 氪硬氪独家,唐文斌(旷视联合创始人)创办的 **原力灵机(Dexmal)** 以股权并购方式与仓储 / 物流机器人公司 **Atomix(原力聚合)** 合并,把自研 **DM0 具身原生大模型** 与真实仓储场景、产线打通;同时披露新一轮融资,投资方据报道含 **智谱、阶跃星辰、商汤、华勤、上汽恒旭** 等(A+ 轮此前由阿里独家领投)——业内罕见同时聚齐多家头部大模型厂商押注同一具身公司。⚠️ 交易 / 融资金额未在报道中披露,待核。",
-    "sources": [{ "name": "36氪硬氪", "url": "https://36kr.com/p/3838835333253385" }, { "name": "量子位", "url": "https://www.qbitai.com/2026/06/432417.html" }],
-    "related": [{ "label": "🏆 具身大脑分档榜", "url": "/ecosystem/brain-ranking" }],
+    "sources": [
+      {
+        "name": "36氪硬氪",
+        "url": "https://36kr.com/p/3838835333253385"
+      },
+      {
+        "name": "量子位",
+        "url": "https://www.qbitai.com/2026/06/432417.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "🏆 具身大脑分档榜",
+        "url": "/ecosystem/brain-ranking"
+      }
+    ],
     "bot": true
   },
   {
@@ -32,10 +87,23 @@
     "fetched_at": "2026-06-09",
     "importance": "normal",
     "credibility": "todo",
-    "category": ["公司战略", "融资上市"],
+    "category": [
+      "公司战略",
+      "融资上市"
+    ],
     "summary": "机器之心披露通用具身智能创企 **昆仑行机器人**:CEO 为阿里前副总裁 **任庚**、CTO 为理想汽车前智能驾驶负责人 **郎咸朋**,走「本体 + 大脑」通用路线。公司 **2026 年 3 月** 注册,成立后已连续完成三轮融资、**估值超 10 亿美元**。⚠️ 本条为「浮出水面」式深度报道,融资发生于此前数月、非 6 月 9 日当日新增;具体金额与投资方未完整披露,单一来源待核。",
-    "sources": [{ "name": "机器之心", "url": "https://www.jiqizhixin.com/industry" }],
-    "related": [{ "label": "具身生态全景", "url": "/ecosystem/" }],
+    "sources": [
+      {
+        "name": "机器之心",
+        "url": "https://www.jiqizhixin.com/industry"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
     "bot": true
   },
   {
@@ -45,10 +113,24 @@
     "fetched_at": "2026-06-09",
     "importance": "normal",
     "credibility": "verified",
-    "category": ["论文发表", "VLA 模型", "世界模型"],
+    "category": [
+      "论文发表",
+      "VLA 模型",
+      "世界模型"
+    ],
     "summary": "**MemoryVLA++**(arXiv:[2606.09827](https://arxiv.org/abs/2606.09827),v1 2026-06-08)给 VLA 显式加入 **记忆库** + **世界模型「想象」模块**,以解长时序、依赖历史的操作任务——这是当前 VLA 最大的能力短板之一。⚠️ 作者自评(预印本,未经同行评审 / 第三方复现):较基线在通用 / 记忆类 / 想象类任务分别约 +9% / +26% / +28%。",
-    "sources": [{ "name": "arXiv:2606.09827", "url": "https://arxiv.org/abs/2606.09827" }],
-    "related": [{ "label": "VLA 模型调研", "url": "/vla/" }],
+    "sources": [
+      {
+        "name": "arXiv:2606.09827",
+        "url": "https://arxiv.org/abs/2606.09827"
+      }
+    ],
+    "related": [
+      {
+        "label": "VLA 模型调研",
+        "url": "/vla/"
+      }
+    ],
     "bot": true
   },
   {
@@ -58,10 +140,24 @@
     "fetched_at": "2026-06-09",
     "importance": "normal",
     "credibility": "verified",
-    "category": ["论文发表", "世界模型", "VLA 模型"],
+    "category": [
+      "论文发表",
+      "世界模型",
+      "VLA 模型"
+    ],
     "summary": "**ω-EVA**(arXiv:[2606.09457](https://arxiv.org/abs/2606.09457),v1 2026-06-08)把策略与 **潜在交互式世界模型** 耦合,在执行前先「设想 → 验证」动作后果(Envision–Verify–Act 闭环),约 **1.2B 参数、不依赖额外预训练数据**,属「世界模型入策略闭环」一类,主打性能—规模—数据折中。⚠️ 作者自评,预印本未经同行评审。",
-    "sources": [{ "name": "arXiv:2606.09457", "url": "https://arxiv.org/abs/2606.09457" }],
-    "related": [{ "label": "WAM 调研(世界模型)", "url": "/wam/" }],
+    "sources": [
+      {
+        "name": "arXiv:2606.09457",
+        "url": "https://arxiv.org/abs/2606.09457"
+      }
+    ],
+    "related": [
+      {
+        "label": "WAM 调研(世界模型)",
+        "url": "/wam/"
+      }
+    ],
     "bot": true
   },
   {
@@ -71,10 +167,23 @@
     "fetched_at": "2026-06-09",
     "importance": "normal",
     "credibility": "verified",
-    "category": ["论文发表", "灵巧操作"],
+    "category": [
+      "论文发表",
+      "灵巧操作"
+    ],
     "summary": "**DexPIE**(arXiv:[2606.09615](https://arxiv.org/abs/2606.09615),v1 2026-06-08)提出从 **真实世界 rollout**(而非仿真)稳定改进灵巧操作策略的后训练 / RL 框架,突破演示分布上限。⚠️ 作者自评(预印本):3 个真机任务上较演示基线约 +37%、鲁棒性更强。",
-    "sources": [{ "name": "arXiv:2606.09615", "url": "https://arxiv.org/abs/2606.09615" }],
-    "related": [{ "label": "VLA 模型调研", "url": "/vla/" }],
+    "sources": [
+      {
+        "name": "arXiv:2606.09615",
+        "url": "https://arxiv.org/abs/2606.09615"
+      }
+    ],
+    "related": [
+      {
+        "label": "VLA 模型调研",
+        "url": "/vla/"
+      }
+    ],
     "bot": true
   },
   {
@@ -84,10 +193,23 @@
     "fetched_at": "2026-06-09",
     "importance": "normal",
     "credibility": "verified",
-    "category": ["数据集发布", "灵巧操作"],
+    "category": [
+      "数据集发布",
+      "灵巧操作"
+    ],
     "summary": "**戴盟机器人(Daimon)** 与 **银河通用(Galbot)** 在 ICRA 2026 联合发布 **RobOmni**——号称首个面向操作中触觉感知的系统性评测框架,基于 **NVIDIA Isaac Sim** 构建,补「触觉 + 灵巧操作」基准空白。⚠️「首个」为发布方表述。",
-    "sources": [{ "name": "The Robot Report", "url": "https://www.therobotreport.com/daimon-robotics-and-galbot-jointly-launches-robomni-for-benchmarking-tactile-perception-and-dexterous-manipulation/" }],
-    "related": [{ "label": "具身生态全景", "url": "/ecosystem/" }],
+    "sources": [
+      {
+        "name": "The Robot Report",
+        "url": "https://www.therobotreport.com/daimon-robotics-and-galbot-jointly-launches-robomni-for-benchmarking-tactile-perception-and-dexterous-manipulation/"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身生态全景",
+        "url": "/ecosystem/"
+      }
+    ],
     "bot": true
   },
   {
@@ -97,10 +219,23 @@
     "fetched_at": "2026-06-09",
     "importance": "normal",
     "credibility": "verified",
-    "category": ["论文发表", "VLA 模型"],
+    "category": [
+      "论文发表",
+      "VLA 模型"
+    ],
     "summary": "**RhinoVLA 技术报告**(arXiv:[2606.07383](https://arxiv.org/abs/2606.07383),v1 2026-06-05)主打 **token 高效、硬件感知** 的 VLA,在定制边缘处理器上实时运行(约 **11.7 Hz**)。⚠️ 作者自评(预印本):宣称在边缘可部署速度下达到与 **π0.5 相当** 的质量(非超越)。",
-    "sources": [{ "name": "arXiv:2606.07383", "url": "https://arxiv.org/abs/2606.07383" }],
-    "related": [{ "label": "VLA 模型调研", "url": "/vla/" }],
+    "sources": [
+      {
+        "name": "arXiv:2606.07383",
+        "url": "https://arxiv.org/abs/2606.07383"
+      }
+    ],
+    "related": [
+      {
+        "label": "VLA 模型调研",
+        "url": "/vla/"
+      }
+    ],
     "bot": true
   },
   {
