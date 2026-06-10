@@ -385,53 +385,10 @@ const FX_PACKETS = [
 ]
 const HeroFX = {
   setup() {
-    // 指针感应网格(D):光标吸附到 44px 网格 → 高亮所在单元格 + 行列引导线 + 柔光跟随。
-    // 刻意不用 mask-image(站内有 mask × backdrop-filter 的 Chromium 黑屏血泪),全 transform 实现。
-    const fxRoot = ref(null)
-    let fxCleanup = null
-    onMounted(() => {
-      const root = fxRoot.value
-      if (!root || typeof window === 'undefined') return
-      const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
-      if (!fine) return
-      const wrap = root.querySelector('.hero-fx__cellwrap')
-      const cell = root.querySelector('.fx-cell')
-      const rowL = root.querySelector('.fx-row')
-      const colL = root.querySelector('.fx-col')
-      const glow = root.querySelector('.fx-glow')
-      if (!wrap || !cell) return
-      const move = (e) => {
-        const r = root.getBoundingClientRect()
-        const x = e.clientX - r.left
-        const y = e.clientY - r.top
-        if (x < 0 || y < 0 || x > r.width || y > r.height) {
-          wrap.classList.remove('is-on')
-          return
-        }
-        wrap.classList.add('is-on')
-        glow.style.setProperty('--gx', x + 'px')
-        glow.style.setProperty('--gy', y + 'px')
-        const cx = Math.floor(x / 44) * 44
-        const cy = Math.floor(y / 44) * 44
-        cell.style.transform = `translate(${cx}px, ${cy}px)`
-        rowL.style.transform = `translateY(${cy}px)`
-        colL.style.transform = `translateX(${cx}px)`
-      }
-      const off = () => wrap.classList.remove('is-on')
-      window.addEventListener('pointermove', move, { passive: true })
-      window.addEventListener('blur', off)
-      document.documentElement.addEventListener('pointerleave', off)
-      fxCleanup = () => {
-        window.removeEventListener('pointermove', move)
-        window.removeEventListener('blur', off)
-        document.documentElement.removeEventListener('pointerleave', off)
-      }
-    })
-    onUnmounted(() => {
-      if (fxCleanup) fxCleanup()
-    })
+    // 注:「指针感应网格」(光标吸附 44px 单元格)曾在此实现,应用户反馈「没必要」已整体移除;
+    // 指针跟随类效果(准星/感应格)在本站已两次被否,勿再提案。
     return () =>
-      h('div', { class: 'hero-fx', 'aria-hidden': 'true', ref: fxRoot }, [
+      h('div', { class: 'hero-fx', 'aria-hidden': 'true' }, [
         h('div', { class: 'hero-fx__glow' }),
         h(
           'div',
@@ -469,12 +426,6 @@ const HeroFX = {
             })
           )
         ),
-        h('div', { class: 'hero-fx__cellwrap' }, [
-          h('i', { class: 'fx-glow' }),
-          h('i', { class: 'fx-row' }),
-          h('i', { class: 'fx-col' }),
-          h('i', { class: 'fx-cell' }),
-        ]),
         h('div', { class: 'hud-scan' }),
         h('span', { class: 'hud-corner hud-corner--tl' }),
         h('span', { class: 'hud-corner hud-corner--tr' }),

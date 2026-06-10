@@ -3292,50 +3292,7 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
   100% { transform: translateX(-100px); opacity: 0; }
 }
 
-/* —— D 指针感应网格:光标吸附 44px 单元格(高亮格 + 行列引导线 + 柔光跟随)——
-   纯 transform / background,不用 mask(规避 mask × backdrop-filter 的 Chromium 黑屏坑);
-   仅 pointer:fine 由 JS 激活(hero-fx__cellwrap.is-on)。 —— */
-.hero-fx__cellwrap {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
-.hero-fx__cellwrap.is-on { opacity: 1; }
-.fx-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(190px circle at var(--gx, 50%) var(--gy, 40%), rgba(34, 211, 238, 0.10), transparent 72%);
-}
-.dark .fx-glow {
-  background: radial-gradient(190px circle at var(--gx, 50%) var(--gy, 40%), rgba(34, 211, 238, 0.16), transparent 72%);
-}
-.fx-row, .fx-col {
-  position: absolute;
-  background: rgba(37, 99, 235, 0.12);
-  transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-.dark .fx-row, .dark .fx-col { background: rgba(56, 189, 248, 0.16); }
-.fx-row { left: 0; right: 0; top: 0; height: 1px; }
-.fx-col { top: 0; bottom: 0; left: 0; width: 1px; }
-.fx-cell {
-  position: absolute;
-  left: 0; top: 0;
-  width: 44px; height: 44px;
-  border: 1px solid rgba(37, 99, 235, 0.5);
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.22), inset 0 0 10px rgba(56, 189, 248, 0.10);
-  transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-.dark .fx-cell {
-  border-color: rgba(125, 235, 255, 0.55);
-  box-shadow: 0 0 14px rgba(56, 189, 248, 0.3), inset 0 0 12px rgba(56, 189, 248, 0.14);
-}
-@media (prefers-reduced-motion: reduce) {
-  .fx-cell, .fx-row, .fx-col, .hero-fx__cellwrap { transition: none; }
-}
+/* (「指针感应网格」样式块已应用户反馈整体移除——指针跟随类效果本站已两次被否,勿再加) */
 
 /* —— E1 英文标题低频复闪(配合 .thero__title-en 的 titleReGlitch 引用;只占周期 ~1.5%)—— */
 @keyframes titleReGlitch {
