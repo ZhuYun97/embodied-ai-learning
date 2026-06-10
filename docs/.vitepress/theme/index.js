@@ -592,6 +592,29 @@ function splitTitleChars(text) {
 
 // 打字机(开机序列用):清空后逐字回填,一次性;SSR / 无 JS / reduced-motion 下保持完整静态文本。
 // keepHeight:打字前把父元素高度锁住,避免换行导致下方按钮跳动。
+// 开机序列可跳过(2026-06-10;源:Vercel Web Interface Guidelines「Animations are
+// cancelable by user input」):所有 JS 侧开机动效注册 finisher,任意 pointerdown/keydown
+// → skipBoot() 瞬间定格终态,并给 <html> 加 .boot-done 定格 CSS 侧动画(见 custom.css)。
+const bootFinishers = []
+let bootSkipped = false
+function skipBoot() {
+  if (bootSkipped) return
+  bootSkipped = true
+  for (const fin of bootFinishers.splice(0)) {
+    try { fin() } catch (e) {}
+  }
+  if (typeof document !== 'undefined') document.documentElement.classList.add('boot-done')
+  window.removeEventListener('pointerdown', skipBoot, true)
+  window.removeEventListener('keydown', skipBoot, true)
+}
+function armBootSkip() {
+  bootSkipped = false
+  document.documentElement.classList.remove('boot-done')
+  window.addEventListener('pointerdown', skipBoot, true)
+  window.addEventListener('keydown', skipBoot, true)
+  // 开机自然结束(~2.4s)后自动收尾:清监听 + 定格终态(finisher 幂等,重复无害)
+  setTimeout(skipBoot, 2600)
+}
 function typewrite(el, { delay = 0, cps = 55, keepHeight = false } = {}) {
   if (!el) return
   const full = el.textContent || ''
@@ -602,16 +625,23 @@ function typewrite(el, { delay = 0, cps = 55, keepHeight = false } = {}) {
   el.textContent = ''
   el.classList.add('is-typing')
   let i = 0
-  setTimeout(() => {
-    const t = setInterval(() => {
+  let timer = null
+  const st = setTimeout(() => {
+    timer = setInterval(() => {
       i++
       el.textContent = full.slice(0, i)
       if (i >= full.length) {
-        clearInterval(t)
+        clearInterval(timer)
         el.classList.remove('is-typing')
       }
     }, Math.max(8, 1000 / cps))
   }, delay)
+  bootFinishers.push(() => {
+    clearTimeout(st)
+    if (timer) clearInterval(timer)
+    el.textContent = full
+    el.classList.remove('is-typing')
+  })
 }
 
 const TechHero = {
@@ -635,6 +665,7 @@ const TechHero = {
       bindHeroUnit(reduce)
       if (reduce) return
       // 开机序列:状态条 → 终端提示语,逐字打出(一次性;机器人物化见 custom.css robotMaterialize)
+      armBootSkip()
       typewrite(document.querySelector('.thero__bar-text'), { delay: 120, cps: 70 })
       typewrite(document.querySelector('.thero__lede-text'), { delay: 700, cps: 45, keepHeight: true })
       document.querySelectorAll('.thero__stat-n').forEach((el) => {
@@ -648,9 +679,15 @@ const TechHero = {
         const prefix = raw.slice(0, m.index)
         const suffix = raw.slice(m.index + m[1].length)
         tn.nodeValue = prefix + '0' + suffix
+        let counterDone = false
+        bootFinishers.push(() => {
+          counterDone = true
+          tn.nodeValue = raw
+        })
         setTimeout(() => {
           let start = null
           const tick = (ts) => {
+            if (counterDone) return
             if (start === null) start = ts
             const p = Math.min(1, (ts - start) / 900)
             const v = Math.round((1 - Math.pow(1 - p, 3)) * target)
@@ -664,6 +701,7 @@ const TechHero = {
     })
     onUnmounted(() => {
       if (clockTimer) clearInterval(clockTimer)
+      skipBoot() // 中途离开首页:立即定格并清掉全局监听(幂等)
     })
     return () => {
       const hero = (frontmatter.value && frontmatter.value.hero) || {}

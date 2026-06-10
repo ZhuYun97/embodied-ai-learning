@@ -19,6 +19,24 @@
       <button type="button" class="kg-zoom__btn kg-zoom__btn--reset" @click="resetView" title="复位视图" aria-label="复位视图">↺</button>
     </div>
 
+    <!-- 目标读出坞:悬停节点的档案读出(细节按需;空态显引导) -->
+    <aside class="kg-dock" :class="{ 'has-target': hoverInfo }" aria-live="polite">
+      <div class="kg-dock__tag">TARGET READOUT</div>
+      <template v-if="hoverInfo">
+        <div class="kg-dock__name">
+          {{ hoverInfo.name }}<span v-if="hoverInfo.sub" class="kg-dock__sub">{{ hoverInfo.sub }}</span>
+        </div>
+        <div class="kg-dock__meta">
+          <span class="kg-dock__kind">{{ hoverInfo.kind }}</span>
+          <span v-if="hoverInfo.founded" class="kg-dock__founded">{{ hoverInfo.founded }} 创立</span>
+        </div>
+        <div v-if="hoverInfo.funding" class="kg-dock__funding">{{ hoverInfo.funding }}</div>
+        <p v-if="hoverInfo.desc" class="kg-dock__desc">{{ hoverInfo.desc }}</p>
+        <div v-if="hoverInfo.website" class="kg-dock__hint">点击节点访问官网 ↗</div>
+      </template>
+      <div v-else class="kg-dock__empty">悬停节点 → 读出档案</div>
+    </aside>
+
     <svg
       ref="svgEl"
       class="kg-svg"
@@ -183,6 +201,49 @@ const wrapEl = ref(null)
 const zoom = ref(1)
 const pan = reactive({ x: 0, y: 0 })
 const hoverId = ref(null)
+
+// 「目标读出坞」(2026-06-10;细节按需 details-on-demand):悬停节点 → 右上角固定
+// HUD 面板读出该主体档案(名称/类型/成立/融资/简介)。做固定坞而非跟随气泡:
+// 图谱有平移缩放,锚定坐标随变换漂移;固定读出更稳,也与雷达控制台语言一致,
+// 且绝无指针跟随感(本站红线)。字段缺失即不渲染,不编造。
+const infoById = (() => {
+  const m = {}
+  for (const c of data.companies || []) {
+    m[c.id] = {
+      kind: '公司',
+      name: c.nameZh || c.name || c.id,
+      sub: c.nameZh && c.name && c.name !== c.nameZh ? c.name : '',
+      founded: c.founded || '',
+      funding: c.funding || '',
+      desc: c.description || '',
+      website: c.website || '',
+    }
+  }
+  for (const c of data.connectors || []) {
+    m[c.id] = {
+      kind: '投资方/机构',
+      name: c.nameZh || c.name || c.id,
+      sub: '',
+      founded: '',
+      funding: '',
+      desc: c.description || c.desc || '',
+      website: c.website || '',
+    }
+  }
+  for (const c of data.mentors || []) {
+    m[c.id] = {
+      kind: '导师/科学家',
+      name: c.nameZh || c.name || c.id,
+      sub: c.affiliation || c.org || '',
+      founded: '',
+      funding: '',
+      desc: c.description || c.desc || '',
+      website: c.website || '',
+    }
+  }
+  return m
+})()
+const hoverInfo = computed(() => (hoverId.value && infoById[hoverId.value]) || null)
 
 function initialOf(name) {
   if (!name) return '?'
@@ -653,4 +714,44 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
   .kg-zoom__btn { width: 40px; height: 40px; }
   .edge-flow { display: none; }
 }
+
+/* —— 目标读出坞(细节按需):画布恒深空 → 坞恒深色,不随主题翻转 —— */
+.kg-dock {
+  position: absolute;
+  bottom: 14px; /* 右下角:与左下 kg-zoom 对角呼应,避开顶部图例读出条 */
+  right: 12px;
+  z-index: 4;
+  width: 222px;
+  max-width: 46%;
+  padding: 10px 12px;
+  background: rgba(13, 21, 38, 0.88);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 10px;
+  font-family: var(--vp-font-family-mono, monospace);
+  pointer-events: none;
+  box-shadow: 0 10px 30px rgba(8, 13, 28, 0.5), inset 0 0 0 1px rgba(56, 189, 248, 0.04);
+}
+.kg-dock.has-target { border-color: rgba(56, 189, 248, 0.45); }
+.kg-dock__tag { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; color: #38bdf8; opacity: 0.85; }
+.kg-dock__name { margin-top: 5px; font-size: 0.85rem; font-weight: 700; color: #f1f5f9; line-height: 1.4; }
+.kg-dock__sub { margin-left: 6px; font-size: 0.64rem; font-weight: 400; color: #94a3b8; }
+.kg-dock__meta { display: flex; gap: 9px; margin-top: 4px; font-size: 0.66rem; color: #94a3b8; }
+.kg-dock__kind { color: #7dd3fc; }
+.kg-dock__funding { margin-top: 4px; font-size: 0.7rem; color: #fbbf24; font-variant-numeric: tabular-nums; }
+.kg-dock__desc {
+  margin: 6px 0 0;
+  font-size: 0.68rem;
+  line-height: 1.65;
+  color: rgba(203, 213, 235, 0.85);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.kg-dock__empty { margin-top: 6px; font-size: 0.68rem; color: rgba(148, 163, 200, 0.55); }
+.kg-dock__hint { margin-top: 6px; font-size: 0.62rem; color: #64748b; }
+@media (max-width: 640px) { .kg-dock { display: none; } } /* 窄屏触屏无 hover,坞隐藏 */
+/* 坞读出激活时,底部操作提示淡出避让(坞盖其右端) */
+.kg-wrap:has(.kg-dock.has-target) .kg-hint { opacity: 0.15; transition: opacity 0.2s ease; }
+
 </style>

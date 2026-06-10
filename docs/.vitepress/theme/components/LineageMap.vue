@@ -16,6 +16,28 @@ const props = defineProps({
 })
 const targetSlug = ref('')
 
+// 细节按需(2026-06-10;源:Shneiderman「overview first… details-on-demand」/ Distill):
+// 站点 hover / 键盘聚焦 → 元素锚定信息卡。锚定 ≠ 指针跟随——卡固定在站点坐标,
+// 不随光标移动;pointer-events:none 防遮挡闪烁。触屏无 hover → 点按直接进细读,
+// 卡内信息(年月/路线/arXiv)在目标页档案头都有,不丢失。
+const hovered = ref(null)
+function showCard(st, ln, panel) {
+  const x = Math.min(Math.max(st.x, 112), panel.width - 112)
+  const below = ln.y < 96
+  hovered.value = {
+    st,
+    route: ln.route,
+    color: ln.color,
+    panel: panel.key,
+    x,
+    y: below ? ln.y + 14 : ln.y - 14,
+    below,
+  }
+}
+function hideCard() {
+  hovered.value = null
+}
+
 const monthIdx = (ym) => {
   const [y, m] = ym.split('-').map(Number)
   return y * 12 + (m - 1)
@@ -160,7 +182,17 @@ onMounted(() => {
             <text :x="8" :y="ln.y - 34" class="lm-routelabel" :fill="ln.color">{{ ln.route }} · {{ ln.count }}</text>
             <path :d="`M ${ln.x1} ${ln.y} H ${ln.x2}`" :stroke="ln.color" class="lm-line" pathLength="1" :style="{ '--ld': li * 0.12 + 's' }" />
             <path v-if="ln.dashX2" :d="`M ${ln.x2} ${ln.y} H ${ln.dashX2}`" :stroke="ln.color" class="lm-line lm-line--dash" :style="{ '--ld': (li * 0.12 + 0.3) + 's' }" />
-            <a v-for="st in ln.stations" :key="st.slug" :href="withBase(st.link)" class="lm-stlink">
+            <a
+              v-for="st in ln.stations"
+              :key="st.slug"
+              :href="withBase(st.link)"
+              class="lm-stlink"
+              :aria-label="`${st.display} · ${st.date || '日期待核'} · ${ln.route}${st.arxivId ? ' · arXiv:' + st.arxivId : ''}`"
+              @mouseenter="showCard(st, ln, panel)"
+              @mouseleave="hideCard"
+              @focus="showCard(st, ln, panel)"
+              @blur="hideCard"
+            >
               <g
                 class="lm-st"
                 :class="{ 'is-undated': st.undated, 'is-target': st.slug === targetSlug }"
@@ -168,7 +200,6 @@ onMounted(() => {
                 :data-x="st.x"
                 :style="{ '--sd': (0.45 + (st.x / panel.width) * 0.9).toFixed(2) + 's' }"
               >
-                <title>{{ st.display }} · {{ st.date || '日期待核' }} · {{ ln.route }}{{ st.arxivId ? ' · arXiv:' + st.arxivId : '' }}</title>
                 <circle :cx="st.x" :cy="ln.y" r="5.5" class="lm-dot" :stroke="ln.color" />
                 <circle v-if="st.slug === targetSlug" :cx="st.x" :cy="ln.y" r="9" class="lm-ping" :stroke="ln.color" />
                 <text :x="st.x" :y="ln.y + st.dy" class="lm-sttext">{{ st.display }}</text>
@@ -176,6 +207,24 @@ onMounted(() => {
             </a>
           </g>
         </svg>
+        <!-- 锚定信息卡(细节按需):随 .lm-scroll 内容横滚,固定在站点坐标 -->
+        <div
+          v-if="hovered && hovered.panel === panel.key"
+          class="lm-card"
+          :class="{ 'is-below': hovered.below }"
+          :style="{ left: hovered.x + 'px', top: hovered.y + 'px', '--lc': hovered.color }"
+          role="status"
+        >
+          <div class="lm-card__name">{{ hovered.st.display }}</div>
+          <div class="lm-card__meta">
+            <span class="lm-card__date">{{ hovered.st.date || '日期待核' }}</span>
+            <span class="lm-card__route">{{ hovered.route }}</span>
+          </div>
+          <div class="lm-card__foot">
+            <span v-if="hovered.st.arxivId" class="lm-card__arxiv">arXiv:{{ hovered.st.arxivId }}</span>
+            <span class="lm-card__hint">点击进入细读 ↗</span>
+          </div>
+        </div>
       </div>
     </section>
     <p class="lm-foot">
@@ -222,6 +271,7 @@ onMounted(() => {
 .lm-paneltitle { color: #e2e8f0; font-weight: 700; font-size: 0.95rem; }
 .lm-panelcount { margin-left: auto; color: #64748b; font-size: 0.72rem; font-variant-numeric: tabular-nums; }
 .lm-scroll {
+  position: relative; /* 锚定信息卡的定位基准(卡随内容横滚) */
   overflow-x: auto;
   padding: 2px 0 10px;
   /* 44px 蓝图网格随内容滚动(background-attachment:local) */
@@ -311,4 +361,41 @@ onMounted(() => {
   .lm-panelhead { flex-wrap: wrap; }
   .lm-panelcount { margin-left: 0; width: 100%; }
 }
+
+/* 锚定信息卡(细节按需):固定在站点坐标、不随光标;pointer-events:none 防闪烁 */
+.lm-card {
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  min-width: 150px;
+  max-width: 232px;
+  padding: 8px 11px;
+  background: #0d1526;
+  border: 1px solid color-mix(in srgb, var(--lc, #38bdf8) 55%, transparent);
+  border-radius: 9px;
+  box-shadow:
+    0 10px 28px rgba(8, 13, 28, 0.65),
+    0 0 14px color-mix(in srgb, var(--lc, #38bdf8) 18%, transparent);
+  font-family: var(--vp-font-family-mono, monospace);
+}
+.lm-card.is-below { transform: translate(-50%, 0); }
+.lm-card__name { color: #f1f5f9; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.02em; }
+.lm-card__meta { display: flex; gap: 9px; margin-top: 3px; font-size: 0.68rem; white-space: nowrap; }
+.lm-card__date { color: #7dd3fc; font-variant-numeric: tabular-nums; }
+.lm-card__route { color: var(--lc, #94a3b8); }
+.lm-card__foot {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 0.64rem;
+  color: #64748b;
+}
+.lm-card__arxiv { font-variant-numeric: tabular-nums; }
+.lm-card__hint { color: #475569; }
+@media (prefers-reduced-motion: no-preference) {
+  .lm-card { animation: lmCardIn 0.14s ease-out; }
+}
+@keyframes lmCardIn { from { opacity: 0; } }
 </style>

@@ -3476,7 +3476,7 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
 }
 .dark .paper-dossier {
   border-color: rgba(56, 189, 248, 0.2);
-  background: rgba(13, 20, 38, 0.6);
+  background: var(--surface-panel, rgba(13, 20, 38, 0.6));
   box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.04);
 }
 /* 芯片:双主题统一深空底(控制台语言),按主线/路线着色 */
@@ -3803,3 +3803,62 @@ html.dark .cal-cell.is-today { box-shadow: inset 0 0 0 1.5px rgba(34, 211, 238, 
 html.dark .cal-cell.is-selected { color: #04181d; box-shadow: 0 0 16px rgba(34, 211, 238, .6); }
 html.dark .cal-dot { background: #22d3ee; box-shadow: 0 0 5px rgba(34, 211, 238, .8); }
 html.dark .cal-foot__hint strong { color: #67e8f9; }
+
+/* ============================================================
+   C|开机序列可跳过(2026-06-10;源:Vercel Web Interface Guidelines
+   「Animations are cancelable by user input」)。任意 pointerdown/keydown →
+   JS 定格打字机与计数(theme/index.js skipBoot),html.boot-done 定格 CSS 侧
+   一次性动画终态;常驻氛围动效(heroFloat / titleReGlitch / 数据包)照常。
+   ============================================================ */
+html.boot-done .thero__char { animation: none !important; opacity: 1; transform: none; filter: none; }
+html.boot-done .thero__title::after { animation: none !important; opacity: 0; }
+html.boot-done .VPHome .thero__title-en { animation: titleReGlitch 13s linear 7s infinite; }
+html.boot-done .thero__robot { animation: heroFloat 6s ease-in-out infinite; }
+html.boot-done .tu-mat { animation: none !important; opacity: 0; }
+
+/* ============================================================
+   B|表面抬升 + 去强调梯度 token(2026-06-10;源:Observable Framework themes
+   ——「alt 背景交换让卡片浮起,是仪表盘推荐做法」+ 9-token 去强调体系)。
+   与 VitePress 既有变量的映射(已存在的勿重复造):
+     文字三档  --vp-c-text-1 / 2 / 3        ↔ foreground / muted / faint
+     边线三档  --vp-c-border / divider / gutter ↔ faint / fainter / faintest
+     底色梯度  --vp-c-bg / bg-alt / bg-soft(侧栏即官方说的 alt 交换面)
+   本块只补缺口:「面板面 / 浮起面」两档 surface + 最淡边线一档。
+   ============================================================ */
+:root {
+  --surface-panel: #f8fafc;   /* 面板面:表格底 / 目录卡 / 读出坞 */
+  --surface-raised: #eef2f8;  /* 浮起面:表头等再亮一档 */
+  --edge-faintest: rgba(15, 23, 42, 0.05);
+}
+.dark {
+  --surface-panel: rgba(15, 26, 44, 0.55);
+  --surface-raised: #131f38;
+  --edge-faintest: rgba(148, 163, 184, 0.07);
+}
+
+/* —— 应用①:右侧「本页目录」→ 浮起面板(原为裸 border-left 清单) —— */
+.VPDocAsideOutline .content {
+  background: var(--surface-panel);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  padding: 12px 14px 12px 16px;
+}
+.dark .VPDocAsideOutline .content {
+  border-color: rgba(56, 189, 248, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.03);
+}
+.VPDocAsideOutline .outline-title {
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--vp-c-text-2);
+}
+.dark .VPDocAsideOutline .outline-marker {
+  background: #22d3ee;
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.6);
+}
+
+/* —— 应用②:细读页表格 → 面板浮起(描边/辉光退为辅助;隔行与悬停规则不变) —— */
+.paper-page .vp-doc table { background: var(--surface-panel); }
+.paper-page .vp-doc thead { background: var(--surface-raised); }
