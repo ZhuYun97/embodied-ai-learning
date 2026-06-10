@@ -373,6 +373,14 @@ const FX_BEAMS = [
   { x: 14, d: 5.5, dl: 0 }, { x: 30, d: 7, dl: 1.3 }, { x: 46, d: 6, dl: 2.6 },
   { x: 62, d: 8, dl: 0.7 }, { x: 78, d: 6.5, dl: 3.1 }, { x: 91, d: 7.5, dl: 1.9 },
 ]
+// 电路数据包:沿背景网格的横线(44px 行距,与 .VPHome::before 同原点)滑行的信号光点;
+// 行号 / 时长 / 延迟全部确定性(SSR 安全),大部分时间留白、低频掠过。
+const FX_PACKETS = [
+  { row: 3, d: 9, dl: 1.2, rev: 0 },
+  { row: 6, d: 12, dl: 5.4, rev: 1 },
+  { row: 9, d: 10, dl: 8.8, rev: 0 },
+  { row: 12, d: 13, dl: 3.1, rev: 1 },
+]
 const HeroFX = {
   setup() {
     return () =>
@@ -401,6 +409,16 @@ const HeroFX = {
             h('i', {
               class: 'hero-fx__beam',
               style: { left: b.x + '%', '--bd': b.d + 's', '--bdl': b.dl + 's' },
+            })
+          )
+        ),
+        h(
+          'div',
+          { class: 'hero-fx__packets' },
+          FX_PACKETS.map((p) =>
+            h('i', {
+              class: ['hero-fx__packet', p.rev ? 'is-rev' : ''],
+              style: { top: `calc(${p.row} * 44px - 1px)`, '--pd': p.d + 's', '--pdl': p.dl + 's' },
             })
           )
         ),
@@ -439,14 +457,53 @@ function splitTitleChars(text) {
   return out
 }
 
+// 打字机(开机序列用):清空后逐字回填,一次性;SSR / 无 JS / reduced-motion 下保持完整静态文本。
+// keepHeight:打字前把父元素高度锁住,避免换行导致下方按钮跳动。
+function typewrite(el, { delay = 0, cps = 55, keepHeight = false } = {}) {
+  if (!el) return
+  const full = el.textContent || ''
+  if (!full) return
+  if (keepHeight && el.parentElement) {
+    el.parentElement.style.minHeight = el.parentElement.offsetHeight + 'px'
+  }
+  el.textContent = ''
+  el.classList.add('is-typing')
+  let i = 0
+  setTimeout(() => {
+    const t = setInterval(() => {
+      i++
+      el.textContent = full.slice(0, i)
+      if (i >= full.length) {
+        clearInterval(t)
+        el.classList.remove('is-typing')
+      }
+    }, Math.max(8, 1000 / cps))
+  }, delay)
+}
+
 const TechHero = {
   setup() {
     const { frontmatter } = useData()
+    // 真实走秒时钟(诚实遥测:真时钟、非装饰假数)。reduced-motion 下保留——它是内容更新,不是动效。
+    const clock = ref('UTC+8 --:--:--')
+    let clockTimer = null
     onMounted(() => {
       if (typeof window === 'undefined') return
+      const tick = () => {
+        try {
+          clock.value = 'UTC+8 ' + new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Shanghai', hour12: false })
+        } catch (e) {
+          clock.value = 'UTC+8 ' + new Date().toLocaleTimeString('en-GB', { hour12: false })
+        }
+      }
+      tick()
+      clockTimer = setInterval(tick, 1000)
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
       bindHeroUnit(reduce)
       if (reduce) return
+      // 开机序列:状态条 → 终端提示语,逐字打出(一次性;机器人物化见 custom.css robotMaterialize)
+      typewrite(document.querySelector('.thero__bar-text'), { delay: 120, cps: 70 })
+      typewrite(document.querySelector('.thero__lede-text'), { delay: 700, cps: 45, keepHeight: true })
       document.querySelectorAll('.thero__stat-n').forEach((el) => {
         const tn = el.firstChild
         if (!tn || tn.nodeType !== 3) return
@@ -472,6 +529,9 @@ const TechHero = {
         }, 420)
       })
     })
+    onUnmounted(() => {
+      if (clockTimer) clearInterval(clockTimer)
+    })
     return () => {
       const hero = (frontmatter.value && frontmatter.value.hero) || {}
       const actions = Array.isArray(hero.actions) ? hero.actions : []
@@ -479,6 +539,7 @@ const TechHero = {
         h('div', { class: 'thero__bar' }, [
           h('span', { class: 'thero__bar-dot' }),
           h('span', { class: 'thero__bar-text' }, 'SYSTEM ONLINE · EMBODIED-AI ARCHIVE · VLA × WAM · 2022—2026'),
+          h('span', { class: 'thero__bar-clock' }, clock.value),
           h('span', { class: 'thero__bar-cursor' }),
         ]),
         h('div', { class: 'thero__grid' }, [
@@ -493,7 +554,7 @@ const TechHero = {
             ]),
             h('p', { class: 'thero__lede' }, [
               h('span', { class: 'thero__prompt' }, '> '),
-              hero.tagline || '',
+              h('span', { class: 'thero__lede-text' }, hero.tagline || ''),
             ]),
             h(
               'div',
@@ -537,6 +598,7 @@ const TechHero = {
                   src: withBase('/hero-robot.svg'),
                   alt: '具身智能机器人概念图',
                 }),
+                h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),
               h('span', { class: 'tu-scan', 'aria-hidden': 'true' }),
               h('span', { class: 'tu-base' }, [
@@ -548,6 +610,69 @@ const TechHero = {
         ]),
       ])
     }
+  },
+}
+
+// =====================================================================
+// 右缘章节定位轨(HomeRail):HERO / VLA / WAM / ABOUT 四节点,滚动高亮、点击平滑跳转。
+// 真导航非装饰:分区从 DOM 实测(h2 / coda),标签取 h2 冒号前缀;仅 ≥1280px 显示。
+// 随 home-hero-before 槽只在首页挂载;SSR 首帧渲染 null(分区列表 mounted 后才有)。
+// =====================================================================
+const HomeRail = {
+  setup() {
+    const items = ref([])
+    const active = ref(0)
+    let onScroll = null
+    onMounted(() => {
+      if (typeof document === 'undefined') return
+      const list = []
+      const hero = document.querySelector('.VPHome .thero')
+      if (hero) list.push({ label: 'HERO', el: hero })
+      document.querySelectorAll('.VPHome .vp-doc h2').forEach((h2) => {
+        const label = ((h2.textContent || '').split(/[::]/)[0] || 'SEC').trim().toUpperCase().slice(0, 6)
+        list.push({ label, el: h2 })
+      })
+      const coda = document.querySelector('.VPHome .home-coda')
+      if (coda) list.push({ label: 'ABOUT', el: coda })
+      if (list.length < 2) return
+      items.value = list
+      onScroll = () => {
+        const mid = window.scrollY + window.innerHeight * 0.38
+        let idx = 0
+        list.forEach((it, i) => {
+          if (it.el.getBoundingClientRect().top + window.scrollY <= mid) idx = i
+        })
+        active.value = idx
+      }
+      onScroll()
+      window.addEventListener('scroll', onScroll, { passive: true })
+    })
+    onUnmounted(() => {
+      if (onScroll) window.removeEventListener('scroll', onScroll)
+    })
+    const go = (it) => {
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      it.el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
+    }
+    return () =>
+      !items.value.length
+        ? null
+        : h(
+            'nav',
+            { class: 'home-rail', 'aria-label': '页面分区导航' },
+            items.value.map((it, i) =>
+              h(
+                'button',
+                {
+                  class: ['home-rail__item', { 'is-active': i === active.value }],
+                  type: 'button',
+                  onClick: () => go(it),
+                  'aria-current': i === active.value ? 'true' : undefined,
+                },
+                [h('i', { class: 'home-rail__dot' }), h('span', { class: 'home-rail__label' }, it.label)]
+              )
+            )
+          )
   },
 }
 
@@ -964,7 +1089,7 @@ export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
-      'home-hero-before': () => [h(HeroFX), h(TechHero)],
+      'home-hero-before': () => [h(HeroFX), h(TechHero), h(HomeRail)],
       'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle)],
       'doc-before': () => [h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],

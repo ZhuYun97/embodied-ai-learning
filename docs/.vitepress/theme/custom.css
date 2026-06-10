@@ -2150,7 +2150,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .hud-corner--tr, .hud-corner--br { right: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hud-scan, .hero-fx__beam { display: none; }
+  .hud-scan, .hero-fx__beam, .hero-fx__packet { display: none; }
 }
 
 /* ============================================================
@@ -2316,7 +2316,18 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .thero__robot { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; }
 .dark .thero__robot { filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.30)); }
 @media (prefers-reduced-motion: no-preference) {
-  .thero__robot { animation: heroFloat 6s ease-in-out infinite; }
+  /* 开机物化:自上而下 clip 揭示一次(配 .tu-mat 扫描亮线),随后接常驻浮动。
+     inset 四边取 -45% 让 drop-shadow 辉光不被裁;heroFloat 延迟到物化结束后无缝接管。 */
+  .thero__robot {
+    animation:
+      robotMaterialize 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both,
+      heroFloat 6s ease-in-out 1.3s infinite;
+  }
+}
+@keyframes robotMaterialize {
+  from { clip-path: inset(-45% -45% 100% -45%); opacity: 0.55; }
+  60% { opacity: 1; }
+  to { clip-path: inset(-45% -45% -45% -45%); opacity: 1; }
 }
 /* 四角取景框 */
 .tu-corner {
@@ -3178,3 +3189,176 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
   .thero__stat { padding: 0 14px; }
   .thero__stat:nth-child(odd) { padding-left: 0; border-left: 0; }
 }
+
+/* ============================================================
+   首页「运行中的控制台」三件套(2026-06-10):
+   A 开机序列(打字机 + 机器人物化) · B 活体遥测(真时钟 + 章节定位轨) · C 电路数据包。
+   原则:一次性入场不打扰阅读;遥测全为真实数据(时钟/导航),不造假数;
+   reduced-motion 全关(时钟保留——内容更新非动效);移动端降级。
+   ============================================================ */
+
+/* —— A1 状态条真时钟(等宽跳秒,数字 tabular 防抖动)—— */
+.thero__bar-clock {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--vp-c-text-3);
+  padding-left: 10px;
+  margin-left: 2px;
+  border-left: 1px solid var(--vp-c-divider);
+  white-space: nowrap;
+}
+.dark .thero__bar-clock {
+  color: rgba(125, 211, 252, 0.78);
+  border-left-color: rgba(56, 189, 248, 0.28);
+}
+@media (max-width: 560px) {
+  .thero__bar-clock { display: none; }
+}
+
+/* —— A2 打字机光标(仅打字进行中显示;打完即收)—— */
+.thero__bar-text.is-typing::after,
+.thero__lede-text.is-typing::after {
+  content: '▌';
+  margin-left: 1px;
+  color: #22d3ee;
+}
+
+/* —— A3 机器人物化扫描亮线(与 robotMaterialize 同步扫过一次)—— */
+.tu-mat {
+  position: absolute;
+  left: 6%; right: 6%; top: 0;
+  height: 2px;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(90deg, transparent, rgba(125, 235, 255, 0.95), transparent);
+  filter: drop-shadow(0 0 7px rgba(56, 189, 248, 0.65));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tu-mat { animation: tuMatSweep 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both; }
+}
+@keyframes tuMatSweep {
+  0% { top: 2%; opacity: 0; }
+  10% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 97%; opacity: 0; }
+}
+
+/* —— C 电路数据包:沿背景网格横线滑行的信号光点(暗色;与 44px 网格同原点对齐)—— */
+.hero-fx__packets {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.dark .hero-fx__packets { opacity: 1; }
+.hero-fx__packet {
+  position: absolute;
+  left: 0;
+  width: 64px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(125, 235, 255, 0.6), #bdf3ff);
+  filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.5));
+  opacity: 0;
+  transform: translateX(-80px);
+}
+.hero-fx__packet.is-rev {
+  background: linear-gradient(270deg, transparent, rgba(125, 235, 255, 0.6), #bdf3ff);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-fx__packet { animation: fxPacket var(--pd, 10s) linear var(--pdl, 0s) infinite; }
+  .hero-fx__packet.is-rev { animation-name: fxPacketRev; }
+}
+@keyframes fxPacket {
+  0% { transform: translateX(-80px); opacity: 0; }
+  3% { opacity: 0.8; }
+  30% { opacity: 0.8; }
+  34% { transform: translateX(100vw); opacity: 0; }
+  100% { transform: translateX(100vw); opacity: 0; }
+}
+@keyframes fxPacketRev {
+  0% { transform: translateX(100vw); opacity: 0; }
+  3% { opacity: 0.8; }
+  30% { opacity: 0.8; }
+  34% { transform: translateX(-80px); opacity: 0; }
+  100% { transform: translateX(-80px); opacity: 0; }
+}
+
+/* —— B2 右缘章节定位轨(≥1280px;真导航:滚动高亮 + 点击跳转)—— */
+.home-rail {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 6px;
+}
+@media (min-width: 1280px) {
+  .home-rail { display: flex; }
+}
+.home-rail::before {
+  content: '';
+  position: absolute;
+  top: 14px; bottom: 14px;
+  right: 13px;
+  width: 1px;
+  background: linear-gradient(transparent, var(--vp-c-divider) 22%, var(--vp-c-divider) 78%, transparent);
+  pointer-events: none;
+}
+.home-rail__item {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 0;
+  padding: 4px;
+  cursor: pointer;
+  font-family: var(--vp-font-family-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--vp-c-text-3);
+  transition: color 0.2s ease;
+}
+.home-rail__item:hover { color: var(--vp-c-brand-1); }
+.home-rail__item:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.home-rail__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: none;
+  border: 1.5px solid currentColor;
+  background: transparent;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.home-rail__item.is-active { color: var(--vp-c-brand-1); }
+.home-rail__item.is-active .home-rail__dot { background: currentColor; }
+.dark .home-rail__item.is-active .home-rail__dot { box-shadow: 0 0 10px rgba(56, 189, 248, 0.7); }
+.home-rail__label {
+  opacity: 0;
+  transform: translateX(4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.home-rail:hover .home-rail__label,
+.home-rail__item.is-active .home-rail__label,
+.home-rail__item:focus-visible .home-rail__label {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-rail__label { transition: none; transform: none; }
+  .home-rail__item, .home-rail__dot { transition: none; }
+}
+
+/* 定位轨跳转落点:给 sticky 顶栏留出余量 */
+.VPHome .vp-doc h2,
+.VPHome .home-coda { scroll-margin-top: 84px; }
