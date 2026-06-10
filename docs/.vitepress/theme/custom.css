@@ -478,10 +478,13 @@ img.zoom-lightbox__content {
 }
 
 /* WAM 6 卡:加宽为 3×2 网格(卡宽 ~357 → 9 链卡 4 行排完,链接全可见、无内滚动;
-   亦消除 5+1 末行孤儿卡)。VLA 4 卡仍走默认 basis 200 / cap 264 一行排满。 */
-.route-grid--wam .route-card {
-  flex-basis: 304px;
-  max-width: 357px;
+   亦消除 5+1 末行孤儿卡)。VLA 4 卡仍走默认 basis 200 / cap 264 一行排满。
+   仅 ≥960px 生效:窄屏堆叠时与 VLA 卡同宽(264),两节卡片宽度一致。 */
+@media (min-width: 960px) {
+  .route-grid--wam .route-card {
+    flex-basis: 304px;
+    max-width: 357px;
+  }
 }
 
 /* ---------- 「本系列」页脚导航(细读/专题页底部跨页入口) ---------- */
