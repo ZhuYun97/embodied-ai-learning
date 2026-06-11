@@ -279,6 +279,7 @@ export default withMermaid(defineConfig({
               { text: 'RDT-1B(扩散双臂基座)', link: '/vla/papers/rdt-1b' },
               { text: 'TinyVLA(高效紧凑)', link: '/vla/papers/tinyvla' },
               { text: 'SmolVLA(小型高效·开源)', link: '/vla/papers/smolvla' },
+              { text: 'OmniVLA-RL(MoT 三专家+在线 RL·观察级)', link: '/vla/papers/omnivla-rl' },
             ],
           },
           {
@@ -344,7 +345,7 @@ export default withMermaid(defineConfig({
             text: 'WAM 调研',
             items: [
               { text: '总览(定义 / taxonomy)', link: '/wam/' },
-              { text: '全模型规格对比(27 篇横向)', link: '/wam/papers/models-spec' },
+              { text: '全模型规格对比(28 篇横向)', link: '/wam/papers/models-spec' },
             ],
           },
           {
@@ -393,6 +394,7 @@ export default withMermaid(defineConfig({
               { text: 'UVA(统一视频动作·解耦双头)', link: '/wam/papers/uva' },
               { text: 'FLARE(未来潜表征对齐)', link: '/wam/papers/flare' },
               { text: 'OA-WAM(对象槽位·清华深圳)', link: '/wam/papers/oa-wam' },
+              { text: 'HiMem-WAM(分层潜动作+记忆门控·港大系·观察级)', link: '/wam/papers/himem-wam' },
             ],
           },
           {
@@ -522,6 +524,7 @@ export default withMermaid(defineConfig({
             { text: 'RDT-1B（扩散双臂基座）', link: '/vla/papers/rdt-1b' },
             { text: 'TinyVLA（高效紧凑）', link: '/vla/papers/tinyvla' },
             { text: 'SmolVLA（小型高效·开源）', link: '/vla/papers/smolvla' },
+            { text: 'OmniVLA-RL（MoT 三专家+在线 RL·观察级）', link: '/vla/papers/omnivla-rl' },
           ],
         },
         {
@@ -591,7 +594,7 @@ export default withMermaid(defineConfig({
           text: 'WAM 调研',
           items: [
             { text: '总览:定义 / taxonomy / 数据评测', link: '/wam/' },
-            { text: '全模型规格对比（27 篇横向）', link: '/wam/papers/models-spec' },
+            { text: '全模型规格对比（28 篇横向）', link: '/wam/papers/models-spec' },
           ],
         },
         {
@@ -645,6 +648,7 @@ export default withMermaid(defineConfig({
             { text: 'UVA（统一视频动作·解耦双头）', link: '/wam/papers/uva' },
             { text: 'FLARE（未来潜表征对齐）', link: '/wam/papers/flare' },
             { text: 'OA-WAM（对象槽位·清华深圳）', link: '/wam/papers/oa-wam' },
+            { text: 'HiMem-WAM（分层潜动作+记忆门控·港大系·观察级）', link: '/wam/papers/himem-wam' },
           ],
         },
         {

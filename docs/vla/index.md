@@ -61,6 +61,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | PointACT (2026.05) | Inria(Cordelia Schmid 组) | 双系统 3D 点云 VLA:冻结 Qwen2.5-VL + PTv3 点云动作专家、多尺度点-动作交互;LIBERO 96.0 自评,代码 coming soon | [→ 细读](papers/pointact.md) |
 | SeeTraceAct (2026.06) | GT / AI2 / JHU / UW | demo 条件 VLA:可见性感知潜轨迹规划(GR00T N1.5 基座),附新基准 RoboCasa-DC;仓库占位、代码未放 | [→ 细读](papers/seetraceact.md) |
 | AffordanceVLA (2026.06) | 北大 / 港科大(广州) / 港中文 / Knowin AI | MoT 三专家以 affordance 为面向任务的中间表征;LIBERO 95.8 自评,MIT 开源 | [→ 细读](papers/affordancevla.md) |
+| OmniVLA-RL (2026.04) | 碧桂园服务 AI Lab / ECNU 等 | MoT 三专家(推理/空间/动作)+ 流匹配 + Flow-GSPO 在线 RL;LIBERO 97.6 自评(数字仅在全文,摘要含糊——观察级收录) | [→ 细读](papers/omnivla-rl.md) |
 
 **更多代表模型(扩散基座 / 潜动作 / 记忆 / 空间 / 人形)**
 

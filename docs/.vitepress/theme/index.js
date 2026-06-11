@@ -413,9 +413,9 @@ const DocReadBar = {
 }
 
 // Hero 规模读出条(home-hero-actions-after):本站规模一览。
-// 数字与 feature 卡口径完全一致(69 篇=VLA42+WAM27 · 50+ 基准 · 57 公司 · 2 主线),不引入任何新主张。
+// 数字与 feature 卡口径完全一致(71 篇=VLA43+WAM28 · 50+ 基准 · 57 公司 · 2 主线),不引入任何新主张。
 const HERO_STATS = [
-  { n: '69', unit: '篇', label: '论文细读' },
+  { n: '71', unit: '篇', label: '论文细读' },
   { n: '50+', unit: '', label: '评测基准' },
   { n: '57', unit: '家', label: '生态公司' },
   { n: '2', unit: '条', label: '研究主线' },

@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 42 + WAM 27 篇,逐模块拆架构 / 数据 / 实验。
+    details: VLA 43 + WAM 28 篇,逐模块拆架构 / 数据 / 实验。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -81,6 +81,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/rdt-1b">RDT-1B</a>
       <a href="vla/papers/tinyvla">TinyVLA</a>
       <a href="vla/papers/smolvla">SmolVLA</a>
+      <a href="vla/papers/omnivla-rl">OmniVLA-RL</a>
     </div>
   </div>
   <div class="route-card">
@@ -192,6 +193,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/uva">UVA</a>
       <a href="wam/papers/flare">FLARE</a>
       <a href="wam/papers/oa-wam">OA-WAM</a>
+      <a href="wam/papers/himem-wam">HiMem-WAM</a>
     </div>
   </div>
   <div class="route-card">

@@ -8,6 +8,10 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 ## 2026-06-11
 
+**第二梯队补收:+2 篇观察级细读(69 → 71 = VLA 43 + WAM 28),谱系图 69 站**
+- 📄 应用户「把第二梯队那 2 篇也收了」:**[OmniVLA-RL](/vla/papers/omnivla-rl)**(碧桂园服务 AI Lab/ECNU 等,MoT 三专家[推理 PaLiGemma/空间 VGGT/动作流匹配]+ Flow-GSPO 在线 RL → VLA 连续·扩散/流匹配;LIBERO 97.6 ⚠️)与 **[HiMem-WAM](/wam/papers/himem-wam)**(机构由「未核」一手溯源为**港大 × INFIFORCE × 华中科大等 6 机构**;变分光流潜动作 + 层次技能 + 边界门控记忆,**推理因果、不生成未来** → 归 WAM 联合·混合;LIBERO 97.7 / RMBench 26.3 ⚠️)。
+- 🔎 **观察级如实标注**:两页均在页头与 §五 写明第二梯队定位与理由——OmniVLA-RL 的 arXiv 摘要含糊(定量仅在全文)、机构非头部名录;HiMem-WAM v1 仅 2 天(2026-06-09)、结果或随版本变动。开源状态均实查:两者皆未见代码/权重放出。全站接线同步(路线卡 / 顶栏侧栏 / WAM 索引与规格页 27→28 / VLA 报告前沿表 / hero 计数 71)。
+
 **深研补缺:+7 篇细读(62 → 69 = VLA 42 + WAM 27),谱系图 67 站**
 - 🔭 **方法**:`deep-research` 工作流(102 代理:6 路检索 → 19 源 → 86 候选断言 → 25 条 3 票对抗核查,19 确认 / 6 否决)在 4/15–6/11 窗口找站内缺失;本站再对 9 个候选 arXiv ID **全部独立实查**(9/9 标题+v1 日期吻合);用户选定第一梯队 7 篇全收。7 个并行代理逐篇抓论文 HTML 全文写细读(开源状态一律 curl 实查),互查纠错两例:WAV 的「LIBERO 表算术矛盾」经逐格复核**不属实**(系核查代理把 Spatial 列 99.6 误读为均值;实际自报均值 98.1 自洽);AffordanceVLA 机构由「未确认」实查为北大/港科广/港中文/Knowin AI(论文 HTML 署名标记一手抽取)。
 - 📄 **WAM +4**:[WAV](/wam/papers/wav)(西湖王东林组,世界-价值-动作统一 DiT,价值引导隐式规划;2.2B,实查依赖 GE-Base-fast/LTX-Video,代码已放权重未放)、[MotuBrain](/wam/papers/motubrain)(生数/清华 TSAIL,三流 MoT 联合视频+动作,基座 **Vidu**;RoboTwin 95.8/96.1 ⚠️ 自评榜首;实查未开源)、[OA-WAM](/wam/papers/oa-wam)(清华深圳丁文伯,对象可寻址槽位:addr+cnt 向量张量级解耦「操作谁/它是啥」,未来=MSE 槽位回归 + 动作=流匹配 → 归**联合·混合**)、[RoboDream](/wam/papers/robodream)(丰田 TRI,世界模型作数据合成引擎、非策略;Cosmos-Predict2 2B 基)。

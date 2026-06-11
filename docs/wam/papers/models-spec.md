@@ -1,11 +1,11 @@
 ---
-title: WAM 全模型规格对比(27 篇横向)
-description: 本站收录的 27 篇世界-行动模型(WAM)细读横向一览:机构、发布、范式、开源状态、未来预测形式、动作生成方式、主干与参数、训练数据、代表结果。所有格值取自各细读页,口径各异、禁止跨行比数值;⚠️ 自评 / ✅ 已核 / 待核 三级标注原样保留。
+title: WAM 全模型规格对比(28 篇横向)
+description: 本站收录的 28 篇世界-行动模型(WAM)细读横向一览:机构、发布、范式、开源状态、未来预测形式、动作生成方式、主干与参数、训练数据、代表结果。所有格值取自各细读页,口径各异、禁止跨行比数值;⚠️ 自评 / ✅ 已核 / 待核 三级标注原样保留。
 ---
 
-# WAM 全模型规格对比:27 篇细读横向一览
+# WAM 全模型规格对比:28 篇细读横向一览
 
-> **本页是什么**:把本站 WAM 全部 27 篇细读拍平成三张横向对比表——「档案」「技术规格」「代表结果」。每个格值都取自对应细读页(细读页本身经多源核查),2026-06-10 整理、2026-06-11 增补 4 行(WAV / MotuBrain / OA-WAM / RoboDream);**绝大多数定量为提出方/厂商自评 ⚠️**。VLA 主线的同类页面见 [VLA 全模型规格对比](/vla/papers/models-spec)。
+> **本页是什么**:把本站 WAM 全部 28 篇细读拍平成三张横向对比表——「档案」「技术规格」「代表结果」。每个格值都取自对应细读页(细读页本身经多源核查),2026-06-10 整理、2026-06-11 增补 5 行(WAV / MotuBrain / OA-WAM / RoboDream / HiMem-WAM);**绝大多数定量为提出方/厂商自评 ⚠️**。VLA 主线的同类页面见 [VLA 全模型规格对比](/vla/papers/models-spec)。
 
 ::: warning 读表铁律(先读这个)
 1. **第三张表的数值不可横向比**。各家用的基准、任务、口径完全不同:WALL-WM 的 **Task Progress 是 0–100 连续分、不是成功率**;DreamZero 的「>2×」是对**自家选定基线**;Cosmos 3 的 RoboArena 名次**随时间变动**(本页为 2026-06 快照);τ0-WM 数值为论文作者自评(2026-06-11 已对照一手论文 2606.01027 校订,不再是媒体转述)。本表只回答「谁、什么范式、什么规格、开没开源」,不回答「谁更强」。
@@ -41,6 +41,7 @@ description: 本站收录的 27 篇世界-行动模型(WAM)细读横向一览:�
 | [UVA](/wam/papers/uva) | 联合·混合 | Stanford(据项目页,待核) | 2025-03 · 2503.00200 | 待核(有项目页) |
 | [FLARE](/wam/papers/flare) | 联合·混合 | NVIDIA GEAR 等 | 2025-05 · 2505.15659 | 待核 |
 | [OA-WAM](/wam/papers/oa-wam) | 联合·混合 | 清华深圳 TBSI(丁文伯)·上交·NTU | 2026-05 · 2605.06481 | 待核(文称已放 ckpt 与训练脚本,全文无链接、GitHub 检索无果) |
+| [HiMem-WAM](/wam/papers/himem-wam) | 联合·混合 | 港大 × INFIFORCE × 华中科大等(6 机构 15 作者) | 2026-06 · 2606.10363(v1 06-09,观察级) | 未见开源 ✅实查(全文与摘要页均无代码/项目页链接) |
 | [Cosmos 3](/wam/papers/cosmos3) | 跨范式·基座 | NVIDIA Research | 2026-06 · 2606.02800 | OpenMDW-1.1 开源(可商用)✅ |
 | [Genie Envisioner](/wam/papers/genie-envisioner) | 跨范式·平台 | 智元 AgiBot | 2025-08 · 2508.05635 | 代码开源(许可待核) |
 | [GE-Sim 2.0](/wam/papers/ge-sim-2) | 跨范式·仿真 | 智元·北航·LV-NUS·天大 | 2026-05 · 2605.27491 | 待核(仅项目页) |
@@ -75,6 +76,7 @@ WAM 的两条核心轴是「**未来预测的形式/空间**」(像素视频 / �
 | [UVA](/wam/papers/uva) | 视频-动作联合潜表征 | 动作扩散头(推理跳过视频头) | Transformer+VAE(kl-f16);参数待核 | 每任务约 500 条真机轨迹 |
 | [FLARE](/wam/papers/flare) | 未来观测潜表征(不重建像素) | 动作流匹配+潜表征对齐损失 | 流匹配 DiT;参数待核 | 机器人示范+人类 ego 视频 |
 | [OA-WAM](/wam/papers/oa-wam) | 逐对象槽位状态回归(N+1 槽,addr 32d + cnt 256d,MSE;非像素/视频 token) | 流匹配动作头(16 步动作块,4 步 Euler) | ~7B Chameleon 风格主干(暖启 Chameleon-7B) | 三阶段全仿真/开源:Stage0 ~2.5T token(web 60% + OXE 20% + DROID/RoboCasa/Bridge),~166k A100-h |
+| [HiMem-WAM](/wam/papers/himem-wam) | 多视角光流潜动作(DPFlow,仅训练期监督;推理因果、不生成未来) | 分层潜动作链:Qwen3-VL planner 出 skill latent → executor 展开低层动作块 → 解码器出控制 | planner = Qwen3-VL-4B;总参数待核 | 待核(以细读页为准) |
 | [Cosmos 3](/wam/papers/cosmos3) | 五模态生成(视频/图/音/动作) | 生成塔直出 JSON 动作 token | MoT 两塔;Nano 16B / Super 64B ⚠️ | ~20T 多模态 token ⚠️(动作仅约 0.6%) |
 | [Genie Envisioner](/wam/papers/genie-envisioner) | 指令条件视频(结构化潜空间) | GE-Act 流匹配解码出动作 | GE-Base 视频扩散底座;参数待核 | ~3,000h / >100 万 episodes ⚠️ |
 | [GE-Sim 2.0](/wam/papers/ge-sim-2) | 多视角未来画面+16 维本体状态 | 不直接出动作(闭环模拟器) | Cosmos-Predict2-2B 基;2B | 数千小时真机(重训)⚠️ |
@@ -107,6 +109,7 @@ WAM 的两条核心轴是「**未来预测的形式/空间**」(像素视频 / �
 | [UVA](/wam/papers/uva) | PushT/Libero10 + 真机 UMI | Libero10 0.93、PushT 0.98;推理 0.23s(UniPi 24.07s)⚠️ |
 | [FLARE](/wam/papers/flare) | RoboCasa(24)+ GR-1 tabletop(24) | 多任务 SOTA、较基线最多约 +26% ⚠️ |
 | [OA-WAM](/wam/papers/oa-wam) | LIBERO + SimplerEnv WidowX + LIBERO-Plus(OOD 留出) | LIBERO 均值 97.8 ⚠️(较 VLA-JEPA +0.6);SimplerEnv 79.3 ⚠️;LIBERO-Plus 几何轴自评 SOTA |
+| [HiMem-WAM](/wam/papers/himem-wam) | LIBERO + LIBERO-PLUS(零样本)+ RMBench + 真机 | LIBERO 97.7 ⚠️;LIBERO-PLUS 76.0 ⚠️;RMBench 26.3 ⚠️;真机硬任务较 π0.5 +22.5% ⚠️(v1 仅 2 天,观察级) |
 | [Cosmos 3](/wam/papers/cosmos3) | RoboArena | 发布登顶(1881),约 2 天后被 Spirit v1.6(1924)反超 ⚠️(2026-06 快照) |
 | [Genie Envisioner](/wam/papers/genie-envisioner) | 待核(无统一第三方评测) | GE-Act 200ms 出 54 步轨迹;新本体 1h 示范 ⚠️ |
 | [GE-Sim 2.0](/wam/papers/ge-sim-2) | WorldArena | 2B 登顶(称超 Sora/Veo)⚠️;过滤式 BC 真机 +15pp ⚠️ |
