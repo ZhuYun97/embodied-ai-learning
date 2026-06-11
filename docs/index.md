@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 39 + WAM 23 篇,逐模块拆架构 / 数据 / 实验。
+    details: VLA 42 + WAM 27 篇,逐模块拆架构 / 数据 / 实验。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -106,6 +106,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/rynnbrain">RynnBrain</a>
       <a href="vla/papers/steervla">SteerVLA</a>
       <a href="vla/papers/steerable-policies">Steerable Policies</a>
+      <a href="vla/papers/pointact">PointACT</a>
     </div>
   </div>
   <div class="route-card">
@@ -124,6 +125,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/memoryvla-plusplus">MemoryVLA++</a>
       <a href="vla/papers/gigabrain-05m">GigaBrain-0.5M*</a>
       <a href="vla/papers/atomicvla">AtomicVLA</a>
+      <a href="vla/papers/seetraceact">SeeTraceAct</a>
+      <a href="vla/papers/affordancevla">AffordanceVLA</a>
     </div>
   </div>
 </div>
@@ -177,6 +180,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/ladi-wm">LaDi-WM</a>
       <a href="wam/papers/wall-wm">WALL-WM</a>
       <a href="wam/papers/gigaworld-policy">GigaWorld-Policy</a>
+      <a href="wam/papers/wav">WAV</a>
+      <a href="wam/papers/motubrain">MotuBrain</a>
     </div>
   </div>
   <div class="route-card">
@@ -186,6 +191,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <div class="route-links">
       <a href="wam/papers/uva">UVA</a>
       <a href="wam/papers/flare">FLARE</a>
+      <a href="wam/papers/oa-wam">OA-WAM</a>
     </div>
   </div>
   <div class="route-card">
@@ -196,6 +202,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/cosmos3">Cosmos 3</a>
       <a href="wam/papers/genie-envisioner">Genie Envisioner</a>
       <a href="wam/papers/ge-sim-2">GE-Sim 2.0</a>
+      <a href="wam/papers/robodream">RoboDream</a>
     </div>
   </div>
 </div>

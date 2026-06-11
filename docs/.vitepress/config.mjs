@@ -300,6 +300,7 @@ export default withMermaid(defineConfig({
               { text: 'RynnBrain(System-2 具身基座·达摩院)', link: '/vla/papers/rynnbrain' },
               { text: 'SteerVLA(自动驾驶·分层操控)', link: '/vla/papers/steervla' },
               { text: 'Steerable Policies(可操控分层·操作)', link: '/vla/papers/steerable-policies' },
+              { text: 'PointACT(双系统·3D 点云·Inria)', link: '/vla/papers/pointact' },
             ],
           },
           {
@@ -316,6 +317,8 @@ export default withMermaid(defineConfig({
               { text: 'MemoryVLA++(记忆+想象全时序)', link: '/vla/papers/memoryvla-plusplus' },
               { text: 'GigaBrain-0.5M*(世界模型 RL 训 VLA·GigaAI)', link: '/vla/papers/gigabrain-05m' },
               { text: 'AtomicVLA(技能引导 MoE·CVPR26)', link: '/vla/papers/atomicvla' },
+              { text: 'SeeTraceAct(可见性潜轨迹·GT/AI2)', link: '/vla/papers/seetraceact' },
+              { text: 'AffordanceVLA(affordance 中间表征·北大等)', link: '/vla/papers/affordancevla' },
             ],
           },
           {
@@ -341,7 +344,7 @@ export default withMermaid(defineConfig({
             text: 'WAM 调研',
             items: [
               { text: '总览(定义 / taxonomy)', link: '/wam/' },
-              { text: '全模型规格对比(23 篇横向)', link: '/wam/papers/models-spec' },
+              { text: '全模型规格对比(27 篇横向)', link: '/wam/papers/models-spec' },
             ],
           },
           {
@@ -380,6 +383,8 @@ export default withMermaid(defineConfig({
               { text: 'LaDi-WM(潜扩散世界模型·CoRL25)', link: '/wam/papers/ladi-wm' },
               { text: 'WALL-WM(自变量·事件锚定)', link: '/wam/papers/wall-wm' },
               { text: 'GigaWorld-Policy(动作中心·视频可选·GigaAI)', link: '/wam/papers/gigaworld-policy' },
+              { text: 'WAV(世界-价值-动作·西湖)', link: '/wam/papers/wav' },
+              { text: 'MotuBrain(三流 MoT·生数/清华)', link: '/wam/papers/motubrain' },
             ],
           },
           {
@@ -387,6 +392,7 @@ export default withMermaid(defineConfig({
             items: [
               { text: 'UVA(统一视频动作·解耦双头)', link: '/wam/papers/uva' },
               { text: 'FLARE(未来潜表征对齐)', link: '/wam/papers/flare' },
+              { text: 'OA-WAM(对象槽位·清华深圳)', link: '/wam/papers/oa-wam' },
             ],
           },
           {
@@ -395,6 +401,7 @@ export default withMermaid(defineConfig({
               { text: 'Cosmos 3(NVIDIA·全模态世界模型)', link: '/wam/papers/cosmos3' },
               { text: 'Genie Envisioner(智元)', link: '/wam/papers/genie-envisioner' },
               { text: 'GE-Sim 2.0(智元·闭环世界模拟器)', link: '/wam/papers/ge-sim-2' },
+              { text: 'RoboDream(TRI·数据合成引擎)', link: '/wam/papers/robodream' },
             ],
           },
         ],
@@ -538,6 +545,7 @@ export default withMermaid(defineConfig({
             { text: 'RynnBrain（System-2 具身基座·达摩院）', link: '/vla/papers/rynnbrain' },
             { text: 'SteerVLA（自动驾驶·分层操控）', link: '/vla/papers/steervla' },
             { text: 'Steerable Policies（可操控分层·操作）', link: '/vla/papers/steerable-policies' },
+            { text: 'PointACT（双系统·3D 点云·Inria）', link: '/vla/papers/pointact' },
           ],
         },
         {
@@ -555,6 +563,8 @@ export default withMermaid(defineConfig({
             { text: 'MemoryVLA++（记忆+想象全时序）', link: '/vla/papers/memoryvla-plusplus' },
             { text: 'GigaBrain-0.5M*（世界模型 RL 训 VLA·GigaAI）', link: '/vla/papers/gigabrain-05m' },
             { text: 'AtomicVLA（技能引导 MoE·CVPR26）', link: '/vla/papers/atomicvla' },
+            { text: 'SeeTraceAct（可见性潜轨迹·GT/AI2）', link: '/vla/papers/seetraceact' },
+            { text: 'AffordanceVLA（affordance 中间表征·北大等）', link: '/vla/papers/affordancevla' },
           ],
         },
         {
@@ -581,7 +591,7 @@ export default withMermaid(defineConfig({
           text: 'WAM 调研',
           items: [
             { text: '总览:定义 / taxonomy / 数据评测', link: '/wam/' },
-            { text: '全模型规格对比（23 篇横向）', link: '/wam/papers/models-spec' },
+            { text: '全模型规格对比（27 篇横向）', link: '/wam/papers/models-spec' },
           ],
         },
         {
@@ -624,6 +634,8 @@ export default withMermaid(defineConfig({
             { text: 'LaDi-WM（潜扩散世界模型·CoRL25）', link: '/wam/papers/ladi-wm' },
             { text: 'WALL-WM（自变量·事件锚定世界-动作模型）', link: '/wam/papers/wall-wm' },
             { text: 'GigaWorld-Policy（动作中心·视频可选·GigaAI）', link: '/wam/papers/gigaworld-policy' },
+            { text: 'WAV（世界-价值-动作·西湖）', link: '/wam/papers/wav' },
+            { text: 'MotuBrain（三流 MoT·生数/清华）', link: '/wam/papers/motubrain' },
           ],
         },
         {
@@ -632,6 +644,7 @@ export default withMermaid(defineConfig({
           items: [
             { text: 'UVA（统一视频动作·解耦双头）', link: '/wam/papers/uva' },
             { text: 'FLARE（未来潜表征对齐）', link: '/wam/papers/flare' },
+            { text: 'OA-WAM（对象槽位·清华深圳）', link: '/wam/papers/oa-wam' },
           ],
         },
         {
@@ -641,6 +654,7 @@ export default withMermaid(defineConfig({
             { text: 'Cosmos 3（NVIDIA·全模态世界模型）', link: '/wam/papers/cosmos3' },
             { text: 'Genie Envisioner（智元 AgiBot）', link: '/wam/papers/genie-envisioner' },
             { text: 'GE-Sim 2.0（智元·闭环视频世界模拟器）', link: '/wam/papers/ge-sim-2' },
+            { text: 'RoboDream（TRI·数据合成引擎）', link: '/wam/papers/robodream' },
           ],
         },
         {

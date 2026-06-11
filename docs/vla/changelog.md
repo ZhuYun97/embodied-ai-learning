@@ -8,6 +8,13 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 ## 2026-06-11
 
+**深研补缺:+7 篇细读(62 → 69 = VLA 42 + WAM 27),谱系图 67 站**
+- 🔭 **方法**:`deep-research` 工作流(102 代理:6 路检索 → 19 源 → 86 候选断言 → 25 条 3 票对抗核查,19 确认 / 6 否决)在 4/15–6/11 窗口找站内缺失;本站再对 9 个候选 arXiv ID **全部独立实查**(9/9 标题+v1 日期吻合);用户选定第一梯队 7 篇全收。7 个并行代理逐篇抓论文 HTML 全文写细读(开源状态一律 curl 实查),互查纠错两例:WAV 的「LIBERO 表算术矛盾」经逐格复核**不属实**(系核查代理把 Spatial 列 99.6 误读为均值;实际自报均值 98.1 自洽);AffordanceVLA 机构由「未确认」实查为北大/港科广/港中文/Knowin AI(论文 HTML 署名标记一手抽取)。
+- 📄 **WAM +4**:[WAV](/wam/papers/wav)(西湖王东林组,世界-价值-动作统一 DiT,价值引导隐式规划;2.2B,实查依赖 GE-Base-fast/LTX-Video,代码已放权重未放)、[MotuBrain](/wam/papers/motubrain)(生数/清华 TSAIL,三流 MoT 联合视频+动作,基座 **Vidu**;RoboTwin 95.8/96.1 ⚠️ 自评榜首;实查未开源)、[OA-WAM](/wam/papers/oa-wam)(清华深圳丁文伯,对象可寻址槽位:addr+cnt 向量张量级解耦「操作谁/它是啥」,未来=MSE 槽位回归 + 动作=流匹配 → 归**联合·混合**)、[RoboDream](/wam/papers/robodream)(丰田 TRI,世界模型作数据合成引擎、非策略;Cosmos-Predict2 2B 基)。
+- 📄 **VLA +3**:[PointACT](/vla/papers/pointact)(Inria Schmid 组,双系统 3D 点云:冻结 Qwen2.5-VL + PTv3 点云动作专家)、[SeeTraceAct](/vla/papers/seetraceact)(GT/AI2/JHU/UW,可见性感知潜轨迹规划 + 新基准 RoboCasa-DC;**署名警示:Dieter Fox 本文署名非 NVIDIA**,页内已注)、[AffordanceVLA](/vla/papers/affordancevla)(MoT 三专家以 affordance 为中间表征,MIT 开源)。
+- 🧭 **全站接线**:首页 5 张路线卡 +7 链接、顶栏下拉与侧栏同步(防呆脚本:69 个卡 slug × config ≥2 次全过)、WAM 总览快速索引 23→27、[WAM 规格对比](/wam/papers/models-spec) +4 行 × 3 表(27 篇横向;跨行观察更新:**「Wan 一统」并未发生**——新批底盘多元化为 Vidu / GE-Base / Cosmos)、hero 计数 62→69;VLA 规格对比保持 24 模型策展口径不扩(沿上批先例)。
+- 🚫 **如实记录的否决与待观察**:智元 GO-2 排除(4/9 发布在窗口外、无 arXiv 预印本;出预印本即可凭 GO-1 谱系收录);X Square「Wall-B / WUM」架构主张被 0-3 否决且无 arXiv ID,不收;第二梯队 OmniVLA-RL / HiMem-WAM 暂观察;工作流中「本周已知 6 篇」评估线程挂死,该 6 篇维持新闻级收录。
+
 **τ₀-WM 细读页对照一手论文整页校订(「媒体转述」状态解除)**
 - 📖 抓取论文 HTML 全文(5.7 万字)逐节对照重写,并实查 GitHub/HuggingFace 放出状态。**六处实质性修正**(页内附校订对照表):①参数 5B → **5.5B**(5B Wan 视频 DiT + 0.5B 动作分支);②数据「约 3 万小时」→ **27,300 小时**(17.8K 真机 + 6.5K UMI + 3.0K 第一视角 + rollout/失败轨迹);③推理流程由"三步全量推演"修正为**升级式**——RCS 轻量初筛,仅当评分低于阈值 γ 才调用模拟器推演 + LAR 修正;④ RCS/LAR 待核解除 = **Re-denoising Consistency Score / Low-quality Action Rectification**;⑤媒体广传的「Pen→Box 30%→50%」溯源为**论文 Table II 的 TTC 消融**(单次尝试禁重试,均值 0.43→0.60),非对外基线对比;⑥「全球最大开源具身世界模型」**论文全文无此表述**,降格为宣传口径 ⚠️。
 - 🔍 **新增论文一手内容**:四评测任务全名(Toolbox / School Bag / Faucet / Badminton,均排除在预训练语料外,三种本体);基线 π0.5 / Fast-WAM;预训练配方消融(零样本 0.14→0.55);CFG/ACG 通用引导反而低于无 TTC 的反直觉结果;部署时延 ~220ms(缓存后 ~180ms);视频主干坐实 **Wan2.2-TI2V-5B**(部署 README 实查,接入规格对比页「Wan 系收敛」观察)。**开源状态精确化(实查)**:VAM 权重 + 推理代码已放(GitHub 205 星);**ACVS 权重与 TTC 代码未放**(官方称后续)——论文核心的测试时回路目前不可完整复现。主结果 Fig.4 为图形呈现、逐任务数值论文未列,本页遵循「不读图取数」只录文字结论;LIBERO 等公共基准论文未报告,如实标注。
