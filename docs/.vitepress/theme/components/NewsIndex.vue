@@ -530,7 +530,7 @@ const renderMarkdown = (text) => {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
   opacity: 0.7;
 }
 
@@ -1051,7 +1051,7 @@ const renderMarkdown = (text) => {
 /* —— 统计 + 工具条:发光 + 顶条流动 —— */
 @media (prefers-reduced-motion: no-preference) {
   .news-toolbar::before {
-    background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9, #22d3ee, #2563eb);
+    background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6, #22d3ee, #2563eb);
     background-size: 200% 100%;
     opacity: 0.9;
     animation: ncFiber 5s linear infinite;

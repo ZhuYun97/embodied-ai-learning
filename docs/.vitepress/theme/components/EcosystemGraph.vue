@@ -51,7 +51,7 @@
         <radialGradient id="kg-core" cx="42%" cy="38%" r="65%">
           <stop offset="0%" stop-color="#dbeafe" />
           <stop offset="32%" stop-color="#60a5fa" />
-          <stop offset="66%" stop-color="#2563eb" />
+          <stop offset="66%" stop-color="#7c3aed" />
           <stop offset="100%" stop-color="#1e1b4b" />
         </radialGradient>
         <radialGradient id="kg-cn" cx="36%" cy="30%" r="78%">
@@ -475,7 +475,7 @@ const stat = { companies: companies.length, hubs: connectors.length, mentors: me
   border-radius: 14px;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 50% 42% at 50% 49%, rgba(37, 99, 235, 0.22), transparent 70%),
+    radial-gradient(ellipse 50% 42% at 50% 49%, rgba(124, 58, 237, 0.22), transparent 70%),
     radial-gradient(ellipse 80% 70% at 50% 49%, rgba(37, 99, 235, 0.16), transparent 72%),
     radial-gradient(ellipse 120% 100% at 50% 45%, #0a0e22 0%, #05060f 55%, #020308 100%);
   border: 1px solid rgba(96, 130, 220, 0.2);

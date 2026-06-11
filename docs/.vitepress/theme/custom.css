@@ -641,7 +641,7 @@ img.zoom-lightbox__content {
   background:
     radial-gradient(circle at 28% 42%, rgba(37, 99, 235, 0.28), transparent 58%),
     radial-gradient(circle at 72% 48%, rgba(34, 211, 238, 0.20), transparent 58%),
-    radial-gradient(circle at 52% 72%, rgba(14, 165, 233, 0.20), transparent 60%);
+    radial-gradient(circle at 52% 72%, rgba(139, 92, 246, 0.20), transparent 60%);
   filter: blur(46px);
   opacity: 0.9;
   animation: techDrift 18s ease-in-out infinite alternate;
@@ -656,9 +656,9 @@ img.zoom-lightbox__content {
 .VPHome .VPFeatures,
 .VPHome .vp-doc { position: relative; z-index: 1; }
 
-/* Hero 标题:蓝→青→冰青 渐变辉光字(仅首页) */
+/* Hero 标题:蓝→青→紫 渐变辉光字(仅首页) */
 .VPHome .VPHero .name.clip {
-  background: linear-gradient(100deg, #2563eb 0%, #22d3ee 46%, #67e8f9 92%);
+  background: linear-gradient(100deg, #2563eb 0%, #22d3ee 46%, #8b5cf6 92%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -692,7 +692,7 @@ img.zoom-lightbox__content {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
   opacity: 0.75;
 }
 .VPHome .route-card:hover {
@@ -774,7 +774,7 @@ img.zoom-lightbox__content {
     transparent 0%,
     rgba(37, 99, 235, 0.45) 22%,
     rgba(34, 211, 238, 0.6) 50%,
-    rgba(96, 165, 250, 0.45) 78%,
+    rgba(139, 92, 246, 0.45) 78%,
     transparent 100%);
   opacity: 0.85;
 }
@@ -1197,7 +1197,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   position: absolute;
   top: 0; left: 0; right: 0; bottom: auto;
   width: 100%; height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
   opacity: 0.75;
   /* 关键:无 transform、无 skew,无溢出风险 */
   transform: none;
@@ -1206,7 +1206,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 }
 .VPHome .route-card:hover::before { left: 0; }  /* 禁用 hover 扫光位移 */
 .dark .VPHome .route-card::before {
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
 }
 
 /* 暗色:路线卡悬停霓虹环 + 角标变亮 */
@@ -1261,7 +1261,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   left: 0;
   width: 4px;
   height: auto;
-  background: linear-gradient(180deg, #2563eb 0%, #22d3ee 58%, #67e8f9 100%);
+  background: linear-gradient(180deg, #2563eb 0%, #22d3ee 58%, #8b5cf6 100%);
   border-radius: 4px;
 }
 .dark .VPHome .vp-doc h2::after {
@@ -1463,7 +1463,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
   opacity: 0.8;
 }
 .dark .home-coda { box-shadow: inset 0 0 30px rgba(34, 211, 238, 0.05); }
@@ -1714,7 +1714,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   line-height: 1;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
-  background: linear-gradient(120deg, #2563eb 0%, #22d3ee 52%, #67e8f9 100%);
+  background: linear-gradient(120deg, #2563eb 0%, #22d3ee 52%, #8b5cf6 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1937,7 +1937,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
   opacity: 0.85;
   pointer-events: none;
   z-index: 1;
@@ -2021,7 +2021,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   transform: translateX(-50%);
   background:
     radial-gradient(circle at 16% 32%, rgba(34, 211, 238, 0.22), transparent 60%),
-    radial-gradient(circle at 84% 26%, rgba(59, 130, 246, 0.22), transparent 60%);
+    radial-gradient(circle at 84% 26%, rgba(139, 92, 246, 0.22), transparent 60%);
   filter: blur(62px);
   opacity: 0.82;
 }
@@ -2127,12 +2127,12 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .VPHome .VPFeature { position: relative; overflow: hidden; }
 .VPHome .VPFeature::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9, #22d3ee, #2563eb);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6, #22d3ee, #2563eb);
   background-size: 200% 100%;
   opacity: 0.85; z-index: 1; pointer-events: none;
 }
 .VPHome .route-card::before {
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9, #22d3ee, #2563eb);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6, #22d3ee, #2563eb);
   background-size: 200% 100%;
   opacity: 0.9;
 }
@@ -2195,7 +2195,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .thero__title-zh {
   display: block;
   font-size: clamp(2.4rem, 5vw, 4.05rem); font-weight: 800; letter-spacing: -0.02em;
-  background: linear-gradient(100deg, #2563eb, #22d3ee 46%, #67e8f9 92%);
+  background: linear-gradient(100deg, #2563eb, #22d3ee 46%, #8b5cf6 92%);
   background-size: 220% auto;
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
@@ -2285,7 +2285,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   display: flex; align-items: baseline; gap: 3px; margin: 0;
   font-family: var(--vp-font-family-mono); font-size: 2rem; font-weight: 750; line-height: 1;
   letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
-  background: linear-gradient(120deg, #2563eb, #22d3ee 52%, #67e8f9);
+  background: linear-gradient(120deg, #2563eb, #22d3ee 52%, #8b5cf6);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
 .dark .thero__stat-n { filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.3)); }
@@ -2480,7 +2480,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .dark .VPDoc .vp-doc h1::before { color: #7dd3fc; }
 .VPDoc .vp-doc h1::after {
   content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee 24%, #67e8f9 58%, transparent 100%);
+  background: linear-gradient(90deg, #2563eb, #22d3ee 24%, #8b5cf6 58%, transparent 100%);
   border-radius: 2px; opacity: 0.9;
 }
 
@@ -2505,7 +2505,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   overflow: hidden;
 }
 .VPDoc .vp-doc blockquote:has(a[href*="arxiv"])::before {
-  width: 3px; background: linear-gradient(180deg, #2563eb, #22d3ee, #67e8f9);
+  width: 3px; background: linear-gradient(180deg, #2563eb, #22d3ee, #8b5cf6);
 }
 .dark .VPDoc .vp-doc blockquote:has(a[href*="arxiv"]) {
   border-color: rgba(56, 189, 248, 0.22);
@@ -2572,7 +2572,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   background: linear-gradient(90deg, transparent, var(--vp-c-divider) 22%, var(--vp-c-divider) 78%, transparent);
 }
 .dark .VPDoc .vp-doc hr {
-  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.25) 25%, rgba(96, 165, 250, 0.22) 75%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.25) 25%, rgba(139, 92, 246, 0.22) 75%, transparent);
 }
 
 /* ---- 行内代码暗色青描边 + 正文链接悬停加粗下划线 ---- */
@@ -2761,7 +2761,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     radial-gradient(2px 2px at 8% 150px, rgba(186, 230, 253, 0.6), transparent 62%),
     radial-gradient(1.6px 1.6px at 95% 200px, rgba(186, 230, 253, 0.55), transparent 62%),
     radial-gradient(880px 500px at 12% 0%, rgba(37, 99, 235, 0.2), transparent 58%),
-    radial-gradient(800px 600px at 92% 7%, rgba(14, 165, 233, 0.15), transparent 56%),
+    radial-gradient(800px 600px at 92% 7%, rgba(139, 92, 246, 0.15), transparent 56%),
     linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
   background-size: auto, auto, auto, auto, auto, auto, auto, auto, 40px 40px, 40px 40px;
@@ -3299,12 +3299,12 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
   0%, 96.2%, 98.2%, 100% { transform: none; text-shadow: none; opacity: 1; }
   96.6% {
     transform: translateX(2px) skewX(-5deg);
-    text-shadow: -3px 0 rgba(34, 211, 238, 0.75), 3px 0 rgba(96, 165, 250, 0.75);
+    text-shadow: -3px 0 rgba(34, 211, 238, 0.75), 3px 0 rgba(139, 92, 246, 0.75);
   }
   97.0% { transform: translateX(-2px) skewX(3deg); opacity: 0.85; }
   97.6% {
     transform: translateX(1px);
-    text-shadow: 2px 0 rgba(34, 211, 238, 0.6), -2px 0 rgba(96, 165, 250, 0.6);
+    text-shadow: 2px 0 rgba(34, 211, 238, 0.6), -2px 0 rgba(139, 92, 246, 0.6);
   }
 }
 
@@ -3471,7 +3471,7 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
   opacity: 0.65;
 }
 .dark .paper-dossier {
@@ -3768,7 +3768,7 @@ html.dark .news-badge--verified { box-shadow: 0 0 9px rgba(34, 197, 94, 0.28); }
 html.dark .news-card__more { text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
 html.dark .news-card:hover .news-card__title { text-shadow: 0 0 18px rgba(56, 189, 248, 0.28); }
 html.dark .news-group__head::after {
-  background: linear-gradient(90deg, rgba(56, 189, 248, 0.55), rgba(96, 165, 250, 0.28) 45%, transparent 82%);
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.55), rgba(139, 92, 246, 0.28) 45%, transparent 82%);
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.22);
 }
 html.dark .news-group__date::before { box-shadow: 0 0 10px rgba(34, 211, 238, 0.6); }
