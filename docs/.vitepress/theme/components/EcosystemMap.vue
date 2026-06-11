@@ -401,7 +401,7 @@ function openCompanyDetail(company) {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9);
   opacity: 0.8;
 }
 .dark .stat-card { box-shadow: inset 0 0 24px rgba(34, 211, 238, 0.05); }
@@ -414,7 +414,7 @@ function openCompanyDetail(company) {
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
   margin-bottom: 0.45rem;
-  background: linear-gradient(120deg, #2563eb 0%, #22d3ee 55%, #8b5cf6 100%);
+  background: linear-gradient(120deg, #2563eb 0%, #22d3ee 55%, #67e8f9 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -474,7 +474,7 @@ function openCompanyDetail(company) {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
+  background: linear-gradient(90deg, #2563eb, #22d3ee, #67e8f9);
   opacity: 0;
   transition: opacity 0.2s;
 }

@@ -75,7 +75,7 @@ const credibility = [
   border-radius: 16px;
   background:
     radial-gradient(ellipse 90% 70% at 50% -10%, rgba(34, 211, 238, 0.12), transparent 60%),
-    radial-gradient(ellipse 70% 90% at 100% 100%, rgba(124, 58, 237, 0.12), transparent 60%),
+    radial-gradient(ellipse 70% 90% at 100% 100%, rgba(37, 99, 235, 0.12), transparent 60%),
     linear-gradient(180deg, #0c1530 0%, #070b1c 100%);
   box-shadow:
     inset 0 0 40px rgba(34, 211, 238, 0.06),

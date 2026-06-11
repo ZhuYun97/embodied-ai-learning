@@ -3,19 +3,19 @@
     <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#3b82f6"/>
       <stop offset="0.5" stop-color="#22d3ee"/>
-      <stop offset="1" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#67e8f9"/>
     </linearGradient>
     <linearGradient id="limb" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#2563eb"/>
       <stop offset="0.5" stop-color="#38bdf8"/>
-      <stop offset="1" stop-color="#7c5cf0"/>
+      <stop offset="1" stop-color="#67e8f9"/>
     </linearGradient>
     <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#22d3ee" stop-opacity="0.22"/>
       <stop offset="1" stop-color="#2563eb" stop-opacity="0.05"/>
     </linearGradient>
     <linearGradient id="panelV" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#8b5cf6" stop-opacity="0.20"/>
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.20"/>
       <stop offset="1" stop-color="#2563eb" stop-opacity="0.04"/>
     </linearGradient>
     <linearGradient id="visor" x1="0" y1="0" x2="0" y2="1">
