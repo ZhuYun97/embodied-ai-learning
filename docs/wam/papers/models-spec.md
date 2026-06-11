@@ -8,7 +8,7 @@ description: 本站收录的 23 篇世界-行动模型(WAM)细读横向一览:�
 > **本页是什么**:把本站 WAM 全部 23 篇细读拍平成三张横向对比表——「档案」「技术规格」「代表结果」。每个格值都取自对应细读页(细读页本身经多源核查),2026-06-10 整理;**绝大多数定量为提出方/厂商自评 ⚠️**。VLA 主线的同类页面见 [VLA 全模型规格对比](/vla/papers/models-spec)。
 
 ::: warning 读表铁律(先读这个)
-1. **第三张表的数值不可横向比**。各家用的基准、任务、口径完全不同:WALL-WM 的 **Task Progress 是 0–100 连续分、不是成功率**;DreamZero 的「>2×」是对**自家选定基线**;Cosmos 3 的 RoboArena 名次**随时间变动**(本页为 2026-06 快照);τ0-WM 整页为**媒体转述**团队自评。本表只回答「谁、什么范式、什么规格、开没开源」,不回答「谁更强」。
+1. **第三张表的数值不可横向比**。各家用的基准、任务、口径完全不同:WALL-WM 的 **Task Progress 是 0–100 连续分、不是成功率**;DreamZero 的「>2×」是对**自家选定基线**;Cosmos 3 的 RoboArena 名次**随时间变动**(本页为 2026-06 快照);τ0-WM 数值为论文作者自评(2026-06-11 已对照一手论文 2606.01027 校订,不再是媒体转述)。本表只回答「谁、什么范式、什么规格、开没开源」,不回答「谁更强」。
 2. 标记体例:**⚠️ = 提出方自评**(非第三方复现)/ **✅ = 经核查** / **待核 = 一手源未给,本站不编造**(可开顶栏「可信度透镜」暗化存疑格)。
 3. 「机构:待核」≠ 没有机构——不少 arXiv 摘要不署机构,本站不以外部检索硬填;个别页面标注了「据公开检索/项目页,待核」的,原样保留。
 4. 行序 = 谱系图线序(范式)+ 线内时间,与首页路线卡、侧栏完全一致。
@@ -31,7 +31,7 @@ description: 本站收录的 23 篇世界-行动模型(WAM)细读横向一览:�
 | [DreamZero](/wam/papers/dreamzero) | 联合·扩散 | 待核(36 作者,lead S. Ye) | 2026-02 · 2602.15922 | 待核 |
 | [X-WAM](/wam/papers/x-wam) | 联合·扩散 | 待核(摘要未明列) | 2026-04 · 2604.26694 | 待核 |
 | [LingBot-VA](/wam/papers/lingbot-va) | 联合·扩散 | 蚂蚁集团灵波 | 2026-01 · 2601.21998 | 代码开源(许可待核) |
-| [τ0-WM](/wam/papers/tau0-wm) | 联合·扩散 | 智元/上海创智(罗剑岚团队) | 2026-05(无 arXiv,媒体转述 ⚠️) | 权重+代码开源(许可待核) |
+| [τ0-WM](/wam/papers/tau0-wm) | 联合·扩散 | 智元 Finch/上海创智(罗剑岚团队) | 2026-06 · 2606.01027(v1 05-31) | 部分开源 ✅实查:VAM 权重+推理代码已放;ACVS 权重与 TTC 代码未放(称后续) |
 | [GR00T N2](/wam/papers/groot-n2) | 联合·扩散 | NVIDIA | 待核(预览,未释出) | 未释出(称年底可用,待核) |
 | [LaDi-WM](/wam/papers/ladi-wm) | 联合·扩散 | 国防科大/北大/深大系(据公开检索,待核) | 2025-05 · 2505.11528 | 待核 |
 | [WALL-WM](/wam/papers/wall-wm) | 联合·扩散 | 自变量机器人(X Square) | 2026-06 · 2606.01955 | 代码/权重未放出(仓 CC BY-NC-ND) |
@@ -61,7 +61,7 @@ WAM 的两条核心轴是「**未来预测的形式/空间**」(像素视频 / �
 | [DreamZero](/wam/papers/dreamzero) | 未来视频帧(显式) | 视频-动作同序列联合去噪 | Wan2.1 基;14B 自回归视频扩散 ⚠️ | 异构机器人数据;规模待核 |
 | [X-WAM](/wam/papers/x-wam) | 多视角 RGB-D 视频(4D) | 异步去噪 ANS:动作少步快解 | 预训练视频扩散 DiT;参数待核 | >5,800 小时机器人数据 ⚠️ |
 | [LingBot-VA](/wam/papers/lingbot-va) | 近未来视频帧 | 交错自回归(MoT 共享潜空间) | MoT;参数待核 | 待核 |
-| [τ0-WM](/wam/papers/tau0-wm) | 多视角未来画面 | 测试时搜索:提议→推演→评估 | 5B ⚠️ | ~3 万小时(真机17.8k+UMI6.5k+人类3k)⚠️ |
+| [τ0-WM](/wam/papers/tau0-wm) | 多视角未来潜变量(联合流匹配) | 测试时搜索(升级式):RCS 初筛→不可靠才 ACVS 推演+LAR 修正 | 5.5B(5B Wan2.2 视频 DiT + 0.5B 动作分支) | 27,300h(真机17.8K+UMI6.5K+人类3K+rollout/失败轨迹) |
 | [GR00T N2](/wam/papers/groot-n2) | 潜空间目标转移表征 | Joint Video-Action DiT | 待核(预览未释出) | 大规模视频预训练;待核 |
 | [LaDi-WM](/wam/papers/ladi-wm) | VFM 对齐潜表征演化(DINO+CLIP) | 扩散策略+预测态迭代精炼 | 潜扩散+VFM;参数待核 | 待核 |
 | [WALL-WM](/wam/papers/wall-wm) | 多视角未来视频(事件锚定) | 动作 DiT(单向跨注意力+流匹配) | Wan2.2-5B 塔+动作 DiT+冻结 Qwen3.5-9B | 多本体+无本体+少样本锚定;总规模待核 |
@@ -89,7 +89,7 @@ WAM 的两条核心轴是「**未来预测的形式/空间**」(像素视频 / �
 | [DreamZero](/wam/papers/dreamzero) | 真机新任务/新环境(自选基线) | 较 SOTA VLA >2×;14B @7Hz 闭环 ⚠️ |
 | [X-WAM](/wam/papers/x-wam) | RoboCasa / RoboTwin 2.0 | 79.2% / 90.7% 平均成功率 ⚠️ |
 | [LingBot-VA](/wam/papers/lingbot-va) | RoboTwin 2.0-Plus(第三方研究) | 原文无定量;第三方报 74.2% ⚠️ |
-| [τ0-WM](/wam/papers/tau0-wm) | 四项长程精细任务(自建) | 均超对标;Pen→Box 30%→50% ⚠️(媒体转述) |
+| [τ0-WM](/wam/papers/tau0-wm) | 四项自建长程任务(Toolbox/School Bag/Faucet/Badminton,基线 π0.5/Fast-WAM) | 自评平均最高(Fig.4 图形,逐任务数值论文未列);TTC 消融(单次尝试)均值 0.43→0.60、Pen→Box 0.30→0.50 ⚠️ |
 | [GR00T N2](/wam/papers/groot-n2) | MolmoSpaces / RoboArena | 称较领先 VLA 高 2×、两榜第一 ⚠️(预览,不可复核) |
 | [LaDi-WM](/wam/papers/ladi-wm) | LIBERO-LONG + 真机 | LIBERO-LONG +27.9%、真机 +20% ⚠️ |
 | [WALL-WM](/wam/papers/wall-wm) | 真机自建四套件 | Task Progress(0–100,非成功率)事件模式全胜 ⚠️ |
