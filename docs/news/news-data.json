@@ -1,5 +1,434 @@
 [
   {
+    "id": "ceo-iron-20260610",
+    "title": "何小鹏发内部信兼任小鹏机器人业务CEO,冲刺IRON年底量产",
+    "date": "2026-06-10",
+    "fetched_at": "2026-06-11",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "战略",
+      "人形机器人",
+      "量产"
+    ],
+    "summary": "6月10日,小鹏集团董事长**何小鹏**发布内部信,宣布在集团CEO之外**亲自兼任机器人业务CEO**,将人形机器人业务提升至集团最高战略优先级,并称这是小鹏从「智能汽车公司」向「物理AI公司」转型的关键一步,要把汽车业务积累的供应链、制造、品质能力复制到机器人。⚠️ 据其内部信(厂商口径),人形机器人 **IRON 已站在量产交付门槛上**,力争2026年底实现量产、年底月产能目标上千台,并率先在小鹏门店落地导览导购等商用场景。",
+    "sources": [
+      {
+        "name": "界面新闻 / 新浪财经 / 每日经济新闻",
+        "url": "https://www.jiemian.com/article/14564627.html"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "neura-robotics-14-c-tether-nvidia-amazon-q-20260610",
+    "title": "Neura Robotics 官宣最高 14 亿美元 C 轮:Tether / Nvidia / Amazon / Qualcomm 在列,押注 Physical AI",
+    "date": "2026-06-10",
+    "fetched_at": "2026-06-11",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "公司动态",
+      "融资",
+      "人形机器人"
+    ],
+    "summary": "德国-欧洲人形机器人公司 **NEURA Robotics** 官宣 C 轮融资,公告口径为「**最高 14 亿美元**」(up to $1.4B),投资方含 **Tether、Nvidia、Amazon、Qualcomm、imec** 等;资金用于扩展其 Physical AI 平台、人形机器人 4NE-1 量产与「机器人即服务」业务。经 NEURA 官方公告、[The Robot Report](https://www.therobotreport.com/neura-robotics-raise-up-1-4b-in-series-c-funding-physical-ai/)、CNBC 等多源互证;**「最高」为公告措辞,实际交割进度未披露**。",
+    "sources": [
+      {
+        "name": "The Robot Report",
+        "url": "https://www.therobotreport.com/neura-robotics-raise-up-1-4b-in-series-c-funding-physical-ai/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "arxiv-2606-12403-20260610",
+    "title": "arXiv 论文 World Pilot:用「世界-动作」先验引导 VLA 的两条注入路径",
+    "date": "2026-06-10",
+    "fetched_at": "2026-06-11",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "VLA 模型",
+      "世界模型"
+    ],
+    "summary": "中科院自动化所张兆翔等团队提出 World Pilot,用世界-动作模型(WAM)的先验通过两条互补路径增强 VLA:Latent Steering 把场景演化隐变量注入感知层,Action Steering 把预测轨迹作为动作生成器的运动先验;即便先验来自仅视频预训练、未做动作后训练的世界模型也依然有效。⚠️ 作者自评:在 LIBERO-Plus 零样本 OOD 基准上以 84.7% 总成功率取得 SOTA,并在四项真机任务的视角/几何/形变/位姿偏移下均居首。有项目主页,开源情况待定。arXiv:[2606.12403](https://arxiv.org/abs/2606.12403)",
+    "sources": [
+      {
+        "name": "arXiv:2606.12403",
+        "url": "https://arxiv.org/abs/2606.12403"
+      }
+    ],
+    "bot": true,
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      }
+    ]
+  },
+  {
+    "id": "2026-20260609",
+    "title": "工信部、国资委联合启动「2026年度人形机器人与具身智能实景实训专项行动」",
+    "date": "2026-06-09",
+    "fetched_at": "2026-06-11",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "政策标准",
+      "人形机器人",
+      "具身智能"
+    ],
+    "summary": "工业和信息化部办公厅、国务院国资委办公厅6月9日联合印发通知,正式启动**2026年度人形机器人与具身智能实景实训专项行动**,聚焦工业、服务、特种三大领域,部署打造实景实训空间、组建创新应用联合体等6项重点任务。通知提出到2026年底凝练形成**百个以上高价值应用场景**、带动形成**万台级规模落地能力**,并要求各省级地区选取重点场景不少于20个、各央企不少于10个。详见[工信部官网通知](https://www.miit.gov.cn/jgsj/kjs/wjfb/art/2026/art_cd666691abf8471fb8553d463aa416e3.html)。",
+    "sources": [
+      {
+        "name": "新华社 / 工业和信息化部",
+        "url": "http://www.news.cn/tech/20260610/0ac12d4162c34166ab66c973aab1f776/c.html"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "standard-bots-2-c-10-ai-20260609",
+    "title": "Standard Bots 完成 2 亿美元 C 轮融资、估值 10 亿美元,扩产美国造 AI 机器人手臂",
+    "date": "2026-06-09",
+    "fetched_at": "2026-06-11",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "公司动态",
+      "融资",
+      "工业机器人"
+    ],
+    "summary": "美国工业机器人公司 **Standard Bots** 宣布完成 **2 亿美元** C 轮融资,估值达 **10 亿美元**,用于扩大其在纽约的「美国制造」AI 原生机器人手臂产能,以应对与中国在先进机器人上的竞争。其机器人主打「演示示教(teach by demonstration)」而非传统编程,客户包括 Lockheed Martin、Amazon、NASA 与美国陆军等。⚠️ 公司称有望在一年内拿下美国新增工业机器人部署量的 10%。",
+    "sources": [
+      {
+        "name": "Bloomberg",
+        "url": "https://www.bloomberg.com/news/articles/2026-06-09/standard-bots-raises-200-million-to-manufacture-robots-in-us"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "arxiv-2606-11324-20260609",
+    "title": "arXiv 论文 Embodied-R1.5:8B 具身基础模型,主打「规划-定位-纠错」闭环",
+    "date": "2026-06-09",
+    "fetched_at": "2026-06-11",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "具身基础模型",
+      "VLA 模型"
+    ],
+    "summary": "提出统一的具身基础模型(EFM),8B 参数,覆盖具身认知、任务规划、纠错与指向(pointing),构建超 15B token 的数据体系并用多任务均衡 RL 训练,配套 Planner-Grounder-Corrector 闭环框架做长程自我纠错。⚠️ 作者自评:在 24 个具身 VLM 基准中 16 个取得 SOTA,声称超过 Gemini-Robotics-ER-1.5、GPT-5.4,并在 4 个操作基准套件上优于 π0.5。作者承诺开源模型权重、数据集、训练代码与评测框架 EmbodiedEvalKit。arXiv:[2606.11324](https://arxiv.org/abs/2606.11324)",
+    "sources": [
+      {
+        "name": "arXiv:2606.11324",
+        "url": "https://arxiv.org/abs/2606.11324"
+      }
+    ],
+    "bot": true,
+    "related": [
+      {
+        "label": "VLA 模型调研",
+        "url": "/vla/"
+      }
+    ]
+  },
+  {
+    "id": "arxiv-2606-09215-20260608",
+    "title": "arXiv 论文 MotionWAM:面向人形实时全身移动操作的「世界-动作」基础模型",
+    "date": "2026-06-08",
+    "fetched_at": "2026-06-11",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "世界模型",
+      "人形机器人"
+    ],
+    "summary": "面向人形机器人实时移动操作(loco-manipulation),将策略条件于视频世界模型的中间去噪特征,并用统一的「运动 token」在单一动作空间里同时覆盖下肢移动、躯干、身高调节、足部交互与手部操作,仅靠第一人称相机输入做全身控制。⚠️ 作者自评:在 9 个 Unitree G1 真机任务上,整体成功率比用同等示范微调的 VLA 基线高出 30% 以上。abs 页未提及开源。arXiv:[2606.09215](https://arxiv.org/abs/2606.09215)",
+    "sources": [
+      {
+        "name": "arXiv:2606.09215",
+        "url": "https://arxiv.org/abs/2606.09215"
+      }
+    ],
+    "bot": true,
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      }
+    ]
+  },
+  {
+    "id": "arxiv-2606-08548-20260607",
+    "title": "arXiv 论文 OASIS:从仿真数据采集到真机人形移动操作",
+    "date": "2026-06-07",
+    "fetched_at": "2026-06-11",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "人形机器人",
+      "机器人操作"
+    ],
+    "summary": "针对人形移动操作中真机数据「质量与规模难两全」的问题,OASIS 用生成式 3D 建模从真实图像重建物体资产,在仿真中带域随机化采集遥操作轨迹,再训练分层视觉运动策略迁移到真机。⚠️ 作者自评:在真实人形机器人上,用其仿真数据训练的策略在多数任务上成功率高于用真机遥操作数据训练的策略,主要得益于更广的光照与环境变化覆盖。有项目主页 oasis-humanoid.github.io(CC BY-NC-SA),开源情况待定。arXiv:[2606.08548](https://arxiv.org/abs/2606.08548)",
+    "sources": [
+      {
+        "name": "arXiv:2606.08548",
+        "url": "https://arxiv.org/abs/2606.08548"
+      }
+    ],
+    "bot": true,
+    "related": [
+      {
+        "label": "VLA 模型调研",
+        "url": "/vla/"
+      }
+    ]
+  },
+  {
+    "id": "generalist-ai-4-20-agi-20260604",
+    "title": "Generalist AI 完成 4 亿美元融资、估值 20 亿美元,押注「物理 AGI」",
+    "date": "2026-06-04",
+    "fetched_at": "2026-06-11",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "公司动态",
+      "融资",
+      "具身大模型"
+    ],
+    "summary": "机器人基础模型公司 **Generalist AI** 宣布完成 **4 亿美元**新融资,投后估值约 **20 亿美元**,累计融资超 5 亿美元。本轮由 Radical Ventures 领投,**Nvidia(NVentures)、Bezos Expeditions** 及李飞飞(Fei-Fei Li)、林斌等天使投资人参投,资金将用于扩展机器人学习模型、物理数据采集与商业部署。⚠️ 公司称其 4 月发布的 **GEN-1** 模型在多种灵巧操作任务上达到约 99% 可靠性、执行速度较此前 SOTA 快约 3 倍。",
+    "sources": [
+      {
+        "name": "The Robot Report",
+        "url": "https://www.therobotreport.com/generalist-raises-400m-to-scale-its-general-purpose-ai-models/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "national-commission-on-robotics-act-20260604",
+    "title": "美国两党议员提出《National Commission on Robotics Act》,拟设立国家机器人委员会",
+    "date": "2026-06-04",
+    "fetched_at": "2026-06-11",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "政策法规",
+      "行业动态"
+    ],
+    "summary": "美国参议员 Dave McCormick、John Hickenlooper、Todd Young 与 Martin Heinrich 提出两党法案《**National Commission on Robotics Act**》,拟设立一个 18 人的国家机器人委员会,评估美国在机器人领域的竞争力,并就劳动力培养、供应链、制造与国家安全提出政策建议。法案背景是美国对外国(尤其中国)机器人技术依赖所引发的供应链与国家安全担忧;众议院已有配套法案 **H.R.7334**。委员会拟在成立一年内提交中期报告、两年内提交最终建议。",
+    "sources": [
+      {
+        "name": "The Robot Report",
+        "url": "https://www.therobotreport.com/effort-establish-national-commission-on-robotics-advances-congress/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "arxiv-2606-05979-20260604",
+    "title": "arXiv 论文 World-Language-Action:统一「世界建模+语言推理+动作合成」的具身基础模型",
+    "date": "2026-06-04",
+    "fetched_at": "2026-06-11",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "世界模型",
+      "VLA 模型"
+    ],
+    "summary": "提出 World-Language-Action(WLA)新范式:以自回归 Transformer 为骨干,输入文本指令、图像与机器人状态,联合预测文本子任务、子目标图像与机器人动作,用「世界专家+动作专家」把世界建模(从第一人称视频学习)与语言推理结合以处理长程任务。原型 WLA-0 激活参数约 2B、单次前向约 40ms。⚠️ 作者自评:RoboTwin2.0 Clean 成功率 92.94%、RMBench 56.5%。abs 页未提及开源。arXiv:[2606.05979](https://arxiv.org/abs/2606.05979)",
+    "sources": [
+      {
+        "name": "arXiv:2606.05979",
+        "url": "https://arxiv.org/abs/2606.05979"
+      }
+    ],
+    "bot": true,
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      }
+    ]
+  },
+  {
+    "id": "arxiv-2606-06556-20260604",
+    "title": "arXiv 观点 Robots Need More than VLA and World Models:多位知名机器人学者联署的研究议程",
+    "date": "2026-06-04",
+    "fetched_at": "2026-06-11",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "具身智能",
+      "世界模型"
+    ],
+    "summary": "Jan Peters、Marco Hutter、Mac Schwager、Cesar Cadena 等多位知名机器人学者联署的观点论文,质疑「机器人智能=堆数据+做更大 VLA」的主流叙事,认为真正瓶颈是缺少把海量非结构化行为数据转成机器人可用监督信号的机制。论文提出四类缺失「接口」:数据接口(自动标注非结构化行为)、本体接口(动作重定向)、世界模型接口(物理化推理)、奖励接口(推断任务成败),并梳理机器人基础模型、跨本体数据集、视频学习等进展给出研究议程;属议程/综述性论文,无基准数值与开源代码。arXiv:[2606.06556](https://arxiv.org/abs/2606.06556)",
+    "sources": [
+      {
+        "name": "arXiv:2606.06556",
+        "url": "https://arxiv.org/abs/2606.06556"
+      }
+    ],
+    "bot": true,
+    "related": [
+      {
+        "label": "VLA 模型调研",
+        "url": "/vla/"
+      }
+    ]
+  },
+  {
+    "id": "spirit-v1-6-roboarena-cosmos-3-pi-0-5-20260603",
+    "title": "千寻智能 Spirit v1.6 登顶 RoboArena 全球第一,反超英伟达 Cosmos 3 与 PI π0.5",
+    "date": "2026-06-03",
+    "fetched_at": "2026-06-11",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "具身大模型",
+      "演示",
+      "具身智能"
+    ],
+    "summary": "6月3日,继黄仁勋6月1日发布世界模型 Cosmos 3 并称其登顶开放模型榜首后仅一天,**千寻智能自研具身基座模型 Spirit v1.6 在真机评测榜 RoboArena 反超 Cosmos 3 登上全球第一**,综合得分超过英伟达 Cosmos 3 与 Physical Intelligence 的 π0.5,被称为首个登顶该榜的中国具身模型。RoboArena 是由 UC Berkeley、Stanford、英伟达等发起、依托全球高校标准化机器人硬件网络的双盲真机评测平台;此事与千寻同日宣布的15亿元A+轮融资属两个独立事件。",
+    "sources": [
+      {
+        "name": "36氪 / 雷峰网 / 新浪科技",
+        "url": "https://36kr.com/p/3836753394021509"
+      }
+    ],
+    "bot": true,
+    "related": [
+      {
+        "label": "WAM 世界-行动模型",
+        "url": "/wam/"
+      }
+    ]
+  },
+  {
+    "id": "vingroup-vinrobotics-vr-h3-icra-2026-compu-20260603",
+    "title": "Vingroup 旗下 VinRobotics 发布「越南制造」人形机器人 VR-H3,登陆 ICRA 2026 与 COMPUTEX",
+    "date": "2026-06-03",
+    "fetched_at": "2026-06-11",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "人形机器人",
+      "公司动态"
+    ],
+    "summary": "越南 **Vingroup** 旗下 **VinRobotics** 在 ICRA 2026(维也纳)与 COMPUTEX Taipei 2026 上全球首发第三代人形机器人 **VR-H3**,面向工业与运营场景。⚠️ 公司称该机器人配备超 31 个执行器与双板载边缘计算单元,可负载约 6–8 公斤并完成装配作业,核心技术由越南工程师自研;现场还演示了基于 VR 头显动作捕捉的实时遥操作。VinRobotics 成立于 2024 年 11 月,VR-H3 是该集团进军人形机器人赛道的最新成果。",
+    "sources": [
+      {
+        "name": "Manila Times",
+        "url": "https://www.manilatimes.net/2026/06/03/tmt-newswire/media-outreach-newswire/vinrobotics-makes-global-debut-of-make-in-vietnam-humanoid-robot-at-leading-global-tech-events/2357474"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "g0-5-20260602",
+    "title": "星海图发布新一代具身基础模型 G0.5",
+    "date": "2026-06-02",
+    "fetched_at": "2026-06-11",
+    "importance": "major",
+    "credibility": "todo",
+    "category": [
+      "具身大模型",
+      "新品发布",
+      "具身智能"
+    ],
+    "summary": "百亿估值独角兽**星海图(Galaxea)发布新一代通用视觉-语言-动作具身基础模型 G0.5**,采用统一自回归架构,以同一套模型权重同步完成推理与动作生成,并用统一异构动作词表覆盖从桌面双臂到全身移动操作的多种本体,主打「边思考边行动」与零样本泛化。⚠️ 据公司自报,G0.5 在 LIBERO(98.9%)、LIBERO-Long、RoboTwin 2.0、SimplerEnv-Bridge、DROID 等7项核心基准测试中领先,真机微调任务平均成功率较 π0.5 提升约23个百分点。",
+    "sources": [
+      {
+        "name": "ITBear / 网易科技",
+        "url": "https://www.itbear.com.cn/html/2026-06/1372935.html"
+      }
+    ],
+    "bot": true,
+    "related": [
+      {
+        "label": "Galaxea G0 细读",
+        "url": "/vla/papers/galaxea-g0"
+      }
+    ]
+  },
+  {
+    "id": "seed-20260602",
+    "title": "字节跳动 Seed 架构调整:周畅接管机器人团队,具身业务纳入核心",
+    "date": "2026-06-02",
+    "fetched_at": "2026-06-11",
+    "importance": "normal",
+    "credibility": "todo",
+    "category": [
+      "公司动态",
+      "字节Seed",
+      "具身智能"
+    ],
+    "summary": "据《晚点 LatePost》6月2日报道,**字节跳动 Seed 进行架构调整**:Seed Robotics 团队已向多模态负责人**周畅**汇报月余,具身/机器人业务被纳入核心,原负责人李航转任顾问负责学术合作。报道还称并入 Seed 后机器人团队原研究组负责人**孔涛已离职创业**,字节正以 L8 职级招聘具身智能技术负责人,推动机器人与世界模型、多模态交互形成「技术闭环」。",
+    "sources": [
+      {
+        "name": "晚点 LatePost(网易转载)",
+        "url": "https://www.163.com/dy/article/KUEGH2GK0531M1CO.html"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "arxiv-2606-01027-20260531",
+    "title": "τ₀-WM 论文正式上 arXiv:智元「统一视频-动作」世界模型有了一手源,本站细读页已同步挂 ID",
+    "date": "2026-05-31",
+    "fetched_at": "2026-06-11",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "世界模型",
+      "机器人操作"
+    ],
+    "summary": "此前仅有官方发布与媒体转述的 **τ₀-WM**(智元 / 上海创智,罗剑岚团队)正式公开论文:arXiv:[2606.01027](https://arxiv.org/abs/2606.01027)(*τ₀-WM: A Unified Video-Action World Model for Robotic Manipulation*,v1 2026-05-31)。本站 [τ0-WM 细读](/wam/papers/tau0-wm) 此前全页标注「媒体转述 / 待核」,现已挂上一手 ID;逐节对照论文的校订列入后续。",
+    "sources": [
+      {
+        "name": "arXiv:2606.01027",
+        "url": "https://arxiv.org/abs/2606.01027"
+      }
+    ],
+    "bot": true,
+    "related": [
+      {
+        "label": "τ0-WM 细读",
+        "url": "/wam/papers/tau0-wm"
+      }
+    ]
+  },
+  {
+    "id": "boston-dynamics-atlas-23-20260518",
+    "title": "Boston Dynamics 公布电动 Atlas「全身控制」新演示:整机抱起并搬运 23 公斤冰箱",
+    "date": "2026-05-18",
+    "fetched_at": "2026-06-11",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "人形机器人",
+      "技术演示"
+    ],
+    "summary": "**Boston Dynamics** 发布两段视频,展示电动 **Atlas** 借助强化学习与大规模仿真训练掌握的「全身控制(whole-body control)」:机器人可旋转躯干 180°、下蹲抱起一台约 **23 公斤(逾 100 磅)** 的小型冰箱并搬运,过程中实时调整躯干与下肢以平衡内部晃动的重量。⚠️ 公司称该行为在 Atlas 今年公开亮相后仅数周内开发完成,并在 GPU 上并行仿真训练了数百万小时;母公司 Hyundai 计划自 2028 年起将 Atlas 投入汽车工厂,目标年产约 3 万台。",
+    "sources": [
+      {
+        "name": "Boston Dynamics",
+        "url": "https://bostondynamics.com/blog/training-a-humanoid-robot-for-hard-work/"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "agibot-yuansheng-aima-20260609",
     "title": "智元发布 AIMA 具身生态技术体系,「元苼」计划 5 年投入 20+ 亿元",
     "date": "2026-06-09",

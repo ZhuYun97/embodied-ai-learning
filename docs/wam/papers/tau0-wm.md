@@ -8,6 +8,8 @@ description: τ0-WM(tau-zero world model)是 2026-05-31 发布的开源预训练
 > **WAM 论文细读** · 推理时算力(test-time compute):候选动作 → 想象未来 → 打分选优 · 智元 / 上海创智(罗剑岚团队)
 > [← WAM 总览](/wam/) · [主报告](/vla/)
 
+> ✅ **2026-06-11 更新:论文已正式公开** — arXiv:[2606.01027](https://arxiv.org/abs/2606.01027)(*τ₀-WM: A Unified Video-Action World Model for Robotic Manipulation*,v1 2026-05-31,本站已实查解析)。本页正文写于论文公开前、基于官方发布与媒体转述;逐节对照一手论文的校订待后续,正文中「待核 / ⚠️媒体转述」标注**暂如实保留**,以论文为准。
+
 > 命名提示:本页对象是 **τ0-WM(tau-zero）**,部分中文转述写作"pi0_WM"系 τ(tau)与 π(pi)混淆;以官方项目页 / GitHub `sii-research/tau-0-wm` 为准。
 
 ## TL;DR
