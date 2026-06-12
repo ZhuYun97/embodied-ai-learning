@@ -4564,6 +4564,100 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   height: auto;
 }
 
+/* ============================================================
+   英文主标题 ShuffleText 容器(替代原 Orbitron 逐字点亮入场):
+   字体/字号沿用原 .thero__title-en 口径(Orbitron · clamp · 700),
+   滑条洗牌动效见 components/ShuffleText.vue(WAAPI 等效移植,无 gsap)。
+   ============================================================ */
+.thero__title-shuffle {
+  display: block;
+  margin-top: 8px;
+}
+.thero__title-shuffle .shuffle-parent {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: var(--vp-c-text-1);
+}
+
+/* ============================================================
+   路线卡 BorderGlow(React Bits BorderGlow 适配,见 index.js setupBorderGlow):
+   --edge-proximity(0–100,越贴边越大)与 --cursor-angle 由 JS 按原版公式写入;
+   .bgw-border = 朝向光标的锥形遮罩 1.5px 网格渐变描边(站内紫/青/蓝三色),
+   .bgw-light  = 同向内缘辉光(plus-lighter);非悬停 0.75s 淡出。
+   边缘灵敏度 30 / 颜色阈值 50 / 锥宽 25,均沿用 spec 默认。
+   ============================================================ */
+.VPHome .route-card {
+  --edge-proximity: 0;
+  --cursor-angle: 45deg;
+}
+.VPHome .route-card .bgw-border,
+.VPHome .route-card .bgw-light {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out;
+}
+.VPHome .route-card .bgw-border { z-index: -1; }
+.VPHome .route-card .bgw-light { z-index: 1; mix-blend-mode: plus-lighter; }
+.VPHome .route-card:hover .bgw-border {
+  opacity: calc((var(--edge-proximity) - 50) / 50);
+  transition: opacity 0.25s ease-out;
+}
+.VPHome .route-card:hover .bgw-light {
+  opacity: calc((var(--edge-proximity) - 30) / 70);
+  transition: opacity 0.25s ease-out;
+}
+.VPHome .route-card .bgw-border {
+  -webkit-mask-image: conic-gradient(from var(--cursor-angle) at center, #000 25%, transparent 40%, transparent 60%, #000 75%);
+  mask-image: conic-gradient(from var(--cursor-angle) at center, #000 25%, transparent 40%, transparent 60%, #000 75%);
+}
+.VPHome .route-card .bgw-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background:
+    radial-gradient(at 80% 55%, #a78bfa 0px, transparent 50%),
+    radial-gradient(at 69% 34%, #22d3ee 0px, transparent 50%),
+    radial-gradient(at 8% 6%, #60a5fa 0px, transparent 50%),
+    radial-gradient(at 41% 38%, #a78bfa 0px, transparent 50%),
+    radial-gradient(at 86% 85%, #22d3ee 0px, transparent 50%),
+    radial-gradient(at 82% 18%, #60a5fa 0px, transparent 50%),
+    radial-gradient(at 51% 4%, #22d3ee 0px, transparent 50%),
+    linear-gradient(#a78bfa 0 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.VPHome .route-card .bgw-light {
+  -webkit-mask-image: conic-gradient(from var(--cursor-angle) at center, #000 2.5%, transparent 10%, transparent 90%, #000 97.5%);
+  mask-image: conic-gradient(from var(--cursor-angle) at center, #000 2.5%, transparent 10%, transparent 90%, #000 97.5%);
+}
+.VPHome .route-card .bgw-light::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px hsl(187deg 92% 69% / 90%),
+    inset 0 0 3px 0 hsl(187deg 92% 69% / 50%),
+    inset 0 0 6px 0 hsl(187deg 92% 69% / 40%),
+    inset 0 0 15px 0 hsl(187deg 92% 69% / 30%),
+    inset 0 0 25px 2px hsl(187deg 92% 69% / 20%),
+    inset 0 0 50px 2px hsl(187deg 92% 69% / 10%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .VPHome .route-card .bgw-border,
+  .VPHome .route-card .bgw-light { transition: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .vp-doc a.pipe__step:hover,
   .vp-doc a.rb-card:hover,

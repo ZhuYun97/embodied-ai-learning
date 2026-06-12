@@ -8,6 +8,8 @@ import LineageMap from './components/LineageMap.vue'
 import XhsAccounts from './components/XhsAccounts.vue'
 import XhsBoard from './components/XhsBoard.vue'
 import DotField from './components/DotField.vue'
+import ShuffleText from './components/ShuffleText.vue'
+import TargetCursor from './components/TargetCursor.vue'
 import './custom.css'
 
 // =====================================================================
@@ -753,10 +755,28 @@ const TechHero = {
           h('div', { class: 'thero__main' }, [
             h('h1', { class: 'thero__title' }, [
               h('span', { class: 'thero__title-zh' }, hero.name || '具身智能学习站'),
+              // 英文标题改 ShuffleText 逐字滑条洗牌入场(取代原逐字点亮),
+              // 悬停可重播;组件根节点自带 aria-label,内部字符结构读屏不可见
               h(
                 'span',
-                { class: 'thero__title-en', 'aria-label': hero.text || 'Embodied AI Learning' },
-                splitTitleChars(hero.text || 'Embodied AI Learning')
+                { class: 'thero__title-shuffle' },
+                [
+                  h(ShuffleText, {
+                    text: hero.text || 'Embodied AI Learning',
+                    tag: 'span',
+                    textAlign: 'left',
+                    shuffleDirection: 'right',
+                    duration: 0.35,
+                    animationMode: 'evenodd',
+                    shuffleTimes: 1,
+                    ease: 'power3.out',
+                    stagger: 0.03,
+                    threshold: 0.1,
+                    triggerOnce: true,
+                    triggerOnHover: true,
+                    respectReducedMotion: true,
+                  }),
+                ]
               ),
             ]),
             h('p', { class: 'thero__lede' }, [
@@ -1389,6 +1409,60 @@ function setupCardTilt() {
 }
 
 // =====================================================================
+// 路线卡 BorderGlow(React Bits BorderGlow 适配版):指针靠近卡片边缘时,
+// 朝向光标的锥形区亮起「网格渐变描边 + 内缘辉光」。原版是独立包装组件
+// (自带底色/圆角/外溢辉光);此处适配为注入两层 <i>(.bgw-border 锥形遮罩
+// 1.5px 渐变环 / .bgw-light 内缘辉光),JS 仅按原版公式写 --edge-proximity
+// 与 --cursor-angle 两个变量,视觉全在 custom.css;外溢辉光因卡片
+// overflow:hidden(裁流光所需)改为内缘式。仅精确指针绑定;SPA 重建经
+// MutationObserver 兜底。
+// =====================================================================
+let borderGlowBound = false
+function setupBorderGlow() {
+  if (borderGlowBound || typeof window === 'undefined') return
+  borderGlowBound = true
+  const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
+  if (!fine) return
+  const bind = () => {
+    document.querySelectorAll('.VPHome .route-card').forEach((card) => {
+      if (card.dataset.bgw) return
+      card.dataset.bgw = '1'
+      const ring = document.createElement('i')
+      ring.className = 'bgw-border'
+      ring.setAttribute('aria-hidden', 'true')
+      const light = document.createElement('i')
+      light.className = 'bgw-light'
+      light.setAttribute('aria-hidden', 'true')
+      card.append(ring, light)
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect()
+        const x = e.clientX - r.left
+        const y = e.clientY - r.top
+        const cx = r.width / 2
+        const cy = r.height / 2
+        const dx = x - cx
+        const dy = y - cy
+        const kx = dx !== 0 ? cx / Math.abs(dx) : Infinity
+        const ky = dy !== 0 ? cy / Math.abs(dy) : Infinity
+        const edge = Math.min(Math.max(1 / Math.min(kx, ky), 0), 1)
+        let ang = Math.atan2(dy, dx) * (180 / Math.PI) + 90
+        if (ang < 0) ang += 360
+        card.style.setProperty('--edge-proximity', (edge * 100).toFixed(2))
+        card.style.setProperty('--cursor-angle', ang.toFixed(2) + 'deg')
+      })
+    })
+  }
+  bind()
+  if ('MutationObserver' in window) {
+    let t
+    new MutationObserver(() => {
+      clearTimeout(t)
+      t = setTimeout(bind, 200)
+    }).observe(document.body, { childList: true, subtree: true })
+  }
+}
+
+// =====================================================================
 // 路线卡「×N 入口计数」chip:从 DOM 数出每张卡的链接数,追加到链接区末尾。
 // 数字完全派生自页面已有链接 → 不引入第 5 个手工维护的「篇数」面,永不失同步。
 // SPA 重建 → MutationObserver 兜底重注(已注入的卡跳过)。
@@ -1467,7 +1541,19 @@ export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
-      'home-hero-before': () => [h(HomeDots), h(HeroFX), h(TechHero), h(HomeRail)],
+      'home-hero-before': () => [
+        h(HomeDots),
+        // 首页 HUD 瞄准光标:悬停路线卡/特性卡时角括号飞出框住卡片
+        h(TargetCursor, {
+          targetSelector: '.VPHome .route-card, .VPHome .VPFeature',
+          spinDuration: 2,
+          hideDefaultCursor: true,
+          parallaxOn: true,
+        }),
+        h(HeroFX),
+        h(TechHero),
+        h(HomeRail),
+      ],
       'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle)],
       'doc-before': () => [h(DocReadBar), h(PaperDossier), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
@@ -1487,6 +1573,7 @@ export default {
     onMounted(setupFeatureHub)
     onMounted(setupReveal)
     onMounted(setupCardTilt)
+    onMounted(setupBorderGlow)
     onMounted(setupRouteCounts)
   },
 }
