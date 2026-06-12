@@ -698,6 +698,7 @@ const TechHero = {
       clockTimer = setInterval(tick, 1000)
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
       bindHeroUnit(reduce)
+      bindHeroVideo(reduce)
       if (reduce) return
       // 开机序列:状态条 → 终端提示语,逐字打出(一次性;机器人物化见 custom.css robotMaterialize)
       armBootSkip()
@@ -799,10 +800,17 @@ const TechHero = {
               h('span', { class: 'tu-tag tu-tag--tl' }, 'EMBODIED-UNIT'),
               h('span', { class: 'tu-tag tu-tag--tr' }, 'VLA · WAM'),
               h('div', { class: 'thero__robot-wrap', title: '点我 · 单元会回应' }, [
-                h('img', {
-                  class: 'thero__robot',
-                  src: withBase('/hero-robot.svg'),
-                  alt: '具身智能机器人概念图',
+                // 镭光人概念视频(public/hero-laser-human.mp4,自托管):桌面精确指针
+                // = 鼠标推扫逐帧(bindHeroVideo),窄屏/触屏 = 静音循环播放,reduced-motion = 静帧
+                h('video', {
+                  class: 'thero__robot thero__robot--video',
+                  src: withBase('/hero-laser-human.mp4'),
+                  muted: true,
+                  playsinline: true,
+                  'webkit-playsinline': true,
+                  preload: 'auto',
+                  loop: true,
+                  'aria-label': '镭光人 · 具身智能概念视频',
                 }),
                 h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),
@@ -1023,6 +1031,74 @@ const ROBOT_LINES = [
   '自评存疑,待复现 · ⚠',
   '双主线就绪 · VLA × WAM',
 ]
+// =====================================================================
+// 镭光人视频交互(spec: Native Scrubbing 移植):
+// ① 桌面(pointer:fine + 宽 ≥1024 + 允许动效)= 鼠标推扫——mousemove 的 ΔX 按
+//    (Δ/innerWidth)*0.8*duration 累积到目标时间,夹在 [0, duration),seeked 节流
+//    保证逐帧平滑(上一帧 seek 完成才提交下一帧);
+// ② 窄屏 / 触屏 = 静音循环自动播放(spec: <1024 autoplay);
+// ③ prefers-reduced-motion = 只显示静帧,不播不扫。
+// =====================================================================
+function bindHeroVideo(reduce) {
+  if (typeof document === 'undefined') return
+  const video = document.querySelector('.thero__robot--video')
+  if (!video || video.dataset.scrub) return
+  video.dataset.scrub = '1'
+  video.muted = true
+  const paintFirstFrame = () => {
+    try {
+      if (video.readyState >= 1) video.currentTime = Math.min(0.01, video.duration || 0.01)
+      else video.addEventListener('loadedmetadata', () => { video.currentTime = 0.01 }, { once: true })
+    } catch (e) {}
+  }
+  if (reduce) {
+    paintFirstFrame()
+    return
+  }
+  const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
+  const startPlayback = () => {
+    video.autoplay = true
+    const p = video.play()
+    if (p && p.catch) p.catch(() => {})
+  }
+  if (!fine || window.innerWidth < 1024) {
+    startPlayback()
+    return
+  }
+  // —— 桌面推扫模式 ——
+  paintFirstFrame()
+  let prevX = null
+  let target = 0
+  let seeking = false
+  const apply = () => {
+    if (seeking || !Number.isFinite(video.duration) || video.duration <= 0) return
+    const clamped = Math.max(0, Math.min(video.duration - 0.05, target))
+    if (Math.abs(clamped - video.currentTime) < 0.02) return
+    seeking = true
+    try { video.currentTime = clamped } catch (e) { seeking = false }
+  }
+  video.addEventListener('seeked', () => {
+    seeking = false
+    apply()
+  })
+  window.addEventListener(
+    'mousemove',
+    (e) => {
+      if (window.innerWidth < 1024) return
+      if (!Number.isFinite(video.duration) || video.duration <= 0) return
+      if (prevX === null) {
+        prevX = e.clientX
+        return
+      }
+      const delta = e.clientX - prevX
+      prevX = e.clientX
+      target = Math.max(0, Math.min(video.duration, target + (delta / window.innerWidth) * 0.8 * video.duration))
+      apply()
+    },
+    { passive: true }
+  )
+}
+
 function bindHeroUnit(reduce) {
   if (typeof document === 'undefined') return
   const unit = document.querySelector('.thero__unit')

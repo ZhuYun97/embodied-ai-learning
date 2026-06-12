@@ -4564,6 +4564,28 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   pointer-events: none;
 }
 
+/* ============================================================
+   镭光人英雄视频(.thero__robot--video,替换原 hero-robot.svg):
+   沿用 .thero__robot 的物化揭示 + 浮动动画;矩形媒体收圆角;
+   暗色用 screen 混合把深底视频融进深空背景,矩形 drop-shadow 关闭。
+   交互逻辑见 theme/index.js bindHeroVideo(推扫 / 自动播放 / 静帧)。
+   ============================================================ */
+.thero__robot--video {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 100% 58%; /* 源片 16:9、镭光人在右下(spec: object-right-bottom),方裁右对齐 */
+  margin-top: 26px; /* 视频不透明:让出单元顶部 EMBODIED-UNIT / VLA·WAM 标签行 */
+  border-radius: 18px;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  background: transparent;
+}
+.dark .thero__robot--video {
+  filter: none;
+  border-color: rgba(56, 189, 248, 0.30);
+  box-shadow: 0 0 44px rgba(56, 189, 248, 0.14);
+}
+.thero__unit:hover .thero__robot--video { filter: none; }
+
 @media (prefers-reduced-motion: reduce) {
   .vp-doc a.pipe__step:hover,
   .vp-doc a.rb-card:hover,
