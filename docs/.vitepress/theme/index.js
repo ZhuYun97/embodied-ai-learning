@@ -1049,7 +1049,7 @@ function bindHeroVideo(reduce) {
   video.dataset.scrub = '1'
   video.muted = true
   const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
-  const SIZE = fine ? 540 : 416
+  const SIZE = fine ? 720 : 480
   const canvas = document.createElement('canvas')
   canvas.width = SIZE
   canvas.height = SIZE
@@ -1058,9 +1058,13 @@ function bindHeroVideo(reduce) {
   canvas.setAttribute('aria-label', '镭光人 · 具身智能概念视频')
   video.insertAdjacentElement('afterend', canvas)
   const ctx = canvas.getContext('2d', { willReadFrequently: true })
+  ctx.imageSmoothingEnabled = true
+  ctx.imageSmoothingQuality = 'high'
   const N = SIZE * SIZE
   const queue = new Int32Array(N)
   const visited = new Uint8Array(N)
+  const maskA = new Uint8Array(N)
+  const maskB = new Uint8Array(N)
   const keyFrame = () => {
     const vw = video.videoWidth
     const vh = video.videoHeight
@@ -1097,12 +1101,39 @@ function bindHeroVideo(reduce) {
       if (p >= SIZE) tryPush(p - SIZE)
       if (p < N - SIZE) tryPush(p + SIZE)
     }
+    // —— 边缘整形:收边 1px(去沾底色的最外圈)→ 两道 3×3 盒模糊软化蒙版 → 去边 ——
+    for (let p = 0; p < N; p++) maskA[p] = visited[p] ? 0 : 255
     for (let p = 0; p < N; p++) {
-      if (visited[p]) { d[p * 4 + 3] = 0; continue }
-      // 1px 软边:保留像素若邻接被清除区,降透明度抗锯齿
+      if (!maskA[p]) { maskB[p] = 0; continue }
       const x = p % SIZE
-      if ((x > 0 && visited[p - 1]) || (x < SIZE - 1 && visited[p + 1]) || (p >= SIZE && visited[p - SIZE]) || (p < N - SIZE && visited[p + SIZE])) {
-        d[p * 4 + 3] = Math.min(d[p * 4 + 3], 110)
+      maskB[p] =
+        (x > 0 && !maskA[p - 1]) || (x < SIZE - 1 && !maskA[p + 1]) || (p >= SIZE && !maskA[p - SIZE]) || (p < N - SIZE && !maskA[p + SIZE])
+          ? 0
+          : 255
+    }
+    // 两轮 H+V 盒模糊(半径 1,边界夹取)≈ 高斯软化,过渡带约 4px
+    for (let round = 0; round < 2; round++) {
+      for (let p = 0; p < N; p++) {
+        const x = p % SIZE
+        const l = x > 0 ? maskB[p - 1] : maskB[p]
+        const r = x < SIZE - 1 ? maskB[p + 1] : maskB[p]
+        maskA[p] = (l + maskB[p] + r) / 3
+      }
+      for (let p = 0; p < N; p++) {
+        const u = p >= SIZE ? maskA[p - SIZE] : maskA[p]
+        const dn = p < N - SIZE ? maskA[p + SIZE] : maskA[p]
+        maskB[p] = (u + maskA[p] + dn) / 3
+      }
+    }
+    for (let p = 0; p < N; p++) {
+      const a = maskB[p]
+      const i = p * 4
+      d[i + 3] = a
+      // 去边:半透明过渡像素按 alpha 反混掉底色成分,消除浅紫描边
+      if (a > 24 && a < 250) {
+        d[i] = Math.max(0, Math.min(255, (d[i] * 255 - (255 - a) * rr) / a))
+        d[i + 1] = Math.max(0, Math.min(255, (d[i + 1] * 255 - (255 - a) * rg) / a))
+        d[i + 2] = Math.max(0, Math.min(255, (d[i + 2] * 255 - (255 - a) * rb) / a))
       }
     }
     ctx.putImageData(img, 0, 0)
