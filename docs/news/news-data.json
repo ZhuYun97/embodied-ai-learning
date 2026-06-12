@@ -1,5 +1,285 @@
 [
   {
+    "id": "nvidia-isaac-gr00t-reference-humanoid-20260531",
+    "title": "英伟达发布 Isaac GR00T 参考人形机器人:宇树 H2 Plus + Sharpa 触觉手的开放全栈研究平台",
+    "date": "2026-05-31",
+    "fetched_at": "2026-06-12",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "人形机器人",
+      "产品发布"
+    ],
+    "summary": "英伟达在 COMPUTEX/GTC Taipei 主题演讲(5 月 31 日)发布 **Isaac GR00T Reference Humanoid Robot**——首个开放的全栈人形研究参考设计:宇树 H2 Plus 本体(全身 31 自由度)+ Sharpa Wave 触觉五指手(单手 22 自由度,整机含手 75 自由度)+ Jetson Thor 板载算力 + Isaac GR00T 软件栈(Teleop/Sim/Lab、Isaac ROS)。Ai2、ETH Zurich、斯坦福机器人中心、UCSD ARC 实验室等将率先采用;官方称硬件 2026 年底由宇树供货。",
+    "sources": [
+      {
+        "name": "NVIDIA Newsroom",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-open-humanoid-robot-reference-design"
+      },
+      {
+        "name": "Unitree(PR Newswire)",
+        "url": "https://www.prnewswire.com/news-releases/unitree-announces-h2-plus-an-nvidia-isaac-gr00t-reference-humanoid-robot-for-academic-research-302786748.html"
+      },
+      {
+        "name": "Robotics & Automation News",
+        "url": "https://roboticsandautomationnews.com/2026/06/11/nvidia-unveils-open-humanoid-robot-platform-for-robotics-research/102480/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "theker-85m-series-a-20260611",
+    "title": "西班牙 Theker 完成 8,500 万美元 A 轮:CRV 领投,三星、LVMH 参投",
+    "date": "2026-06-11",
+    "fetched_at": "2026-06-12",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市"
+    ],
+    "summary": "巴塞罗那 AI 机器人公司 **Theker** 完成 8,500 万美元(约 7,300 万欧元)A 轮,美国 CRV 领投,三星、LVMH、Cathay、20VC、Henkel、Mercadona、Inditex 等参投。公司主打「AI 原生」通用工业机器人,称无需重新编程即可适应物流/零售/食品/制造场景、已在欧洲多条产线部署 ⚠️;自称欧洲史上最大机器人 A 轮 ⚠️,估值未披露。",
+    "sources": [
+      {
+        "name": "Reuters(via TradingView)",
+        "url": "https://www.tradingview.com/news/reuters.com,2026:newsml_S8N41H0DZ:0-ai-robotics-company-theker-raises-85-million-from-investors-including-lvmh/"
+      },
+      {
+        "name": "Tech.eu",
+        "url": "https://tech.eu/2026/06/11/barcelona-based-ai-robotics-outfit-theker-raises-85m/"
+      },
+      {
+        "name": "Cathay Capital(参投方公告)",
+        "url": "https://www.cathaycapital.com/theker-raises-85m-in-europes-largest-ever-robotics-series-a-led-by-crv-with-backing-from-samsung-and-lvmh/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "lgcns-lxpantos-humanoid-logistics-20260611",
+    "title": "LG CNS 与 LX Pantos 签约:仁川物流中心引入「人形 + 穿梭」机器人智能物流",
+    "date": "2026-06-11",
+    "fetched_at": "2026-06-12",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "落地部署",
+      "人形机器人"
+    ],
+    "summary": "韩国 **LG CNS** 与物流企业 **LX Pantos** 签署谅解备忘录,在仁川青罗(Cheongna)物流中心部署「人形机器人 + 穿梭机器人」协同的智能物流系统,覆盖入库、分拣到出库全流程;人形本体采用美国 Dexmate 轮式人形(LG CNS 今年 3 月已投资该公司),配自研 PhysicalWorks Forge 训练平台与 Baton 运营平台,双方拟于下半年设 TDL Lab 演示空间。**属 MOU / 规划阶段,尚未规模化上线**。",
+    "sources": [
+      {
+        "name": "The Korea Times",
+        "url": "https://www.koreatimes.co.kr/business/tech-science/20260611/lg-cns-lx-pantos-partner-on-humanoid-powered-smart-logistics"
+      },
+      {
+        "name": "Asia Business Daily",
+        "url": "https://www.asiae.co.kr/en/article/science/2026061108185824958"
+      },
+      {
+        "name": "Seoul Economic Daily",
+        "url": "https://en.sedaily.com/technology/2026/06/11/lg-cns-launches-robot-automation-for-lx-pantos-warehouse"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "ceair-embodied-robot-fleet-20260610",
+    "title": "东航发布「全球民航首批」具身智能机器人矩阵,部分已在浦东机场上岗",
+    "date": "2026-06-10",
+    "fetched_at": "2026-06-12",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "落地部署",
+      "公司动态"
+    ],
+    "summary": "东航发布覆盖值机、行李、中转、特殊旅客等场景的具身智能机器人矩阵(报道称「全球民航首批」),含智慧服务、人形交互、行李运输、中转引导、智能轮椅五大品类,以自研「慧燕」大模型为核心。其中**智慧服务机器人与行李运输机器人「小骆驼」(最大承重 150kg)已在上海浦东机场落地应用**;人形交互机器人在虹桥机场 21 米层贵宾室、中转引导与智能轮椅机器人进入实地试运行,后续「择机正式上线」。",
+    "sources": [
+      {
+        "name": "新京报",
+        "url": "https://www.bjnews.com.cn/detail/1781074060129023.html"
+      },
+      {
+        "name": "凤凰网科技",
+        "url": "https://finance.ifeng.com/c/8tqOyU6X0Hk"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "guangxiang-phibot-x1-20260611",
+    "title": "光象科技发布工业级「自进化」具身机器人 Phi-Bot X1",
+    "date": "2026-06-11",
+    "fetched_at": "2026-06-12",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "公司动态"
+    ],
+    "summary": "光象(北京)科技发布 Phi-Bot X1,自称「全球首款面向工业场景的自进化具身智能机器人」⚠️。厂商参数 ⚠️:27 自由度力控双臂、0.05mm 末端重复定位精度、四舵轮全向底盘、最大作业高度 2.5m;并称已在国内某汽车工厂发动机装配线完成**连续 6 个月压力测试、零故障运行** ⚠️(未披露客户名,无第三方验证)。",
+    "sources": [
+      {
+        "name": "ITBear",
+        "url": "https://www.itbear.com.cn/html/2026-06/1388079.html"
+      },
+      {
+        "name": "网易(发布稿)",
+        "url": "https://www.163.com/dy/article/KV7H85DR0550WHYR.html"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "galaxy-pharmacy-spacecapsule-20260611",
+    "title": "银河通用称智慧药房机器人自主运营超 1 年,「银河太空舱」落地超百家门店",
+    "date": "2026-06-11",
+    "fetched_at": "2026-06-12",
+    "importance": "normal",
+    "credibility": "todo",
+    "category": [
+      "落地部署",
+      "公司动态"
+    ],
+    "summary": "据新浪科技援引北京日报对银河通用联合创始人张直政的采访 ⚠️:公司称其智慧药房人形机器人「持续自主工作超 1 年」并自述创「世界纪录」(未提第三方认证);由人形机器人自主运营的「银河太空舱」智慧零售已在全国 20 余城落地**超百家门店** ⚠️,目标 1,000 家 ⚠️。以上数字与主张均为公司口径,待第三方核验。",
+    "sources": [
+      {
+        "name": "新浪科技(援引北京日报)",
+        "url": "https://finance.sina.com.cn/tech/roll/2026-06-11/doc-iniazpqt0808427.shtml"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "wuxi-top10-cmcc-base-20260611",
+    "title": "无锡发布《具身智能领域十大科技进展》,中国移动工业具身智能创新基地揭牌",
+    "date": "2026-06-11",
+    "fetched_at": "2026-06-12",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "行业动态"
+    ],
+    "summary": "2026 长三角机器人及自动化展览会暨无锡具身智能机器人产业链伙伴大会上,中国机电一体化技术应用协会发布《具身智能领域十大科技进展(2025-2026)》,涵盖通用具身大模型跨平台迭代、人形全身运动控制、仿生硬件与柔性执行器、工业具身落地等方向;同期**中国移动工业具身智能无锡创新基地揭牌**,无锡算力调度运营平台上线、惠山国产智算中心一期启用。",
+    "sources": [
+      {
+        "name": "扬子晚报",
+        "url": "https://www.yangtse.com/news/jiangsu/wuxi/202606/t20260611_361581.html"
+      },
+      {
+        "name": "中新网",
+        "url": "https://www.chinanews.com.cn/cj/2026/06-11/10638624.shtml"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "arxiv-2606-13672-20260611",
+    "title": "arXiv 论文 WEAVER:多视角世界模型兼顾保真·长时一致·高效,称在 π0.5 之上策略改进 +38%",
+    "date": "2026-06-11",
+    "fetched_at": "2026-06-12",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "世界模型"
+    ],
+    "summary": "WEAVER(World Estimation Across Views for Embodied Reasoning)是多视角世界模型,以 flow-matching 损失预测未来潜变量与奖励,同时追求保真、长时一致与高效三目标。真机上自报:策略评估与真实成功率相关 ρ=0.870、在 π0.5 基础模型之上策略改进 +38%、测试时规划 +14% 且较先前世界模型提速 5–10× ⚠️;分布外场景亦称优于先前方法 ⚠️。作者含 Andrea Bajcsy、Gokul Swamy、Jesse Farebrother。",
+    "sources": [
+      {
+        "name": "arXiv",
+        "url": "https://arxiv.org/abs/2606.13672"
+      }
+    ],
+    "related": [
+      {
+        "label": "站内细读:π0.5",
+        "url": "/vla/papers/pi05"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "arxiv-2606-13102-20260611",
+    "title": "arXiv 论文 FTP-1:跨触觉传感器的通用「基础触觉策略」,3,000 小时 21 种传感器预训练",
+    "date": "2026-06-11",
+    "fetched_at": "2026-06-12",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "灵巧操作"
+    ],
+    "summary": "FTP-1 主打接触密集型操作的跨传感器泛化:异构编码器把图像/阵列/状态等触觉信号投成统一「形态感知」潜 token,由共享触觉 Transformer 专家联合建模;预训练约 3,000 小时、26 个数据源、21 种传感器。下游 5 种硬件配置:已见传感器配置 +17.2%、迁移到两种未见传感器 +31% 成功率 ⚠️;自称首个统一的触觉操作基础基线 ⚠️,称已放预训练模型/数据/训练代码。作者含卢策吾、高阳。",
+    "sources": [
+      {
+        "name": "arXiv",
+        "url": "https://arxiv.org/abs/2606.13102"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "arxiv-2606-13675-20260611",
+    "title": "arXiv 论文 FRS:流反演引导,把「次优动作」映射回通用策略的高质量模式",
+    "date": "2026-06-11",
+    "fetched_at": "2026-06-12",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "VLA 模型"
+    ],
+    "summary": "面向 flow-matching 通用策略的推理期引导(Flow Reversal Steering):把合理但次优的动作沿流反演找回其潜噪声,再映射到邻近的高质量动作模式。三种用法:把人类 / VLM 的粗语义指引变成可执行动作(零样本)、行为克隆蒸馏出辅助噪声策略(自报不到一分钟训练最高 +95% 绝对成功率 ⚠️)、为标准 RL 难以改进的任务做语义自举。作者含 Chelsea Finn、Sergey Levine。",
+    "sources": [
+      {
+        "name": "arXiv",
+        "url": "https://arxiv.org/abs/2606.13675"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "arxiv-2606-13515-20260611",
+    "title": "arXiv 论文 MaskWAM:掩码同时当输入提示与预测目标,对象中心的世界-动作模型",
+    "date": "2026-06-11",
+    "fetched_at": "2026-06-12",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "世界模型"
+    ],
+    "summary": "MaskWAM 针对世界-动作模型(WAM)的空间瓶颈(文本指代歧义、RGB 预测缺语义接地):用统一 MoT 架构把对象掩码同时作为输入与预测——预测未来掩码提供对象中心语义监督、抑制背景噪声;首帧目标掩码提示作空间锚点,化解杂乱场景的语言歧义。LIBERO、RoboTwin 与真机任务上自报显著优于基线(语言含糊场景尤甚)⚠️。作者含谭平(Ping Tan)团队。",
+    "sources": [
+      {
+        "name": "arXiv",
+        "url": "https://arxiv.org/abs/2606.13515"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "arxiv-2606-13040-20260611",
+    "title": "arXiv 论文 RoboProcessBench:评测 VLM 对机器人操作「过程」的理解",
+    "date": "2026-06-11",
+    "fetched_at": "2026-06-12",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "评测基准"
+    ],
+    "summary": "VLM 正被用作机器人操作的 critic / 奖励生成器 / 失败检测器,但这隐含要求它读懂执行过程。RoboProcessBench 把「过程感知理解」拆成静态监控 × 动态推理 12 类诊断题,基于物理接地的执行轨迹构建 ~5.8 万 QA、260 个操作任务(ProcessData,分 SFT / Eval)。评测显示现有 VLM 普遍不足;ProcessData-SFT 后训练的 Qwen2.5-VL-7B / InternVL-3-8B 在局部状态、运动、进度等维度一致提升 ⚠️。作者含穆尧等。",
+    "sources": [
+      {
+        "name": "arXiv",
+        "url": "https://arxiv.org/abs/2606.13040"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "ceo-iron-20260610",
     "title": "何小鹏发内部信兼任小鹏机器人业务CEO,冲刺IRON年底量产",
     "date": "2026-06-10",
