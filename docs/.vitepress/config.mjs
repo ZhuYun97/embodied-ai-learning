@@ -444,6 +444,7 @@ export default withMermaid(defineConfig({
           { text: '发展时间线', link: '/vla/papers/timeline' },
           { text: '参考文献', link: '/vla/papers/references' },
           { text: '外部资源导航', link: '/vla/papers/resources' },
+          { text: '小红书具身内容精选', link: '/vla/papers/xiaohongshu' },
         ],
       },
       {
@@ -578,6 +579,7 @@ export default withMermaid(defineConfig({
             { text: '发展时间线', link: '/vla/papers/timeline' },
             { text: '参考文献', link: '/vla/papers/references' },
             { text: '外部资源导航(Awesome 列表)', link: '/vla/papers/resources' },
+            { text: '小红书具身内容精选（169 条实采）', link: '/vla/papers/xiaohongshu' },
           ],
         },
         {
