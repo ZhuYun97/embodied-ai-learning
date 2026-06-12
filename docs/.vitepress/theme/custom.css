@@ -3862,3 +3862,127 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
 /* —— 应用②:细读页表格 → 面板浮起(描边/辉光退为辅助;隔行与悬停规则不变) —— */
 .paper-page .vp-doc table { background: var(--surface-panel); }
 .paper-page .vp-doc thead { background: var(--surface-raised); }
+
+/* ============================================================
+   外部资源导航卡(/vla/papers/resources):markdown 原生 HTML 卡片。
+   内容仍由 SRC markdown 维护,这里只供样式;分组色经 data-tone 注入 --res-c
+   (色板与小红书导航板六类色同源,双皮肤各取深/亮档)。
+   ============================================================ */
+.VPDoc:has(.res-grid) .content-container { max-width: 1008px !important; }
+
+.res-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+  gap: 11px;
+  margin: 14px 0 8px;
+}
+.res-grid[data-tone='cyan'] { --res-c: #0e7fa8; }
+.res-grid[data-tone='violet'] { --res-c: #7c3aed; }
+.res-grid[data-tone='blue'] { --res-c: #2563eb; }
+.res-grid[data-tone='emerald'] { --res-c: #059669; }
+.res-grid[data-tone='amber'] { --res-c: #b45309; }
+.dark .res-grid[data-tone='cyan'] { --res-c: #22d3ee; }
+.dark .res-grid[data-tone='violet'] { --res-c: #a78bfa; }
+.dark .res-grid[data-tone='blue'] { --res-c: #60a5fa; }
+.dark .res-grid[data-tone='emerald'] { --res-c: #34d399; }
+.dark .res-grid[data-tone='amber'] { --res-c: #fbbf24; }
+
+.vp-doc .res-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 12px 13px 11px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 11px;
+  background: var(--vp-c-bg-soft);
+  overflow: hidden;
+  color: var(--vp-c-text-1);
+  text-decoration: none !important;
+  font-weight: 400;
+  transition: transform 0.16s, border-color 0.16s, box-shadow 0.16s;
+}
+.vp-doc .res-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--res-c), transparent 72%);
+  opacity: 0.55;
+}
+.vp-doc .res-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--res-c) 55%, var(--vp-c-divider));
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--res-c) 16%, transparent);
+  color: var(--vp-c-text-1);
+}
+.res-card__top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+.res-card__kind {
+  flex: none;
+  font-family: var(--vp-font-family-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 1px 7px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--res-c) 14%, transparent);
+  color: color-mix(in srgb, var(--res-c) 80%, var(--vp-c-text-1));
+}
+.res-card__host {
+  font-family: var(--vp-font-family-mono);
+  font-size: 10.5px;
+  color: var(--vp-c-text-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.res-card__ext {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+  opacity: 0;
+  transform: translate(-2px, 2px);
+  transition: opacity 0.16s, transform 0.16s;
+}
+.vp-doc .res-card:hover .res-card__ext { opacity: 1; transform: none; }
+.res-card__name {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.res-card__desc {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.res-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  font-size: 11px;
+  color: var(--vp-c-text-3);
+}
+.res-card__meta > :last-child { margin-left: auto; flex: none; }
+.res-card__star {
+  font-family: var(--vp-font-family-mono);
+  font-weight: 600;
+  color: color-mix(in srgb, var(--res-c) 72%, var(--vp-c-text-1));
+}
+@media (prefers-reduced-motion: reduce) {
+  .vp-doc .res-card:hover { transform: none; }
+}
+@media (max-width: 640px) {
+  .res-grid { grid-template-columns: 1fr; gap: 9px; }
+}
