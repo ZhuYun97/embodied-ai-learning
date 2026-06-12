@@ -3986,3 +3986,120 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
 @media (max-width: 640px) {
   .res-grid { grid-template-columns: 1fr; gap: 9px; }
 }
+
+/* ============================================================
+   评测维度卡(/vla/papers/benchmarks §〇):五大类基准总览。
+   信息面板(非链接卡):大类 + 度量 + 代表基准 chips + 主指标。
+   实心 chip = 本篇有逐模型成绩表的四大基准;色板沿用 .res-* 同源。
+   ============================================================ */
+.bm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 11px;
+  margin: 14px 0 8px;
+}
+.bm-card[data-tone='cyan'] { --bm-c: #0e7fa8; }
+.bm-card[data-tone='blue'] { --bm-c: #2563eb; }
+.bm-card[data-tone='amber'] { --bm-c: #b45309; }
+.bm-card[data-tone='violet'] { --bm-c: #7c3aed; }
+.bm-card[data-tone='emerald'] { --bm-c: #059669; }
+.bm-card[data-tone='slate'] { --bm-c: #64748b; }
+.dark .bm-card[data-tone='cyan'] { --bm-c: #22d3ee; }
+.dark .bm-card[data-tone='blue'] { --bm-c: #60a5fa; }
+.dark .bm-card[data-tone='amber'] { --bm-c: #fbbf24; }
+.dark .bm-card[data-tone='violet'] { --bm-c: #a78bfa; }
+.dark .bm-card[data-tone='emerald'] { --bm-c: #34d399; }
+.dark .bm-card[data-tone='slate'] { --bm-c: #94a3b8; }
+
+.bm-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 13px 14px 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 11px;
+  background: var(--vp-c-bg-soft);
+  overflow: hidden;
+}
+.bm-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--bm-c), transparent 72%);
+  opacity: 0.55;
+}
+.bm-card__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.bm-card__head strong {
+  font-size: 14.5px;
+  color: color-mix(in srgb, var(--bm-c) 55%, var(--vp-c-text-1));
+}
+.bm-card__sec {
+  margin-left: auto;
+  flex: none;
+  font-family: var(--vp-font-family-mono);
+  font-size: 10px;
+  padding: 1px 7px;
+  border-radius: 99px;
+  border: 1px solid color-mix(in srgb, var(--bm-c) 40%, transparent);
+  color: color-mix(in srgb, var(--bm-c) 78%, var(--vp-c-text-1));
+  white-space: nowrap;
+}
+.bm-card__what {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--vp-c-text-2);
+}
+.bm-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.bm-card__chips i {
+  font-style: normal;
+  font-size: 10.5px;
+  line-height: 1;
+  padding: 3px 7px;
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-2);
+}
+.bm-card__chips i.is-major {
+  border-color: color-mix(in srgb, var(--bm-c) 55%, transparent);
+  background: color-mix(in srgb, var(--bm-c) 14%, var(--vp-c-bg));
+  color: color-mix(in srgb, var(--bm-c) 72%, var(--vp-c-text-1));
+  font-weight: 600;
+}
+.bm-card__metric {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px dashed var(--vp-c-divider);
+  font-family: var(--vp-font-family-mono);
+  font-size: 10.5px;
+  color: var(--vp-c-text-3);
+}
+.bm-card__metric::before {
+  content: '◔';
+  color: color-mix(in srgb, var(--bm-c) 80%, var(--vp-c-text-1));
+  font-size: 11px;
+}
+.bm-legend {
+  margin: 2px 0 0;
+  font-family: var(--vp-font-family-mono);
+  font-size: 11px;
+  color: var(--vp-c-text-3);
+}
+@media (max-width: 640px) {
+  .bm-grid { grid-template-columns: 1fr; gap: 9px; }
+}

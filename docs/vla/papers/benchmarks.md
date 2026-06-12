@@ -21,60 +21,46 @@ title: VLA 评测基准全景
 
 没有任何单一基准能回答"这个 VLA 好不好"。VLA 评测沿五个正交维度铺开,**度量的物理量不同、口径互不兼容、绝对不可直接横比**:
 
-```mermaid
-mindmap
-  root((VLA 评测全景))
-    仿真操作
-      SimplerEnv real-to-sim
-      LIBERO 终身学习
-      CALVIN 长程语言链
-      RoboCasa 厨房大规模
-      ManiSkill / RLBench
-      Meta-World / COLOSSEUM
-      VIMA-Bench / GenManip
-      robosuite 底座 / ARNOLD 连续状态
-      FurnitureBench 装配 / LIBERO-Plus 鲁棒
-    双臂人形移动
-      RoboTwin 1.0/2.0
-      BiGym 移动双臂
-      HumanoidBench 全身
-      Habitat 3.0 人机协作
-      AgiBot World / GO-1
-      BEHAVIOR Challenge / BRS
-      LeVERB 语言全身控制
-    真机竞技场
-      RoboArena 众包双盲
-      RoboChallenge 云托管
-      AgiBot World Challenge
-      Open X-Embodiment / DROID
-      VLA-REPLICA 低成本
-      RRC2022 TriFinger / ManipulationNet
-    具身推理 VQA
-      ERQA / ERQA+
-      RoboVQA 长程
-      VLABench 双轨
-      RoboSpatial / Where2Place
-      BLINK / EmbodiedBench
-      OpenEQA 具身问答 / VSI-Bench 视频空间
-      SafeAgentBench 安全
-    视觉语言导航
-      R2R / RxR
-      REVERIE 导航+定位
-      VLN-CE 连续环境
-      ObjectNav / GOAT
-      CityNav 航拍无人机
-    世界模型评测 WAM线
-      WorldModelBench 视频生成
-```
+<div class="bm-grid">
+<section class="bm-card" data-tone="cyan">
+<header class="bm-card__head"><strong>仿真操作</strong><span class="bm-card__sec">§一–四 · §五</span></header>
+<p class="bm-card__what">策略在线动作成功率</p>
+<div class="bm-card__chips"><i class="is-major">SimplerEnv · real-to-sim</i><i class="is-major">LIBERO · 终身学习</i><i class="is-major">CALVIN · 长程语言链</i><i class="is-major">RoboCasa · 厨房大规模</i><i>ManiSkill</i><i>RLBench</i><i>Meta-World</i><i>COLOSSEUM</i><i>VIMA-Bench</i><i>GenManip</i><i>robosuite 底座</i><i>ARNOLD 连续状态</i><i>FurnitureBench 装配</i><i>LIBERO-Plus 鲁棒</i></div>
+<footer class="bm-card__metric">成功率% / 链长 / 退化%</footer>
+</section>
+<section class="bm-card" data-tone="blue">
+<header class="bm-card__head"><strong>双臂 / 人形 / 移动</strong><span class="bm-card__sec">§六</span></header>
+<p class="bm-card__what">双臂协调 · 全身控制 · 导航+操作耦合</p>
+<div class="bm-card__chips"><i>RoboTwin 1.0/2.0</i><i>BiGym 移动双臂</i><i>HumanoidBench 全身</i><i>Habitat 3.0 人机协作</i><i>AgiBot World / GO-1</i><i>BEHAVIOR Challenge</i><i>BRS</i><i>LeVERB 语言全身控制</i></div>
+<footer class="bm-card__metric">成功率% / reward / RE / Q-score</footer>
+</section>
+<section class="bm-card" data-tone="amber">
+<header class="bm-card__head"><strong>真机评测与竞技场</strong><span class="bm-card__sec">§七</span></header>
+<p class="bm-card__what">真机泛化排名 · 鲁棒性</p>
+<div class="bm-card__chips"><i>RoboArena 众包双盲</i><i>RoboChallenge 云托管</i><i>AgiBot World Challenge</i><i>Open X-Embodiment</i><i>DROID</i><i>VLA-REPLICA 低成本</i><i>RRC2022 TriFinger</i><i>ManipulationNet</i></div>
+<footer class="bm-card__metric">成对偏好排名 / 真机SR</footer>
+</section>
+<section class="bm-card" data-tone="violet">
+<header class="bm-card__head"><strong>具身推理 / VQA</strong><span class="bm-card__sec">§八</span></header>
+<p class="bm-card__what">VLM 离线问答 · 指点准确率 · 具身问答</p>
+<div class="bm-card__chips"><i>ERQA / ERQA+</i><i>RoboVQA 长程</i><i>VLABench 双轨</i><i>RoboSpatial</i><i>Where2Place</i><i>BLINK</i><i>EmbodiedBench</i><i>OpenEQA 具身问答</i><i>VSI-Bench 视频空间</i><i>SafeAgentBench 安全</i></div>
+<footer class="bm-card__metric">多选 accuracy / 点命中% / LLM-Match</footer>
+</section>
+<section class="bm-card" data-tone="emerald">
+<header class="bm-card__head"><strong>视觉语言导航</strong><span class="bm-card__sec">§九</span></header>
+<p class="bm-card__what">移动到达 · 路径效率</p>
+<div class="bm-card__chips"><i>R2R</i><i>RxR</i><i>REVERIE 导航+定位</i><i>VLN-CE 连续环境</i><i>ObjectNav</i><i>GOAT</i><i>CityNav 航拍无人机</i></div>
+<footer class="bm-card__metric">SR / SPL / nDTW / OSR</footer>
+</section>
+<section class="bm-card" data-tone="slate">
+<header class="bm-card__head"><strong>世界模型评测(附 · WAM 线)</strong><span class="bm-card__sec">§九 后「附」</span></header>
+<p class="bm-card__what">视频生成作世界模型的物理 / 常识 / 指令一致性</p>
+<div class="bm-card__chips"><i>WorldModelBench 视频生成</i></div>
+<footer class="bm-card__metric">三轴人评 / judger</footer>
+</section>
+</div>
 
-| 大类 | 度量什么 | 代表基准 | 主指标 | 在本篇 |
-|---|---|---|---|---|
-| **仿真操作** | 策略在线动作成功率 | SimplerEnv·LIBERO·CALVIN·RoboCasa·ManiSkill·RLBench·COLOSSEUM·VIMA·robosuite·ARNOLD·FurnitureBench·LIBERO-Plus | 成功率% / 链长 / 退化% | §一–四、§五 |
-| **双臂/人形/移动** | 双臂协调·全身控制·导航+操作耦合 | RoboTwin·BiGym·HumanoidBench·Habitat 3.0·AgiBot·BEHAVIOR Challenge·BRS·LeVERB | 成功率% / reward / RE / Q-score | §六 |
-| **真机竞技场** | 真机泛化排名·鲁棒性 | RoboArena·RoboChallenge·OXE·DROID·VLA-REPLICA·RRC2022·ManipulationNet | 成对偏好排名 / 真机SR | §七 |
-| **具身推理/VQA** | VLM 离线问答·指点准确率·具身问答 | ERQA·RoboVQA·VLABench·RoboSpatial·BLINK·OpenEQA·VSI-Bench·SafeAgentBench | 多选 accuracy / 点命中% / LLM-Match | §八 |
-| **视觉语言导航** | 移动到达·路径效率 | R2R·RxR·REVERIE·VLN-CE·ObjectNav·CityNav(航拍) | SR / SPL / nDTW / OSR | §九 |
-| **世界模型评测**(附·WAM 线) | 视频生成作世界模型的物理/常识/指令一致性 | WorldModelBench | 三轴人评 / judger | §九 后「附」 |
+<p class="bm-legend">实心高亮 = 本篇设逐模型成绩表的四大主流基准(§一–四);卡右上角 = 对应章节。</p>
 
 > ⚠️ **贯穿全篇的第一原则**:**口径(setting)决定数字含义**。同一模型在不同 split、不同任务子集、不同输入模态、不同训练协议下分数可差数十个百分点。读任何成绩表前先看 setting 列,再看分数。本篇 §十「评测方法论与陷阱」是这条原则的系统化展开,堪称本版灵魂章节。
 
