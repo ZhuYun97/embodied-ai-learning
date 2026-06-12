@@ -4574,17 +4574,15 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: 100% 58%; /* 源片 16:9、镭光人在右下(spec: object-right-bottom),方裁右对齐 */
-  margin-top: 26px; /* 视频不透明:让出单元顶部 EMBODIED-UNIT / VLA·WAM 标签行 */
-  border-radius: 18px;
-  border: 1px solid rgba(56, 189, 248, 0.22);
+  margin-top: 10px;
   background: transparent;
-}
-.dark .thero__robot--video {
-  filter: none;
-  border-color: rgba(56, 189, 248, 0.30);
-  box-shadow: 0 0 44px rgba(56, 189, 248, 0.14);
+  /* 去卡片化:浅底视频用贴身羽化椭圆遮罩淡出,人物直接立在页面上(暗色呈背光轮廓) */
+  -webkit-mask-image: radial-gradient(56% 74% at 50% 47%, #000 36%, transparent 62%);
+  mask-image: radial-gradient(56% 74% at 50% 47%, #000 36%, transparent 62%);
 }
 .thero__unit:hover .thero__robot--video { filter: none; }
+.dark .thero__robot--video,
+.dark .thero__unit:hover .thero__robot--video { filter: brightness(0.9); }
 
 @media (prefers-reduced-motion: reduce) {
   .vp-doc a.pipe__step:hover,
