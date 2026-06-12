@@ -612,20 +612,8 @@ img.zoom-lightbox__content {
 
 .VPHome { position: relative; overflow: hidden; }
 
-/* 背景层①:科技网格,radial 渐隐(只在顶部/英雄区显眼) */
-.VPHome::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right, var(--tech-grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--tech-grid) 1px, transparent 1px);
-  background-size: 44px 44px;
-  -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 38%, transparent 78%);
-  mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 38%, transparent 78%);
-}
+/* 背景层①(已退役):原 44px 科技网格线 —— DotField 互动点阵上线后双重纹理冗余,
+   应用户要求移除(2026-06-13);电路数据包(hero-fx packets)保留为自由飞行光点 */
 
 /* 背景层②:三色辉光极光,缓慢漂移 */
 .VPHome::after {
@@ -1181,14 +1169,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 }
 @keyframes bpBlink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.15; } }
 
-/* —— 背景网格:极缓慢漂移(活的蓝图)—— */
-@media (prefers-reduced-motion: no-preference) {
-  .VPHome::before { animation: bpGridPan 40s linear infinite; }
-}
-@keyframes bpGridPan {
-  from { background-position: 0 0, 0 0; }
-  to   { background-position: 44px 44px, 44px 44px; }
-}
+/* (背景网格漂移动画随网格层一并移除) */
 
 /* —— 路线卡:悬停斜向扫光层已禁用(其溢出会形成左上角蓝色斜块 bug)
        恢复 L640 顶部三色渐变发丝线为 ::before 唯一职责 —— */
@@ -2307,10 +2288,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     radial-gradient(80% 70% at 50% 46%, rgba(34, 211, 238, 0.07), transparent 72%);
 }
 .dark .thero__unit::before {
-  background:
-    radial-gradient(78% 66% at 50% 44%, rgba(34, 211, 238, 0.12), transparent 72%),
-    linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px) 0 0 / 100% 34px,
-    linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px) 0 0 / 34px 100%;
+  /* 微网格线已随背景网格一并移除,只留辉光底 */
+  background: radial-gradient(78% 66% at 50% 44%, rgba(34, 211, 238, 0.12), transparent 72%);
   -webkit-mask-image: radial-gradient(72% 64% at 50% 46%, #000 55%, transparent 82%);
   mask-image: radial-gradient(72% 64% at 50% 46%, #000 55%, transparent 82%);
 }
