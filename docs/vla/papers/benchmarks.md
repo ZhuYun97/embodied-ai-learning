@@ -25,42 +25,42 @@ title: VLA 评测基准全景
 <section class="bm-card" data-tone="cyan">
 <header class="bm-card__head"><strong><a href="#主流仿真操作基准-四大">仿真操作</a></strong><a class="bm-card__sec" href="#主流仿真操作基准-四大">§一–四 · §五</a></header>
 <p class="bm-card__what">策略在线动作成功率</p>
-<div class="bm-card__chips"><a class="is-major" href="#一、simplerenv">SimplerEnv · real-to-sim</a><a class="is-major" href="#二、libero">LIBERO · 终身学习</a><a class="is-major" href="#三、calvin">CALVIN · 长程语言链</a><a class="is-major" href="#四、robocasa-本轮重点补齐">RoboCasa · 厨房大规模</a><a href="#五、仿真操作扩展基准对照">ManiSkill</a><a href="#五、仿真操作扩展基准对照">RLBench</a><a href="#五、仿真操作扩展基准对照">Meta-World</a><a href="#五、仿真操作扩展基准对照">COLOSSEUM</a><a href="#五、仿真操作扩展基准对照">VIMA-Bench</a><a href="#五、仿真操作扩展基准对照">GenManip</a><a href="#五、仿真操作扩展基准对照">robosuite 底座</a><a href="#五、仿真操作扩展基准对照">ARNOLD 连续状态</a><a href="#五、仿真操作扩展基准对照">FurnitureBench 装配</a><a href="#五、仿真操作扩展基准对照">LIBERO-Plus 鲁棒</a></div>
+<div class="bm-card__chips"><a class="is-major" href="https://github.com/simpler-env/SimplerEnv" target="_blank" rel="noopener">SimplerEnv · real-to-sim</a><a class="is-major" href="https://github.com/Lifelong-Robot-Learning/LIBERO" target="_blank" rel="noopener">LIBERO · 终身学习</a><a class="is-major" href="https://github.com/mees/calvin" target="_blank" rel="noopener">CALVIN · 长程语言链</a><a class="is-major" href="https://robocasa.ai" target="_blank" rel="noopener">RoboCasa · 厨房大规模</a><a href="https://github.com/mani-skill/ManiSkill" target="_blank" rel="noopener">ManiSkill</a><a href="https://github.com/stepjam/RLBench" target="_blank" rel="noopener">RLBench</a><a href="https://github.com/Farama-Foundation/Metaworld" target="_blank" rel="noopener">Meta-World</a><a href="https://robot-colosseum.github.io" target="_blank" rel="noopener">COLOSSEUM</a><a href="https://github.com/vimalabs/VIMABench" target="_blank" rel="noopener">VIMA-Bench</a><a href="https://github.com/InternRobotics/GenManip" target="_blank" rel="noopener">GenManip</a><a href="https://robosuite.ai" target="_blank" rel="noopener">robosuite 底座</a><a href="https://arnold-benchmark.github.io" target="_blank" rel="noopener">ARNOLD 连续状态</a><a href="https://clvrai.github.io/furniture-bench" target="_blank" rel="noopener">FurnitureBench 装配</a><a href="https://sylvestf.github.io/LIBERO-plus" target="_blank" rel="noopener">LIBERO-Plus 鲁棒</a></div>
 <footer class="bm-card__metric">成功率% / 链长 / 退化%</footer>
 </section>
 <section class="bm-card" data-tone="blue">
 <header class="bm-card__head"><strong><a href="#六、双臂-人形-移动操作基准">双臂 / 人形 / 移动</a></strong><a class="bm-card__sec" href="#六、双臂-人形-移动操作基准">§六</a></header>
 <p class="bm-card__what">双臂协调 · 全身控制 · 导航+操作耦合</p>
-<div class="bm-card__chips"><a href="#六、双臂-人形-移动操作基准">RoboTwin 1.0/2.0</a><a href="#六、双臂-人形-移动操作基准">BiGym 移动双臂</a><a href="#六、双臂-人形-移动操作基准">HumanoidBench 全身</a><a href="#六、双臂-人形-移动操作基准">Habitat 3.0 人机协作</a><a href="#六、双臂-人形-移动操作基准">AgiBot World / GO-1</a><a href="#六、双臂-人形-移动操作基准">BEHAVIOR Challenge</a><a href="#六、双臂-人形-移动操作基准">BRS</a><a href="#六、双臂-人形-移动操作基准">LeVERB 语言全身控制</a></div>
+<div class="bm-card__chips"><a href="https://robotwin-platform.github.io" target="_blank" rel="noopener">RoboTwin 1.0/2.0</a><a href="https://chernyadev.github.io/bigym" target="_blank" rel="noopener">BiGym 移动双臂</a><a href="https://humanoid-bench.github.io" target="_blank" rel="noopener">HumanoidBench 全身</a><a href="https://aihabitat.org" target="_blank" rel="noopener">Habitat 3.0 人机协作</a><a href="https://opendrivelab.com/AgiBot-World" target="_blank" rel="noopener">AgiBot World / GO-1</a><a href="https://behavior.stanford.edu/challenge" target="_blank" rel="noopener">BEHAVIOR Challenge</a><a href="https://behavior-robot-suite.github.io" target="_blank" rel="noopener">BRS</a><a href="https://arxiv.org/abs/2506.13751" target="_blank" rel="noopener">LeVERB 语言全身控制</a></div>
 <footer class="bm-card__metric">成功率% / reward / RE / Q-score</footer>
 </section>
 <section class="bm-card" data-tone="amber">
 <header class="bm-card__head"><strong><a href="#七、真机评测与竞技场">真机评测与竞技场</a></strong><a class="bm-card__sec" href="#七、真机评测与竞技场">§七</a></header>
 <p class="bm-card__what">真机泛化排名 · 鲁棒性</p>
-<div class="bm-card__chips"><a href="#七、真机评测与竞技场">RoboArena 众包双盲</a><a href="#七、真机评测与竞技场">RoboChallenge 云托管</a><a href="#七、真机评测与竞技场">AgiBot World Challenge</a><a href="#七、真机评测与竞技场">Open X-Embodiment</a><a href="#七、真机评测与竞技场">DROID</a><a href="#七、真机评测与竞技场">VLA-REPLICA 低成本</a><a href="#七、真机评测与竞技场">RRC2022 TriFinger</a><a href="#七、真机评测与竞技场">ManipulationNet</a></div>
+<div class="bm-card__chips"><a href="https://robo-arena.github.io" target="_blank" rel="noopener">RoboArena 众包双盲</a><a href="https://robochallenge.ai" target="_blank" rel="noopener">RoboChallenge 云托管</a><a href="https://agibot-world.com" target="_blank" rel="noopener">AgiBot World Challenge</a><a href="https://robotics-transformer-x.github.io" target="_blank" rel="noopener">Open X-Embodiment</a><a href="https://droid-dataset.github.io" target="_blank" rel="noopener">DROID</a><a href="https://arxiv.org/abs/2605.20774" target="_blank" rel="noopener">VLA-REPLICA 低成本</a><a href="https://real-robot-challenge.com" target="_blank" rel="noopener">RRC2022 TriFinger</a><a href="https://manipulation-net.org" target="_blank" rel="noopener">ManipulationNet</a></div>
 <footer class="bm-card__metric">成对偏好排名 / 真机SR</footer>
 </section>
 <section class="bm-card" data-tone="violet">
 <header class="bm-card__head"><strong><a href="#八、具身推理-vqa-评测">具身推理 / VQA</a></strong><a class="bm-card__sec" href="#八、具身推理-vqa-评测">§八</a></header>
 <p class="bm-card__what">VLM 离线问答 · 指点准确率 · 具身问答</p>
-<div class="bm-card__chips"><a href="#八、具身推理-vqa-评测">ERQA / ERQA+</a><a href="#八、具身推理-vqa-评测">RoboVQA 长程</a><a href="#八、具身推理-vqa-评测">VLABench 双轨</a><a href="#八、具身推理-vqa-评测">RoboSpatial</a><a href="#八、具身推理-vqa-评测">Where2Place</a><a href="#八、具身推理-vqa-评测">BLINK</a><a href="#八、具身推理-vqa-评测">EmbodiedBench</a><a href="#八、具身推理-vqa-评测">OpenEQA 具身问答</a><a href="#八、具身推理-vqa-评测">VSI-Bench 视频空间</a><a href="#八、具身推理-vqa-评测">SafeAgentBench 安全</a></div>
+<div class="bm-card__chips"><a href="https://github.com/embodiedreasoning/ERQA" target="_blank" rel="noopener">ERQA</a><a href="https://flageval-baai.github.io/ERQA-Plus-page" target="_blank" rel="noopener">ERQA+</a><a href="https://robovqa.github.io" target="_blank" rel="noopener">RoboVQA 长程</a><a href="https://vlabench.github.io" target="_blank" rel="noopener">VLABench 双轨</a><a href="https://chanh.ee/RoboSpatial/" target="_blank" rel="noopener">RoboSpatial</a><a href="https://huggingface.co/datasets/wentao-yuan/where2place" target="_blank" rel="noopener">Where2Place</a><a href="https://zeyofu.github.io/blink" target="_blank" rel="noopener">BLINK</a><a href="https://embodiedbench.github.io" target="_blank" rel="noopener">EmbodiedBench</a><a href="https://open-eqa.github.io" target="_blank" rel="noopener">OpenEQA 具身问答</a><a href="https://vision-x-nyu.github.io/thinking-in-space.github.io" target="_blank" rel="noopener">VSI-Bench 视频空间</a><a href="https://github.com/shengyin1224/SafeAgentBench" target="_blank" rel="noopener">SafeAgentBench 安全</a></div>
 <footer class="bm-card__metric">多选 accuracy / 点命中% / LLM-Match</footer>
 </section>
 <section class="bm-card" data-tone="emerald">
 <header class="bm-card__head"><strong><a href="#九、视觉语言导航-vln-navigation">视觉语言导航</a></strong><a class="bm-card__sec" href="#九、视觉语言导航-vln-navigation">§九</a></header>
 <p class="bm-card__what">移动到达 · 路径效率</p>
-<div class="bm-card__chips"><a href="#九、视觉语言导航-vln-navigation">R2R</a><a href="#九、视觉语言导航-vln-navigation">RxR</a><a href="#九、视觉语言导航-vln-navigation">REVERIE 导航+定位</a><a href="#九、视觉语言导航-vln-navigation">VLN-CE 连续环境</a><a href="#九、视觉语言导航-vln-navigation">ObjectNav</a><a href="#九、视觉语言导航-vln-navigation">GOAT</a><a href="#九、视觉语言导航-vln-navigation">CityNav 航拍无人机</a></div>
+<div class="bm-card__chips"><a href="https://bringmeaspoon.org" target="_blank" rel="noopener">R2R</a><a href="https://github.com/google-research-datasets/RxR" target="_blank" rel="noopener">RxR</a><a href="https://yuankaiqi.github.io/REVERIE_Challenge" target="_blank" rel="noopener">REVERIE 导航+定位</a><a href="https://github.com/jacobkrantz/VLN-CE" target="_blank" rel="noopener">VLN-CE 连续环境</a><a href="https://aihabitat.org/challenge/2023" target="_blank" rel="noopener">ObjectNav</a><a href="https://mukulkhanna.github.io/goat-bench/" target="_blank" rel="noopener">GOAT</a><a href="https://water-cookie.github.io/city-nav-proj/" target="_blank" rel="noopener">CityNav 航拍无人机</a></div>
 <footer class="bm-card__metric">SR / SPL / nDTW / OSR</footer>
 </section>
 <section class="bm-card" data-tone="slate">
 <header class="bm-card__head"><strong><a href="#附、世界模型-视频生成评测-与-wam-调研线呼应">世界模型评测(附 · WAM 线)</a></strong><a class="bm-card__sec" href="#附、世界模型-视频生成评测-与-wam-调研线呼应">§九 后「附」</a></header>
 <p class="bm-card__what">视频生成作世界模型的物理 / 常识 / 指令一致性</p>
-<div class="bm-card__chips"><a href="#附、世界模型-视频生成评测-与-wam-调研线呼应">WorldModelBench 视频生成</a></div>
+<div class="bm-card__chips"><a href="https://worldmodelbench-team.github.io" target="_blank" rel="noopener">WorldModelBench 视频生成</a></div>
 <footer class="bm-card__metric">三轴人评 / judger</footer>
 </section>
 </div>
 
-<p class="bm-legend">实心高亮 = 本篇设逐模型成绩表的四大主流基准(分别跳 §一–四 专章);其余 chip 与卡题、章节徽章均可点击,跳转到本页对应章节。</p>
+<p class="bm-legend">基准 chip 点击 ↗ 官方/项目主页(新窗;42 个外链 2026-06-12 逐一实测可达,LeVERB / VLA-REPLICA 暂无项目页、挂 arXiv 论文页);实心高亮 = 本篇设逐模型成绩表的四大主流基准;卡题与右上角章节徽章点击跳本页对应章节。</p>
 
 > ⚠️ **贯穿全篇的第一原则**:**口径(setting)决定数字含义**。同一模型在不同 split、不同任务子集、不同输入模态、不同训练协议下分数可差数十个百分点。读任何成绩表前先看 setting 列,再看分数。本篇 §十「评测方法论与陷阱」是这条原则的系统化展开,堪称本版灵魂章节。
 

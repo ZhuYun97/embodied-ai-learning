@@ -4104,6 +4104,13 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   background: color-mix(in srgb, var(--bm-c) 10%, var(--vp-c-bg));
   color: var(--vp-c-text-1);
 }
+.vp-doc .bm-card__chips a[target='_blank']::after {
+  content: '↗';
+  font-size: 8.5px;
+  margin-left: 3px;
+  opacity: 0.5;
+}
+.vp-doc .bm-card__chips a[target='_blank']:hover::after { opacity: 0.95; }
 .bm-card__chips i.is-major,
 .vp-doc .bm-card__chips a.is-major {
   border-color: color-mix(in srgb, var(--bm-c) 55%, transparent);
