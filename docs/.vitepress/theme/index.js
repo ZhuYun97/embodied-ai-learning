@@ -5,6 +5,8 @@ import { data as modelData } from '../data/models.data.mjs'
 import { data as paperData } from '../data/papers.data.mjs'
 import { ROUTE_COLORS } from './route-colors.mjs'
 import LineageMap from './components/LineageMap.vue'
+import XhsAccounts from './components/XhsAccounts.vue'
+import XhsBoard from './components/XhsBoard.vue'
 import './custom.css'
 
 // =====================================================================
@@ -1270,6 +1272,9 @@ export default {
   // 无需在同步内容里维护相对 import 路径(extends 链上 DefaultTheme 的 enhanceApp 由 VitePress 自动先行调用)。
   enhanceApp({ app }) {
     app.component('LineageMap', LineageMap)
+    // 小红书精选页(SRC papers/xiaohongshu.md 同步)的两个展示组件
+    app.component('XhsAccounts', XhsAccounts)
+    app.component('XhsBoard', XhsBoard)
   },
   setup() {
     onMounted(setupLightbox)
