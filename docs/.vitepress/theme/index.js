@@ -1032,12 +1032,15 @@ const ROBOT_LINES = [
   '双主线就绪 · VLA × WAM',
 ]
 // =====================================================================
-// 镭光人视频交互(spec: Native Scrubbing 移植):
-// ① 桌面(pointer:fine + 宽 ≥1024 + 允许动效)= 鼠标推扫——mousemove 的 ΔX 按
-//    (Δ/innerWidth)*0.8*duration 累积到目标时间,夹在 [0, duration),seeked 节流
-//    保证逐帧平滑(上一帧 seek 完成才提交下一帧);
-// ② 窄屏 / 触屏 = 静音循环自动播放(spec: <1024 autoplay);
-// ③ prefers-reduced-motion = 只显示静帧,不播不扫。
+// 镭光人视频交互(spec: Native Scrubbing 移植)+ 实时抠像:
+// 源片是浅紫白底,直接上屏要么成卡片要么得羽化(均被否)→ 视频仅作隐藏解码源,
+// 可见层为 canvas:每帧方裁右对齐绘入,采四角均值作底色参考,从边缘做容差泛洪
+// (只清除与边缘连通的底色,人物内部的白高光不受伤),命中像素置全透明、
+// 邻接像素半透明作 1px 软边——人物以透明底直接立在页面上(与旧 SVG 机器人同款承载)。
+// 模式:① 桌面(pointer:fine + ≥1024 + 允许动效)= 鼠标推扫,(ΔX/视宽)*0.8*时长,
+//        seeked 节流,每次 seek 完成重抠重绘;
+//      ② 窄屏 / 触屏 = 静音循环自动播放,requestVideoFrameCallback(降级 rAF)逐帧抠;
+//      ③ prefers-reduced-motion = 只抠首帧静像。
 // =====================================================================
 function bindHeroVideo(reduce) {
   if (typeof document === 'undefined') return
@@ -1045,28 +1048,89 @@ function bindHeroVideo(reduce) {
   if (!video || video.dataset.scrub) return
   video.dataset.scrub = '1'
   video.muted = true
-  const paintFirstFrame = () => {
-    try {
-      if (video.readyState >= 1) video.currentTime = Math.min(0.01, video.duration || 0.01)
-      else video.addEventListener('loadedmetadata', () => { video.currentTime = 0.01 }, { once: true })
-    } catch (e) {}
+  const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
+  const SIZE = fine ? 540 : 416
+  const canvas = document.createElement('canvas')
+  canvas.width = SIZE
+  canvas.height = SIZE
+  canvas.className = 'thero__robot thero__robot--keyed'
+  canvas.setAttribute('role', 'img')
+  canvas.setAttribute('aria-label', '镭光人 · 具身智能概念视频')
+  video.insertAdjacentElement('afterend', canvas)
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })
+  const N = SIZE * SIZE
+  const queue = new Int32Array(N)
+  const visited = new Uint8Array(N)
+  const keyFrame = () => {
+    const vw = video.videoWidth
+    const vh = video.videoHeight
+    if (!vw || !vh || video.readyState < 2) return
+    const s = Math.min(vw, vh)
+    ctx.clearRect(0, 0, SIZE, SIZE)
+    ctx.drawImage(video, vw - s, 0, s, s, 0, 0, SIZE, SIZE)
+    let img
+    try { img = ctx.getImageData(0, 0, SIZE, SIZE) } catch (e) { return }
+    const d = img.data
+    // 底色参考 = 四角均值(逐帧自适应光照/暗角)
+    let rr = 0, rg = 0, rb = 0
+    for (const p of [(2 * SIZE + 2), (2 * SIZE + SIZE - 3), ((SIZE - 3) * SIZE + 2), ((SIZE - 3) * SIZE + SIZE - 3)]) {
+      rr += d[p * 4]; rg += d[p * 4 + 1]; rb += d[p * 4 + 2]
+    }
+    rr /= 4; rg /= 4; rb /= 4
+    const TOL2 = 56 * 56
+    visited.fill(0)
+    let qh = 0
+    let qt = 0
+    const tryPush = (p) => {
+      if (visited[p]) return
+      const i = p * 4
+      const dr = d[i] - rr, dg = d[i + 1] - rg, db = d[i + 2] - rb
+      if (dr * dr + dg * dg + db * db < TOL2) { visited[p] = 1; queue[qt++] = p }
+    }
+    for (let x = 0; x < SIZE; x++) { tryPush(x); tryPush(N - SIZE + x) }
+    for (let y = 1; y < SIZE - 1; y++) { tryPush(y * SIZE); tryPush(y * SIZE + SIZE - 1) }
+    while (qh < qt) {
+      const p = queue[qh++]
+      const x = p % SIZE
+      if (x > 0) tryPush(p - 1)
+      if (x < SIZE - 1) tryPush(p + 1)
+      if (p >= SIZE) tryPush(p - SIZE)
+      if (p < N - SIZE) tryPush(p + SIZE)
+    }
+    for (let p = 0; p < N; p++) {
+      if (visited[p]) { d[p * 4 + 3] = 0; continue }
+      // 1px 软边:保留像素若邻接被清除区,降透明度抗锯齿
+      const x = p % SIZE
+      if ((x > 0 && visited[p - 1]) || (x < SIZE - 1 && visited[p + 1]) || (p >= SIZE && visited[p - SIZE]) || (p < N - SIZE && visited[p + SIZE])) {
+        d[p * 4 + 3] = Math.min(d[p * 4 + 3], 110)
+      }
+    }
+    ctx.putImageData(img, 0, 0)
+  }
+  const paintWhenReady = () => {
+    if (video.readyState >= 2) keyFrame()
+    else video.addEventListener('loadeddata', keyFrame, { once: true })
   }
   if (reduce) {
-    paintFirstFrame()
+    paintWhenReady()
     return
   }
-  const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
-  const startPlayback = () => {
+  if (!fine || window.innerWidth < 1024) {
+    // —— 自动播放模式:逐帧抠像 ——
     video.autoplay = true
     const p = video.play()
     if (p && p.catch) p.catch(() => {})
-  }
-  if (!fine || window.innerWidth < 1024) {
-    startPlayback()
+    if ('requestVideoFrameCallback' in HTMLVideoElement.prototype) {
+      const onFrame = () => { keyFrame(); video.requestVideoFrameCallback(onFrame) }
+      video.requestVideoFrameCallback(onFrame)
+    } else {
+      const loop = () => { keyFrame(); requestAnimationFrame(loop) }
+      requestAnimationFrame(loop)
+    }
     return
   }
   // —— 桌面推扫模式 ——
-  paintFirstFrame()
+  paintWhenReady()
   let prevX = null
   let target = 0
   let seeking = false
@@ -1079,6 +1143,7 @@ function bindHeroVideo(reduce) {
   }
   video.addEventListener('seeked', () => {
     seeking = false
+    keyFrame()
     apply()
   })
   window.addEventListener(

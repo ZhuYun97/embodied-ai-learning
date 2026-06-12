@@ -4570,19 +4570,20 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
    暗色用 screen 混合把深底视频融进深空背景,矩形 drop-shadow 关闭。
    交互逻辑见 theme/index.js bindHeroVideo(推扫 / 自动播放 / 静帧)。
    ============================================================ */
+/* 视频仅作隐藏解码源;可见层是 bindHeroVideo 注入的实时抠像 canvas
+   (.thero__robot--keyed,共享 .thero__robot 的物化/浮动/辉光,与旧 SVG 同款承载) */
 .thero__robot--video {
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: 100% 58%; /* 源片 16:9、镭光人在右下(spec: object-right-bottom),方裁右对齐 */
-  margin-top: 10px;
-  background: transparent;
-  /* 去卡片化:浅底视频用贴身羽化椭圆遮罩淡出,人物直接立在页面上(暗色呈背光轮廓) */
-  -webkit-mask-image: radial-gradient(56% 74% at 50% 47%, #000 36%, transparent 62%);
-  mask-image: radial-gradient(56% 74% at 50% 47%, #000 36%, transparent 62%);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
-.thero__unit:hover .thero__robot--video { filter: none; }
-.dark .thero__robot--video,
-.dark .thero__unit:hover .thero__robot--video { filter: brightness(0.9); }
+.thero__robot--keyed {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: auto;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .vp-doc a.pipe__step:hover,
