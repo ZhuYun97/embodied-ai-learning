@@ -10,6 +10,7 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 **[评测基准全景](/vla/papers/benchmarks) §〇 改版:mindmap + 密表 → 六张评测维度卡**
 - 🎨 「五大类基准」总览原为 mermaid mindmap(辐射树小字、配色不受控)+ 6 行密表,信息互相重复;合并为六张分色维度卡(仿真操作青 / 双臂人形移动蓝 / 真机竞技场琥珀 / 具身推理紫 / 导航绿 / WAM 线灰),卡面 = 大类 + 度量什么 + 代表基准 chips + 主指标(等宽)+ 右上角章节徽章;**四大主流基准(§一–四,设逐模型成绩表)实心高亮**并带 mindmap 原有别称(real-to-sim / 终身学习 / 长程语言链 / 厨房大规模)。内容口径零变动,mindmap 独有的基准别称全部并入 chips 不丢失;样式 `.bm-*` 落 custom.css,双皮肤 + 移动端单列。
+- 🖱️ **当日追加可点跳转**(应用户要求):卡题、章节徽章与全部基准 chip 共 60 个链接化——四大 chip 分别跳 §一–四 专章,仿真扩展 chip 跳 §五,其余 chip 跳各自大类章节(锚点取自 VitePress 实际生成 ID,60 链 11 锚程序化验证 0 失效;实点 LIBERO chip 滚动定位实测通过)。
 
 **[发展时间线](/vla/papers/timeline)升级为 VLA × WAM 双主线速查页(应用户「基本只有 VLA 内容」的指正)**
 - 🧭 六节全部 VLA / WAM 并立:§一 总览图新增 **WAM 主线 mermaid**(起点 2023 → 潜空间转向 2024 → 联合化 2025 → 爆发与范式定名 2026H1,范式配色);§三 新增 **WAM 里程碑表 15 行**(UniPi→GR-1→LAPA/VPP→UWM/FLARE/WorldVLA→Genie Envisioner→RynnVLA-002→DreamZero→GigaWorld-Policy→X-WAM→OpenMOSS 综述定名→τ0-WM/Cosmos 3);§四 新增 **WAM 范式纵切**(级联/联合·自回归/联合·扩散/混合与跨范式 四线演化 + 「扩展吸收而非取代」总体判断);§五 新增 **WAM 四条暗线**(基座收敛与再多元化 / 像素 vs 潜空间 / 推理期关掉世界模型 / 开源两极);§六 新增 **WAM 信源表 15 条 arXiv ID**。页题与 frontmatter 同步改为「VLA × WAM」。

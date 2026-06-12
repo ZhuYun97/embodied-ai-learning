@@ -23,44 +23,44 @@ title: VLA 评测基准全景
 
 <div class="bm-grid">
 <section class="bm-card" data-tone="cyan">
-<header class="bm-card__head"><strong>仿真操作</strong><span class="bm-card__sec">§一–四 · §五</span></header>
+<header class="bm-card__head"><strong><a href="#主流仿真操作基准-四大">仿真操作</a></strong><a class="bm-card__sec" href="#主流仿真操作基准-四大">§一–四 · §五</a></header>
 <p class="bm-card__what">策略在线动作成功率</p>
-<div class="bm-card__chips"><i class="is-major">SimplerEnv · real-to-sim</i><i class="is-major">LIBERO · 终身学习</i><i class="is-major">CALVIN · 长程语言链</i><i class="is-major">RoboCasa · 厨房大规模</i><i>ManiSkill</i><i>RLBench</i><i>Meta-World</i><i>COLOSSEUM</i><i>VIMA-Bench</i><i>GenManip</i><i>robosuite 底座</i><i>ARNOLD 连续状态</i><i>FurnitureBench 装配</i><i>LIBERO-Plus 鲁棒</i></div>
+<div class="bm-card__chips"><a class="is-major" href="#一、simplerenv">SimplerEnv · real-to-sim</a><a class="is-major" href="#二、libero">LIBERO · 终身学习</a><a class="is-major" href="#三、calvin">CALVIN · 长程语言链</a><a class="is-major" href="#四、robocasa-本轮重点补齐">RoboCasa · 厨房大规模</a><a href="#五、仿真操作扩展基准对照">ManiSkill</a><a href="#五、仿真操作扩展基准对照">RLBench</a><a href="#五、仿真操作扩展基准对照">Meta-World</a><a href="#五、仿真操作扩展基准对照">COLOSSEUM</a><a href="#五、仿真操作扩展基准对照">VIMA-Bench</a><a href="#五、仿真操作扩展基准对照">GenManip</a><a href="#五、仿真操作扩展基准对照">robosuite 底座</a><a href="#五、仿真操作扩展基准对照">ARNOLD 连续状态</a><a href="#五、仿真操作扩展基准对照">FurnitureBench 装配</a><a href="#五、仿真操作扩展基准对照">LIBERO-Plus 鲁棒</a></div>
 <footer class="bm-card__metric">成功率% / 链长 / 退化%</footer>
 </section>
 <section class="bm-card" data-tone="blue">
-<header class="bm-card__head"><strong>双臂 / 人形 / 移动</strong><span class="bm-card__sec">§六</span></header>
+<header class="bm-card__head"><strong><a href="#六、双臂-人形-移动操作基准">双臂 / 人形 / 移动</a></strong><a class="bm-card__sec" href="#六、双臂-人形-移动操作基准">§六</a></header>
 <p class="bm-card__what">双臂协调 · 全身控制 · 导航+操作耦合</p>
-<div class="bm-card__chips"><i>RoboTwin 1.0/2.0</i><i>BiGym 移动双臂</i><i>HumanoidBench 全身</i><i>Habitat 3.0 人机协作</i><i>AgiBot World / GO-1</i><i>BEHAVIOR Challenge</i><i>BRS</i><i>LeVERB 语言全身控制</i></div>
+<div class="bm-card__chips"><a href="#六、双臂-人形-移动操作基准">RoboTwin 1.0/2.0</a><a href="#六、双臂-人形-移动操作基准">BiGym 移动双臂</a><a href="#六、双臂-人形-移动操作基准">HumanoidBench 全身</a><a href="#六、双臂-人形-移动操作基准">Habitat 3.0 人机协作</a><a href="#六、双臂-人形-移动操作基准">AgiBot World / GO-1</a><a href="#六、双臂-人形-移动操作基准">BEHAVIOR Challenge</a><a href="#六、双臂-人形-移动操作基准">BRS</a><a href="#六、双臂-人形-移动操作基准">LeVERB 语言全身控制</a></div>
 <footer class="bm-card__metric">成功率% / reward / RE / Q-score</footer>
 </section>
 <section class="bm-card" data-tone="amber">
-<header class="bm-card__head"><strong>真机评测与竞技场</strong><span class="bm-card__sec">§七</span></header>
+<header class="bm-card__head"><strong><a href="#七、真机评测与竞技场">真机评测与竞技场</a></strong><a class="bm-card__sec" href="#七、真机评测与竞技场">§七</a></header>
 <p class="bm-card__what">真机泛化排名 · 鲁棒性</p>
-<div class="bm-card__chips"><i>RoboArena 众包双盲</i><i>RoboChallenge 云托管</i><i>AgiBot World Challenge</i><i>Open X-Embodiment</i><i>DROID</i><i>VLA-REPLICA 低成本</i><i>RRC2022 TriFinger</i><i>ManipulationNet</i></div>
+<div class="bm-card__chips"><a href="#七、真机评测与竞技场">RoboArena 众包双盲</a><a href="#七、真机评测与竞技场">RoboChallenge 云托管</a><a href="#七、真机评测与竞技场">AgiBot World Challenge</a><a href="#七、真机评测与竞技场">Open X-Embodiment</a><a href="#七、真机评测与竞技场">DROID</a><a href="#七、真机评测与竞技场">VLA-REPLICA 低成本</a><a href="#七、真机评测与竞技场">RRC2022 TriFinger</a><a href="#七、真机评测与竞技场">ManipulationNet</a></div>
 <footer class="bm-card__metric">成对偏好排名 / 真机SR</footer>
 </section>
 <section class="bm-card" data-tone="violet">
-<header class="bm-card__head"><strong>具身推理 / VQA</strong><span class="bm-card__sec">§八</span></header>
+<header class="bm-card__head"><strong><a href="#八、具身推理-vqa-评测">具身推理 / VQA</a></strong><a class="bm-card__sec" href="#八、具身推理-vqa-评测">§八</a></header>
 <p class="bm-card__what">VLM 离线问答 · 指点准确率 · 具身问答</p>
-<div class="bm-card__chips"><i>ERQA / ERQA+</i><i>RoboVQA 长程</i><i>VLABench 双轨</i><i>RoboSpatial</i><i>Where2Place</i><i>BLINK</i><i>EmbodiedBench</i><i>OpenEQA 具身问答</i><i>VSI-Bench 视频空间</i><i>SafeAgentBench 安全</i></div>
+<div class="bm-card__chips"><a href="#八、具身推理-vqa-评测">ERQA / ERQA+</a><a href="#八、具身推理-vqa-评测">RoboVQA 长程</a><a href="#八、具身推理-vqa-评测">VLABench 双轨</a><a href="#八、具身推理-vqa-评测">RoboSpatial</a><a href="#八、具身推理-vqa-评测">Where2Place</a><a href="#八、具身推理-vqa-评测">BLINK</a><a href="#八、具身推理-vqa-评测">EmbodiedBench</a><a href="#八、具身推理-vqa-评测">OpenEQA 具身问答</a><a href="#八、具身推理-vqa-评测">VSI-Bench 视频空间</a><a href="#八、具身推理-vqa-评测">SafeAgentBench 安全</a></div>
 <footer class="bm-card__metric">多选 accuracy / 点命中% / LLM-Match</footer>
 </section>
 <section class="bm-card" data-tone="emerald">
-<header class="bm-card__head"><strong>视觉语言导航</strong><span class="bm-card__sec">§九</span></header>
+<header class="bm-card__head"><strong><a href="#九、视觉语言导航-vln-navigation">视觉语言导航</a></strong><a class="bm-card__sec" href="#九、视觉语言导航-vln-navigation">§九</a></header>
 <p class="bm-card__what">移动到达 · 路径效率</p>
-<div class="bm-card__chips"><i>R2R</i><i>RxR</i><i>REVERIE 导航+定位</i><i>VLN-CE 连续环境</i><i>ObjectNav</i><i>GOAT</i><i>CityNav 航拍无人机</i></div>
+<div class="bm-card__chips"><a href="#九、视觉语言导航-vln-navigation">R2R</a><a href="#九、视觉语言导航-vln-navigation">RxR</a><a href="#九、视觉语言导航-vln-navigation">REVERIE 导航+定位</a><a href="#九、视觉语言导航-vln-navigation">VLN-CE 连续环境</a><a href="#九、视觉语言导航-vln-navigation">ObjectNav</a><a href="#九、视觉语言导航-vln-navigation">GOAT</a><a href="#九、视觉语言导航-vln-navigation">CityNav 航拍无人机</a></div>
 <footer class="bm-card__metric">SR / SPL / nDTW / OSR</footer>
 </section>
 <section class="bm-card" data-tone="slate">
-<header class="bm-card__head"><strong>世界模型评测(附 · WAM 线)</strong><span class="bm-card__sec">§九 后「附」</span></header>
+<header class="bm-card__head"><strong><a href="#附、世界模型-视频生成评测-与-wam-调研线呼应">世界模型评测(附 · WAM 线)</a></strong><a class="bm-card__sec" href="#附、世界模型-视频生成评测-与-wam-调研线呼应">§九 后「附」</a></header>
 <p class="bm-card__what">视频生成作世界模型的物理 / 常识 / 指令一致性</p>
-<div class="bm-card__chips"><i>WorldModelBench 视频生成</i></div>
+<div class="bm-card__chips"><a href="#附、世界模型-视频生成评测-与-wam-调研线呼应">WorldModelBench 视频生成</a></div>
 <footer class="bm-card__metric">三轴人评 / judger</footer>
 </section>
 </div>
 
-<p class="bm-legend">实心高亮 = 本篇设逐模型成绩表的四大主流基准(§一–四);卡右上角 = 对应章节。</p>
+<p class="bm-legend">实心高亮 = 本篇设逐模型成绩表的四大主流基准(分别跳 §一–四 专章);其余 chip 与卡题、章节徽章均可点击,跳转到本页对应章节。</p>
 
 > ⚠️ **贯穿全篇的第一原则**:**口径(setting)决定数字含义**。同一模型在不同 split、不同任务子集、不同输入模态、不同训练协议下分数可差数十个百分点。读任何成绩表前先看 setting 列,再看分数。本篇 §十「评测方法论与陷阱」是这条原则的系统化展开,堪称本版灵魂章节。
 

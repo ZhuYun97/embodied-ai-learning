@@ -4040,16 +4040,39 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   font-size: 14.5px;
   color: color-mix(in srgb, var(--bm-c) 55%, var(--vp-c-text-1));
 }
-.bm-card__sec {
+.vp-doc .bm-card__head strong a {
+  color: inherit;
+  text-decoration: none !important;
+  font-weight: inherit;
+}
+.vp-doc .bm-card__head strong a:hover {
+  color: color-mix(in srgb, var(--bm-c) 80%, var(--vp-c-text-1));
+}
+.vp-doc .bm-card__head strong a::after {
+  content: ' ⌖';
+  font-size: 11px;
+  opacity: 0;
+  transition: opacity 0.16s;
+}
+.vp-doc .bm-card__head strong a:hover::after { opacity: 0.9; }
+.bm-card__sec,
+.vp-doc a.bm-card__sec {
   margin-left: auto;
   flex: none;
   font-family: var(--vp-font-family-mono);
   font-size: 10px;
+  font-weight: 400;
   padding: 1px 7px;
   border-radius: 99px;
   border: 1px solid color-mix(in srgb, var(--bm-c) 40%, transparent);
   color: color-mix(in srgb, var(--bm-c) 78%, var(--vp-c-text-1));
   white-space: nowrap;
+  text-decoration: none !important;
+  transition: background 0.16s, border-color 0.16s;
+}
+.vp-doc a.bm-card__sec:hover {
+  background: color-mix(in srgb, var(--bm-c) 14%, transparent);
+  border-color: color-mix(in srgb, var(--bm-c) 65%, transparent);
 }
 .bm-card__what {
   margin: 0;
@@ -4062,21 +4085,35 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   flex-wrap: wrap;
   gap: 4px;
 }
-.bm-card__chips i {
+.bm-card__chips i,
+.vp-doc .bm-card__chips a {
   font-style: normal;
   font-size: 10.5px;
+  font-weight: 400;
   line-height: 1;
   padding: 3px 7px;
   border-radius: 6px;
   border: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg);
   color: var(--vp-c-text-2);
+  text-decoration: none !important;
+  transition: border-color 0.16s, background 0.16s, color 0.16s;
 }
-.bm-card__chips i.is-major {
+.vp-doc .bm-card__chips a:hover {
+  border-color: color-mix(in srgb, var(--bm-c) 60%, var(--vp-c-divider));
+  background: color-mix(in srgb, var(--bm-c) 10%, var(--vp-c-bg));
+  color: var(--vp-c-text-1);
+}
+.bm-card__chips i.is-major,
+.vp-doc .bm-card__chips a.is-major {
   border-color: color-mix(in srgb, var(--bm-c) 55%, transparent);
   background: color-mix(in srgb, var(--bm-c) 14%, var(--vp-c-bg));
   color: color-mix(in srgb, var(--bm-c) 72%, var(--vp-c-text-1));
   font-weight: 600;
+}
+.vp-doc .bm-card__chips a.is-major:hover {
+  background: color-mix(in srgb, var(--bm-c) 24%, var(--vp-c-bg));
+  color: color-mix(in srgb, var(--bm-c) 60%, var(--vp-c-text-1));
 }
 .bm-card__metric {
   display: flex;
