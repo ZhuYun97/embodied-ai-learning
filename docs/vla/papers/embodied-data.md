@@ -36,9 +36,19 @@ flowchart LR
 
 ## 一、数据来源金字塔:四层全景
 
-主流共识已收敛到「数据金字塔」范式——自底向上,**数据量递减、本体特异性递增、动作信号从无到有、单位成本递增**。下图为 NVIDIA GR00T N1 的经典示意:
+主流共识已收敛到「数据金字塔」范式——自底向上,**数据量递减、本体特异性递增、动作信号从无到有、单位成本递增**(点击各层跳到对应小节):
 
+<div class="pyr" aria-label="具身数据金字塔:四层">
+<a class="pyr__layer" data-tone="rose" href="#二、主流真机数据集横向对比"><strong>顶层 · 真机遥操作</strong><span>直接真实动作 · 单位成本最高 · 量最小</span></a>
+<a class="pyr__layer" data-tone="amber" href="#四、仿真与合成数据"><strong>中层 · 仿真 / 合成轨迹</strong><span>可放大数十~数百倍 · sim-to-real gap</span></a>
+<a class="pyr__layer" data-tone="blue" href="#三、人类视频与第一视角数据"><strong>中下层 · 人类视频(第一视角)</strong><span>海量语义 + 动态先验 · 无动作标签</span></a>
+<span class="pyr__layer" data-tone="emerald"><strong>底层 · 网络视觉-语言数据</strong><span>互联网规模 · 纯语义先验 · 成本最低</span></span>
+</div>
+<p class="pyr__note">真机撑动作精度 · 网络撑语义广度 · 人类视频/仿真撑规模与多样性 · RL 经验撑分布外鲁棒性</p>
+
+::: details 原版示意:NVIDIA GR00T N1 数据金字塔
 ![GR00T N1 数据金字塔](images/groot-n1_datapyramid.webp)
+:::
 
 | 层级 | 数据源 | 核心作用 | 规模量级 | 动作信号 | 单位成本 | 主要局限 |
 |---|---|---|---|---|---|---|

@@ -22,25 +22,26 @@ title: 具身数据处理深度调研
 
 主线可概括为一条流水线:**原始采集 → 清洗质检(删技术伪影、留并标注语义失败)→ 标注与语言对齐(挂指令/子任务/奖励)→ 动作处理(归一化 / 分词 / 分块 / 跨本体对齐)与观测处理(token 化 / 掩码 / 增强 / 时间同步)→ 伪标签生成(给无动作数据补动作监督)→ 数据配比采样(决定各源占比)→ 格式化(RLDS/LeRobot/HDF5/Zarr)→ 训练 batch**。
 
-```mermaid
-flowchart LR
-    A["原始采集<br/>遥操作轨迹/视频流<br/>多模态异频原始流"]
-    B["清洗质检<br/>删技术伪影·留标注语义失败<br/>去重·切分·重标定"]
-    C["标注与语言对齐<br/>指令/子任务/边界框<br/>成功·奖励·优势"]
-    D["动作处理（核心）<br/>归一化·分词·分块<br/>跨本体 retarget"]
-    E["观测处理<br/>多视角token化·掩码<br/>state token·增强·时间同步"]
-    F["伪标签生成<br/>IDM·潜动作<br/>手部关键点·合成真值"]
-    G["配比采样<br/>n^0.43·DRO/Re-Mix<br/>co-train·sim:real"]
-    H["格式化<br/>RLDS/LeRobot<br/>HDF5/Zarr"]
-    I["训练 batch<br/>shuffle/interleave"]
-    A --> B --> C
-    C --> D
-    C --> E
-    F --> D
-    D --> G
-    E --> G
-    G --> H --> I
-```
+<div class="pipe" aria-label="具身数据处理流水线">
+<span class="pipe__step" data-tone="slate"><i>1</i><strong>原始采集</strong><span>遥操作轨迹 / 视频流 · 多模态异频</span></span>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="cyan" href="#二、数据清洗与质量管控"><i>2</i><strong>清洗质检</strong><span>删技术伪影 · 留标语义失败</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="blue" href="#三、标注与语言对齐"><i>3</i><strong>标注与语言对齐</strong><span>指令 / 子任务 / 奖励 · 优势</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step pipe__step--core" data-tone="violet" href="#四、动作处理-核心"><i>4</i><strong>动作处理(核心)</strong><span>归一化 · 分词 · 分块 · retarget</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="amber" href="#五、观测处理"><i>5</i><strong>观测处理</strong><span>token 化 · 掩码 · 增强 · 同步</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="rose" href="#六、伪标签生成"><i>6</i><strong>伪标签生成</strong><span>IDM · 潜动作 · 手部关键点</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="emerald" href="#七、数据配比与采样"><i>7</i><strong>配比采样</strong><span>n^0.43 · DRO/Re-Mix · sim:real</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="cyan" href="#八、数据格式与工具链"><i>8</i><strong>格式化</strong><span>RLDS / LeRobot / HDF5 / Zarr</span></a>
+<span class="pipe__arr">→</span>
+<span class="pipe__step" data-tone="blue"><i>9</i><strong>训练 batch</strong><span>shuffle / interleave</span></span>
+</div>
+<p class="eb-legend">点击步骤跳到本页对应章节;伪标签生成(§六)的产物回填动作处理,标注(§三)同时供给动作与观测两路。</p>
 
 贯穿全篇的几条主线判断:
 
@@ -393,6 +394,8 @@ LAPA 码本 **vocab=8 × seq=4(即 8^4)**,用 NSVQ 防梯度坍塌、对 patch e
 
 ### 9.1 最佳实践清单(跨各节提炼)
 
+<div class="gs-path gs-path--grid">
+
 1. **清洗即分流**:技术伪影(丢帧/畸变/全零动作)删除;语义失败保留并显式标注隔离(负样本/奖励),切勿混入正样本污染模仿目标。
 2. **归一化先于离散化、用分位数不用 min/max**:q01/q99 抗离群;改 action_horizon/delta_indices 后**必须重算 norm_stats**。
 3. **统一动作表征再混合**:先把异构本体统一到公共动作空间(相对 EEF / 7-DoF / 零填充到最大维),否则分位数跨本体无意义。
@@ -403,6 +406,8 @@ LAPA 码本 **vocab=8 × seq=4(即 8^4)**,用 NSVQ 防梯度坍塌、对 patch e
 8. **伪标签按数据量选路线**:低数据用潜动作更稳、高数据用 IDM 对齐更好;有可成功检查环境用 MimicGen 真值。
 9. **配比能优化就别拍脑袋**:n^0.43 是起点,Re-Mix 类 DRO 可自动学权重;注意 balance_weights 两模式语义不同。
 10. **存储分两层**:低维用 Parquet/HDF5/Zarr 扁平数组,视觉用 MP4 编码或 Zarr 分块压缩;百万级用 v3 多 episode 打包/流式。
+
+</div>
 
 ### 9.2 核查与待核缺口
 

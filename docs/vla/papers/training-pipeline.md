@@ -13,16 +13,20 @@ title: 具身模型训练全流程
 
 一句话主线:**具身模型训练不是「拿数据 fit 一个网络」,而是一条把「互联网语义广度 → 真机动作精度 → 廉价规模放大 → 分布外鲁棒性」逐层叠上去的多阶段流水线**——先用网络视觉-语言数据撑起语义先验,再用跨本体机器人数据把动作能力灌进去,用协同训练防止前者被后者冲刷,最后用目标本体后训练和真机 RL 经验把模仿学习的上限顶破。各阶段的分歧点高度集中在三件事上:**动作怎么表示(离散 token vs 连续流匹配)、异构本体怎么对齐(跨本体归一化)、不同来源数据怎么配比(co-training 权重)**。
 
-```mermaid
-flowchart LR
-    S0["阶段0<br/>VLM 预训练初始化<br/>(互联网图文先验)"] --> S1["阶段1<br/>机器人数据预训练<br/>(动作能力注入)"]
-    S1 --> S2["阶段2<br/>协同训练<br/>(网络数据 + 跨本体)"]
-    S2 --> S3["阶段3<br/>后训练<br/>(目标本体对齐)"]
-    S3 --> S4["阶段4<br/>真机 RL 经验<br/>(RECAP / SimpleVLA-RL)"]
-    S4 --> S5["阶段5<br/>蒸馏与部署<br/>(连续专家高频上机)"]
-```
-
-*示意图(自绘)*
+<div class="pipe" aria-label="具身模型训练六阶段">
+<a class="pipe__step" data-tone="slate" href="#一、训练全景-多阶段流水线"><i>0</i><strong>VLM 预训练初始化</strong><span>互联网图文先验</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="cyan" href="#二、训练目标函数-离散-连续-混合"><i>1</i><strong>机器人数据预训练</strong><span>动作能力注入</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="blue" href="#三、协同训练与数据配比"><i>2</i><strong>协同训练</strong><span>网络数据 + 跨本体</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="violet" href="#五、后训练与对齐"><i>3</i><strong>后训练</strong><span>目标本体对齐</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="rose" href="#六、第四阶段-真机-rl-与经验"><i>4</i><strong>真机 RL 经验</strong><span>RECAP / SimpleVLA-RL</span></a>
+<span class="pipe__arr">→</span>
+<a class="pipe__step" data-tone="emerald" href="#七、蒸馏与部署"><i>5</i><strong>蒸馏与部署</strong><span>连续专家高频上机</span></a>
+</div>
+<p class="eb-legend">示意(自绘,逻辑分解);点击各阶段跳到本页对应章节——阶段 0/1 的数据与目标函数展开在 §一/§二。</p>
 
 需要先说清楚:这条「阶段0→5」是**逻辑分解而非每个模型都全走一遍**。多数模型只走其中几段——OpenVLA/Octo 基本止于阶段1~2,π0 走到 0~3,π0.5 把 0~3 压成两阶段配方,π\*0.6 才真正用上阶段4,蒸馏/高频部署(阶段5)在不同模型里是训练技法(知识隔离)或推理工程(实时动作分块),并非独立训练阶段。下文逐段拆解。
 

@@ -7,7 +7,40 @@ import { ROUTE_COLORS } from './route-colors.mjs'
 import LineageMap from './components/LineageMap.vue'
 import XhsAccounts from './components/XhsAccounts.vue'
 import XhsBoard from './components/XhsBoard.vue'
+import DotField from './components/DotField.vue'
 import './custom.css'
+
+// =====================================================================
+// 主页鼠标互动点阵(HomeDots):DotField 的首页包装层。
+// fixed 全视口背景层(z-index:0,内容 z-index:1 之上不受影响;fixed 不被
+// .VPHome overflow:hidden 裁剪),随 home-hero-before 槽只在首页挂载;
+// SSR 首帧渲染 null,mounted 后才上 canvas。配色随明暗主题切换(紫→青,站点同源)。
+// =====================================================================
+const HomeDots = {
+  setup() {
+    const mounted = ref(false)
+    const { isDark } = useData()
+    onMounted(() => {
+      mounted.value = true
+    })
+    return () => {
+      if (!mounted.value) return null
+      return h('div', { class: 'dot-field-layer', 'aria-hidden': 'true' }, [
+        h(DotField, {
+          dotRadius: 1.5,
+          dotSpacing: 14,
+          bulgeStrength: 67,
+          glowRadius: 160,
+          sparkle: false,
+          waveAmplitude: 0,
+          gradientFrom: isDark.value ? 'rgba(167, 139, 250, 0.42)' : 'rgba(124, 58, 237, 0.30)',
+          gradientTo: isDark.value ? 'rgba(34, 211, 238, 0.26)' : 'rgba(14, 127, 168, 0.22)',
+          glowColor: isDark.value ? 'rgba(124, 58, 237, 0.30)' : 'rgba(124, 58, 237, 0.12)',
+        }),
+      ])
+    }
+  },
+}
 
 // =====================================================================
 // 「专注阅读」切换:收起左右两侧(侧边栏 + 右侧目录),加宽正文。
@@ -1262,7 +1295,7 @@ export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
-      'home-hero-before': () => [h(HeroFX), h(TechHero), h(HomeRail)],
+      'home-hero-before': () => [h(HomeDots), h(HeroFX), h(TechHero), h(HomeRail)],
       'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle)],
       'doc-before': () => [h(DocReadBar), h(PaperDossier), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],

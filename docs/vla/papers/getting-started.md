@@ -13,9 +13,26 @@ title: 具身入门
 
 ## 一、一分钟搞懂三个词
 
-- **具身智能(Embodied AI)**:让 AI **拥有身体**(机器人),在**物理世界**里「看 → 想 → 动」——感知环境、理解任务、做出动作并影响世界。区别于只在屏幕里输出文字 / 图片的 AI。
-- **VLA(视觉-语言-动作模型,Vision-Language-Action)**:一类机器人「大脑」模型。输入**摄像头画面 + 语言指令**(如「把胡萝卜放进锅里」),直接输出**机器人动作**。可以理解成「能直接操作身体的多模态大模型」。
-- **WAM(世界-行动模型,World-Action Model)**:更前沿的一支。模型先在脑中**想象「世界接下来会怎么变」**,再据此决定动作——即联合建模「未来状态 + 动作」,而不只是直接出动作。详见 [WAM 总览](/wam/)。
+<div class="gs-trio">
+<article class="gs-card" data-tone="cyan">
+<header><strong>具身智能</strong><i>Embodied AI</i></header>
+
+让 AI **拥有身体**(机器人),在**物理世界**里「看 → 想 → 动」——感知环境、理解任务、做出动作并影响世界。区别于只在屏幕里输出文字 / 图片的 AI。
+
+</article>
+<article class="gs-card" data-tone="blue">
+<header><strong>VLA · 视觉-语言-动作</strong><i>Vision-Language-Action</i></header>
+
+一类机器人「大脑」模型。输入**摄像头画面 + 语言指令**(如「把胡萝卜放进锅里」),直接输出**机器人动作**。可以理解成「能直接操作身体的多模态大模型」。
+
+</article>
+<article class="gs-card" data-tone="violet">
+<header><strong>WAM · 世界-行动模型</strong><i>World-Action Model</i></header>
+
+更前沿的一支。模型先在脑中**想象「世界接下来会怎么变」**,再据此决定动作——即联合建模「未来状态 + 动作」,而不只是直接出动作。详见 [WAM 总览](/wam/)。
+
+</article>
+</div>
 
 > 一句话串起来:**具身智能是目标,VLA 是当下主流的实现路线,WAM 是「先想象再行动」的新范式。** 本站就沿 VLA 与 WAM 两条主线展开。
 
@@ -40,6 +57,8 @@ title: 具身入门
 
 按下面顺序走,由浅入深、由全局到细节:
 
+<div class="gs-path">
+
 1. **把握全局** — 先读 [VLA 发展深度调研报告(总报告)](/vla/),了解这条线从哪来、到哪去。
 2. **看懂奠基** — 读最早把「大模型 + 机器人」打通的三篇:[RT-1](/vla/papers/rt1) → [RT-2](/vla/papers/rt2) → [OpenVLA](/vla/papers/openvla)。
 3. **连续动作怎么出** — 读 [Diffusion Policy](/vla/papers/diffusion-policy) 与 [π0](/vla/papers/pi0),理解「扩散 / 流匹配生成动作」。
@@ -47,6 +66,8 @@ title: 具身入门
 5. **模型怎么训** — 读 [具身模型训练全流程](/vla/papers/training-pipeline):预训练 → 协同训练 → 后训练 → 真机 RL 的整条流水线。
 6. **成绩怎么看** — 读 [基准硬数据 + 速查](/vla/papers/benchmarks),并记住「不要轻信单一基准分数」。
 7. **看前沿** — 想了解「先想象再行动」的新范式,进 [WAM 世界-行动模型总览](/wam/)。
+
+</div>
 
 > 想按技术路线挑模型读?首页的「[按技术路线浏览](/)」卡片把论文按「离散 token / 连续扩散 / 混合 / 新范式」分好了,可对照本路径跳读。另有 [时间线](/vla/papers/timeline) 帮你建立年代坐标。
 
@@ -56,9 +77,11 @@ title: 具身入门
 
 机器人论文里大量成绩是**提出方自评**、未经第三方在统一条件下复现。本站对此有固定体例:
 
-- **⚠️ 自评**:提出方 / 厂商自报、未独立复现的数字或结论——**采信需谨慎**。
-- **✅ 已核**:经对抗式核查确认的事实。
-- **待核**:一手来源未给出、本站不靠记忆 / 常识补全的项。
+<div class="mark-chips">
+<span class="mark-chip" data-tone="amber"><b>⚠️ 自评</b>提出方 / 厂商自报、未独立复现的数字或结论——采信需谨慎。</span>
+<span class="mark-chip" data-tone="emerald"><b>✅ 已核</b>经对抗式核查确认的事实。</span>
+<span class="mark-chip" data-tone="slate"><b>待核</b>一手来源未给出、本站不靠记忆 / 常识补全的项。</span>
+</div>
 
 读表时优先看口径与标注,而非只看「谁分高」。详见 [如何阅读本站](/vla/guide)。
 
@@ -66,16 +89,49 @@ title: 具身入门
 
 ## 五、新手常见疑问
 
-- **VLA 和 ChatGPT 这类大模型什么关系?** VLA 大多**站在预训练视觉-语言模型(VLM)肩上**:复用其语义理解,再接上「动作」这一头。所以你对大模型的直觉大半能迁移过来。
-- **为什么非要真机数据,不能全靠仿真?** 仿真便宜可放大,但与现实有差距(尤其接触、力);真机数据精确却昂贵稀缺。主流做法是**两者混合**(见 [数据全景](/vla/papers/embodied-data))。
-- **人形机器人 = 具身智能吗?** 不等于。人形是一种**本体**;具身智能是让任意本体(单臂 / 四足 / 人形…)具备「感知-决策-行动」能力的**智能**部分。
-- **完全没基础能看懂吗?** 能。按上面的路径走,遇到生词查 [术语表](/vla/papers/glossary) 即可;细读里的数学细节第一遍可跳过,先抓「问题—思路—结论」。
+::: details VLA 和 ChatGPT 这类大模型什么关系?
+VLA 大多**站在预训练视觉-语言模型(VLM)肩上**:复用其语义理解,再接上「动作」这一头。所以你对大模型的直觉大半能迁移过来。
+:::
+
+::: details 为什么非要真机数据,不能全靠仿真?
+仿真便宜可放大,但与现实有差距(尤其接触、力);真机数据精确却昂贵稀缺。主流做法是**两者混合**(见 [数据全景](/vla/papers/embodied-data))。
+:::
+
+::: details 人形机器人 = 具身智能吗?
+不等于。人形是一种**本体**;具身智能是让任意本体(单臂 / 四足 / 人形…)具备「感知-决策-行动」能力的**智能**部分。
+:::
+
+::: details 完全没基础能看懂吗?
+能。按上面的路径走,遇到生词查 [术语表](/vla/papers/glossary) 即可;细读里的数学细节第一遍可跳过,先抓「问题—思路—结论」。
+:::
 
 ---
 
 ## 继续
 
-- 总览:[VLA 调研报告](/vla/) · [WAM 世界-行动模型](/wam/)
-- 打基础:[具身数据全景](/vla/papers/embodied-data) · [训练全流程](/vla/papers/training-pipeline) · [评测基准速查](/vla/papers/benchmarks)
-- 速查:[术语表](/vla/papers/glossary) · [时间线](/vla/papers/timeline) · [如何阅读本站](/vla/guide)
-- 看动态:[具身智能新闻](/news/) · [生态图谱](/ecosystem/)
+<div class="gs-next">
+<section data-tone="cyan">
+<strong>总览</strong>
+
+[VLA 调研报告](/vla/) · [WAM 世界-行动模型](/wam/)
+
+</section>
+<section data-tone="blue">
+<strong>打基础</strong>
+
+[具身数据全景](/vla/papers/embodied-data) · [训练全流程](/vla/papers/training-pipeline) · [评测基准速查](/vla/papers/benchmarks)
+
+</section>
+<section data-tone="violet">
+<strong>速查</strong>
+
+[术语表](/vla/papers/glossary) · [时间线](/vla/papers/timeline) · [如何阅读本站](/vla/guide)
+
+</section>
+<section data-tone="emerald">
+<strong>看动态</strong>
+
+[具身智能新闻](/news/) · [生态图谱](/ecosystem/)
+
+</section>
+</div>

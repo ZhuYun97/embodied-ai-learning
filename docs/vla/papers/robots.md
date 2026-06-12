@@ -22,14 +22,15 @@ VLA 论文里的"成功率"必须绑定到具体本体才有意义——同一�
 
 早期 VLA(RT-1、Octo、OpenVLA)几乎都绑定单一单臂遥操作台,本体即数据源即评测台;随着 OXE 把 22 种本体池化,以及 π0/GR00T 用统一动作空间容纳多配置,实验本体从"一台机器跑到底"走向"一个模型跨多本体"。**人形机器人是当前最前沿、也最难独立复现的实验本体**(GR00T→Unitree G1、Gemini Robotics→Apollo)。
 
-```mermaid
-flowchart LR
-    A["单臂遥操作台<br/>EDR / WidowX<br/>RT-1·Octo·OpenVLA"]
-    B["跨机构标准化单臂<br/>Franka Panda<br/>DROID·CALVIN·CogACT"]
-    C["双臂遥操作<br/>ALOHA 2 / AgileX<br/>Gemini Robotics·OFT"]
-    D["人形 / 跨本体<br/>GR-1·G1·Apollo·Figure<br/>GR00T·Gemini 1.5·Helix"]
-    A --> B --> C --> D
-```
+<div class="pipe" aria-label="实验本体演进四阶段">
+<span class="pipe__step" data-tone="cyan"><i>1</i><strong>单臂遥操作台</strong><span>EDR / WidowX · RT-1·Octo·OpenVLA</span></span>
+<span class="pipe__arr">→</span>
+<span class="pipe__step" data-tone="blue"><i>2</i><strong>跨机构标准化单臂</strong><span>Franka Panda · DROID·CALVIN·CogACT</span></span>
+<span class="pipe__arr">→</span>
+<span class="pipe__step" data-tone="violet"><i>3</i><strong>双臂遥操作</strong><span>ALOHA 2 / AgileX · Gemini Robotics·OFT</span></span>
+<span class="pipe__arr">→</span>
+<span class="pipe__step" data-tone="rose"><i>4</i><strong>人形 / 跨本体</strong><span>GR-1·G1·Apollo·Figure · GR00T·Helix</span></span>
+</div>
 
 ---
 
@@ -69,10 +70,14 @@ flowchart LR
 
 ## 二、按形态分组
 
+<div class="rb-nav">
+<a class="rb-card" data-tone="cyan" href="#_2-1-单臂-vla-的-标准考场"><img src="./images/form-single-arm.svg" alt="单臂机器人示意" loading="lazy"><strong>单臂</strong><span>VLA 的「标准考场」</span></a>
+<a class="rb-card" data-tone="blue" href="#_2-2-双臂-灵巧长时序任务的主战场"><img src="./images/form-dual-arm.svg" alt="双臂机器人示意" loading="lazy"><strong>双臂</strong><span>灵巧长时序任务的主战场</span></a>
+<a class="rb-card" data-tone="violet" href="#_2-3-人形-当前最前沿、最难复现"><img src="./images/form-humanoid.svg" alt="人形机器人示意" loading="lazy"><strong>人形</strong><span>当前最前沿、最难复现</span></a>
+<a class="rb-card" data-tone="slate" href="#_2-4-桌面-特制本体"><img src="./images/form-tabletop.svg" alt="桌面/特制本体示意" loading="lazy"><strong>桌面 / 特制</strong><span>Language-Table · SO-100 · 仿真厨房</span></a>
+</div>
+
 ### 2.1 单臂(VLA 的"标准考场")
-
-<img class="robot-form-icon" src="./images/form-single-arm.svg" alt="单臂机器人示意">
-
 
 单臂是 VLA 实验的最大公约数,几乎所有早期工作都在单臂上立标杆。
 
@@ -91,9 +96,6 @@ flowchart LR
 
 ### 2.2 双臂(灵巧长时序任务的主战场)
 
-<img class="robot-form-icon" src="./images/form-dual-arm.svg" alt="双臂机器人示意">
-
-
 双臂遥操作是高精度、低吞吐的代表范式,既是采集平台也是评测本体。
 
 | 平台 | 配置 | 谁在用 | 要点 |
@@ -105,9 +107,6 @@ flowchart LR
 **跨本体迁移要点(双臂)**:OpenVLA-OFT+ 在真实双臂 ALOHA 用动作分块 K=25 + FiLM 强化语言 grounding;Qwen-VLA 真机 ALOHA 双臂带预训练 In-Domain 平均 83.6%、OOD 76.9%(对比 π0.5 与 GR00T N1.6,均自评 ⚠️)。Gemini 1.5 的 Motion Transfer 宣称 ALOHA 2 ↔ bi-arm Franka ↔ Apollo 可互迁(厂商口径)。
 
 ### 2.3 人形(当前最前沿、最难复现)
-
-<img class="robot-form-icon" src="./images/form-humanoid.svg" alt="人形机器人示意">
-
 
 人形是 VLA 实验本体演进的当前终点,也是跨本体迁移叙事的主战场。
 
@@ -124,9 +123,6 @@ flowchart LR
 **跨本体迁移要点(人形)**:人形 DoF 高、本体差异大,迁移成败取决于**动作空间是否本体无关**。GR00T 用相对末端执行器动作空间 + 具身感知编码器,使 N1.5 能从 GR-1 预训练本体迁到结构不同的 G1(详见第三节)。
 
 ### 2.4 桌面/特制本体
-
-<img class="robot-form-icon" src="./images/form-tabletop.svg" alt="桌面/特制本体示意">
-
 
 | 平台 | 性质 | 谁在用 | 要点 |
 |---|---|---|---|
