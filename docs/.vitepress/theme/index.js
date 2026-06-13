@@ -10,7 +10,68 @@ import XhsBoard from './components/XhsBoard.vue'
 import DotField from './components/DotField.vue'
 import ShuffleText from './components/ShuffleText.vue'
 import TargetCursor from './components/TargetCursor.vue'
+import ThemeToggle from './components/ThemeToggle.vue'
+import GridDistortion from './components/GridDistortion.vue'
 import './custom.css'
+
+// =====================================================================
+// 首屏 WebGL 扭曲背景(HeroGridBG → GridDistortion):站点风格星云底图
+// (public/hero-distort.webp,canvas 自绘)铺满首个视口,鼠标拖动产生网格扭曲;
+// 随滚动收起(--hero-collapse,见 setupHeroCollapse)。client-only。
+// =====================================================================
+const HeroGridBG = {
+  setup() {
+    const mounted = ref(false)
+    onMounted(() => {
+      mounted.value = true
+    })
+    return () => {
+      if (!mounted.value) return null
+      return h('div', { class: 'hero-distort-layer', 'aria-hidden': 'true' }, [
+        h(GridDistortion, {
+          imageSrc: withBase('/hero-distort.webp'),
+          grid: 12,
+          mouse: 0.12,
+          strength: 0.15,
+          relaxation: 0.9,
+        }),
+      ])
+    }
+  },
+}
+
+// =====================================================================
+// 首屏滑动收起:滚动前 55vh 内,--hero-collapse 从 0 → 1,
+// 英雄区(.thero)与扭曲背景按其淡出/上移/微缩,收完关闭指针事件;
+// reduced-motion 不启用(直接正常滚动)。
+// =====================================================================
+let heroCollapseBound = false
+function setupHeroCollapse() {
+  if (heroCollapseBound || typeof window === 'undefined') return
+  heroCollapseBound = true
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (reduce) return
+  let ticking = false
+  const apply = () => {
+    ticking = false
+    const hero = document.querySelector('.VPHome .thero')
+    if (!hero) return
+    const p = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.55)))
+    document.documentElement.style.setProperty('--hero-collapse', p.toFixed(3))
+    hero.classList.toggle('is-collapsed', p >= 0.98)
+  }
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(apply)
+      }
+    },
+    { passive: true }
+  )
+  apply()
+}
 
 // =====================================================================
 // 主页鼠标互动点阵(HomeDots):DotField 的首页包装层。
@@ -1543,18 +1604,21 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'home-hero-before': () => [
         h(HomeDots),
-        // 首页 HUD 瞄准光标:悬停路线卡/特性卡时角括号飞出框住卡片
+        // 首页 HUD 瞄准光标(应用户口径):仅当指针在卡片内才接管光标,
+        // 角括号框定的目标是卡内的链接/按钮
         h(TargetCursor, {
-          targetSelector: '.VPHome .route-card, .VPHome .VPFeature',
+          scopeSelector: '.VPHome .route-card, .VPHome .VPFeature',
+          targetSelector: '.VPHome .route-card a, .VPHome .route-card button, .VPHome .VPFeature a',
           spinDuration: 2,
           hideDefaultCursor: true,
           parallaxOn: true,
         }),
-        h(HeroFX),
+        // 首屏背景:GridDistortion 星云扭曲层(替代原 HeroFX 深空星场,应用户指定)
+        h(HeroGridBG),
         h(TechHero),
         h(HomeRail),
       ],
-      'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle)],
+      'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle), h(ThemeToggle)],
       'doc-before': () => [h(DocReadBar), h(PaperDossier), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
     })
@@ -1575,5 +1639,6 @@ export default {
     onMounted(setupCardTilt)
     onMounted(setupBorderGlow)
     onMounted(setupRouteCounts)
+    onMounted(setupHeroCollapse)
   },
 }

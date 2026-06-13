@@ -4658,6 +4658,32 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   .VPHome .route-card .bgw-light { transition: none; }
 }
 
+/* ============================================================
+   首屏扭曲背景层 + 滑动收起(GridDistortion / setupHeroCollapse):
+   背景铺满首个视口;--hero-collapse 0→1 期间英雄区与背景同步
+   淡出、上移、微缩,收完关闭指针事件。reduced-motion 不写该变量。
+   ============================================================ */
+.hero-distort-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: calc(1 - var(--hero-collapse, 0));
+}
+/* 星云扭曲底图是暗色美学 → 仅暗色模式显示;亮色回落原浅色背景(深空 FX 同款约定),
+   避免暗底图叠亮色模式深色正文导致副标题/标签发灰难读 */
+html:not(.dark) .hero-distort-layer { display: none; }
+.VPHome .thero {
+  opacity: calc(1 - var(--hero-collapse, 0));
+  transform: translateY(calc(var(--hero-collapse, 0) * -48px)) scale(calc(1 - var(--hero-collapse, 0) * 0.045));
+  transform-origin: center top;
+  will-change: transform, opacity;
+}
+.VPHome .thero.is-collapsed { pointer-events: none; }
+
 @media (prefers-reduced-motion: reduce) {
   .vp-doc a.pipe__step:hover,
   .vp-doc a.rb-card:hover,

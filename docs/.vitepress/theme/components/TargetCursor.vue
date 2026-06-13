@@ -31,6 +31,8 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const props = defineProps({
   targetSelector: { type: String, default: '.cursor-target' },
+  // 站点扩展:光标只在 scopeSelector 命中的区域内显示/接管(空 = 整个 .VPHome)
+  scopeSelector: { type: String, default: '' },
   spinDuration: { type: Number, default: 2 },
   hideDefaultCursor: { type: Boolean, default: true },
   hoverDuration: { type: Number, default: 0.2 },
@@ -156,7 +158,8 @@ function release() {
 function onMouseMove(e) {
   mouse.x = e.clientX
   mouse.y = e.clientY
-  setOverHome(!!(e.target && e.target.closest && e.target.closest('.VPHome')))
+  const scope = props.scopeSelector || '.VPHome'
+  setOverHome(!!(e.target && e.target.closest && e.target.closest(scope)))
   wake()
 }
 
@@ -194,6 +197,18 @@ onMounted(() => {
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   if ((hasTouch && small) || mobileUA || reduce) return
   show.value = true
+  // 作用域内隐藏原生光标(随 html.tc-cursor-on 开关;卸载时移除)
+  if (props.hideDefaultCursor && !document.getElementById('tc-cursor-style')) {
+    const scope = props.scopeSelector || '.VPHome'
+    const sel = scope
+      .split(',')
+      .map((p) => `.tc-cursor-on ${p.trim()}, .tc-cursor-on ${p.trim()} *`)
+      .join(', ')
+    const style = document.createElement('style')
+    style.id = 'tc-cursor-style'
+    style.textContent = `${sel} { cursor: none !important; }`
+    document.head.appendChild(style)
+  }
   mouse.x = cur.x = window.innerWidth / 2
   mouse.y = cur.y = window.innerHeight / 2
   requestAnimationFrame(() => {
@@ -220,6 +235,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('mousedown', onDown)
   window.removeEventListener('mouseup', onUp)
   document.documentElement.classList.remove('tc-cursor-on')
+  document.getElementById('tc-cursor-style')?.remove()
 })
 </script>
 
@@ -274,9 +290,5 @@ onBeforeUnmount(() => {
 .corner-tr { border-left: none; border-bottom: none; }
 .corner-br { border-left: none; border-top: none; }
 .corner-bl { border-right: none; border-top: none; }
-/* 自定义光标生效期间,首页范围隐藏原生光标(出 .VPHome 即还原) */
-.tc-cursor-on .VPHome,
-.tc-cursor-on .VPHome * {
-  cursor: none !important;
-}
+/* 原生光标隐藏规则按 scopeSelector 动态注入(见 onMounted 的 #tc-cursor-style) */
 </style>

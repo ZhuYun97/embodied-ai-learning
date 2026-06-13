@@ -8,6 +8,14 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 ## 2026-06-13
 
+**日夜开关换装 Uiverse 天空开关(应用户指定 @rishichawda「fluffy-robin-48」)**
+- 🌗 导航栏默认明暗切换替换为 Uiverse SVG 天空开关:白天天蓝底 + 太阳 + 云,黑夜深蓝底 + 月亮(带陨石坑)+ 星星,按钮滑动 + 图层透明度全靠原版 CSS(`:checked + svg`)驱动;原版 SVG/CSS 取自 uiverse-io/galaxy 官方镜像逐字移植(galaxy 镜像省略 `<defs>` 滤镜,为防悬空引用不渲染已剥离 filter,仅损失细微投影)。checkbox 双向绑定 VitePress `isDark`(切换即触发主题与持久化),桌面替换默认 `.VPSwitchAppearance`,移动端抽屉菜单仍用默认开关;实测明/暗双态图层与按钮位移、点击切主题全部正确。
+
+**首屏背景换 GridDistortion 星云扭曲 + 下滑收起首屏(应用户指定 React Bits 组件)**
+- 🌌 首个视口背景替换原深空星场 FX 为 **WebGL 网格扭曲层**(GridDistortion,Vue 移植):站点风格星云底图(canvas 自绘 70KB,自托管 public/)铺满首屏,**鼠标拖动产生果冻式网格扭曲**(按 relaxation 回弹);three.js 经动态 import 独立 chunk(仅首页运行时加载,不压全站包),空闲自动停帧,WebGL 失败/reduced-motion 回退静态底图。**仅暗色模式显示**——星云是暗色美学,亮色回落原浅色渐变(沿用深空 FX「暗色专属」约定),避免暗底图叠亮色深色正文导致副标题/标签发灰难读。
+- 📜 **下滑收起首屏**:滚动前 0.55 屏内 `--hero-collapse` 0→1,英雄区与背景同步淡出 + 上移 + 微缩(70% 屏高处全收并关指针事件,回顶完全复位);reduced-motion 不启用。
+- 🎯 **瞄准光标作用域按用户口径修正**:上一版光标在整个首页接管;改为**仅当指针进入卡片(.route-card/.VPFeature)才接管光标**,框定目标收窄为卡内链接/按钮;离开卡片即还原原生光标。原生光标隐藏规则按 scopeSelector 动态注入、卸载时清除。实测空白处隐藏、卡内显示、按钮框定三态正确。
+
 **主页三连交互升级:英文标题洗牌入场 × 卡片瞄准光标 × 卡片边缘辉光(均应用户指定的 React Bits 组件,Vue 移植)**
 - 🔤 **「Embodied AI Learning」改 Shuffle 滑条洗牌字效**(替代原 Orbitron 逐字点亮):每个字母是一条 overflow 隐藏的字形滑条,奇数位先行、偶数位 0.7 拍接力(evenodd · stagger 0.03s · power3.out),入场滚动落位,**悬停可重播**;字体沿用站内 Orbitron 不引入演示像素字体。中途按用户改向:先做了 TextPressure 可变字体压力字效(已验可用),用户改主意后整套撤除(组件/字体/样式零残留)。
 - 🎯 **首页新增 HUD 瞄准光标(TargetCursor)**:反色十字光标(中心点 + 四角括号)空闲自旋,**悬停路线卡/特性卡时角括号飞出框住卡片**(矩形进入时快照,角随光标 lerp 产生视差),离开归位续旋;指针出 .VPHome 即隐藏并还原原生光标,触屏/小屏/reduced-motion 一律不挂载。实测锁框精度 ±3px(角括号贴卡角)。
