@@ -11,9 +11,11 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 **日夜开关换装 Uiverse 天空开关(应用户指定 @rishichawda「fluffy-robin-48」)**
 - 🌗 导航栏默认明暗切换替换为 Uiverse SVG 天空开关:白天天蓝底 + 太阳 + 云,黑夜深蓝底 + 月亮(带陨石坑)+ 星星,按钮滑动 + 图层透明度全靠原版 CSS(`:checked + svg`)驱动;原版 SVG/CSS 取自 uiverse-io/galaxy 官方镜像逐字移植(galaxy 镜像省略 `<defs>` 滤镜,为防悬空引用不渲染已剥离 filter,仅损失细微投影)。checkbox 双向绑定 VitePress `isDark`(切换即触发主题与持久化),桌面替换默认 `.VPSwitchAppearance`,移动端抽屉菜单仍用默认开关;实测明/暗双态图层与按钮位移、点击切主题全部正确。
 
-**首屏背景换 Lightfall 坠落光束 + 下滑收起首屏(应用户指定 React Bits 组件)**
-- 🌠 首个视口背景替换原深空星场 FX 为 **OGL 着色器 Lightfall**(Vue 移植):坠落彩色光束隧道(蓝 #A6C8FF / 紫 #5227FF / 粉 #FF9FFC,与站点同源)+ 环境辉光,**鼠标注入跟随光、烘亮附近光束**;片元着色器与 uniform 逐字照搬原版,ogl 经动态 import 独立 chunk(仅首页运行时加载,不压全站包),**滚出视口即 IntersectionObserver 暂停渲染**省 GPU,WebGL 失败/reduced-motion 静帧降级。**仅暗色模式显示**(暗色蓝紫美学,亮色回落原浅色渐变,沿用深空 FX「暗色专属」约定)。**左侧加可读性暗化蒙版**(标题/副标题/HUD/统计区压暗、向中右淡出),既保人物侧完整光束又恢复小字对比。同日先后试过 GridDistortion(网格扭曲 + 自绘星云图 / Unsplash 蓝紫流体图),最终定为 Lightfall。
+**首屏背景换 GridDistortion 蓝紫流体 + 科技增强叠层 + 下滑收起首屏(应用户指定 React Bits 组件)**
+- 🌌 首个视口背景替换原深空星场 FX 为 **WebGL 网格扭曲层**(GridDistortion,Vue 移植):Unsplash 蓝紫流体抽象底图(自托管 public/,与站点配色同源)铺满首屏,**鼠标拖动产生果冻式网格扭曲**(grid 14 · strength 0.2);three.js 经动态 import 独立 chunk(仅首页运行时加载,不压全站包),空闲自动停帧,WebGL 失败/reduced-motion 回退静态底图。**仅暗色模式显示**(暗色美学,亮色回落原浅色渐变,沿用深空 FX「暗色专属」约定)。
+- 🔬 **科技增强叠层(应用户「和人物脱节、加强科技感」)**:① **人物锚定辉光**——右侧人物位一团青→蓝径向光、screen 混合,把镭光人「嵌入」流体场景、消除脱节感;② **HUD 科技层**——细扫描线 + 中心聚焦暗角 + 自上而下缓慢巡检扫描带(reduced-motion 关动画)。叠于 canvas 之上、正文之下。
 - 📜 **下滑收起首屏**:滚动前 0.55 屏内 `--hero-collapse` 0→1,英雄区与背景同步淡出 + 上移 + 微缩(70% 屏高处全收并关指针事件,回顶完全复位);reduced-motion 不启用。
+- 🔁 同日背景几经调整:GridDistortion 自绘星云图 → Unsplash 流体图 → Lightfall OGL 坠落光束 → 应用户「回推上一个背景」退回 Unsplash 流体图 → 应「脱节/科技感」诉求加锚定辉光 + HUD 叠层定稿;Lightfall 组件与 ogl 依赖已移除。
 - 🎯 **瞄准光标作用域按用户口径修正**:上一版光标在整个首页接管;改为**仅当指针进入卡片(.route-card/.VPFeature)才接管光标**,框定目标收窄为卡内链接/按钮;离开卡片即还原原生光标。原生光标隐藏规则按 scopeSelector 动态注入、卸载时清除。实测空白处隐藏、卡内显示、按钮框定三态正确。
 
 **主页三连交互升级:英文标题洗牌入场 × 卡片瞄准光标 × 卡片边缘辉光(均应用户指定的 React Bits 组件,Vue 移植)**

@@ -11,12 +11,14 @@ import DotField from './components/DotField.vue'
 import ShuffleText from './components/ShuffleText.vue'
 import TargetCursor from './components/TargetCursor.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
-import Lightfall from './components/Lightfall.vue'
+import GridDistortion from './components/GridDistortion.vue'
 import './custom.css'
 
 // =====================================================================
-// 首屏 OGL 着色器背景(HeroBG → Lightfall):坠落彩色光束隧道 + 环境辉光,
-// 鼠标注入跟随光、烘亮附近光束;配色蓝/紫/粉与站点同源。铺满首个视口,
+// 首屏 WebGL 扭曲背景(HeroBG → GridDistortion):蓝紫流体抽象底图
+// (public/hero-bg.jpg,Unsplash,与站点配色同源)铺满首个视口,鼠标拖动产生网格扭曲;
+// 叠两层科技增强(见 custom.css):.hero-bg-halo 人物位锚定青蓝辉光(消除人物与背景
+// 脱节感)、.hero-bg-tech HUD 科技层(扫描线 + 暗角聚焦 + 缓慢扫描带)。
 // 随滚动收起(--hero-collapse,见 setupHeroCollapse)。client-only。
 // =====================================================================
 const HeroBG = {
@@ -28,23 +30,15 @@ const HeroBG = {
     return () => {
       if (!mounted.value) return null
       return h('div', { class: 'hero-bg-layer', 'aria-hidden': 'true' }, [
-        h(Lightfall, {
-          colors: ['#A6C8FF', '#5227FF', '#FF9FFC'],
-          backgroundColor: '#0A29FF',
-          speed: 1,
-          streakCount: 8,
-          streakWidth: 1,
-          streakLength: 1,
-          glow: 1,
-          density: 1,
-          twinkle: 1,
-          zoom: 2,
-          backgroundGlow: 1,
-          opacity: 1,
-          mouseInteraction: true,
-          mouseStrength: 1,
-          mouseRadius: 0.6,
+        h(GridDistortion, {
+          imageSrc: withBase('/hero-bg.jpg'),
+          grid: 14,
+          mouse: 0.14,
+          strength: 0.2,
+          relaxation: 0.91,
         }),
+        h('i', { class: 'hero-bg-halo' }),
+        h('i', { class: 'hero-bg-tech' }),
       ])
     }
   },
@@ -1623,7 +1617,7 @@ export default {
           hideDefaultCursor: true,
           parallaxOn: true,
         }),
-        // 首屏背景:Lightfall 坠落光束着色器层(替代原 HeroFX 深空星场,应用户指定)
+        // 首屏背景:GridDistortion 蓝紫流体扭曲层(替代原 HeroFX 深空星场,应用户指定)
         h(HeroBG),
         h(TechHero),
         h(HomeRail),

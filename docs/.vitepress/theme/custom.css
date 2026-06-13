@@ -4659,8 +4659,8 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
 }
 
 /* ============================================================
-   首屏着色器背景层 + 滑动收起(Lightfall / setupHeroCollapse):
-   背景铺满首个视口;--hero-collapse 0→1 期间英雄区与背景同步
+   首屏扭曲背景层 + 滑动收起(GridDistortion / setupHeroCollapse):
+   蓝紫流体底图铺满首个视口;--hero-collapse 0→1 期间英雄区与背景同步
    淡出、上移、微缩,收完关闭指针事件。reduced-motion 不写该变量。
    ============================================================ */
 .hero-bg-layer {
@@ -4673,24 +4673,60 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   pointer-events: none;
   opacity: calc(1 - var(--hero-collapse, 0));
 }
-/* 文字可读性蒙版:左侧(标题/副标题/HUD/统计所在)压暗,向中右淡出 →
-   保留人物侧的完整光束效果,同时让小字恢复对比。层在 canvas 之上、正文(z-index:1)之下。 */
-.hero-bg-layer::after {
-  content: '';
+/* 蓝紫流体底图是暗色美学 → 仅暗色模式显示;亮色回落原浅色背景(深空 FX 同款约定),
+   避免暗底图叠亮色模式深色正文导致副标题/标签发灰难读 */
+html:not(.dark) .hero-bg-layer { display: none; }
+
+/* —— 科技增强叠层(均覆于 GridDistortion canvas 之上、正文 z-index:1 之下) —— */
+.hero-bg-halo,
+.hero-bg-tech {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgba(9, 14, 28, 0.74) 0%,
-    rgba(9, 14, 28, 0.5) 30%,
-    rgba(9, 14, 28, 0.18) 50%,
-    transparent 66%
-  );
 }
-/* Lightfall 是暗色蓝紫美学 → 仅暗色模式显示;亮色回落原浅色背景(深空 FX 同款约定),
-   避免暗底效果叠亮色模式深色正文导致副标题/标签发灰难读 */
-html:not(.dark) .hero-bg-layer { display: none; }
+/* ① 人物锚定辉光:右侧人物位置一团青→蓝径向光,screen 混合把人物"嵌入"场景、
+   消除与流体背景的脱节感(随 --hero-collapse 一并淡出) */
+.hero-bg-halo {
+  background:
+    radial-gradient(34% 46% at 72% 50%, rgba(34, 211, 238, 0.34), transparent 70%),
+    radial-gradient(58% 66% at 70% 58%, rgba(56, 130, 246, 0.2), transparent 74%);
+  mix-blend-mode: screen;
+}
+/* ② HUD 科技层:细扫描线 + 中心聚焦暗角,加 tech 质感;扫描线缓慢下移(reduced-motion 关) */
+.hero-bg-tech {
+  background:
+    repeating-linear-gradient(0deg, rgba(125, 211, 252, 0.045) 0, rgba(125, 211, 252, 0.045) 1px, transparent 1px, transparent 5px),
+    radial-gradient(125% 95% at 56% 42%, transparent 52%, rgba(5, 10, 22, 0.6) 100%);
+  background-size: 100% 5px, 100% 100%;
+  opacity: 0.9;
+}
+/* ③ 缓慢扫描带:一条横向辉光自上而下扫过(HUD 巡检感),叠在科技层上 */
+.hero-bg-tech::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 22%;
+  top: -22%;
+  background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.1) 60%, rgba(125, 211, 252, 0.18));
+  -webkit-mask-image: radial-gradient(80% 100% at 60% 50%, #000 50%, transparent 100%);
+  mask-image: radial-gradient(80% 100% at 60% 50%, #000 50%, transparent 100%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-bg-tech::after { animation: heroBgScan 7.5s ease-in-out infinite; }
+  .hero-bg-tech { animation: heroBgScanlineDrift 18s linear infinite; }
+}
+@keyframes heroBgScan {
+  0% { top: -22%; opacity: 0; }
+  12% { opacity: 1; }
+  62% { opacity: 1; }
+  75% { top: 100%; opacity: 0; }
+  100% { top: 100%; opacity: 0; }
+}
+@keyframes heroBgScanlineDrift {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 0 100px, 0 0; }
+}
 .VPHome .thero {
   opacity: calc(1 - var(--hero-collapse, 0));
   transform: translateY(calc(var(--hero-collapse, 0) * -48px)) scale(calc(1 - var(--hero-collapse, 0) * 0.045));
