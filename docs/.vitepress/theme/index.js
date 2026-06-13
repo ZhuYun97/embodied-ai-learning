@@ -9,7 +9,6 @@ import XhsAccounts from './components/XhsAccounts.vue'
 import XhsBoard from './components/XhsBoard.vue'
 import DotField from './components/DotField.vue'
 import ShuffleText from './components/ShuffleText.vue'
-import TargetCursor from './components/TargetCursor.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
 import GridDistortion from './components/GridDistortion.vue'
 import './custom.css'
@@ -1608,16 +1607,8 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'home-hero-before': () => [
         h(HomeDots),
-        // 首页 HUD 瞄准光标(应用户口径):仅当指针在卡片内才接管光标,
-        // 角括号框定的目标是卡内的链接/按钮
-        h(TargetCursor, {
-          scopeSelector: '.VPHome .route-card, .VPHome .VPFeature',
-          targetSelector: '.VPHome .route-card a, .VPHome .route-card button, .VPHome .VPFeature a',
-          spinDuration: 2,
-          hideDefaultCursor: true,
-          parallaxOn: true,
-        }),
         // 首屏背景:GridDistortion 蓝紫流体扭曲层(替代原 HeroFX 深空星场,应用户指定)
+        // (HUD 瞄准光标 TargetCursor 应用户「太卡」诉求已移除)
         h(HeroBG),
         h(TechHero),
         h(HomeRail),
