@@ -4659,11 +4659,11 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
 }
 
 /* ============================================================
-   首屏扭曲背景层 + 滑动收起(GridDistortion / setupHeroCollapse):
+   首屏着色器背景层 + 滑动收起(Lightfall / setupHeroCollapse):
    背景铺满首个视口;--hero-collapse 0→1 期间英雄区与背景同步
    淡出、上移、微缩,收完关闭指针事件。reduced-motion 不写该变量。
    ============================================================ */
-.hero-distort-layer {
+.hero-bg-layer {
   position: absolute;
   top: 0;
   left: 0;
@@ -4673,9 +4673,24 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   pointer-events: none;
   opacity: calc(1 - var(--hero-collapse, 0));
 }
-/* 星云扭曲底图是暗色美学 → 仅暗色模式显示;亮色回落原浅色背景(深空 FX 同款约定),
-   避免暗底图叠亮色模式深色正文导致副标题/标签发灰难读 */
-html:not(.dark) .hero-distort-layer { display: none; }
+/* 文字可读性蒙版:左侧(标题/副标题/HUD/统计所在)压暗,向中右淡出 →
+   保留人物侧的完整光束效果,同时让小字恢复对比。层在 canvas 之上、正文(z-index:1)之下。 */
+.hero-bg-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(9, 14, 28, 0.74) 0%,
+    rgba(9, 14, 28, 0.5) 30%,
+    rgba(9, 14, 28, 0.18) 50%,
+    transparent 66%
+  );
+}
+/* Lightfall 是暗色蓝紫美学 → 仅暗色模式显示;亮色回落原浅色背景(深空 FX 同款约定),
+   避免暗底效果叠亮色模式深色正文导致副标题/标签发灰难读 */
+html:not(.dark) .hero-bg-layer { display: none; }
 .VPHome .thero {
   opacity: calc(1 - var(--hero-collapse, 0));
   transform: translateY(calc(var(--hero-collapse, 0) * -48px)) scale(calc(1 - var(--hero-collapse, 0) * 0.045));

@@ -11,15 +11,15 @@ import DotField from './components/DotField.vue'
 import ShuffleText from './components/ShuffleText.vue'
 import TargetCursor from './components/TargetCursor.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
-import GridDistortion from './components/GridDistortion.vue'
+import Lightfall from './components/Lightfall.vue'
 import './custom.css'
 
 // =====================================================================
-// 首屏 WebGL 扭曲背景(HeroGridBG → GridDistortion):站点风格星云底图
-// (public/hero-distort.webp,canvas 自绘)铺满首个视口,鼠标拖动产生网格扭曲;
+// 首屏 OGL 着色器背景(HeroBG → Lightfall):坠落彩色光束隧道 + 环境辉光,
+// 鼠标注入跟随光、烘亮附近光束;配色蓝/紫/粉与站点同源。铺满首个视口,
 // 随滚动收起(--hero-collapse,见 setupHeroCollapse)。client-only。
 // =====================================================================
-const HeroGridBG = {
+const HeroBG = {
   setup() {
     const mounted = ref(false)
     onMounted(() => {
@@ -27,13 +27,23 @@ const HeroGridBG = {
     })
     return () => {
       if (!mounted.value) return null
-      return h('div', { class: 'hero-distort-layer', 'aria-hidden': 'true' }, [
-        h(GridDistortion, {
-          imageSrc: withBase('/hero-distort.webp'),
-          grid: 12,
-          mouse: 0.12,
-          strength: 0.15,
-          relaxation: 0.9,
+      return h('div', { class: 'hero-bg-layer', 'aria-hidden': 'true' }, [
+        h(Lightfall, {
+          colors: ['#A6C8FF', '#5227FF', '#FF9FFC'],
+          backgroundColor: '#0A29FF',
+          speed: 1,
+          streakCount: 8,
+          streakWidth: 1,
+          streakLength: 1,
+          glow: 1,
+          density: 1,
+          twinkle: 1,
+          zoom: 2,
+          backgroundGlow: 1,
+          opacity: 1,
+          mouseInteraction: true,
+          mouseStrength: 1,
+          mouseRadius: 0.6,
         }),
       ])
     }
@@ -1613,8 +1623,8 @@ export default {
           hideDefaultCursor: true,
           parallaxOn: true,
         }),
-        // 首屏背景:GridDistortion 星云扭曲层(替代原 HeroFX 深空星场,应用户指定)
-        h(HeroGridBG),
+        // 首屏背景:Lightfall 坠落光束着色器层(替代原 HeroFX 深空星场,应用户指定)
+        h(HeroBG),
         h(TechHero),
         h(HomeRail),
       ],
