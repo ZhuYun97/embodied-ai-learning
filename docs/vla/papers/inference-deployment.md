@@ -54,6 +54,7 @@ VLA 的推理延迟来自三个相互叠加的结构性原因:
 | **KV/前缀缓存** | 图像 + 语言条件的注意力 K/V 只算一次并缓存，多步去噪迭代只重算动作 token 后缀 | π0（推理时缓存图文 + 状态块） | 使 10 步流匹配迭代的实际开销可控，支撑 RTX 4090 上 ~100 ms/chunk ⚠️ | [π0](pi0.md) §2.3 |
 | **云-端拆分 + 异步 chunk** | 将重量级 VLM backbone 放云端（query→response < 160 ms），轻量 action decoder 在本机；backbone 一次返回 action chunk，本机逐步展开执行同时异步发起下一次 query | Gemini Robotics | 端到端 raw obs → action chunk ≈ **250 ms**；等效控制频率 **50 Hz** ⚠️ | [gemini-robotics.md](gemini-robotics.md) §2.2 |
 | **实时动作分块（RTC）** | 训练时随机模拟 0–12 时间步的推理延迟，使模型在不同延迟下均能输出平滑动作 chunk | π0.7 | 最大推理延迟约 240 ms 下仍可用于实时控制 ⚠️（社区报道最坏约 127 ms，口径待核） | [pi07.md](pi07.md) §2.1 |
+| **训练时动作条件化（Training-Time RTC）** | 训练时采样推理延迟，把前一 chunk 已承诺动作作为非噪声 action prefix 输入，只对 postfix 计算损失；推理时不再做 inpainting / VJP 反传 | Training-Time Action Conditioning for Efficient Real-Time Chunking（PI / Levine, arXiv:2512.05964） | H100 远端 5 步去噪：端到端延迟 **108 ms** vs 推理时 RTC **135 ms**；50 Hz 机器人上训练采样 0–10 步延迟，支持最高约 **200 ms** 延迟；仿真高延迟下优于推理时 RTC，真机装箱 / 意式咖啡任务性能与速度基本持平 ⚠️ | 本页 §三、§四；[arXiv:2512.05964](https://arxiv.org/abs/2512.05964) |
 
 ### 权重层
 
@@ -97,6 +98,24 @@ graph TD
 | **KV 缓存 + 减少去噪步数** | 缓存消除图文 token 的重复计算，少步去噪减少动作 token 的前向次数，分别作用于不同 token 集合，正交叠加 |
 | **LoRA / 量化 + 任意上述手段** | LoRA 和量化作用于权重存储和微调效率，与算法/表示/系统层手段完全正交，可自由叠加 |
 | **FAST + 自回归路线任意优化** | FAST 是分词器层面的改造，只要维持"离散 token → 自回归预测"的接口，可叠加 KV 缓存、量化等工程手段 |
+| **训练时 RTC + 异步动作分块** | RTC 解决的是"下一段 chunk 还在推理时，当前机器人不能停下来"的问题；训练时 action conditioning 把原本推理时 inpainting 的连续性约束提前学进模型，因此可与异步 chunk 调度直接叠加 |
+
+### RTC：推理时 inpainting vs 训练时 action prefix conditioning
+
+**RTC（Real-Time Chunking）** 的基本问题是：VLA 一次生成一段动作 chunk，但推理这段 chunk 需要几十到几百毫秒；如果机器人等模型想完再动，就会在 chunk 之间卡顿。RTC 的做法是**异步生成下一段 chunk**：当前 chunk 还在执行时，后台开始算下一段；新 chunk 到达时，它的开头若与上一段已承诺动作不连续，就会产生抖动。
+
+原始 **推理时 RTC** 用 inpainting / pseudoinverse guidance 在采样阶段把前一段已承诺动作作为约束，强行让新 chunk 的前缀对齐。它的好处是灵活，还能用 soft masking 把 prefix 之后的重叠动作也软约束进去；代价是每个去噪步都要额外算一次 vector-Jacobian product（反传），这会把本来要解决的实时延迟又加回来。
+
+**Training-Time Action Conditioning for Efficient Real-Time Chunking**（arXiv:2512.05964）把这个约束搬到训练期：训练时随机采样一个推理延迟 `d`，把同一条 ground-truth action chunk 的前 `d` 步作为**非噪声 action prefix**喂给动作专家；prefix 的 flow timestep 置为 1，只让模型对剩余 postfix 去噪，并且 loss 只算 postfix。这样推理时接口仍然是"输入观测 + 已承诺 prefix + 延迟，输出 postfix"，但不再需要推理时 inpainting，也不需要额外反传。
+
+实验口径（均为作者自评 ⚠️）：
+
+| 场景 | 设置 | 结论 |
+|---|---|---|
+| Dynamic Kinetix 仿真 | 固定 execution horizon，测试 inference delay 0–4；每个点 2048 rollouts | delay ≥ 2 时，training-time RTC 优于 inference-time RTC，且延迟越大差距越明显；delay 0/1 略弱，作者解释为训练监督分配到 prefix 后，早期动作监督稍少 |
+| 真机装箱 / 意式咖啡 | 基于 PI 的 π0.6 VLA，目标任务微调 8000 gradient steps，batch size 512；训练时 delay 在 0–10 间均匀采样 | 50 Hz 机器人上支持最高约 200 ms 延迟；远端 H100、5 步去噪下，training-time RTC 端到端平均 **108 ms**，inference-time RTC **135 ms**；成功率和任务时长基本持平，同时计算更便宜 |
+
+局限也很明确：训练时 RTC 只能处理与采样延迟对应的**硬 prefix**，不像推理时 inpainting 那样能 soft masking 更多重叠动作；并且训练时要提前选好延迟分布，如果部署硬件 / 网络延迟分布变化很大，可能需要重新微调或重新采样训练。
 
 ### 互斥或冲突的组合
 
@@ -105,6 +124,7 @@ graph TD
 | **FAST 频域分词 ↔ 并行解码（OpenVLA-OFT 路线）** | FAST 维持"逐 token 自回归"接口（且 DCT 压缩后 token 语义不再是逐步逐维的简单映射）；并行解码需要把动作位置的因果掩码替换为双向注意力，两套机制在动作解码架构上有根本差异，不能直接拼接 |
 | **多步去噪 ↔ L1 回归替代** | L1 回归头是对扩散/流匹配的替代，二者在同一位置（动作生成头）互斥。选 L1 则省去多步去噪；选扩散则无法享受 L1 的单次前向优势 |
 | **自回归动作分块 ↔ 低延迟** | 若在原始自回归框架中强行做动作分块（不加并行解码），token 序列成倍变长，延迟翻 K 倍，与"加速"目标相反。**正是并行解码让分块从"不可用"变成"免费"**（来源：[OpenVLA-OFT](openvla-oft.md) §2.2） |
+| **训练时 RTC ↔ 推理时 RTC inpainting** | 二者都在解决 chunk 间连续性，但位置不同：训练时 RTC 用 action prefix conditioning 学会连续性，推理期不再额外反传；推理时 RTC 保留 soft masking 灵活性，但每个去噪步增加 VJP 计算。实际部署时通常二选一，而非同时打开 |
 | **云-端拆分 ↔ 离线/边缘部署** | 云-端架构结构性依赖网络可用性，在断网或低延迟网络环境下不可用；本地部署方案（LoRA+量化）和云-端拆分是两种互斥的部署形态 |
 
 ---
@@ -125,6 +145,7 @@ graph LR
         D["π0 流匹配（chunk 内）：50 Hz ⚠️"]
         E["Gemini Robotics 云-端拆分：50 Hz（等效）⚠️"]
         F["OpenVLA 4-bit 量化：~6 Hz ⚠️"]
+        G["Training-Time RTC：108 ms / 支持约 200 ms 延迟 ⚠️"]
     end
     subgraph 空白["仍为待核的缺口"]
         X["π0-FAST 自回归推理 Hz 精确值：待核"]
@@ -134,6 +155,7 @@ graph LR
     REQ -.->|已触及| C
     REQ -.->|已触及| D
     REQ -.->|已触及| E
+    REQ -.->|以异步执行触及| G
 ```
 
 | 方案 | 实测频率/延迟 | 来源 | 是否达到灵巧操作门槛 |
@@ -147,6 +169,7 @@ graph LR
 | π0-FAST 自回归（RTX 4090，30–60 token） | ~750 ms/chunk ⚠️ | pi0-fast.md 表 B | 否（单 chunk 延迟高，Hz 精确值**待核**） |
 | Gemini Robotics 云-端拆分 | ≈250 ms 端到端 / **50 Hz** 等效 ⚠️ | gemini-robotics.md §2.2 | 达到（依赖网络） |
 | π0.7 RTC 动作分块 | 最大延迟约 240 ms ⚠️（待核：社区报道 ~127 ms） | pi07.md §2.1 | 条件达到（视 chunk 长度） |
+| Training-Time RTC（PI VLA） | H100 远端 **108 ms**（vs 推理时 RTC 135 ms）；50 Hz 机器人支持约 200 ms 延迟 ⚠️ | arXiv:2512.05964 §V-B | 达到（依赖训练时延迟分布覆盖） |
 
 **剩余缺口**（截至本文撰写）：
 - π0-FAST 的自回归推理精确 Hz 数（主报告 §6.2 #2 明确标出）
@@ -157,7 +180,7 @@ graph LR
 
 ## 五、横切小结
 
-VLA 推理加速的核心矛盾是：**大语言模型主干（语义能力的来源）本身就慢，而机器人控制需要快**。目前已被实测验证有效的突破路径有三条，分别对应不同取舍：
+VLA 推理加速的核心矛盾是：**大语言模型主干（语义能力的来源）本身就慢，而机器人控制需要快**。目前已被实测验证有效的突破路径有四条，分别对应不同取舍：
 
 1. **算法重构（并行解码 + 连续表示 + 动作分块）**：不换主干、只改动作生成接口，26× 提速。代价是放弃自回归逐步条件化，适合离散→连续迁移场景。详见 [OpenVLA-OFT](openvla-oft.md)。
 
@@ -165,9 +188,11 @@ VLA 推理加速的核心矛盾是：**大语言模型主干（语义能力的�
 
 3. **表示压缩（FAST 频域分词）**：在保持自回归接口的前提下把 token 序列压缩数倍，让自回归路线也能处理高频动作、训练收敛快 5×。代价是推理仍受自回归序列长度限制（单 chunk 延迟约 750 ms）。详见 [π0-FAST](pi0-fast.md)。
 
-LoRA + 量化作为权重层手段与上述三条均正交，是降低部署硬件门槛的通用工具，但本身不能解决推理频率问题（4-bit OpenVLA 仍只有 ~6 Hz）。
+4. **实时执行框架（RTC → 训练时动作条件化）**：不直接让模型更小，而是让机器人在当前 chunk 执行期间异步生成下一段；训练时 action conditioning 进一步把 chunk 间连续性约束提前学进模型，推理期省掉 inpainting 的反传开销。代价是要在训练时覆盖预期延迟分布，且不如推理时 soft masking 灵活。
 
-**最高频率已被多条路径突破 50 Hz 门槛**（OpenVLA-OFT 108.8 Hz、π0 chunk 内 50 Hz、Gemini Robotics 等效 50 Hz），但这些数字均为作者自评 ⚠️，且在不同硬件/任务/口径下取得，尚无跨团队统一基准的独立复现。
+LoRA + 量化作为权重层手段与上述四条均正交，是降低部署硬件门槛的通用工具，但本身不能解决推理频率问题（4-bit OpenVLA 仍只有 ~6 Hz）。
+
+**最高频率已被多条路径突破 50 Hz 门槛**（OpenVLA-OFT 108.8 Hz、π0 chunk 内 50 Hz、Gemini Robotics 等效 50 Hz、Training-Time RTC 在 50 Hz 机器人上覆盖约 200 ms 延迟），但这些数字均为作者自评 ⚠️，且在不同硬件/任务/口径下取得，尚无跨团队统一基准的独立复现。
 
 ---
 
@@ -189,5 +214,7 @@ LoRA + 量化作为权重层手段与上述三条均正交，是降低部署硬�
 | Gemini Robotics 云端 < 160 ms；端到端 ≈250 ms；50 Hz | gemini-robotics.md | §2.2 |
 | RT-2 / RT-2-X 推理 1–3 Hz | gemini-robotics.md | §1 |
 | π0.7 RTC 最大延迟约 240 ms | pi07.md | §2.1 |
+| Training-Time RTC 端到端 108 ms vs 推理时 RTC 135 ms；训练采样 0–10 步延迟支持 50 Hz 下约 200 ms | arXiv:2512.05964 | §V-B |
+| Training-Time RTC 在仿真高延迟（delay ≥ 2）下优于 inference-time RTC | arXiv:2512.05964 | §V-A |
 | 自回归分块不加并行解码会使延迟翻 K 倍 | openvla-oft.md | §2.2 |
 | 主报告 §6.2 缺口：Helix/π0.5/GR00T 推理延迟待核 | 主报告(../index.md) | §6.2 #5 |
