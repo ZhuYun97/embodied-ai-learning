@@ -248,90 +248,41 @@ export default withMermaid(defineConfig({
     nav: [
       { text: '首页', link: '/' },
       {
+        text: '最新动态',
+        activeMatch: '^/(news/|vla/(changelog|papers/(timeline|xiaohongshu)))',
+        items: [
+          { text: '具身新闻', link: '/news/' },
+          { text: '发展时间线', link: '/vla/papers/timeline' },
+          { text: '更新日志', link: '/vla/changelog' },
+          { text: '小红书具身内容精选', link: '/vla/papers/xiaohongshu' },
+        ],
+      },
+      {
         text: 'VLA 调研',
+        activeMatch: '^/vla/($|papers/(?!(getting-started|embodied-data|data-processing|training-pipeline|benchmarks|robots|glossary|references|resources|timeline|xiaohongshu)($|/)))',
         items: [
           {
-            text: 'VLA 调研报告',
+            text: '主入口',
             items: [
-              { text: '总报告', link: '/vla/' },
-            ],
-          },
-          {
-            text: '细读 · 离散 token',
-            items: [
-              { text: 'RT-1(离散前史)', link: '/vla/papers/rt1' },
-              { text: 'RT-2(范式奠基)', link: '/vla/papers/rt2' },
-              { text: 'OpenVLA', link: '/vla/papers/openvla' },
-              { text: 'π0-FAST', link: '/vla/papers/pi0-fast' },
-              { text: 'SpatialVLA(3D/空间)', link: '/vla/papers/spatialvla' },
-            ],
-          },
-          {
-            text: '细读 · 连续 · 扩散/流匹配',
-            items: [
-              { text: 'Diffusion Policy(连续奠基)', link: '/vla/papers/diffusion-policy' },
-              { text: 'Octo', link: '/vla/papers/octo' },
-              { text: 'π0', link: '/vla/papers/pi0' },
-              { text: 'CogACT(认知+扩散)', link: '/vla/papers/cogact' },
-              { text: 'GR00T N1', link: '/vla/papers/groot-n1' },
-              { text: 'GR-3(字节 Seed)', link: '/vla/papers/gr-3' },
-              { text: 'GR-Dexter(双臂灵巧手·字节 Seed)', link: '/vla/papers/gr-dexter' },
-              { text: 'RDT-1B(扩散双臂基座)', link: '/vla/papers/rdt-1b' },
-              { text: 'TinyVLA(高效紧凑)', link: '/vla/papers/tinyvla' },
-              { text: 'SmolVLA(小型高效·开源)', link: '/vla/papers/smolvla' },
-              { text: 'OmniVLA-RL(MoT 三专家+在线 RL·观察级)', link: '/vla/papers/omnivla-rl' },
-            ],
-          },
-          {
-            text: '细读 · 混合 · 连续回归',
-            items: [
-              { text: 'OpenVLA-OFT', link: '/vla/papers/openvla-oft' },
-              { text: 'π0.5', link: '/vla/papers/pi05' },
-              { text: 'WALL-OSS(自变量)', link: '/vla/papers/wall-oss' },
-              { text: 'Wall-OSS-0.5(梯度桥接·可部署)', link: '/vla/papers/wall-oss-05' },
-            ],
-          },
-          {
-            text: '细读 · 分层 · 双系统/推理',
-            items: [
-              { text: 'ECoT(推理 CoT)', link: '/vla/papers/ecot' },
-              { text: 'Helix(Figure 人形双系统)', link: '/vla/papers/helix' },
-              { text: 'GO-1(智元 ViLLA 潜动作)', link: '/vla/papers/go-1' },
-              { text: 'Galaxea G0(双系统+开放世界数据集·星海图)', link: '/vla/papers/galaxea-g0' },
-              { text: 'RynnBrain(System-2 具身基座·达摩院)', link: '/vla/papers/rynnbrain' },
-              { text: 'SteerVLA(自动驾驶·分层操控)', link: '/vla/papers/steervla' },
-              { text: 'Steerable Policies(可操控分层·操作)', link: '/vla/papers/steerable-policies' },
-              { text: 'PointACT(双系统·3D 点云·Inria)', link: '/vla/papers/pointact' },
-            ],
-          },
-          {
-            text: '细读 · 新范式探索',
-            items: [
-              { text: 'RoboVLMs(系统实证)', link: '/vla/papers/robovlms' },
-              { text: 'SimpleVLA-RL(在线 RL)', link: '/vla/papers/simplevla-rl' },
-              { text: 'Qwen-VLA(阿里)', link: '/vla/papers/qwen-vla' },
-              { text: 'RynnVLA-001(达摩院)', link: '/vla/papers/rynnvla' },
-              { text: 'π0.6 / π*0.6', link: '/vla/papers/pi06' },
-              { text: 'π0.7(PI 最新)', link: '/vla/papers/pi07' },
-              { text: 'Gemini Robotics(DeepMind)', link: '/vla/papers/gemini-robotics' },
-              { text: 'MemoryVLA(记忆增强)', link: '/vla/papers/memoryvla' },
-              { text: 'MemoryVLA++(记忆+想象全时序)', link: '/vla/papers/memoryvla-plusplus' },
-              { text: 'GigaBrain-0.5M*(世界模型 RL 训 VLA·GigaAI)', link: '/vla/papers/gigabrain-05m' },
-              { text: 'AtomicVLA(技能引导 MoE·CVPR26)', link: '/vla/papers/atomicvla' },
-              { text: 'SeeTraceAct(可见性潜轨迹·GT/AI2)', link: '/vla/papers/seetraceact' },
-              { text: 'AffordanceVLA(affordance 中间表征·北大等)', link: '/vla/papers/affordancevla' },
-            ],
-          },
-          {
-            text: '横切分析',
-            items: [
+              { text: 'VLA 总报告', link: '/vla/#vla-视觉-语言-动作-模型发展深度调研报告', activeMatch: '^/vla/$' },
+              { text: '论文细读导航', link: '/vla/#📄-论文细读导航', activeMatch: '^/vla/$' },
               { text: '全模型规格对比', link: '/vla/papers/models-spec' },
+            ],
+          },
+          {
+            text: '重点路线',
+            items: [
               { text: '双系统架构原理', link: '/vla/papers/dual-system-architecture' },
               { text: '预测式 VLA(世界模型作策略)', link: '/vla/papers/predictive-vla' },
               { text: '知识隔离训练配方', link: '/vla/papers/knowledge-insulation' },
               { text: '推理加速与部署', link: '/vla/papers/inference-deployment' },
-              { text: 'FASTER(流匹配实时加速)', link: '/vla/papers/faster' },
+            ],
+          },
+          {
+            text: '工程与问题',
+            items: [
               { text: 'VLA 在线 RL(RL Token)', link: '/vla/papers/rl-token' },
+              { text: 'FASTER(流匹配实时加速)', link: '/vla/papers/faster' },
               { text: '开源代码库对照', link: '/vla/papers/codebases' },
               { text: '共性失败模式', link: '/vla/papers/failure-modes' },
             ],
@@ -340,81 +291,42 @@ export default withMermaid(defineConfig({
       },
       {
         text: 'WAM 调研',
+        activeMatch: '^/wam/',
         items: [
           {
-            text: 'WAM 调研',
+            text: '主入口',
             items: [
-              { text: '总览(定义 / taxonomy)', link: '/wam/' },
+              { text: 'WAM 总览(定义 / taxonomy)', link: '/wam/' },
+              { text: '代表模型细读', link: '/wam/#三、代表模型细读' },
               { text: '全模型规格对比(28 篇横向)', link: '/wam/papers/models-spec' },
             ],
           },
           {
-            text: '细读 · 级联 · 显式(先生成像素未来)',
-            items: [
-              { text: 'UniPi(文生视频规划·奠基)', link: '/wam/papers/unipi' },
-              { text: 'Gen2Act(零样本人类视频)', link: '/wam/papers/gen2act' },
-              { text: 'Veo-Act(前沿视频模型 Veo-3 作规划器·清华)', link: '/wam/papers/veo-act' },
-            ],
-          },
-          {
-            text: '细读 · 级联 · 隐式(潜空间预测)',
-            items: [
-              { text: 'VPP(预测性视觉表征)', link: '/wam/papers/vpp' },
-              { text: 'LAPA(潜动作预训练)', link: '/wam/papers/lapa' },
-              { text: 'DexWorldModel(DINOv3 潜世界模型·O(1) 记忆)', link: '/wam/papers/dexworldmodel' },
-            ],
-          },
-          {
-            text: '细读 · 联合 · 自回归',
-            items: [
-              { text: 'GR-1(视频生成预训练·自回归)', link: '/wam/papers/gr-1' },
-              { text: 'WorldVLA(自回归动作世界模型)', link: '/wam/papers/worldvla' },
-              { text: 'RynnVLA-002(统一 VLA+世界模型·达摩院)', link: '/wam/papers/rynnvla-002' },
-            ],
-          },
-          {
-            text: '细读 · 联合 · 扩散',
-            items: [
-              { text: 'UWM(耦合视频+动作扩散)', link: '/wam/papers/uwm' },
-              { text: 'DreamZero(零样本策略)', link: '/wam/papers/dreamzero' },
-              { text: 'X-WAM(统一 4D)', link: '/wam/papers/x-wam' },
-              { text: 'LingBot-VA(蚂蚁灵波)', link: '/wam/papers/lingbot-va' },
-              { text: 'τ0-WM(智元/上海创智·测试时搜索)', link: '/wam/papers/tau0-wm' },
-              { text: 'GR00T N2(NVIDIA)', link: '/wam/papers/groot-n2' },
-              { text: 'LaDi-WM(潜扩散世界模型·CoRL25)', link: '/wam/papers/ladi-wm' },
-              { text: 'WALL-WM(自变量·事件锚定)', link: '/wam/papers/wall-wm' },
-              { text: 'GigaWorld-Policy(动作中心·视频可选·GigaAI)', link: '/wam/papers/gigaworld-policy' },
-              { text: 'WAV(世界-价值-动作·西湖)', link: '/wam/papers/wav' },
-              { text: 'MotuBrain(三流 MoT·生数/清华)', link: '/wam/papers/motubrain' },
-            ],
-          },
-          {
-            text: '细读 · 联合 · 混合(自回归+扩散)',
-            items: [
-              { text: 'UVA(统一视频动作·解耦双头)', link: '/wam/papers/uva' },
-              { text: 'FLARE(未来潜表征对齐)', link: '/wam/papers/flare' },
-              { text: 'OA-WAM(对象槽位·清华深圳)', link: '/wam/papers/oa-wam' },
-              { text: 'HiMem-WAM(分层潜动作+记忆门控·港大系·观察级)', link: '/wam/papers/himem-wam' },
-            ],
-          },
-          {
-            text: '细读 · 跨范式 · 基座/平台/仿真',
+            text: '重点模型',
             items: [
               { text: 'Cosmos 3(NVIDIA·全模态世界模型)', link: '/wam/papers/cosmos3' },
-              { text: 'Genie Envisioner(智元)', link: '/wam/papers/genie-envisioner' },
-              { text: 'GE-Sim 2.0(智元·闭环世界模拟器)', link: '/wam/papers/ge-sim-2' },
-              { text: 'RoboDream(TRI·数据合成引擎)', link: '/wam/papers/robodream' },
+              { text: 'GR00T N2(NVIDIA)', link: '/wam/papers/groot-n2' },
+              { text: 'DreamZero(零样本策略)', link: '/wam/papers/dreamzero' },
+              { text: 'WorldVLA(自回归动作世界模型)', link: '/wam/papers/worldvla' },
             ],
           },
         ],
       },
       {
         text: '具身基础',
+        activeMatch: '^/vla/(papers/(getting-started|embodied-data|data-processing|training-pipeline|benchmarks|robots|glossary|references|resources)|guide)',
         items: [
           {
-            text: '通用专题(VLA × WAM 共用)',
+            text: '学习路径',
             items: [
+              { text: '如何阅读本站', link: '/vla/guide' },
               { text: '具身入门 · 新手起步', link: '/vla/papers/getting-started' },
+              { text: '术语速查表', link: '/vla/papers/glossary' },
+            ],
+          },
+          {
+            text: '数据 / 训练 / 评测',
+            items: [
               { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
               { text: '具身数据处理', link: '/vla/papers/data-processing' },
               { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
@@ -422,36 +334,21 @@ export default withMermaid(defineConfig({
               { text: '实验机器人本体', link: '/vla/papers/robots' },
             ],
           },
+          {
+            text: '资源',
+            items: [
+              { text: '参考文献', link: '/vla/papers/references' },
+              { text: '外部资源导航', link: '/vla/papers/resources' },
+            ],
+          },
         ],
       },
       {
-        text: '新闻',
-        link: '/news/',
-        activeMatch: '^/news/',
-      },
-      {
-        text: '生态图谱',
+        text: '生态',
         activeMatch: '^/ecosystem/',
         items: [
           { text: '生态全景图(图谱 / 地图 / 目录)', link: '/ecosystem/' },
-          { text: '🏆 具身大脑公司分档榜', link: '/ecosystem/brain-ranking' },
-        ],
-      },
-      {
-        text: '速查',
-        items: [
-          { text: '术语速查表', link: '/vla/papers/glossary' },
-          { text: '发展时间线', link: '/vla/papers/timeline' },
-          { text: '参考文献', link: '/vla/papers/references' },
-          { text: '外部资源导航', link: '/vla/papers/resources' },
-          { text: '小红书具身内容精选', link: '/vla/papers/xiaohongshu' },
-        ],
-      },
-      {
-        text: '关于',
-        items: [
-          { text: '如何阅读本站', link: '/vla/guide' },
-          { text: '更新日志', link: '/vla/changelog' },
+          { text: '具身大脑公司分档榜', link: '/ecosystem/brain-ranking' },
         ],
       },
     ],
