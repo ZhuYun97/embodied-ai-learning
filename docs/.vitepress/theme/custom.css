@@ -741,6 +741,23 @@ img.zoom-lightbox__content {
 
 .VPHome { position: relative; overflow: hidden; }
 
+.VPHome::before {
+  content: '';
+  position: absolute;
+  top: calc(100vh - 165px);
+  left: 0;
+  right: 0;
+  height: 360px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--home-bridge-opacity, 0.18);
+  background:
+    radial-gradient(62% 90% at 50% 12%, rgba(34, 211, 238, 0.16), transparent 62%),
+    radial-gradient(36% 56% at 78% 20%, rgba(139, 92, 246, 0.13), transparent 66%),
+    linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--vp-c-bg) 35%, transparent) 42%, var(--vp-c-bg) 86%);
+  filter: blur(0.2px);
+}
+
 /* 背景层①(已退役):原 44px 科技网格线 —— DotField 互动点阵上线后双重纹理冗余,
    应用户要求移除(2026-06-13);电路数据包(hero-fx packets)保留为自由飞行光点 */
 
@@ -772,6 +789,35 @@ img.zoom-lightbox__content {
 .VPHome .VPHero,
 .VPHome .VPFeatures,
 .VPHome .vp-doc { position: relative; z-index: 1; }
+
+.VPHome .VPFeatures {
+  margin-top: -150px;
+  padding-top: 28px;
+  opacity: var(--home-next-opacity, 1);
+  transform: translateY(var(--home-next-y, 0));
+  will-change: opacity, transform;
+}
+
+html.home-transition-bound:not(.home-next-ready) .VPHome .VPFeatures {
+  pointer-events: none;
+}
+
+html.home-transition-bound.home-next-ready .VPHome .VPFeatures {
+  pointer-events: auto;
+}
+
+.VPHome .VPFeatures::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: max(24px, calc((100vw - 1120px) / 2));
+  right: max(24px, calc((100vw - 1120px) / 2));
+  height: 1px;
+  pointer-events: none;
+  opacity: calc(var(--home-next-opacity, 1) * 0.8);
+  background: linear-gradient(90deg, transparent, rgba(125, 235, 255, 0.58), transparent);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.26);
+}
 
 /* Hero 标题:蓝→青→紫 渐变辉光字(仅首页) */
 .VPHome .VPHero .name.clip {
@@ -822,6 +868,18 @@ img.zoom-lightbox__content {
 
 @media (prefers-reduced-motion: reduce) {
   .VPHome::after { animation: none; }
+  .VPHome::before { display: none; }
+  .VPHome .VPFeatures {
+    margin-top: 0;
+    padding-top: 0;
+    opacity: 1;
+    transform: none;
+  }
+  .VPHome .VPFeatures::before,
+  .thero::before,
+  .thero::after {
+    display: none;
+  }
 }
 
 /* ---------- 机器人本体页:形态线稿图标(浮右,无边框) ---------- */
@@ -2275,6 +2333,34 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   position: relative; z-index: 1;
   max-width: 1280px; margin: 0 auto;
   padding: 50px 24px 8px;
+}
+
+.thero::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -74px;
+  width: 1px;
+  height: 96px;
+  transform: translateX(-50%);
+  opacity: calc(1 - var(--hero-collapse, 0));
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(125, 235, 255, 0.82), transparent);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.42);
+}
+
+.thero::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -82px;
+  width: 9px;
+  height: 9px;
+  transform: translateX(-50%) rotate(45deg);
+  opacity: calc(1 - var(--hero-collapse, 0));
+  pointer-events: none;
+  border-right: 1px solid rgba(125, 235, 255, 0.82);
+  border-bottom: 1px solid rgba(125, 235, 255, 0.82);
 }
 
 /* 顶部状态读出条(闪烁点 + 光标) */

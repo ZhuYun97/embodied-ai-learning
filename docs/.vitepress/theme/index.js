@@ -44,7 +44,7 @@ const HeroBG = {
 }
 
 // =====================================================================
-// 首屏滑动收起:滚动前 55vh 内,--hero-collapse 从 0 → 1,
+// 首屏滑动收起:桌面按 55vh 收起;移动端 hero 往往高于一屏,改按实际 hero 高度放慢,
 // 英雄区(.thero)与扭曲背景按其淡出/上移/微缩,收完关闭指针事件;
 // reduced-motion 不启用(直接正常滚动)。
 // =====================================================================
@@ -55,12 +55,27 @@ function setupHeroCollapse() {
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   if (reduce) return
   let ticking = false
+  document.documentElement.classList.add('home-transition-bound')
+  const smoothstep = (n) => {
+    const x = Math.min(1, Math.max(0, n))
+    return x * x * (3 - 2 * x)
+  }
   const apply = () => {
     ticking = false
     const hero = document.querySelector('.VPHome .thero')
     if (!hero) return
-    const p = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.55)))
+    const collapseDistance =
+      hero.offsetHeight > window.innerHeight
+        ? hero.offsetHeight * 0.74
+        : window.innerHeight * 0.55
+    const p = Math.min(1, Math.max(0, window.scrollY / collapseDistance))
+    const next = smoothstep((p - 0.22) / 0.58)
+    const bridge = Math.max(0, 1 - Math.abs(p - 0.42) / 0.58)
     document.documentElement.style.setProperty('--hero-collapse', p.toFixed(3))
+    document.documentElement.style.setProperty('--home-next-opacity', next.toFixed(3))
+    document.documentElement.style.setProperty('--home-next-y', ((1 - next) * 40).toFixed(1) + 'px')
+    document.documentElement.style.setProperty('--home-bridge-opacity', (0.18 + bridge * 0.72).toFixed(3))
+    document.documentElement.classList.toggle('home-next-ready', next >= 0.82)
     hero.classList.toggle('is-collapsed', p >= 0.98)
   }
   window.addEventListener(
