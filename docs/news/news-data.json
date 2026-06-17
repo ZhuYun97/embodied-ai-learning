@@ -118,9 +118,12 @@
     "credibility": "verified",
     "category": [
       "人形机器人",
-      "产品发布"
+      "产品发布",
+      "模型发布",
+      "公司战略",
+      "学术会议"
     ],
-    "summary": "英伟达在 COMPUTEX/GTC Taipei 主题演讲(5 月 31 日)发布 **Isaac GR00T Reference Humanoid Robot**——首个开放的全栈人形研究参考设计:宇树 H2 Plus 本体(全身 31 自由度)+ Sharpa Wave 触觉五指手(单手 22 自由度,整机含手 75 自由度)+ Jetson Thor 板载算力 + Isaac GR00T 软件栈(Teleop/Sim/Lab、Isaac ROS)。Ai2、ETH Zurich、斯坦福机器人中心、UCSD ARC 实验室等将率先采用;官方称硬件 2026 年底由宇树供货。",
+    "summary": "英伟达在 COMPUTEX/GTC Taipei 主题演讲期间发布 **Isaac GR00T Reference Humanoid Robot**——面向高校与研究机构的开放全栈人形研究参考设计:宇树 H2 Plus 本体(约 1.8m / 全身 31 自由度)+ **Sharpa Wave 触觉五指手**(整机含手 75 自由度)+ **Jetson Thor / Blackwell** 板载算力 + Isaac GR00T 软件栈(Teleop/Sim/Lab、Isaac ROS)。首批面向 Ai2、ETH Zurich、斯坦福 Robotics Center、UCSD ARC 等机构;官方称硬件由宇树在 2026 年底前供货。⚠️ 交付时间、价格与最终规格仍以官方后续信息为准。",
     "sources": [
       {
         "name": "NVIDIA Newsroom",
@@ -131,11 +134,33 @@
         "url": "https://www.prnewswire.com/news-releases/unitree-announces-h2-plus-an-nvidia-isaac-gr00t-reference-humanoid-robot-for-academic-research-302786748.html"
       },
       {
+        "name": "GlobeNewswire",
+        "url": "https://www.globenewswire.com/news-release/2026/06/01/3303990/0/en/NVIDIA-Announces-NVIDIA-Isaac-GR00T-Reference-Humanoid-Robot-for-Academic-Research.html"
+      },
+      {
+        "name": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/01/nvidia-unitree-humanoid-robotics-system-researchers.html"
+      },
+      {
         "name": "Robotics & Automation News",
         "url": "https://roboticsandautomationnews.com/2026/06/11/nvidia-unveils-open-humanoid-robot-platform-for-robotics-research/102480/"
+      },
+      {
+        "name": "Interesting Engineering",
+        "url": "https://interestingengineering.com/ai-robotics/nvidias-new-humanoid-robot-platform"
       }
     ],
-    "bot": true
+    "bot": true,
+    "related": [
+      {
+        "label": "GR00T N1 细读",
+        "url": "/vla/papers/groot-n1"
+      },
+      {
+        "label": "GR00T N2 细读",
+        "url": "/wam/papers/groot-n2"
+      }
+    ]
   },
   {
     "id": "theker-85m-series-a-20260611",
@@ -1657,49 +1682,6 @@
     "bot": true
   },
   {
-    "id": "nvidia-isaac-groot-ref-unitree-h2plus-20260601",
-    "title": "英伟达发布 Isaac GR00T 参考人形机器人:本体选定宇树 H2 Plus + Jetson Thor,面向高校科研",
-    "date": "2026-06-01",
-    "fetched_at": "2026-06-06",
-    "importance": "hot",
-    "credibility": "verified",
-    "category": [
-      "模型发布",
-      "公司战略",
-      "学术会议"
-    ],
-    "summary": "**2026-06-01**(COMPUTEX 2026 期间),**英伟达(NVIDIA)** 发布面向高校科研的 **Isaac GR00T 参考人形机器人(Reference Humanoid)**,整机本体选定 **宇树(Unitree)全尺寸人形 H2 Plus**(约 1.8m)。参考设计 = H2 Plus 本体 + **Jetson Thor**(含 Blackwell GPU、端侧推理)+ **Isaac GR00T** 人形基础模型 + Isaac 仿真;灵巧手由新加坡 **Sharpa** 提供。首批面向 **Ai2、ETH Zurich、斯坦福 Robotics Center、UCSD ARCL** 等机构做前沿人形研究。这是英伟达对外推广的**首个整机人形参考平台**,把「芯片 + 模型 + 仿真 + 本体」全栈打包给学界。⚠️ H2 Plus 参考设计为**厂商计划 2026 年底交付(约 10 月起发货)**、非现货;具体规格与售价以官方为准。",
-    "sources": [
-      {
-        "name": "NVIDIA Newsroom(官方)",
-        "url": "https://nvidianews.nvidia.com/news/nvidia-open-humanoid-robot-reference-design"
-      },
-      {
-        "name": "宇树 Unitree · PRNewswire(官方)",
-        "url": "https://www.prnewswire.com/news-releases/unitree-announces-h2-plus-an-nvidia-isaac-gr00t-reference-humanoid-robot-for-academic-research-302786748.html"
-      },
-      {
-        "name": "GlobeNewswire(2026-06-01)",
-        "url": "https://www.globenewswire.com/news-release/2026/06/01/3303990/0/en/NVIDIA-Announces-NVIDIA-Isaac-GR00T-Reference-Humanoid-Robot-for-Academic-Research.html"
-      },
-      {
-        "name": "CNBC",
-        "url": "https://www.cnbc.com/2026/06/01/nvidia-unitree-humanoid-robotics-system-researchers.html"
-      }
-    ],
-    "related": [
-      {
-        "label": "GR00T N1 细读",
-        "url": "/vla/papers/groot-n1"
-      },
-      {
-        "label": "GR00T N2 细读",
-        "url": "/wam/papers/groot-n2"
-      }
-    ],
-    "bot": false
-  },
-  {
     "id": "unitree-star-ipo-pass-register-20260602",
     "title": "宇树科技科创板 IPO 过会(6/1)、提交注册(6/2):拟募资 42 亿,有望成「具身智能第一股」",
     "date": "2026-06-02",
@@ -1993,28 +1975,6 @@
     "bot": true
   },
   {
-    "id": "nvidiaunitreeblackwellgpu-20260601",
-    "title": "Nvidia × Unitree 发布首个人形机器人参考设计,搭载 Blackwell GPU",
-    "date": "2026-06-01",
-    "fetched_at": "2026-06-02",
-    "importance": "hot",
-    "credibility": "verified",
-    "category": [
-      "产品发布",
-      "行业动态",
-      "人形机器人"
-    ],
-    "summary": "**Nvidia** 在 GTC Taipei 发布基于 **Isaac GR00T 平台**的首个开放人形机器人参考设计,选用 **Unitree H2** 作为硬件本体(6英尺高/150磅重/31自由度),搭载 **Jetson AGX Thor T5000**(Blackwell GPU/2070 FP4 TFLOPS)+ Sharpa Wave 触觉五指灵巧手(44自由度)。面向高校/研究机构(Stanford、ETH Zurich、UC San Diego 等),覆盖数据采集(Isaac Teleop)→仿真训练(Isaac Sim/Lab)→部署(Isaac ROS)全栈。⚠️ 价格未公布,H2 Plus 升级版预计 10 月发售。",
-    "sources": [
-      {
-        "name": "Interesting Engineering",
-        "url": "https://interestingengineering.com/ai-robotics/nvidias-new-humanoid-robot-platform"
-      }
-    ],
-    "related": [],
-    "bot": true
-  },
-  {
     "id": "openai-20260602",
     "title": "OpenAI 正式宣布成立机器人部门,押注具身智能",
     "date": "2026-06-02",
@@ -2105,7 +2065,7 @@
   },
   {
     "id": "figure031120-20260527",
-    "title": "Figure 03 产能提升至 1 台/小时,120 天内实现 24× 增长",
+    "title": "Figure 03 产能提升至 1 台/小时:120 天内实现 24× 增长",
     "date": "2026-05-27",
     "fetched_at": "2026-06-02",
     "importance": "major",
@@ -2123,7 +2083,7 @@
     ],
     "related": [
       {
-        "label": "helix",
+        "label": "Helix 细读",
         "url": "/vla/papers/helix"
       }
     ],
@@ -2589,27 +2549,6 @@
         "url": "/vla/papers/embodied-data"
       }
     ],
-    "bot": false
-  },
-  {
-    "id": "figure03xxxx24xxx1xx-20260527",
-    "title": "Figure 03 制造产能 24× 提速:从 1 台/天 提升到 1 台/小时",
-    "date": "2026-05-27",
-    "fetched_at": "2026-06-01",
-    "importance": "major",
-    "credibility": "todo",
-    "category": [
-      "产品发布",
-      "人形机器人"
-    ],
-    "summary": "Robotics & Automation News 报道(5 月 27 日),**Figure AI BotQ 工厂在 120 天内将 Figure 03 产能提升 24 倍**——从 1 台/天到 1 台/小时。⚠️ 报道明确注明 Figure 自身声明的速度数据**无法独立验证**,但反映出人形机器人量产竞赛进入新阶段。",
-    "sources": [
-      {
-        "name": "Robotics & Automation News",
-        "url": "https://roboticsandautomationnews.com/2026/05/27/figure-ramps-humanoid-robot-manufacturing-at-unprecedented-speed/101954/"
-      }
-    ],
-    "related": [],
     "bot": false
   },
   {
