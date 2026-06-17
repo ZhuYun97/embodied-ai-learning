@@ -1,5 +1,115 @@
 [
   {
+    "id": "genesis-ai-eno-general-purpose-robot-20260616",
+    "title": "Genesis AI 发布 Eno:非人形轮式双臂通用机器人,主打工业先落地",
+    "date": "2026-06-16",
+    "fetched_at": "2026-06-17",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "公司动态",
+      "通用机器人"
+    ],
+    "summary": "**Genesis AI** 发布通用机器人 **Eno**:轮式底盘 + 双臂 + 可调三段式机身,刻意去掉头和双腿,强调能效、稳定性与安全。公司称 Eno 运行在 **GENE** 机器人基础模型上,可理解目标、拆解步骤并在环境变化时调整;计划 2026 年底前生产数十台并启动小规模客户部署,先进入制造、物流和实验室,家庭场景排在后续。数据路线也值得关注:Genesis 正开发低成本无线手套采集专家操作数据,试图绕开昂贵遥操作的数据瓶颈。",
+    "sources": [
+      {
+        "name": "Business Insider",
+        "url": "https://www.businessinsider.com/genesis-ai-unveils-robot-with-no-head-or-legs-2026-6"
+      },
+      {
+        "name": "The Robot Report",
+        "url": "https://www.therobotreport.com/genesis-ai-launches-eno-general-purpose-robot/"
+      },
+      {
+        "name": "Genesis AI(PR Newswire, GENE-26.5)",
+        "url": "https://www.prnewswire.com/news-releases/genesis-ai-unveils-gene-26-5--the-first-ai-brain-to-enable-robots-with-human-level-physical-manipulation-capabilities-302763638.html"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "beijing-embodied-robot-data-training-base-20260613",
+    "title": "北京具身智能机器人数据与训练基地曝光:120余台机器人覆盖六大场景训练",
+    "date": "2026-06-13",
+    "fetched_at": "2026-06-17",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "落地部署",
+      "数据集发布",
+      "行业动态"
+    ],
+    "summary": "新华社探访北京人形机器人创新中心**具身智能机器人数据与训练基地**:基地位于北京经开区,有 **120余台机器人** 在家居、商超、办公、工业、医药、康养六大核心领域的 **30多个场景** 接受训练,并建设专业动作捕捉场地用于拟人化动作数据采集。报道还称北京人形机器人创新中心开源的 **RoboMIND 具身智能数据集全球下载量已突破 600 万**。这条更像产业基础设施信号:真实场景、真机数据、动捕采集正在被组织成规模化闭环。",
+    "sources": [
+      {
+        "name": "新华社",
+        "url": "https://www.news.cn/photo/20260613/8ef90bfc314447708c3b9ae17d6d976f/c.html?page=1"
+      },
+      {
+        "name": "澎湃新闻",
+        "url": "https://m.thepaper.cn/newsDetail_forward_33370504"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "google-deepmind-gemini-robotics-er-16-20260414",
+    "title": "Google DeepMind 发布 Gemini Robotics-ER 1.6:强化空间推理、多视角理解与仪表读数",
+    "date": "2026-04-14",
+    "fetched_at": "2026-06-17",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "模型发布",
+      "VLA 模型",
+      "人形机器人"
+    ],
+    "summary": "**Google DeepMind** 发布 **Gemini Robotics-ER 1.6**,定位为机器人高层具身推理模型,强化空间/物理推理、任务规划、成功检测和多视角理解;新增工业巡检常见的**仪表读数**能力,可结合 agentic vision 与代码执行读取压力表、液位计等。官方称模型已通过 Gemini API 与 Google AI Studio 面向开发者开放,适合作为机器人系统里的「高层大脑」调用 VLA、搜索或第三方函数。",
+    "sources": [
+      {
+        "name": "Google DeepMind",
+        "url": "https://deepmind.google/blog/gemini-robotics-er-1-6/"
+      },
+      {
+        "name": "Google AI for Developers",
+        "url": "https://ai.google.dev/gemini-api/docs/models/gemini-robotics-er-1.6-preview"
+      }
+    ],
+    "related": [
+      {
+        "label": "Gemini Robotics 细读",
+        "url": "/vla/papers/gemini-robotics"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "galbot-hongkong-robot-convenience-store-20260616",
+    "title": "Galbot 机器人便利店将落地香港红磡:小盖负责补货、取货与结账",
+    "date": "2026-06-16",
+    "fetched_at": "2026-06-17",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "落地部署",
+      "人形机器人",
+      "公司动态"
+    ],
+    "summary": "香港将推出首个由人形机器人运营的 24 小时便利店,地点位于**红磡海滨**。店铺采用约 9 平方米胶囊形态,由银河通用 / **Galbot G1** 机器人「**小盖**」管理,可完成货架补货、商品抓取、结账与语音交互;这是 Galbot 在内地之外的首个零售试点。⚠️ 当前仍属示范性公共零售场景,需要继续观察单店吞吐、异常处理和维护成本。",
+    "sources": [
+      {
+        "name": "Time Out Hong Kong",
+        "url": "https://www.timeout.com/hong-kong/news/hong-kong-will-soon-have-its-first-24-hour-robot-operated-convenience-store-061626"
+      },
+      {
+        "name": "Interesting Engineering",
+        "url": "https://interestingengineering.com/ai-robotics/hong-kong-humanoid-robot-convenience-store"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "nvidia-isaac-gr00t-reference-humanoid-20260531",
     "title": "英伟达发布 Isaac GR00T 参考人形机器人:宇树 H2 Plus + Sharpa 触觉手的开放全栈研究平台",
     "date": "2026-05-31",
@@ -304,7 +414,7 @@
     "id": "neura-robotics-14-c-tether-nvidia-amazon-q-20260610",
     "title": "Neura Robotics 官宣最高 14 亿美元 C 轮:Tether / Nvidia / Amazon / Qualcomm 在列,押注 Physical AI",
     "date": "2026-06-10",
-    "fetched_at": "2026-06-11",
+    "fetched_at": "2026-06-17",
     "importance": "hot",
     "credibility": "verified",
     "category": [
@@ -312,8 +422,12 @@
       "融资",
       "人形机器人"
     ],
-    "summary": "德国-欧洲人形机器人公司 **NEURA Robotics** 官宣 C 轮融资,公告口径为「**最高 14 亿美元**」(up to $1.4B),投资方含 **Tether、Nvidia、Amazon、Qualcomm、imec** 等;资金用于扩展其 Physical AI 平台、人形机器人 4NE-1 量产与「机器人即服务」业务。经 NEURA 官方公告、[The Robot Report](https://www.therobotreport.com/neura-robotics-raise-up-1-4b-in-series-c-funding-physical-ai/)、CNBC 等多源互证;**「最高」为公告措辞,实际交割进度未披露**。",
+    "summary": "德国机器人公司 **NEURA Robotics** 官宣 C 轮融资,公告口径为「**最高 14 亿美元**」(up to $1.4B),投资方包括 **Tether、Qualcomm、Amazon、NVIDIA、Bosch、Schaeffler、European Investment Bank** 等。资金将用于扩展 Neuraverse / Physical AI 平台、推进认知机器人和人形机器人全球部署、建设 **NEURA Gyms** 真实训练环境,并将制造与部署能力扩大到 2030 年数百万台级别。⚠️「最高」意味着额度可能与里程碑或分期有关,实际交割节奏仍需后续披露。",
     "sources": [
+      {
+        "name": "NEURA Robotics / Business Wire",
+        "url": "https://www.businesswire.com/news/home/20260610204575/en/NEURA-Robotics-Announces-Record-Series-C-of-up-to-%241.4-Billion-to-Accelerate-the-Worlds-Leading-Physical-AI-Platform"
+      },
       {
         "name": "The Robot Report",
         "url": "https://www.therobotreport.com/neura-robotics-raise-up-1-4b-in-series-c-funding-physical-ai/"
@@ -352,7 +466,7 @@
     "id": "2026-20260609",
     "title": "工信部、国资委联合启动「2026年度人形机器人与具身智能实景实训专项行动」",
     "date": "2026-06-09",
-    "fetched_at": "2026-06-11",
+    "fetched_at": "2026-06-17",
     "importance": "hot",
     "credibility": "verified",
     "category": [
@@ -360,11 +474,15 @@
       "人形机器人",
       "具身智能"
     ],
-    "summary": "工业和信息化部办公厅、国务院国资委办公厅6月9日联合印发通知,正式启动**2026年度人形机器人与具身智能实景实训专项行动**,聚焦工业、服务、特种三大领域,部署打造实景实训空间、组建创新应用联合体等6项重点任务。通知提出到2026年底凝练形成**百个以上高价值应用场景**、带动形成**万台级规模落地能力**,并要求各省级地区选取重点场景不少于20个、各央企不少于10个。详见[工信部官网通知](https://www.miit.gov.cn/jgsj/kjs/wjfb/art/2026/art_cd666691abf8471fb8553d463aa416e3.html)。",
+    "summary": "工业和信息化部办公厅、国务院国资委办公厅 6 月 9 日联合印发通知,启动 **2026年度人形机器人与具身智能实景实训专项行动**。行动聚焦工业、服务、特种三大领域,围绕生产制造、检测分析、维修维护、仓储物流、餐饮零售、医疗康养、安全生产、应急救援、防灾减灾等真实场景,部署实景实训空间、创新应用联合体、实用化作业技能攻关、常态部署验证等任务。北京市经信局后续启动申报征集,明确目标为到 2026 年底凝练**百个以上高价值应用场景**、形成**万台级规模落地能力**。",
     "sources": [
       {
-        "name": "新华社 / 工业和信息化部",
-        "url": "http://www.news.cn/tech/20260610/0ac12d4162c34166ab66c973aab1f776/c.html"
+        "name": "新华社",
+        "url": "https://www.xinhuanet.com/tech/20260610/0ac12d4162c34166ab66c973aab1f776/c.html"
+      },
+      {
+        "name": "北京市经济和信息化局",
+        "url": "https://jxj.beijing.gov.cn/zwgk/2024zcwj/202606/t20260612_4697128.html"
       }
     ],
     "bot": true
@@ -899,15 +1017,20 @@
     "id": "daimon-galbot-robomni-tactile-benchmark-20260608",
     "title": "戴盟机器人 × 银河通用发布 RobOmni:面向触觉感知与灵巧操作的基准(基于 Isaac Sim)",
     "date": "2026-06-08",
-    "fetched_at": "2026-06-09",
-    "importance": "normal",
+    "fetched_at": "2026-06-17",
+    "importance": "major",
     "credibility": "verified",
     "category": [
-      "数据集发布",
-      "灵巧操作"
+      "评测基准",
+      "灵巧操作",
+      "数据集发布"
     ],
-    "summary": "**戴盟机器人(Daimon)** 与 **银河通用(Galbot)** 在 ICRA 2026 联合发布 **RobOmni**——号称首个面向操作中触觉感知的系统性评测框架,基于 **NVIDIA Isaac Sim** 构建,补「触觉 + 灵巧操作」基准空白。⚠️「首个」为发布方表述。",
+    "summary": "**戴盟机器人(Daimon Robotics)** 与 **银河通用(Galbot)** 在 ICRA 2026 发布 **RobOmni**,面向触觉感知与灵巧操作的多模态评测基准。RobOmni 基于 **NVIDIA Isaac Sim**,覆盖高频指尖触觉、腕部 RGB、夹爪状态、TCP 轨迹、动作命令和外部相机观测,重点评估机器人在插接、开合、装配、柔性/易碎物体处理等接触丰富任务中,触觉到底能带来多少性能增益。⚠️「首个 omni-modal tactile benchmark」为发布方表述,后续需看社区复现和采用度。",
     "sources": [
+      {
+        "name": "Robotics 24/7",
+        "url": "https://www.robotics247.com/article/daimon-robotics-galbot-launch-robomni-to-see-how-tactile-sensing-improves-robot-manipulation"
+      },
       {
         "name": "The Robot Report",
         "url": "https://www.therobotreport.com/daimon-robotics-and-galbot-jointly-launches-robomni-for-benchmarking-tactile-perception-and-dexterous-manipulation/"
@@ -1245,7 +1368,7 @@
     "id": "figure-catalyst-brands-20260526",
     "title": "Figure AI 与 Catalyst Brands(JCPenney 母公司)签署商业部署协议",
     "date": "2026-05-26",
-    "fetched_at": "2026-06-08",
+    "fetched_at": "2026-06-17",
     "importance": "major",
     "credibility": "verified",
     "category": [
@@ -1253,11 +1376,15 @@
       "合作",
       "人形机器人"
     ],
-    "summary": "**Figure AI** 与零售集团 **Catalyst Brands**(旗下含 JCPenney、Aéropostale、Brooks Brothers 等)签署商业协议,将在其美国内华达州 Reno 配送中心部署人形机器人,先期协助「Joey Pouch」分拣系统的搬运分拣;系 Figure 与博枫(Brookfield)系公司的首个此类协议。",
+    "summary": "**Figure AI** 与零售集团 **Catalyst Brands** 签署商业协议,将在美国内华达州 Reno Distribution Logistics Center 部署 Figure 人形机器人,先从供应链中体力强、重复度高的任务切入。Catalyst Brands 旗下包括 JCPenney、Aéropostale、Brooks Brothers 等多品牌,因此这次合作的看点不是单个 Demo,而是 Figure 是否能把仓储/分拣任务沉淀成可复制的部署模板。",
     "sources": [
       {
         "name": "Figure AI",
         "url": "https://www.figure.ai/news/figure-signs-agreement-with-catalyst-brands"
+      },
+      {
+        "name": "Forbes",
+        "url": "https://www.forbes.com/sites/johnkoetsier/2026/05/26/figure-humanoid-robots-get-jobs-with-jcpenney-aropostale-brooks-brothers/"
       }
     ],
     "related": [
@@ -1641,29 +1768,25 @@
   },
   {
     "id": "agibot-world-challenge-icra2026-20260604",
-    "title": "AgiBot World Challenge 真机决赛在 ICRA 2026(维也纳)收官:526 队 27 国,设推理到行动 / 世界模型双赛道",
-    "date": "2026-06-04",
-    "fetched_at": "2026-06-05",
-    "importance": "normal",
+    "title": "AGIBOT WORLD CHALLENGE 2026 收官:526队27国,从仿真分数转向真机闭环评测",
+    "date": "2026-06-05",
+    "fetched_at": "2026-06-17",
+    "importance": "major",
     "credibility": "verified",
     "category": [
       "竞赛",
-      "学术会议",
-      "世界模型"
+      "评测基准",
+      "人形机器人"
     ],
-    "summary": "**ICRA 2026**(IEEE 机器人与自动化国际会议,机器人领域旗舰会议之一)于 **6 月 1–5 日**在**奥地利维也纳**举行。由**智元(AgiBot)**主办的 **AgiBot World Challenge @ ICRA 2026** 真机决赛 6 月 1 日开赛、**6 月 4 日颁奖**,设 **「推理到行动(Reasoning to Action)」与「世界模型(World Model)」双赛道**;线上轮共 **526 支队伍、来自 27 个国家 / 地区**参与。线上轮榜首:推理到行动赛道为 Sber Robotics Center 的 GreenVLA(0.885),世界模型赛道为中科院自动化所 + 高德的 NeoVerse-ABot(0.829)。⚠️ 真机决赛及各奖项**最终获奖名单待官方公布**(待核);ICRA 2026 各项最佳论文截至发稿亦多为入围名单、得主待核。",
+    "summary": "**智元机器人 AGIBOT** 在 ICRA 2026 期间举办的 **AGIBOT WORLD CHALLENGE 2026** 收官,共吸引 **27 个国家的 526 支研究与企业团队**。赛事设置 Reasoning to Action 与 World Model 两条主赛道:前者评估机器人理解任务、规划动作并在真实物理环境执行的能力,后者评估模型基于机器人动作和传感输入预测物理世界变化的能力。官方强调赛制从单纯仿真分数转向**真实机器人、真实任务、标准化基准的闭环测试**,线下决赛使用 AGIBOT G2 人形机器人完成真实场景任务。",
     "sources": [
       {
-        "name": "GlobeNewswire(线上轮)",
-        "url": "https://www.globenewswire.com/news-release/2026/05/13/3293715/0/en/Global-Showdown-526-Teams-from-27-Countries-Compete-in-the-AGIBOT-WORLD-CHALLENGE-ICRA-2026-Online-Round.html"
+        "name": "AGIBOT 官方",
+        "url": "https://www.agibot.com/article/231/detail/73.html"
       },
       {
-        "name": "ICRA 2026 竞赛页",
-        "url": "https://2026.ieee-icra.org/program/competitions/"
-      },
-      {
-        "name": "智元 AgiBot 官网",
-        "url": "https://www.agibot.com/article/231/detail/45.html"
+        "name": "PR Newswire",
+        "url": "https://www.prnewswire.com/news-releases/agibot-world-challenge-2026-advances-embodied-ai-competition-from-simulation-to-real-robot-testing-at-icra-2026-302792634.html"
       }
     ],
     "related": [
