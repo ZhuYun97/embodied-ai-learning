@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>主题切换过渡测试</title>
+  <style>
+    /* 主题颜色变量 */
+    :root {
+      --bg: #ffffff;
+      --text: #0f172a;
+      --card-bg: #f8fafc;
+      --border: #e2e8f0;
+    }
+
+    .dark {
+      --bg: #070c18;
+      --text: #e8edf5;
+      --card-bg: #0b1322;
+      --border: #16243d;
+    }
+
+    /* 关键：为所有使用变量的元素添加过渡 */
+    html,
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    .demo-text {
+      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    h1 {
+      margin-top: 0;
+      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body>
+  <h1>主题切换过渡效果测试</h1>
+
+  <button onclick="toggleTheme()">🌓 切换主题</button>
+
+  <div class="card">
+    <h2>测试卡片</h2>
+    <p class="demo-text">
+      点击上方按钮切换主题。如果看到背景色、文字色和边框色有平滑的渐变过渡（大约0.3-0.4秒），
+      说明过渡效果正常工作。
+    </p>
+    <p class="demo-text">
+      如果切换是瞬间完成的，没有任何过渡动画，可能是浏览器缓存问题或 CSS 规则冲突。
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>技术说明</h2>
+    <ul class="demo-text">
+      <li>使用 CSS 变量存储颜色</li>
+      <li>为所有使用变量的元素添加 transition</li>
+      <li>切换主题时只改变根元素的 class</li>
+      <li>CSS 自动处理颜色的插值动画</li>
+    </ul>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+    }
+  </script>
+</body>
+</html>

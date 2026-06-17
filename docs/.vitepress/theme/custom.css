@@ -106,6 +106,135 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ============================================================
+   主题切换平滑过渡(2026-06):为关键容器添加颜色过渡
+   策略：只为大面积背景容器添加，避免与交互动画冲突
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  /* 核心布局容器的背景和颜色过渡 */
+  html,
+  body {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 导航栏 */
+  .VPNav,
+  .VPNavBar,
+  .VPLocalNav {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 侧边栏 */
+  .VPSidebar,
+  .VPSidebar .content {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 主内容区 */
+  .VPContent,
+  .VPDoc,
+  .vp-doc {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 首页容器 */
+  .VPHome {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 代码块 */
+  .vp-doc div[class*='language-'],
+  .vp-doc :not(pre) > code {
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 表格 */
+  .vp-doc table,
+  .vp-doc th,
+  .vp-doc td {
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 卡片类元素 */
+  .VPFeature,
+  .route-card,
+  .news-card,
+  blockquote {
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 文字颜色 */
+  h1, h2, h3, h4, h5, h6,
+  p, li, span, div {
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 链接 */
+  a {
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 按钮 */
+  .VPButton,
+  .thero__btn,
+  button {
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* 渐变背景元素 */
+  .thero__title-zh,
+  .hero-stat__n,
+  .thero__stat-n,
+  .VPHome .VPHero .name.clip {
+    transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+}
+
+/* ---------- 昼夜模式:整页圆形揭示过渡 ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  html.theme-transitioning::view-transition-old(root) {
+    z-index: 0;
+  }
+
+  html.theme-transitioning::view-transition-new(root) {
+    z-index: 1;
+    animation: theme-mode-reveal 0.68s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  html.theme-transitioning.theme-transition-to-light::view-transition-new(root) {
+    animation-duration: 0.58s;
+  }
+}
+
+@keyframes theme-mode-reveal {
+  from {
+    clip-path: circle(0 at var(--theme-transition-x, 100vw) var(--theme-transition-y, 0));
+  }
+  to {
+    clip-path: circle(var(--theme-transition-radius, 150vmax) at var(--theme-transition-x, 100vw) var(--theme-transition-y, 0));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
 /* ---------- 排版层级(Swiss:强对比 + 紧致字距) ---------- */
 .vp-doc h1 {
   font-weight: 800;

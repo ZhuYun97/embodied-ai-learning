@@ -2,19 +2,20 @@
   ThemeToggle —— 日夜模式切换开关(Uiverse.io @rishichawda「fluffy-robin-48」移植,
   源码取自 uiverse-io/galaxy 官方镜像)。白天 = 天蓝底 + 太阳 + 云,黑夜 = 深蓝底 +
   月亮(带陨石坑)+ 星星,按钮滑动 + 图层透明度全靠原版 CSS(:checked + svg)驱动。
-  接入:checkbox 双向绑定 VitePress isDark(写 isDark.value 即触发主题切换与持久化);
+  接入:checkbox 触发 VitePress isDark(写 isDark.value 即触发主题切换与持久化);
+  支持 View Transition:以开关中心为圆心做整页昼夜扩散揭示,不支持时走 CSS 颜色渐变兜底。
   替换桌面导航栏默认 .VPSwitchAppearance(移动端抽屉菜单仍用默认开关)。
   移植说明:galaxy 镜像省略了 <defs> 滤镜定义,为避免悬空 filter 引用在部分浏览器
   不渲染,已剥离 filter 属性(仅损失细微投影);尺寸经 font-size 缩放适配 64px 导航栏。
 -->
 <template>
-  <label id="theme-toggle-button" title="切换深浅色模式">
+  <label id="theme-toggle-button" ref="toggleButton" title="切换深浅色模式">
     <input
       id="toggle"
       type="checkbox"
       :checked="isDark"
       aria-label="切换深浅色模式"
-      @change="isDark = $event.target.checked"
+      @click.prevent="toggleTheme"
     />
     <svg viewBox="0 0 69.667 44" xmlns="http://www.w3.org/2000/svg">
       <g transform="translate(3.5 3.5)" id="Component_15_1">
@@ -65,8 +66,70 @@
 
 <script setup>
 import { useData } from 'vitepress'
+import { nextTick, ref } from 'vue'
 
 const { isDark } = useData()
+const toggleButton = ref(null)
+
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+async function applyTheme(checked) {
+  isDark.value = checked
+  await nextTick()
+}
+
+function setTransitionGeometry() {
+  const el = toggleButton.value
+  if (!el || typeof window === 'undefined') return
+
+  const rect = el.getBoundingClientRect()
+  const x = rect.left + rect.width / 2
+  const y = rect.top + rect.height / 2
+  const radius = Math.hypot(
+    Math.max(x, window.innerWidth - x),
+    Math.max(y, window.innerHeight - y)
+  )
+
+  const root = document.documentElement
+  root.style.setProperty('--theme-transition-x', `${x}px`)
+  root.style.setProperty('--theme-transition-y', `${y}px`)
+  root.style.setProperty('--theme-transition-radius', `${Math.ceil(radius)}px`)
+}
+
+async function toggleTheme() {
+  const checked = !isDark.value
+  const canViewTransition =
+    typeof document !== 'undefined' &&
+    'startViewTransition' in document &&
+    !prefersReducedMotion()
+
+  if (!canViewTransition) {
+    await applyTheme(checked)
+    return
+  }
+
+  setTransitionGeometry()
+  const root = document.documentElement
+  root.classList.add('theme-transitioning')
+  root.classList.toggle('theme-transition-to-dark', checked)
+  root.classList.toggle('theme-transition-to-light', !checked)
+
+  const transition = document.startViewTransition(() => applyTheme(checked))
+  try {
+    await transition.finished
+  } finally {
+    root.classList.remove(
+      'theme-transitioning',
+      'theme-transition-to-dark',
+      'theme-transition-to-light'
+    )
+    root.style.removeProperty('--theme-transition-x')
+    root.style.removeProperty('--theme-transition-y')
+    root.style.removeProperty('--theme-transition-radius')
+  }
+}
 </script>
 
 <style>
@@ -78,6 +141,11 @@ const { isDark } = useData()
   display: inline-block;
   width: 7em;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#theme-toggle-button svg {
+  overflow: visible;
 }
 
 /* Hide default HTML checkbox */
@@ -95,9 +163,11 @@ const { isDark } = useData()
 #sun,
 #moon,
 #cloud {
-  transition-property: all;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition-property: fill, opacity, transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.25s;
+  transition-duration: 0.48s;
 }
 
 /* night sky background */
@@ -106,6 +176,11 @@ const { isDark } = useData()
 }
 
 /* move button to right when checked */
+#button {
+  transition-duration: 0.62s;
+  transition-timing-function: cubic-bezier(0.22, 1.35, 0.36, 1);
+}
+
 #toggle:checked + svg #button {
   transform: translate(28px, 2.333px);
 }
@@ -113,35 +188,61 @@ const { isDark } = useData()
 /* show/hide sun and moon based on checkbox state */
 #sun {
   opacity: 1;
+  transform: scale(1) rotate(0deg);
 }
 
 #toggle:checked + svg #sun {
   opacity: 0;
+  transform: scale(0.72) rotate(18deg);
 }
 
 #moon {
   opacity: 0;
+  transform: scale(0.72) rotate(-14deg);
 }
 
 #toggle:checked + svg #moon {
   opacity: 1;
+  transform: scale(1) rotate(0deg);
 }
 
 /* show or hide background items on checkbox state */
 #cloud {
   opacity: 1;
+  transform: translateX(0);
 }
 
 #toggle:checked + svg #cloud {
   opacity: 0;
+  transform: translateX(9px);
 }
 
 #stars {
   opacity: 0;
+  transform: translateY(2px);
 }
 
 #toggle:checked + svg #stars {
   opacity: 1;
+  transform: translateY(0);
+}
+
+#toggle:checked + svg #stars path {
+  animation: themeStarTwinkle 0.9s ease both;
+}
+
+#toggle:checked + svg #stars path:nth-child(2n) {
+  animation-delay: 0.08s;
+}
+
+#toggle:checked + svg #stars path:nth-child(3n) {
+  animation-delay: 0.16s;
+}
+
+@keyframes themeStarTwinkle {
+  0% { opacity: 0; transform: scale(0.65); }
+  55% { opacity: 1; transform: scale(1.25); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 /* —— 站点适配:缩放进 64px 导航栏,替换默认开关(移动端抽屉菜单保留默认) —— */
@@ -159,6 +260,9 @@ const { isDark } = useData()
   #theme-toggle-button { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  #container, #patches, #stars, #button, #sun, #moon, #cloud { transition: none; }
+  #container, #patches, #stars, #button, #sun, #moon, #cloud {
+    animation: none;
+    transition: none;
+  }
 }
 </style>
