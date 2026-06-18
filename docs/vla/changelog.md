@@ -8,6 +8,9 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 ## 2026-06-18
 
+**Qwen-Robot 专题页美化**
+- 🧭 **[Qwen-Robot 系列专题](/news/qwen-robot) 改为专题介绍页版式**:新增顶部专题 hero、三分支关系图、Manip/Nav/World 三张论文卡、数据层权重矩阵与阅读路线卡;内容口径不变,但从普通 Markdown 长文升级为可扫描的新闻专题页。
+
 **首页卡片新增带电边界**
 - ⚡ **Feature 卡 + 路线卡 hover 电流描边**:按 React Bits `ElectricBorder` 移植为站内轻量 canvas 层,复用圆角路径采样 + 分形噪声位移生成抖动电弧;只在精细指针 hover/focus 时启动动画,离开后淡出并清空画布,不引入新依赖且尊重 `prefers-reduced-motion`。
 
