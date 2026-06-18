@@ -732,11 +732,15 @@ img.zoom-lightbox__content {
   --tech-grid: rgba(15, 23, 42, 0.05);
   --tech-feature-bg: rgba(248, 250, 252, 0.62);
   --tech-card-bg: rgba(255, 255, 255, 0.55);
+  --nav-flyout-bg: rgba(248, 250, 252, 0.98);
+  --nav-flyout-bg-deep: rgba(241, 245, 249, 0.96);
 }
 .dark {
   --tech-grid: rgba(148, 163, 184, 0.09);
   --tech-feature-bg: rgba(19, 28, 46, 0.5);
   --tech-card-bg: rgba(19, 28, 46, 0.42);
+  --nav-flyout-bg: rgba(7, 12, 24, 0.98);
+  --nav-flyout-bg-deep: rgba(11, 19, 34, 0.96);
 }
 
 .VPHome { position: relative; overflow: hidden; }
@@ -2100,9 +2104,11 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   position: relative;
   border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 30%, var(--vp-c-divider));
   border-radius: 10px;
-  background: var(--tech-feature-bg);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  backdrop-filter: blur(14px) saturate(1.2);
+  background:
+    linear-gradient(180deg, var(--nav-flyout-bg), var(--nav-flyout-bg-deep)),
+    var(--vp-c-bg);
+  -webkit-backdrop-filter: blur(6px) saturate(1.05);
+  backdrop-filter: blur(6px) saturate(1.05);
 }
 .VPNavBar .VPMenu::before {
   content: '';
