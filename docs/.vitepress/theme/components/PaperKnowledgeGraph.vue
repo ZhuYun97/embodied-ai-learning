@@ -323,6 +323,9 @@ function clearRouteIfHidden() {
         </g>
       </svg>
 
+    </div>
+
+    <div class="pkg-footer">
       <aside class="pkg-readout" aria-live="polite">
         <div class="ro-tag">PAPER READOUT</div>
         <template v-if="readout.node">
@@ -346,15 +349,15 @@ function clearRouteIfHidden() {
           <div class="ro-detail">节点来自首页路线卡与细读页档案;点击论文节点进入对应细读。</div>
         </template>
       </aside>
-    </div>
 
-    <div class="pkg-legend" aria-label="图例">
-      <span><i class="lg lg-track"></i>VLA / WAM 主线</span>
-      <span><i class="lg lg-route"></i>技术路线 / 范式</span>
-      <span><i class="lg lg-paper"></i>论文细读</span>
-      <span><i class="ln ln-belongs"></i>路线归属</span>
-      <span><i class="ln ln-lineage"></i>路线演化</span>
-      <span><i class="ln ln-bridge"></i>跨线桥接</span>
+      <div class="pkg-legend" aria-label="图例">
+        <span><i class="lg lg-track"></i>VLA / WAM 主线</span>
+        <span><i class="lg lg-route"></i>技术路线 / 范式</span>
+        <span><i class="lg lg-paper"></i>论文细读</span>
+        <span><i class="ln ln-belongs"></i>路线归属</span>
+        <span><i class="ln ln-lineage"></i>路线演化</span>
+        <span><i class="ln ln-bridge"></i>跨线桥接</span>
+      </div>
     </div>
   </div>
 </template>
@@ -503,16 +506,22 @@ function clearRouteIfHidden() {
   font: 700 9.5px var(--vp-font-family-mono, monospace);
   stroke-width: 3px;
 }
+.pkg-footer {
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+  padding: 12px 14px 14px;
+  border-top: 1px solid rgba(56, 189, 248, 0.14);
+  background: rgba(7, 12, 24, 0.48);
+}
 .pkg-readout {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  width: min(320px, calc(100% - 28px));
+  flex: 1 1 360px;
+  min-width: 0;
   padding: 12px 14px;
   border: 1px solid rgba(56, 189, 248, 0.28);
   border-radius: 10px;
   background: rgba(7, 12, 24, 0.95);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.38);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.05);
   font-family: var(--vp-font-family-mono, monospace);
 }
 .ro-tag {
@@ -551,9 +560,13 @@ function clearRouteIfHidden() {
 .pkg-legend {
   display: flex;
   flex-wrap: wrap;
+  flex: 0 1 390px;
   gap: 12px 16px;
-  padding: 11px 14px 13px;
-  border-top: 1px solid rgba(56, 189, 248, 0.14);
+  align-content: center;
+  padding: 12px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.52);
   color: #94a3b8;
   font: 700 11px var(--vp-font-family-mono, monospace);
 }
@@ -579,6 +592,8 @@ function clearRouteIfHidden() {
   .seg { justify-content: space-between; }
   .seg button { flex: 1; padding-inline: 7px; }
   .paper-search { margin-left: 0; min-width: 0; }
-  .pkg-readout { position: static; margin: 0 12px 12px; width: auto; }
+  .pkg-footer { flex-direction: column; padding: 12px; }
+  .pkg-readout,
+  .pkg-legend { flex-basis: auto; width: auto; }
 }
 </style>
