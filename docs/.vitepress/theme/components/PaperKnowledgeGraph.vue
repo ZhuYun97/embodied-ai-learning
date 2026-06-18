@@ -5,10 +5,27 @@ import { data as paperData } from '../../data/papers.data.mjs'
 import { ROUTE_COLORS } from '../route-colors.mjs'
 
 const W = 1180
-const H = 940
+const PAPER_H = 760
+const KNOWLEDGE_H = 900
 const VLA_SET = new Set(['离散 token', '连续 · 扩散/流匹配', '混合 · 连续回归', '分层 · 双系统/推理', '新范式探索'])
 const KNOWLEDGE_KINDS = new Set(['concept', 'data', 'benchmark', 'robot', 'org'])
 const KNOWLEDGE_RELATIONS = new Set(['concept', 'data', 'benchmark', 'robot', 'org'])
+const KNOWLEDGE_KIND_OPTIONS = [
+  { value: 'all', label: '全部知识节点' },
+  { value: 'concept', label: '知识概念' },
+  { value: 'data', label: '数据' },
+  { value: 'benchmark', label: '基准' },
+  { value: 'robot', label: '机器人本体' },
+  { value: 'org', label: '机构' },
+]
+const ZONE_LABELS = [
+  { key: 'concept', label: '知识概念层', x: 590, y: 34, anchor: 'middle' },
+  { key: 'papers', label: '关联论文泳道', x: 590, y: 176, anchor: 'middle' },
+  { key: 'data', label: '数据', x: 62, y: 184, anchor: 'start' },
+  { key: 'benchmark', label: '基准', x: 1118, y: 184, anchor: 'end' },
+  { key: 'robot', label: '本体', x: 62, y: 558, anchor: 'start' },
+  { key: 'org', label: '机构', x: 1118, y: 558, anchor: 'end' },
+]
 
 const graphMode = ref('paper')
 const trackFilter = ref('all')
@@ -236,8 +253,10 @@ const KNOWLEDGE_EDGES = [
   ['gr-dexter', 'org:seed', 'ByteDance Seed'],
 ]
 
+const KNOWLEDGE_PAPER_SET = new Set(KNOWLEDGE_EDGES.map(([slug]) => slug))
 const papers = computed(() => paperData.papers || [])
 const paperBySlug = computed(() => Object.fromEntries(papers.value.map((p) => [p.slug, p])))
+const viewHeight = computed(() => graphMode.value === 'knowledge' ? KNOWLEDGE_H : PAPER_H)
 const routeOptions = computed(() => (paperData.routes || []).filter((r) => {
   if (trackFilter.value === 'all') return true
   return trackFilter.value === 'vla' ? VLA_SET.has(r) : !VLA_SET.has(r)
@@ -251,6 +270,10 @@ function paperVisible(p) {
   if (trackFilter.value !== 'all' && p.track.toLowerCase() !== trackFilter.value) return false
   if (routeFilter.value !== 'all' && p.route !== routeFilter.value) return false
   return true
+}
+
+function paperRendered(p) {
+  return paperVisible(p) && (graphMode.value !== 'knowledge' || KNOWLEDGE_PAPER_SET.has(p.slug))
 }
 
 function knowledgeVisible(n) {
@@ -268,6 +291,9 @@ function setGraphMode(mode) {
 }
 
 function geomFor(side) {
+  if (graphMode.value === 'knowledge') {
+    return { trackX: 78, hubX: 194, minX: 300, maxX: 900 }
+  }
   if (trackFilter.value !== 'all') {
     return { trackX: 130, hubX: 132, minX: 210, maxX: 1094 }
   }
@@ -276,7 +302,16 @@ function geomFor(side) {
     : { trackX: 875, hubX: 875, minX: 638, maxX: 1112 }
 }
 
-function pathBetween(a, b) {
+function pathBetween(a, b, edge) {
+  if (edge && KNOWLEDGE_RELATIONS.has(edge.type)) {
+    const verticalPull = b.y < a.y ? -44 : 44
+    const railPull = b.x < 190 ? -64 : b.x > 990 ? 64 : 0
+    const c1x = a.x + (b.x - a.x) * 0.2
+    const c2x = b.x - railPull
+    const c1y = a.y + verticalPull
+    const c2y = b.y - verticalPull * 0.35
+    return `M ${a.x} ${a.y} C ${c1x} ${c1y} ${c2x} ${c2y} ${b.x} ${b.y}`
+  }
   const mx = (a.x + b.x) / 2
   const bend = Math.abs(a.y - b.y) < 4 ? -26 : 0
   return `M ${a.x} ${a.y} C ${mx} ${a.y + bend} ${mx} ${b.y + bend} ${b.x} ${b.y}`
@@ -284,12 +319,12 @@ function pathBetween(a, b) {
 
 function layoutKnowledgeNodes() {
   const lanes = {
-    'concept-a': { y: 660, minX: 60, maxX: 1120 },
-    'concept-b': { y: 708, minX: 60, maxX: 1120 },
-    data: { y: 772, minX: 84, maxX: 1096 },
-    benchmark: { y: 824, minX: 84, maxX: 1096 },
-    robot: { y: 876, minX: 94, maxX: 1086 },
-    org: { y: 916, minX: 94, maxX: 1086 },
+    'concept-a': { axis: 'x', y: 72, min: 88, max: 1092 },
+    'concept-b': { axis: 'x', y: 118, min: 88, max: 1092 },
+    data: { axis: 'y', x: 62, min: 212, max: 452 },
+    benchmark: { axis: 'y', x: 1118, min: 212, max: 500 },
+    robot: { axis: 'y', x: 62, min: 586, max: 806 },
+    org: { axis: 'y', x: 1118, min: 586, max: 834 },
   }
   const grouped = new Map()
   for (const n of KNOWLEDGE_NODES.filter(knowledgeVisible)) {
@@ -301,11 +336,11 @@ function layoutKnowledgeNodes() {
   for (const [lane, list] of grouped.entries()) {
     const g = lanes[lane] || lanes.data
     list.forEach((n, i) => {
-      const x = list.length === 1 ? (g.minX + g.maxX) / 2 : g.minX + (i / (list.length - 1)) * (g.maxX - g.minX)
+      const pos = list.length === 1 ? (g.min + g.max) / 2 : g.min + (i / (list.length - 1)) * (g.max - g.min)
       out.push({
         ...n,
-        x,
-        y: g.y,
+        x: g.axis === 'x' ? pos : g.x,
+        y: g.axis === 'x' ? g.y : pos,
         r: 6,
         w: n.kind === 'org' ? 106 : 112,
         h: 25,
@@ -326,20 +361,22 @@ const graph = computed(() => {
     ? ['vla', 'wam']
     : [trackFilter.value]
 
-  for (const side of sides) {
-    const trackLabel = side === 'vla' ? 'VLA' : 'WAM'
-    const geom = geomFor(side)
-    nodeMap.set(`track:${side}`, {
-      id: `track:${side}`,
-      kind: 'track',
-      label: trackLabel,
-      detail: side === 'vla' ? '视觉-语言-动作策略' : '世界-行动模型',
-      x: geom.trackX,
-      y: 52,
-      r: 25,
-      color: side === 'vla' ? '#38bdf8' : '#c084fc',
-      track: trackLabel,
-    })
+  if (graphMode.value !== 'knowledge') {
+    for (const side of sides) {
+      const trackLabel = side === 'vla' ? 'VLA' : 'WAM'
+      const geom = geomFor(side)
+      nodeMap.set(`track:${side}`, {
+        id: `track:${side}`,
+        kind: 'track',
+        label: trackLabel,
+        detail: side === 'vla' ? '视觉-语言-动作策略' : '世界-行动模型',
+        x: geom.trackX,
+        y: 52,
+        r: 25,
+        color: side === 'vla' ? '#38bdf8' : '#c084fc',
+        track: trackLabel,
+      })
+    }
   }
 
   const groupedRoutes = {
@@ -351,8 +388,12 @@ const graph = computed(() => {
     const list = groupedRoutes[side]
     if (!list.length) continue
     const geom = geomFor(side)
-    const startY = trackFilter.value === 'all' ? (side === 'vla' ? 150 : 128) : 132
-    const gap = trackFilter.value === 'all' ? (side === 'vla' ? 112 : 92) : 94
+    const startY = graphMode.value === 'knowledge'
+      ? (side === 'vla' ? 204 : 506)
+      : trackFilter.value === 'all' ? (side === 'vla' ? 150 : 128) : 132
+    const gap = graphMode.value === 'knowledge'
+      ? (side === 'vla' ? 50 : 44)
+      : trackFilter.value === 'all' ? (side === 'vla' ? 112 : 92) : 94
     list.forEach((route, ri) => {
       const routeId = `route:${route}`
       const color = ROUTE_COLORS[route] || '#94a3b8'
@@ -366,15 +407,21 @@ const graph = computed(() => {
         x: geom.hubX,
         y,
         r: 17,
+        w: graphMode.value === 'knowledge' ? 178 : 150,
+        h: graphMode.value === 'knowledge' ? 30 : 34,
         color,
         track: side === 'vla' ? 'VLA' : 'WAM',
       })
-      edges.push({ id: `track-${route}`, type: 'track', source: `track:${side}`, target: routeId, label: '路线' })
-      const src = (paperData.byRoute?.[route] || []).filter(paperVisible)
+      if (graphMode.value !== 'knowledge') {
+        edges.push({ id: `track-${route}`, type: 'track', source: `track:${side}`, target: routeId, label: '路线' })
+      }
+      const src = (paperData.byRoute?.[route] || []).filter(paperRendered)
       src.forEach((p, pi) => {
         const t = src.length === 1 ? 0.5 : pi / (src.length - 1)
         const x = geom.minX + t * (geom.maxX - geom.minX)
-        const wave = src.length > 7 ? (pi % 2 ? 18 : -18) : 0
+        const wave = graphMode.value === 'knowledge'
+          ? (src.length > 6 ? (pi % 2 ? 8 : -8) : 0)
+          : (src.length > 7 ? (pi % 2 ? 18 : -18) : 0)
         const paperId = `paper:${p.slug}`
         nodeMap.set(paperId, {
           ...p,
@@ -384,12 +431,14 @@ const graph = computed(() => {
           detail: p.arxivId ? `arXiv:${p.arxivId}` : '日期待核',
           x,
           y: y + wave,
-          r: IMPORTANT.has(p.slug) ? 7.5 : 5.8,
+          r: graphMode.value === 'knowledge' ? (IMPORTANT.has(p.slug) ? 6.6 : 5.2) : (IMPORTANT.has(p.slug) ? 7.5 : 5.8),
           color,
           track: p.track,
         })
-        edges.push({ id: `belongs-${p.slug}`, type: 'belongs', source: routeId, target: paperId, label: '归属' })
-        if (pi > 0) {
+        if (graphMode.value !== 'knowledge') {
+          edges.push({ id: `belongs-${p.slug}`, type: 'belongs', source: routeId, target: paperId, label: '归属' })
+        }
+        if (pi > 0 && graphMode.value !== 'knowledge') {
           edges.push({
             id: `lineage-${src[pi - 1].slug}-${p.slug}`,
             type: 'lineage',
@@ -472,6 +521,7 @@ function edgeDim(e) {
 
 function showLabel(n) {
   if (KNOWLEDGE_KINDS.has(n.kind)) return true
+  if (graphMode.value === 'knowledge' && n.kind === 'paper') return activeId.value === n.id || (q.value && matchesQuery(n))
   return n.kind !== 'paper' || IMPORTANT.has(n.slug) || activeId.value === n.id || (q.value && matchesQuery(n))
 }
 
@@ -489,7 +539,7 @@ const readout = computed(() => {
   const k = graph.value.nodes.filter((n) => KNOWLEDGE_KINDS.has(n.kind)).length
   const b = visibleEdges.value.filter((e) => e.type === 'bridge').length
   const ke = visibleEdges.value.filter((e) => KNOWLEDGE_RELATIONS.has(e.type)).length
-  return { stat: { papers: p, routes: r, knowledge: k, knowledgeEdges: ke, bridges: b, edges: visibleEdges.value.length } }
+  return { stat: { mode: graphMode.value, papers: p, routes: r, knowledge: k, knowledgeEdges: ke, bridges: b, edges: visibleEdges.value.length } }
 })
 
 function clearRouteIfHidden() {
@@ -517,7 +567,7 @@ function handleNodeKey(e, n) {
 </script>
 
 <template>
-  <div class="pkg">
+  <div :class="['pkg', 'pkg--' + graphMode]">
     <div class="pkg-toolbar">
       <div class="seg" role="group" aria-label="图谱粒度">
         <button :class="{ on: graphMode === 'knowledge' }" @click="setGraphMode('knowledge')">多类型知识</button>
@@ -533,12 +583,7 @@ function handleNodeKey(e, n) {
         <option v-for="r in routeOptions" :key="r" :value="r">{{ r }}</option>
       </select>
       <select v-if="graphMode === 'knowledge'" v-model="knowledgeKindFilter" class="route-select route-select--kind" aria-label="知识节点类型">
-        <option value="all">全部知识节点</option>
-        <option value="concept">知识概念</option>
-        <option value="data">数据</option>
-        <option value="benchmark">基准</option>
-        <option value="robot">机器人本体</option>
-        <option value="org">机构</option>
+        <option v-for="item in KNOWLEDGE_KIND_OPTIONS" :key="item.value" :value="item.value">{{ item.label }}</option>
       </select>
       <div class="seg seg--relation" role="group" aria-label="关系类型">
         <button :class="{ on: relationFilter === 'all' }" @click="relationFilter = 'all'">全部关系</button>
@@ -551,7 +596,7 @@ function handleNodeKey(e, n) {
     </div>
 
     <div class="pkg-stage">
-      <svg :viewBox="`0 0 ${W} ${H}`" class="pkg-svg" role="img" aria-label="VLA 与 WAM 论文知识图谱">
+      <svg :viewBox="`0 0 ${W} ${viewHeight}`" class="pkg-svg" role="img" aria-label="VLA 与 WAM 论文知识图谱">
         <defs>
           <filter id="pkg-glow" x="-80%" y="-80%" width="260%" height="260%">
             <feGaussianBlur stdDeviation="3.2" result="b" />
@@ -563,15 +608,26 @@ function handleNodeKey(e, n) {
         </defs>
 
         <g class="pkg-grid" aria-hidden="true">
-          <path v-for="x in 11" :key="'x' + x" :d="`M ${x * 98} 84 V 920`" />
-          <path v-for="y in 10" :key="'y' + y" :d="`M 42 ${y * 86 + 46} H 1138`" />
+          <path v-for="x in 11" :key="'x' + x" :d="`M ${x * 98} 84 V ${viewHeight - 34}`" />
+          <path v-for="y in (graphMode === 'knowledge' ? 10 : 7)" :key="'y' + y" :d="`M 42 ${y * (graphMode === 'knowledge' ? 82 : 92) + 46} H 1138`" />
+        </g>
+
+        <g v-if="graphMode === 'knowledge'" class="pkg-zones" aria-hidden="true">
+          <text
+            v-for="z in ZONE_LABELS"
+            :key="z.key"
+            :x="z.x"
+            :y="z.y"
+            :text-anchor="z.anchor"
+            class="zone-label"
+          >{{ z.label }}</text>
         </g>
 
         <g class="pkg-edges">
           <path
             v-for="e in visibleEdges"
             :key="e.id"
-            :d="pathBetween(graph.nodeMap.get(e.source), graph.nodeMap.get(e.target))"
+            :d="pathBetween(graph.nodeMap.get(e.source), graph.nodeMap.get(e.target), e)"
             :class="['pkg-edge', 'edge-' + e.type, { dim: edgeDim(e), active: activeId && (e.source === activeId || e.target === activeId) }]"
           />
         </g>
@@ -607,7 +663,7 @@ function handleNodeKey(e, n) {
               :role="n.link ? 'link' : n.kind === 'route' ? 'button' : undefined"
             >
               <circle v-if="n.kind === 'track'" :cx="n.x" :cy="n.y" :r="n.r" class="node-hub" />
-              <rect v-else-if="n.kind === 'route'" :x="n.x - 75" :y="n.y - 17" width="150" height="34" rx="8" class="node-route" />
+              <rect v-else-if="n.kind === 'route'" :x="n.x - n.w / 2" :y="n.y - n.h / 2" :width="n.w" :height="n.h" rx="8" class="node-route" />
               <rect v-else :x="n.x - n.w / 2" :y="n.y - n.h / 2" :width="n.w" :height="n.h" :rx="n.kind === 'concept' ? 13 : 7" class="node-knowledge" />
               <text :x="n.x" :y="n.y + 4" :class="n.kind === 'track' ? 'track-label' : n.kind === 'route' ? 'route-label' : 'knowledge-label'">{{ n.label }}</text>
             </g>
@@ -634,14 +690,22 @@ function handleNodeKey(e, n) {
           </div>
         </template>
         <template v-else>
-          <div class="ro-name">{{ readout.stat.papers }} 篇论文 · {{ readout.stat.knowledge }} 个知识节点</div>
-          <div class="ro-meta">
-            <span>{{ readout.stat.edges }} 条可视关系</span>
-            <span>{{ readout.stat.knowledgeEdges }} 条知识关联</span>
-            <span>{{ readout.stat.routes }} 条路线</span>
-            <span>{{ readout.stat.bridges }} 条跨线桥接</span>
-          </div>
-          <div class="ro-detail">论文节点来自首页路线卡与细读页档案;知识节点人工标注概念、数据、基准、本体和机构关系,点击可进入对应专题或细读。</div>
+          <template v-if="readout.stat.mode === 'knowledge'">
+            <div class="ro-name">{{ readout.stat.papers }} 篇关联论文 · {{ readout.stat.knowledge }} 个知识节点</div>
+            <div class="ro-meta">
+              <span>{{ readout.stat.knowledgeEdges }} 条知识关联</span>
+              <span>{{ readout.stat.routes }} 条路线泳道</span>
+            </div>
+            <div class="ro-detail">知识视图只显示已有概念/数据/基准/本体/机构关联的论文;悬停任一节点会聚焦它的一跳关系。</div>
+          </template>
+          <template v-else>
+            <div class="ro-name">{{ readout.stat.papers }} 篇论文 · {{ readout.stat.routes }} 条路线</div>
+            <div class="ro-meta">
+              <span>{{ readout.stat.edges }} 条可视关系</span>
+              <span>{{ readout.stat.bridges }} 条跨线桥接</span>
+            </div>
+            <div class="ro-detail">论文网络按 VLA/WAM 主线、技术路线与路线演化组织;点击论文节点进入对应细读。</div>
+          </template>
         </template>
       </aside>
 
@@ -662,6 +726,10 @@ function handleNodeKey(e, n) {
 </template>
 
 <style scoped>
+:global(.vp-doc._embodied-ai-learning_ecosystem_paper-graph) {
+  overflow-x: clip;
+}
+
 .pkg {
   margin: 14px 0 28px;
   border: 1px solid rgba(56, 189, 248, 0.22);
@@ -670,6 +738,7 @@ function handleNodeKey(e, n) {
     radial-gradient(circle at 24% 10%, rgba(34, 211, 238, 0.13), transparent 32%),
     radial-gradient(circle at 80% 22%, rgba(192, 132, 252, 0.12), transparent 30%),
     #080d19;
+  contain: layout paint;
   overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.04), 0 16px 42px rgba(8, 13, 28, 0.32);
 }
@@ -732,6 +801,18 @@ function handleNodeKey(e, n) {
   stroke: rgba(148, 163, 184, 0.045);
   stroke-width: 1;
 }
+.pkg-zones {
+  pointer-events: none;
+}
+.zone-label {
+  fill: rgba(125, 211, 252, 0.62);
+  font: 800 11px var(--vp-font-family-mono, monospace);
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: #070c18;
+  stroke-width: 4px;
+  text-transform: uppercase;
+}
 .pkg-edge {
   fill: none;
   stroke-width: 1.35;
@@ -768,6 +849,17 @@ function handleNodeKey(e, n) {
 .edge-org {
   stroke: rgba(167, 139, 250, 0.54);
   stroke-width: 1.55;
+}
+.pkg--knowledge .edge-concept,
+.pkg--knowledge .edge-data,
+.pkg--knowledge .edge-benchmark,
+.pkg--knowledge .edge-robot,
+.pkg--knowledge .edge-org {
+  opacity: 0.24;
+  stroke-width: 1.2;
+}
+.pkg--knowledge .node-paper .node-core {
+  stroke-width: 1.9;
 }
 .pkg-edge.dim { opacity: 0.08; }
 .pkg-edge.active { opacity: 1; stroke-width: 3; filter: url(#pkg-glow); }
