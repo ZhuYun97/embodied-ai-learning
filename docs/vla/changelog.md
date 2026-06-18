@@ -16,6 +16,7 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 - 📄 新增 **VLA +2 / WAM +1**:[Qwen-RobotManip](/vla/papers/qwen-robotmanip)(Qwen,2606.17846,操作 VLA:Qwen3.5-4B + flow-matching DiT,80 维统一 state-action、camera-frame EEF delta、约 38,100h 语料 ⚠️)、[Qwen-RobotNav](/vla/papers/qwen-robotnav)(Qwen,2606.18112,导航执行器:Qwen3-VL + waypoint head,task mode + observation context 可重配置 ⚠️)、[Qwen-RobotWorld](/wam/papers/qwen-robotworld)(Qwen,2606.17030,语言条件视频世界模型:Qwen2.5-VL action encoder + 60 层 double-stream MMDiT + EWK 8.6M video-text pairs ⚠️)。
 - 🧭 **不做厂商专题页**:按用户确认,不新建"Qwen-Robot 专题"入口;改为在 [Qwen-VLA](/vla/papers/qwen-vla) 页内新增"Qwen-Robot 系列后续"关系表,并把三篇分别归到 VLA 连续操作、VLA 分层/导航、WAM 基座/数据引擎。
 - 🔗 **全站接线**:首页路线卡、VLA/WAM 侧栏、VLA 主报告前沿表、VLA/WAM 规格对比、时间线、参考文献同步更新;WAM 规格页 28→29,首页细读计数更新为 VLA 45 + WAM 29。
+- 📰 **最新动态同步收录**:在 [具身智能新闻](/news/) 新增 Qwen-RobotManip / Qwen-RobotNav / Qwen-RobotWorld 三条论文动态,每条附 arXiv、官方博客与对应细读入口。
 
 ## 2026-06-13
 

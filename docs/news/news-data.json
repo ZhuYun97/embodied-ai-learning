@@ -1,5 +1,121 @@
 [
   {
+    "id": "qwen-robotmanip-technical-report-20260616",
+    "title": "Qwen-RobotManip 技术报告:对齐先于规模的操作 VLA 基座",
+    "date": "2026-06-16",
+    "fetched_at": "2026-06-18",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模型发布",
+      "VLA 模型",
+      "Qwen-Robot"
+    ],
+    "summary": "**Qwen-RobotManip** 发布技术报告(arXiv:2606.17846),把 Qwen3.5-4B 视觉语言主干接入 flow-matching DiT 动作专家,面向机器人操作构建统一 VLA 基座。它的重点不是单纯堆数据,而是先做多本体对齐:80 维 canonical state-action 表示、camera-frame EEF delta、human-to-robot synthesis,把开源机器人数据与人类第一人称视频组织成约 **38,100 小时**操作预训练语料。⚠️ LIBERO / RoboTwin / RoboChallenge 等成绩均为作者自评,尚待第三方复现。",
+    "sources": [
+      {
+        "name": "arXiv:2606.17846",
+        "url": "https://arxiv.org/abs/2606.17846"
+      },
+      {
+        "name": "Qwen 官方博客",
+        "url": "https://qwen.ai/blog?id=qwen-robotmanip"
+      },
+      {
+        "name": "GitHub:QwenLM/Qwen-RobotManip",
+        "url": "https://github.com/QwenLM/Qwen-RobotManip"
+      }
+    ],
+    "related": [
+      {
+        "label": "Qwen-RobotManip 细读",
+        "url": "/vla/papers/qwen-robotmanip"
+      },
+      {
+        "label": "Qwen-VLA 细读",
+        "url": "/vla/papers/qwen-vla"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "qwen-robotnav-technical-report-20260616",
+    "title": "Qwen-RobotNav 技术报告:把导航模型做成可重配置的 agent 执行器",
+    "date": "2026-06-16",
+    "fetched_at": "2026-06-18",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模型发布",
+      "VLA 模型",
+      "Qwen-Robot"
+    ],
+    "summary": "**Qwen-RobotNav** 发布技术报告(arXiv:2606.18112),基于 Qwen3-VL 做导航基础模型,把 VLN、PointNav、ObjNav、Tracking 与自动驾驶统一成 waypoint trajectory prediction。它的关键是 **task-adaptive observation encoding**:推理时可调 task mode、视觉 token budget、时间衰减、相机权重和采样模式,让上层 planner 能把它当作可重配置的导航执行器调用。⚠️ VLN-CE、NAVSIM、真实机器人 demo 等结果均为作者报告,不应和 manipulation 成功率混比。",
+    "sources": [
+      {
+        "name": "arXiv:2606.18112",
+        "url": "https://arxiv.org/abs/2606.18112"
+      },
+      {
+        "name": "Qwen 官方博客",
+        "url": "https://qwen.ai/blog?id=qwen-robotnav"
+      },
+      {
+        "name": "GitHub:QwenLM/Qwen-RobotNav",
+        "url": "https://github.com/QwenLM/Qwen-RobotNav"
+      }
+    ],
+    "related": [
+      {
+        "label": "Qwen-RobotNav 细读",
+        "url": "/vla/papers/qwen-robotnav"
+      },
+      {
+        "label": "Qwen-VLA 细读",
+        "url": "/vla/papers/qwen-vla"
+      }
+    ],
+    "bot": false
+  },
+  {
+    "id": "qwen-robotworld-technical-report-20260615",
+    "title": "Qwen-RobotWorld 技术报告:用语言条件视频生成统一 embodied world modeling",
+    "date": "2026-06-15",
+    "fetched_at": "2026-06-18",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模型发布",
+      "世界模型",
+      "Qwen-Robot"
+    ],
+    "summary": "**Qwen-RobotWorld** 发布技术报告(arXiv:2606.17030),定位为 Qwen-Robot 系列里的世界模型 / 数据引擎:用自然语言作为统一 action interface,从当前观测和语言动作描述生成未来视觉轨迹。模型采用冻结 Qwen2.5-VL action encoder + Wan-VAE + 60 层 double-stream MMDiT,训练数据为 **EWK:8.6M video-text pairs / 200M+ frames**,覆盖 manipulation、driving、indoor navigation 与 human-to-robot transfer。⚠️ EWMBench / DreamGen / WorldModelBench 等分数衡量视频世界模型质量,不是机器人策略成功率。",
+    "sources": [
+      {
+        "name": "arXiv:2606.17030",
+        "url": "https://arxiv.org/abs/2606.17030"
+      },
+      {
+        "name": "Qwen 官方博客",
+        "url": "https://qwen.ai/blog?id=qwen-robotworld"
+      }
+    ],
+    "related": [
+      {
+        "label": "Qwen-RobotWorld 细读",
+        "url": "/wam/papers/qwen-robotworld"
+      },
+      {
+        "label": "论文知识图谱",
+        "url": "/ecosystem/paper-graph"
+      }
+    ],
+    "bot": false
+  },
+  {
     "id": "genesis-ai-eno-general-purpose-robot-20260616",
     "title": "Genesis AI 发布 Eno:非人形轮式双臂通用机器人,主打工业先落地",
     "date": "2026-06-16",
