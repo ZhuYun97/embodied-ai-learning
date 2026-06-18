@@ -47,6 +47,10 @@ Qwen-RobotManip 不是单纯数据集论文,也不是 Qwen-VLA 的小改版。�
 
 ## 2. 方法与架构
 
+[![Qwen-RobotManip 官方框架图:Qwen-VL 主干、上下文 token 与 flow-matching DiT 动作头](/paper-images/qwen-robotmanip_arch.png)](/paper-images/qwen-robotmanip_arch.png)
+
+> **图注(据原文 Figure 3 转述)**:Qwen-RobotManip 用 Qwen-VL 同时编码多视角视觉 token、结构化本体 prompt 与历史上下文 token,再把最后层 hidden states 通过交替 cross-attention 注入 DiT 动作头。右侧 DiT 在 state + noisy actions 上预测 flow-matching velocity field;下方两块分别对应 **80 维统一 state-action 表示** 与 **camera-frame EEF delta**。也就是说,这张图把本页后面三件事连在一起:表示对齐、历史上下文注入、以及面向多本体的 EEF 运动对齐。
+
 ### 2.1 Qwen-VL 主干 + DiT 动作专家
 
 模型采用解耦式架构:
@@ -123,5 +127,6 @@ Qwen-RobotManip 不是单纯数据集论文,也不是 Qwen-VLA 的小改版。�
 - 论文:Qwen-RobotManip Technical Report: Alignment Unlocks Scale for Robotic Manipulation Foundation Models. arXiv:2606.17846(v1 2026-06-16, v2 2026-06-17). <https://arxiv.org/abs/2606.17846>
 - 官方博客:<https://qwen.ai/blog?id=qwen-robotmanip>
 - GitHub:<https://github.com/QwenLM/Qwen-RobotManip>
+- 架构图:本仓库 `docs/public/paper-images/qwen-robotmanip_arch.png`(arXiv 源码 `figures/method-0616.pdf`,原文 Figure 3 方法总览图)
 
 > 说明:本页数字来自 arXiv 技术报告与作者公开页面,均按作者自评 ⚠️ 处理;尚未见第三方统一复现。

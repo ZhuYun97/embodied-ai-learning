@@ -8,6 +8,9 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 ## 2026-06-18
 
+**Qwen-RobotManip 细读补回官方框架图**
+- 🖼️ **[Qwen-RobotManip 细读](/vla/papers/qwen-robotmanip) 恢复原文 Figure 3 方法框架图**:从 arXiv 源码抽取 `method-0616.pdf` 并转为站内 PNG,放回“方法与架构”小节,补充 Qwen-VL 主干、历史上下文 token、DiT 动作头、80 维 state-action 表示与 camera-frame EEF delta 的图注解读。
+
 **Qwen-Robot 专题页美化**
 - 🧭 **[Qwen-Robot 系列专题](/news/qwen-robot) 改为专题介绍页版式**:新增顶部专题 hero、三分支关系图、Manip/Nav/World 三张论文卡、数据层权重矩阵与阅读路线卡;内容口径不变,但从普通 Markdown 长文升级为可扫描的新闻专题页。
 
