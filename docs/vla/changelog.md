@@ -8,6 +8,9 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 ## 2026-06-18
 
+**白底论文图暗色模式优化**
+- 🌘 **白底框架图在夜晚模式下降亮显示**:对 `paper-images` 论文图资源增加暗色模式专用显示层,白底图自动降低亮度并包裹深色缓冲边框,避免大面积白底刺眼;明亮模式保持原图显示。
+
 **Qwen-RobotManip 细读补回官方框架图**
 - 🖼️ **[Qwen-RobotManip 细读](/vla/papers/qwen-robotmanip) 恢复原文 Figure 3 方法框架图**:从 arXiv 源码抽取 `method-0616.pdf` 并转为站内 PNG,放回“方法与架构”小节,补充 Qwen-VL 主干、历史上下文 token、DiT 动作头、80 维 state-action 表示与 camera-frame EEF delta 的图注解读。
 
