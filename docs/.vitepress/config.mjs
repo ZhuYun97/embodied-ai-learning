@@ -260,7 +260,7 @@ export default withMermaid(defineConfig({
       },
       {
         text: 'VLA 调研',
-        activeMatch: '^/vla/($|papers/(?!(getting-started|embodied-data|data-processing|training-pipeline|benchmarks|robots|glossary|references|resources|timeline|xiaohongshu)($|/)))',
+        activeMatch: '^/vla/($|papers/(?!(getting-started|embodied-data|data-processing|training-pipeline|benchmarks|robots|motion-control|glossary|references|resources|timeline|xiaohongshu)($|/)))',
         items: [
           {
             text: '主入口',
@@ -316,7 +316,7 @@ export default withMermaid(defineConfig({
       },
       {
         text: '具身基础',
-        activeMatch: '^/vla/(papers/(getting-started|embodied-data|data-processing|training-pipeline|benchmarks|robots|glossary|references|resources)|guide)',
+        activeMatch: '^/vla/(papers/(getting-started|embodied-data|data-processing|training-pipeline|benchmarks|robots|motion-control|glossary|references|resources)|guide)',
         items: [
           {
             text: '学习路径',
@@ -334,6 +334,7 @@ export default withMermaid(defineConfig({
               { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
               { text: '评测基准全景', link: '/vla/papers/benchmarks' },
               { text: '实验机器人本体', link: '/vla/papers/robots' },
+              { text: '运控算法基础', link: '/vla/papers/motion-control' },
             ],
           },
           {
@@ -383,6 +384,7 @@ export default withMermaid(defineConfig({
             { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
             { text: '评测基准全景', link: '/vla/papers/benchmarks' },
             { text: '实验机器人本体', link: '/vla/papers/robots' },
+            { text: '运控算法基础', link: '/vla/papers/motion-control' },
           ],
         },
         {
@@ -576,6 +578,7 @@ export default withMermaid(defineConfig({
             { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
             { text: '评测基准全景', link: '/vla/papers/benchmarks' },
             { text: '实验机器人本体', link: '/vla/papers/robots' },
+            { text: '运控算法基础', link: '/vla/papers/motion-control' },
           ],
         },
         {

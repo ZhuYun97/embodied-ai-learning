@@ -84,6 +84,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | 具身数据处理 | 清洗 / 标注 / 动作&观测处理 / 伪标签 / 配比 / 格式 | 从原始采集到可训练样本的处理流水线:归一化/分词/分块、IDM/潜动作伪标签、Re-Mix/n^0.43 配比、RLDS/LeRobot 格式 | [→ 专题](papers/data-processing.md) |
 | 数据集与基准 | SimplerEnv / LIBERO / CALVIN / RoboCasa | 四大评测全景 + 逐模型成绩表(含 RoboCasa 同口径排行榜) | [→ 专题](papers/benchmarks.md) |
 | 实验机器人本体 | 单臂 / 双臂 / 人形 / 跨本体 | 19 个实验本体对照表(平台/厂商/形态/DoF/关联模型与数据集)+ 跨本体迁移要点 | [→ 专题](papers/robots.md) |
+| 运控算法基础 | 坐标系 / IK / 轨迹生成 / MPC / WBC / 阻抗力控 | 从 VLA/WAM 动作输出到真机执行:动作接口、运动学约束、接触控制、实时频率与安全兜底 | [→ 专题](papers/motion-control.md) |
 
 **横切分析专题(跨模型对照,重组本站已核查内容)**
 
