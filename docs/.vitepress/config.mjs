@@ -252,6 +252,7 @@ export default withMermaid(defineConfig({
         activeMatch: '^/(news/|vla/(changelog|papers/(timeline|xiaohongshu)))',
         items: [
           { text: '具身新闻', link: '/news/' },
+          { text: 'Qwen-Robot 系列专题', link: '/news/qwen-robot' },
           { text: '发展时间线', link: '/vla/papers/timeline' },
           { text: '更新日志', link: '/vla/changelog' },
           { text: '小红书具身内容精选', link: '/vla/papers/xiaohongshu' },
