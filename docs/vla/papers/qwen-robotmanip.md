@@ -6,7 +6,7 @@ title: Qwen-RobotManip 细读
 # Qwen-RobotManip:对齐先于规模的操作 VLA 基座
 
 > **论文**: Qwen-RobotManip Technical Report: Alignment Unlocks Scale for Robotic Manipulation Foundation Models  
-> **arXiv**: [2606.17846](https://arxiv.org/abs/2606.17846)(v1 2026-06-16; v2 2026-06-17) · **项目**: [QwenLM/Qwen-RobotManip](https://github.com/QwenLM/Qwen-RobotManip) · 官方博客: <https://qwen.ai/blog?id=qwen-robotmanip>  
+> **arXiv**: [2606.17846](https://arxiv.org/abs/2606.17846)(v1 2026-06-16; v2 2026-06-17) · **项目**: [QwenLM/Qwen-RobotManip](https://github.com/QwenLM/Qwen-RobotManip) · **官方发布**: [Qwen 博客](https://qwen.ai/blog?id=qwen-robotmanip) / [PDF](https://qianwen-res.oss-accelerate.aliyuncs.com/qwenrobot/papers/Qwen_RobotManip.pdf)<br>
 > **路线**: 连续操作 VLA · Qwen3.5-4B backbone + flow-matching DiT action expert · 多本体 state-action 对齐 · human-to-robot 数据合成
 
 > [← 返回主报告](../index.md)
@@ -30,6 +30,18 @@ Qwen-RobotManip 不是单纯数据集论文,也不是 Qwen-VLA 的小改版。�
 一句话:它把 Qwen-VLA 的"统一基座"往**操作数据工程和跨本体对齐**方向推进了一步。
 
 ---
+
+## 官方博客补充:它在 Qwen-Robot Suite 里的角色
+
+Qwen 官方博客在 2026-06-16 把 Qwen-RobotManip 作为 **Release** 发布,并把它放回 [Qwen-Robot Suite](https://qwen.ai/blog?id=qwen-robotsuite) 的语境里:RobotManip 不是孤立模型,而是 Qwen-Robot 系列里负责**机器人操作(manipulation)** 的分支。
+
+博客相比论文更强调三点:
+
+1. **发布叙事**:语言/多模态基础模型能 scaling,是因为异构数据可以被统一对齐、低成本数据能互相增强;机器人操作要复用这条路,必须同时解决本体、传感器、任务域和动作格式的异构性。
+2. **Qwen-Omni 联动 demo**:官方展示了 Qwen-Omni 观察场景、用语音随机提出操作任务并实时判断执行结果,Qwen-RobotManip 在没有预定义任务列表的情况下执行这些指令。这个 demo 更像开放式指令跟随展示,不等同于独立 benchmark。
+3. **真机泛化口径**:官方页面把"新场景、未见语言指令、跨构型迁移"作为真机亮点,并特别强调 RoboChallenge Table30 v1 通用赛道 **45% SR / 59.83 process score**、排名第 1、领先第三名 20%。
+
+所以这页解读的重点可以再收紧一点:Qwen-RobotManip 的关键词不是"更大的机械臂数据",而是 **alignment + scale**。先让多源操作数据在统一接口里不打架,再让 3.8 万小时级数据真正发挥规模效应。
 
 ## 1. 定位:为什么不是纯数据工作
 
@@ -81,10 +93,10 @@ Qwen-RobotManip 不是单纯数据集论文,也不是 Qwen-VLA 的小改版。�
 
 | 来源 | 规模/作用 |
 |---|---|
-| 开源单臂/双臂/ALOHA/人形数据 | 真实机器人轨迹,包括 OXE、RoboMIND、DROID、RH20T 等 |
-| 人类第一人称手部视频 | 通过 MANO / keypoint 等中间表征抽取人手动作 |
-| **human-to-robot synthesis** | 把人类演示重定向并渲染到 **15 个 dual-arm 平台**,形成约 **24,808 小时**合成示范 |
-| 清洗与一致性检查 | 趋势对齐、极值移除、FK 一致性、base-frame alignment 等 |
+| 开源机器人数据 | 约 **11,420 小时**,覆盖单臂、双臂、ALOHA、移动操作等真实机器人轨迹,包括 OXE、RoboMIND、DROID、RH20T 等 |
+| 人类第一人称手部视频 | 约 **1,933 小时**,通过 MANO / keypoint 等中间表征抽取人手动作和物体交互先验 |
+| **human-to-robot synthesis** | 把人类演示经动作重定向、手部去除/补绘、仿真渲染和深度辅助融合迁移到 **15 个机器人本体/平台**,形成约 **24,808 小时**合成示范 |
+| 清洗与一致性检查 | 官方博客概括为 5 个 state-action 过滤阶段 + 3 个跨模态检查;论文细节包括趋势对齐、极值移除、FK 一致性、base-frame alignment 等 |
 
 这部分是它相对 Qwen-VLA 更"数据层"的地方:重点不只是收集数据,而是把数据变成**同一 action/state 接口可以吸收的训练信号**。
 
@@ -98,12 +110,14 @@ Qwen-RobotManip 不是单纯数据集论文,也不是 Qwen-VLA 的小改版。�
 | LIBERO-Plus | 视觉/相机/机器人初始位姿等扰动 | 对 π0.5: **91.4 vs 84.4** ⚠️ |
 | RoboTwin-Clean2Rand Hard | clean 训练、randomized 测试 | 对 π0.5: **69.4 vs 47.9** ⚠️ |
 | EBench | Isaac Sim 室内操作泛化 | 对 π0.5: **45.6 vs 27.1** ⚠️ |
-| RoboCasa365 | 厨房长程/原子操作 | 对 π0.5: **35.9 vs 16.9** ⚠️ |
-| RoboTwin-IF | 新 instruction-following benchmark | 对 π0.5: **72.2 vs 49.6** ⚠️ |
+| RoboCasa365 | 厨房长程/原子操作 | 总分 **35.9**;Composite-Unseen **14.9%**,官方称约为次优的 3 倍 ⚠️ |
+| RoboTwin-IF | 新 instruction-following benchmark | 对 π0.5: **72.2 vs 49.6**(官方博客写作约 72.0,+22.4) ⚠️ |
 | RoboTwin-XE | zero-shot cross-embodiment | camera-frame EEF 平均 **23.9%**,优于 joint-space 口径 ⚠️ |
-| RoboChallenge Table30 v1 | generalist track | 作者称第 1,相对提升 20% ⚠️ |
+| RoboChallenge Table30 v1 | generalist track | **45% SR / 59.83 process score**,作者称第 1,领先第三名 20% ⚠️ |
 
-真机覆盖 AgileX ALOHA、Franka、UR、ARX,包括 ID/OOD、few-shot adaptation 和 zero-shot cross-embodiment transfer。仍需注意:这些真机结果也是作者报告,且不同平台任务口径不完全可横比。
+官方博客还补了更面向读者的真机口径:在桌面操作 ID/OOD 设置中分别报告 **88.6% / 87.5%** 成功率;在 130 条遥操作示范的 few-shot adaptation 中多数任务优于基线;在 CobotMagic + ARX 联合微调后,ARX 未见任务平均 **55.0%**。它还把"物体滑落后自主重试"作为规模预训练涌现出的 reactive error recovery 现象来展示。
+
+仍需注意:这些真机结果也是作者报告,且不同平台、不同任务和不同评测协议不完全可横比。
 
 ## 5. 局限与风险
 
@@ -111,10 +125,12 @@ Qwen-RobotManip 不是单纯数据集论文,也不是 Qwen-VLA 的小改版。�
 2. **OOD 仍以仿真为主**:LIBERO-Plus、RoboTwin-C2R、EBench、RoboCasa365 都主要是仿真评测;真机广域泛化还需要更多第三方验证。
 3. **固定 action chunk 与推理延迟限制反应性**:论文结尾也承认当前系统不适合所有需要亚秒级反应的任务。
 4. **对比口径由作者设定**:π0.5、StarVLA、X-VLA 等基线配置是否最优,需要独立复现确认。
+5. **官方 demo 不等于 benchmark**:Qwen-Omni 联动展示很有传播性,但它说明的是开放式指令跟随潜力,不能直接替代受控评测。
 
 ## 6. 在谱系中的位置
 
 - **相对 [Qwen-VLA](qwen-vla.md)**:Qwen-VLA 是统一操作/导航/轨迹的基座总模型;Qwen-RobotManip 是更专注 manipulation 的后续,重点从"统一任务"转向"统一多本体操作数据"。
+- **相对 Qwen-Robot Suite**:官方博客把它归入 Qwen-Robot 系列的操作分支;与导航、世界建模等方向相比,它解决的是连续控制、跨本体 state-action 对齐和操作数据规模化。
 - **相对 [π0](pi0.md) / [GR00T N1](groot-n1.md)**:同属 VL backbone + flow/DiT action expert 路线,但 Qwen-RobotManip 把主要创新放在 canonical state-action 和 camera-frame EEF 对齐上。
 - **相对数据专题**:它不是纯数据集,但很适合在[具身数据全景](embodied-data.md)和[数据处理](data-processing.md)里作为"跨本体数据对齐"案例。
 
@@ -125,7 +141,9 @@ Qwen-RobotManip 不是单纯数据集论文,也不是 Qwen-VLA 的小改版。�
 ## 来源
 
 - 论文:Qwen-RobotManip Technical Report: Alignment Unlocks Scale for Robotic Manipulation Foundation Models. arXiv:2606.17846(v1 2026-06-16, v2 2026-06-17). <https://arxiv.org/abs/2606.17846>
-- 官方博客:<https://qwen.ai/blog?id=qwen-robotmanip>
+- 官方博客:Qwen-RobotManip: Alignment Unlocks Scale for Robotic Manipulation Foundation Models(Release,2026-06-16). <https://qwen.ai/blog?id=qwen-robotmanip>
+- 官方 PDF:<https://qianwen-res.oss-accelerate.aliyuncs.com/qwenrobot/papers/Qwen_RobotManip.pdf>
+- Qwen-Robot Suite 官方入口:<https://qwen.ai/blog?id=qwen-robotsuite>
 - GitHub:<https://github.com/QwenLM/Qwen-RobotManip>
 - 架构图:本仓库 `docs/public/paper-images/qwen-robotmanip_arch.png`(arXiv 源码 `figures/method-0616.pdf`,原文 Figure 3 方法总览图)
 
