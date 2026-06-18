@@ -10,9 +10,9 @@ const VLA_SET = new Set(['离散 token', '连续 · 扩散/流匹配', '混合 �
 const KNOWLEDGE_KINDS = new Set(['concept', 'data', 'benchmark', 'robot', 'org'])
 const KNOWLEDGE_RELATIONS = new Set(['concept', 'data', 'benchmark', 'robot', 'org'])
 
-const graphMode = ref('knowledge')
+const graphMode = ref('paper')
 const trackFilter = ref('all')
-const relationFilter = ref('knowledge')
+const relationFilter = ref('all')
 const routeFilter = ref('all')
 const knowledgeKindFilter = ref('all')
 const query = ref('')
