@@ -44,7 +44,7 @@ features:
     linkText: 看数据与速查
   - icon: { src: /icons/globe.svg, width: 28, height: 28 }
     title: 生态图谱
-    details: 57 公司 + 24 投资方 + 18 学者:关系图谱 + 就业地图。
+    details: 57 公司 + 论文知识图谱 + 就业地图,看清产业与论文两张网络。
     link: /ecosystem/
     linkText: 进入图谱
 ---
