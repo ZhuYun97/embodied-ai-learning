@@ -341,11 +341,20 @@ async function toggleTheme() {
   font-size: 6px;
   display: flex;
   align-items: center;
-  margin-left: 12px;
+  margin-left: 8px;
 }
+.VPNavBar .VPNavBarAppearance,
 .VPNavBar .VPNavBarAppearance .VPSwitchAppearance,
 .VPNavBar > .wrapper .VPSwitchAppearance {
   display: none !important;
+}
+.VPNavBar .VPNavBarSocialLinks::before {
+  content: none !important;
+  display: none !important;
+}
+.VPNavBar .VPNavBarSocialLinks {
+  margin-left: 6px;
+  padding-left: 0;
 }
 @media (max-width: 767px) {
   #theme-toggle-button { display: none; }

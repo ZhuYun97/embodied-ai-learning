@@ -13,6 +13,7 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 **日夜模式切换过渡增强**
 - 🌗 **明暗开关新增双层过渡动画**:按钮本体增加昼/夜色光晕扩散 + 弹性按压反馈;整页明暗切换保留 View Transition 圆形揭示,并补充不支持 View Transition 浏览器的径向 wash 兜底。`prefers-reduced-motion` 下仍保持无动画直切。
+- 🧹 **清理右上角默认分隔柱**:隐藏已被自定义天空开关替代的 VitePress 默认 appearance 外壳,并移除社交链接默认竖分隔线,避免明暗切换时右上角出现突兀竖条。
 
 **新增独立论文知识图谱页**
 - 🧠 **新增 [论文知识图谱](/ecosystem/paper-graph)**:VLA/WAM 论文网络从生态总览中拆出为独立页面。节点来自 `papers.data.mjs`(首页路线卡 + 细读页档案),按 VLA/WAM、技术路线和论文三层组织;连线区分路线归属、同路线演化、跨线桥接(Qwen-VLA→Qwen-Robot 三分支、π0 系、RynnVLA-001→002、GR00T N1→N2 等)。

@@ -2057,6 +2057,31 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   border-color: color-mix(in srgb, var(--vp-c-brand-1) 32%, transparent);
 }
 .VPNavBar .VPNavBarMenu .VPFlyout:hover > .button { color: var(--vp-c-brand-1); }
+
+/* 右侧 action 区:自定义天空开关已替代默认 appearance 开关,默认外壳与
+   social-links 竖分隔线在明暗切换快照里会像两根突兀的柱子,这里统一收掉。 */
+.VPNav .VPNavBar .VPNavBarAppearance.appearance,
+.VPNav .VPNavBar .appearance.VPNavBarAppearance {
+  display: none !important;
+  width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.VPNav .VPNavBar .VPNavBarAppearance.appearance::before,
+.VPNav .VPNavBar .appearance.VPNavBarAppearance::before,
+.VPNav .VPNavBar .VPNavBarSocialLinks.social-links::before,
+.VPNav .VPNavBar .social-links.VPNavBarSocialLinks::before {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+}
+.VPNav .VPNavBar .VPNavBarSocialLinks.social-links {
+  margin-left: 6px;
+  padding-left: 0;
+}
 /* 激活:点亮芯片 + 内辉光 + 切角外晕(filter 跟随切角形,不被 clip 切掉)*/
 .VPNavBar .VPNavBarMenu .VPNavBarMenuLink.active::before,
 .VPNavBar .VPNavBarMenu .VPFlyout.active > .button::before {
