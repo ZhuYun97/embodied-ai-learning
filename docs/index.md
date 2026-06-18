@@ -44,7 +44,7 @@ features:
     linkText: 看数据与速查
   - icon: { src: /icons/globe.svg, width: 28, height: 28 }
     title: 论文生态图谱
-    details: 72 篇 VLA/WAM 细读组成知识网络,旁路公司图谱与就业地图。
+    details: 论文 + 概念 / 数据 / 基准 / 本体节点组成知识网络,旁路公司图谱与就业地图。
     link: /ecosystem/paper-graph
     linkText: 看论文图谱
 ---

@@ -1,11 +1,11 @@
 ---
 title: 论文知识图谱
-description: VLA / WAM 论文细读的知识图谱入口,按主线、技术路线、路线演化与跨范式桥接组织本站论文网络。
+description: VLA / WAM 多类型论文知识图谱入口,把论文、知识概念、数据、基准、机器人本体与机构节点组织成可筛选网络。
 ---
 
 # 🧠 论文知识图谱
 
-把本站 VLA / WAM 论文细读按「主线 → 技术路线 → 论文节点」组织起来。这里更适合看论文之间的继承、分化和跨线连接:例如 π0 系列、Qwen-Robot 分支、RynnVLA-001 → RynnVLA-002、GR00T N1 → N2 等。
+把本站 VLA / WAM 细读从「论文节点图」升级为**多类型知识图谱**:除了论文、主线和技术路线,现在还加入知识概念、数据、基准、机器人本体与机构节点。它更适合看“某篇论文用了什么动作接口 / 数据底座 / 评测基准 / 本体平台”,也能反向从“流匹配、动作分块、世界模型、H2R 重定向”等概念找到相关工作。
 
 <script setup>
 import PaperKnowledgeGraph from '../.vitepress/theme/components/PaperKnowledgeGraph.vue'
@@ -18,7 +18,10 @@ import PaperKnowledgeGraph from '../.vitepress/theme/components/PaperKnowledgeGr
 - **主线节点**:VLA 与 WAM 两条调研主线。
 - **路线节点**:动作 token、连续扩散/流匹配、分层双系统、联合自回归、联合扩散等技术路线。
 - **论文节点**:来自首页路线卡与细读页档案,点击进入对应论文细读。
+- **知识概念节点**:动作 token、动作分块、流匹配、DiT 动作头、双系统、世界模型、知识隔离、运控层等。
+- **数据 / 基准 / 本体 / 机构节点**:OXE、DROID、LIBERO、RoboCasa、ALOHA、Franka、Qwen、PI、NVIDIA 等。
 - **桥接关系**:人工标注的关键跨线关系,用于看范式迁移、同系列迭代和公司/团队内部路线延展。
+- **知识关联**:人工标注的论文-概念、论文-数据、论文-基准、论文-本体、论文-机构关系;用于学习导航,不是严格引用计量图。
 
 ## 相关入口
 
