@@ -43,10 +43,10 @@ features:
     link: /vla/papers/benchmarks
     linkText: 看数据与速查
   - icon: { src: /icons/globe.svg, width: 28, height: 28 }
-    title: 生态图谱
-    details: 57 公司 + 论文知识图谱 + 就业地图,看清产业与论文两张网络。
-    link: /ecosystem/
-    linkText: 进入图谱
+    title: 论文生态图谱
+    details: 72 篇 VLA/WAM 细读组成知识网络,旁路公司图谱与就业地图。
+    link: /ecosystem/paper-graph
+    linkText: 看论文图谱
 ---
 
 ## VLA:按技术路线浏览

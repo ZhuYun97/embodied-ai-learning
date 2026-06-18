@@ -1,6 +1,6 @@
 ---
 title: 具身智能生态全景
-description: 国际与国内具身智能公司、科研机构与论文知识图谱一览——覆盖公司关系、VLA/WAM 论文网络、就业城市分布、代表产品、技术方向、融资数据与官网链接。持续更新。
+description: 国际与国内具身智能公司、科研机构与生态地图一览——覆盖公司关系、论文知识图谱入口、就业城市分布、代表产品、技术方向、融资数据与官网链接。持续更新。
 ---
 
 # 具身智能生态全景
@@ -15,7 +15,6 @@ description: 国际与国内具身智能公司、科研机构与论文知识图�
 import EcosystemGraph from '../.vitepress/theme/components/EcosystemGraph.vue'
 import EcosystemMap from '../.vitepress/theme/components/EcosystemMap.vue'
 import EcosystemJobMap from '../.vitepress/theme/components/EcosystemJobMap.vue'
-import PaperKnowledgeGraph from '../.vitepress/theme/components/PaperKnowledgeGraph.vue'
 </script>
 
 ## 🕸 公司关系图谱
@@ -24,11 +23,9 @@ import PaperKnowledgeGraph from '../.vitepress/theme/components/PaperKnowledgeGr
 
 <EcosystemGraph />
 
-## 🧠 论文知识图谱
-
-节点为本站 VLA / WAM 论文细读，连线表示路线归属、同路线演化与跨范式桥接关系。
-
-<PaperKnowledgeGraph />
+::: tip 🧠 论文知识图谱
+VLA / WAM 论文网络已独立成页: **[进入论文知识图谱](/ecosystem/paper-graph)**。这里保留生态总览的公司关系、就业地图与公司目录。
+:::
 
 ## 🗺 就业地图 · 城市分布
 

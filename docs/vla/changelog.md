@@ -8,9 +8,9 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 ## 2026-06-18
 
-**生态页新增论文知识图谱**
-- 🧠 **新增 [论文知识图谱](/ecosystem/#论文知识图谱)**:在生态页公司关系图谱之后,新增 VLA/WAM 论文网络可视化。节点来自 `papers.data.mjs`(首页路线卡 + 细读页档案),按 VLA/WAM、技术路线和论文三层组织;连线区分路线归属、同路线演化、跨线桥接(Qwen-VLA→Qwen-Robot 三分支、π0 系、RynnVLA-001→002、GR00T N1→N2 等)。
-- 🎛️ **可筛可搜**:支持全部/VLA/WAM 分段筛选、技术路线下拉、关系类型筛选与论文/arXiv 搜索;悬停显示论文读出坞,点击论文节点进入对应细读。顶栏/侧栏「生态」入口与首页生态卡同步改为公司/论文/地图三合一。
+**新增独立论文知识图谱页**
+- 🧠 **新增 [论文知识图谱](/ecosystem/paper-graph)**:VLA/WAM 论文网络从生态总览中拆出为独立页面。节点来自 `papers.data.mjs`(首页路线卡 + 细读页档案),按 VLA/WAM、技术路线和论文三层组织;连线区分路线归属、同路线演化、跨线桥接(Qwen-VLA→Qwen-Robot 三分支、π0 系、RynnVLA-001→002、GR00T N1→N2 等)。
+- 🎛️ **可筛可搜**:支持全部/VLA/WAM 分段筛选、技术路线下拉、关系类型筛选与论文/arXiv 搜索;悬停显示论文读出坞,点击论文节点进入对应细读。顶栏/侧栏「生态」新增独立入口,首页生态卡直达论文图谱;生态总览保留公司关系、就业地图与公司目录。
 
 **Qwen-Robot 三篇按技术路线归位(+3 篇细读)**
 - 📄 新增 **VLA +2 / WAM +1**:[Qwen-RobotManip](/vla/papers/qwen-robotmanip)(Qwen,2606.17846,操作 VLA:Qwen3.5-4B + flow-matching DiT,80 维统一 state-action、camera-frame EEF delta、约 38,100h 语料 ⚠️)、[Qwen-RobotNav](/vla/papers/qwen-robotnav)(Qwen,2606.18112,导航执行器:Qwen3-VL + waypoint head,task mode + observation context 可重配置 ⚠️)、[Qwen-RobotWorld](/wam/papers/qwen-robotworld)(Qwen,2606.17030,语言条件视频世界模型:Qwen2.5-VL action encoder + 60 层 double-stream MMDiT + EWK 8.6M video-text pairs ⚠️)。
