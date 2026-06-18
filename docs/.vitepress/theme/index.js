@@ -1544,6 +1544,252 @@ function setupBorderGlow() {
 }
 
 // =====================================================================
+// 首页卡片 ElectricBorder(React Bits ElectricBorder 适配版):不包裹组件树,
+// 而是向 Feature 卡 / 路线卡注入一层 canvas。hover/focus 时才启动 rAF,
+// 使用原组件的 rounded-rect 采样 + 分形噪声位移生成电流描边;离开后保留
+// 最后一帧配合 CSS 淡出,再清空画布。避免给常驻环形 Feature 动画继续加负担。
+// =====================================================================
+let electricBorderBound = false
+const ELECTRIC_CARD_SELECTOR = '.VPHome .VPFeature, .VPHome .route-card'
+const ELECTRIC_COLORS = ['#7df9ff', '#67e8f9', '#60a5fa', '#a78bfa']
+
+function electricRandom(x) {
+  return (Math.sin(x * 12.9898) * 43758.5453) % 1
+}
+
+function electricNoise2D(x, y) {
+  const i = Math.floor(x)
+  const j = Math.floor(y)
+  const fx = x - i
+  const fy = y - j
+  const a = electricRandom(i + j * 57)
+  const b = electricRandom(i + 1 + j * 57)
+  const c = electricRandom(i + (j + 1) * 57)
+  const d = electricRandom(i + 1 + (j + 1) * 57)
+  const ux = fx * fx * (3 - 2 * fx)
+  const uy = fy * fy * (3 - 2 * fy)
+  return a * (1 - ux) * (1 - uy) + b * ux * (1 - uy) + c * (1 - ux) * uy + d * ux * uy
+}
+
+function electricOctavedNoise(x, octaves, lacunarity, gain, amplitude, frequency, time, seed, baseFlatness) {
+  let y = 0
+  let amp = amplitude
+  let freq = frequency
+  for (let i = 0; i < octaves; i++) {
+    y += amp * (i === 0 ? baseFlatness : 1) * electricNoise2D(freq * x + seed * 100, time * freq * 0.3)
+    freq *= lacunarity
+    amp *= gain
+  }
+  return y
+}
+
+function electricCornerPoint(centerX, centerY, radius, startAngle, arcLength, progress) {
+  const angle = startAngle + progress * arcLength
+  return {
+    x: centerX + radius * Math.cos(angle),
+    y: centerY + radius * Math.sin(angle),
+  }
+}
+
+function electricRoundedRectPoint(t, left, top, width, height, radius) {
+  const straightWidth = Math.max(0, width - 2 * radius)
+  const straightHeight = Math.max(0, height - 2 * radius)
+  const cornerArc = Math.PI * radius / 2
+  const total = 2 * straightWidth + 2 * straightHeight + 4 * cornerArc
+  const distance = t * total
+  let acc = 0
+
+  if (straightWidth > 0 && distance <= acc + straightWidth) {
+    const p = (distance - acc) / straightWidth
+    return { x: left + radius + p * straightWidth, y: top }
+  }
+  acc += straightWidth
+
+  if (cornerArc > 0 && distance <= acc + cornerArc) {
+    return electricCornerPoint(left + width - radius, top + radius, radius, -Math.PI / 2, Math.PI / 2, (distance - acc) / cornerArc)
+  }
+  acc += cornerArc
+
+  if (straightHeight > 0 && distance <= acc + straightHeight) {
+    const p = (distance - acc) / straightHeight
+    return { x: left + width, y: top + radius + p * straightHeight }
+  }
+  acc += straightHeight
+
+  if (cornerArc > 0 && distance <= acc + cornerArc) {
+    return electricCornerPoint(left + width - radius, top + height - radius, radius, 0, Math.PI / 2, (distance - acc) / cornerArc)
+  }
+  acc += cornerArc
+
+  if (straightWidth > 0 && distance <= acc + straightWidth) {
+    const p = (distance - acc) / straightWidth
+    return { x: left + width - radius - p * straightWidth, y: top + height }
+  }
+  acc += straightWidth
+
+  if (cornerArc > 0 && distance <= acc + cornerArc) {
+    return electricCornerPoint(left + radius, top + height - radius, radius, Math.PI / 2, Math.PI / 2, (distance - acc) / cornerArc)
+  }
+  acc += cornerArc
+
+  if (straightHeight > 0 && distance <= acc + straightHeight) {
+    const p = (distance - acc) / straightHeight
+    return { x: left, y: top + height - radius - p * straightHeight }
+  }
+  acc += straightHeight
+
+  if (cornerArc > 0) {
+    return electricCornerPoint(left + radius, top + radius, radius, Math.PI, Math.PI / 2, (distance - acc) / cornerArc)
+  }
+  return { x: left, y: top }
+}
+
+function createElectricBorder(card, canvas, { overflow = 18 } = {}) {
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return null
+
+  let width = 0
+  let height = 0
+  let dpr = 1
+  let raf = 0
+  let running = false
+  let lastFrame = 0
+  let time = Math.random() * 10
+  let clearTimer = 0
+
+  const resize = () => {
+    const rect = card.getBoundingClientRect()
+    const nextWidth = Math.max(1, Math.ceil(rect.width + overflow * 2))
+    const nextHeight = Math.max(1, Math.ceil(rect.height + overflow * 2))
+    const nextDpr = Math.min(window.devicePixelRatio || 1, 2)
+    if (nextWidth === width && nextHeight === height && nextDpr === dpr) return
+    width = nextWidth
+    height = nextHeight
+    dpr = nextDpr
+    canvas.width = Math.floor(width * dpr)
+    canvas.height = Math.floor(height * dpr)
+    canvas.style.width = `${width}px`
+    canvas.style.height = `${height}px`
+  }
+
+  const clear = () => {
+    ctx.setTransform(1, 0, 0, 1, 0, 0)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  }
+
+  const drawPath = (color, lineWidth, shadowBlur, alpha, noiseSeed) => {
+    const style = window.getComputedStyle(card)
+    const radius = Math.min(parseFloat(style.borderTopLeftRadius) || 8, (width - overflow * 2) / 2, (height - overflow * 2) / 2)
+    const borderWidth = Math.max(1, width - overflow * 2)
+    const borderHeight = Math.max(1, height - overflow * 2)
+    const perimeter = 2 * (borderWidth + borderHeight) + 2 * Math.PI * radius
+    const sampleCount = Math.max(96, Math.min(360, Math.floor(perimeter / 3)))
+
+    ctx.beginPath()
+    for (let i = 0; i <= sampleCount; i++) {
+      const progress = i / sampleCount
+      const point = electricRoundedRectPoint(progress, overflow, overflow, borderWidth, borderHeight, radius)
+      const xNoise = electricOctavedNoise(progress * 8 + noiseSeed, 8, 1.6, 0.7, 0.12, 10, time, 0, 0)
+      const yNoise = electricOctavedNoise(progress * 8 + noiseSeed, 8, 1.6, 0.7, 0.12, 10, time, 1, 0)
+      const x = point.x + xNoise * 34
+      const y = point.y + yNoise * 34
+      if (i === 0) ctx.moveTo(x, y)
+      else ctx.lineTo(x, y)
+    }
+    ctx.closePath()
+    ctx.strokeStyle = color
+    ctx.lineWidth = lineWidth
+    ctx.lineCap = 'round'
+    ctx.lineJoin = 'round'
+    ctx.shadowColor = color
+    ctx.shadowBlur = shadowBlur
+    ctx.globalAlpha = alpha
+    ctx.stroke()
+  }
+
+  const frame = (now) => {
+    if (!running) return
+    resize()
+    const delta = lastFrame ? Math.min((now - lastFrame) / 1000, 0.05) : 0
+    lastFrame = now
+    time += delta * 1.15
+    clear()
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    const color = getComputedStyle(card).getPropertyValue('--electric-border-color').trim() || '#7df9ff'
+    drawPath(color, 2.4, 15, 0.58, 0)
+    drawPath(color, 1.1, 4, 0.95, 1.7)
+    ctx.globalAlpha = 1
+    ctx.shadowBlur = 0
+    raf = window.requestAnimationFrame(frame)
+  }
+
+  const observer = 'ResizeObserver' in window ? new ResizeObserver(resize) : null
+  observer?.observe(card)
+  resize()
+
+  return {
+    start() {
+      window.clearTimeout(clearTimer)
+      if (running) return
+      running = true
+      lastFrame = 0
+      raf = window.requestAnimationFrame(frame)
+    },
+    stop() {
+      running = false
+      if (raf) window.cancelAnimationFrame(raf)
+      raf = 0
+      clearTimer = window.setTimeout(clear, 260)
+    },
+    disconnect() {
+      running = false
+      if (raf) window.cancelAnimationFrame(raf)
+      observer?.disconnect()
+      clear()
+    },
+  }
+}
+
+function setupElectricBorder() {
+  if (electricBorderBound || typeof window === 'undefined') return
+  electricBorderBound = true
+  const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (!fine || reduce) return
+
+  const bind = () => {
+    document.querySelectorAll(ELECTRIC_CARD_SELECTOR).forEach((card, index) => {
+      if (card.dataset.electricBorder) return
+      card.dataset.electricBorder = '1'
+      card.classList.add('electric-card')
+      card.style.setProperty('--electric-border-color', ELECTRIC_COLORS[index % ELECTRIC_COLORS.length])
+      const canvas = document.createElement('canvas')
+      canvas.className = 'electric-border-canvas'
+      canvas.setAttribute('aria-hidden', 'true')
+      canvas.style.inset = '-18px'
+      card.appendChild(canvas)
+      const controller = createElectricBorder(card, canvas)
+      if (!controller) return
+      card.addEventListener('pointerenter', controller.start)
+      card.addEventListener('pointerleave', controller.stop)
+      card.addEventListener('focusin', controller.start)
+      card.addEventListener('focusout', (event) => {
+        if (!card.contains(event.relatedTarget)) controller.stop()
+      })
+    })
+  }
+
+  bind()
+  if ('MutationObserver' in window) {
+    let t
+    new MutationObserver(() => {
+      clearTimeout(t)
+      t = setTimeout(bind, 200)
+    }).observe(document.body, { childList: true, subtree: true })
+  }
+}
+
+// =====================================================================
 // 路线卡「×N 入口计数」chip:从 DOM 数出每张卡的链接数,追加到链接区末尾。
 // 数字完全派生自页面已有链接 → 不引入第 5 个手工维护的「篇数」面,永不失同步。
 // SPA 重建 → MutationObserver 兜底重注(已注入的卡跳过)。
@@ -1650,6 +1896,7 @@ export default {
     onMounted(setupReveal)
     onMounted(setupCardTilt)
     onMounted(setupBorderGlow)
+    onMounted(setupElectricBorder)
     onMounted(setupRouteCounts)
     onMounted(setupHeroCollapse)
   },

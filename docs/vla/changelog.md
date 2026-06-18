@@ -8,6 +8,9 @@ description: 具身智能学习站更新日志,按时间倒序记录站点内容
 
 ## 2026-06-18
 
+**首页卡片新增带电边界**
+- ⚡ **Feature 卡 + 路线卡 hover 电流描边**:按 React Bits `ElectricBorder` 移植为站内轻量 canvas 层,复用圆角路径采样 + 分形噪声位移生成抖动电弧;只在精细指针 hover/focus 时启动动画,离开后淡出并清空画布,不引入新依赖且尊重 `prefers-reduced-motion`。
+
 **日夜模式切换过渡增强**
 - 🌗 **明暗开关新增双层过渡动画**:按钮本体增加昼/夜色光晕扩散 + 弹性按压反馈;整页明暗切换保留 View Transition 圆形揭示,并补充不支持 View Transition 浏览器的径向 wash 兜底。`prefers-reduced-motion` 下仍保持无动画直切。
 

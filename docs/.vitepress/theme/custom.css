@@ -4926,9 +4926,43 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
     inset 0 0 25px 2px hsl(187deg 92% 69% / 20%),
     inset 0 0 50px 2px hsl(187deg 92% 69% / 10%);
 }
+
+/* ============================================================
+   首页卡片 ElectricBorder(React Bits ElectricBorder 适配,见 index.js setupElectricBorder):
+   Feature 卡与路线卡 hover/focus 时注入 canvas 电流描边;canvas 扩到卡片外 18px,
+   让电弧沿真实边界抖动,但父卡片 overflow:hidden 会把外侧噪声裁掉,只留下内侧电光。
+   ============================================================ */
+.VPHome .electric-card {
+  --electric-border-color: #7df9ff;
+}
+.VPHome .electric-border-canvas {
+  position: absolute;
+  width: calc(100% + 36px);
+  height: calc(100% + 36px);
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  filter: drop-shadow(0 0 9px color-mix(in srgb, var(--electric-border-color) 62%, transparent));
+  transition: opacity 0.22s ease-out;
+}
+.dark .VPHome .electric-border-canvas {
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 11px color-mix(in srgb, var(--electric-border-color) 78%, transparent));
+}
+.VPHome .electric-card:hover > .electric-border-canvas,
+.VPHome .electric-card:focus-within > .electric-border-canvas {
+  opacity: 0.96;
+}
+html:not(.dark) .VPHome .electric-card:hover > .electric-border-canvas,
+html:not(.dark) .VPHome .electric-card:focus-within > .electric-border-canvas {
+  opacity: 0.78;
+}
 @media (prefers-reduced-motion: reduce) {
   .VPHome .route-card .bgw-border,
-  .VPHome .route-card .bgw-light { transition: none; }
+  .VPHome .route-card .bgw-light,
+  .VPHome .electric-border-canvas { transition: none; }
+  .VPHome .electric-border-canvas { display: none; }
 }
 
 /* ============================================================
