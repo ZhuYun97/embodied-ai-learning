@@ -49,6 +49,8 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | WALL-OSS (2025.09) | 自变量 X²Robot | Qwen2.5-VL MoE 端到端基座,FAST+流匹配双分支,Wall-OSS-0.5 零样本真机 | [→ 细读](papers/wall-oss.md) |
 | Wall-OSS-0.5 (2026) | 自变量 X²Robot | 梯度桥接 co-training(离散 RVQ 桥+多模态锚+流匹配部署),MoT 双专家,4B 预训练即可部署,微调超 π0.5 17.5pp | [→ 细读](papers/wall-oss-05.md) |
 | Qwen-VLA (2026.05) | 阿里 Qwen | Qwen3.5-4B + 1.15B DiT,统一操作/导航/轨迹 | [→ 细读](papers/qwen-vla.md) |
+| Qwen-RobotManip (2026.06) | 阿里 Qwen | 操作 VLA:Qwen3.5-4B + flow-matching DiT,80 维统一 state-action,约 38,100h 语料 | [→ 细读](papers/qwen-robotmanip.md) |
+| Qwen-RobotNav (2026.06) | 阿里 Qwen | 导航执行器:Qwen3-VL + waypoint head,task mode + observation context 可重配置 | [→ 细读](papers/qwen-robotnav.md) |
 | RynnVLA-001 (2025.09) | 阿里达摩院 | Chameleon 视频生成基座 + ActionVAE,第三条路 | [→ 细读](papers/rynnvla.md) |
 | π0.6 / π*0.6 (2025.11) | Physical Intelligence | 知识隔离训练 + RECAP 真机强化学习,从经验中学习 | [→ 细读](papers/pi06.md) |
 | Gemini Robotics (2025.03→1.5 2025.09) | Google DeepMind | 云端 backbone + 本机 decoder 延迟拆分(≈250ms/50Hz)+ embodied reasoning | [→ 细读](papers/gemini-robotics.md) |
@@ -87,7 +89,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 
 | 专题 | 范围 | 一句话 | 链接 |
 |---|---|---|---|
-| 全模型规格对比 | 24 模型 × 12 维 | 主干/视觉编码器/参数/动作表示/频率/语料/单体or双系统/许可一表打尽(成绩见基准、年代见时间线) | [→ 大表](papers/models-spec.md) |
+| 全模型规格对比 | 26 模型 × 12 维 | 主干/视觉编码器/参数/动作表示/频率/语料/单体or双系统/许可一表打尽(成绩见基准、年代见时间线) | [→ 大表](papers/models-spec.md) |
 | 双系统架构原理 | System 1/2 / 分层 / 知识隔离 | 辨析"频率解耦 vs 语义分层 vs 梯度隔离"三种常被混用的解耦,含跨系统对比表与单模型反例 | [→ 专题](papers/dual-system-architecture.md) |
 | 预测式 VLA | 世界模型作策略主体 | VPP/DreamVLA/WorldVLA:推理时预演未来→反推动作,区别于 RynnVLA 的"预测只当训练先验" | [→ 专题](papers/predictive-vla.md) |
 | 知识隔离训练配方 | KI(arXiv:2505.23705) | stop-gradient 挡住动作专家梯度 + FAST 离散监督主干 + co-training,π0.6/π0.7 背后的训练技法 | [→ 细读](papers/knowledge-insulation.md) |
@@ -100,7 +102,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | 页面 | 用途 | 链接 |
 |---|---|---|
 | 术语速查表 | 流匹配/动作分块/双系统/co-training 等术语一页速查 | [→ 术语表](papers/glossary.md) |
-| 发展时间线 | 2022→2026 里程碑一览(24 篇细读定位) | [→ 时间线](papers/timeline.md) |
+| 发展时间线 | 2022→2026 VLA × WAM 里程碑一览 | [→ 时间线](papers/timeline.md) |
 | 参考文献 | 全站一手信源(arXiv/官网)聚合 | [→ 信源](papers/references.md) |
 | 外部资源导航 | 站外高质量 Awesome 论文合集 / 综述 / 基准仿真官方站 / 数据集 / 机构博客 | [→ 资源](papers/resources.md) |
 
@@ -425,11 +427,16 @@ flowchart LR
 - **"Unified Cross-Level CoT"(统一跨层级思维链)**:在单一可微框架内统一"指令推理 → 子目标分解 → 细粒度动作合成";两阶段课程 **Inspiration(离散 FAST)→ Integration(连续流匹配)**。
 - **Wall-OSS-0.5**(2026.05.28 开源):**"梯度桥接预训练"(Gradient-Bridged Pretraining**,以离散动作 token 交叉熵作梯度桥),主打**可直接部署、零样本真机**;17 任务零样本套件 task-progress >80(Block Sorting 100 等)。⚠️ 厂商自述。
 
-## 5.2 阿里两条路线:Qwen-VLA 与 RynnVLA-001
+## 5.2 阿里多线并行:Qwen-VLA / Qwen-Robot 与 RynnVLA-001
 
 **Qwen-VLA**(arXiv:2605.30280,2026.05,Qwen 团队) 〔[📄 细读](papers/qwen-vla.md)〕
 - 统一基座,**一个架构覆盖操作 / 导航 / 轨迹预测**;**Qwen3.5-4B VL 主干 + 1.15B DiT 流匹配动作解码器**;embodiment-aware 提示条件实现跨本体。
 - 报告基准(⚠️ 自评):**LIBERO 97.9%**、R2R 69.0% OSR、RoboTwin、真机 ALOHA。
+
+**Qwen-Robot 系列后续**(2026.06,Qwen 团队)
+- [**Qwen-RobotManip**](papers/qwen-robotmanip.md)(arXiv:2606.17846):操作 VLA,强调"alignment unlocks scale"——80 维统一 state-action 表示、camera-frame EEF delta、human-to-robot 合成,构建约 **38,100h** 操作预训练语料。
+- [**Qwen-RobotNav**](papers/qwen-robotnav.md)(arXiv:2606.18112):导航基础模型,把 VLN / PointNav / ObjNav / Tracking / driving 统一成 waypoint trajectory prediction,并把 observation context 做成推理时可控参数。
+- [**Qwen-RobotWorld**](/wam/papers/qwen-robotworld)(arXiv:2606.17030):语言条件视频世界模型,用 Qwen2.5-VL + double-stream MMDiT + EWK 数据集生成未来视觉轨迹;本站归入 WAM,不放在 VLA 操作模型列表里。
 
 **RynnVLA-001**(arXiv:2509.15212,7B,2025.09,达摩院+湖畔,ICRA 2026) 〔[📄 细读](papers/rynnvla.md)〕
 - **第三条路**:基于**从 Chameleon 文生图扩展的自回归视频生成基座**(**非 Qwen2.5-VL** 主干),统一 next-frame + next-action;用 **ActionVAE** 把动作块压成单个连续嵌入再解码;**三阶段**(1200 万第一视角视频生成预训练 → 人类轨迹建模 → 机器人控制),把人类示范技能迁移到机器人。

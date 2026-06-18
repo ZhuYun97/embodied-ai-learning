@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 43 + WAM 28 篇,逐模块拆架构 / 数据 / 实验。
+    details: VLA 45 + WAM 29 篇,逐模块拆架构 / 数据 / 实验。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -76,6 +76,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/pi0">π0</a>
       <a href="vla/papers/cogact">CogACT</a>
       <a href="vla/papers/groot-n1">GR00T N1</a>
+      <a href="vla/papers/qwen-robotmanip">Qwen-RobotManip</a>
       <a href="vla/papers/gr-3">GR-3</a>
       <a href="vla/papers/gr-dexter">GR-Dexter</a>
       <a href="vla/papers/rdt-1b">RDT-1B</a>
@@ -105,6 +106,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/go-1">GO-1</a>
       <a href="vla/papers/galaxea-g0">Galaxea G0</a>
       <a href="vla/papers/rynnbrain">RynnBrain</a>
+      <a href="vla/papers/qwen-robotnav">Qwen-RobotNav</a>
       <a href="vla/papers/steervla">SteerVLA</a>
       <a href="vla/papers/steerable-policies">Steerable Policies</a>
       <a href="vla/papers/pointact">PointACT</a>
@@ -202,6 +204,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <p>全模态基座 / 世界平台 / 闭环模拟器,作通用底座与数据·评测引擎,非单一动作范式。</p>
     <div class="route-links">
       <a href="wam/papers/cosmos3">Cosmos 3</a>
+      <a href="wam/papers/qwen-robotworld">Qwen-RobotWorld</a>
       <a href="wam/papers/genie-envisioner">Genie Envisioner</a>
       <a href="wam/papers/ge-sim-2">GE-Sim 2.0</a>
       <a href="wam/papers/robodream">RoboDream</a>
@@ -226,4 +229,3 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <a href="https://github.com/ZhuYun97/embodied-ai-learning" target="_blank" rel="noreferrer">GitHub 开源 ↗</a>
   </nav>
 </div>
-

@@ -68,6 +68,9 @@ graph LR
 | **CogACT** | Microsoft 2024 | arxiv.org/abs/2411.19650 · github.com/microsoft/CogACT · huggingface.co/CogACT | [📄 cogact](cogact.md) | 认知-动作组件化 VLA |
 | **WALL-OSS** | X-Square Robot 2025 | arxiv.org/abs/2509.11766 · github.com/X-Square-Robot/wall-x · huggingface.co/x-square-robot | [📄 wall-oss](wall-oss.md) | 端到端具身基座,Qwen2.5-VL MoE ~4B,流匹配 + FAST 双分支 ⚠️ |
 | **Qwen-VLA** | Qwen 团队 2026 | arxiv.org/abs/2605.30280 · github.com/QwenLM/Qwen-VLA | [📄 qwen-vla](qwen-vla.md) | ⚠️ arXiv 编号落在 2026,极新 |
+| **Qwen-RobotManip** | Qwen 团队 2026 | arxiv.org/abs/2606.17846 · github.com/QwenLM/Qwen-RobotManip | [📄 qwen-robotmanip](qwen-robotmanip.md) | 操作 VLA,多本体 state-action 对齐 + 38,100h 语料 ⚠️ |
+| **Qwen-RobotNav** | Qwen 团队 2026 | arxiv.org/abs/2606.18112 · github.com/QwenLM/Qwen-RobotNav | [📄 qwen-robotnav](qwen-robotnav.md) | 导航基础模型,可重配置 observation context ⚠️ |
+| **Qwen-RobotWorld** | Qwen 团队 2026 | arxiv.org/abs/2606.17030 · qwen.ai/blog?id=qwen-robotworld | [📄 qwen-robotworld](/wam/papers/qwen-robotworld) | 语言条件视频世界模型,归 WAM ⚠️ |
 | **RynnVLA-001** | 达摩院 + 湖畔 2025 (ICRA 2026) | arxiv.org/abs/2509.15212 · huggingface.co/Alibaba-DAMO-Academy/RynnVLA-001-7B-Base | [📄 rynnvla](rynnvla.md) | 7B,视频生成预训练→动作"第三条路" ⚠️ |
 | **π0.5 (pi-zero-five)** | Physical Intelligence 2025 | arxiv.org/abs/2504.16054 · pi.website/blog/pi05 | [📄 pi05](pi05.md) | 开放世界泛化 |
 | **π*0.6 (pi-star-0.6 / RECAP)** | Physical Intelligence 2025.11 | arxiv.org/abs/2511.14759 · pi.website/blog/pistar06 · website.pi-asset.com/pi06star/PI06_model_card.pdf | [📄 pi06](pi06.md) | 真机 RL 改进,最难任务吞吐翻倍、失败率约减半 ⚠️ |
@@ -225,7 +228,10 @@ graph LR
 | 2511.04831 | Isaac Lab | 数据集 |
 | 2511.14759 | π*0.6 | 前沿模型 |
 | 2605.30280 ⚠️ | Qwen-VLA | 前沿模型 |
+| 2606.17030 ⚠️ | Qwen-RobotWorld | WAM / 世界模型 |
+| 2606.17846 ⚠️ | Qwen-RobotManip | 前沿模型 |
+| 2606.18112 ⚠️ | Qwen-RobotNav | 导航模型 |
 
 ---
 
-*本页为《VLA 发展深度调研报告》信源聚合,综合主报告附录 + 24 篇细读 + 具身数据专题第八节,去重整理。⚠️ 标记处为提出方/厂商自评数据。*
+*本页为《VLA 发展深度调研报告》信源聚合,综合主报告附录 + 近期细读 + 具身数据专题第八节,去重整理。⚠️ 标记处为提出方/厂商自评数据。*

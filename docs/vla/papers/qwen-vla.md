@@ -144,7 +144,21 @@ OOD 平均成功率(%):**Qwen-VLA-aloha(带预训练)显著领先**(README 表�
 
 ---
 
-## 6. 在 VLA 谱系中的位置
+## 6. Qwen-Robot 系列后续:按路线归位
+
+2026-06 Qwen 团队又连续放出 **Qwen-RobotManip / Qwen-RobotNav / Qwen-RobotWorld** 三篇技术报告。它们不适合在本站单独做一个"Qwen-Robot 专题"入口,因为三者本质上属于不同技术问题域:
+
+| 后续工作 | 本站归位 | 与 Qwen-VLA 的关系 |
+|---|---|---|
+| [Qwen-RobotManip](qwen-robotmanip.md) | VLA · 连续操作 / 扩散流匹配 | 把 Qwen-VLA 的统一基座落到 manipulation,重点变成多本体 state-action 对齐、camera-frame EEF delta、human-to-robot 合成与约 38,100 小时语料 |
+| [Qwen-RobotNav](qwen-robotnav.md) | VLA · 分层/推理 / 导航执行器 | 把 Qwen-VLA 已纳入的导航能力单独强化为 agent-ready navigation primitive,用 task mode + observation context 参数服务上层 planner |
+| [Qwen-RobotWorld](/wam/papers/qwen-robotworld) | WAM · 世界模型基座 / 数据引擎 | 不直接输出低层动作,而用语言条件视频生成预测未来视觉轨迹,为合成数据、评测和规划提供世界模型能力 |
+
+这个关系可以理解为: **Qwen-VLA 是统一策略基座的总声明;Manip / Nav / World 是三条任务化扩展**。Manip 偏"手",Nav 偏"脚/移动",World 偏"世界模拟器";三者共享 Qwen 系 VL 能力,但不应在导航上被归成同一厂商栏目。
+
+---
+
+## 7. 在 VLA 谱系中的位置
 
 - **承 [[pi0]](VL 主干 + 流匹配动作专家)**:Qwen-VLA 延续了 π0 系"强 VL 主干 + 独立流匹配动作专家输出连续动作"的双流范式,但把动作专家做成**显式 DiT**,并把输出空间从"操作动作块"扩展到统一的"动作-轨迹"。
 - **承 [[groot-n1]](DiT 流匹配)**:动作解码器同属 **DiT + 流匹配(velocity/去噪迭代)** 家族,核心模块(Self-Attention + AdaLN + FFN)与 GR00T N1 的 System 1 一脉相承;Qwen-VLA 在真机 ALOHA 上也直接把 GR00T N1.6 列为对比基线。
@@ -152,7 +166,7 @@ OOD 平均成功率(%):**Qwen-VLA-aloha(带预训练)显著领先**(README 表�
 - **阿里两条 VLA 路线的对照([[rynnvla]])**:Qwen-VLA 与 **RynnVLA-001** 是阿里体系内**两条不同的 VLA 路线**——前者主打"在一个 VLA 基座里统一操作/导航/轨迹 + 跨本体提示条件",后者是另一套出发点(可在 [[rynnvla]] 中对照其建模路径)。把两者并列,有助于看清阿里在 VLA 上"多线下注"的格局。
 - **范式坐标**:在"统一具身基座"这条赛道上,Qwen-VLA 与 GR00T N1(人形通才)、π0.5(开放世界泛化)同属"用一个大模型吃多任务/多本体/多环境"的前沿;其独特卖点是把**导航与轨迹预测**也正式纳入同一个动作-轨迹框架,并以**文本 prompt 切本体**作为跨本体的轻量接口。
 
-一句话:**Qwen-VLA 把阿里 Qwen 的 VL 建模栈向连续动作与轨迹延伸,用"Qwen3.5-4B 主干 + 1.15B DiT 流匹配解码器 + 统一动作-轨迹框架 + 本体感知提示"四件套,试图在单一模型里统一操作、导航与轨迹预测、并跨本体/跨环境泛化——代价是论文极新、全为自评、全文与权重开放度尚待确认。**
+一句话:**Qwen-VLA 把阿里 Qwen 的 VL 建模栈向连续动作与轨迹延伸,用"Qwen3.5-4B 主干 + 1.15B DiT 流匹配解码器 + 统一动作-轨迹框架 + 本体感知提示"四件套,试图在单一模型里统一操作、导航与轨迹预测、并跨本体/跨环境泛化;后续 Qwen-RobotManip / Nav / World 则分别把这条线拆向操作、导航与世界模型三类问题。代价是论文极新、全为自评、权重与数据开放度仍需持续核验。**
 
 ---
 
@@ -162,5 +176,6 @@ OOD 平均成功率(%):**Qwen-VLA-aloha(带预训练)显著领先**(README 表�
 - HuggingFace papers 页:<https://huggingface.co/papers/2605.30280>
 - 官方 GitHub:<https://github.com/QwenLM/Qwen-VLA>(README 提供 Introduction、Key Highlights、Benchmarks 表与架构图)
 - 架构图:本仓库 `images/qwen-vla_arch.webp`(源文件 `QwenLM/Qwen-VLA` 仓库 `assets/qwenvla_overview.png`,总体架构/能力总览图)
+- 后续系列:Qwen-RobotManip([arXiv:2606.17846](https://arxiv.org/abs/2606.17846)) · Qwen-RobotNav([arXiv:2606.18112](https://arxiv.org/abs/2606.18112)) · Qwen-RobotWorld([arXiv:2606.17030](https://arxiv.org/abs/2606.17030))
 
 > 说明:第 4 节全部基准数字、第 2 节参数拆分与训练配方均为 **Qwen 团队自评/自述**,arXiv HTML 全文撰写时未放出,权重与数据开放度待确认。引用时请注明其自评属性与"极新、未经第三方审视"的状态。

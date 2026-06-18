@@ -298,7 +298,7 @@ export default withMermaid(defineConfig({
             items: [
               { text: 'WAM 总览(定义 / taxonomy)', link: '/wam/' },
               { text: '代表模型细读', link: '/wam/#三、代表模型细读' },
-              { text: '全模型规格对比(28 篇横向)', link: '/wam/papers/models-spec' },
+              { text: '全模型规格对比(29 篇横向)', link: '/wam/papers/models-spec' },
             ],
           },
           {
@@ -308,6 +308,7 @@ export default withMermaid(defineConfig({
               { text: 'GR00T N2(NVIDIA)', link: '/wam/papers/groot-n2' },
               { text: 'DreamZero(零样本策略)', link: '/wam/papers/dreamzero' },
               { text: 'WorldVLA(自回归动作世界模型)', link: '/wam/papers/worldvla' },
+              { text: 'Qwen-RobotWorld(Qwen·视频世界模型)', link: '/wam/papers/qwen-robotworld' },
             ],
           },
         ],
@@ -417,6 +418,7 @@ export default withMermaid(defineConfig({
             { text: 'π0', link: '/vla/papers/pi0' },
             { text: 'CogACT（认知+扩散）', link: '/vla/papers/cogact' },
             { text: 'GR00T N1', link: '/vla/papers/groot-n1' },
+            { text: 'Qwen-RobotManip（Qwen·操作 VLA）', link: '/vla/papers/qwen-robotmanip' },
             { text: 'GR-3（字节 Seed 双臂移动）', link: '/vla/papers/gr-3' },
             { text: 'GR-Dexter（双臂灵巧手·字节 Seed）', link: '/vla/papers/gr-dexter' },
             { text: 'RDT-1B（扩散双臂基座）', link: '/vla/papers/rdt-1b' },
@@ -444,6 +446,7 @@ export default withMermaid(defineConfig({
             { text: 'GO-1（智元 ViLLA 潜动作）', link: '/vla/papers/go-1' },
             { text: 'Galaxea G0（双系统+开放世界数据集·星海图）', link: '/vla/papers/galaxea-g0' },
             { text: 'RynnBrain（System-2 具身基座·达摩院）', link: '/vla/papers/rynnbrain' },
+            { text: 'Qwen-RobotNav（Qwen·导航执行器）', link: '/vla/papers/qwen-robotnav' },
             { text: 'SteerVLA（自动驾驶·分层操控）', link: '/vla/papers/steervla' },
             { text: 'Steerable Policies（可操控分层·操作）', link: '/vla/papers/steerable-policies' },
             { text: 'PointACT（双系统·3D 点云·Inria）', link: '/vla/papers/pointact' },
@@ -493,7 +496,7 @@ export default withMermaid(defineConfig({
           text: 'WAM 调研',
           items: [
             { text: '总览:定义 / taxonomy / 数据评测', link: '/wam/' },
-            { text: '全模型规格对比（28 篇横向）', link: '/wam/papers/models-spec' },
+            { text: '全模型规格对比（29 篇横向）', link: '/wam/papers/models-spec' },
           ],
         },
         {
@@ -555,6 +558,7 @@ export default withMermaid(defineConfig({
           collapsed: false,
           items: [
             { text: 'Cosmos 3（NVIDIA·全模态世界模型）', link: '/wam/papers/cosmos3' },
+            { text: 'Qwen-RobotWorld（Qwen·视频世界模型）', link: '/wam/papers/qwen-robotworld' },
             { text: 'Genie Envisioner（智元 AgiBot）', link: '/wam/papers/genie-envisioner' },
             { text: 'GE-Sim 2.0（智元·闭环视频世界模拟器）', link: '/wam/papers/ge-sim-2' },
             { text: 'RoboDream（TRI·数据合成引擎）', link: '/wam/papers/robodream' },

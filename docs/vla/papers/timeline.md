@@ -166,10 +166,12 @@ flowchart TD
 | **2025.11** | **π0.6 / π\*0.6** | Physical Intelligence | 混合 + 真机 RL | 知识隔离训练(动作专家梯度不回传主干)+ RECAP 真机强化学习;⚠️ 最难任务吞吐翻倍、失败率约减半;从模仿迈向"从经验学习" | [→ 细读](pi06.md) |
 | **2026.04** | **π0.7** | Physical Intelligence | 可操控通才(分层混合) | 富上下文条件化(子任务/视觉子目标/策略元数据)+ 混合质量数据;⚠️ 单一通才不微调追平 π*0.6 RL 专家,零样本跨本体叠衣 80% 接近人类遥操作;初步组合泛化 | [→ 细读](pi07.md) |
 | **2026.05** | **Qwen-VLA** | 阿里 Qwen | 连续(统一基座) | Qwen3.5-4B + 1.15B DiT 流匹配,一个架构统一操作/导航/轨迹;⚠️ LIBERO 97.9%、R2R 69.0% OSR | [→ 细读](qwen-vla.md) |
+| **2026.06** | **Qwen-RobotManip** | 阿里 Qwen | 连续(操作 VLA) | Qwen3.5-4B + flow-matching DiT,80 维统一 state-action + camera-frame EEF delta;约 38,100h 开源/人类视频语料 ⚠️ | [→ 细读](qwen-robotmanip.md) |
+| **2026.06** | **Qwen-RobotNav** | 阿里 Qwen | 导航 waypoint 执行器 | Qwen3-VL + 轻量 waypoint head,VLN/PointNav/ObjNav/Tracking/driving 统一为可重配置 observation context 的导航调用 ⚠️ | [→ 细读](qwen-robotnav.md) |
 
 ### 3.2 WAM 主线
 
-> **范式图例**(本站谱系口径):`级联` = 先预测未来(显式像素 / 隐式潜空间)、再反推动作;`联合` = 单一模型内联合建模未来状态与动作(自回归 / 扩散 / 混合);`跨范式` = 基座 / 平台 / 仿真 / 数据引擎。机构与年月取自[全模型规格对比](/wam/papers/models-spec)档案表(「待核」= 摘要未明列、本站不硬填);此处选里程碑节点,完整 28 篇逐格对照见该页。
+> **范式图例**(本站谱系口径):`级联` = 先预测未来(显式像素 / 隐式潜空间)、再反推动作;`联合` = 单一模型内联合建模未来状态与动作(自回归 / 扩散 / 混合);`跨范式` = 基座 / 平台 / 仿真 / 数据引擎。机构与年月取自[全模型规格对比](/wam/papers/models-spec)档案表(「待核」= 摘要未明列、本站不硬填);此处选里程碑节点,完整 29 篇逐格对照见该页。
 
 | 时间 | 工作 | 机构 | 范式 | 一句话意义 | 细读 |
 |---|---|---|---|---|---|
@@ -188,6 +190,7 @@ flowchart TD
 | **2026.05** | ⭐ **OpenMOSS 综述** | 复旦 OpenMOSS 等 | —(范式定名) | **WAM 正式定名**:「未来状态与动作的联合分布」两条硬判据 + 级联/联合 taxonomy,首个系统梳理 ⚠️(arXiv:2605.12090) | [→ WAM 总览](/wam/) |
 | **2026.06** | **τ0-WM** | 智元 Finch · 上海创智 | 联合·扩散 | **测试时计算 TTC**:RCS 轻量初筛→低于阈值才 ACVS 推演 + LAR 修正;5.5B / 27,300h;⚠️ 两任务均值 0.43→0.60 | [→ 细读](/wam/papers/tau0-wm) |
 | **2026.06** | **Cosmos 3** | NVIDIA Research | 跨范式·基座 | **全模态开源基座**:MoT 两塔统一语言/图像/视频/音频/动作,一次前向兼 VLM/视频生成/模拟器/策略;OpenMDW 可商用 ✅ | [→ 细读](/wam/papers/cosmos3) |
+| **2026.06** | **Qwen-RobotWorld** | 阿里 Qwen | 跨范式·基座/数据引擎 | 语言条件视频世界模型:Qwen2.5-VL action encoder + 60 层 double-stream MMDiT + EWK 8.6M video-text pairs;服务合成数据/评测/规划 ⚠️ | [→ 细读](/wam/papers/qwen-robotworld) |
 
 ---
 
@@ -264,6 +267,8 @@ flowchart TD
 | π0.6 / π\*0.6 | arxiv.org/abs/2511.14759 · pi.website/blog/pistar06 |
 | π0.7 | arxiv.org/abs/2604.15483 · pi.website/blog/pi07 |
 | Qwen-VLA | arxiv.org/abs/2605.30280 · github.com/QwenLM/Qwen-VLA |
+| Qwen-RobotManip | arxiv.org/abs/2606.17846 · github.com/QwenLM/Qwen-RobotManip |
+| Qwen-RobotNav | arxiv.org/abs/2606.18112 · github.com/QwenLM/Qwen-RobotNav |
 
 ### 6.2 WAM 主线
 
@@ -284,6 +289,7 @@ flowchart TD
 | OpenMOSS 综述 | arxiv.org/abs/2605.12090 |
 | τ0-WM | arxiv.org/abs/2606.01027 |
 | Cosmos 3 | arxiv.org/abs/2606.02800 |
+| Qwen-RobotWorld | arxiv.org/abs/2606.17030 · qwen.ai/blog?id=qwen-robotworld |
 
 ---
 

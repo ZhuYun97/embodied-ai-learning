@@ -1,11 +1,11 @@
 ---
-title: WAM 全模型规格对比(28 篇横向)
-description: 本站收录的 28 篇世界-行动模型(WAM)细读横向一览:机构、发布、范式、开源状态、未来预测形式、动作生成方式、主干与参数、训练数据、代表结果。所有格值取自各细读页,口径各异、禁止跨行比数值;⚠️ 自评 / ✅ 已核 / 待核 三级标注原样保留。
+title: WAM 全模型规格对比(29 篇横向)
+description: 本站收录的 29 篇世界-行动模型(WAM)细读横向一览:机构、发布、范式、开源状态、未来预测形式、动作生成方式、主干与参数、训练数据、代表结果。所有格值取自各细读页,口径各异、禁止跨行比数值;⚠️ 自评 / ✅ 已核 / 待核 三级标注原样保留。
 ---
 
-# WAM 全模型规格对比:28 篇细读横向一览
+# WAM 全模型规格对比:29 篇细读横向一览
 
-> **本页是什么**:把本站 WAM 全部 28 篇细读拍平成三张横向对比表——「档案」「技术规格」「代表结果」。每个格值都取自对应细读页(细读页本身经多源核查),2026-06-10 整理、2026-06-11 增补 5 行(WAV / MotuBrain / OA-WAM / RoboDream / HiMem-WAM);**绝大多数定量为提出方/厂商自评 ⚠️**。VLA 主线的同类页面见 [VLA 全模型规格对比](/vla/papers/models-spec)。
+> **本页是什么**:把本站 WAM 全部 29 篇细读拍平成三张横向对比表——「档案」「技术规格」「代表结果」。每个格值都取自对应细读页(细读页本身经多源核查),2026-06-10 整理、2026-06-11 增补 5 行(WAV / MotuBrain / OA-WAM / RoboDream / HiMem-WAM),2026-06-18 增补 Qwen-RobotWorld;**绝大多数定量为提出方/厂商自评 ⚠️**。VLA 主线的同类页面见 [VLA 全模型规格对比](/vla/papers/models-spec)。
 
 ::: warning 读表铁律(先读这个)
 1. **第三张表的数值不可横向比**。各家用的基准、任务、口径完全不同:WALL-WM 的 **Task Progress 是 0–100 连续分、不是成功率**;DreamZero 的「>2×」是对**自家选定基线**;Cosmos 3 的 RoboArena 名次**随时间变动**(本页为 2026-06 快照);τ0-WM 数值为论文作者自评(2026-06-11 已对照一手论文 2606.01027 校订,不再是媒体转述)。本表只回答「谁、什么范式、什么规格、开没开源」,不回答「谁更强」。
@@ -43,6 +43,7 @@ description: 本站收录的 28 篇世界-行动模型(WAM)细读横向一览:�
 | [OA-WAM](/wam/papers/oa-wam) | 联合·混合 | 清华深圳 TBSI(丁文伯)·上交·NTU | 2026-05 · 2605.06481 | 待核(文称已放 ckpt 与训练脚本,全文无链接、GitHub 检索无果) |
 | [HiMem-WAM](/wam/papers/himem-wam) | 联合·混合 | 港大 × INFIFORCE × 华中科大等(6 机构 15 作者) | 2026-06 · 2606.10363(v1 06-09,观察级) | 未见开源 ✅实查(全文与摘要页均无代码/项目页链接) |
 | [Cosmos 3](/wam/papers/cosmos3) | 跨范式·基座 | NVIDIA Research | 2026-06 · 2606.02800 | OpenMDW-1.1 开源(可商用)✅ |
+| [Qwen-RobotWorld](/wam/papers/qwen-robotworld) | 跨范式·基座/数据引擎 | 阿里巴巴 Qwen 团队 | 2026-06 · 2606.17030 | 官方博客公开;代码/权重待核 |
 | [Genie Envisioner](/wam/papers/genie-envisioner) | 跨范式·平台 | 智元 AgiBot | 2025-08 · 2508.05635 | 代码开源(许可待核) |
 | [GE-Sim 2.0](/wam/papers/ge-sim-2) | 跨范式·仿真 | 智元·北航·LV-NUS·天大 | 2026-05 · 2605.27491 | 待核(仅项目页) |
 | [RoboDream](/wam/papers/robodream) | 跨范式·数据引擎 | 丰田研究院 TRI · USC | 2026-06 · 2606.02577 | 未开源 ✅实查(repo 仅占位 README,"code release coming soon") |
@@ -78,6 +79,7 @@ WAM 的两条核心轴是「**未来预测的形式/空间**」(像素视频 / �
 | [OA-WAM](/wam/papers/oa-wam) | 逐对象槽位状态回归(N+1 槽,addr 32d + cnt 256d,MSE;非像素/视频 token) | 流匹配动作头(16 步动作块,4 步 Euler) | ~7B Chameleon 风格主干(暖启 Chameleon-7B) | 三阶段全仿真/开源:Stage0 ~2.5T token(web 60% + OXE 20% + DROID/RoboCasa/Bridge),~166k A100-h |
 | [HiMem-WAM](/wam/papers/himem-wam) | 多视角光流潜动作(DPFlow,仅训练期监督;推理因果、不生成未来) | 分层潜动作链:Qwen3-VL planner 出 skill latent → executor 展开低层动作块 → 解码器出控制 | planner = Qwen3-VL-4B;总参数待核 | 待核(以细读页为准) |
 | [Cosmos 3](/wam/papers/cosmos3) | 五模态生成(视频/图/音/动作) | 生成塔直出 JSON 动作 token | MoT 两塔;Nano 16B / Super 64B ⚠️ | ~20T 多模态 token ⚠️(动作仅约 0.6%) |
+| [Qwen-RobotWorld](/wam/papers/qwen-robotworld) | 语言条件未来视频轨迹(操作/驾驶/导航/人机迁移) | 非直接策略;自然语言作 action interface,生成未来视觉用于数据/评测/规划 | 冻结 Qwen2.5-VL 7B action encoder + Wan-VAE 127M + MMDiT 20B | EWK:8.6M video-text pairs / 200M+ frames;20+ embodiments / 500+ action categories ⚠️ |
 | [Genie Envisioner](/wam/papers/genie-envisioner) | 指令条件视频(结构化潜空间) | GE-Act 流匹配解码出动作 | GE-Base 视频扩散底座;参数待核 | ~3,000h / >100 万 episodes ⚠️ |
 | [GE-Sim 2.0](/wam/papers/ge-sim-2) | 多视角未来画面+16 维本体状态 | 不直接出动作(闭环模拟器) | Cosmos-Predict2-2B 基;2B | 数千小时真机(重训)⚠️ |
 | [RoboDream](/wam/papers/robodream) | 多视角 photorealistic RGB 演示视频(机器人运动作渲染锚点,条件化场景/对象先验) | 非策略:数据合成引擎(下游统一 Diffusion Policy 另训) | Cosmos-Predict2 2B 微调 | DROID ~40k episodes(限有相机标定);2×8 A100 约一周 |
@@ -111,6 +113,7 @@ WAM 的两条核心轴是「**未来预测的形式/空间**」(像素视频 / �
 | [OA-WAM](/wam/papers/oa-wam) | LIBERO + SimplerEnv WidowX + LIBERO-Plus(OOD 留出) | LIBERO 均值 97.8 ⚠️(较 VLA-JEPA +0.6);SimplerEnv 79.3 ⚠️;LIBERO-Plus 几何轴自评 SOTA |
 | [HiMem-WAM](/wam/papers/himem-wam) | LIBERO + LIBERO-PLUS(零样本)+ RMBench + 真机 | LIBERO 97.7 ⚠️;LIBERO-PLUS 76.0 ⚠️;RMBench 26.3 ⚠️;真机硬任务较 π0.5 +22.5% ⚠️(v1 仅 2 天,观察级) |
 | [Cosmos 3](/wam/papers/cosmos3) | RoboArena | 发布登顶(1881),约 2 天后被 Spirit v1.6(1924)反超 ⚠️(2026-06 快照) |
+| [Qwen-RobotWorld](/wam/papers/qwen-robotworld) | EWMBench / DreamGen / WorldModelBench / PBench | EWMBench 4.60、DreamGen 4.952、WorldModelBench 8.99、PBench 0.804 ⚠️(视频世界模型 benchmark,非策略成功率) |
 | [Genie Envisioner](/wam/papers/genie-envisioner) | 待核(无统一第三方评测) | GE-Act 200ms 出 54 步轨迹;新本体 1h 示范 ⚠️ |
 | [GE-Sim 2.0](/wam/papers/ge-sim-2) | WorldArena | 2B 登顶(称超 Sora/Veo)⚠️;过滤式 BC 真机 +15pp ⚠️ |
 | [RoboDream](/wam/papers/robodream) | 自建 4 真机任务(Franka/DROID;部分成功计半分) | Real-50 36.3% → 混合生成数据 62.5%,Mix-200 72.5% 后饱和 ⚠️;prop-free 采集 ~2.2× 快 ⚠️ |

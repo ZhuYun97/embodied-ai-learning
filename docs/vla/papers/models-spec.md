@@ -1,19 +1,19 @@
 ---
 title: 全模型规格对比大表
-description: 一页看全 24 个 VLA / 具身智能代表模型的横切规格大表——主干 VLM、视觉编码器、参数量、动作表示、控制频率、训练语料、单体/双系统、开源许可,按时间排序并交叉链接各细读。
+description: 一页看全 26 个 VLA / 具身智能代表模型的横切规格大表——主干 VLM、视觉编码器、参数量、动作表示、控制频率、训练语料、单体/双系统、开源许可,按时间排序并交叉链接各细读。
 ---
 
 # 全模型规格对比大表
 
 > [← 返回主报告](../index.md)
 
-> **本页用途**:把 24 个代表模型的规格拍平成**一张主对比大表**,让你一页看全"谁用什么主干、动作怎么生成、跑多快、用多少数据、开不开源"。这是一张**横切对照页**,只做规组与交叉引用,**不复述单模型细节**——任何一格想深究,点对应细读。
+> **本页用途**:把 26 个代表模型的规格拍平成**一张主对比大表**,让你一页看全"谁用什么主干、动作怎么生成、跑多快、用多少数据、开不开源"。这是一张**横切对照页**,只做规组与交叉引用,**不复述单模型细节**——任何一格想深究,点对应细读。
 > **可信度体例**:⚠️ = 提出方/厂商自评数字;✅ = 经核查/基准维护方统一评测;**待核** = 源文件未给出一手定量,**不编造**(尤其许可证与参数量)。
 > **三处权威源声明(务必先读)**:① **规格以各模型细读为权威源**(本表的数字均可在对应 `xx.md` 里找到出处);② **成绩(成功率/基准分)一律见 [数据集与基准](benchmarks.md)**,本表不抄成绩;③ **年代序与机构以 [发展时间线](timeline.md) 为准**。
 
 ---
 
-## 一、主对比大表(24 模型 × 12 维,按时间排序)
+## 一、主对比大表(26 模型 × 12 维,按时间排序)
 
 > **动作表示图例**:`离散token` = 离散自回归动作 token;`流匹配` = flow matching 连续动作;`扩散DiT` = Diffusion Transformer 连续动作;`L1` = 连续表示 + L1 回归;`混合` = 高层离散 + 底层连续;`视频生成` = 第三条路(视频生成预训练)。
 > **系统形态图例**:`单体` = 单一模型端到端;`双系统` = 慢 VLM 推理(System 2)+ 快控制器执行(System 1)。
@@ -44,6 +44,8 @@ description: 一页看全 24 个 VLA / 具身智能代表模型的横切规格�
 | **Wall-OSS-0.5** | 2026.02 | X Square Robot(自变量机器人) | Qwen2.5-VL-3B-Instruct + MoT 双专家 | Qwen2.5-VL 内置视觉(448px) | ~4B(MoT:VL Expert + Action Expert) | 混合(梯度桥接:离散 RVQ 训练桥 + 连续流匹配部署) | 三视角 224² ~21Hz / 448² ~15Hz(RTX5090,T=10)⚠️ | 1M+ 轨迹/epoch(60% 自采 + 40% 开源 10 子集)+ 90M 多模态(9:1) | 单体(MoT 路由,端到端梯度) | **开源**(GitHub `X-Square-Robot/wall-x`)/ 许可证**待核** | [wall-oss-05.md](wall-oss-05.md) |
 | **π0.7** | 2026.04 | Physical Intelligence | Gemma3-4B(承 π0.6) | ~400M 视觉编码器(含于 4B 主干) | ~5B(4B Gemma3 主干 + 860M flow-matching 动作专家) | 混合(分层 + MEM 视频历史 + 视觉子目标;承 π0.6) | RTC,最大推理延迟 ~240 ms ⚠️（社区报 ~127 ms,口径不同,**待核**） | 大量次优/失败/旧模型 rollout 混合质量数据 + 富上下文条件化(规模**待核**) | 单体(分层 + 富上下文条件化) | **未开源**(数据/权重均闭) | [pi07.md](pi07.md) |
 | **Qwen-VLA** | 2026.05 | 阿里巴巴 Qwen 团队 | Qwen3.5-4B(稠密) | Qwen3.5-VL 内置视觉 | Qwen3.5-4B 主干 + 1.15B DiT 解码器(总数源未给,~5.2B 系相加估算) | 扩散DiT / 流匹配(统一"动作-轨迹"空间) | 待核(技术报告全文未放出) | 操作轨迹 + VLN 导航 + 轨迹监督 + 辅助 VL 数据(规模**待核**) | 单体(VL 主干 + DiT 双流) | **开放程度待确认**(仓库主要为报告/Demo,权重/许可证未明) | [qwen-vla.md](qwen-vla.md) |
+| **Qwen-RobotManip** | 2026.06 | 阿里巴巴 Qwen 团队 | Qwen3.5-4B | Qwen3.5-VL 内置视觉 | 主干 4B + DiT 动作专家(10 blocks,hidden 768;总数待核) | 流匹配 DiT(80 维 canonical state-action,camera-frame EEF delta) | 推理 4 步 Euler;控制频率待核 | 约 38,100h(开源机器人数据 + 人类视频 + human-to-robot 合成;15 平台合成约 24,808h) ⚠️ | 单体(VL backbone + action expert) | 官方 GitHub 公开;权重/许可证待核 | [qwen-robotmanip.md](qwen-robotmanip.md) |
+| **Qwen-RobotNav** | 2026.06 | 阿里巴巴 Qwen 团队 | Qwen3-VL(2B/4B/8B 变体) | Qwen3-VL 内置 SigLIP-2 视觉 | 2B/4B/8B + 轻量 4 层 waypoint head | Waypoint 回归(K=8,每点 x/y/theta;task-adaptive observation encoding) | 待核(真实部署有云端/本机延迟对比,未统一为控制 Hz) | 15.6M samples(85% 导航轨迹规划 + 15% VL reasoning) ⚠️ | 分层系统中的导航执行器(上层 planner 可重配置调用) | 官方 GitHub 公开;权重/许可证待核 | [qwen-robotnav.md](qwen-robotnav.md) |
 
 > **关于"成绩"**:上表**刻意不列任何成功率/基准分**。各模型的 LIBERO / SimplerEnv / 真机成功率及其可信度标注,**统一见 [数据集与基准](benchmarks.md)**(那里区分了 ⚠️ 自评与 ✅ 第三方核查)。
 
@@ -75,6 +77,7 @@ flowchart TD
         DPb["Diffusion Policy"] --> OCTOb["Octo(扩散)"]
         PI0b["π0(流匹配)"] --> COGb["CogACT(DiT)"]
         GR00Tb["GR00T N1(DiT/流匹配)"]
+        QWENMANIPb["Qwen-RobotManip(操作流匹配)"]
         QWENb["Qwen-VLA(DiT/流匹配)"]
     end
     subgraph C["③ 连续:L1 回归(非扩散)"]
@@ -87,16 +90,21 @@ flowchart TD
     subgraph E["⑤ 第三条路:视频生成预训练"]
         RYNNb["RynnVLA-001"]
     end
+    subgraph F["⑥ 导航 waypoint 执行器"]
+        QWENNAVb["Qwen-RobotNav"]
+    end
     classDef disc fill:#ffe0e0,stroke:#e57373;
     classDef cont fill:#cfe8ff,stroke:#3b82f6;
     classDef l1 fill:#fff3c4,stroke:#d4a017;
     classDef mix fill:#e8f5e9,stroke:#43a047;
     classDef vid fill:#f0e0ff,stroke:#9c5fd0;
+    classDef nav fill:#e0f7fa,stroke:#00acc1;
     class RT1b,RT2b,OVLAb,FASTb disc;
-    class DPb,OCTOb,PI0b,COGb,GR00Tb,QWENb cont;
+    class DPb,OCTOb,PI0b,COGb,GR00Tb,QWENb,QWENMANIPb cont;
     class OFTb l1;
     class PI05b,PI06b,PI07b,WALLb mix;
     class RYNNb vid;
+    class QWENNAVb nav;
 ```
 
 - **① 离散 token 自回归(RT-1 → RT-2 → OpenVLA → π0-FAST)。** 把动作当文本 token 自回归吐出。优点是与 VLM 词表无缝、几乎零架构改动;短板是**高频灵巧控制吃力**(逐 token 串行慢、分箱损精度)。π0-FAST 用 DCT 频域分词压缩,补齐了这条路在高频上的短板。这条路后来**多被混合系统吸收为"高层子任务"分支**。
@@ -108,6 +116,8 @@ flowchart TD
 - **④ 混合 / 分层(π0.5 → π0.6 → π0.7;WALL-OSS)。** 把"想做什么"(高层离散子任务)与"怎么做"(底层连续动作)拆成两级,**离散与连续合一**。π0 系沿这条线一路演进(π0.5 泛化 → π0.6 真机 RL → π0.7 可操控 + 组合泛化);WALL-OSS 则用紧耦合 MoE 把 FAST 离散分支与流匹配分支并存于同一 Qwen2.5-VL 主干。
 
 - **⑤ 第三条路:视频生成预训练(RynnVLA-001)。** 不在"动作输出形式"上做文章,而在**预训练先验来源**上另起一路:用自回归视频生成(从 Chameleon 扩展的 I2V)在 1200 万人类视频上学"世界如何随操作演变"的动态先验,再迁移到机器人(动作侧用 ActionVAE 连续隐表征)。
+
+- **⑥ 导航 waypoint 执行器(Qwen-RobotNav)。** 它不是机械臂操作 VLA,而是把 VLN / PointNav / ObjNav / Tracking / driving 统一成 waypoint trajectory prediction,并把 observation context 做成推理时可控参数。本站单列这一类,避免把导航模型误塞进 manipulation action head 对比。
 
 > **总体判断**(同主报告与 [时间线](timeline.md)):技术天平整体**倒向连续动作生成**,但领先的混合系统在高层抽象子任务上**仍保留离散 token**——两条路并非互斥,正走向融合。系统形态上,**双系统**(慢 VLM + 快控制器)成为兼顾"想得对"与"动得快"的主流工程答案。详见主报告 [第三部分 · 技术路线之争](../index.md#三技术路线之争离散-token-vs-连续扩散流匹配)。
 
@@ -123,4 +133,4 @@ flowchart TD
 
 ---
 
-*本对比表基于《VLA(视觉-语言-动作)模型发展深度调研报告》及 24 篇模型细读整理。⚠️ 标记处为提出方/厂商自评数据;**待核** 处为一手源未给出、不予编造。*
+*本对比表基于《VLA(视觉-语言-动作)模型发展深度调研报告》及 26 篇模型细读整理。⚠️ 标记处为提出方/厂商自评数据;**待核** 处为一手源未给出、不予编造。*
