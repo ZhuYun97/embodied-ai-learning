@@ -9,7 +9,16 @@
   不渲染,已剥离 filter 属性(仅损失细微投影);尺寸经 font-size 缩放适配 64px 导航栏。
 -->
 <template>
-  <label id="theme-toggle-button" ref="toggleButton" title="切换深浅色模式">
+  <label
+    id="theme-toggle-button"
+    ref="toggleButton"
+    :class="[
+      { 'is-animating': isAnimating },
+      transitionTarget === 'dark' ? 'to-dark' : '',
+      transitionTarget === 'light' ? 'to-light' : ''
+    ]"
+    title="切换深浅色模式"
+  >
     <input
       id="toggle"
       type="checkbox"
@@ -70,6 +79,9 @@ import { nextTick, ref } from 'vue'
 
 const { isDark } = useData()
 const toggleButton = ref(null)
+const isAnimating = ref(false)
+const transitionTarget = ref('')
+let buttonAnimationTimer = 0
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
@@ -78,6 +90,20 @@ const prefersReducedMotion = () =>
 async function applyTheme(checked) {
   isDark.value = checked
   await nextTick()
+}
+
+function playButtonAnimation(checked) {
+  if (typeof window === 'undefined' || prefersReducedMotion()) return
+  window.clearTimeout(buttonAnimationTimer)
+  transitionTarget.value = checked ? 'dark' : 'light'
+  isAnimating.value = false
+  window.requestAnimationFrame(() => {
+    isAnimating.value = true
+    buttonAnimationTimer = window.setTimeout(() => {
+      isAnimating.value = false
+      transitionTarget.value = ''
+    }, 760)
+  })
 }
 
 function setTransitionGeometry() {
@@ -100,13 +126,36 @@ function setTransitionGeometry() {
 
 async function toggleTheme() {
   const checked = !isDark.value
+  playButtonAnimation(checked)
+
+  if (prefersReducedMotion()) {
+    await applyTheme(checked)
+    return
+  }
+
   const canViewTransition =
     typeof document !== 'undefined' &&
-    'startViewTransition' in document &&
-    !prefersReducedMotion()
+    'startViewTransition' in document
 
   if (!canViewTransition) {
-    await applyTheme(checked)
+    setTransitionGeometry()
+    const root = document.documentElement
+    root.classList.add('theme-fallback-transitioning')
+    root.classList.toggle('theme-fallback-to-dark', checked)
+    root.classList.toggle('theme-fallback-to-light', !checked)
+    try {
+      await applyTheme(checked)
+      await new Promise((resolve) => window.setTimeout(resolve, 720))
+    } finally {
+      root.classList.remove(
+        'theme-fallback-transitioning',
+        'theme-fallback-to-dark',
+        'theme-fallback-to-light'
+      )
+      root.style.removeProperty('--theme-transition-x')
+      root.style.removeProperty('--theme-transition-y')
+      root.style.removeProperty('--theme-transition-radius')
+    }
     return
   }
 
@@ -144,8 +193,38 @@ async function toggleTheme() {
   -webkit-tap-highlight-color: transparent;
 }
 
+#theme-toggle-button::before {
+  content: "";
+  position: absolute;
+  inset: -0.9em -0.75em;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.72);
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.65) 0 12%, transparent 44%),
+    radial-gradient(circle, var(--theme-toggle-burst, rgba(56, 189, 248, 0.42)) 0 38%, transparent 70%);
+  filter: blur(0.2px);
+}
+
+#theme-toggle-button.to-dark {
+  --theme-toggle-burst: rgba(56, 189, 248, 0.5);
+}
+
+#theme-toggle-button.to-light {
+  --theme-toggle-burst: rgba(250, 204, 21, 0.48);
+}
+
+#theme-toggle-button.is-animating::before {
+  animation: themeToggleBurst 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 #theme-toggle-button svg {
   overflow: visible;
+}
+
+#theme-toggle-button.is-animating svg {
+  animation: themeToggleNudge 0.62s cubic-bezier(0.22, 1.35, 0.36, 1) both;
 }
 
 /* Hide default HTML checkbox */
@@ -243,6 +322,18 @@ async function toggleTheme() {
   0% { opacity: 0; transform: scale(0.65); }
   55% { opacity: 1; transform: scale(1.25); }
   100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes themeToggleBurst {
+  0% { opacity: 0; transform: scale(0.65); }
+  18% { opacity: 0.9; transform: scale(0.9); }
+  100% { opacity: 0; transform: scale(1.42); }
+}
+
+@keyframes themeToggleNudge {
+  0% { transform: scale(1); }
+  38% { transform: scale(1.08); }
+  100% { transform: scale(1); }
 }
 
 /* —— 站点适配:缩放进 64px 导航栏,替换默认开关(移动端抽屉菜单保留默认) —— */
