@@ -5,13 +5,13 @@ description: 从本站 Markdown、站内链接、论文目录与本地实体词�
 
 # 离线全站知识图谱
 
-从现有 Markdown 和站内结构直接构建的全站知识图谱,并用 Graphify 原生 `graph.html` 渲染。它覆盖 VLA / WAM 细读、横切专题、生态页、概念、数据集、基准、本体与机构。动态新闻、arXiv 编号与外部 GitHub 链接不进入图谱,所有节点和关系都由本地规则抽取或来自站内既有目录,不使用模型 API。
-
 <script setup>
 import OfflineKnowledgeGraph from '../.vitepress/theme/components/OfflineKnowledgeGraph.vue'
 </script>
 
 <OfflineKnowledgeGraph />
+
+从现有 Markdown 和站内结构直接构建的全站知识图谱,并用 Graphify 原生 `graph.html` 渲染。它覆盖 VLA / WAM 细读、横切专题、生态页、概念、数据集、基准、本体与机构。动态新闻、arXiv 编号与外部 GitHub 链接不进入图谱,所有节点和关系都由本地规则抽取或来自站内既有目录,不使用模型 API。
 
 ## 构建口径
 
