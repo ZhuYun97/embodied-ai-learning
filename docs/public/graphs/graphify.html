@@ -818,6 +818,7 @@ network.on('afterDrawing', function(ctx) {
     document.querySelector('[data-atlas-runtime]').textContent = statMatch[3] + ' sectors locked';
   }
 
+  const rawById = new Map(RAW_NODES.map((node) => [node.id, node]));
   const colorByNode = new Map(RAW_NODES.map((node) => [node.id, node.color?.background || '#8bdcff']));
   const highDegree = Math.max(1, ...RAW_NODES.map((node) => Number(node.degree || 0)));
   const topNode = [...RAW_NODES].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0))[0];
@@ -826,6 +827,7 @@ network.on('afterDrawing', function(ctx) {
   }
   const layout = buildAtlasLayout();
   const sectorCenters = layout.sectors;
+  const labelState = new Map();
   nodesDS.update(RAW_NODES.map((node) => {
     const degree = Number(node.degree || 0);
     const isCommand = degree >= 250 || node.id.startsWith('track:') || node.id.startsWith('route:');
@@ -835,6 +837,7 @@ network.on('afterDrawing', function(ctx) {
     const baseColor = node.color?.background || '#42f4ff';
     return {
       id: node.id,
+      label: '',
       x: pos.x,
       y: pos.y,
       shape: isCommand ? 'diamond' : 'dot',
@@ -852,7 +855,7 @@ network.on('afterDrawing', function(ctx) {
         color: '#f7fbff',
         strokeWidth: isHub ? 5 : 4,
         strokeColor: 'rgba(4, 5, 14, 0.92)',
-        size: isHub ? Math.max(13, node.font?.size || 0) : node.font?.size || 0,
+        size: 0,
       },
     };
   }));
@@ -862,9 +865,10 @@ network.on('afterDrawing', function(ctx) {
     const strong = edge.confidence === 'EXTRACTED';
     return {
       id: index,
-      width: strong ? Math.max(0.55, Math.min(2.4, edge.width || 1.2)) : 0.6,
-      color: { color, opacity: strong ? 0.34 : 0.16 },
-      hoverWidth: strong ? 3.2 : 1.8,
+      width: strong ? Math.max(0.45, Math.min(1.25, edge.width || 1)) : 0.35,
+      color: { color, opacity: strong ? 0.18 : 0.07 },
+      hoverWidth: strong ? 2.2 : 1.2,
+      arrows: { to: { enabled: false } },
       smooth: { type: 'dynamic', roundness: 0.2 },
     };
   }));
@@ -889,17 +893,120 @@ network.on('afterDrawing', function(ctx) {
     },
     edges: {
       smooth: { type: 'dynamic', roundness: 0.2 },
-      selectionWidth: 4,
+      selectionWidth: 2.4,
+      arrows: { to: { enabled: false } },
     },
   });
 
   setTimeout(() => {
     network.fit({ animation: { duration: 700, easingFunction: 'easeInOutQuad' } });
+    updateLabels();
   }, 80);
 
   network.on('afterDrawing', (ctx) => {
-    drawTacticalOverlay(ctx, sectorCenters);
+    drawTacticalOverlay(ctx, sectorCenters, network.getScale());
   });
+  network.on('zoom', () => scheduleLabelUpdate());
+  network.on('dragEnd', () => scheduleLabelUpdate());
+  network.on('selectNode', () => scheduleLabelUpdate(true));
+  network.on('deselectNode', () => scheduleLabelUpdate(true));
+
+  let labelTimer = 0;
+  function scheduleLabelUpdate(immediate = false) {
+    clearTimeout(labelTimer);
+    if (immediate) {
+      updateLabels();
+      return;
+    }
+    labelTimer = setTimeout(updateLabels, 90);
+  }
+
+  function localLabelIdsFor(scale, selectedIds) {
+    const ids = new Set(selectedIds);
+    if (!selectedIds.size) return ids;
+    const limit = scale < 1 ? 6 : scale < 1.55 ? 14 : scale < 2.1 ? 24 : 36;
+    const candidates = new Map();
+    for (const selectedId of selectedIds) {
+      for (const neighborId of network.getConnectedNodes(selectedId)) {
+        const node = rawById.get(neighborId);
+        if (!node || ids.has(neighborId)) continue;
+        const degree = Number(node.degree || 0);
+        const score = degree
+          + (node.file_type === 'paper' ? 90 : 0)
+          + (node.file_type === 'concept' ? 50 : 0)
+          + (node.id.startsWith('route:') || node.id.startsWith('track:') ? 45 : 0);
+        if (!candidates.has(neighborId) || candidates.get(neighborId).score < score) {
+          candidates.set(neighborId, { id: neighborId, score });
+        }
+      }
+    }
+    Array.from(candidates.values())
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit)
+      .forEach((item) => ids.add(item.id));
+    return ids;
+  }
+
+  function labelLevelFor(node, scale, selectedIds, localLabelIds) {
+    const degree = Number(node.degree || 0);
+    if (selectedIds.has(node.id)) return 4;
+    if (localLabelIds.has(node.id)) return scale < 1.15 ? 2 : scale < 1.8 ? 3 : 4;
+    if (scale < 0.38) return degree >= 420 || node.id.startsWith('track:') ? 1 : 0;
+    if (scale < 0.62) return degree >= 300 || node.id.startsWith('track:') || node.id.startsWith('route:') ? 1 : 0;
+    if (scale < 0.86) return degree >= 180 || node.file_type === 'paper' || node.id.startsWith('track:') || node.id.startsWith('route:') ? 2 : 0;
+    if (scale < 1.16) return degree >= 140 || (node.file_type === 'paper' && degree >= 80) ? 3 : 0;
+    if (scale < 1.55) return degree >= 110 || (node.file_type === 'paper' && degree >= 65) || node.id.startsWith('route:') || node.id.startsWith('track:') ? 3 : 0;
+    if (scale < 2.15) return degree >= 75 || (node.file_type === 'paper' && degree >= 45) || node.id.startsWith('route:') || node.id.startsWith('track:') ? 3 : 0;
+    return degree >= 38 || node.file_type === 'paper' || node.id.startsWith('route:') || node.id.startsWith('track:') ? 4 : 0;
+  }
+
+  function updateLabels() {
+    const scale = network.getScale();
+    const selectedIds = new Set(network.getSelectedNodes());
+    const localLabelIds = localLabelIdsFor(scale, selectedIds);
+    const updates = [];
+    for (const node of RAW_NODES) {
+      const level = labelLevelFor(node, scale, selectedIds, localLabelIds);
+      const fontSize = level === 0 ? 0 : level === 1 ? 12 : level === 2 ? 13 : level === 3 ? 14 : 15;
+      const next = level === 0 ? '' : node.label;
+      const stateKey = next + '|' + fontSize;
+      if (labelState.get(node.id) === stateKey) continue;
+      labelState.set(node.id, stateKey);
+      updates.push({
+        id: node.id,
+        label: next,
+        font: {
+          ...(node.font || {}),
+          color: '#f7fbff',
+          strokeWidth: level >= 3 ? 6 : 5,
+          strokeColor: 'rgba(1, 3, 8, 0.96)',
+          size: fontSize,
+        },
+      });
+    }
+    if (updates.length) nodesDS.update(updates);
+  }
+
+  function revealNodeLabel(nodeId) {
+    const node = rawById.get(nodeId);
+    if (!node) return;
+    labelState.delete(node.id);
+    nodesDS.update({
+      id: node.id,
+      label: node.label,
+      font: {
+        ...(node.font || {}),
+        color: '#ffffff',
+        strokeWidth: 6,
+        strokeColor: 'rgba(1, 3, 8, 0.98)',
+        size: 15,
+      },
+    });
+  }
+
+  network.on('hoverNode', (params) => revealNodeLabel(params.node));
+  network.on('blurNode', () => scheduleLabelUpdate(true));
+  network.on('animationFinished', () => scheduleLabelUpdate(true));
 
   function buildAtlasLayout() {
     const groups = new Map();
@@ -952,10 +1059,11 @@ network.on('afterDrawing', function(ctx) {
     return { nodes: nodesOut, sectors: sectorOut };
   }
 
-  function drawTacticalOverlay(ctx, sectors) {
-    if (!sectors || sectors.size === 0) return;
+  function drawTacticalOverlay(ctx, sectors, scale) {
+    if (!sectors || sectors.size === 0 || scale < 0.7 || scale > 1.18) return;
     ctx.save();
-    const ranked = Array.from(sectors.values()).sort((a, b) => b.count - a.count).slice(0, 18);
+    const maxLabels = scale < 1.05 ? 6 : 10;
+    const ranked = Array.from(sectors.values()).sort((a, b) => b.count - a.count).slice(0, maxLabels);
     ranked.forEach((sector, index) => {
       const labelY = sector.y - sector.radius - 28;
       const labelX = sector.x - 82;
