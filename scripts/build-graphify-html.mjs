@@ -126,12 +126,6 @@ function enhanceGraphifyHtml() {
       `<body>
 <main id="graph-stage">
   <div id="atlas-grid" aria-hidden="true"></div>
-  <div id="atlas-holo" aria-hidden="true"></div>
-  <div id="atlas-radar" aria-hidden="true">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
   <div id="graph"></div>
   <section id="atlas-hud" aria-label="Knowledge graph overview">
     <div>
@@ -203,7 +197,6 @@ function graphifyAtlasStyles() {
       linear-gradient(90deg, rgba(66, 244, 255, 0.045) 1px, transparent 1px);
     background-size: 56px 56px;
     mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.38), #000 26%, #000 74%, rgba(0, 0, 0, 0.22));
-    animation: atlasGridDrift 18s linear infinite;
   }
   body::after {
     content: "";
@@ -247,9 +240,8 @@ function graphifyAtlasStyles() {
     height: 18%;
     z-index: 6;
     pointer-events: none;
-    background: linear-gradient(180deg, transparent, rgba(66, 244, 255, 0.18), rgba(116, 255, 176, 0.045), transparent);
+    background: linear-gradient(180deg, transparent, rgba(66, 244, 255, 0.1), transparent);
     mix-blend-mode: screen;
-    animation: atlasScan 5.8s linear infinite;
   }
   #atlas-grid {
     position: absolute;
@@ -262,7 +254,6 @@ function graphifyAtlasStyles() {
       linear-gradient(120deg, transparent 0 49%, rgba(116, 255, 176, 0.055) 49.4%, transparent 50.8% 100%);
     background-size: 56px 56px, 56px 56px, 210px 210px;
     opacity: 0.72;
-    animation: atlasGridDrift 22s linear infinite;
   }
   #atlas-grid::before,
   #atlas-grid::after {
@@ -279,63 +270,10 @@ function graphifyAtlasStyles() {
   }
   #atlas-grid::after {
     background:
-      radial-gradient(circle at 50% 50%, transparent 0 21%, rgba(66, 244, 255, 0.08) 21.2% 21.6%, transparent 22% 37%, rgba(116, 255, 176, 0.06) 37.2% 37.6%, transparent 38% 100%);
+      linear-gradient(135deg, transparent 0 48%, rgba(66, 244, 255, 0.055) 49%, transparent 50% 100%);
     mix-blend-mode: screen;
-    opacity: 0.74;
+    opacity: 0.42;
   }
-  #atlas-holo {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background:
-      conic-gradient(from 28deg at 50% 50%, transparent 0deg, rgba(66, 244, 255, 0.08) 24deg, transparent 52deg, transparent 146deg, rgba(116, 255, 176, 0.055) 174deg, transparent 212deg, transparent 360deg),
-      radial-gradient(circle at 50% 50%, transparent 0 28%, rgba(66, 244, 255, 0.045) 28.2% 28.8%, transparent 29% 44%, rgba(66, 244, 255, 0.035) 44.2% 44.8%, transparent 45%);
-    mix-blend-mode: screen;
-    opacity: 0.62;
-  }
-  #atlas-radar {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 3;
-    width: min(70vmin, 760px);
-    aspect-ratio: 1;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    border: 1px solid rgba(66, 244, 255, 0.18);
-    border-radius: 50%;
-    box-shadow: 0 0 80px rgba(66, 244, 255, 0.08), inset 0 0 70px rgba(66, 244, 255, 0.035);
-    opacity: 0.9;
-  }
-  #atlas-radar::before {
-    content: "";
-    position: absolute;
-    inset: 50% 50% auto auto;
-    width: 50%;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(116, 255, 176, 0.82), transparent);
-    transform-origin: left center;
-    animation: atlasRadarSpin 8s linear infinite;
-    box-shadow: 0 0 18px rgba(116, 255, 176, 0.48);
-  }
-  #atlas-radar::after {
-    content: "";
-    position: absolute;
-    inset: 14%;
-    border: 1px dashed rgba(66, 244, 255, 0.18);
-    border-radius: 50%;
-    animation: atlasRadarPulse 3.2s ease-in-out infinite;
-  }
-  #atlas-radar span {
-    position: absolute;
-    inset: var(--ring);
-    border: 1px solid rgba(66, 244, 255, 0.14);
-    border-radius: 50%;
-  }
-  #atlas-radar span:nth-child(1) { --ring: 22%; }
-  #atlas-radar span:nth-child(2) { --ring: 36%; }
-  #atlas-radar span:nth-child(3) { --ring: 48%; }
   #graph {
     position: absolute;
     inset: 0;
@@ -695,22 +633,6 @@ function graphifyAtlasStyles() {
     font-variant-numeric: tabular-nums;
     background: rgba(255, 255, 255, 0.035);
   }
-  @keyframes atlasScan {
-    from { transform: translateY(0); }
-    to { transform: translateY(760%); }
-  }
-  @keyframes atlasGridDrift {
-    from { background-position: 0 0, 0 0, 0 0; }
-    to { background-position: 112px 56px, 112px 56px, 210px 210px; }
-  }
-  @keyframes atlasRadarSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  @keyframes atlasRadarPulse {
-    0%, 100% { opacity: 0.28; transform: scale(0.96); }
-    50% { opacity: 0.72; transform: scale(1.03); }
-  }
   @media (max-width: 1100px) {
     .atlas-metrics {
       display: none;
@@ -739,8 +661,7 @@ function graphifyAtlasStyles() {
       right: 12px;
       align-items: flex-start;
     }
-    #atlas-telemetry,
-    #atlas-radar {
+    #atlas-telemetry {
       display: none;
     }
     #atlas-readouts {
@@ -776,7 +697,6 @@ function graphifyAtlasScript() {
   }
   const layout = buildAtlasLayout();
   const sectorCenters = layout.sectors;
-  const pulseEdges = buildPulseEdges(layout.nodes);
   nodesDS.update(RAW_NODES.map((node) => {
     const degree = Number(node.degree || 0);
     const isCommand = degree >= 250 || node.id.startsWith('track:') || node.id.startsWith('route:');
@@ -797,7 +717,7 @@ function graphifyAtlasScript() {
         highlight: { background: '#ffffff', border: baseColor },
         hover: { background: '#ffffff', border: baseColor },
       },
-      shadow: { enabled: true, color: baseColor, size: isHub ? glow : glow * 0.7, x: 0, y: 0 },
+      shadow: isHub ? { enabled: true, color: baseColor, size: Math.min(glow, 22), x: 0, y: 0 } : false,
       font: {
         ...(node.font || {}),
         color: '#f7fbff',
@@ -849,18 +769,8 @@ function graphifyAtlasScript() {
   }, 80);
 
   network.on('afterDrawing', (ctx) => {
-    drawTacticalOverlay(ctx, sectorCenters, pulseEdges, performance.now());
+    drawTacticalOverlay(ctx, sectorCenters);
   });
-
-  let lastRedraw = 0;
-  function animateAtlas(time) {
-    if (document.visibilityState === 'visible' && time - lastRedraw > 90) {
-      network.redraw();
-      lastRedraw = time;
-    }
-    requestAnimationFrame(animateAtlas);
-  }
-  requestAnimationFrame(animateAtlas);
 
   function buildAtlasLayout() {
     const groups = new Map();
@@ -913,76 +823,14 @@ function graphifyAtlasScript() {
     return { nodes: nodesOut, sectors: sectorOut };
   }
 
-  function buildPulseEdges(nodePositions) {
-    return RAW_EDGES
-      .map((edge, index) => {
-        const from = nodePositions.get(edge.from);
-        const to = nodePositions.get(edge.to);
-        if (!from || !to) return null;
-        const fromNode = RAW_NODES.find((node) => node.id === edge.from);
-        const toNode = RAW_NODES.find((node) => node.id === edge.to);
-        const score = (edge.confidence === 'EXTRACTED' ? 60 : 0)
-          + Number(fromNode?.degree || 0)
-          + Number(toNode?.degree || 0)
-          + Number(edge.width || 0) * 12;
-        return {
-          index,
-          from,
-          to,
-          score,
-          color: colorByNode.get(edge.from) || '#42f4ff',
-        };
-      })
-      .filter(Boolean)
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 90);
-  }
-
-  function drawTacticalOverlay(ctx, sectors, pulseEdges, time) {
+  function drawTacticalOverlay(ctx, sectors) {
     if (!sectors || sectors.size === 0) return;
     ctx.save();
-    ctx.lineWidth = 1;
-    ctx.globalAlpha = 0.42;
-    ctx.strokeStyle = 'rgba(65, 230, 255, 0.2)';
-    ctx.setLineDash([18, 14]);
-    ctx.beginPath();
-    ctx.moveTo(-1700, 0);
-    ctx.lineTo(1700, 0);
-    ctx.moveTo(0, -1100);
-    ctx.lineTo(0, 1100);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    ctx.globalAlpha = 0.18;
-    ctx.strokeStyle = 'rgba(116, 255, 176, 0.32)';
-    [360, 720, 1080, 1440].forEach((radius, index) => {
-      ctx.beginPath();
-      ctx.setLineDash(index % 2 ? [16, 16] : []);
-      ctx.arc(0, 0, radius, 0, Math.PI * 2);
-      ctx.stroke();
-    });
-    ctx.setLineDash([]);
-
-    drawPulseEdges(ctx, pulseEdges, time);
-
     const ranked = Array.from(sectors.values()).sort((a, b) => b.count - a.count).slice(0, 18);
     ranked.forEach((sector, index) => {
       const labelY = sector.y - sector.radius - 28;
       const labelX = sector.x - 82;
       const width = Math.min(250, Math.max(110, sector.label.length * 7.2));
-      ctx.globalAlpha = 0.18;
-      ctx.strokeStyle = sector.color;
-      ctx.beginPath();
-      ctx.arc(sector.x, sector.y, sector.radius, 0, Math.PI * 2);
-      ctx.stroke();
-
-      ctx.globalAlpha = 0.62;
-      ctx.strokeStyle = sector.color;
-      ctx.beginPath();
-      ctx.moveTo(sector.x, sector.y - sector.radius);
-      ctx.lineTo(labelX + 10, labelY + 24);
-      ctx.stroke();
-
       ctx.globalAlpha = 0.9;
       ctx.fillStyle = 'rgba(3, 5, 8, 0.76)';
       ctx.strokeStyle = sector.color;
@@ -999,33 +847,6 @@ function graphifyAtlasScript() {
       ctx.fillStyle = '#dffbff';
       ctx.font = '700 11px ui-monospace, Menlo, Consolas, monospace';
       ctx.fillText(sector.label, labelX + 7, labelY + 22, width - 14);
-    });
-    ctx.restore();
-  }
-
-  function drawPulseEdges(ctx, pulseEdges, time) {
-    if (!pulseEdges || pulseEdges.length === 0) return;
-    const clock = (time % 2200) / 2200;
-    ctx.save();
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    pulseEdges.forEach((edge, index) => {
-      const phase = (clock + (index * 0.041)) % 1;
-      const tail = Math.max(0, phase - 0.055);
-      const head = Math.min(1, phase + 0.018);
-      const sx = edge.from.x + (edge.to.x - edge.from.x) * tail;
-      const sy = edge.from.y + (edge.to.y - edge.from.y) * tail;
-      const ex = edge.from.x + (edge.to.x - edge.from.x) * head;
-      const ey = edge.from.y + (edge.to.y - edge.from.y) * head;
-      ctx.globalAlpha = index < 22 ? 0.76 : 0.42;
-      ctx.strokeStyle = edge.color;
-      ctx.lineWidth = index < 22 ? 3.2 : 1.8;
-      ctx.shadowColor = edge.color;
-      ctx.shadowBlur = index < 22 ? 18 : 10;
-      ctx.beginPath();
-      ctx.moveTo(sx, sy);
-      ctx.lineTo(ex, ey);
-      ctx.stroke();
     });
     ctx.restore();
   }
