@@ -482,9 +482,61 @@ function build() {
   fs.mkdirSync(PUBLIC_GRAPH_DIR, { recursive: true })
   fs.mkdirSync(GRAPHIFY_OUT, { recursive: true })
   fs.writeFileSync(SITE_JSON, JSON.stringify(graph, null, 2) + '\n', 'utf-8')
-  fs.writeFileSync(GRAPHIFY_JSON, JSON.stringify(graph, null, 2) + '\n', 'utf-8')
+  fs.writeFileSync(GRAPHIFY_JSON, JSON.stringify(toGraphifyGraph(graph), null, 2) + '\n', 'utf-8')
   fs.writeFileSync(GRAPH_REPORT, makeReport(graph), 'utf-8')
   return graph
+}
+
+function toGraphifyGraph(graph) {
+  const nodesById = new Map(graph.nodes.map((node) => [node.id, node]))
+  return {
+    directed: true,
+    nodes: graph.nodes.map((node) => ({
+      id: node.id,
+      label: node.label,
+      file_type: graphifyFileType(node.type),
+      source_file: graphifyNodeSource(node),
+      type: node.type,
+      url: node.url || '',
+      description: node.description || '',
+      degree: node.degree || 0,
+      track: node.track || '',
+      route: node.route || '',
+      parent: node.parent || '',
+    })),
+    edges: graph.edges.map((edge) => ({
+      source: edge.source,
+      target: edge.target,
+      relation: edge.label || edge.type,
+      confidence: graphifyConfidence(edge.confidence),
+      source_file: graphifyEdgeSource(edge, nodesById),
+      weight: edge.weight || 1,
+      type: edge.type,
+      evidence: edge.evidence || [],
+    })),
+  }
+}
+
+function graphifyFileType(type) {
+  if (type === 'paper') return 'paper'
+  if (['concept', 'data', 'benchmark', 'robot', 'org', 'route', 'track'].includes(type)) return 'concept'
+  return 'document'
+}
+
+function graphifyNodeSource(node) {
+  if (node.rel) return node.rel
+  if (['track', 'route'].includes(node.type)) return 'docs/.vitepress/data/papers.data.mjs'
+  return 'scripts/build-offline-knowledge-graph.mjs'
+}
+
+function graphifyEdgeSource(edge, nodesById) {
+  if (edge.evidence?.[0]) return edge.evidence[0]
+  return nodesById.get(edge.source)?.rel || nodesById.get(edge.target)?.rel || 'scripts/build-offline-knowledge-graph.mjs'
+}
+
+function graphifyConfidence(confidence) {
+  if (confidence === 'DERIVED') return 'INFERRED'
+  return 'EXTRACTED'
 }
 
 function addRelatedEdges(nodes, edges, docEntitySets) {

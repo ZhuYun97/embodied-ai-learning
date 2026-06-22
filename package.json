@@ -8,6 +8,7 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "graph:build": "node scripts/build-offline-knowledge-graph.mjs",
+    "graph:html": "node scripts/build-graphify-html.mjs",
     "news:fetch": "node scripts/fetch-news.mjs",
     "news:merge": "node scripts/news-merge.mjs",
     "news:run": "npm run news:fetch && npm run news:merge"
