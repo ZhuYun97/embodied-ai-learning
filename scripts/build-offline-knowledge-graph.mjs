@@ -12,7 +12,7 @@ const SITE_JSON = path.join(PUBLIC_GRAPH_DIR, 'offline-knowledge-graph.json')
 const GRAPHIFY_JSON = path.join(GRAPHIFY_OUT, 'graph.json')
 const GRAPH_REPORT = path.join(GRAPHIFY_OUT, 'GRAPH_REPORT.md')
 
-const INTERNAL_DOC_DIRS = new Set(['ecosystem', 'news', 'vla', 'wam'])
+const INTERNAL_DOC_DIRS = new Set(['ecosystem', 'vla', 'wam'])
 const SKIP_DIRS = new Set(['.vitepress', 'public', 'node_modules', 'dist'])
 const MAX_RELATED_PER_DOC = 8
 const MIN_SHARED_ENTITIES = 3
@@ -171,8 +171,8 @@ function readDoc(rel) {
     rel,
     raw,
     body,
-    title: meta.title || (h1 ? cleanInline(h1[1]) : titleFromRel(rel)),
-    description: meta.description || '',
+    title: sanitizeGraphText(meta.title || (h1 ? cleanInline(h1[1]) : titleFromRel(rel))),
+    description: sanitizeGraphText(meta.description || ''),
   }
 }
 
@@ -181,6 +181,18 @@ function cleanInline(s) {
     .replace(/<[^>]+>/g, '')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
     .replace(/[*_`#]/g, '')
+    .trim()
+}
+
+function sanitizeGraphText(s) {
+  return String(s || '')
+    .replace(/arxiv\.org\/(?:abs|pdf)\/\d{4}\.\d{4,5}/gi, '')
+    .replace(/arXiv[:：]?\s*\d{4}\.\d{4,5}/gi, '')
+    .replace(/arXiv\s*[\/·|,，:：-]*/gi, '')
+    .replace(/\(\s*[,，;；/|\s]*\)/g, '')
+    .replace(/\s+([,，;；:：。])/g, '$1')
+    .replace(/([（(])\s*[,，;；/|\s]+/g, '$1')
+    .replace(/\s{2,}/g, ' ')
     .trim()
 }
 
@@ -203,7 +215,6 @@ function sectionId(rel, index) {
 function nodeTypeForDoc(rel, paperByRel) {
   if (paperByRel.has(rel)) return 'paper'
   if (rel === 'index.md') return 'home'
-  if (rel.startsWith('news/')) return 'news-page'
   if (rel.startsWith('ecosystem/')) return 'ecosystem'
   if (rel.includes('/papers/')) return 'topic'
   if (rel.endsWith('/index.md')) return 'index'
@@ -220,7 +231,7 @@ function extractSections(doc) {
   return heads.map((h, i) => {
     const next = heads.find((n, j) => j > i && n.level <= h.level)
     const block = lines.slice(h.line, next ? next.line : lines.length).join('\n')
-    return { ...h, index: i, text: stripMarkdown(block).slice(0, 6000) }
+    return { ...h, title: sanitizeGraphText(h.title), index: i, text: stripMarkdown(block).slice(0, 6000) }
   })
 }
 
@@ -268,14 +279,6 @@ function resolveInternalLink(fromRel, href, docsByRel) {
     candidates.push(clean + '/index.md')
   }
   return candidates.find((c) => docsByRel.has(c)) || null
-}
-
-function extractArxivIds(raw) {
-  const ids = new Set()
-  for (const m of raw.matchAll(/(?:arxiv\.org\/(?:abs|pdf)\/|arXiv[:\s*]*)(\d{4}\.\d{4,5})/gi)) {
-    ids.add(m[1])
-  }
-  return Array.from(ids)
 }
 
 function entityHits(text) {
@@ -378,7 +381,6 @@ function build() {
       track: p?.track,
       route: p?.route,
       date: p?.date,
-      arxivId: p?.arxivId,
     })
 
     if (p) {
@@ -449,27 +451,8 @@ function build() {
       })
     }
 
-    const arxivIds = new Set(extractArxivIds(doc.raw))
-    if (p?.arxivId) arxivIds.add(p.arxivId)
-    for (const arxiv of arxivIds) {
-      const arxivId = `arxiv:${arxiv}`
-      addNode(nodes, {
-        id: arxivId,
-        label: `arXiv:${arxiv}`,
-        type: 'source-paper',
-        url: `https://arxiv.org/abs/${arxiv}`,
-      })
-      addEdge(edges, {
-        source: id,
-        target: arxivId,
-        type: 'cites-paper',
-        label: 'arXiv',
-        confidence: 'EXTRACTED',
-      })
-    }
   }
 
-  addNewsNodes(nodes, edges)
   addRelatedEdges(nodes, edges, docEntitySets)
   annotateDegrees(nodes, edges)
 
@@ -489,7 +472,6 @@ function build() {
         'VitePress internal links',
         'Curated paper taxonomy from papers.data.mjs',
         'Deterministic entity dictionary matching',
-        'arXiv citation extraction',
         'Shared-entity relatedness edges',
       ],
     },
@@ -503,61 +485,6 @@ function build() {
   fs.writeFileSync(GRAPHIFY_JSON, JSON.stringify(graph, null, 2) + '\n', 'utf-8')
   fs.writeFileSync(GRAPH_REPORT, makeReport(graph), 'utf-8')
   return graph
-}
-
-function addNewsNodes(nodes, edges) {
-  const newsPath = path.join(DOCS, 'news', 'news-data.json')
-  if (!fs.existsSync(newsPath)) return
-  let items = []
-  try {
-    items = JSON.parse(fs.readFileSync(newsPath, 'utf-8'))
-  } catch (e) {
-    console.warn(`[offline-kg] news-data.json 解析失败:${e.message}`)
-    return
-  }
-  for (const [i, item] of items.entries()) {
-    const rawId = item.fingerprint || item.id || `${item.date || 'news'}-${i}-${item.title || ''}`
-    const id = `news:${String(rawId).toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff_-]+/g, '-').slice(0, 90)}`
-    addNode(nodes, {
-      id,
-      label: item.title || `news-${i + 1}`,
-      type: 'news',
-      date: item.date || item.fetched_at,
-      url: item.source_url || item.sources?.[0]?.url,
-      description: item.summary || '',
-      credibility: item.credibility,
-      importance: item.importance,
-    })
-    addEdge(edges, {
-      source: 'doc:news/index',
-      target: id,
-      type: 'contains',
-      label: '新闻',
-      confidence: 'EXTRACTED',
-    })
-    for (const cat of item.category || []) {
-      const catId = `topic:${String(cat).toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff_-]+/g, '-')}`
-      addNode(nodes, { id: catId, label: cat, type: 'topic-tag' })
-      addEdge(edges, {
-        source: id,
-        target: catId,
-        type: 'tagged',
-        label: '分类',
-        confidence: 'EXTRACTED',
-      })
-    }
-    const hits = entityHits(`${item.title || ''}\n${item.summary || ''}`)
-    for (const [entId, count] of hits) {
-      addEdge(edges, {
-        source: id,
-        target: entId,
-        type: 'mentions',
-        label: '提及',
-        weight: Math.min(8, count),
-        confidence: 'EXTRACTED',
-      })
-    }
-  }
 }
 
 function addRelatedEdges(nodes, edges, docEntitySets) {
@@ -646,7 +573,7 @@ function makeReport(graph) {
     '',
     '## Notes',
     '',
-    '- EXTRACTED edges come from internal links, headings, arXiv citations, or exact dictionary matches.',
+    '- EXTRACTED edges come from internal links, headings, or exact dictionary matches.',
     '- CURATED edges come from the existing paper taxonomy.',
     '- DERIVED edges connect pages that share multiple extracted entities.',
     '- No model inference was used, so missing synonyms should be fixed by extending the local dictionary.',

@@ -18,8 +18,6 @@ const cy = ref(null)
 
 const SCOPE_OPTIONS = [
   ['core', '核心图谱'],
-  ['news', '含新闻'],
-  ['sources', '含 arXiv'],
   ['full', '全量'],
 ]
 
@@ -32,8 +30,6 @@ const NODE_TYPES = [
   ['benchmark', '基准'],
   ['robot', '本体'],
   ['org', '机构'],
-  ['news', '新闻'],
-  ['source-paper', 'arXiv'],
 ]
 
 const EDGE_MODES = [
@@ -66,8 +62,6 @@ const TYPE_META = {
   paper: ['论文', '#c084fc'],
   topic: ['专题', '#60a5fa'],
   ecosystem: ['生态', '#34d399'],
-  'news-page': ['新闻页', '#fbbf24'],
-  news: ['新闻', '#f59e0b'],
   section: ['章节', '#64748b'],
   track: ['主线', '#22d3ee'],
   route: ['路线', '#38bdf8'],
@@ -76,8 +70,6 @@ const TYPE_META = {
   benchmark: ['基准', '#f59e0b'],
   robot: ['本体', '#fb7185'],
   org: ['机构', '#a78bfa'],
-  'source-paper': ['arXiv', '#e2e8f0'],
-  'topic-tag': ['标签', '#facc15'],
 }
 
 const stats = computed(() => {
@@ -115,7 +107,7 @@ function typeLabel(type) {
 
 function matchesNode(n, q) {
   if (!q) return true
-  const hay = [n.label, n.type, n.route, n.track, n.description, n.rel, n.arxivId]
+  const hay = [n.label, n.type, n.route, n.track, n.description, n.rel]
     .filter(Boolean)
     .join(' ')
     .toLowerCase()
@@ -125,18 +117,14 @@ function matchesNode(n, q) {
 function nodeAllowedByScope(n) {
   if (!showSections.value && n.type === 'section') return false
   if (scope.value === 'full') return true
-  if (scope.value === 'sources') return CORE_NODE_TYPES.has(n.type) || n.type === 'source-paper'
-  if (scope.value === 'news') return CORE_NODE_TYPES.has(n.type) || n.type === 'news' || n.type === 'news-page' || n.type === 'topic-tag'
   return CORE_NODE_TYPES.has(n.type)
 }
 
 function edgeAllowed(edge) {
   if (edgeMode.value === 'all') return true
-  if (edge.type === 'cites-paper' && scope.value !== 'sources' && scope.value !== 'full') return false
   if (edgeMode.value === 'semantic') {
     if (edge.type === 'mentions') return (edge.weight || 1) >= 3
     if (edge.type === 'related') return (edge.weight || 1) >= 5
-    if (edge.type === 'cites-paper') return true
     return SEMANTIC_EDGES.has(edge.type)
   }
   if (edge.type === 'mentions') return (edge.weight || 1) >= 10
@@ -313,7 +301,6 @@ async function renderGraph() {
         { selector: 'edge[type = "mentions"], edge[type = "section-mentions"]', style: { 'line-color': '#22d3ee', 'target-arrow-color': '#22d3ee', opacity: 0.34 } },
         { selector: 'edge[type = "related"]', style: { 'line-color': '#a78bfa', 'target-arrow-color': '#a78bfa', 'line-style': 'dashed', opacity: 0.34 } },
         { selector: 'edge[type = "links-to"]', style: { 'line-color': '#34d399', 'target-arrow-color': '#34d399', opacity: 0.44 } },
-        { selector: 'edge[type = "cites-paper"]', style: { 'line-color': '#f8fafc', 'target-arrow-color': '#f8fafc', opacity: 0.32 } },
         { selector: 'node:selected', style: { 'border-color': '#f8fafc', 'border-width': 4 } },
         { selector: '.faded', style: { opacity: 0.16, 'text-opacity': 0.12 } },
         { selector: '.focused', style: { opacity: 1, 'border-width': 4 } },
@@ -470,7 +457,7 @@ watch([query, scope, nodeType, edgeMode, showSections], () => {
         <template v-else>
           <div class="okg-kind">Overview</div>
           <h3>离线知识图谱</h3>
-          <p>默认只显示站内核心知识网络。GitHub 等外部域名不进入图谱; arXiv 来源仅在“含 arXiv”视图中显示。API 调用数为 0。</p>
+          <p>默认只显示站内核心知识网络。动态新闻、论文编号与外部来源等信息不进入图谱。API 调用数为 0。</p>
           <dl v-if="stats">
             <dt>生成时间</dt><dd>{{ stats.generatedAt?.replace('T', ' ').replace(/\.\d+Z$/, ' UTC') }}</dd>
             <dt>当前视图</dt><dd>{{ SCOPE_OPTIONS.find(([v]) => v === scope)?.[1] }}</dd>
