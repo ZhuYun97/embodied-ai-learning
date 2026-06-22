@@ -822,6 +822,8 @@ network.on('afterDrawing', function(ctx) {
     amber2: '#fbbf24',
     dim: '#203026',
   };
+  const overviewNodeLimit = 72;
+  const overviewSkeletonLimit = 44;
   const rawById = new Map(RAW_NODES.map((node) => [node.id, node]));
   const highDegree = Math.max(1, ...RAW_NODES.map((node) => Number(node.degree || 0)));
   const topNode = [...RAW_NODES].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0))[0];
@@ -1009,7 +1011,7 @@ network.on('afterDrawing', function(ctx) {
       return true;
     }
     if (node.id.startsWith('track:') || node.id.startsWith('route:')) return scale >= 0.9 || degree >= 160;
-    if (scale < 0.58) return degree >= 170;
+    if (scale < 0.58) return degree >= 120;
     if (scale < 0.9) return degree >= 105;
     if (scale < 1.25) return degree >= 66;
     if (scale < 1.65) return degree >= 38;
@@ -1188,7 +1190,7 @@ network.on('afterDrawing', function(ctx) {
       .sort((a, b) => nodeVisibilityScore(b) - nodeVisibilityScore(a) || String(a.label).localeCompare(String(b.label), 'zh-Hans-CN'));
     for (const node of ranked) {
       ids.add(node.id);
-      if (ids.size >= 18) break;
+      if (ids.size >= overviewNodeLimit) break;
     }
     return ids;
   }
@@ -1288,7 +1290,7 @@ network.on('afterDrawing', function(ctx) {
     const ids = [...overviewNodeIds]
       .filter((id) => id !== topNode.id && visibilityState.get(id) !== true && positions[id])
       .sort((a, b) => Number(rawById.get(b)?.degree || 0) - Number(rawById.get(a)?.degree || 0))
-      .slice(0, scale < 0.58 ? 14 : 18);
+      .slice(0, scale < 0.58 ? overviewSkeletonLimit : Math.min(overviewSkeletonLimit + 18, overviewNodeLimit));
     if (!ids.length) return;
 
     ctx.save();
