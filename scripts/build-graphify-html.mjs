@@ -693,8 +693,8 @@ function graphifyAtlasScript() {
     amber2: '#fbbf24',
     dim: '#203026',
   };
-  const overviewNodeLimit = 72;
-  const overviewSkeletonLimit = 44;
+  const overviewNodeLimit = 220;
+  const overviewSkeletonLimit = 96;
   const rawById = new Map(RAW_NODES.map((node) => [node.id, node]));
   const highDegree = Math.max(1, ...RAW_NODES.map((node) => Number(node.degree || 0)));
   const topNode = [...RAW_NODES].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0))[0];
@@ -882,7 +882,7 @@ function graphifyAtlasScript() {
       return true;
     }
     if (node.id.startsWith('track:') || node.id.startsWith('route:')) return scale >= 0.9 || degree >= 160;
-    if (scale < 0.58) return degree >= 120;
+    if (scale < 0.58) return degree >= 72;
     if (scale < 0.9) return degree >= 105;
     if (scale < 1.25) return degree >= 66;
     if (scale < 1.65) return degree >= 38;
@@ -1048,6 +1048,7 @@ function graphifyAtlasScript() {
       org: 'org',
       robot: 'robot',
       route: 'route',
+      section: 'section',
       track: 'track',
     }[prefix];
     return prefixKind || rawKind;
