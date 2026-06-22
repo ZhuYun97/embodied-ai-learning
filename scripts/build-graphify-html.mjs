@@ -129,9 +129,9 @@ function enhanceGraphifyHtml() {
   <div id="graph"></div>
   <section id="atlas-hud" aria-label="Knowledge graph overview">
     <div>
-      <span class="atlas-kicker">LOCAL KG / TACTICAL VIEW</span>
-      <strong>Embodied-AI Neural Topology</strong>
-      <em>offline graphify render · no external links</em>
+      <span class="atlas-kicker">LOCAL KG / GRAPHIFY VIEW</span>
+      <strong>Embodied-AI Knowledge Graph</strong>
+      <em>offline graphify render · internal notes only</em>
     </div>
     <div class="atlas-metrics">
       <span data-atlas-nodes>1368 nodes</span>
@@ -142,8 +142,8 @@ function enhanceGraphifyHtml() {
   </section>
   <section id="atlas-telemetry" aria-label="Graph telemetry">
     <div><b>CORE</b><span data-atlas-hotspot>VLA</span></div>
-    <div><b>TRACE</b><span data-atlas-trace>semantic links</span></div>
-    <div><b>SYNC</b><span data-atlas-runtime>realtime canvas</span></div>
+    <div><b>LINKS</b><span data-atlas-trace>semantic links</span></div>
+    <div><b>SCOPE</b><span data-atlas-runtime>offline canvas</span></div>
   </section>
   <section id="atlas-readouts" aria-label="Build readouts">
     <span>MODE // OFFLINE KNOWLEDGE GRAPH</span>
@@ -161,27 +161,25 @@ function graphifyAtlasStyles() {
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     color-scheme: dark;
-    --atlas-bg: #010308;
-    --atlas-panel: rgba(2, 6, 12, 0.94);
-    --atlas-line: rgba(78, 236, 255, 0.28);
-    --atlas-text: #edf9ff;
-    --atlas-muted: #8094aa;
-    --atlas-cyan: #42f4ff;
-    --atlas-blue: #5d8cff;
-    --atlas-pink: #ff4d96;
-    --atlas-gold: #ffd166;
-    --atlas-green: #74ffb0;
-    --atlas-red: #ff4b4b;
+    --atlas-bg: #040806;
+    --atlas-panel: rgba(4, 8, 6, 0.94);
+    --atlas-line: rgba(34, 197, 94, 0.18);
+    --atlas-text: rgba(220, 255, 220, 0.9);
+    --atlas-muted: rgba(220, 255, 220, 0.42);
+    --atlas-green: #22c55e;
+    --atlas-green2: #4ade80;
+    --atlas-amber: #f59e0b;
+    --atlas-amber2: #fbbf24;
   }
   body {
     height: 100vh;
     overflow: hidden;
     display: flex;
     background:
-      radial-gradient(circle at 42% 46%, rgba(66, 244, 255, 0.11), transparent 32%),
-      radial-gradient(circle at 68% 50%, rgba(116, 255, 176, 0.08), transparent 30%),
-      linear-gradient(90deg, rgba(66, 244, 255, 0.1), transparent 18%, transparent 82%, rgba(255, 77, 150, 0.08)),
-      linear-gradient(180deg, rgba(116, 255, 176, 0.05), transparent 38%),
+      radial-gradient(circle at 48% 46%, rgba(34, 197, 94, 0.08), transparent 34%),
+      radial-gradient(circle at 66% 55%, rgba(245, 158, 11, 0.045), transparent 28%),
+      linear-gradient(90deg, rgba(34, 197, 94, 0.055), transparent 18%, transparent 82%, rgba(245, 158, 11, 0.035)),
+      linear-gradient(180deg, rgba(34, 197, 94, 0.035), transparent 38%),
       var(--atlas-bg);
     color: var(--atlas-text);
     font-family: "SF Mono", "Cascadia Mono", "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -193,9 +191,9 @@ function graphifyAtlasStyles() {
     inset: 0;
     pointer-events: none;
     background-image:
-      linear-gradient(rgba(66, 244, 255, 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(66, 244, 255, 0.045) 1px, transparent 1px);
-    background-size: 56px 56px;
+      linear-gradient(rgba(34, 197, 94, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 197, 94, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
     mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.38), #000 26%, #000 74%, rgba(0, 0, 0, 0.22));
   }
   body::after {
@@ -206,7 +204,7 @@ function graphifyAtlasStyles() {
     pointer-events: none;
     background:
       repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 4px),
-      linear-gradient(90deg, rgba(255, 77, 150, 0.05), transparent 24%, transparent 76%, rgba(66, 244, 255, 0.04));
+      linear-gradient(90deg, rgba(34, 197, 94, 0.035), transparent 24%, transparent 76%, rgba(245, 158, 11, 0.03));
     mix-blend-mode: overlay;
     opacity: 0.18;
   }
@@ -217,9 +215,9 @@ function graphifyAtlasStyles() {
     overflow: hidden;
     isolation: isolate;
     background:
-      radial-gradient(circle at 50% 48%, rgba(66, 244, 255, 0.08), transparent 34%),
-      linear-gradient(180deg, rgba(66, 244, 255, 0.04), transparent 24%),
-      #010308;
+      radial-gradient(circle at 50% 48%, rgba(34, 197, 94, 0.06), transparent 34%),
+      linear-gradient(180deg, rgba(34, 197, 94, 0.035), transparent 24%),
+      #040806;
   }
   #graph-stage::before {
     content: "";
@@ -227,9 +225,9 @@ function graphifyAtlasStyles() {
     inset: 16px;
     z-index: 5;
     pointer-events: none;
-    border: 1px solid rgba(66, 244, 255, 0.28);
+    border: 1px solid rgba(34, 197, 94, 0.18);
     clip-path: polygon(0 0, 160px 0, 160px 1px, 1px 1px, 1px 120px, 0 120px, 0 0, 100% 0, 100% 120px, calc(100% - 1px) 120px, calc(100% - 1px) 1px, calc(100% - 160px) 1px, calc(100% - 160px) 0, 100% 0, 100% 100%, calc(100% - 160px) 100%, calc(100% - 160px) calc(100% - 1px), calc(100% - 1px) calc(100% - 1px), calc(100% - 1px) calc(100% - 120px), 100% calc(100% - 120px), 100% 100%, 0 100%, 0 calc(100% - 120px), 1px calc(100% - 120px), 1px calc(100% - 1px), 160px calc(100% - 1px), 160px 100%, 0 100%);
-    box-shadow: 0 0 34px rgba(66, 244, 255, 0.18), inset 0 0 52px rgba(66, 244, 255, 0.035);
+    box-shadow: 0 0 34px rgba(34, 197, 94, 0.08), inset 0 0 52px rgba(34, 197, 94, 0.025);
   }
   #graph-stage::after {
     content: "";
@@ -240,7 +238,7 @@ function graphifyAtlasStyles() {
     height: 18%;
     z-index: 6;
     pointer-events: none;
-    background: linear-gradient(180deg, transparent, rgba(66, 244, 255, 0.1), transparent);
+    background: linear-gradient(180deg, transparent, rgba(34, 197, 94, 0.08), transparent);
     mix-blend-mode: screen;
   }
   #atlas-grid {
@@ -249,11 +247,10 @@ function graphifyAtlasStyles() {
     z-index: 0;
     pointer-events: none;
     background:
-      linear-gradient(rgba(66, 244, 255, 0.075) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(66, 244, 255, 0.075) 1px, transparent 1px),
-      linear-gradient(120deg, transparent 0 49%, rgba(116, 255, 176, 0.055) 49.4%, transparent 50.8% 100%);
-    background-size: 56px 56px, 56px 56px, 210px 210px;
-    opacity: 0.72;
+      linear-gradient(rgba(34, 197, 94, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 197, 94, 0.055) 1px, transparent 1px);
+    background-size: 48px 48px, 48px 48px;
+    opacity: 0.58;
   }
   #atlas-grid::before,
   #atlas-grid::after {
@@ -264,15 +261,15 @@ function graphifyAtlasStyles() {
   }
   #atlas-grid::before {
     background:
-      linear-gradient(90deg, transparent 0 49.8%, rgba(66, 244, 255, 0.2) 50%, transparent 50.2% 100%),
-      linear-gradient(180deg, transparent 0 49.8%, rgba(66, 244, 255, 0.16) 50%, transparent 50.2% 100%);
-    opacity: 0.42;
+      linear-gradient(90deg, transparent 0 49.8%, rgba(34, 197, 94, 0.105) 50%, transparent 50.2% 100%),
+      linear-gradient(180deg, transparent 0 49.8%, rgba(34, 197, 94, 0.085) 50%, transparent 50.2% 100%);
+    opacity: 0.34;
   }
   #atlas-grid::after {
     background:
-      linear-gradient(135deg, transparent 0 48%, rgba(66, 244, 255, 0.055) 49%, transparent 50% 100%);
+      linear-gradient(135deg, transparent 0 48%, rgba(245, 158, 11, 0.032) 49%, transparent 50% 100%);
     mix-blend-mode: screen;
-    opacity: 0.42;
+    opacity: 0.32;
   }
   #graph {
     position: absolute;
@@ -305,25 +302,25 @@ function graphifyAtlasStyles() {
     gap: 4px;
     min-width: 330px;
     padding: 11px 16px 12px;
-    border: 1px solid rgba(66, 244, 255, 0.58);
-    border-left: 3px solid var(--atlas-cyan);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-left: 3px solid var(--atlas-green);
     border-radius: 2px;
     background:
-      linear-gradient(90deg, rgba(66, 244, 255, 0.12), rgba(2, 6, 12, 0.88) 36%, rgba(2, 6, 12, 0.76)),
-      rgba(2, 6, 12, 0.86);
-    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.44), 0 0 42px rgba(66, 244, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.09);
+      linear-gradient(90deg, rgba(34, 197, 94, 0.09), rgba(4, 8, 6, 0.88) 36%, rgba(4, 8, 6, 0.76)),
+      rgba(4, 8, 6, 0.86);
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.44), 0 0 34px rgba(34, 197, 94, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(12px);
     clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
   }
   #atlas-hud strong {
     font-size: 15px;
     line-height: 1.1;
-    color: #ffffff;
-    text-shadow: 0 0 16px rgba(65, 230, 255, 0.62);
+    color: rgba(220, 255, 220, 0.92);
+    text-shadow: 0 0 16px rgba(34, 197, 94, 0.28);
     text-transform: uppercase;
   }
   #atlas-hud em {
-    color: #8aa5b8;
+    color: var(--atlas-muted);
     font-size: 10px;
     font-style: normal;
     font-weight: 760;
@@ -347,16 +344,16 @@ function graphifyAtlasStyles() {
     align-items: center;
     min-height: 30px;
     padding: 7px 10px;
-    border: 1px solid rgba(66, 244, 255, 0.34);
+    border: 1px solid rgba(34, 197, 94, 0.26);
     border-radius: 2px;
     background:
-      linear-gradient(180deg, rgba(66, 244, 255, 0.08), transparent),
-      rgba(2, 6, 12, 0.76);
-    color: #e6fbff;
+      linear-gradient(180deg, rgba(34, 197, 94, 0.065), transparent),
+      rgba(4, 8, 6, 0.76);
+    color: rgba(220, 255, 220, 0.88);
     font-size: 11px;
     font-weight: 760;
     text-transform: uppercase;
-    box-shadow: 0 0 24px rgba(66, 244, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 22px rgba(34, 197, 94, 0.055), inset 0 1px 0 rgba(255, 255, 255, 0.055);
     backdrop-filter: blur(12px);
   }
   #atlas-telemetry {
@@ -376,10 +373,10 @@ function graphifyAtlasStyles() {
     align-items: center;
     min-height: 34px;
     padding: 7px 10px;
-    border: 1px solid rgba(66, 244, 255, 0.24);
-    border-right: 3px solid rgba(116, 255, 176, 0.72);
-    background: rgba(2, 6, 12, 0.68);
-    box-shadow: 0 0 24px rgba(66, 244, 255, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.055);
+    border: 1px solid rgba(34, 197, 94, 0.22);
+    border-right: 3px solid rgba(74, 222, 128, 0.56);
+    background: rgba(4, 8, 6, 0.68);
+    box-shadow: 0 0 22px rgba(34, 197, 94, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.045);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
     backdrop-filter: blur(10px);
   }
@@ -391,7 +388,7 @@ function graphifyAtlasStyles() {
   }
   #atlas-telemetry span {
     overflow: hidden;
-    color: #e9fbff;
+    color: rgba(220, 255, 220, 0.86);
     font-size: 11px;
     font-weight: 760;
     text-overflow: ellipsis;
@@ -422,8 +419,8 @@ function graphifyAtlasStyles() {
   #sidebar {
     width: 354px;
     background: var(--atlas-panel);
-    border-left: 1px solid rgba(66, 244, 255, 0.38);
-    box-shadow: -28px 0 72px rgba(0, 0, 0, 0.48), -1px 0 34px rgba(66, 244, 255, 0.08);
+    border-left: 1px solid rgba(34, 197, 94, 0.22);
+    box-shadow: -28px 0 72px rgba(0, 0, 0, 0.48), -1px 0 34px rgba(34, 197, 94, 0.05);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -457,20 +454,20 @@ function graphifyAtlasStyles() {
     padding: 8px 14px;
     border-bottom: 1px solid var(--atlas-line);
     display: none;
-    background: rgba(7, 9, 18, 0.86);
+    background: rgba(4, 8, 6, 0.86);
   }
   .search-item {
     padding: 7px 8px;
     cursor: pointer;
     border-radius: 6px;
-    color: #e8f1ff;
+    color: rgba(220, 255, 220, 0.82);
     font-size: 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .search-item:hover {
-    background: rgba(93, 228, 255, 0.12);
+    background: rgba(34, 197, 94, 0.08);
   }
   #info-panel {
     padding: 16px;
@@ -480,7 +477,7 @@ function graphifyAtlasStyles() {
   }
   #info-panel h3,
   #legend-wrap h3 {
-    color: #95f8ff;
+    color: var(--atlas-green2);
     font-size: 11px;
     font-weight: 850;
     margin-bottom: 10px;
@@ -488,7 +485,7 @@ function graphifyAtlasStyles() {
     text-transform: uppercase;
   }
   #info-content {
-    color: #d2def1;
+    color: rgba(220, 255, 220, 0.72);
     font-size: 13px;
     line-height: 1.58;
   }
@@ -496,11 +493,10 @@ function graphifyAtlasStyles() {
     margin-bottom: 6px;
   }
   #info-content .field b {
-    color: #ffffff;
-    text-shadow: 0 0 16px rgba(255, 255, 255, 0.22);
+    color: rgba(220, 255, 220, 0.92);
   }
   #info-content .empty {
-    color: #68748a;
+    color: rgba(220, 255, 220, 0.28);
     font-style: italic;
   }
   .neighbor-link {
@@ -509,16 +505,16 @@ function graphifyAtlasStyles() {
     margin: 3px 0;
     border-radius: 5px;
     cursor: pointer;
-    color: #dce8fa;
+    color: rgba(220, 255, 220, 0.72);
     font-size: 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-left: 3px solid #333;
-    background: rgba(65, 230, 255, 0.045);
+    border-left: 3px solid rgba(34, 197, 94, 0.32);
+    background: rgba(34, 197, 94, 0.035);
   }
   .neighbor-link:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(34, 197, 94, 0.075);
   }
   #neighbors-list {
     max-height: 168px;
@@ -542,7 +538,7 @@ function graphifyAtlasStyles() {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    color: #c9d6e9;
+    color: rgba(220, 255, 220, 0.72);
     font-size: 12px;
     user-select: none;
   }
@@ -554,11 +550,11 @@ function graphifyAtlasStyles() {
     padding: 4px 4px;
     cursor: pointer;
     border-radius: 2px;
-    color: #f1f6ff;
+    color: rgba(220, 255, 220, 0.82);
     font-size: 12px;
   }
   .legend-item:hover {
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(34, 197, 94, 0.055);
   }
   .legend-item.dimmed {
     opacity: 0.33;
@@ -568,7 +564,7 @@ function graphifyAtlasStyles() {
     height: 11px;
     border-radius: 50%;
     flex-shrink: 0;
-    box-shadow: 0 0 16px currentColor;
+    box-shadow: none;
   }
   .legend-label {
     flex: 1;
@@ -577,7 +573,7 @@ function graphifyAtlasStyles() {
     white-space: nowrap;
   }
   .legend-count {
-    color: #8390a8;
+    color: rgba(220, 255, 220, 0.36);
     font-size: 11px;
     font-variant-numeric: tabular-nums;
   }
@@ -587,18 +583,18 @@ function graphifyAtlasStyles() {
     -webkit-appearance: none;
     width: 15px;
     height: 15px;
-    border: 1.5px solid rgba(132, 178, 255, 0.42);
+    border: 1.5px solid rgba(34, 197, 94, 0.32);
     border-radius: 4px;
-    background: rgba(5, 7, 15, 0.92);
+    background: rgba(4, 8, 6, 0.92);
     cursor: pointer;
     position: relative;
     flex-shrink: 0;
   }
   .legend-cb:checked,
   #select-all-cb:checked {
-    background: var(--atlas-cyan);
+    background: var(--atlas-green);
     border-color: transparent;
-    box-shadow: 0 0 16px rgba(93, 228, 255, 0.28);
+    box-shadow: none;
   }
   .legend-cb:checked::after,
   #select-all-cb:checked::after {
@@ -608,12 +604,12 @@ function graphifyAtlasStyles() {
     top: 1.5px;
     width: 4px;
     height: 8px;
-    border: solid #06101d;
+    border: solid #040806;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
   #select-all-cb:indeterminate {
-    background: var(--atlas-gold);
+    background: var(--atlas-amber);
     border-color: transparent;
   }
   #select-all-cb:indeterminate::after {
@@ -689,28 +685,56 @@ function graphifyAtlasScript() {
     document.querySelector('[data-atlas-runtime]').textContent = statMatch[3] + ' sectors locked';
   }
 
+  const graphifyPalette = {
+    bg: '#040806',
+    green: '#22c55e',
+    green2: '#4ade80',
+    amber: '#f59e0b',
+    amber2: '#fbbf24',
+    dim: '#203026',
+  };
   const rawById = new Map(RAW_NODES.map((node) => [node.id, node]));
-  const colorByNode = new Map(RAW_NODES.map((node) => [node.id, node.color?.background || '#8bdcff']));
   const highDegree = Math.max(1, ...RAW_NODES.map((node) => Number(node.degree || 0)));
   const topNode = [...RAW_NODES].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0))[0];
+  const overviewNodeIds = buildOverviewNodeIds();
+  const edgeRecords = RAW_EDGES.map((edge, index) => {
+    const fromId = edge.from || edge.source;
+    const toId = edge.to || edge.target;
+    return {
+      id: index,
+      edge,
+      fromId,
+      toId,
+      from: rawById.get(fromId),
+      to: rawById.get(toId),
+    };
+  });
   if (topNode) {
     document.querySelector('[data-atlas-hotspot]').textContent = topNode.label + ' · ' + Number(topNode.degree || 0);
   }
   const layout = buildAtlasLayout();
-  const sectorCenters = layout.sectors;
   const labelState = new Map();
+  const visibilityState = new Map();
+  const edgeVisibilityState = new Map();
   const nodeVisuals = new Map();
   nodesDS.update(RAW_NODES.map((node) => {
     const degree = Number(node.degree || 0);
     const isCommand = degree >= 250 || node.id.startsWith('track:') || node.id.startsWith('route:');
     const isHub = isCommand || degree >= 150 || node.file_type === 'paper';
     const pos = layout.nodes.get(node.id) || { x: 0, y: 0 };
-    const baseColor = node.color?.background || '#42f4ff';
+    const baseColor = accentForNode(node, degree, isCommand, isHub);
     const visual = nodeVisualFor(node, baseColor, degree, isCommand, isHub);
+    node.color = {
+      ...(node.color || {}),
+      background: visual.baseColor,
+      border: visual.baseColor,
+      highlight: { background: visual.highlightFill, border: visual.highlightBorder },
+    };
     nodeVisuals.set(node.id, { ...visual, id: node.id, x: pos.x, y: pos.y });
     return {
       id: node.id,
       label: '',
+      hidden: true,
       x: pos.x,
       y: pos.y,
       shape: visual.shape,
@@ -727,24 +751,26 @@ function graphifyAtlasScript() {
       shadow: false,
       font: {
         ...(node.font || {}),
-        color: '#f7fbff',
+        color: Number(node.degree || 0) >= 220 || nodeKind(node) === 'paper' ? graphifyPalette.amber2 : graphifyPalette.green2,
         strokeWidth: isHub ? 5 : 4,
-        strokeColor: 'rgba(4, 5, 14, 0.92)',
+        strokeColor: 'rgba(4, 8, 6, 0.92)',
         size: 0,
       },
     };
   }));
 
-  edgesDS.update(RAW_EDGES.map((edge, index) => {
-    const color = colorByNode.get(edge.from) || '#9edcff';
+  edgesDS.update(edgeRecords.map((record) => {
+    const edge = record.edge;
+    const color = edgeAccentFor(record.from, record.to);
     const strong = edge.confidence === 'EXTRACTED';
     return {
-      id: index,
-      width: strong ? Math.max(0.45, Math.min(1.25, edge.width || 1)) : 0.35,
-      color: { color, opacity: strong ? 0.18 : 0.07 },
-      hoverWidth: strong ? 2.2 : 1.2,
+      id: record.id,
+      hidden: true,
+      width: strong ? Math.max(0.32, Math.min(0.72, edge.width || 1)) : 0.22,
+      color: { color, opacity: strong ? 0.08 : 0.025 },
+      hoverWidth: strong ? 1.35 : 0.8,
       arrows: { to: { enabled: false } },
-      smooth: { type: 'dynamic', roundness: 0.2 },
+      smooth: false,
     };
   }));
 
@@ -768,25 +794,39 @@ function graphifyAtlasScript() {
       },
     },
     edges: {
-      smooth: { type: 'dynamic', roundness: 0.2 },
+      smooth: false,
       selectionWidth: 2.4,
       arrows: { to: { enabled: false } },
     },
   });
 
   setTimeout(() => {
+    restyleLegend();
+    updateVisibility(0.48);
     network.fit({ animation: { duration: 700, easingFunction: 'easeInOutQuad' } });
     updateLabels();
   }, 80);
 
+  network.on('beforeDrawing', (ctx) => {
+    drawGraphifySkeleton(ctx, network.getScale());
+  });
   network.on('afterDrawing', (ctx) => {
     drawNodeTechDetails(ctx, network.getScale());
-    drawTacticalOverlay(ctx, sectorCenters, network.getScale());
   });
   network.on('zoom', () => scheduleLabelUpdate());
+  network.on('zoom', () => scheduleVisibilityUpdate());
   network.on('dragEnd', () => scheduleLabelUpdate());
   network.on('selectNode', () => scheduleLabelUpdate(true));
-  network.on('deselectNode', () => scheduleLabelUpdate(true));
+  network.on('selectNode', (params) => {
+    updateVisibility();
+    if (params.nodes?.[0]) {
+      setTimeout(() => network.focus(params.nodes[0], { scale: Math.max(1.1, network.getScale()), animation: { duration: 220 } }), 0);
+    }
+  });
+  network.on('deselectNode', () => {
+    scheduleLabelUpdate(true);
+    updateVisibility();
+  });
 
   let labelTimer = 0;
   function scheduleLabelUpdate(immediate = false) {
@@ -796,6 +836,111 @@ function graphifyAtlasScript() {
       return;
     }
     labelTimer = setTimeout(updateLabels, 90);
+  }
+
+  let visibilityTimer = 0;
+  function scheduleVisibilityUpdate() {
+    clearTimeout(visibilityTimer);
+    visibilityTimer = setTimeout(() => updateVisibility(), 120);
+  }
+
+  function updateVisibility(forcedScale) {
+    const scale = typeof forcedScale === 'number' ? forcedScale : network.getScale();
+    const selectedIds = new Set(network.getSelectedNodes());
+    const neighborIds = localVisibleNeighborIdsFor(scale, selectedIds);
+    const nodeUpdates = [];
+    for (const node of RAW_NODES) {
+      const hidden = !visibleAtScale(node, scale, selectedIds, neighborIds);
+      if (visibilityState.get(node.id) === hidden) continue;
+      visibilityState.set(node.id, hidden);
+      nodeUpdates.push({ id: node.id, hidden });
+      if (hidden) labelState.delete(node.id);
+    }
+    if (nodeUpdates.length) nodesDS.update(nodeUpdates);
+
+    const edgeUpdates = [];
+    for (const record of edgeRecords) {
+      const hidden = !edgeVisibleAtScale(record, scale, selectedIds, neighborIds);
+      if (edgeVisibilityState.get(record.id) === hidden) continue;
+      edgeVisibilityState.set(record.id, hidden);
+      edgeUpdates.push({ id: record.id, hidden });
+    }
+    if (edgeUpdates.length) edgesDS.update(edgeUpdates);
+    if (nodeUpdates.length || edgeUpdates.length) scheduleLabelUpdate(true);
+  }
+
+  function visibleAtScale(node, scale, selectedIds, neighborIds) {
+    const degree = Number(node.degree || 0);
+    const kind = nodeKind(node);
+    if (selectedIds.has(node.id) || neighborIds.has(node.id)) return true;
+    if (overviewNodeIds.has(node.id)) return true;
+    if (kind === 'section') {
+      if (scale < 1.65) return false;
+      if (scale < 2.2) return degree >= 6;
+      return true;
+    }
+    if (node.id.startsWith('track:') || node.id.startsWith('route:')) return scale >= 0.9 || degree >= 160;
+    if (scale < 0.58) return degree >= 170;
+    if (scale < 0.9) return degree >= 105;
+    if (scale < 1.25) return degree >= 66;
+    if (scale < 1.65) return degree >= 38;
+    if (scale < 2.2) return true;
+    return true;
+  }
+
+  function localVisibleNeighborIdsFor(scale, selectedIds) {
+    const ids = new Set();
+    if (!selectedIds.size) return ids;
+    const limit = scale < 1 ? 18 : scale < 1.55 ? 38 : scale < 2.15 ? 76 : 140;
+    for (const selectedId of selectedIds) {
+      const ranked = network.getConnectedNodes(selectedId)
+        .map((neighborId) => rawById.get(neighborId))
+        .filter(Boolean)
+        .sort((a, b) => nodeVisibilityScore(b) - nodeVisibilityScore(a) || String(a.label).localeCompare(String(b.label), 'zh-Hans-CN'))
+        .slice(0, limit);
+      for (const node of ranked) ids.add(node.id);
+    }
+    return ids;
+  }
+
+  function edgeVisibleAtScale(record, scale, selectedIds, neighborIds) {
+    if (visibilityState.get(record.fromId) === true || visibilityState.get(record.toId) === true) return false;
+    if (selectedIds.size) {
+      return (selectedIds.has(record.fromId) && neighborIds.has(record.toId))
+        || (selectedIds.has(record.toId) && neighborIds.has(record.fromId))
+        || (selectedIds.has(record.fromId) && selectedIds.has(record.toId));
+    }
+
+    const fromDegree = Number(record.from?.degree || 0);
+    const toDegree = Number(record.to?.degree || 0);
+    const maxDegree = Math.max(fromDegree, toDegree);
+    const minDegree = Math.min(fromDegree, toDegree);
+    const type = String(record.edge.type || record.edge.label || record.edge.title || '');
+    const bothOverview = overviewNodeIds.has(record.fromId) && overviewNodeIds.has(record.toId);
+    const hasCore = record.fromId === topNode?.id || record.toId === topNode?.id;
+    const structural = /taxonomy|related|links-to|站内|共现|路线/.test(type);
+
+    if (scale < 0.58) {
+      return bothOverview && (hasCore || (maxDegree >= 250 && minDegree >= 145) || (structural && minDegree >= 170));
+    }
+    if (scale < 0.9) {
+      return bothOverview && (hasCore || structural || maxDegree >= 180 || minDegree >= 120);
+    }
+    if (scale < 1.25) {
+      if (type === 'contains' || type === 'section-mentions') return false;
+      return bothOverview || (maxDegree >= 150 && minDegree >= 60) || (structural && maxDegree >= 95 && minDegree >= 42);
+    }
+    if (scale < 1.65) {
+      if (type === 'contains') return false;
+      if (type === 'section-mentions') return maxDegree >= 120 && minDegree >= 40;
+      return maxDegree >= 70 && minDegree >= 28;
+    }
+    if (scale < 2.2) {
+      if (type === 'contains') return false;
+      if (type === 'section-mentions') return maxDegree >= 65 && minDegree >= 14;
+      return true;
+    }
+    return true;
   }
 
   function localLabelIdsFor(scale, selectedIds) {
@@ -828,9 +973,9 @@ function graphifyAtlasScript() {
     const degree = Number(node.degree || 0);
     if (selectedIds.has(node.id)) return 4;
     if (localLabelIds.has(node.id)) return scale < 1.15 ? 2 : scale < 1.8 ? 3 : 4;
-    if (scale < 0.38) return degree >= 420 || node.id.startsWith('track:') ? 1 : 0;
-    if (scale < 0.62) return degree >= 300 || node.id.startsWith('track:') || node.id.startsWith('route:') ? 1 : 0;
-    if (scale < 0.86) return degree >= 180 || node.file_type === 'paper' || node.id.startsWith('track:') || node.id.startsWith('route:') ? 2 : 0;
+    if (scale < 0.38) return degree >= 300 ? 1 : 0;
+    if (scale < 0.62) return degree >= 200 || node.id.startsWith('track:') ? 1 : 0;
+    if (scale < 0.86) return degree >= 120 || nodeKind(node) === 'paper' || node.id.startsWith('track:') || node.id.startsWith('route:') ? 2 : 0;
     if (scale < 1.16) return degree >= 140 || (node.file_type === 'paper' && degree >= 80) ? 3 : 0;
     if (scale < 1.55) return degree >= 110 || (node.file_type === 'paper' && degree >= 65) || node.id.startsWith('route:') || node.id.startsWith('track:') ? 3 : 0;
     if (scale < 2.15) return degree >= 75 || (node.file_type === 'paper' && degree >= 45) || node.id.startsWith('route:') || node.id.startsWith('track:') ? 3 : 0;
@@ -843,9 +988,13 @@ function graphifyAtlasScript() {
     const localLabelIds = localLabelIdsFor(scale, selectedIds);
     const updates = [];
     for (const node of RAW_NODES) {
-      const level = labelLevelFor(node, scale, selectedIds, localLabelIds);
+      const isHidden = visibilityState.get(node.id) === true;
+      const level = isHidden ? 0 : labelLevelFor(node, scale, selectedIds, localLabelIds);
       const fontSize = level === 0 ? 0 : level === 1 ? 12 : level === 2 ? 13 : level === 3 ? 14 : 15;
       const next = level === 0 ? '' : node.label;
+      const labelColor = Number(node.degree || 0) >= 220 || nodeKind(node) === 'paper'
+        ? graphifyPalette.amber2
+        : graphifyPalette.green2;
       const stateKey = next + '|' + fontSize;
       if (labelState.get(node.id) === stateKey) continue;
       labelState.set(node.id, stateKey);
@@ -854,9 +1003,9 @@ function graphifyAtlasScript() {
         label: next,
         font: {
           ...(node.font || {}),
-          color: '#f7fbff',
+          color: labelColor,
           strokeWidth: level >= 3 ? 6 : 5,
-          strokeColor: 'rgba(1, 3, 8, 0.96)',
+          strokeColor: 'rgba(4, 8, 6, 0.96)',
           size: fontSize,
         },
       });
@@ -873,9 +1022,9 @@ function graphifyAtlasScript() {
       label: node.label,
       font: {
         ...(node.font || {}),
-        color: '#ffffff',
+        color: Number(node.degree || 0) >= 220 || nodeKind(node) === 'paper' ? graphifyPalette.amber2 : graphifyPalette.green2,
         strokeWidth: 6,
-        strokeColor: 'rgba(1, 3, 8, 0.98)',
+        strokeColor: 'rgba(4, 8, 6, 0.98)',
         size: 15,
       },
     });
@@ -885,32 +1034,151 @@ function graphifyAtlasScript() {
   network.on('blurNode', () => scheduleLabelUpdate(true));
   network.on('animationFinished', () => scheduleLabelUpdate(true));
 
+  function nodeKind(node) {
+    const rawKind = node.file_type || node.type || node._file_type || 'unknown';
+    if (['paper', 'section', 'topic', 'index', 'page', 'home', 'ecosystem'].includes(rawKind)) return rawKind;
+    const prefix = String(node.id || '').split(':')[0];
+    const prefixKind = {
+      bench: 'benchmark',
+      concept: 'concept',
+      data: 'data',
+      doc: 'document',
+      org: 'org',
+      robot: 'robot',
+      route: 'route',
+      track: 'track',
+    }[prefix];
+    return prefixKind || rawKind;
+  }
+
+  function buildOverviewNodeIds() {
+    const ids = new Set();
+    if (topNode) ids.add(topNode.id);
+    const ranked = [...RAW_NODES]
+      .filter((node) => nodeKind(node) !== 'section')
+      .sort((a, b) => nodeVisibilityScore(b) - nodeVisibilityScore(a) || String(a.label).localeCompare(String(b.label), 'zh-Hans-CN'));
+    for (const node of ranked) {
+      ids.add(node.id);
+      if (ids.size >= 18) break;
+    }
+    return ids;
+  }
+
+  function nodeVisibilityScore(node) {
+    const degree = Number(node?.degree || 0);
+    const kind = nodeKind(node || {});
+    const typeBoost = {
+      concept: 130,
+      org: 96,
+      data: 82,
+      benchmark: 78,
+      robot: 66,
+      route: 58,
+      track: 58,
+      index: 48,
+      topic: 34,
+      ecosystem: 30,
+      paper: 24,
+      document: 22,
+      page: 18,
+      home: 12,
+      section: -700,
+    }[kind] || 0;
+    return degree + typeBoost + (node?.id === topNode?.id ? 1000 : 0);
+  }
+
+  function accentForNode(node, degree, isCommand, isHub) {
+    const kind = nodeKind(node);
+    if (isCommand || degree >= 300 || node.id === topNode?.id) return graphifyPalette.amber;
+    if (kind === 'paper' || kind === 'route' || kind === 'track') return graphifyPalette.amber2;
+    if (isHub || degree >= 40 || kind !== 'section') return graphifyPalette.green2;
+    return graphifyPalette.green;
+  }
+
+  function edgeAccentFor(from, to) {
+    const endpoints = [from, to].filter(Boolean);
+    if (endpoints.some((node) => Number(node.degree || 0) >= 250 || nodeKind(node) === 'paper')) {
+      return graphifyPalette.amber;
+    }
+    return graphifyPalette.green;
+  }
+
+  function restyleLegend() {
+    document.querySelectorAll('.legend-item').forEach((item, index) => {
+      const legend = LEGEND[index];
+      const tone = legendTone(legend);
+      const dot = item.querySelector('.legend-dot');
+      if (dot) {
+        dot.style.background = rgbaFromHex(tone, 0.12);
+        dot.style.border = '1px solid ' + rgbaFromHex(tone, 0.56);
+        dot.style.boxShadow = 'none';
+      }
+    });
+  }
+
+  function legendTone(legend) {
+    const label = String(legend?.label || '');
+    return /WAM|world|世界|动作|token|评测|benchmark|模型/i.test(label)
+      ? graphifyPalette.amber
+      : graphifyPalette.green;
+  }
+
   function nodeVisualFor(node, baseColor, degree, isCommand, isHub) {
     const baseSize = Number(node.size || 10);
     const isMajor = isHub || degree >= 75 || node.id.startsWith('org:') || node.id.startsWith('data:');
     const tier = isCommand ? 'core' : isHub ? 'hub' : isMajor ? 'major' : 'node';
-    const shape = isCommand ? 'diamond' : 'dot';
-    const muted = mixHex(baseColor, '#8a94a3', 0.34);
+    const shape = 'dot';
+    const muted = mixHex(baseColor, '#9fb7a5', 0.22);
     const size = tier === 'core'
-      ? Math.max(16, Math.min(28, baseSize * 0.8 + 5))
+      ? Math.max(14, Math.min(24, baseSize * 0.62 + 4))
       : tier === 'hub'
-        ? Math.max(12, Math.min(22, baseSize * 0.78 + 3))
+        ? Math.max(10, Math.min(18, baseSize * 0.62 + 2.5))
         : tier === 'major'
-          ? Math.max(8, Math.min(15, baseSize * 0.78))
-          : Math.max(5.8, Math.min(10.5, baseSize * 0.7));
+          ? Math.max(6.6, Math.min(12, baseSize * 0.58))
+          : Math.max(3.6, Math.min(7, baseSize * 0.42));
     return {
       tier,
       shape,
       size,
       baseColor: muted,
-      fill: mixHex(muted, '#05080e', tier === 'node' ? 0.42 : tier === 'major' ? 0.48 : 0.56),
-      border: mixHex(muted, '#aeb9c5', tier === 'node' ? 0.18 : tier === 'major' ? 0.28 : 0.36),
-      hoverFill: mixHex(muted, '#111923', 0.22),
-      highlightFill: mixHex(muted, '#141c25', 0.24),
-      highlightBorder: mixHex(muted, '#b9c2cc', 0.2),
-      borderWidth: tier === 'core' ? 2.5 : tier === 'hub' ? 2 : tier === 'major' ? 1.45 : 1,
+      fill: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.72 : tier === 'major' ? 0.64 : 0.54),
+      border: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.24 : tier === 'major' ? 0.14 : 0.04),
+      hoverFill: mixHex(muted, graphifyPalette.bg, 0.42),
+      highlightFill: mixHex(muted, graphifyPalette.bg, 0.34),
+      highlightBorder: muted,
+      borderWidth: tier === 'core' ? 1.45 : tier === 'hub' ? 1.15 : tier === 'major' ? 0.9 : 0.55,
       degree,
     };
+  }
+
+  function drawGraphifySkeleton(ctx, scale) {
+    if (!topNode || scale > 1.08) return;
+    const positions = network.getPositions([...overviewNodeIds]);
+    const center = positions[topNode.id];
+    if (!center) return;
+    const ids = [...overviewNodeIds]
+      .filter((id) => id !== topNode.id && visibilityState.get(id) !== true && positions[id])
+      .sort((a, b) => Number(rawById.get(b)?.degree || 0) - Number(rawById.get(a)?.degree || 0))
+      .slice(0, scale < 0.58 ? 14 : 18);
+    if (!ids.length) return;
+
+    ctx.save();
+    ctx.lineCap = 'round';
+    ids.forEach((id, index) => {
+      const node = rawById.get(id);
+      const target = positions[id];
+      if (!node || !target) return;
+      const degree = Number(node.degree || 0);
+      const color = degree >= 220 ? graphifyPalette.amber : graphifyPalette.green;
+      ctx.setLineDash([]);
+      ctx.lineWidth = (degree >= 250 ? 0.9 : 0.58) / Math.max(scale, 0.2);
+      ctx.strokeStyle = rgbaFromHex(color, index < 8 ? 0.16 : 0.09);
+      ctx.beginPath();
+      ctx.moveTo(center.x, center.y);
+      ctx.lineTo(target.x, target.y);
+      ctx.stroke();
+    });
+    ctx.restore();
   }
 
   function drawNodeTechDetails(ctx, scale) {
@@ -922,70 +1190,29 @@ function graphifyAtlasScript() {
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     for (const visual of visuals) {
-      if (visual.shape === 'diamond') {
-        drawDiamondNode(ctx, visual, scale);
-      } else {
-        drawRoundNode(ctx, visual, scale);
-      }
-      drawNodeGlint(ctx, visual, scale);
+      drawRoundNode(ctx, visual, scale);
+      drawNodeCoreDot(ctx, visual, scale);
     }
     ctx.restore();
   }
 
   function drawRoundNode(ctx, visual, scale) {
-    const ring = visual.size + (visual.tier === 'hub' ? 2.6 : 2) / scale;
+    const ring = visual.size + (visual.tier === 'core' ? 4.5 : visual.tier === 'hub' ? 2.8 : 1.8) / scale;
     ctx.setLineDash([]);
-    ctx.lineWidth = (visual.tier === 'hub' ? 0.9 : 0.7) / scale;
-    ctx.strokeStyle = rgbaFromHex(visual.baseColor, visual.tier === 'hub' ? 0.46 : 0.34);
+    ctx.lineWidth = (visual.tier === 'core' ? 1 : visual.tier === 'hub' ? 0.85 : 0.65) / scale;
+    ctx.strokeStyle = rgbaFromHex(visual.baseColor, visual.tier === 'core' ? 0.45 : visual.tier === 'hub' ? 0.34 : 0.22);
     ctx.beginPath();
     ctx.arc(visual.x, visual.y, ring, 0, Math.PI * 2);
     ctx.stroke();
   }
 
-  function drawDiamondNode(ctx, visual, scale) {
-    const radius = visual.size + 3.4 / scale;
+  function drawNodeCoreDot(ctx, visual, scale) {
+    const radius = Math.max(1.2 / scale, visual.size * (visual.tier === 'core' ? 0.22 : 0.18));
     ctx.setLineDash([]);
-    ctx.lineWidth = 0.95 / scale;
-    ctx.strokeStyle = rgbaFromHex(visual.baseColor, 0.58);
-    drawDiamondPath(ctx, visual.x, visual.y, radius);
-    ctx.stroke();
-    ctx.lineWidth = 0.65 / scale;
-    ctx.strokeStyle = rgbaFromHex('#d5dde5', 0.3);
-    drawDiamondPath(ctx, visual.x, visual.y, visual.size * 0.5);
-    ctx.stroke();
-    drawMicroTicks(ctx, visual, radius + 2.8 / scale, radius + 7 / scale, scale);
-  }
-
-  function drawNodeGlint(ctx, visual, scale) {
-    if (visual.tier === 'major' && scale < 1.4) return;
-    const radius = Math.max(0.8 / scale, visual.size * 0.085);
-    ctx.setLineDash([]);
-    ctx.fillStyle = rgbaFromHex('#d8e0e8', visual.tier === 'core' ? 0.42 : 0.28);
+    ctx.fillStyle = rgbaFromHex(visual.baseColor, visual.tier === 'core' ? 0.88 : visual.tier === 'hub' ? 0.68 : 0.46);
     ctx.beginPath();
-    ctx.arc(visual.x - visual.size * 0.28, visual.y - visual.size * 0.28, radius, 0, Math.PI * 2);
+    ctx.arc(visual.x, visual.y, radius, 0, Math.PI * 2);
     ctx.fill();
-  }
-
-  function drawMicroTicks(ctx, visual, inner, outer, scale) {
-    if (visual.tier !== 'core') return;
-    ctx.setLineDash([]);
-    ctx.lineWidth = 0.65 / scale;
-    ctx.strokeStyle = rgbaFromHex(visual.baseColor, 0.38);
-    for (const angle of [Math.PI / 4, Math.PI * 1.25]) {
-      ctx.beginPath();
-      ctx.moveTo(visual.x + Math.cos(angle) * inner, visual.y + Math.sin(angle) * inner);
-      ctx.lineTo(visual.x + Math.cos(angle) * outer, visual.y + Math.sin(angle) * outer);
-      ctx.stroke();
-    }
-  }
-
-  function drawDiamondPath(ctx, x, y, radius) {
-    ctx.beginPath();
-    ctx.moveTo(x, y - radius);
-    ctx.lineTo(x + radius, y);
-    ctx.lineTo(x, y + radius);
-    ctx.lineTo(x - radius, y);
-    ctx.closePath();
   }
 
   function visibleNodeVisuals(scale) {
@@ -1002,6 +1229,7 @@ function graphifyAtlasScript() {
     const positions = network.getPositions();
     const visible = [];
     for (const node of RAW_NODES) {
+      if (visibilityState.get(node.id) === true) continue;
       const visual = nodeVisuals.get(node.id);
       if (!visual) continue;
       const pos = positions[node.id] || visual;
@@ -1047,12 +1275,16 @@ function graphifyAtlasScript() {
       if (!groups.has(cid)) groups.set(cid, []);
       groups.get(cid).push(node);
     }
-    const rankedGroups = Array.from(groups.entries()).sort((a, b) => b[1].length - a[1].length || a[0] - b[0]);
+    const topCid = Number.isFinite(Number(topNode?.community)) ? Number(topNode.community) : null;
+    const rankedGroups = Array.from(groups.entries()).sort((a, b) => {
+      if (topCid !== null && a[0] === topCid) return -1;
+      if (topCid !== null && b[0] === topCid) return 1;
+      return b[1].length - a[1].length || a[0] - b[0];
+    });
     const ringCounts = [1, 10, 15, 14];
-    const ringRadii = [0, 560, 980, 1360];
+    const ringRadii = [0, 430, 760, 1040];
     const ringSeen = [0, 0, 0, 0];
     const nodesOut = new Map();
-    const sectorOut = new Map();
 
     rankedGroups.forEach(([cid, nodes], groupIndex) => {
       const ring = groupIndex === 0 ? 0 : groupIndex <= 10 ? 1 : groupIndex <= 25 ? 2 : 3;
@@ -1066,7 +1298,7 @@ function graphifyAtlasScript() {
         y: Math.sin(angle) * ringRadii[ring] * 0.74,
       };
       const sortedNodes = [...nodes].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0));
-      const spread = Math.max(84, Math.min(230, 22 * Math.sqrt(sortedNodes.length)));
+      const spread = Math.max(72, Math.min(170, 18 * Math.sqrt(sortedNodes.length)));
       const normalizer = Math.max(1, Math.sqrt(sortedNodes.length));
       sortedNodes.forEach((node, nodeIndex) => {
         const localAngle = nodeIndex * 2.399963229728653 + cid * 0.41;
@@ -1077,47 +1309,8 @@ function graphifyAtlasScript() {
           y: Math.round(center.y + Math.sin(localAngle) * localRadius * degreePull),
         });
       });
-      const legend = LEGEND.find((item) => item.cid === cid);
-      sectorOut.set(cid, {
-        x: Math.round(center.x),
-        y: Math.round(center.y),
-        ring,
-        radius: Math.round(spread * 0.72 + 34),
-        color: legend?.color || '#41e6ff',
-        label: (legend?.label || 'Sector ' + cid).slice(0, 38),
-        count: nodes.length,
-      });
     });
-    return { nodes: nodesOut, sectors: sectorOut };
-  }
-
-  function drawTacticalOverlay(ctx, sectors, scale) {
-    if (!sectors || sectors.size === 0 || scale < 0.7 || scale > 1.18) return;
-    ctx.save();
-    const maxLabels = scale < 1.05 ? 6 : 10;
-    const ranked = Array.from(sectors.values()).sort((a, b) => b.count - a.count).slice(0, maxLabels);
-    ranked.forEach((sector, index) => {
-      const labelY = sector.y - sector.radius - 28;
-      const labelX = sector.x - 82;
-      const width = Math.min(250, Math.max(110, sector.label.length * 7.2));
-      ctx.globalAlpha = 0.9;
-      ctx.fillStyle = 'rgba(3, 5, 8, 0.76)';
-      ctx.strokeStyle = sector.color;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.rect(labelX, labelY, width, 26);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.fillStyle = sector.color;
-      ctx.font = '700 10px ui-monospace, Menlo, Consolas, monospace';
-      ctx.textAlign = 'left';
-      ctx.fillText('S' + String(index + 1).padStart(2, '0') + ' / ' + sector.count, labelX + 7, labelY + 10);
-      ctx.fillStyle = '#dffbff';
-      ctx.font = '700 11px ui-monospace, Menlo, Consolas, monospace';
-      ctx.fillText(sector.label, labelX + 7, labelY + 22, width - 14);
-    });
-    ctx.restore();
+    return { nodes: nodesOut };
   }
 })();
 </script>`
