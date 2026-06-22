@@ -7,12 +7,21 @@ const graphData = ref(null)
 const loading = ref(true)
 const error = ref('')
 const query = ref('')
+const scope = ref('core')
 const nodeType = ref('all')
-const edgeMode = ref('core')
+const edgeMode = ref('clean')
 const showSections = ref(false)
 const selected = ref(null)
+const visibleStats = ref({ nodes: 0, edges: 0 })
 const cytoscapeRef = ref(null)
 const cy = ref(null)
+
+const SCOPE_OPTIONS = [
+  ['core', '核心图谱'],
+  ['news', '含新闻'],
+  ['sources', '含 arXiv'],
+  ['full', '全量'],
+]
 
 const NODE_TYPES = [
   ['all', '全部节点'],
@@ -28,13 +37,28 @@ const NODE_TYPES = [
 ]
 
 const EDGE_MODES = [
-  ['core', '核心关系'],
-  ['evidence', '证据来源'],
+  ['clean', '清爽关系'],
+  ['semantic', '语义关联'],
   ['all', '全部关系'],
 ]
 
-const CORE_EDGES = new Set(['taxonomy', 'links-to', 'mentions', 'related', 'cites-paper', 'tagged'])
-const EVIDENCE_EDGES = new Set(['cites-domain', 'cites-paper', 'links-to'])
+const CORE_NODE_TYPES = new Set([
+  'home',
+  'index',
+  'page',
+  'paper',
+  'topic',
+  'ecosystem',
+  'track',
+  'route',
+  'concept',
+  'data',
+  'benchmark',
+  'robot',
+  'org',
+])
+const CLEAN_EDGES = new Set(['taxonomy', 'mentions'])
+const SEMANTIC_EDGES = new Set(['taxonomy', 'links-to', 'mentions', 'related', 'tagged'])
 const TYPE_META = {
   home: ['首页', '#f8fafc'],
   index: ['总览', '#93c5fd'],
@@ -52,7 +76,6 @@ const TYPE_META = {
   benchmark: ['基准', '#f59e0b'],
   robot: ['本体', '#fb7185'],
   org: ['机构', '#a78bfa'],
-  'source-domain': ['来源域名', '#94a3b8'],
   'source-paper': ['arXiv', '#e2e8f0'],
   'topic-tag': ['标签', '#facc15'],
 }
@@ -99,10 +122,33 @@ function matchesNode(n, q) {
   return hay.includes(q)
 }
 
+function nodeAllowedByScope(n) {
+  if (!showSections.value && n.type === 'section') return false
+  if (scope.value === 'full') return true
+  if (scope.value === 'sources') return CORE_NODE_TYPES.has(n.type) || n.type === 'source-paper'
+  if (scope.value === 'news') return CORE_NODE_TYPES.has(n.type) || n.type === 'news' || n.type === 'news-page' || n.type === 'topic-tag'
+  return CORE_NODE_TYPES.has(n.type)
+}
+
 function edgeAllowed(edge) {
   if (edgeMode.value === 'all') return true
-  if (edgeMode.value === 'evidence') return EVIDENCE_EDGES.has(edge.type)
-  return CORE_EDGES.has(edge.type)
+  if (edge.type === 'cites-paper' && scope.value !== 'sources' && scope.value !== 'full') return false
+  if (edgeMode.value === 'semantic') {
+    if (edge.type === 'mentions') return (edge.weight || 1) >= 3
+    if (edge.type === 'related') return (edge.weight || 1) >= 5
+    if (edge.type === 'cites-paper') return true
+    return SEMANTIC_EDGES.has(edge.type)
+  }
+  if (edge.type === 'mentions') return (edge.weight || 1) >= 10
+  return CLEAN_EDGES.has(edge.type)
+}
+
+function shouldLabel(n, q) {
+  if (q) return true
+  if (['track', 'route'].includes(n.type)) return true
+  if (['concept', 'data', 'benchmark', 'robot', 'org'].includes(n.type)) return (n.degree || 0) >= 120
+  if (n.type === 'index') return true
+  return false
 }
 
 function buildElements() {
@@ -113,7 +159,7 @@ function buildElements() {
   const matched = new Set()
 
   for (const n of g.nodes) {
-    if (!showSections.value && n.type === 'section') continue
+    if (!nodeAllowedByScope(n)) continue
     if (nodeType.value !== 'all' && n.type !== nodeType.value) continue
     baseIds.add(n.id)
     if (matchesNode(n, q)) matched.add(n.id)
@@ -129,13 +175,23 @@ function buildElements() {
     }
   }
 
-  const edges = g.edges.filter((e) => edgeAllowed(e) && visibleIds.has(e.source) && visibleIds.has(e.target))
+  let edges = g.edges.filter((e) => edgeAllowed(e) && visibleIds.has(e.source) && visibleIds.has(e.target))
+  if (edgeMode.value === 'clean' && !q) {
+    const taxonomy = edges.filter((e) => e.type === 'taxonomy')
+    const mentions = edges
+      .filter((e) => e.type === 'mentions')
+      .sort((a, b) => (b.weight || 1) - (a.weight || 1))
+      .slice(0, 120)
+    edges = [...taxonomy, ...mentions]
+  }
   const connected = new Set()
   for (const e of edges) {
     connected.add(e.source)
     connected.add(e.target)
   }
-  for (const id of matched) connected.add(id)
+  if (q) {
+    for (const id of matched) connected.add(id)
+  }
 
   const nodeElements = g.nodes
     .filter((n) => visibleIds.has(n.id) && (connected.has(n.id) || q || n.type === 'track'))
@@ -144,6 +200,7 @@ function buildElements() {
         ...n,
         typeLabel: typeLabel(n.type),
         color: nodeColor(n.type),
+        displayLabel: shouldLabel(n, q) ? n.label : '',
         size: n.size || 30,
       },
     }))
@@ -155,24 +212,40 @@ function buildElements() {
     },
   }))
 
+  visibleStats.value = { nodes: nodeElements.length, edges: edgeElements.length }
   return [...nodeElements, ...edgeElements]
 }
 
 function layoutGraph() {
   if (!cy.value) return
   const count = cy.value.nodes().length
-  const layoutName = count > 420 ? 'cose' : 'fcose'
+  const common = { animate: false, fit: true, padding: 48 }
+  if (count > 240) {
+    cy.value.layout({
+      ...common,
+      name: 'concentric',
+      minNodeSpacing: 18,
+      concentric: (node) => {
+        const t = node.data('type')
+        if (t === 'track') return 9
+        if (t === 'route') return 8
+        if (['concept', 'data', 'benchmark', 'robot', 'org'].includes(t)) return 6
+        if (t === 'paper') return Math.min(5, 2 + (node.data('degree') || 0) / 60)
+        return 2
+      },
+      levelWidth: () => 1.2,
+    }).run()
+    return
+  }
   cy.value.layout({
-    name: layoutName,
-    animate: false,
-    fit: true,
-    padding: 34,
+    ...common,
+    name: 'fcose',
     randomize: false,
-    nodeRepulsion: 7400,
-    idealEdgeLength: 78,
-    edgeElasticity: 0.16,
-    gravity: 0.25,
-    numIter: 1700,
+    nodeRepulsion: 12500,
+    idealEdgeLength: 140,
+    edgeElasticity: 0.12,
+    gravity: 0.16,
+    numIter: 1200,
   }).run()
 }
 
@@ -193,9 +266,9 @@ async function renderGraph() {
             width: 'data(size)',
             height: 'data(size)',
             'background-color': 'data(color)',
-            'border-color': 'rgba(255,255,255,0.78)',
-            'border-width': 1,
-            label: 'data(label)',
+            'border-color': 'rgba(226,232,240,0.72)',
+            'border-width': 1.2,
+            label: 'data(displayLabel)',
             color: '#e5f5ff',
             'font-family': 'Inter, PingFang SC, sans-serif',
             'font-size': 10,
@@ -215,32 +288,32 @@ async function renderGraph() {
         },
         {
           selector: 'node[type = "paper"]',
-          style: { shape: 'round-rectangle', 'border-width': 1.6 },
+          style: { shape: 'round-rectangle', 'background-color': '#b084f5', 'border-width': 1.5 },
         },
         {
           selector: 'node[type = "concept"], node[type = "data"], node[type = "benchmark"], node[type = "robot"], node[type = "org"]',
-          style: { shape: 'hexagon' },
+          style: { shape: 'ellipse', 'border-width': 1.4 },
         },
         {
           selector: 'node[type = "route"], node[type = "track"]',
-          style: { shape: 'tag', 'font-size': 11, 'border-width': 2 },
+          style: { shape: 'round-rectangle', 'font-size': 11, 'border-width': 2.2, 'background-color': '#0ea5e9' },
         },
         {
           selector: 'edge',
           style: {
             width: 'data(width)',
-            'line-color': 'rgba(125, 211, 252, 0.34)',
-            'target-arrow-color': 'rgba(125, 211, 252, 0.36)',
+            'line-color': 'rgba(125, 211, 252, 0.20)',
+            'target-arrow-color': 'rgba(125, 211, 252, 0.20)',
             'target-arrow-shape': 'triangle',
             'curve-style': 'bezier',
-            opacity: 0.66,
+            opacity: 0.48,
           },
         },
-        { selector: 'edge[type = "taxonomy"]', style: { 'line-color': '#38bdf8', opacity: 0.84 } },
-        { selector: 'edge[type = "mentions"], edge[type = "section-mentions"]', style: { 'line-color': '#22d3ee', opacity: 0.46 } },
-        { selector: 'edge[type = "related"]', style: { 'line-color': '#a78bfa', 'line-style': 'dashed', opacity: 0.52 } },
-        { selector: 'edge[type = "links-to"]', style: { 'line-color': '#34d399', opacity: 0.62 } },
-        { selector: 'edge[type = "cites-paper"], edge[type = "cites-domain"]', style: { 'line-color': '#f8fafc', opacity: 0.42 } },
+        { selector: 'edge[type = "taxonomy"]', style: { 'line-color': '#38bdf8', 'target-arrow-color': '#38bdf8', opacity: 0.72 } },
+        { selector: 'edge[type = "mentions"], edge[type = "section-mentions"]', style: { 'line-color': '#22d3ee', 'target-arrow-color': '#22d3ee', opacity: 0.34 } },
+        { selector: 'edge[type = "related"]', style: { 'line-color': '#a78bfa', 'target-arrow-color': '#a78bfa', 'line-style': 'dashed', opacity: 0.34 } },
+        { selector: 'edge[type = "links-to"]', style: { 'line-color': '#34d399', 'target-arrow-color': '#34d399', opacity: 0.44 } },
+        { selector: 'edge[type = "cites-paper"]', style: { 'line-color': '#f8fafc', 'target-arrow-color': '#f8fafc', opacity: 0.32 } },
         { selector: 'node:selected', style: { 'border-color': '#f8fafc', 'border-width': 4 } },
         { selector: '.faded', style: { opacity: 0.16, 'text-opacity': 0.12 } },
         { selector: '.focused', style: { opacity: 1, 'border-width': 4 } },
@@ -310,7 +383,7 @@ onUnmounted(() => {
   if (cy.value) cy.value.destroy()
 })
 
-watch([query, nodeType, edgeMode, showSections], () => {
+watch([query, scope, nodeType, edgeMode, showSections], () => {
   selected.value = null
   renderGraph()
 })
@@ -319,8 +392,8 @@ watch([query, nodeType, edgeMode, showSections], () => {
 <template>
   <section class="okg-shell">
     <div class="okg-metrics" v-if="stats">
-      <div><b>{{ stats.nodes }}</b><span>节点</span></div>
-      <div><b>{{ stats.edges }}</b><span>关系</span></div>
+      <div><b>{{ visibleStats.nodes }}</b><span>当前节点</span></div>
+      <div><b>{{ visibleStats.edges }}</b><span>当前关系</span></div>
       <div><b>{{ stats.docs }}</b><span>文档</span></div>
       <div><b>{{ stats.entities }}</b><span>实体</span></div>
       <div><b>{{ stats.sections }}</b><span>章节</span></div>
@@ -332,13 +405,13 @@ watch([query, nodeType, edgeMode, showSections], () => {
         <input v-model="query" type="search" placeholder="Qwen / LIBERO / 世界模型" />
       </label>
 
-      <div class="okg-segment" aria-label="节点类型">
+      <div class="okg-segment" aria-label="视图范围">
         <button
-          v-for="[value, label] in NODE_TYPES"
+          v-for="[value, label] in SCOPE_OPTIONS"
           :key="value"
           type="button"
-          :class="{ on: nodeType === value }"
-          @click="nodeType = value"
+          :class="{ on: scope === value }"
+          @click="scope = value"
         >
           {{ label }}
         </button>
@@ -353,6 +426,18 @@ watch([query, nodeType, edgeMode, showSections], () => {
           <span>章节</span>
         </label>
         <button type="button" class="okg-reset" @click="resetView">重排</button>
+      </div>
+
+      <div class="okg-segment okg-segment--types" aria-label="节点类型">
+        <button
+          v-for="[value, label] in NODE_TYPES"
+          :key="value"
+          type="button"
+          :class="{ on: nodeType === value }"
+          @click="nodeType = value"
+        >
+          {{ label }}
+        </button>
       </div>
     </div>
 
@@ -385,10 +470,11 @@ watch([query, nodeType, edgeMode, showSections], () => {
         <template v-else>
           <div class="okg-kind">Overview</div>
           <h3>离线知识图谱</h3>
-          <p>全图来自本站 Markdown、站内链接、论文目录和本地词典抽取。API 调用数为 0。</p>
+          <p>默认只显示站内核心知识网络。GitHub 等外部域名不进入图谱; arXiv 来源仅在“含 arXiv”视图中显示。API 调用数为 0。</p>
           <dl v-if="stats">
             <dt>生成时间</dt><dd>{{ stats.generatedAt?.replace('T', ' ').replace(/\.\d+Z$/, ' UTC') }}</dd>
-            <dt>默认视图</dt><dd>隐藏章节节点</dd>
+            <dt>当前视图</dt><dd>{{ SCOPE_OPTIONS.find(([v]) => v === scope)?.[1] }}</dd>
+            <dt>全量规模</dt><dd>{{ stats.nodes }} 节点 / {{ stats.edges }} 关系</dd>
           </dl>
         </template>
       </aside>
@@ -401,6 +487,7 @@ watch([query, nodeType, edgeMode, showSections], () => {
   --okg-border: rgba(148, 163, 184, 0.22);
   --okg-surface: rgba(8, 13, 28, 0.66);
   --okg-text: #dbeafe;
+  container-type: inline-size;
   margin: 28px 0 42px;
 }
 
@@ -433,12 +520,12 @@ watch([query, nodeType, edgeMode, showSections], () => {
 
 .okg-toolbar {
   display: grid;
-  grid-template-columns: minmax(220px, 0.7fr) minmax(280px, 1.3fr) auto;
+  grid-template-columns: minmax(220px, 0.7fr) minmax(280px, 1.1fr) auto;
   gap: 12px;
   align-items: center;
   border: 1px solid var(--okg-border);
   border-bottom: 0;
-  background: rgba(5, 10, 24, 0.78);
+  background: rgba(5, 10, 24, 0.82);
   padding: 12px;
 }
 
@@ -471,6 +558,11 @@ watch([query, nodeType, edgeMode, showSections], () => {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.okg-segment--types {
+  grid-column: 1 / -1;
+  padding-top: 2px;
 }
 
 .okg-segment button,
@@ -518,20 +610,20 @@ watch([query, nodeType, edgeMode, showSections], () => {
 .okg-stage {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
-  min-height: 720px;
+  min-height: 760px;
   border: 1px solid var(--okg-border);
   background: var(--okg-surface);
 }
 
 .okg-graph {
   position: relative;
-  min-height: 720px;
+  min-height: 760px;
   background:
-    linear-gradient(rgba(56, 189, 248, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.07) 1px, transparent 1px),
-    radial-gradient(circle at 50% 35%, rgba(34, 211, 238, 0.14), transparent 38%),
-    rgba(4, 8, 18, 0.88);
-  background-size: 36px 36px, 36px 36px, auto, auto;
+    radial-gradient(circle at 50% 42%, rgba(34, 211, 238, 0.10), transparent 36%),
+    linear-gradient(rgba(56, 189, 248, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.045) 1px, transparent 1px),
+    rgba(3, 7, 18, 0.94);
+  background-size: auto, 42px 42px, 42px 42px, auto;
   overflow: hidden;
 }
 
@@ -607,6 +699,40 @@ watch([query, nodeType, edgeMode, showSections], () => {
   .okg-actions {
     justify-content: flex-start;
     flex-wrap: wrap;
+  }
+
+  .okg-stage,
+  .okg-graph {
+    min-height: 620px;
+  }
+
+  .okg-readout {
+    border-left: 0;
+    border-top: 1px solid var(--okg-border);
+  }
+}
+
+@container (max-width: 820px) {
+  .okg-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .okg-toolbar,
+  .okg-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .okg-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .okg-actions select {
+    width: min(220px, 100%);
+  }
+
+  .okg-reset {
+    min-width: 64px;
   }
 
   .okg-stage,

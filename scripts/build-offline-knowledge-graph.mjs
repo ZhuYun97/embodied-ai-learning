@@ -270,18 +270,6 @@ function resolveInternalLink(fromRel, href, docsByRel) {
   return candidates.find((c) => docsByRel.has(c)) || null
 }
 
-function extractExternalDomains(raw) {
-  const out = new Map()
-  for (const m of raw.matchAll(/https?:\/\/[^\s)\]'"<>]+/g)) {
-    try {
-      const url = new URL(m[0].replace(/[.,;:]+$/, ''))
-      const domain = url.hostname.replace(/^www\./, '')
-      out.set(domain, (out.get(domain) || 0) + 1)
-    } catch (e) {}
-  }
-  return out
-}
-
 function extractArxivIds(raw) {
   const ids = new Set()
   for (const m of raw.matchAll(/(?:arxiv\.org\/(?:abs|pdf)\/|arXiv[:\s*]*)(\d{4}\.\d{4,5})/gi)) {
@@ -461,19 +449,6 @@ function build() {
       })
     }
 
-    for (const [domain, count] of extractExternalDomains(doc.raw)) {
-      const domainId = `domain:${domain}`
-      addNode(nodes, { id: domainId, label: domain, type: 'source-domain' })
-      addEdge(edges, {
-        source: id,
-        target: domainId,
-        type: 'cites-domain',
-        label: '外部来源',
-        weight: Math.min(8, count),
-        confidence: 'EXTRACTED',
-      })
-    }
-
     const arxivIds = new Set(extractArxivIds(doc.raw))
     if (p?.arxivId) arxivIds.add(p.arxivId)
     for (const arxiv of arxivIds) {
@@ -514,7 +489,7 @@ function build() {
         'VitePress internal links',
         'Curated paper taxonomy from papers.data.mjs',
         'Deterministic entity dictionary matching',
-        'External domain and arXiv citation extraction',
+        'arXiv citation extraction',
         'Shared-entity relatedness edges',
       ],
     },
@@ -671,7 +646,7 @@ function makeReport(graph) {
     '',
     '## Notes',
     '',
-    '- EXTRACTED edges come from links, headings, citations, or exact dictionary matches.',
+    '- EXTRACTED edges come from internal links, headings, arXiv citations, or exact dictionary matches.',
     '- CURATED edges come from the existing paper taxonomy.',
     '- DERIVED edges connect pages that share multiple extracted entities.',
     '- No model inference was used, so missing synonyms should be fixed by extending the local dictionary.',

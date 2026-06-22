@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Embodied AI Offline Knowledge Graph",
-    "generatedAt": "2026-06-22T08:43:50.586Z",
+    "generatedAt": "2026-06-22T09:02:20.859Z",
     "mode": "offline-local",
     "apiCalls": 0,
     "source": {
@@ -14,7 +14,7 @@
       "VitePress internal links",
       "Curated paper taxonomy from papers.data.mjs",
       "Deterministic entity dictionary matching",
-      "External domain and arXiv citation extraction",
+      "arXiv citation extraction",
       "Shared-entity relatedness edges"
     ]
   },
@@ -1620,7 +1620,7 @@
       "url": "/ecosystem/brain-ranking",
       "rel": "ecosystem/brain-ranking.md",
       "description": "全球「具身大脑」（VLA / 机器人基础模型 / 世界模型 / 泛化操作策略）研发公司分档榜。多维记分卡 + T0/T1/T2 分档，每条数据附一手来源与 ✅一手 / ⚠️自报 / 待核 标注，经多源检索与对抗式事实核验。",
-      "degree": 164,
+      "degree": 95,
       "size": 72
     },
     {
@@ -1630,7 +1630,7 @@
       "url": "/ecosystem/",
       "rel": "ecosystem/index.md",
       "description": "国际与国内具身智能公司、科研机构与生态地图一览——覆盖公司关系、论文知识图谱入口、就业城市分布、代表产品、技术方向、融资数据与官网链接。持续更新。",
-      "degree": 74,
+      "degree": 46,
       "size": 72
     },
     {
@@ -1660,7 +1660,7 @@
       "url": "/",
       "rel": "index.md",
       "description": "",
-      "degree": 108,
+      "degree": 107,
       "size": 72
     },
     {
@@ -1680,8 +1680,8 @@
       "url": "/news/qwen-robot",
       "rel": "news/qwen-robot.md",
       "description": "Qwen-RobotManip、Qwen-RobotNav 与 Qwen-RobotWorld 三篇 2026 年 6 月技术报告的专题介绍,梳理它们与 Qwen-VLA 的关系、技术分工、数据层贡献和阅读路线。",
-      "degree": 36,
-      "size": 70.74486277268397
+      "degree": 33,
+      "size": 68.4785670536077
     },
     {
       "id": "doc:vla/changelog",
@@ -1700,7 +1700,7 @@
       "url": "/vla/guide",
       "rel": "vla/guide.md",
       "description": "如何阅读本站——具身智能学习站的内容地图、推荐阅读路径、可信度标注约定(⚠️/✅/待核)与贡献反馈方式,帮助新读者快速上手 VLA 视觉-语言-动作模型深度调研。",
-      "degree": 86,
+      "degree": 85,
       "size": 72
     },
     {
@@ -1724,7 +1724,7 @@
       "route": "新范式探索",
       "date": "2026-06",
       "arxivId": "2606.06155",
-      "degree": 45,
+      "degree": 43,
       "size": 72
     },
     {
@@ -1738,8 +1738,8 @@
       "route": "新范式探索",
       "date": "2026-03",
       "arxivId": "2603.07648",
-      "degree": 33,
-      "size": 68.4785670536077
+      "degree": 31,
+      "size": 66.91168824543144
     },
     {
       "id": "doc:vla/papers/benchmarks",
@@ -1748,7 +1748,7 @@
       "url": "/vla/papers/benchmarks",
       "rel": "vla/papers/benchmarks.md",
       "description": "VLA 评测深度版,系统梳理 SimplerEnv/LIBERO/CALVIN/RoboCasa 四大主流仿真操作基准的逐模型成绩表,并新增仿真操作扩展基准、双臂/人形/移动操作基准、真机评测与竞技场、具身推理与 VQA、视觉语言导航五大维度,以及评测方法论与陷阱(读表铁律)。讲清各基准口径为何不可直接横比、自评为何普遍高估、benchmark 饱和为何失真。",
-      "degree": 185,
+      "degree": 149,
       "size": 72
     },
     {
@@ -1820,7 +1820,7 @@
       "route": "分层 · 双系统/推理",
       "date": "2024-07",
       "arxivId": "2407.08693",
-      "degree": 50,
+      "degree": 47,
       "size": 72
     },
     {
@@ -1830,7 +1830,7 @@
       "url": "/vla/papers/embodied-data",
       "rel": "vla/papers/embodied-data.md",
       "description": "VLA 与具身智能的数据专题:从真机遥操作轨迹、互联网视觉-语言数据到人类视频与仿真合成数据,梳理潜动作、逆动力学、跨本体归一化与 co-training,以及 NVIDIA GR00T 数据金字塔与 π0.5 异构协同训练范式。",
-      "degree": 164,
+      "degree": 145,
       "size": 72
     },
     {
@@ -1850,8 +1850,8 @@
       "url": "/vla/papers/faster",
       "rel": "vla/papers/faster.md",
       "description": "FASTER 解读(arXiv:2603.19199,港大/ACE Robotics)。面向流匹配 VLA 的免训练实时推理加速:用「视野感知调度(Horizon-Aware Schedule)」给近未来动作分配激进采样(首个动作单步去噪即出)、远期动作保留慢去噪,把「即时反应」的去噪从 N 步压到 1 步,即插即用、不改架构;在 π0.5、X-VLA 上把首动作时延(TTFA)降低约 1.3–3.1×。",
-      "degree": 36,
-      "size": 70.74486277268397
+      "degree": 34,
+      "size": 69.24471804789655
     },
     {
       "id": "doc:vla/papers/galaxea-g0",
@@ -1864,7 +1864,7 @@
       "route": "分层 · 双系统/推理",
       "date": "2025-09",
       "arxivId": "2509.00576",
-      "degree": 47,
+      "degree": 42,
       "size": 72
     },
     {
@@ -1902,7 +1902,7 @@
       "route": "新范式探索",
       "date": "2026-02",
       "arxivId": "2602.12099",
-      "degree": 45,
+      "degree": 40,
       "size": 72
     },
     {
@@ -1926,7 +1926,7 @@
       "route": "分层 · 双系统/推理",
       "date": "2025-03",
       "arxivId": "2503.06669",
-      "degree": 61,
+      "degree": 55,
       "size": 72
     },
     {
@@ -1940,7 +1940,7 @@
       "route": "连续 · 扩散/流匹配",
       "date": "2025-07",
       "arxivId": "2507.15493",
-      "degree": 50,
+      "degree": 49,
       "size": 72
     },
     {
@@ -1954,7 +1954,7 @@
       "route": "连续 · 扩散/流匹配",
       "date": "2025-12",
       "arxivId": "2512.24210",
-      "degree": 46,
+      "degree": 44,
       "size": 72
     },
     {
@@ -1968,7 +1968,7 @@
       "route": "连续 · 扩散/流匹配",
       "date": "2025-03",
       "arxivId": "2503.14734",
-      "degree": 77,
+      "degree": 76,
       "size": 72
     },
     {
@@ -1982,7 +1982,7 @@
       "route": "分层 · 双系统/推理",
       "date": "2025-02",
       "arxivId": null,
-      "degree": 66,
+      "degree": 62,
       "size": 72
     },
     {
@@ -1992,7 +1992,7 @@
       "url": "/vla/papers/inference-deployment",
       "rel": "vla/papers/inference-deployment.md",
       "description": "从算法、表示、系统、模型体量与权重四层拆解 VLA 为什么慢、怎么快、哪些手段可叠加——汇聚并行解码、FAST 频域分词、动作分块、FASTER、RTC、云-端拆分、KV 缓存、LoRA/量化的实测数字与部署选型。",
-      "degree": 52,
+      "degree": 51,
       "size": 72
     },
     {
@@ -2002,7 +2002,7 @@
       "url": "/vla/papers/knowledge-insulation",
       "rel": "vla/papers/knowledge-insulation.md",
       "description": "Knowledge Insulation(知识隔离)是 Physical Intelligence / DeepMind 提出的 VLA 训练配方:用 stop-gradient 把连续动作专家的梯度挡在预训练 VLM 主干之外,同时让主干用 FAST 离散动作 token + 网络数据 co-train,做到\"训练快、运行快、泛化更好\"。它是 π0.6 / π0.7 背后的核心训练技法。",
-      "degree": 53,
+      "degree": 52,
       "size": 72
     },
     {
@@ -2030,7 +2030,7 @@
       "route": "新范式探索",
       "date": "2026-06",
       "arxivId": "2606.09827",
-      "degree": 51,
+      "degree": 48,
       "size": 72
     },
     {
@@ -2050,7 +2050,7 @@
       "url": "/vla/papers/motion-control",
       "rel": "vla/papers/motion-control.md",
       "description": "运控算法基础专题,梳理 VLA/WAM 输出动作之后,机器人如何通过坐标系、轨迹生成、逆运动学、MPC、全身控制、阻抗/力控与安全约束落到可执行伺服命令。",
-      "degree": 55,
+      "degree": 51,
       "size": 72
     },
     {
@@ -2064,7 +2064,7 @@
       "route": "连续 · 扩散/流匹配",
       "date": "2024-05",
       "arxivId": "2405.12213",
-      "degree": 57,
+      "degree": 56,
       "size": 72
     },
     {
@@ -2078,7 +2078,7 @@
       "route": "连续 · 扩散/流匹配",
       "date": "2026-04",
       "arxivId": "2604.17706",
-      "degree": 39,
+      "degree": 38,
       "size": 72
     },
     {
@@ -2092,7 +2092,7 @@
       "route": "离散 token",
       "date": "2024-06",
       "arxivId": "2406.09246",
-      "degree": 70,
+      "degree": 67,
       "size": 72
     },
     {
@@ -2106,7 +2106,7 @@
       "route": "混合 · 连续回归",
       "date": "2025-02",
       "arxivId": "2502.19645",
-      "degree": 52,
+      "degree": 50,
       "size": 72
     },
     {
@@ -2120,7 +2120,7 @@
       "route": "连续 · 扩散/流匹配",
       "date": "2024-10",
       "arxivId": "2410.24164",
-      "degree": 89,
+      "degree": 88,
       "size": 72
     },
     {
@@ -2134,7 +2134,7 @@
       "route": "离散 token",
       "date": "2025-01",
       "arxivId": "2501.09747",
-      "degree": 54,
+      "degree": 53,
       "size": 72
     },
     {
@@ -2148,7 +2148,7 @@
       "route": "混合 · 连续回归",
       "date": "2025-04",
       "arxivId": "2504.16054",
-      "degree": 63,
+      "degree": 61,
       "size": 72
     },
     {
@@ -2162,7 +2162,7 @@
       "route": "新范式探索",
       "date": "2025-11",
       "arxivId": "2511.14759",
-      "degree": 53,
+      "degree": 50,
       "size": 72
     },
     {
@@ -2176,7 +2176,7 @@
       "route": "新范式探索",
       "date": "2026-04",
       "arxivId": "2604.15483",
-      "degree": 61,
+      "degree": 55,
       "size": 72
     },
     {
@@ -2190,7 +2190,7 @@
       "route": "分层 · 双系统/推理",
       "date": "2026-05",
       "arxivId": "2605.21414",
-      "degree": 40,
+      "degree": 38,
       "size": 72
     },
     {
@@ -2214,7 +2214,7 @@
       "route": "连续 · 扩散/流匹配",
       "date": "2026-06",
       "arxivId": "2606.17846",
-      "degree": 66,
+      "degree": 62,
       "size": 72
     },
     {
@@ -2228,8 +2228,8 @@
       "route": "分层 · 双系统/推理",
       "date": "2026-06",
       "arxivId": "2606.18112",
-      "degree": 34,
-      "size": 69.24471804789655
+      "degree": 31,
+      "size": 66.91168824543144
     },
     {
       "id": "doc:vla/papers/qwen-vla",
@@ -2242,7 +2242,7 @@
       "route": "新范式探索",
       "date": "2026-05",
       "arxivId": "2605.30280",
-      "degree": 66,
+      "degree": 63,
       "size": 72
     },
     {
@@ -2276,7 +2276,7 @@
       "url": "/vla/papers/resources",
       "rel": "vla/papers/resources.md",
       "description": "具身智能 / VLA 领域公开高质量外部资源导航——精选社区 Awesome 论文合集、关键综述、基准与仿真平台官方站、大规模数据集、开源框架与机构研究博客,每条均经核实存在,与本站「参考文献」(已覆盖论文的一手信源)互补。",
-      "degree": 70,
+      "degree": 58,
       "size": 72
     },
     {
@@ -2286,8 +2286,8 @@
       "url": "/vla/papers/rl-token",
       "rel": "vla/papers/rl-token.md",
       "description": "Physical Intelligence「RL Token」解读(arXiv:2604.23073)。冻结预训练 VLA、从其 token 嵌入里压出一个紧凑「RL token」读出表征,再在其上训练小型 actor-critic 做离策略在线 RL,以「相对参考动作块的局部精炼」在数分钟到数小时真机练习内提升精度-苛刻任务,兼顾 VLA 泛化与轻量在线 RL 的样本效率。",
-      "degree": 23,
-      "size": 60.090815370097204
+      "degree": 22,
+      "size": 59.162483709814474
     },
     {
       "id": "doc:vla/papers/robots",
@@ -2310,7 +2310,7 @@
       "route": "新范式探索",
       "date": "2024-12",
       "arxivId": "2412.14058",
-      "degree": 46,
+      "degree": 43,
       "size": 72
     },
     {
@@ -2352,7 +2352,7 @@
       "route": "分层 · 双系统/推理",
       "date": "2026-02",
       "arxivId": "2602.14979",
-      "degree": 43,
+      "degree": 38,
       "size": 72
     },
     {
@@ -2366,7 +2366,7 @@
       "route": "新范式探索",
       "date": "2025-09",
       "arxivId": "2509.15212",
-      "degree": 56,
+      "degree": 54,
       "size": 72
     },
     {
@@ -2380,7 +2380,7 @@
       "route": "新范式探索",
       "date": "2026-06",
       "arxivId": "2606.02745",
-      "degree": 42,
+      "degree": 41,
       "size": 72
     },
     {
@@ -2394,7 +2394,7 @@
       "route": "新范式探索",
       "date": "2025-09",
       "arxivId": "2509.09674",
-      "degree": 44,
+      "degree": 42,
       "size": 72
     },
     {
@@ -2408,7 +2408,7 @@
       "route": "连续 · 扩散/流匹配",
       "date": "2025-06",
       "arxivId": "2506.01844",
-      "degree": 40,
+      "degree": 39,
       "size": 72
     },
     {
@@ -2422,7 +2422,7 @@
       "route": "离散 token",
       "date": "2025-01",
       "arxivId": "2501.15830",
-      "degree": 63,
+      "degree": 59,
       "size": 72
     },
     {
@@ -2436,7 +2436,7 @@
       "route": "分层 · 双系统/推理",
       "date": "2026-02",
       "arxivId": "2602.13193",
-      "degree": 45,
+      "degree": 42,
       "size": 72
     },
     {
@@ -2450,7 +2450,7 @@
       "route": "分层 · 双系统/推理",
       "date": "2026-02",
       "arxivId": "2602.08440",
-      "degree": 44,
+      "degree": 41,
       "size": 72
     },
     {
@@ -2474,7 +2474,7 @@
       "route": "连续 · 扩散/流匹配",
       "date": "2024-09",
       "arxivId": "2409.12514",
-      "degree": 47,
+      "degree": 45,
       "size": 72
     },
     {
@@ -2498,7 +2498,7 @@
       "route": "混合 · 连续回归",
       "date": "2025-09",
       "arxivId": "2509.11766",
-      "degree": 59,
+      "degree": 56,
       "size": 72
     },
     {
@@ -2546,7 +2546,7 @@
       "route": "跨范式 · 基座/平台/仿真",
       "date": "2026-06",
       "arxivId": "2606.02800",
-      "degree": 53,
+      "degree": 52,
       "size": 72
     },
     {
@@ -2560,7 +2560,7 @@
       "route": "级联 · 隐式",
       "date": "2026-04",
       "arxivId": "2604.16484",
-      "degree": 54,
+      "degree": 53,
       "size": 72
     },
     {
@@ -2588,7 +2588,7 @@
       "route": "联合 · 混合",
       "date": "2025-05",
       "arxivId": "2505.15659",
-      "degree": 46,
+      "degree": 44,
       "size": 72
     },
     {
@@ -2602,7 +2602,7 @@
       "route": "跨范式 · 基座/平台/仿真",
       "date": "2026-05",
       "arxivId": "2605.27491",
-      "degree": 43,
+      "degree": 41,
       "size": 72
     },
     {
@@ -2644,7 +2644,7 @@
       "route": "联合 · 扩散",
       "date": "2026-03",
       "arxivId": "2603.17240",
-      "degree": 54,
+      "degree": 52,
       "size": 72
     },
     {
@@ -2686,7 +2686,7 @@
       "route": "联合 · 混合",
       "date": "2026-06",
       "arxivId": "2606.10363",
-      "degree": 44,
+      "degree": 43,
       "size": 72
     },
     {
@@ -2700,7 +2700,7 @@
       "route": "联合 · 扩散",
       "date": "2025-05",
       "arxivId": "2505.11528",
-      "degree": 41,
+      "degree": 40,
       "size": 72
     },
     {
@@ -2752,7 +2752,7 @@
       "route": "联合 · 扩散",
       "date": "2026-04",
       "arxivId": "2604.27792",
-      "degree": 43,
+      "degree": 41,
       "size": 72
     },
     {
@@ -2766,7 +2766,7 @@
       "route": "联合 · 混合",
       "date": "2026-05",
       "arxivId": "2605.06481",
-      "degree": 44,
+      "degree": 43,
       "size": 72
     },
     {
@@ -2780,7 +2780,7 @@
       "route": "跨范式 · 基座/平台/仿真",
       "date": "2026-06",
       "arxivId": "2606.17030",
-      "degree": 46,
+      "degree": 44,
       "size": 72
     },
     {
@@ -2794,7 +2794,7 @@
       "route": "跨范式 · 基座/平台/仿真",
       "date": "2026-06",
       "arxivId": "2606.02577",
-      "degree": 43,
+      "degree": 42,
       "size": 72
     },
     {
@@ -2808,7 +2808,7 @@
       "route": "联合 · 自回归",
       "date": "2025-11",
       "arxivId": "2511.17502",
-      "degree": 49,
+      "degree": 46,
       "size": 72
     },
     {
@@ -2822,7 +2822,7 @@
       "route": "联合 · 扩散",
       "date": "2026-06",
       "arxivId": "2606.01027",
-      "degree": 50,
+      "degree": 49,
       "size": 72
     },
     {
@@ -2850,7 +2850,7 @@
       "route": "联合 · 混合",
       "date": "2025-03",
       "arxivId": "2503.00200",
-      "degree": 40,
+      "degree": 38,
       "size": 72
     },
     {
@@ -2878,7 +2878,7 @@
       "route": "级联 · 显式",
       "date": "2026-04",
       "arxivId": "2604.04502",
-      "degree": 40,
+      "degree": 39,
       "size": 72
     },
     {
@@ -2906,7 +2906,7 @@
       "route": "联合 · 扩散",
       "date": "2026-06",
       "arxivId": "2606.01955",
-      "degree": 60,
+      "degree": 58,
       "size": 72
     },
     {
@@ -2920,7 +2920,7 @@
       "route": "联合 · 扩散",
       "date": "2026-04",
       "arxivId": "2604.14732",
-      "degree": 43,
+      "degree": 42,
       "size": 72
     },
     {
@@ -2950,1119 +2950,6 @@
       "arxivId": "2604.26694",
       "degree": 45,
       "size": 72
-    },
-    {
-      "id": "domain:1x.tech",
-      "label": "1x.tech",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:agibot-world.com",
-      "label": "agibot-world.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:agibot.com",
-      "label": "agibot.com",
-      "type": "source-domain",
-      "degree": 3,
-      "size": 34
-    },
-    {
-      "id": "domain:agilityrobotics.com",
-      "label": "agilityrobotics.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:ai.meta.com",
-      "label": "ai.meta.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:ai2robotics.com",
-      "label": "ai2robotics.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:aihabitat.org",
-      "label": "aihabitat.org",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:alibaba-damo-academy.github.io",
-      "label": "alibaba-damo-academy.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:amazon.science",
-      "label": "amazon.science",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:apptronik.com",
-      "label": "apptronik.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:arnold-benchmark.github.io",
-      "label": "arnold-benchmark.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:arxiv.org",
-      "label": "arxiv.org",
-      "type": "source-domain",
-      "degree": 60,
-      "size": 72
-    },
-    {
-      "id": "domain:behavior-robot-suite.github.io",
-      "label": "behavior-robot-suite.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:behavior.stanford.edu",
-      "label": "behavior.stanford.edu",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:bostondynamics.com",
-      "label": "bostondynamics.com",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:bringmeaspoon.org",
-      "label": "bringmeaspoon.org",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:businesswire.com",
-      "label": "businesswire.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:byte-dexter.github.io",
-      "label": "byte-dexter.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:chanh.ee",
-      "label": "chanh.ee",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:chernyadev.github.io",
-      "label": "chernyadev.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:cloudminds.com",
-      "label": "cloudminds.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:clvrai.github.io",
-      "label": "clvrai.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:cnbc.com",
-      "label": "cnbc.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:covariant.ai",
-      "label": "covariant.ai",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:cshizhe.github.io",
-      "label": "cshizhe.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:ctol.digital",
-      "label": "ctol.digital",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:damo.alibaba.com",
-      "label": "damo.alibaba.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:deepmind.google",
-      "label": "deepmind.google",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:developer.nvidia.com",
-      "label": "developer.nvidia.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:dexforce.com",
-      "label": "dexforce.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:dexmal.com",
-      "label": "dexmal.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:dmrobot.com",
-      "label": "dmrobot.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:drake.mit.edu",
-      "label": "drake.mit.edu",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:droid-dataset.github.io",
-      "label": "droid-dataset.github.io",
-      "type": "source-domain",
-      "degree": 3,
-      "size": 34
-    },
-    {
-      "id": "domain:dyna.co",
-      "label": "dyna.co",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:ego-exo4d-data.org",
-      "label": "ego-exo4d-data.org",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:ego4d-data.org",
-      "label": "ego4d-data.org",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:electrek.co",
-      "label": "electrek.co",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:embodied-cot.github.io",
-      "label": "embodied-cot.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:embodiedbench.github.io",
-      "label": "embodiedbench.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:en.wikipedia.org",
-      "label": "en.wikipedia.org",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:epic-kitchens.github.io",
-      "label": "epic-kitchens.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:fftai.com",
-      "label": "fftai.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:fieldai.com",
-      "label": "fieldai.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:figure.ai",
-      "label": "figure.ai",
-      "type": "source-domain",
-      "degree": 4,
-      "size": 36.124611797498105
-    },
-    {
-      "id": "domain:finance.sina.com.cn",
-      "label": "finance.sina.com.cn",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:flageval-baai.github.io",
-      "label": "flageval-baai.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:galaxea.ai",
-      "label": "galaxea.ai",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:galbot.cn",
-      "label": "galbot.cn",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:galbot.com",
-      "label": "galbot.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:gaussianrobotics.com",
-      "label": "gaussianrobotics.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:ge-sim-v2.github.io",
-      "label": "ge-sim-v2.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:generalistai.com",
-      "label": "generalistai.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:genesis.ai",
-      "label": "genesis.ai",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:giga-world-0.github.io",
-      "label": "giga-world-0.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:gigaai-research.github.io",
-      "label": "gigaai-research.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:gigaai.cc",
-      "label": "gigaai.cc",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:gigabrain05m.github.io",
-      "label": "gigabrain05m.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:github.com",
-      "label": "github.com",
-      "type": "source-domain",
-      "degree": 28,
-      "size": 64.46648326421052
-    },
-    {
-      "id": "domain:globenewswire.com",
-      "label": "globenewswire.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:hangzhou.gov.cn",
-      "label": "hangzhou.gov.cn",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:huawei.com",
-      "label": "huawei.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:huaweicloud.com",
-      "label": "huaweicloud.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:huggingface.co",
-      "label": "huggingface.co",
-      "type": "source-domain",
-      "degree": 10,
-      "size": 45.8496231131986
-    },
-    {
-      "id": "domain:humanoid-bench.github.io",
-      "label": "humanoid-bench.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:humanoid.com",
-      "label": "humanoid.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:humanoidsdaily.com",
-      "label": "humanoidsdaily.com",
-      "type": "source-domain",
-      "degree": 3,
-      "size": 34
-    },
-    {
-      "id": "domain:iclr.cc",
-      "label": "iclr.cc",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:innovator-zero.github.io",
-      "label": "innovator-zero.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:interestingengineering.com",
-      "label": "interestingengineering.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:jd.com",
-      "label": "jd.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:kaggle.com",
-      "label": "kaggle.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:keenon.com",
-      "label": "keenon.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:lejurobot.com",
-      "label": "lejurobot.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:limxdynamics.com",
-      "label": "limxdynamics.com",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:manipulation-net.org",
-      "label": "manipulation-net.org",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:mecka.ai",
-      "label": "mecka.ai",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:meituan.com",
-      "label": "meituan.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:mi.com",
-      "label": "mi.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:microsoft.com",
-      "label": "microsoft.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:mimicgen.github.io",
-      "label": "mimicgen.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:modelscope.cn",
-      "label": "modelscope.cn",
-      "type": "source-domain",
-      "degree": 3,
-      "size": 34
-    },
-    {
-      "id": "domain:modernrobotics.northwestern.edu",
-      "label": "modernrobotics.northwestern.edu",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:mukulkhanna.github.io",
-      "label": "mukulkhanna.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:ninebot.com",
-      "label": "ninebot.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:noematrix.ai",
-      "label": "noematrix.ai",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:nvidia.com",
-      "label": "nvidia.com",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:nvidianews.nvidia.com",
-      "label": "nvidianews.nvidia.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:open-eqa.github.io",
-      "label": "open-eqa.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:opendrivelab.com",
-      "label": "opendrivelab.com",
-      "type": "source-domain",
-      "degree": 4,
-      "size": 36.124611797498105
-    },
-    {
-      "id": "domain:opengalaxea.github.io",
-      "label": "opengalaxea.github.io",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:openreview.net",
-      "label": "openreview.net",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:openvla-oft.github.io",
-      "label": "openvla-oft.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:openvla.github.io",
-      "label": "openvla.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:orionstar.com",
-      "label": "orionstar.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:physicalintelligence.company",
-      "label": "physicalintelligence.company",
-      "type": "source-domain",
-      "degree": 4,
-      "size": 36.124611797498105
-    },
-    {
-      "id": "domain:pi.website",
-      "label": "pi.website",
-      "type": "source-domain",
-      "degree": 3,
-      "size": 34
-    },
-    {
-      "id": "domain:pingwest.com",
-      "label": "pingwest.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:pku-epic.github.io",
-      "label": "pku-epic.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:prnewswire.com",
-      "label": "prnewswire.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:psibot.ai",
-      "label": "psibot.ai",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:qbitai.com",
-      "label": "qbitai.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:qianwen-res.oss-accelerate.aliyuncs.com",
-      "label": "qianwen-res.oss-accelerate.aliyuncs.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:qualcomm.com",
-      "label": "qualcomm.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:qwen.ai",
-      "label": "qwen.ai",
-      "type": "source-domain",
-      "degree": 5,
-      "size": 38.0454076850486
-    },
-    {
-      "id": "domain:rail-berkeley.github.io",
-      "label": "rail-berkeley.github.io",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:real-robot-challenge.com",
-      "label": "real-robot-challenge.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:research.nvidia.com",
-      "label": "research.nvidia.com",
-      "type": "source-domain",
-      "degree": 3,
-      "size": 34
-    },
-    {
-      "id": "domain:rh20t.github.io",
-      "label": "rh20t.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:robo-arena.github.io",
-      "label": "robo-arena.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:robocasa.ai",
-      "label": "robocasa.ai",
-      "type": "source-domain",
-      "degree": 3,
-      "size": 34
-    },
-    {
-      "id": "domain:robochallenge.ai",
-      "label": "robochallenge.ai",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:robopen.github.io",
-      "label": "robopen.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:robosuite.ai",
-      "label": "robosuite.ai",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:robot-colosseum.github.io",
-      "label": "robot-colosseum.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:robotics-transformer-x.github.io",
-      "label": "robotics-transformer-x.github.io",
-      "type": "source-domain",
-      "degree": 3,
-      "size": 34
-    },
-    {
-      "id": "domain:robotics-transformer1.github.io",
-      "label": "robotics-transformer1.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:robotwin-platform.github.io",
-      "label": "robotwin-platform.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:robovlms.github.io",
-      "label": "robovlms.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:robovqa.github.io",
-      "label": "robovqa.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:ruckig.com",
-      "label": "ruckig.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:sanctuary.ai",
-      "label": "sanctuary.ai",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:seed.bytedance.com",
-      "label": "seed.bytedance.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:shengshu.com",
-      "label": "shengshu.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:shihao1895.github.io",
-      "label": "shihao1895.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:siliconangle.com",
-      "label": "siliconangle.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:skild.ai",
-      "label": "skild.ai",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:spatialvla.github.io",
-      "label": "spatialvla.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:spectrum.ieee.org",
-      "label": "spectrum.ieee.org",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:spirit-ai.com",
-      "label": "spirit-ai.com",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:startup.aliyun.com",
-      "label": "startup.aliyun.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:steerable-policies.github.io",
-      "label": "steerable-policies.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:steervla.github.io",
-      "label": "steervla.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:sylvestf.github.io",
-      "label": "sylvestf.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:tars-ai.com",
-      "label": "tars-ai.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:techcrunch.com",
-      "label": "techcrunch.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:technology.robbyant.com",
-      "label": "technology.robbyant.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:techtimes.com",
-      "label": "techtimes.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:tencent.com",
-      "label": "tencent.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:tesla.com",
-      "label": "tesla.com",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:the-decoder.com",
-      "label": "the-decoder.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:themoonlight.io",
-      "label": "themoonlight.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:therobotreport.com",
-      "label": "therobotreport.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:tiny-vla.github.io",
-      "label": "tiny-vla.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:toyotaresearchinstitute.github.io",
-      "label": "toyotaresearchinstitute.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:ubtrobot.com",
-      "label": "ubtrobot.com",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:udeer.ai",
-      "label": "udeer.ai",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:unified-video-action-model.github.io",
-      "label": "unified-video-action-model.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:unitree.com",
-      "label": "unitree.com",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:vision-x-nyu.github.io",
-      "label": "vision-x-nyu.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:vlabench.github.io",
-      "label": "vlabench.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:water-cookie.github.io",
-      "label": "water-cookie.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:worldlabs.ai",
-      "label": "worldlabs.ai",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:worldmodelbench-team.github.io",
-      "label": "worldmodelbench-team.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:x-humanoid.com",
-      "label": "x-humanoid.com",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:x2robot.com",
-      "label": "x2robot.com",
-      "type": "source-domain",
-      "degree": 2,
-      "size": 31.588457268119896
-    },
-    {
-      "id": "domain:yuankaiqi.github.io",
-      "label": "yuankaiqi.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:zeyofu.github.io",
-      "label": "zeyofu.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
-    },
-    {
-      "id": "domain:zhanglk9.github.io",
-      "label": "zhanglk9.github.io",
-      "type": "source-domain",
-      "degree": 1,
-      "size": 28.72792206135786
     },
     {
       "id": "news:-07xxxxxxxxxxxxxxxxx-20260416",
@@ -19137,2996 +18024,6 @@
     }
   ],
   "edges": [
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:1x.tech",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:1x.tech",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:agibot.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:agibot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:ai.meta.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:ai.meta.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:ai2robotics.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:ai2robotics.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:amazon.science",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:amazon.science",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:arxiv.org",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 8,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:bostondynamics.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:bostondynamics.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:businesswire.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:businesswire.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:cnbc.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:cnbc.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:covariant.ai",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:covariant.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:damo.alibaba.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:damo.alibaba.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:deepmind.google",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:deepmind.google",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:dexforce.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:dexforce.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:dexmal.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:dexmal.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:dmrobot.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:dmrobot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:dyna.co",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:dyna.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:electrek.co",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:electrek.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:en.wikipedia.org",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:en.wikipedia.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:fieldai.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:fieldai.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:figure.ai",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:figure.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:finance.sina.com.cn",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:finance.sina.com.cn",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:galaxea.ai",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:galaxea.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:galbot.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:galbot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:generalistai.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:generalistai.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:genesis.ai",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:genesis.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:gigaai.cc",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:gigaai.cc",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:github.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 8,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:hangzhou.gov.cn",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:hangzhou.gov.cn",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:huawei.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:huawei.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:huaweicloud.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:huaweicloud.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:huggingface.co",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:huggingface.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 8,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:humanoidsdaily.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:humanoidsdaily.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:iclr.cc",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:iclr.cc",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:jd.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:jd.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:limxdynamics.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:limxdynamics.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:meituan.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:meituan.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:mi.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:mi.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:microsoft.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:microsoft.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:modelscope.cn",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:modelscope.cn",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:noematrix.ai",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:noematrix.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:nvidia.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:nvidia.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:nvidianews.nvidia.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:nvidianews.nvidia.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:opengalaxea.github.io",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:opengalaxea.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:openreview.net",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:openreview.net",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:physicalintelligence.company",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:physicalintelligence.company",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:pingwest.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:pingwest.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:pku-epic.github.io",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:pku-epic.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:prnewswire.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:prnewswire.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:psibot.ai",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:psibot.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:qbitai.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:qbitai.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:qwen.ai",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:qwen.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:seed.bytedance.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:seed.bytedance.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:siliconangle.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:siliconangle.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:skild.ai",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:skild.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:spectrum.ieee.org",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:spectrum.ieee.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:spirit-ai.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:spirit-ai.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:startup.aliyun.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:startup.aliyun.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:tars-ai.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:tars-ai.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:technology.robbyant.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:technology.robbyant.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:tencent.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:tencent.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:tesla.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:tesla.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:therobotreport.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:therobotreport.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:toyotaresearchinstitute.github.io",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:toyotaresearchinstitute.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:ubtrobot.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:ubtrobot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:udeer.ai",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:udeer.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:unitree.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:unitree.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:worldlabs.ai",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:worldlabs.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 4,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:x-humanoid.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:x-humanoid.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/brain-ranking->domain:x2robot.com",
-      "source": "doc:ecosystem/brain-ranking",
-      "target": "domain:x2robot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:1x.tech",
-      "source": "doc:ecosystem/index",
-      "target": "domain:1x.tech",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:agibot.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:agibot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:agilityrobotics.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:agilityrobotics.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:apptronik.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:apptronik.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:bostondynamics.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:bostondynamics.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:cloudminds.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:cloudminds.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:covariant.ai",
-      "source": "doc:ecosystem/index",
-      "target": "domain:covariant.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:fftai.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:fftai.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:figure.ai",
-      "source": "doc:ecosystem/index",
-      "target": "domain:figure.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:galbot.cn",
-      "source": "doc:ecosystem/index",
-      "target": "domain:galbot.cn",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:gaussianrobotics.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:gaussianrobotics.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:github.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:humanoid.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:humanoid.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:keenon.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:keenon.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:lejurobot.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:lejurobot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:limxdynamics.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:limxdynamics.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:mecka.ai",
-      "source": "doc:ecosystem/index",
-      "target": "domain:mecka.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:ninebot.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:ninebot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:nvidia.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:nvidia.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:orionstar.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:orionstar.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:physicalintelligence.company",
-      "source": "doc:ecosystem/index",
-      "target": "domain:physicalintelligence.company",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:sanctuary.ai",
-      "source": "doc:ecosystem/index",
-      "target": "domain:sanctuary.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:skild.ai",
-      "source": "doc:ecosystem/index",
-      "target": "domain:skild.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:spirit-ai.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:spirit-ai.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:tesla.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:tesla.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:ubtrobot.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:ubtrobot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:unitree.com",
-      "source": "doc:ecosystem/index",
-      "target": "domain:unitree.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:ecosystem/index->domain:worldlabs.ai",
-      "source": "doc:ecosystem/index",
-      "target": "domain:worldlabs.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:index->domain:github.com",
-      "source": "doc:index",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:news/qwen-robot->domain:arxiv.org",
-      "source": "doc:news/qwen-robot",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:news/qwen-robot->domain:github.com",
-      "source": "doc:news/qwen-robot",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:news/qwen-robot->domain:qwen.ai",
-      "source": "doc:news/qwen-robot",
-      "target": "domain:qwen.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/guide->domain:github.com",
-      "source": "doc:vla/guide",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/affordancevla->domain:arxiv.org",
-      "source": "doc:vla/papers/affordancevla",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/affordancevla->domain:github.com",
-      "source": "doc:vla/papers/affordancevla",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/atomicvla->domain:arxiv.org",
-      "source": "doc:vla/papers/atomicvla",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/atomicvla->domain:zhanglk9.github.io",
-      "source": "doc:vla/papers/atomicvla",
-      "target": "domain:zhanglk9.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:agibot-world.com",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:agibot-world.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:aihabitat.org",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:aihabitat.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:arnold-benchmark.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:arnold-benchmark.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:arxiv.org",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:behavior-robot-suite.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:behavior-robot-suite.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:behavior.stanford.edu",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:behavior.stanford.edu",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:bringmeaspoon.org",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:bringmeaspoon.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:chanh.ee",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:chanh.ee",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:chernyadev.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:chernyadev.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:clvrai.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:clvrai.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:droid-dataset.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:droid-dataset.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:embodiedbench.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:embodiedbench.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:flageval-baai.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:flageval-baai.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:github.com",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 8,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:huggingface.co",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:huggingface.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:humanoid-bench.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:humanoid-bench.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:manipulation-net.org",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:manipulation-net.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:mukulkhanna.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:mukulkhanna.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:open-eqa.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:open-eqa.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:opendrivelab.com",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:opendrivelab.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:real-robot-challenge.com",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:real-robot-challenge.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:robo-arena.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:robo-arena.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:robocasa.ai",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:robocasa.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:robochallenge.ai",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:robochallenge.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:robosuite.ai",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:robosuite.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:robot-colosseum.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:robot-colosseum.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:robotics-transformer-x.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:robotics-transformer-x.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:robotwin-platform.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:robotwin-platform.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:robovqa.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:robovqa.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:sylvestf.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:sylvestf.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:vision-x-nyu.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:vision-x-nyu.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:vlabench.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:vlabench.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:water-cookie.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:water-cookie.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:worldmodelbench-team.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:worldmodelbench-team.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:yuankaiqi.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:yuankaiqi.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/benchmarks->domain:zeyofu.github.io",
-      "source": "doc:vla/papers/benchmarks",
-      "target": "domain:zeyofu.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/ecot->domain:arxiv.org",
-      "source": "doc:vla/papers/ecot",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/ecot->domain:embodied-cot.github.io",
-      "source": "doc:vla/papers/ecot",
-      "target": "domain:embodied-cot.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/ecot->domain:github.com",
-      "source": "doc:vla/papers/ecot",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:arxiv.org",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 8,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:developer.nvidia.com",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:developer.nvidia.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:droid-dataset.github.io",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:droid-dataset.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:ego-exo4d-data.org",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:ego-exo4d-data.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:ego4d-data.org",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:ego4d-data.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:epic-kitchens.github.io",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:epic-kitchens.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:github.com",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 7,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:huggingface.co",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:huggingface.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:kaggle.com",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:kaggle.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:mimicgen.github.io",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:mimicgen.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:opendrivelab.com",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:opendrivelab.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:qualcomm.com",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:qualcomm.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:rail-berkeley.github.io",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:rail-berkeley.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:research.nvidia.com",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:research.nvidia.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:rh20t.github.io",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:rh20t.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:robocasa.ai",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:robocasa.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:robopen.github.io",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:robopen.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:robotics-transformer-x.github.io",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:robotics-transformer-x.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/embodied-data->domain:robotics-transformer1.github.io",
-      "source": "doc:vla/papers/embodied-data",
-      "target": "domain:robotics-transformer1.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/faster->domain:arxiv.org",
-      "source": "doc:vla/papers/faster",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/faster->domain:innovator-zero.github.io",
-      "source": "doc:vla/papers/faster",
-      "target": "domain:innovator-zero.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/galaxea-g0->domain:arxiv.org",
-      "source": "doc:vla/papers/galaxea-g0",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 6,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/galaxea-g0->domain:github.com",
-      "source": "doc:vla/papers/galaxea-g0",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 6,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/galaxea-g0->domain:huggingface.co",
-      "source": "doc:vla/papers/galaxea-g0",
-      "target": "domain:huggingface.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 5,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/galaxea-g0->domain:modelscope.cn",
-      "source": "doc:vla/papers/galaxea-g0",
-      "target": "domain:modelscope.cn",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/galaxea-g0->domain:opengalaxea.github.io",
-      "source": "doc:vla/papers/galaxea-g0",
-      "target": "domain:opengalaxea.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 4,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/gigabrain-05m->domain:arxiv.org",
-      "source": "doc:vla/papers/gigabrain-05m",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/gigabrain-05m->domain:giga-world-0.github.io",
-      "source": "doc:vla/papers/gigabrain-05m",
-      "target": "domain:giga-world-0.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/gigabrain-05m->domain:gigabrain05m.github.io",
-      "source": "doc:vla/papers/gigabrain-05m",
-      "target": "domain:gigabrain05m.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/gigabrain-05m->domain:github.com",
-      "source": "doc:vla/papers/gigabrain-05m",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/gigabrain-05m->domain:huggingface.co",
-      "source": "doc:vla/papers/gigabrain-05m",
-      "target": "domain:huggingface.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/go-1->domain:agibot.com",
-      "source": "doc:vla/papers/go-1",
-      "target": "domain:agibot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/go-1->domain:arxiv.org",
-      "source": "doc:vla/papers/go-1",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/go-1->domain:github.com",
-      "source": "doc:vla/papers/go-1",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/go-1->domain:globenewswire.com",
-      "source": "doc:vla/papers/go-1",
-      "target": "domain:globenewswire.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/go-1->domain:huggingface.co",
-      "source": "doc:vla/papers/go-1",
-      "target": "domain:huggingface.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/go-1->domain:opendrivelab.com",
-      "source": "doc:vla/papers/go-1",
-      "target": "domain:opendrivelab.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/gr-3->domain:arxiv.org",
-      "source": "doc:vla/papers/gr-3",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/gr-dexter->domain:arxiv.org",
-      "source": "doc:vla/papers/gr-dexter",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/gr-dexter->domain:byte-dexter.github.io",
-      "source": "doc:vla/papers/gr-dexter",
-      "target": "domain:byte-dexter.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/groot-n1->domain:arxiv.org",
-      "source": "doc:vla/papers/groot-n1",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/helix->domain:figure.ai",
-      "source": "doc:vla/papers/helix",
-      "target": "domain:figure.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 5,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/helix->domain:humanoidsdaily.com",
-      "source": "doc:vla/papers/helix",
-      "target": "domain:humanoidsdaily.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/helix->domain:interestingengineering.com",
-      "source": "doc:vla/papers/helix",
-      "target": "domain:interestingengineering.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/helix->domain:techtimes.com",
-      "source": "doc:vla/papers/helix",
-      "target": "domain:techtimes.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/inference-deployment->domain:arxiv.org",
-      "source": "doc:vla/papers/inference-deployment",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/knowledge-insulation->domain:arxiv.org",
-      "source": "doc:vla/papers/knowledge-insulation",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/memoryvla-plusplus->domain:arxiv.org",
-      "source": "doc:vla/papers/memoryvla-plusplus",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/memoryvla-plusplus->domain:github.com",
-      "source": "doc:vla/papers/memoryvla-plusplus",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/memoryvla-plusplus->domain:shihao1895.github.io",
-      "source": "doc:vla/papers/memoryvla-plusplus",
-      "target": "domain:shihao1895.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/motion-control->domain:drake.mit.edu",
-      "source": "doc:vla/papers/motion-control",
-      "target": "domain:drake.mit.edu",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/motion-control->domain:github.com",
-      "source": "doc:vla/papers/motion-control",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/motion-control->domain:modernrobotics.northwestern.edu",
-      "source": "doc:vla/papers/motion-control",
-      "target": "domain:modernrobotics.northwestern.edu",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/motion-control->domain:ruckig.com",
-      "source": "doc:vla/papers/motion-control",
-      "target": "domain:ruckig.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/octo->domain:arxiv.org",
-      "source": "doc:vla/papers/octo",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/omnivla-rl->domain:arxiv.org",
-      "source": "doc:vla/papers/omnivla-rl",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/openvla->domain:arxiv.org",
-      "source": "doc:vla/papers/openvla",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/openvla->domain:github.com",
-      "source": "doc:vla/papers/openvla",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/openvla->domain:openvla.github.io",
-      "source": "doc:vla/papers/openvla",
-      "target": "domain:openvla.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/openvla-oft->domain:arxiv.org",
-      "source": "doc:vla/papers/openvla-oft",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/openvla-oft->domain:openvla-oft.github.io",
-      "source": "doc:vla/papers/openvla-oft",
-      "target": "domain:openvla-oft.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi0->domain:arxiv.org",
-      "source": "doc:vla/papers/pi0",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi0-fast->domain:arxiv.org",
-      "source": "doc:vla/papers/pi0-fast",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi05->domain:arxiv.org",
-      "source": "doc:vla/papers/pi05",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi05->domain:physicalintelligence.company",
-      "source": "doc:vla/papers/pi05",
-      "target": "domain:physicalintelligence.company",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi06->domain:arxiv.org",
-      "source": "doc:vla/papers/pi06",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 5,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi06->domain:physicalintelligence.company",
-      "source": "doc:vla/papers/pi06",
-      "target": "domain:physicalintelligence.company",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi06->domain:pi.website",
-      "source": "doc:vla/papers/pi06",
-      "target": "domain:pi.website",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi07->domain:arxiv.org",
-      "source": "doc:vla/papers/pi07",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi07->domain:ctol.digital",
-      "source": "doc:vla/papers/pi07",
-      "target": "domain:ctol.digital",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi07->domain:humanoidsdaily.com",
-      "source": "doc:vla/papers/pi07",
-      "target": "domain:humanoidsdaily.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi07->domain:pi.website",
-      "source": "doc:vla/papers/pi07",
-      "target": "domain:pi.website",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi07->domain:techcrunch.com",
-      "source": "doc:vla/papers/pi07",
-      "target": "domain:techcrunch.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pi07->domain:the-decoder.com",
-      "source": "doc:vla/papers/pi07",
-      "target": "domain:the-decoder.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pointact->domain:arxiv.org",
-      "source": "doc:vla/papers/pointact",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/pointact->domain:cshizhe.github.io",
-      "source": "doc:vla/papers/pointact",
-      "target": "domain:cshizhe.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/qwen-robotmanip->domain:arxiv.org",
-      "source": "doc:vla/papers/qwen-robotmanip",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/qwen-robotmanip->domain:github.com",
-      "source": "doc:vla/papers/qwen-robotmanip",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/qwen-robotmanip->domain:qianwen-res.oss-accelerate.aliyuncs.com",
-      "source": "doc:vla/papers/qwen-robotmanip",
-      "target": "domain:qianwen-res.oss-accelerate.aliyuncs.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/qwen-robotmanip->domain:qwen.ai",
-      "source": "doc:vla/papers/qwen-robotmanip",
-      "target": "domain:qwen.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 4,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/qwen-robotnav->domain:arxiv.org",
-      "source": "doc:vla/papers/qwen-robotnav",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/qwen-robotnav->domain:github.com",
-      "source": "doc:vla/papers/qwen-robotnav",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/qwen-robotnav->domain:qwen.ai",
-      "source": "doc:vla/papers/qwen-robotnav",
-      "target": "domain:qwen.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/qwen-vla->domain:arxiv.org",
-      "source": "doc:vla/papers/qwen-vla",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 5,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/qwen-vla->domain:github.com",
-      "source": "doc:vla/papers/qwen-vla",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/qwen-vla->domain:huggingface.co",
-      "source": "doc:vla/papers/qwen-vla",
-      "target": "domain:huggingface.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:arxiv.org",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:deepmind.google",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:deepmind.google",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:droid-dataset.github.io",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:droid-dataset.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:ego4d-data.org",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:ego4d-data.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:figure.ai",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:figure.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:github.com",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 8,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:opendrivelab.com",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:opendrivelab.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:pi.website",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:pi.website",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:rail-berkeley.github.io",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:rail-berkeley.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:research.nvidia.com",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:research.nvidia.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:robocasa.ai",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:robocasa.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/resources->domain:robotics-transformer-x.github.io",
-      "source": "doc:vla/papers/resources",
-      "target": "domain:robotics-transformer-x.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/rl-token->domain:arxiv.org",
-      "source": "doc:vla/papers/rl-token",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/robovlms->domain:arxiv.org",
-      "source": "doc:vla/papers/robovlms",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/robovlms->domain:github.com",
-      "source": "doc:vla/papers/robovlms",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/robovlms->domain:robovlms.github.io",
-      "source": "doc:vla/papers/robovlms",
-      "target": "domain:robovlms.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/rynnbrain->domain:alibaba-damo-academy.github.io",
-      "source": "doc:vla/papers/rynnbrain",
-      "target": "domain:alibaba-damo-academy.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/rynnbrain->domain:arxiv.org",
-      "source": "doc:vla/papers/rynnbrain",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/rynnbrain->domain:github.com",
-      "source": "doc:vla/papers/rynnbrain",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/rynnbrain->domain:huggingface.co",
-      "source": "doc:vla/papers/rynnbrain",
-      "target": "domain:huggingface.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/rynnbrain->domain:modelscope.cn",
-      "source": "doc:vla/papers/rynnbrain",
-      "target": "domain:modelscope.cn",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/rynnvla->domain:arxiv.org",
-      "source": "doc:vla/papers/rynnvla",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/rynnvla->domain:github.com",
-      "source": "doc:vla/papers/rynnvla",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/seetraceact->domain:arxiv.org",
-      "source": "doc:vla/papers/seetraceact",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/simplevla-rl->domain:arxiv.org",
-      "source": "doc:vla/papers/simplevla-rl",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/simplevla-rl->domain:github.com",
-      "source": "doc:vla/papers/simplevla-rl",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/smolvla->domain:arxiv.org",
-      "source": "doc:vla/papers/smolvla",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/spatialvla->domain:arxiv.org",
-      "source": "doc:vla/papers/spatialvla",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 7,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/spatialvla->domain:github.com",
-      "source": "doc:vla/papers/spatialvla",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/spatialvla->domain:huggingface.co",
-      "source": "doc:vla/papers/spatialvla",
-      "target": "domain:huggingface.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/spatialvla->domain:spatialvla.github.io",
-      "source": "doc:vla/papers/spatialvla",
-      "target": "domain:spatialvla.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/steerable-policies->domain:arxiv.org",
-      "source": "doc:vla/papers/steerable-policies",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 4,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/steerable-policies->domain:github.com",
-      "source": "doc:vla/papers/steerable-policies",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/steerable-policies->domain:steerable-policies.github.io",
-      "source": "doc:vla/papers/steerable-policies",
-      "target": "domain:steerable-policies.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/steervla->domain:arxiv.org",
-      "source": "doc:vla/papers/steervla",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 4,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/steervla->domain:steervla.github.io",
-      "source": "doc:vla/papers/steervla",
-      "target": "domain:steervla.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/steervla->domain:themoonlight.io",
-      "source": "doc:vla/papers/steervla",
-      "target": "domain:themoonlight.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/tinyvla->domain:arxiv.org",
-      "source": "doc:vla/papers/tinyvla",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/tinyvla->domain:tiny-vla.github.io",
-      "source": "doc:vla/papers/tinyvla",
-      "target": "domain:tiny-vla.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/wall-oss->domain:arxiv.org",
-      "source": "doc:vla/papers/wall-oss",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/wall-oss->domain:github.com",
-      "source": "doc:vla/papers/wall-oss",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:vla/papers/wall-oss->domain:x2robot.com",
-      "source": "doc:vla/papers/wall-oss",
-      "target": "domain:x2robot.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/cosmos3->domain:arxiv.org",
-      "source": "doc:wam/papers/cosmos3",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/dexworldmodel->domain:arxiv.org",
-      "source": "doc:wam/papers/dexworldmodel",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/flare->domain:arxiv.org",
-      "source": "doc:wam/papers/flare",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/flare->domain:research.nvidia.com",
-      "source": "doc:wam/papers/flare",
-      "target": "domain:research.nvidia.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/ge-sim-2->domain:arxiv.org",
-      "source": "doc:wam/papers/ge-sim-2",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/ge-sim-2->domain:ge-sim-v2.github.io",
-      "source": "doc:wam/papers/ge-sim-2",
-      "target": "domain:ge-sim-v2.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/gigaworld-policy->domain:arxiv.org",
-      "source": "doc:wam/papers/gigaworld-policy",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/gigaworld-policy->domain:gigaai-research.github.io",
-      "source": "doc:wam/papers/gigaworld-policy",
-      "target": "domain:gigaai-research.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/himem-wam->domain:arxiv.org",
-      "source": "doc:wam/papers/himem-wam",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/ladi-wm->domain:arxiv.org",
-      "source": "doc:wam/papers/ladi-wm",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/motubrain->domain:arxiv.org",
-      "source": "doc:wam/papers/motubrain",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/motubrain->domain:shengshu.com",
-      "source": "doc:wam/papers/motubrain",
-      "target": "domain:shengshu.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/oa-wam->domain:arxiv.org",
-      "source": "doc:wam/papers/oa-wam",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/qwen-robotworld->domain:arxiv.org",
-      "source": "doc:wam/papers/qwen-robotworld",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/qwen-robotworld->domain:qwen.ai",
-      "source": "doc:wam/papers/qwen-robotworld",
-      "target": "domain:qwen.ai",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/robodream->domain:arxiv.org",
-      "source": "doc:wam/papers/robodream",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/rynnvla-002->domain:arxiv.org",
-      "source": "doc:wam/papers/rynnvla-002",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/rynnvla-002->domain:github.com",
-      "source": "doc:wam/papers/rynnvla-002",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/rynnvla-002->domain:huggingface.co",
-      "source": "doc:wam/papers/rynnvla-002",
-      "target": "domain:huggingface.co",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/tau0-wm->domain:arxiv.org",
-      "source": "doc:wam/papers/tau0-wm",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/uva->domain:arxiv.org",
-      "source": "doc:wam/papers/uva",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/uva->domain:unified-video-action-model.github.io",
-      "source": "doc:wam/papers/uva",
-      "target": "domain:unified-video-action-model.github.io",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/veo-act->domain:arxiv.org",
-      "source": "doc:wam/papers/veo-act",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/wall-wm->domain:arxiv.org",
-      "source": "doc:wam/papers/wall-wm",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 3,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/wall-wm->domain:github.com",
-      "source": "doc:wam/papers/wall-wm",
-      "target": "domain:github.com",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "cites-domain:doc:wam/papers/wav->domain:arxiv.org",
-      "source": "doc:wam/papers/wav",
-      "target": "domain:arxiv.org",
-      "type": "cites-domain",
-      "label": "外部来源",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
     {
       "id": "cites-paper:doc:ecosystem/brain-ranking->arxiv:2405.18860",
       "source": "doc:ecosystem/brain-ranking",
