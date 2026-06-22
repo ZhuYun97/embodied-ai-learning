@@ -828,6 +828,7 @@ network.on('afterDrawing', function(ctx) {
   const layout = buildAtlasLayout();
   const sectorCenters = layout.sectors;
   const labelState = new Map();
+  const nodeVisuals = new Map();
   nodesDS.update(RAW_NODES.map((node) => {
     const degree = Number(node.degree || 0);
     const isCommand = degree >= 250 || node.id.startsWith('track:') || node.id.startsWith('route:');
@@ -835,21 +836,27 @@ network.on('afterDrawing', function(ctx) {
     const glow = Math.max(10, Math.min(34, 10 + (degree / highDegree) * 34));
     const pos = layout.nodes.get(node.id) || { x: 0, y: 0 };
     const baseColor = node.color?.background || '#42f4ff';
+    const visual = nodeVisualFor(node, baseColor, degree, isCommand, isHub);
+    nodeVisuals.set(node.id, { ...visual, id: node.id, x: pos.x, y: pos.y });
     return {
       id: node.id,
       label: '',
       x: pos.x,
       y: pos.y,
-      shape: isCommand ? 'diamond' : 'dot',
-      borderWidth: isHub ? 3.6 : 1.8,
+      shape: visual.shape,
+      size: visual.size,
+      borderWidth: visual.borderWidth,
+      borderWidthSelected: visual.borderWidth + 2.2,
       color: {
         ...(node.color || {}),
-        background: baseColor,
-        border: isHub ? '#f5fdff' : baseColor,
-        highlight: { background: '#ffffff', border: baseColor },
-        hover: { background: '#ffffff', border: baseColor },
+        background: visual.fill,
+        border: visual.border,
+        highlight: { background: visual.highlightFill, border: '#f7ffff' },
+        hover: { background: visual.hoverFill, border: '#f7ffff' },
       },
-      shadow: isHub ? { enabled: true, color: baseColor, size: Math.min(glow, 22), x: 0, y: 0 } : false,
+      shadow: visual.tier !== 'node'
+        ? { enabled: true, color: rgbaFromHex(baseColor, visual.tier === 'core' ? 0.42 : 0.28), size: Math.min(glow, 20), x: 0, y: 0 }
+        : false,
       font: {
         ...(node.font || {}),
         color: '#f7fbff',
@@ -903,7 +910,11 @@ network.on('afterDrawing', function(ctx) {
     updateLabels();
   }, 80);
 
+  network.on('beforeDrawing', (ctx) => {
+    drawNodeAuras(ctx, network.getScale());
+  });
   network.on('afterDrawing', (ctx) => {
+    drawNodeTechDetails(ctx, network.getScale());
     drawTacticalOverlay(ctx, sectorCenters, network.getScale());
   });
   network.on('zoom', () => scheduleLabelUpdate());
@@ -1007,6 +1018,195 @@ network.on('afterDrawing', function(ctx) {
   network.on('hoverNode', (params) => revealNodeLabel(params.node));
   network.on('blurNode', () => scheduleLabelUpdate(true));
   network.on('animationFinished', () => scheduleLabelUpdate(true));
+
+  function nodeVisualFor(node, baseColor, degree, isCommand, isHub) {
+    const baseSize = Number(node.size || 10);
+    const isPaper = node.file_type === 'paper';
+    const isMajor = isHub || degree >= 75 || node.id.startsWith('org:') || node.id.startsWith('data:');
+    const tier = isCommand ? 'core' : isHub ? 'hub' : isMajor ? 'major' : 'node';
+    const shape = isCommand ? 'diamond' : isPaper ? 'square' : 'dot';
+    const size = tier === 'core'
+      ? Math.max(18, Math.min(32, baseSize * 0.86 + 7))
+      : tier === 'hub'
+        ? Math.max(14, Math.min(26, baseSize * 0.86 + 4))
+        : tier === 'major'
+          ? Math.max(9, Math.min(18, baseSize * 0.9))
+          : Math.max(6.4, Math.min(12.5, baseSize * 0.82));
+    return {
+      tier,
+      shape,
+      size,
+      baseColor,
+      fill: mixHex(baseColor, '#020711', tier === 'node' ? 0.18 : tier === 'major' ? 0.26 : 0.34),
+      border: mixHex(baseColor, '#f1ffff', tier === 'node' ? 0.18 : tier === 'major' ? 0.32 : 0.48),
+      hoverFill: mixHex(baseColor, '#eaffff', 0.4),
+      highlightFill: mixHex(baseColor, '#ffffff', 0.54),
+      borderWidth: tier === 'core' ? 3.8 : tier === 'hub' ? 2.8 : tier === 'major' ? 2 : 1.25,
+      auraAlpha: tier === 'core' ? 0.36 : tier === 'hub' ? 0.24 : tier === 'major' ? 0.13 : 0,
+      degree,
+    };
+  }
+
+  function drawNodeAuras(ctx, scale) {
+    const visuals = visibleNodeVisuals(scale).filter((visual) => visual.auraAlpha > 0);
+    if (!visuals.length) return;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const visual of visuals) {
+      const radius = visual.size * (visual.tier === 'core' ? 2.9 : visual.tier === 'hub' ? 2.25 : 1.75);
+      const gradient = ctx.createRadialGradient(visual.x, visual.y, visual.size * 0.35, visual.x, visual.y, radius);
+      gradient.addColorStop(0, rgbaFromHex(visual.baseColor, visual.auraAlpha));
+      gradient.addColorStop(0.58, rgbaFromHex(visual.baseColor, visual.auraAlpha * 0.2));
+      gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(visual.x, visual.y, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawNodeTechDetails(ctx, scale) {
+    const visuals = visibleNodeVisuals(scale).filter((visual) => (
+      visual.tier !== 'node' || (scale > 1.1 && visual.degree >= 10)
+    ));
+    if (!visuals.length) return;
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    for (const visual of visuals) {
+      if (visual.shape === 'diamond') {
+        drawDiamondNode(ctx, visual, scale);
+      } else if (visual.shape === 'square') {
+        drawSquareNode(ctx, visual, scale);
+      } else {
+        drawRoundNode(ctx, visual, scale);
+      }
+      drawNodeGlint(ctx, visual, scale);
+    }
+    ctx.restore();
+  }
+
+  function drawRoundNode(ctx, visual, scale) {
+    const ring = visual.size + (visual.tier === 'node' ? 2.2 : 3.4) / scale;
+    ctx.setLineDash(visual.tier === 'node' ? [] : [5 / scale, 3.5 / scale]);
+    ctx.lineWidth = (visual.tier === 'core' ? 1.9 : visual.tier === 'hub' ? 1.45 : 1.05) / scale;
+    ctx.strokeStyle = rgbaFromHex(visual.baseColor, visual.tier === 'node' ? 0.44 : 0.78);
+    ctx.beginPath();
+    ctx.arc(visual.x, visual.y, ring, 0, Math.PI * 2);
+    ctx.stroke();
+    if (visual.tier === 'hub' || visual.tier === 'core') {
+      drawCardinalTicks(ctx, visual, ring + 4.5 / scale, ring + 12 / scale, scale);
+    }
+  }
+
+  function drawDiamondNode(ctx, visual, scale) {
+    const radius = visual.size + 4.5 / scale;
+    ctx.setLineDash([]);
+    ctx.lineWidth = 1.45 / scale;
+    ctx.strokeStyle = rgbaFromHex(visual.baseColor, 0.86);
+    drawDiamondPath(ctx, visual.x, visual.y, radius);
+    ctx.stroke();
+    ctx.lineWidth = 0.85 / scale;
+    ctx.strokeStyle = rgbaFromHex('#ffffff', 0.62);
+    drawDiamondPath(ctx, visual.x, visual.y, visual.size * 0.62);
+    ctx.stroke();
+    drawCardinalTicks(ctx, visual, radius + 4 / scale, radius + 13 / scale, scale);
+  }
+
+  function drawSquareNode(ctx, visual, scale) {
+    const radius = visual.size + 3 / scale;
+    ctx.setLineDash([4 / scale, 3 / scale]);
+    ctx.lineWidth = 1.1 / scale;
+    ctx.strokeStyle = rgbaFromHex(visual.baseColor, 0.68);
+    ctx.strokeRect(visual.x - radius, visual.y - radius, radius * 2, radius * 2);
+    if (visual.tier === 'hub') {
+      drawCardinalTicks(ctx, visual, radius + 3 / scale, radius + 10 / scale, scale);
+    }
+  }
+
+  function drawCardinalTicks(ctx, visual, inner, outer, scale) {
+    ctx.setLineDash([]);
+    ctx.lineWidth = (visual.tier === 'core' ? 1.6 : 1.05) / scale;
+    ctx.strokeStyle = rgbaFromHex(visual.baseColor, visual.tier === 'core' ? 0.9 : 0.68);
+    for (const angle of [0, Math.PI / 2, Math.PI, Math.PI * 1.5]) {
+      ctx.beginPath();
+      ctx.moveTo(visual.x + Math.cos(angle) * inner, visual.y + Math.sin(angle) * inner);
+      ctx.lineTo(visual.x + Math.cos(angle) * outer, visual.y + Math.sin(angle) * outer);
+      ctx.stroke();
+    }
+  }
+
+  function drawNodeGlint(ctx, visual, scale) {
+    if (visual.tier === 'node' && scale < 1.25) return;
+    const radius = Math.max(1.2 / scale, visual.size * 0.12);
+    ctx.setLineDash([]);
+    ctx.fillStyle = rgbaFromHex('#ffffff', visual.tier === 'node' ? 0.5 : 0.74);
+    ctx.beginPath();
+    ctx.arc(visual.x - visual.size * 0.32, visual.y - visual.size * 0.32, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawDiamondPath(ctx, x, y, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x, y - radius);
+    ctx.lineTo(x + radius, y);
+    ctx.lineTo(x, y + radius);
+    ctx.lineTo(x - radius, y);
+    ctx.closePath();
+  }
+
+  function visibleNodeVisuals(scale) {
+    const center = network.getViewPosition();
+    const width = container.clientWidth || window.innerWidth || 1280;
+    const height = container.clientHeight || window.innerHeight || 720;
+    const margin = 180 / Math.max(scale, 0.12);
+    const bounds = {
+      left: center.x - width / (2 * scale) - margin,
+      right: center.x + width / (2 * scale) + margin,
+      top: center.y - height / (2 * scale) - margin,
+      bottom: center.y + height / (2 * scale) + margin,
+    };
+    const positions = network.getPositions();
+    const visible = [];
+    for (const node of RAW_NODES) {
+      const visual = nodeVisuals.get(node.id);
+      if (!visual) continue;
+      const pos = positions[node.id] || visual;
+      if (pos.x < bounds.left || pos.x > bounds.right || pos.y < bounds.top || pos.y > bounds.bottom) continue;
+      visible.push({ ...visual, x: pos.x, y: pos.y });
+    }
+    return visible;
+  }
+
+  function rgbaFromHex(hex, alpha) {
+    const rgb = hexToRgb(hex);
+    return 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', ' + alpha + ')';
+  }
+
+  function mixHex(hex, target, amount) {
+    const a = hexToRgb(hex);
+    const b = hexToRgb(target);
+    const mix = (from, to) => Math.round(from + (to - from) * amount);
+    return '#' + [mix(a.r, b.r), mix(a.g, b.g), mix(a.b, b.b)]
+      .map((value) => value.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  function hexToRgb(hex) {
+    const fallback = { r: 66, g: 244, b: 255 };
+    if (typeof hex !== 'string') return fallback;
+    const normalized = hex.trim().replace('#', '');
+    if (!/^[0-9a-f]{3}([0-9a-f]{3})?$/i.test(normalized)) return fallback;
+    const full = normalized.length === 3
+      ? normalized.split('').map((char) => char + char).join('')
+      : normalized;
+    return {
+      r: parseInt(full.slice(0, 2), 16),
+      g: parseInt(full.slice(2, 4), 16),
+      b: parseInt(full.slice(4, 6), 16),
+    };
+  }
 
   function buildAtlasLayout() {
     const groups = new Map();
