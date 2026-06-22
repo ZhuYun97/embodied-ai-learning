@@ -126,16 +126,35 @@ function enhanceGraphifyHtml() {
       `<body>
 <main id="graph-stage">
   <div id="atlas-grid" aria-hidden="true"></div>
+  <div id="atlas-holo" aria-hidden="true"></div>
+  <div id="atlas-radar" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
   <div id="graph"></div>
   <section id="atlas-hud" aria-label="Knowledge graph overview">
     <div>
-      <span class="atlas-kicker">Embodied-AI Atlas</span>
-      <strong>Graphify Knowledge Field</strong>
+      <span class="atlas-kicker">LOCAL KG / TACTICAL VIEW</span>
+      <strong>Embodied-AI Neural Topology</strong>
+      <em>offline graphify render · no external links</em>
     </div>
     <div class="atlas-metrics">
-      <span data-atlas-stats>1368 nodes · 9159 edges · 40 communities</span>
-      <span>Offline · Local</span>
+      <span data-atlas-nodes>1368 nodes</span>
+      <span data-atlas-edges>9159 edges</span>
+      <span data-atlas-communities>40 sectors</span>
+      <span>LOCAL / 0 API</span>
     </div>
+  </section>
+  <section id="atlas-telemetry" aria-label="Graph telemetry">
+    <div><b>CORE</b><span data-atlas-hotspot>VLA</span></div>
+    <div><b>TRACE</b><span data-atlas-trace>semantic links</span></div>
+    <div><b>SYNC</b><span data-atlas-runtime>realtime canvas</span></div>
+  </section>
+  <section id="atlas-readouts" aria-label="Build readouts">
+    <span>MODE // OFFLINE KNOWLEDGE GRAPH</span>
+    <span>SOURCE // MARKDOWN + TAXONOMY + LOCAL DICT</span>
+    <span>FILTER // INTERNAL NODES ONLY</span>
   </section>
 </main>`
     )
@@ -148,26 +167,30 @@ function graphifyAtlasStyles() {
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     color-scheme: dark;
-    --atlas-bg: #050509;
-    --atlas-panel: rgba(13, 16, 28, 0.84);
-    --atlas-line: rgba(132, 178, 255, 0.18);
-    --atlas-text: #edf5ff;
-    --atlas-muted: #92a2bd;
-    --atlas-cyan: #5de4ff;
-    --atlas-pink: #ff8ca8;
+    --atlas-bg: #010308;
+    --atlas-panel: rgba(2, 6, 12, 0.94);
+    --atlas-line: rgba(78, 236, 255, 0.28);
+    --atlas-text: #edf9ff;
+    --atlas-muted: #8094aa;
+    --atlas-cyan: #42f4ff;
+    --atlas-blue: #5d8cff;
+    --atlas-pink: #ff4d96;
     --atlas-gold: #ffd166;
-    --atlas-green: #8cffc1;
+    --atlas-green: #74ffb0;
+    --atlas-red: #ff4b4b;
   }
   body {
     height: 100vh;
     overflow: hidden;
     display: flex;
     background:
-      linear-gradient(135deg, rgba(93, 228, 255, 0.08), transparent 28%),
-      linear-gradient(315deg, rgba(255, 140, 168, 0.08), transparent 32%),
+      radial-gradient(circle at 42% 46%, rgba(66, 244, 255, 0.11), transparent 32%),
+      radial-gradient(circle at 68% 50%, rgba(116, 255, 176, 0.08), transparent 30%),
+      linear-gradient(90deg, rgba(66, 244, 255, 0.1), transparent 18%, transparent 82%, rgba(255, 77, 150, 0.08)),
+      linear-gradient(180deg, rgba(116, 255, 176, 0.05), transparent 38%),
       var(--atlas-bg);
     color: var(--atlas-text);
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "SF Mono", "Cascadia Mono", "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
     letter-spacing: 0;
   }
   body::before {
@@ -176,10 +199,23 @@ function graphifyAtlasStyles() {
     inset: 0;
     pointer-events: none;
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      linear-gradient(rgba(66, 244, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(66, 244, 255, 0.045) 1px, transparent 1px);
     background-size: 56px 56px;
     mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.38), #000 26%, #000 74%, rgba(0, 0, 0, 0.22));
+    animation: atlasGridDrift 18s linear infinite;
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 4px),
+      linear-gradient(90deg, rgba(255, 77, 150, 0.05), transparent 24%, transparent 76%, rgba(66, 244, 255, 0.04));
+    mix-blend-mode: overlay;
+    opacity: 0.18;
   }
   #graph-stage {
     position: relative;
@@ -188,8 +224,32 @@ function graphifyAtlasStyles() {
     overflow: hidden;
     isolation: isolate;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 30%),
-      #07070d;
+      radial-gradient(circle at 50% 48%, rgba(66, 244, 255, 0.08), transparent 34%),
+      linear-gradient(180deg, rgba(66, 244, 255, 0.04), transparent 24%),
+      #010308;
+  }
+  #graph-stage::before {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    z-index: 5;
+    pointer-events: none;
+    border: 1px solid rgba(66, 244, 255, 0.28);
+    clip-path: polygon(0 0, 160px 0, 160px 1px, 1px 1px, 1px 120px, 0 120px, 0 0, 100% 0, 100% 120px, calc(100% - 1px) 120px, calc(100% - 1px) 1px, calc(100% - 160px) 1px, calc(100% - 160px) 0, 100% 0, 100% 100%, calc(100% - 160px) 100%, calc(100% - 160px) calc(100% - 1px), calc(100% - 1px) calc(100% - 1px), calc(100% - 1px) calc(100% - 120px), 100% calc(100% - 120px), 100% 100%, 0 100%, 0 calc(100% - 120px), 1px calc(100% - 120px), 1px calc(100% - 1px), 160px calc(100% - 1px), 160px 100%, 0 100%);
+    box-shadow: 0 0 34px rgba(66, 244, 255, 0.18), inset 0 0 52px rgba(66, 244, 255, 0.035);
+  }
+  #graph-stage::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -18%;
+    height: 18%;
+    z-index: 6;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent, rgba(66, 244, 255, 0.18), rgba(116, 255, 176, 0.045), transparent);
+    mix-blend-mode: screen;
+    animation: atlasScan 5.8s linear infinite;
   }
   #atlas-grid {
     position: absolute;
@@ -197,15 +257,89 @@ function graphifyAtlasStyles() {
     z-index: 0;
     pointer-events: none;
     background:
-      linear-gradient(120deg, transparent 0 48%, rgba(93, 228, 255, 0.08) 49%, transparent 51% 100%),
-      linear-gradient(60deg, transparent 0 50%, rgba(255, 209, 102, 0.06) 51%, transparent 53% 100%);
-    background-size: 180px 180px, 240px 240px;
-    opacity: 0.45;
+      linear-gradient(rgba(66, 244, 255, 0.075) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(66, 244, 255, 0.075) 1px, transparent 1px),
+      linear-gradient(120deg, transparent 0 49%, rgba(116, 255, 176, 0.055) 49.4%, transparent 50.8% 100%);
+    background-size: 56px 56px, 56px 56px, 210px 210px;
+    opacity: 0.72;
+    animation: atlasGridDrift 22s linear infinite;
   }
+  #atlas-grid::before,
+  #atlas-grid::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  #atlas-grid::before {
+    background:
+      linear-gradient(90deg, transparent 0 49.8%, rgba(66, 244, 255, 0.2) 50%, transparent 50.2% 100%),
+      linear-gradient(180deg, transparent 0 49.8%, rgba(66, 244, 255, 0.16) 50%, transparent 50.2% 100%);
+    opacity: 0.42;
+  }
+  #atlas-grid::after {
+    background:
+      radial-gradient(circle at 50% 50%, transparent 0 21%, rgba(66, 244, 255, 0.08) 21.2% 21.6%, transparent 22% 37%, rgba(116, 255, 176, 0.06) 37.2% 37.6%, transparent 38% 100%);
+    mix-blend-mode: screen;
+    opacity: 0.74;
+  }
+  #atlas-holo {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background:
+      conic-gradient(from 28deg at 50% 50%, transparent 0deg, rgba(66, 244, 255, 0.08) 24deg, transparent 52deg, transparent 146deg, rgba(116, 255, 176, 0.055) 174deg, transparent 212deg, transparent 360deg),
+      radial-gradient(circle at 50% 50%, transparent 0 28%, rgba(66, 244, 255, 0.045) 28.2% 28.8%, transparent 29% 44%, rgba(66, 244, 255, 0.035) 44.2% 44.8%, transparent 45%);
+    mix-blend-mode: screen;
+    opacity: 0.62;
+  }
+  #atlas-radar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 3;
+    width: min(70vmin, 760px);
+    aspect-ratio: 1;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(66, 244, 255, 0.18);
+    border-radius: 50%;
+    box-shadow: 0 0 80px rgba(66, 244, 255, 0.08), inset 0 0 70px rgba(66, 244, 255, 0.035);
+    opacity: 0.9;
+  }
+  #atlas-radar::before {
+    content: "";
+    position: absolute;
+    inset: 50% 50% auto auto;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(116, 255, 176, 0.82), transparent);
+    transform-origin: left center;
+    animation: atlasRadarSpin 8s linear infinite;
+    box-shadow: 0 0 18px rgba(116, 255, 176, 0.48);
+  }
+  #atlas-radar::after {
+    content: "";
+    position: absolute;
+    inset: 14%;
+    border: 1px dashed rgba(66, 244, 255, 0.18);
+    border-radius: 50%;
+    animation: atlasRadarPulse 3.2s ease-in-out infinite;
+  }
+  #atlas-radar span {
+    position: absolute;
+    inset: var(--ring);
+    border: 1px solid rgba(66, 244, 255, 0.14);
+    border-radius: 50%;
+  }
+  #atlas-radar span:nth-child(1) { --ring: 22%; }
+  #atlas-radar span:nth-child(2) { --ring: 36%; }
+  #atlas-radar span:nth-child(3) { --ring: 48%; }
   #graph {
     position: absolute;
     inset: 0;
-    z-index: 1;
+    z-index: 4;
   }
   #graph::after {
     content: "";
@@ -213,15 +347,15 @@ function graphifyAtlasStyles() {
     inset: 0;
     pointer-events: none;
     background:
-      linear-gradient(90deg, rgba(5, 5, 9, 0.66), transparent 18%, transparent 80%, rgba(5, 5, 9, 0.46)),
-      linear-gradient(180deg, rgba(5, 5, 9, 0.52), transparent 22%, transparent 84%, rgba(5, 5, 9, 0.5));
+      radial-gradient(circle at 52% 48%, transparent 0 42%, rgba(1, 3, 8, 0.12) 56%, rgba(1, 3, 8, 0.78) 100%),
+      linear-gradient(90deg, rgba(1, 3, 8, 0.76), transparent 17%, transparent 78%, rgba(1, 3, 8, 0.58));
   }
   #atlas-hud {
     position: absolute;
     top: 18px;
     left: 20px;
     right: 22px;
-    z-index: 3;
+    z-index: 8;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -231,24 +365,37 @@ function graphifyAtlasStyles() {
   #atlas-hud > div:first-child {
     display: grid;
     gap: 4px;
-    padding: 12px 14px;
-    border: 1px solid rgba(93, 228, 255, 0.26);
-    border-radius: 8px;
-    background: linear-gradient(135deg, rgba(11, 14, 26, 0.88), rgba(25, 19, 34, 0.72));
-    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.09);
-    backdrop-filter: blur(14px);
+    min-width: 330px;
+    padding: 11px 16px 12px;
+    border: 1px solid rgba(66, 244, 255, 0.58);
+    border-left: 3px solid var(--atlas-cyan);
+    border-radius: 2px;
+    background:
+      linear-gradient(90deg, rgba(66, 244, 255, 0.12), rgba(2, 6, 12, 0.88) 36%, rgba(2, 6, 12, 0.76)),
+      rgba(2, 6, 12, 0.86);
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.44), 0 0 42px rgba(66, 244, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(12px);
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
   }
   #atlas-hud strong {
     font-size: 15px;
     line-height: 1.1;
     color: #ffffff;
-    text-shadow: 0 0 18px rgba(93, 228, 255, 0.54);
+    text-shadow: 0 0 16px rgba(65, 230, 255, 0.62);
+    text-transform: uppercase;
+  }
+  #atlas-hud em {
+    color: #8aa5b8;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 760;
+    text-transform: uppercase;
   }
   .atlas-kicker {
-    color: var(--atlas-cyan);
+    color: var(--atlas-green);
     font-size: 10px;
     font-weight: 800;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
   }
   .atlas-metrics {
@@ -262,30 +409,93 @@ function graphifyAtlasStyles() {
     align-items: center;
     min-height: 30px;
     padding: 7px 10px;
-    border: 1px solid rgba(255, 255, 255, 0.13);
-    border-radius: 8px;
-    background: rgba(7, 9, 18, 0.68);
-    color: #d7e4f8;
-    font-size: 12px;
-    font-weight: 700;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(66, 244, 255, 0.34);
+    border-radius: 2px;
+    background:
+      linear-gradient(180deg, rgba(66, 244, 255, 0.08), transparent),
+      rgba(2, 6, 12, 0.76);
+    color: #e6fbff;
+    font-size: 11px;
+    font-weight: 760;
+    text-transform: uppercase;
+    box-shadow: 0 0 24px rgba(66, 244, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.07);
     backdrop-filter: blur(12px);
   }
+  #atlas-telemetry {
+    position: absolute;
+    top: 104px;
+    right: 22px;
+    z-index: 8;
+    width: 250px;
+    display: grid;
+    gap: 7px;
+    pointer-events: none;
+  }
+  #atlas-telemetry div {
+    position: relative;
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    align-items: center;
+    min-height: 34px;
+    padding: 7px 10px;
+    border: 1px solid rgba(66, 244, 255, 0.24);
+    border-right: 3px solid rgba(116, 255, 176, 0.72);
+    background: rgba(2, 6, 12, 0.68);
+    box-shadow: 0 0 24px rgba(66, 244, 255, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.055);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+    backdrop-filter: blur(10px);
+  }
+  #atlas-telemetry b {
+    color: var(--atlas-green);
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.14em;
+  }
+  #atlas-telemetry span {
+    overflow: hidden;
+    color: #e9fbff;
+    font-size: 11px;
+    font-weight: 760;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  #atlas-readouts {
+    position: absolute;
+    left: 20px;
+    bottom: 18px;
+    z-index: 8;
+    display: grid;
+    gap: 6px;
+    pointer-events: none;
+  }
+  #atlas-readouts span {
+    width: max-content;
+    max-width: 360px;
+    padding: 6px 9px;
+    border-left: 2px solid var(--atlas-green);
+    background: rgba(2, 6, 12, 0.7);
+    color: #bfffd3;
+    font-size: 10px;
+    font-weight: 780;
+    letter-spacing: 0.08em;
+    box-shadow: 0 0 18px rgba(116, 255, 176, 0.1);
+  }
   #sidebar {
-    width: 330px;
+    width: 354px;
     background: var(--atlas-panel);
-    border-left: 1px solid rgba(132, 178, 255, 0.22);
-    box-shadow: -28px 0 72px rgba(0, 0, 0, 0.38);
+    border-left: 1px solid rgba(66, 244, 255, 0.38);
+    box-shadow: -28px 0 72px rgba(0, 0, 0, 0.48), -1px 0 34px rgba(66, 244, 255, 0.08);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     backdrop-filter: blur(18px);
-    z-index: 4;
+    z-index: 9;
   }
   #search-wrap {
     padding: 14px;
     border-bottom: 1px solid var(--atlas-line);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent);
+    background: linear-gradient(180deg, rgba(65, 230, 255, 0.05), transparent);
   }
   #search {
     width: 100%;
@@ -294,14 +504,14 @@ function graphifyAtlasStyles() {
     border: 1px solid rgba(132, 178, 255, 0.24);
     color: #f7fbff;
     padding: 0 12px;
-    border-radius: 8px;
+    border-radius: 2px;
     font-size: 13px;
     outline: none;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 0 28px rgba(93, 228, 255, 0.08);
   }
   #search:focus {
-    border-color: rgba(93, 228, 255, 0.78);
-    box-shadow: 0 0 0 3px rgba(93, 228, 255, 0.12), 0 0 42px rgba(93, 228, 255, 0.14);
+    border-color: rgba(65, 230, 255, 0.78);
+    box-shadow: 0 0 0 2px rgba(65, 230, 255, 0.14), 0 0 42px rgba(65, 230, 255, 0.13);
   }
   #search-results {
     max-height: 164px;
@@ -332,7 +542,7 @@ function graphifyAtlasStyles() {
   }
   #info-panel h3,
   #legend-wrap h3 {
-    color: #aebbd3;
+    color: #95f8ff;
     font-size: 11px;
     font-weight: 850;
     margin-bottom: 10px;
@@ -367,7 +577,7 @@ function graphifyAtlasStyles() {
     overflow: hidden;
     text-overflow: ellipsis;
     border-left: 3px solid #333;
-    background: rgba(255, 255, 255, 0.035);
+    background: rgba(65, 230, 255, 0.045);
   }
   .neighbor-link:hover {
     background: rgba(255, 255, 255, 0.08);
@@ -405,7 +615,7 @@ function graphifyAtlasStyles() {
     min-height: 30px;
     padding: 4px 4px;
     cursor: pointer;
-    border-radius: 7px;
+    border-radius: 2px;
     color: #f1f6ff;
     font-size: 12px;
   }
@@ -448,7 +658,7 @@ function graphifyAtlasStyles() {
   }
   .legend-cb:checked,
   #select-all-cb:checked {
-    background: linear-gradient(135deg, var(--atlas-cyan), var(--atlas-pink));
+    background: var(--atlas-cyan);
     border-color: transparent;
     box-shadow: 0 0 16px rgba(93, 228, 255, 0.28);
   }
@@ -485,6 +695,30 @@ function graphifyAtlasStyles() {
     font-variant-numeric: tabular-nums;
     background: rgba(255, 255, 255, 0.035);
   }
+  @keyframes atlasScan {
+    from { transform: translateY(0); }
+    to { transform: translateY(760%); }
+  }
+  @keyframes atlasGridDrift {
+    from { background-position: 0 0, 0 0, 0 0; }
+    to { background-position: 112px 56px, 112px 56px, 210px 210px; }
+  }
+  @keyframes atlasRadarSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes atlasRadarPulse {
+    0%, 100% { opacity: 0.28; transform: scale(0.96); }
+    50% { opacity: 0.72; transform: scale(1.03); }
+  }
+  @media (max-width: 1100px) {
+    .atlas-metrics {
+      display: none;
+    }
+    #sidebar {
+      width: 314px;
+    }
+  }
   @media (max-width: 860px) {
     body {
       display: block;
@@ -505,8 +739,16 @@ function graphifyAtlasStyles() {
       right: 12px;
       align-items: flex-start;
     }
-    .atlas-metrics {
+    #atlas-telemetry,
+    #atlas-radar {
       display: none;
+    }
+    #atlas-readouts {
+      left: 12px;
+      bottom: 12px;
+    }
+    #atlas-readouts span {
+      max-width: calc(100vw - 32px);
     }
   }
 </style>`
@@ -517,23 +759,45 @@ function graphifyAtlasScript() {
 (function enhanceAtlas() {
   if (typeof network === 'undefined' || typeof nodesDS === 'undefined' || typeof edgesDS === 'undefined') return;
   const stats = document.getElementById('stats')?.textContent?.trim();
-  const statsSlot = document.querySelector('[data-atlas-stats]');
-  if (stats && statsSlot) statsSlot.textContent = stats;
+  const statMatch = stats?.match(/(\\d+) nodes · (\\d+) edges · (\\d+) communities/);
+  if (statMatch) {
+    document.querySelector('[data-atlas-nodes]').textContent = statMatch[1] + ' nodes';
+    document.querySelector('[data-atlas-edges]').textContent = statMatch[2] + ' edges';
+    document.querySelector('[data-atlas-communities]').textContent = statMatch[3] + ' sectors';
+    document.querySelector('[data-atlas-trace]').textContent = statMatch[2] + ' semantic links';
+    document.querySelector('[data-atlas-runtime]').textContent = statMatch[3] + ' sectors locked';
+  }
 
   const colorByNode = new Map(RAW_NODES.map((node) => [node.id, node.color?.background || '#8bdcff']));
   const highDegree = Math.max(1, ...RAW_NODES.map((node) => Number(node.degree || 0)));
+  const topNode = [...RAW_NODES].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0))[0];
+  if (topNode) {
+    document.querySelector('[data-atlas-hotspot]').textContent = topNode.label + ' · ' + Number(topNode.degree || 0);
+  }
   const layout = buildAtlasLayout();
+  const sectorCenters = layout.sectors;
+  const pulseEdges = buildPulseEdges(layout.nodes);
   nodesDS.update(RAW_NODES.map((node) => {
     const degree = Number(node.degree || 0);
-    const isHub = degree >= 150 || node.file_type === 'paper' || node.id.startsWith('track:') || node.id.startsWith('route:');
+    const isCommand = degree >= 250 || node.id.startsWith('track:') || node.id.startsWith('route:');
+    const isHub = isCommand || degree >= 150 || node.file_type === 'paper';
     const glow = Math.max(10, Math.min(34, 10 + (degree / highDegree) * 34));
-    const pos = layout.get(node.id) || { x: 0, y: 0 };
+    const pos = layout.nodes.get(node.id) || { x: 0, y: 0 };
+    const baseColor = node.color?.background || '#42f4ff';
     return {
       id: node.id,
       x: pos.x,
       y: pos.y,
+      shape: isCommand ? 'diamond' : 'dot',
       borderWidth: isHub ? 3.6 : 1.8,
-      shadow: { enabled: true, color: node.color?.background || '#8bdcff', size: isHub ? glow : glow * 0.7, x: 0, y: 0 },
+      color: {
+        ...(node.color || {}),
+        background: baseColor,
+        border: isHub ? '#f5fdff' : baseColor,
+        highlight: { background: '#ffffff', border: baseColor },
+        hover: { background: '#ffffff', border: baseColor },
+      },
+      shadow: { enabled: true, color: baseColor, size: isHub ? glow : glow * 0.7, x: 0, y: 0 },
       font: {
         ...(node.font || {}),
         color: '#f7fbff',
@@ -551,6 +815,7 @@ function graphifyAtlasScript() {
       id: index,
       width: strong ? Math.max(0.55, Math.min(2.4, edge.width || 1.2)) : 0.6,
       color: { color, opacity: strong ? 0.34 : 0.16 },
+      hoverWidth: strong ? 3.2 : 1.8,
       smooth: { type: 'dynamic', roundness: 0.2 },
     };
   }));
@@ -583,6 +848,20 @@ function graphifyAtlasScript() {
     network.fit({ animation: { duration: 700, easingFunction: 'easeInOutQuad' } });
   }, 80);
 
+  network.on('afterDrawing', (ctx) => {
+    drawTacticalOverlay(ctx, sectorCenters, pulseEdges, performance.now());
+  });
+
+  let lastRedraw = 0;
+  function animateAtlas(time) {
+    if (document.visibilityState === 'visible' && time - lastRedraw > 90) {
+      network.redraw();
+      lastRedraw = time;
+    }
+    requestAnimationFrame(animateAtlas);
+  }
+  requestAnimationFrame(animateAtlas);
+
   function buildAtlasLayout() {
     const groups = new Map();
     for (const node of RAW_NODES) {
@@ -594,7 +873,8 @@ function graphifyAtlasScript() {
     const ringCounts = [1, 10, 15, 14];
     const ringRadii = [0, 560, 980, 1360];
     const ringSeen = [0, 0, 0, 0];
-    const out = new Map();
+    const nodesOut = new Map();
+    const sectorOut = new Map();
 
     rankedGroups.forEach(([cid, nodes], groupIndex) => {
       const ring = groupIndex === 0 ? 0 : groupIndex <= 10 ? 1 : groupIndex <= 25 ? 2 : 3;
@@ -614,13 +894,140 @@ function graphifyAtlasScript() {
         const localAngle = nodeIndex * 2.399963229728653 + cid * 0.41;
         const localRadius = nodeIndex === 0 ? 0 : (Math.sqrt(nodeIndex) / normalizer) * spread;
         const degreePull = Math.max(0.55, 1 - Math.min(0.42, Number(node.degree || 0) / highDegree));
-        out.set(node.id, {
+        nodesOut.set(node.id, {
           x: Math.round(center.x + Math.cos(localAngle) * localRadius * degreePull),
           y: Math.round(center.y + Math.sin(localAngle) * localRadius * degreePull),
         });
       });
+      const legend = LEGEND.find((item) => item.cid === cid);
+      sectorOut.set(cid, {
+        x: Math.round(center.x),
+        y: Math.round(center.y),
+        ring,
+        radius: Math.round(spread * 0.72 + 34),
+        color: legend?.color || '#41e6ff',
+        label: (legend?.label || 'Sector ' + cid).slice(0, 38),
+        count: nodes.length,
+      });
     });
-    return out;
+    return { nodes: nodesOut, sectors: sectorOut };
+  }
+
+  function buildPulseEdges(nodePositions) {
+    return RAW_EDGES
+      .map((edge, index) => {
+        const from = nodePositions.get(edge.from);
+        const to = nodePositions.get(edge.to);
+        if (!from || !to) return null;
+        const fromNode = RAW_NODES.find((node) => node.id === edge.from);
+        const toNode = RAW_NODES.find((node) => node.id === edge.to);
+        const score = (edge.confidence === 'EXTRACTED' ? 60 : 0)
+          + Number(fromNode?.degree || 0)
+          + Number(toNode?.degree || 0)
+          + Number(edge.width || 0) * 12;
+        return {
+          index,
+          from,
+          to,
+          score,
+          color: colorByNode.get(edge.from) || '#42f4ff',
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 90);
+  }
+
+  function drawTacticalOverlay(ctx, sectors, pulseEdges, time) {
+    if (!sectors || sectors.size === 0) return;
+    ctx.save();
+    ctx.lineWidth = 1;
+    ctx.globalAlpha = 0.42;
+    ctx.strokeStyle = 'rgba(65, 230, 255, 0.2)';
+    ctx.setLineDash([18, 14]);
+    ctx.beginPath();
+    ctx.moveTo(-1700, 0);
+    ctx.lineTo(1700, 0);
+    ctx.moveTo(0, -1100);
+    ctx.lineTo(0, 1100);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.globalAlpha = 0.18;
+    ctx.strokeStyle = 'rgba(116, 255, 176, 0.32)';
+    [360, 720, 1080, 1440].forEach((radius, index) => {
+      ctx.beginPath();
+      ctx.setLineDash(index % 2 ? [16, 16] : []);
+      ctx.arc(0, 0, radius, 0, Math.PI * 2);
+      ctx.stroke();
+    });
+    ctx.setLineDash([]);
+
+    drawPulseEdges(ctx, pulseEdges, time);
+
+    const ranked = Array.from(sectors.values()).sort((a, b) => b.count - a.count).slice(0, 18);
+    ranked.forEach((sector, index) => {
+      const labelY = sector.y - sector.radius - 28;
+      const labelX = sector.x - 82;
+      const width = Math.min(250, Math.max(110, sector.label.length * 7.2));
+      ctx.globalAlpha = 0.18;
+      ctx.strokeStyle = sector.color;
+      ctx.beginPath();
+      ctx.arc(sector.x, sector.y, sector.radius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.globalAlpha = 0.62;
+      ctx.strokeStyle = sector.color;
+      ctx.beginPath();
+      ctx.moveTo(sector.x, sector.y - sector.radius);
+      ctx.lineTo(labelX + 10, labelY + 24);
+      ctx.stroke();
+
+      ctx.globalAlpha = 0.9;
+      ctx.fillStyle = 'rgba(3, 5, 8, 0.76)';
+      ctx.strokeStyle = sector.color;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.rect(labelX, labelY, width, 26);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = sector.color;
+      ctx.font = '700 10px ui-monospace, Menlo, Consolas, monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText('S' + String(index + 1).padStart(2, '0') + ' / ' + sector.count, labelX + 7, labelY + 10);
+      ctx.fillStyle = '#dffbff';
+      ctx.font = '700 11px ui-monospace, Menlo, Consolas, monospace';
+      ctx.fillText(sector.label, labelX + 7, labelY + 22, width - 14);
+    });
+    ctx.restore();
+  }
+
+  function drawPulseEdges(ctx, pulseEdges, time) {
+    if (!pulseEdges || pulseEdges.length === 0) return;
+    const clock = (time % 2200) / 2200;
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    pulseEdges.forEach((edge, index) => {
+      const phase = (clock + (index * 0.041)) % 1;
+      const tail = Math.max(0, phase - 0.055);
+      const head = Math.min(1, phase + 0.018);
+      const sx = edge.from.x + (edge.to.x - edge.from.x) * tail;
+      const sy = edge.from.y + (edge.to.y - edge.from.y) * tail;
+      const ex = edge.from.x + (edge.to.x - edge.from.x) * head;
+      const ey = edge.from.y + (edge.to.y - edge.from.y) * head;
+      ctx.globalAlpha = index < 22 ? 0.76 : 0.42;
+      ctx.strokeStyle = edge.color;
+      ctx.lineWidth = index < 22 ? 3.2 : 1.8;
+      ctx.shadowColor = edge.color;
+      ctx.shadowBlur = index < 22 ? 18 : 10;
+      ctx.beginPath();
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(ex, ey);
+      ctx.stroke();
+    });
+    ctx.restore();
   }
 })();
 </script>`
