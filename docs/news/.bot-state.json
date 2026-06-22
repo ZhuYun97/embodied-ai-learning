@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-06-02",
+  "last_fetched_at": "2026-06-22",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -51,8 +51,19 @@
     "humanarchive820|20260530",
     "microagishift|20260529",
     "agibotworld2026|202605",
-    "antdidiembodied|202605"
+    "antdidiembodied|202605",
+    "automate-2026-humanoid-pavilion|20260622",
+    "neura-automate-2026-neuraverse|20260619",
+    "realsense-d585-pro-physical-ai-vision|20260618",
+    "qbitai-embodied-ai-financing-brain-shift|20260621",
+    "memorywam-persistent-memory-world-action-model|20260618",
+    "covla-dual-arm-structured-action|20260618",
+    "equivla-rotational-equivariant-vla|20260618",
+    "eventvla-visual-evidence-memory|20260618",
+    "vla-fewer-layers-finetuning|20260618",
+    "pose6daug-object-swapping-augmentation|20260618",
+    "robot-hands-human-demonstrations|20260618"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 38
+  "_count": 62
 }
