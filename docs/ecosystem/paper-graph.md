@@ -25,6 +25,7 @@ import PaperKnowledgeGraph from '../.vitepress/theme/components/PaperKnowledgeGr
 
 ## 相关入口
 
+- [离线全站知识图谱](/ecosystem/offline-knowledge-graph):从全站 Markdown、站内链接与本地词典自动抽取的更大范围网络。
 - [生态总览](/ecosystem/):公司关系图谱、就业地图与公司目录。
 - [VLA 论文细读导航](/vla/#-论文细读导航):按 VLA 技术路线浏览。
 - [WAM 总览](/wam/):按 WAM 范式路线浏览。

@@ -24,7 +24,7 @@ import EcosystemJobMap from '../.vitepress/theme/components/EcosystemJobMap.vue'
 <EcosystemGraph />
 
 ::: tip 🧠 论文知识图谱
-VLA / WAM 论文网络已独立成页: **[进入论文知识图谱](/ecosystem/paper-graph)**。这里保留生态总览的公司关系、就业地图与公司目录。
+VLA / WAM 人工策展图谱已独立成页: **[进入论文知识图谱](/ecosystem/paper-graph)**。若要看从全站 Markdown 离线抽取的更大范围网络,见 **[离线全站知识图谱](/ecosystem/offline-knowledge-graph)**。
 :::
 
 ## 🗺 就业地图 · 城市分布
