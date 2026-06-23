@@ -2,13 +2,110 @@ import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
 import fs from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 // 注意:base 需与 GitHub 仓库名一致(项目页 https://<user>.github.io/<repo>/)
+const SITE_BASE = '/embodied-ai-learning/'
+const DOCS_ROOT = fileURLToPath(new URL('../', import.meta.url))
+
+function cleanWikiLabel(raw, slug) {
+  return (raw || slug)
+    .replace(/^["']|["']$/g, '')
+    .replace(/\s*(细读|技术报告解读|论文解读).*$/u, '')
+    .replace(/[:：].*$/u, '')
+    .trim() || slug
+}
+
+function titleOfMarkdown(file, slug) {
+  const raw = fs.readFileSync(file, 'utf-8')
+  const fm = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)
+  const title = fm?.[1]?.match(/^title:\s*(.+)$/m)?.[1] || raw.match(/^#\s+(.+)$/m)?.[1]
+  return cleanWikiLabel(title, slug)
+}
+
+function buildWikiLinkIndex() {
+  const links = new Map()
+  for (const track of ['vla', 'wam']) {
+    const dir = path.join(DOCS_ROOT, track, 'papers')
+    if (!fs.existsSync(dir)) continue
+    for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (!ent.isFile() || !ent.name.endsWith('.md')) continue
+      const slug = ent.name.replace(/\.md$/, '')
+      const href = `/${track}/papers/${slug}`
+      const label = titleOfMarkdown(path.join(dir, ent.name), slug)
+      links.set(slug, { href, label })
+      links.set(slug.toLowerCase(), { href, label })
+    }
+  }
+  links.set('OXE', { href: '/vla/papers/embodied-data#二、主流真机数据集横向对比', label: 'OXE / RT-X' })
+  links.set('oxe', links.get('OXE'))
+  return links
+}
+
+const WIKI_LINKS = buildWikiLinkIndex()
+
+function installWikiLinks(md) {
+  md.core.ruler.after('inline', 'paper-wiki-links', (state) => {
+    const makeText = (content) => {
+      const token = new state.Token('text', '', 0)
+      token.content = content
+      return token
+    }
+    const makeLink = (entry, label, marker) => {
+      const open = new state.Token('link_open', 'a', 1)
+      open.attrSet('href', entry.href)
+      open.attrSet('class', marker ? 'wiki-ref wiki-ref--marker' : 'wiki-ref')
+      open.attrSet('title', `跳转到 ${entry.label}`)
+      const text = makeText(marker ? '↗' : label)
+      const close = new state.Token('link_close', 'a', -1)
+      return [open, text, close]
+    }
+
+    for (const token of state.tokens) {
+      if (token.type !== 'inline' || !token.children?.length) continue
+      const out = []
+      let linkDepth = 0
+      for (const child of token.children) {
+        if (child.type === 'link_open') {
+          linkDepth += 1
+          out.push(child)
+          continue
+        }
+        if (child.type === 'link_close') {
+          linkDepth = Math.max(0, linkDepth - 1)
+          out.push(child)
+          continue
+        }
+        if (linkDepth || child.type !== 'text' || !child.content.includes('[[')) {
+          out.push(child)
+          continue
+        }
+        const text = child.content
+        const re = /\(\[\[([^\]|]+)(?:\|([^\]]+))?\]\]\)|\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g
+        let last = 0
+        let match
+        while ((match = re.exec(text))) {
+          if (match.index > last) out.push(makeText(text.slice(last, match.index)))
+          const marker = Boolean(match[1])
+          const slug = (match[1] || match[3] || '').trim()
+          const customLabel = (match[2] || match[4] || '').trim()
+          const entry = WIKI_LINKS.get(slug) || WIKI_LINKS.get(slug.toLowerCase())
+          if (entry) out.push(...makeLink(entry, customLabel || entry.label || slug, marker))
+          else out.push(makeText(match[0]))
+          last = match.index + match[0].length
+        }
+        if (last < text.length) out.push(makeText(text.slice(last)))
+      }
+      token.children = out
+    }
+  })
+}
+
 export default withMermaid(defineConfig({
   title: '具身智能学习站',
   description: '具身智能 (Embodied AI) 学习笔记 — 从 VLA 模型发展脉络到 2026 年最新前沿',
   lang: 'zh-CN',
-  base: '/embodied-ai-learning/',
+  base: SITE_BASE,
   // 全站默认深色:科技控制台基调(深空底/辉光/数据包等效果均以暗色为最佳态)。
   // 仅影响首访默认值;用户手动切换后由 localStorage 持久化,完全尊重用户选择。
   appearance: 'dark',
@@ -26,6 +123,8 @@ export default withMermaid(defineConfig({
     math: true,
     // 给所有正文图片加 loading=lazy + decoding=async,并按尺寸表注入 width/height 消除 CLS
     config: (md) => {
+      installWikiLinks(md)
+
       const DIMS = {
         'groot-n1_arch_detail.webp': [996, 516], 'groot-n1_arch.webp': [997, 520],
         'groot-n1_datapyramid.webp': [529, 327], 'octo_arch.webp': [1661, 804],

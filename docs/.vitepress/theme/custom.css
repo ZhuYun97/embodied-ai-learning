@@ -1236,6 +1236,37 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .dark .rr-chip--backbone { color: #c4b5fd; }
 .dark .rr-chip--route { color: #5eead4; }
 
+.vp-doc a.wiki-ref {
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+.vp-doc a.wiki-ref--marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4em;
+  min-height: 1.35em;
+  margin-left: 0.16em;
+  padding: 0 0.28em;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 42%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--vp-c-brand-soft) 64%, transparent);
+  font-size: 0.72em;
+  line-height: 1;
+  text-decoration: none;
+  vertical-align: 0.16em;
+}
+.vp-doc a.wiki-ref:hover,
+.vp-doc a.wiki-ref:focus-visible {
+  color: var(--vp-c-brand-1);
+}
+.dark .vp-doc a.wiki-ref--marker {
+  border-color: rgba(94, 234, 212, 0.34);
+  background: rgba(20, 184, 166, 0.12);
+}
+
 /* ---------- 阅读进度(doc-after:已读标记 + 全站进度条)---------- */
 .read-progress {
   display: flex;
