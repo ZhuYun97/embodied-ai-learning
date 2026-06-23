@@ -51,11 +51,18 @@ const estW = (s) => {
 
 const panels = computed(() => {
   const LEFT = 36, LANE = 78, HEAD = 46, BOT = 18
-  // 非线性时间轴(2026-06-10,应「早期稀疏太浪费空间」):每月宽度按收录密度自适应——
-  // 无收录月份压缩为窄槽(EMPTY_W),有收录月份按「该月单线最大同月数」留足错开位。
-  // 两面板共用同一份全局月宽 → 仍共享同一时间刻度可纵向对照;月序与年份刻度位置如实,
+  // 非线性时间轴(2026-06-23):每月宽度按收录密度与时代密度自适应——
+  // 无收录月份压缩为窄槽(EMPTY_W),有收录月份按「该月单线最大同月数」留足错开位;
+  // 2024 年及以前属于 VLA/WAM 前期低密度阶段,再做分段压缩,把横向空间让给 2025–2026 密集区。
+  // 两面板共用同一份全局月宽 → 仍共享同一压缩刻度可纵向对照;月序与年份标签不变,
   // 仅月间距非线性(组件尾注已声明)。
   const EMPTY_W = 10, BUSY_W = 34, NUDGE_W = 14
+  const eraScale = (mi) => {
+    const year = Math.floor(mi / 12)
+    if (year <= 2023) return 0.58
+    if (year === 2024) return 0.72
+    return 1
+  }
   const papers = paperData.papers || []
   const dated = papers.filter((p) => p.date)
   if (!dated.length) return []
@@ -82,8 +89,16 @@ const panels = computed(() => {
     if (lineCnt[key] > maxSameLine[off]) maxSameLine[off] = lineCnt[key]
   }
   const widths = new Array(nMonths)
+  const anchors = new Array(nMonths)
+  const nudges = new Array(nMonths)
   for (let o = 0; o < nMonths; o++) {
-    widths[o] = cnt[o] ? BUSY_W + (maxSameLine[o] - 1) * NUDGE_W : EMPTY_W
+    const scale = eraScale(minM + o)
+    const baseW = cnt[o] ? BUSY_W + (maxSameLine[o] - 1) * NUDGE_W : EMPTY_W
+    widths[o] = Math.ceil(baseW * scale)
+    anchors[o] = cnt[o]
+      ? Math.max(8, Math.min(widths[o] - 7, 17 * scale))
+      : Math.max(4, widths[o] / 2)
+    nudges[o] = Math.max(8, NUDGE_W * scale)
   }
   const starts = new Array(nMonths)
   let acc = 0
@@ -91,7 +106,7 @@ const panels = computed(() => {
     starts[o] = acc
     acc += widths[o]
   }
-  const X = (ym) => LEFT + starts[monthIdx(ym) - minM] + 17 // 月槽内基准位;同月同线再 +k*NUDGE_W
+  const X = (ym) => LEFT + starts[monthIdx(ym) - minM] + anchors[monthIdx(ym) - minM] // 月槽内基准位;同月同线再按槽宽微错开
   const maxDatedX = LEFT + acc
   const maxU = Math.max(0, ...Object.values(paperData.byRoute || {}).map((arr) => arr.filter((p) => !p.date).length))
   const zoneStart = maxDatedX + 26
@@ -119,7 +134,7 @@ const panels = computed(() => {
         if (p.date) {
           const base = X(p.date)
           const k = (seen[base] = (seen[base] || 0) + 1) - 1
-          x = base + k * 14
+          x = base + k * nudges[monthIdx(p.date) - minM]
         } else {
           undated = true
           x = zoneStart + 44 + uCount * 84
@@ -257,7 +272,7 @@ onMounted(() => {
       </div>
     </section>
     <p class="lm-foot">
-      站点 = 本站论文细读(点击直达);横轴 = arXiv ID 前四位派生的提交年月,无 arXiv 者按站内核对日期定位,均无者列「日期待核」区——不编造时间。<b>横轴间距非线性</b>:无收录的月份已压缩(年份刻度位置如实),先后顺序与年月标注不受影响。路线划分与首页路线卡一致;同月多站横向微错开。
+      站点 = 本站论文细读(点击直达);横轴 = arXiv ID 前四位派生的提交年月,无 arXiv 者按站内核对日期定位,均无者列「日期待核」区——不编造时间。<b>横轴间距非线性</b>:无收录月份与 2024 年及以前的早期低密度阶段已压缩,先后顺序与年月标注不受影响。路线划分与首页路线卡一致;同月多站横向微错开。
     </p>
   </div>
 </template>
