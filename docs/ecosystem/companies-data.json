@@ -300,8 +300,8 @@
     },
     {
       "id": "robotera",
-      "name": "睿尔曼",
-      "nameEn": "Robotera",
+      "name": "星动纪元",
+      "nameEn": "RobotEra",
       "founded": 2023,
       "region": "china",
       "stage": "unicorn",
@@ -313,7 +313,7 @@
         "Q5 轮足",
         "XHAND1"
       ],
-      "description": "顺丰/IDG 领投，物流场景千台级部署",
+      "description": "清华孵化的具身智能企业，软硬件全栈自研，面向物流等场景规模化交付",
       "tags": [
         "人形",
         "物流",
@@ -1173,6 +1173,532 @@
         "数据引擎"
       ],
       "website": "https://gigaai.cc",
+      "country": "CN"
+    },
+    {
+      "id": "google-deepmind",
+      "name": "Google DeepMind",
+      "founded": 2010,
+      "region": "international",
+      "stage": "mature",
+      "products": [
+        "Gemini Robotics",
+        "RT-2",
+        "RoboCat"
+      ],
+      "description": "Alphabet 旗下 AI 研究实验室，机器人基础模型与具身推理重要源头",
+      "tags": [
+        "VLA",
+        "基础模型",
+        "研究实验室"
+      ],
+      "website": "https://deepmind.google",
+      "country": "UK"
+    },
+    {
+      "id": "intrinsic",
+      "name": "Intrinsic",
+      "founded": 2021,
+      "region": "international",
+      "stage": "mature",
+      "products": [
+        "Intrinsic platform",
+        "Flowstate"
+      ],
+      "description": "Alphabet 旗下 AI robotics 公司，面向工业机器人开发与部署平台",
+      "tags": [
+        "工业",
+        "机器人软件",
+        "自动化"
+      ],
+      "website": "https://www.intrinsic.ai",
+      "country": "US"
+    },
+    {
+      "id": "amazon-robotics",
+      "name": "Amazon Robotics",
+      "founded": 2003,
+      "region": "international",
+      "stage": "mature",
+      "products": [
+        "Proteus",
+        "Sequoia",
+        "DeepFleet"
+      ],
+      "description": "亚马逊仓储机器人与物流自动化部门，Kiva Systems 演进而来",
+      "tags": [
+        "物流",
+        "AMR",
+        "商业化"
+      ],
+      "website": "https://www.amazonrobotics.com",
+      "country": "US"
+    },
+    {
+      "id": "neura-robotics",
+      "name": "NEURA Robotics",
+      "founded": 2019,
+      "region": "international",
+      "stage": "growth",
+      "products": [
+        "4NE-1",
+        "MAiRA",
+        "Neuraverse"
+      ],
+      "description": "德国认知机器人公司，覆盖协作臂、人形与机器人生态平台",
+      "tags": [
+        "人形",
+        "协作机器人",
+        "具身大脑"
+      ],
+      "website": "https://neura-robotics.com",
+      "country": "Germany"
+    },
+    {
+      "id": "anybotics",
+      "name": "ANYbotics",
+      "founded": 2016,
+      "region": "international",
+      "stage": "growth",
+      "products": [
+        "ANYmal",
+        "ANYmal X"
+      ],
+      "description": "ETH Zurich 衍生四足机器人公司，主攻工业巡检与复杂环境自主移动",
+      "tags": [
+        "四足",
+        "巡检",
+        "商业化"
+      ],
+      "website": "https://www.anybotics.com",
+      "country": "Switzerland"
+    },
+    {
+      "id": "engineered-arts",
+      "name": "Engineered Arts",
+      "founded": 2004,
+      "region": "international",
+      "stage": "mature",
+      "products": [
+        "Ameca",
+        "Mesmer"
+      ],
+      "description": "英国社交人形机器人公司，Ameca 常作为 embodied AI 交互平台",
+      "tags": [
+        "人形",
+        "社交机器人",
+        "交互"
+      ],
+      "website": "https://engineeredarts.com",
+      "country": "UK"
+    },
+    {
+      "id": "mujin",
+      "name": "Mujin",
+      "founded": 2011,
+      "region": "international",
+      "stage": "mature",
+      "products": [
+        "MujinOS",
+        "MujinController"
+      ],
+      "description": "日本智能机器人控制与仓储自动化公司，强调实时感知、规划与无代码部署",
+      "tags": [
+        "工业",
+        "物流",
+        "运动规划"
+      ],
+      "website": "https://mujin-corp.com",
+      "country": "Japan"
+    },
+    {
+      "id": "robust-ai",
+      "name": "Robust.AI",
+      "founded": 2019,
+      "region": "international",
+      "stage": "growth",
+      "products": [
+        "Carter",
+        "Carter Pro"
+      ],
+      "description": "Rodney Brooks 团队创办，面向仓储与物流的人机协作移动机器人",
+      "tags": [
+        "物流",
+        "协作",
+        "AMR"
+      ],
+      "website": "https://www.robust.ai",
+      "country": "US"
+    },
+    {
+      "id": "graymatter",
+      "name": "GrayMatter Robotics",
+      "founded": 2020,
+      "region": "international",
+      "stage": "growth",
+      "products": [
+        "GMR-AI",
+        "AI robotic cells"
+      ],
+      "description": "面向制造业的 physical AI 公司，将视觉、力控与工艺自适应用于打磨/喷涂等产线",
+      "tags": [
+        "工业",
+        "Physical AI",
+        "商业化"
+      ],
+      "website": "https://factory.graymatter-robotics.com",
+      "country": "US"
+    },
+    {
+      "id": "nimble",
+      "name": "Nimble",
+      "founded": 2017,
+      "region": "international",
+      "stage": "unicorn",
+      "funding": "$106M Series C",
+      "fundingAmount": 106000000,
+      "valuation": 1000000000,
+      "products": [
+        "Superhumanoid Fulfillment"
+      ],
+      "description": "面向电商仓储的通用拣选/打包机器人与自主履约中心",
+      "tags": [
+        "物流",
+        "操作",
+        "独角兽"
+      ],
+      "website": "https://nimble.ai",
+      "country": "US"
+    },
+    {
+      "id": "standard-bots",
+      "name": "Standard Bots",
+      "founded": 2020,
+      "region": "international",
+      "stage": "growth",
+      "products": [
+        "RO1",
+        "AI-native cobot"
+      ],
+      "description": "美国 AI-native 工业机械臂公司，主打低成本、易部署协作机器人",
+      "tags": [
+        "工业",
+        "协作机器人",
+        "操作"
+      ],
+      "website": "https://standardbots.com",
+      "country": "US"
+    },
+    {
+      "id": "paxini",
+      "name": "帕西尼",
+      "nameEn": "PaXini",
+      "founded": 2021,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "触觉传感器",
+        "灵巧手",
+        "Tora"
+      ],
+      "description": "触觉传感 + 灵巧手 + 人形机器人硬件矩阵，服务具身操作与工业场景",
+      "tags": [
+        "触觉",
+        "灵巧手",
+        "人形"
+      ],
+      "website": "https://paxini.com",
+      "country": "CN"
+    },
+    {
+      "id": "astribot",
+      "name": "星尘智能",
+      "nameEn": "Astribot",
+      "founded": 2022,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "Astribot S1",
+        "Astribot T1"
+      ],
+      "description": "深圳成立的 AI 机器人助理公司，强调高性能操作与人机交互",
+      "tags": [
+        "人形",
+        "操作",
+        "家庭服务"
+      ],
+      "website": "https://www.astribot.com",
+      "country": "CN"
+    },
+    {
+      "id": "magiclab",
+      "name": "魔法原子",
+      "nameEn": "MagicLab",
+      "founded": 2024,
+      "region": "china",
+      "stage": "growth",
+      "funding": "1.5亿元天使轮",
+      "fundingAmount": 150000000,
+      "products": [
+        "MagicBot",
+        "MagicDog",
+        "Magic-Mix"
+      ],
+      "description": "通用人形与仿生四足机器人公司，已将全国总部落户无锡梁溪科技城",
+      "tags": [
+        "人形",
+        "四足",
+        "具身大脑"
+      ],
+      "website": "https://www.magiclab.top",
+      "country": "CN"
+    },
+    {
+      "id": "xpeng-robotics",
+      "name": "小鹏机器人",
+      "nameEn": "XPENG Robotics",
+      "founded": 2016,
+      "region": "china",
+      "stage": "public",
+      "products": [
+        "IRON",
+        "XPENG VLA"
+      ],
+      "description": "小鹏体系内人形机器人与物理 AI 方向，广州布局人形机器人量产基地",
+      "tags": [
+        "人形",
+        "VLA",
+        "量产"
+      ],
+      "website": "https://www.xpeng.com",
+      "country": "CN"
+    },
+    {
+      "id": "pudu",
+      "name": "普渡机器人",
+      "nameEn": "Pudu Robotics",
+      "founded": 2016,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "BellaBot",
+        "PUDU D9",
+        "PUDU MT1"
+      ],
+      "description": "商业服务机器人公司，覆盖餐饮、清洁、配送与工业场景",
+      "tags": [
+        "服务机器人",
+        "商业化",
+        "配送"
+      ],
+      "website": "https://www.pudurobotics.com",
+      "country": "CN"
+    },
+    {
+      "id": "syrius",
+      "name": "炬星科技",
+      "nameEn": "Syrius Robotics",
+      "founded": 2018,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "AMR",
+        "Syrius FlexComet"
+      ],
+      "description": "仓储 AMR 与柔性物流自动化公司，深圳/北京/东京等多地布局",
+      "tags": [
+        "物流",
+        "AMR",
+        "商业化"
+      ],
+      "website": "https://www.syriusrobotics.com",
+      "country": "CN"
+    },
+    {
+      "id": "standard-robots",
+      "name": "斯坦德机器人",
+      "nameEn": "Standard Robots",
+      "founded": 2016,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "Oasis AMR",
+        "工业移动机器人"
+      ],
+      "description": "工业移动机器人与智能物流解决方案公司，定位工业具身智能移动平台",
+      "tags": [
+        "AMR",
+        "工业",
+        "物流"
+      ],
+      "website": "https://en.standard-robots.com",
+      "country": "CN"
+    },
+    {
+      "id": "realman",
+      "name": "睿尔曼",
+      "nameEn": "RealMan Robotics",
+      "founded": 2018,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "超轻量仿人机械臂",
+        "复合机器人",
+        "遥操作网络"
+      ],
+      "description": "北京机器人本体与系统级基础设施公司，面向具身智能时代的机械臂、关节和遥操作平台",
+      "tags": [
+        "机械臂",
+        "遥操作",
+        "具身基础设施"
+      ],
+      "website": "https://www.realman-robotics.com",
+      "country": "CN"
+    },
+    {
+      "id": "rokae",
+      "name": "珞石机器人",
+      "nameEn": "ROKAE",
+      "founded": 2015,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "协作机器人",
+        "工业机器人",
+        "具身智能机器人"
+      ],
+      "description": "全系列智能机器人公司，总部/工厂在山东济宁邹城，北京、上海、深圳等设研发中心",
+      "tags": [
+        "工业",
+        "协作机器人",
+        "具身智能"
+      ],
+      "website": "https://www.rokae.com",
+      "country": "CN"
+    },
+    {
+      "id": "megarobo",
+      "name": "镁伽科技",
+      "nameEn": "MEGAROBO",
+      "founded": 2016,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "智慧实验室自主智能体",
+        "多智能体解决方案"
+      ],
+      "description": "面向智慧实验室与智能制造的自主智能体和机器人自动化公司",
+      "tags": [
+        "实验室自动化",
+        "工业",
+        "多智能体"
+      ],
+      "website": "https://www.megarobo.com",
+      "country": "CN"
+    },
+    {
+      "id": "aubo",
+      "name": "遨博智能",
+      "nameEn": "AUBO Robotics",
+      "founded": 2015,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "AUBO i Series",
+        "AUBO C Series",
+        "AUBO iV Series"
+      ],
+      "description": "北京协作机器人公司，面向人机协作与柔性制造自动化",
+      "tags": [
+        "协作机器人",
+        "工业",
+        "操作"
+      ],
+      "website": "https://www.aubo-robotics.cn",
+      "country": "CN"
+    },
+    {
+      "id": "elephant-robotics",
+      "name": "大象机器人",
+      "nameEn": "Elephant Robotics",
+      "founded": 2016,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "myCobot",
+        "Mercury humanoid",
+        "myAGV"
+      ],
+      "description": "深圳机器人教育与轻量协作臂公司，覆盖桌面机械臂、移动底盘与 Mercury 人形平台",
+      "tags": [
+        "机械臂",
+        "教育",
+        "人形"
+      ],
+      "website": "https://www.elephantrobotics.com",
+      "country": "CN"
+    },
+    {
+      "id": "agilex",
+      "name": "松灵机器人",
+      "nameEn": "AgileX Robotics",
+      "founded": 2016,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "UGV 底盘",
+        "数据采集设备",
+        "移动复合机器人"
+      ],
+      "description": "移动机器人底盘与开源机器人平台公司，服务具身智能研发验证与商业落地",
+      "tags": [
+        "移动底盘",
+        "开源",
+        "具身数据"
+      ],
+      "website": "https://www.agilex.ai",
+      "country": "CN"
+    },
+    {
+      "id": "hiwonder",
+      "name": "幻尔科技",
+      "nameEn": "Hiwonder",
+      "founded": 2015,
+      "region": "china",
+      "stage": "growth",
+      "products": [
+        "ROS 机器人",
+        "AI 机械臂",
+        "开源机器狗"
+      ],
+      "description": "深圳开源 AI 机器人与教育平台公司，覆盖机械臂、机器狗和机器人课程体系",
+      "tags": [
+        "教育",
+        "开源",
+        "机械臂"
+      ],
+      "website": "https://www.hiwonder.com",
+      "country": "CN"
+    },
+    {
+      "id": "siasun",
+      "name": "新松机器人",
+      "nameEn": "SIASUN",
+      "founded": 2000,
+      "region": "china",
+      "stage": "public",
+      "products": [
+        "工业机器人",
+        "移动机器人",
+        "特种机器人"
+      ],
+      "description": "中国科学院背景上市机器人公司，工业/移动/特种机器人全线布局，并前瞻布局具身智能机器人",
+      "tags": [
+        "工业",
+        "AMR",
+        "上市"
+      ],
+      "website": "https://www.siasun.com",
       "country": "CN"
     }
   ],
