@@ -342,6 +342,42 @@
   #info-content .field b {
     color: rgba(220, 255, 220, 0.92);
   }
+  .node-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    margin: 8px 0 9px;
+  }
+  .node-open-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border: 1px solid rgba(116, 255, 176, 0.46);
+    border-radius: 3px;
+    background: linear-gradient(180deg, rgba(34, 197, 94, 0.16), rgba(34, 197, 94, 0.05));
+    color: rgba(232, 255, 237, 0.92);
+    font-size: 12px;
+    font-weight: 850;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .node-open-link:hover {
+    border-color: rgba(246, 210, 94, 0.74);
+    background: rgba(246, 210, 94, 0.12);
+    color: #fff7d6;
+    text-decoration: none;
+  }
+  .node-url {
+    min-width: 0;
+    overflow: hidden;
+    color: rgba(220, 255, 220, 0.36);
+    font-size: 10px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   #info-content .empty {
     color: rgba(220, 255, 220, 0.28);
     font-style: italic;
@@ -843,6 +879,7 @@ network.on('afterDrawing', function(ctx) {
   const overviewNodeLimit = Number.POSITIVE_INFINITY;
   const overviewSkeletonLimit = 140;
   const rawById = new Map(RAW_NODES.map((node) => [node.id, node]));
+  const nodeLinksById = new Map(Object.entries({"doc:ecosystem/brain-ranking":"/ecosystem/brain-ranking","doc:ecosystem/index":"/ecosystem/","doc:ecosystem/offline-knowledge-graph":"/ecosystem/offline-knowledge-graph","doc:ecosystem/paper-graph":"/ecosystem/paper-graph","doc:index":"/","doc:vla/changelog":"/vla/changelog","doc:vla/guide":"/vla/guide","doc:vla/index":"/vla/","doc:vla/papers/affordancevla":"/vla/papers/affordancevla","doc:vla/papers/atomicvla":"/vla/papers/atomicvla","doc:vla/papers/benchmarks":"/vla/papers/benchmarks","doc:vla/papers/codebases":"/vla/papers/codebases","doc:vla/papers/cogact":"/vla/papers/cogact","doc:vla/papers/data-processing":"/vla/papers/data-processing","doc:vla/papers/diffusion-policy":"/vla/papers/diffusion-policy","doc:vla/papers/dual-system-architecture":"/vla/papers/dual-system-architecture","doc:vla/papers/ecot":"/vla/papers/ecot","doc:vla/papers/embodied-data":"/vla/papers/embodied-data","doc:vla/papers/failure-modes":"/vla/papers/failure-modes","doc:vla/papers/faster":"/vla/papers/faster","doc:vla/papers/galaxea-g0":"/vla/papers/galaxea-g0","doc:vla/papers/gemini-robotics":"/vla/papers/gemini-robotics","doc:vla/papers/getting-started":"/vla/papers/getting-started","doc:vla/papers/gigabrain-05m":"/vla/papers/gigabrain-05m","doc:vla/papers/glossary":"/vla/papers/glossary","doc:vla/papers/go-1":"/vla/papers/go-1","doc:vla/papers/gr-3":"/vla/papers/gr-3","doc:vla/papers/gr-dexter":"/vla/papers/gr-dexter","doc:vla/papers/groot-n1":"/vla/papers/groot-n1","doc:vla/papers/helix":"/vla/papers/helix","doc:vla/papers/inference-deployment":"/vla/papers/inference-deployment","doc:vla/papers/knowledge-insulation":"/vla/papers/knowledge-insulation","doc:vla/papers/memoryvla":"/vla/papers/memoryvla","doc:vla/papers/memoryvla-plusplus":"/vla/papers/memoryvla-plusplus","doc:vla/papers/models-spec":"/vla/papers/models-spec","doc:vla/papers/motion-control":"/vla/papers/motion-control","doc:vla/papers/octo":"/vla/papers/octo","doc:vla/papers/omnivla-rl":"/vla/papers/omnivla-rl","doc:vla/papers/openvla":"/vla/papers/openvla","doc:vla/papers/openvla-oft":"/vla/papers/openvla-oft","doc:vla/papers/pi0":"/vla/papers/pi0","doc:vla/papers/pi0-fast":"/vla/papers/pi0-fast","doc:vla/papers/pi05":"/vla/papers/pi05","doc:vla/papers/pi06":"/vla/papers/pi06","doc:vla/papers/pi07":"/vla/papers/pi07","doc:vla/papers/pointact":"/vla/papers/pointact","doc:vla/papers/predictive-vla":"/vla/papers/predictive-vla","doc:vla/papers/qwen-robotmanip":"/vla/papers/qwen-robotmanip","doc:vla/papers/qwen-robotnav":"/vla/papers/qwen-robotnav","doc:vla/papers/qwen-vla":"/vla/papers/qwen-vla","doc:vla/papers/rdt-1b":"/vla/papers/rdt-1b","doc:vla/papers/references":"/vla/papers/references","doc:vla/papers/resources":"/vla/papers/resources","doc:vla/papers/rl-token":"/vla/papers/rl-token","doc:vla/papers/robots":"/vla/papers/robots","doc:vla/papers/robovlms":"/vla/papers/robovlms","doc:vla/papers/rt1":"/vla/papers/rt1","doc:vla/papers/rt2":"/vla/papers/rt2","doc:vla/papers/rynnbrain":"/vla/papers/rynnbrain","doc:vla/papers/rynnvla":"/vla/papers/rynnvla","doc:vla/papers/seetraceact":"/vla/papers/seetraceact","doc:vla/papers/simplevla-rl":"/vla/papers/simplevla-rl","doc:vla/papers/smolvla":"/vla/papers/smolvla","doc:vla/papers/spatialvla":"/vla/papers/spatialvla","doc:vla/papers/steerable-policies":"/vla/papers/steerable-policies","doc:vla/papers/steervla":"/vla/papers/steervla","doc:vla/papers/timeline":"/vla/papers/timeline","doc:vla/papers/tinyvla":"/vla/papers/tinyvla","doc:vla/papers/training-pipeline":"/vla/papers/training-pipeline","doc:vla/papers/wall-oss":"/vla/papers/wall-oss","doc:vla/papers/wall-oss-05":"/vla/papers/wall-oss-05","doc:vla/papers/xiaohongshu":"/vla/papers/xiaohongshu","doc:wam/index":"/wam/","doc:wam/papers/cosmos3":"/wam/papers/cosmos3","doc:wam/papers/dexworldmodel":"/wam/papers/dexworldmodel","doc:wam/papers/dreamzero":"/wam/papers/dreamzero","doc:wam/papers/flare":"/wam/papers/flare","doc:wam/papers/ge-sim-2":"/wam/papers/ge-sim-2","doc:wam/papers/gen2act":"/wam/papers/gen2act","doc:wam/papers/genie-envisioner":"/wam/papers/genie-envisioner","doc:wam/papers/gigaworld-policy":"/wam/papers/gigaworld-policy","doc:wam/papers/gr-1":"/wam/papers/gr-1","doc:wam/papers/groot-n2":"/wam/papers/groot-n2","doc:wam/papers/himem-wam":"/wam/papers/himem-wam","doc:wam/papers/ladi-wm":"/wam/papers/ladi-wm","doc:wam/papers/lapa":"/wam/papers/lapa","doc:wam/papers/lingbot-va":"/wam/papers/lingbot-va","doc:wam/papers/models-spec":"/wam/papers/models-spec","doc:wam/papers/motubrain":"/wam/papers/motubrain","doc:wam/papers/oa-wam":"/wam/papers/oa-wam","doc:wam/papers/qwen-robotworld":"/wam/papers/qwen-robotworld","doc:wam/papers/robodream":"/wam/papers/robodream","doc:wam/papers/rynnvla-002":"/wam/papers/rynnvla-002","doc:wam/papers/tau0-wm":"/wam/papers/tau0-wm","doc:wam/papers/unipi":"/wam/papers/unipi","doc:wam/papers/uva":"/wam/papers/uva","doc:wam/papers/uwm":"/wam/papers/uwm","doc:wam/papers/veo-act":"/wam/papers/veo-act","doc:wam/papers/vpp":"/wam/papers/vpp","doc:wam/papers/wall-wm":"/wam/papers/wall-wm","doc:wam/papers/wav":"/wam/papers/wav","doc:wam/papers/worldvla":"/wam/papers/worldvla","doc:wam/papers/x-wam":"/wam/papers/x-wam","track:VLA":"/vla/","track:WAM":"/wam/"}));
   const highDegree = Math.max(1, ...RAW_NODES.map((node) => Number(node.degree || 0)));
   const topNode = [...RAW_NODES].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0))[0];
   const overviewNodeIds = buildOverviewNodeIds();
@@ -1333,8 +1370,14 @@ network.on('afterDrawing', function(ctx) {
         ? '<div class="field" style="margin-top:8px;color:#aaa;font-size:11px">Neighbors (' + neighbors.length + ')</div><div id="neighbors-list">' + neighborItems + '</div>'
           + (neighbors.length > visibleNeighbors.length ? '<div class="field neighbor-note">Showing top ' + visibleNeighbors.length + ' by relation strength</div>' : '')
         : '<div class="field neighbor-note" style="margin-top:8px">No recorded neighbors</div>';
+      const nodeUrl = node.url || dsNode?._url || nodeLinksById.get(nodeId) || '';
+      const nodeHref = siteHrefFor(nodeUrl);
+      const linkBlock = nodeHref
+        ? '<div class="node-actions"><a class="node-open-link" href="' + atlasEsc(nodeHref) + '" target="_top" rel="noreferrer">Open page</a><span class="node-url">' + atlasEsc(nodeUrl) + '</span></div>'
+        : '';
       document.getElementById('info-content').innerHTML =
         '<div class="field"><b>' + atlasEsc(node.label || node.id) + '</b></div>'
+        + linkBlock
         + '<div class="field">Type: ' + atlasEsc(node.file_type || node.type || dsNode?._file_type || 'unknown') + '</div>'
         + '<div class="field">Community: ' + atlasEsc(node.community_name || dsNode?._community_name || '-') + '</div>'
         + '<div class="field">Source: ' + atlasEsc(node.source_file || dsNode?._source_file || '-') + '</div>'
@@ -1352,6 +1395,22 @@ network.on('afterDrawing', function(ctx) {
     window.focusNode = atlasFocusNode;
     try { showInfo = atlasShowInfo; } catch (_) {}
     try { focusNode = atlasFocusNode; } catch (_) {}
+  }
+
+  function siteHrefFor(value) {
+    const url = String(value || '').trim();
+    if (!url) return '';
+    if (/^(https?:|mailto:|#)/i.test(url)) return url;
+    const clean = url.startsWith('/') ? url.slice(1) : url;
+    return siteBasePath() + clean;
+  }
+
+  function siteBasePath() {
+    const pathname = window.location?.pathname || '/';
+    const marker = '/graphs/';
+    const index = pathname.indexOf(marker);
+    if (index >= 0) return pathname.slice(0, index + 1);
+    return '/';
   }
 
   function atlasEsc(value) {

@@ -9,6 +9,7 @@ const GRAPHIFY_OUT = path.join(ROOT, 'graphify-out')
 const GRAPHIFY_JSON = path.join(GRAPHIFY_OUT, 'graph.json')
 const GRAPHIFY_LABELS = path.join(GRAPHIFY_OUT, '.graphify_labels.json')
 const GRAPHIFY_HTML = path.join(GRAPHIFY_OUT, 'graph.html')
+const SITE_JSON = path.join(ROOT, 'docs', 'public', 'graphs', 'offline-knowledge-graph.json')
 const PUBLIC_GRAPH_HTML = path.join(ROOT, 'docs', 'public', 'graphs', 'graphify.html')
 const PUBLIC_VIS_NETWORK = path.join(ROOT, 'docs', 'public', 'graphs', 'vis-network.min.js')
 
@@ -150,8 +151,15 @@ function enhanceGraphifyHtml() {
   </section>
 </main>`
     )
-    .replace('</body>', `${graphifyAtlasScript()}\n</body>`)
+    .replace('</body>', `${graphifyAtlasScript(buildNodeLinks())}\n</body>`)
   fs.writeFileSync(PUBLIC_GRAPH_HTML, updated, 'utf-8')
+}
+
+function buildNodeLinks() {
+  const graph = JSON.parse(fs.readFileSync(SITE_JSON, 'utf-8'))
+  return Object.fromEntries((graph.nodes || [])
+    .filter((node) => node.id && node.url)
+    .map((node) => [node.id, node.url]))
 }
 
 function graphifyAtlasStyles() {
@@ -493,6 +501,42 @@ function graphifyAtlasStyles() {
   #info-content .field b {
     color: rgba(220, 255, 220, 0.92);
   }
+  .node-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    margin: 8px 0 9px;
+  }
+  .node-open-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border: 1px solid rgba(116, 255, 176, 0.46);
+    border-radius: 3px;
+    background: linear-gradient(180deg, rgba(34, 197, 94, 0.16), rgba(34, 197, 94, 0.05));
+    color: rgba(232, 255, 237, 0.92);
+    font-size: 12px;
+    font-weight: 850;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .node-open-link:hover {
+    border-color: rgba(246, 210, 94, 0.74);
+    background: rgba(246, 210, 94, 0.12);
+    color: #fff7d6;
+    text-decoration: none;
+  }
+  .node-url {
+    min-width: 0;
+    overflow: hidden;
+    color: rgba(220, 255, 220, 0.36);
+    font-size: 10px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   #info-content .empty {
     color: rgba(220, 255, 220, 0.28);
     font-style: italic;
@@ -687,7 +731,7 @@ function graphifyAtlasStyles() {
 </style>`
 }
 
-function graphifyAtlasScript() {
+function graphifyAtlasScript(nodeLinks) {
   return `<script>
 (function enhanceAtlas() {
   if (typeof network === 'undefined' || typeof nodesDS === 'undefined' || typeof edgesDS === 'undefined') return;
@@ -712,6 +756,7 @@ function graphifyAtlasScript() {
   const overviewNodeLimit = Number.POSITIVE_INFINITY;
   const overviewSkeletonLimit = 140;
   const rawById = new Map(RAW_NODES.map((node) => [node.id, node]));
+  const nodeLinksById = new Map(Object.entries(${JSON.stringify(nodeLinks)}));
   const highDegree = Math.max(1, ...RAW_NODES.map((node) => Number(node.degree || 0)));
   const topNode = [...RAW_NODES].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0))[0];
   const overviewNodeIds = buildOverviewNodeIds();
@@ -1202,8 +1247,14 @@ function graphifyAtlasScript() {
         ? '<div class="field" style="margin-top:8px;color:#aaa;font-size:11px">Neighbors (' + neighbors.length + ')</div><div id="neighbors-list">' + neighborItems + '</div>'
           + (neighbors.length > visibleNeighbors.length ? '<div class="field neighbor-note">Showing top ' + visibleNeighbors.length + ' by relation strength</div>' : '')
         : '<div class="field neighbor-note" style="margin-top:8px">No recorded neighbors</div>';
+      const nodeUrl = node.url || dsNode?._url || nodeLinksById.get(nodeId) || '';
+      const nodeHref = siteHrefFor(nodeUrl);
+      const linkBlock = nodeHref
+        ? '<div class="node-actions"><a class="node-open-link" href="' + atlasEsc(nodeHref) + '" target="_top" rel="noreferrer">Open page</a><span class="node-url">' + atlasEsc(nodeUrl) + '</span></div>'
+        : '';
       document.getElementById('info-content').innerHTML =
         '<div class="field"><b>' + atlasEsc(node.label || node.id) + '</b></div>'
+        + linkBlock
         + '<div class="field">Type: ' + atlasEsc(node.file_type || node.type || dsNode?._file_type || 'unknown') + '</div>'
         + '<div class="field">Community: ' + atlasEsc(node.community_name || dsNode?._community_name || '-') + '</div>'
         + '<div class="field">Source: ' + atlasEsc(node.source_file || dsNode?._source_file || '-') + '</div>'
@@ -1221,6 +1272,22 @@ function graphifyAtlasScript() {
     window.focusNode = atlasFocusNode;
     try { showInfo = atlasShowInfo; } catch (_) {}
     try { focusNode = atlasFocusNode; } catch (_) {}
+  }
+
+  function siteHrefFor(value) {
+    const url = String(value || '').trim();
+    if (!url) return '';
+    if (/^(https?:|mailto:|#)/i.test(url)) return url;
+    const clean = url.startsWith('/') ? url.slice(1) : url;
+    return siteBasePath() + clean;
+  }
+
+  function siteBasePath() {
+    const pathname = window.location?.pathname || '/';
+    const marker = '/graphs/';
+    const index = pathname.indexOf(marker);
+    if (index >= 0) return pathname.slice(0, index + 1);
+    return '/';
   }
 
   function atlasEsc(value) {
