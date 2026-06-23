@@ -14,13 +14,24 @@
 **VLA 调研轨**(`docs/vla/`)
 
 - **发展深度调研总报告**:`docs/vla/index.md` —— 发展主线(含 Mermaid 流程图)、技术路线之争、基准横评、最新前沿、核查与局限。
-- **24 篇论文细读**:`docs/vla/papers/` —— 从 RT-1 到 π0.7,每篇含官方框架图、逐模块拆解(架构 / 数据 / 实验 / 局限)、关键数据表。
+- **43 篇 VLA 论文细读**:`docs/vla/papers/` —— 从 RT-1/RT-2、OpenVLA、π0 系列到 Qwen-VLA、Gemini Robotics、WALL-OSS 等,每篇含官方框架图、逐模块拆解(架构 / 数据 / 实验 / 局限)、关键数据表。
 - **专题综述 / 横切分析 / 速查**:具身数据全景、数据集与基准全景、实验机器人本体、全模型规格对比大表、双系统架构、预测式 VLA、推理部署、术语表、时间线、参考文献等。
 
 **WAM 调研轨**(`docs/wam/`)
 
 - **总览**:`docs/wam/index.md` —— 定义与损失、taxonomy(级联·显式/隐式 × 联合·自回归/扩散)、数据与评测生态。
-- **13 篇论文细读**:`docs/wam/papers/` —— UniPi、Gen2Act、VPP、LAPA、GR-1、WorldVLA、UWM、DreamZero、X-WAM、LingBot-VA、τ0-WM、Genie Envisioner、GR00T N2。
+- **29 篇 WAM 论文细读**:`docs/wam/papers/` —— UniPi、Gen2Act、VPP、LAPA、GR-1、WorldVLA、UWM、DreamZero、X-WAM、τ0-WM、GR00T N2、Cosmos 3、GigaWorld Policy、HiMem-WAM 等。
+
+**生态与知识图谱**(`docs/ecosystem/`)
+
+- **生态总览**:`docs/ecosystem/index.md` —— 国际与国内具身智能公司、科研机构、就业城市、代表产品、融资与官网链接。
+- **论文知识图谱**:[`/ecosystem/paper-graph`](https://zhuyun97.github.io/embodied-ai-learning/ecosystem/paper-graph) —— 人工维护的 VLA / WAM 多类型图谱,把论文、技术路线、知识概念、数据集、基准、本体与机构连成可筛选网络。
+- **离线全站知识图谱**:[`/ecosystem/offline-knowledge-graph`](https://zhuyun97.github.io/embodied-ai-learning/ecosystem/offline-knowledge-graph) / [`/graphs/graphify.html`](https://zhuyun97.github.io/embodied-ai-learning/graphs/graphify.html) —— 从全站 Markdown、站内链接、论文目录与本地实体词典离线抽取,用 Graphify `graph.html` 渲染;不调用模型 API。
+
+**最新动态**(`docs/news/`)
+
+- **具身智能新闻**:[`/news/`](https://zhuyun97.github.io/embodied-ai-learning/news/) —— 收录近期机器人、具身模型、产业生态与数据/基准动态。
+- **专题页**:`docs/news/qwen-robot.md` —— Qwen-RobotManip / Qwen-RobotNav / Qwen-RobotWorld 与 Qwen-VLA 的关系、技术分工和阅读顺序。
 
 ## 站点特性
 
@@ -28,6 +39,7 @@
 - **可信度透镜**:一键暗化 / 仅显已核数据,数据表的 ⚠️ 自评与待核单元格带常驻边缘标记。
 - **阅读进度**:标记已读 + 全站进度条;**相关细读**按机构 / 主干 / 路线自动推荐兄弟模型。
 - **专注阅读**:收起左右侧栏,加宽正文。
+- **双知识图谱入口**:人工策展的论文知识图谱用于稳定学习导航;Graphify 离线全站图谱用于浏览全站 Markdown 之间的主题网络、邻居关系与 community。
 - **流程图 / 框架图点击放大**(灯箱)、LaTeX 公式、Mermaid 图(CJK 防裁切)。
 - 构建期导出 `llms.txt` / `llms-full.txt` + 每页原始 `.md.txt`,便于外部 LLM 摄取时保留可信度标记。
 - 全程尊重 `prefers-reduced-motion`,关键流程满足 WCAG AA 对比度。
@@ -39,7 +51,11 @@ npm install
 npm run docs:dev      # 本地开发服务器
 npm run docs:build    # 构建静态站点到 docs/.vitepress/dist
 npm run docs:preview  # 预览构建产物
+npm run graph:build   # 仅重建 docs/public/graphs/offline-knowledge-graph.json
+npm run graph:html    # 重建离线知识图谱 JSON + Graphify graph.html
 ```
+
+`graph:html` 需要本机可用的 Graphify CLI;若不在默认路径,可用 `GRAPHIFY_BIN=/path/to/graphify npm run graph:html` 指定。图谱生成只读取本仓库 Markdown、站内结构与本地词典,不通过 API 请求模型服务。
 
 ## 部署
 
@@ -77,7 +93,7 @@ npm run docs:build         # 验证 markdown 不被破坏
 
 ## 技术栈
 
-[VitePress](https://vitepress.dev/) + [vitepress-plugin-mermaid](https://github.com/emersonbottero/vitepress-plugin-mermaid)(Mermaid 流程图)+ [markdown-it-mathjax3](https://github.com/tani/markdown-it-mathjax3)(LaTeX 公式)。
+[VitePress](https://vitepress.dev/) + [vitepress-plugin-mermaid](https://github.com/emersonbottero/vitepress-plugin-mermaid)(Mermaid 流程图)+ [markdown-it-mathjax3](https://github.com/tani/markdown-it-mathjax3)(LaTeX 公式)+ Cytoscape(站内交互图谱)+ Graphify / vis-network(离线全站图谱静态渲染)。
 
 ## 许可
 
