@@ -9,6 +9,10 @@ title: 运控算法基础
 
 > **定位**:本页是“具身基础”专题,讲的是 VLA/WAM 策略模型输出动作之后,机器人系统如何把这些动作变成平滑、可行、安全的底层执行命令。它不是某一篇论文细读,而是连接“基础模型”和“真实机器人”的运控层地图。
 
+[![GPT-IMAGE2 生成的运控层示意图:高层动作经过坐标系适配、IK、轨迹生成、接触控制和安全约束后驱动机器人](/figures/motion-control-cover-gpt-image2.jpg)](/figures/motion-control-cover-gpt-image2.jpg)
+
+*读图方式:模型输出只是意图或目标,真正上机前还要经过坐标系、运动学、轨迹、接触力控和安全约束这一层工程翻译。*
+
 ---
 
 ## 摘要
@@ -214,4 +218,3 @@ VLA/WAM 给运控层的输入大致分为六类:
 - Ruckig: online trajectory generation. <https://ruckig.com/>
 - OCS2: optimal control for switched systems. <https://github.com/leggedrobotics/ocs2>
 - MuJoCo MPC. <https://github.com/google-deepmind/mujoco_mpc>
-

@@ -9,6 +9,10 @@ description: openpi、OpenVLA/OFT、LeRobot、Isaac-GR00T、Octo 五大开源 VL
 
 本页是**选型索引**,横向对照 openpi(π 系列)/ OpenVLA(含 OFT)/ LeRobot(+SmolVLA)/ Isaac-GR00T / Octo 五个代码库的关键维度,帮助读者快速定位"我要复现哪个模型、用哪个库"。每一格均标明信源文件;源文件未出现的字段一律标"待核",不臆造数字、版本号或许可证细节。
 
+[![GPT-IMAGE2 生成的开源代码库生态图:仓库、权重、数据、仿真、训练任务和机器人部署模块连接成选型网络](/figures/codebases-cover-gpt-image2.jpg)](/figures/codebases-cover-gpt-image2.jpg)
+
+*读图方式:代码库选型要同时看模型覆盖、权重可得性、数据/仿真接口、微调路径、部署支持和许可边界。*
+
 ---
 
 ## 0. 速览关系图

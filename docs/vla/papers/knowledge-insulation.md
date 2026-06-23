@@ -8,6 +8,10 @@ description: Knowledge Insulation(知识隔离)是 Physical Intelligence / DeepM
 > **arXiv**: [2505.23705](https://arxiv.org/abs/2505.23705) · Physical Intelligence / Google DeepMind(Driess, Springenberg, Ichter, …, Sergey Levine)· 2025.05 · **路线**:VLA 训练配方(梯度隔离 + 离散 token 监督 + co-training),建于 [π0](pi0.md) 之上
 > [← 返回主报告](../index.md)
 
+[![GPT-IMAGE2 生成的 Knowledge Insulation 示意图:VLM 主干和连续动作专家之间由梯度隔离膜分开,前向可读、反向阻断](/figures/knowledge-insulation-cover-gpt-image2.jpg)](/figures/knowledge-insulation-cover-gpt-image2.jpg)
+
+*读图方式:动作专家可以读取主干表征,但连续动作损失的梯度被隔离在专家侧;主干另由 FAST 离散 token 与网络数据维持语义能力。*
+
 ---
 
 ## TL;DR

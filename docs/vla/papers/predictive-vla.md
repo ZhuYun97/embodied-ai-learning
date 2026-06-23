@@ -10,6 +10,10 @@ description: 预测式 VLA / 世界模型作策略主体专题——VPP、DreamV
 
 > 📐 **范式定位**:本页的「预测式 VLA」是更上位范式 **[世界-行动模型 WAM](/wam/)** 的早期 / 狭窄切片,且在综述(arXiv:2605.12090,Fig 2)的 Cascaded/Joint taxonomy 中**横跨两支**——**VPP 属 Cascaded·隐式**(潜空间规划)、**WorldVLA 属 Joint·自回归**,并非同一类别。要把握「联合预测未来状态+动作」的完整范式、分类与 2026 旗舰([DreamZero](/wam/papers/dreamzero) / [X-WAM](/wam/papers/x-wam) / [GR00T N2](/wam/papers/groot-n2)),见 **[WAM 调研](/wam/)**。
 
+[![GPT-IMAGE2 生成的预测式 VLA 示意图:当前观测分支出多个未来 rollout,模型选择目标未来并反推动作](/figures/predictive-vla-cover-gpt-image2.jpg)](/figures/predictive-vla-cover-gpt-image2.jpg)
+
+*读图方式:预测式 VLA 的关键不是「训练时见过视频」,而是推理时真的预演未来,再把最合适的未来状态反推成动作。*
+
 ---
 
 ## TL;DR

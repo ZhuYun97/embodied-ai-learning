@@ -139,6 +139,20 @@ export default withMermaid(defineConfig({
         'wall-oss_arch.webp': [897, 455], 'wall-oss_pipeline.webp': [797, 271],
         'vla-taxonomy-gpt-image2.png': [1672, 941],
         'wam-taxonomy-gpt-image2.png': [1672, 941],
+        'benchmarks-cover-gpt-image2.jpg': [1672, 941],
+        'codebases-cover-gpt-image2.jpg': [1672, 941],
+        'data-processing-cover-gpt-image2.jpg': [1672, 941],
+        'dual-system-cover-gpt-image2.jpg': [1672, 941],
+        'ecosystem-cover-gpt-image2.jpg': [1672, 941],
+        'failure-modes-cover-gpt-image2.jpg': [1672, 941],
+        'getting-started-cover-gpt-image2.jpg': [1672, 941],
+        'guide-cover-gpt-image2.jpg': [1672, 941],
+        'inference-deployment-cover-gpt-image2.jpg': [1672, 941],
+        'knowledge-insulation-cover-gpt-image2.jpg': [1672, 941],
+        'models-spec-cover-gpt-image2.jpg': [1672, 941],
+        'motion-control-cover-gpt-image2.jpg': [1672, 941],
+        'predictive-vla-cover-gpt-image2.jpg': [1672, 941],
+        'training-pipeline-cover-gpt-image2.jpg': [1672, 941],
       }
       const orig = md.renderer.rules.image
       md.renderer.rules.image = (tokens, idx, options, env, self) => {

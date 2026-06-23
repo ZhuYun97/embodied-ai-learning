@@ -7,6 +7,10 @@ description: 从算法、表示、系统、模型体量与权重四层拆解 VLA
 
 > [← 返回主报告](../index.md)
 
+[![GPT-IMAGE2 生成的 VLA 推理部署图:大模型经过并行解码、动作分块、量化和边缘计算优化后进入机器人实时控制环](/figures/inference-deployment-cover-gpt-image2.jpg)](/figures/inference-deployment-cover-gpt-image2.jpg)
+
+*读图方式:部署优化不是单一技巧,而是从动作表示、解码方式、模型体量、系统调度到边缘硬件的多层叠加。*
+
 ---
 
 ## 一、VLA 为什么慢
