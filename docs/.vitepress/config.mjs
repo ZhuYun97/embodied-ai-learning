@@ -138,6 +138,7 @@ export default withMermaid(defineConfig({
         'rynnvla_arch.webp': [793, 386], 'rynnvla_pipeline.webp': [793, 309],
         'wall-oss_arch.webp': [897, 455], 'wall-oss_pipeline.webp': [797, 271],
         'vla-taxonomy-gpt-image2.png': [1672, 941],
+        'wam-taxonomy-gpt-image2.png': [1672, 941],
       }
       const orig = md.renderer.rules.image
       md.renderer.rules.image = (tokens, idx, options, env, self) => {

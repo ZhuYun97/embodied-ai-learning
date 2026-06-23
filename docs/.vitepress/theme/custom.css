@@ -398,7 +398,7 @@ html {
   background: #fff;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
 }
-.vp-doc p > a:has(> img[src*="/figures/vla-taxonomy-gpt-image2.png"]) {
+.vp-doc p > a:has(> img[src*="-taxonomy-gpt-image2.png"]) {
   display: block;
   width: min(1120px, calc(100vw - 40px));
   max-width: none;
@@ -407,7 +407,7 @@ html {
   line-height: 0;
   transform: translateX(-50%);
 }
-.vp-doc p > a:has(> img[src*="/figures/vla-taxonomy-gpt-image2.png"]) > img {
+.vp-doc p > a:has(> img[src*="-taxonomy-gpt-image2.png"]) > img {
   display: block;
   width: 100%;
   height: auto;
@@ -417,12 +417,12 @@ html {
   background: #020617;
   box-shadow: 0 18px 55px rgba(15, 23, 42, 0.22);
 }
-.dark .vp-doc p > a:has(> img[src*="/figures/vla-taxonomy-gpt-image2.png"]) > img {
+.dark .vp-doc p > a:has(> img[src*="-taxonomy-gpt-image2.png"]) > img {
   border-color: rgba(94, 234, 212, 0.22);
   box-shadow: 0 22px 68px rgba(0, 0, 0, 0.38), 0 0 34px rgba(14, 165, 233, 0.12);
 }
 @media (max-width: 768px) {
-  .vp-doc p > a:has(> img[src*="/figures/vla-taxonomy-gpt-image2.png"]) {
+  .vp-doc p > a:has(> img[src*="-taxonomy-gpt-image2.png"]) {
     width: 100%;
     margin-right: auto;
     margin-left: auto;
