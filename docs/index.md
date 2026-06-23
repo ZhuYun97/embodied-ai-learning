@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 45 + WAM 29 篇,逐模块拆架构 / 数据 / 实验。
+    details: VLA 43 + WAM 29 篇,逐模块拆架构 / 数据 / 实验。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -43,10 +43,10 @@ features:
     link: /vla/papers/benchmarks
     linkText: 看数据与速查
   - icon: { src: /icons/globe.svg, width: 28, height: 28 }
-    title: 论文生态图谱
-    details: 论文 + 概念 / 数据 / 基准 / 本体节点组成知识网络,旁路公司图谱与就业地图。
+    title: 知识图谱
+    details: 同页切换论文策展图谱与 Graphify 离线全站图谱,旁路公司图谱与就业地图。
     link: /ecosystem/paper-graph
-    linkText: 看论文图谱
+    linkText: 看知识图谱
 ---
 
 ## VLA:按技术路线浏览

@@ -1,28 +1,17 @@
 ---
 title: 离线全站知识图谱
-description: 从本站 Markdown、站内链接、论文目录与本地实体词典离线生成的全站知识图谱,不依赖模型 API。
+description: 离线 Graphify 全站图谱已合并到知识图谱页的离线视图。
 ---
 
-# 离线全站知识图谱
+# 离线全站知识图谱已合并
 
 <script setup>
-import OfflineKnowledgeGraph from '../.vitepress/theme/components/OfflineKnowledgeGraph.vue'
+import { onMounted } from 'vue'
+import { withBase } from 'vitepress'
+
+onMounted(() => {
+  window.location.replace(withBase('/ecosystem/paper-graph#offline-graphify'))
+})
 </script>
 
-<OfflineKnowledgeGraph />
-
-从现有 Markdown 和站内结构直接构建的全站知识图谱,并用 Graphify 原生 `graph.html` 渲染。它覆盖 VLA / WAM 细读、横切专题、生态页、概念、数据集、基准、本体与机构。动态新闻、arXiv 编号与外部 GitHub 链接不进入图谱,所有节点和关系都由本地规则抽取或来自站内既有目录,不使用模型 API。
-
-## 构建口径
-
-- **文档节点**:来自 `docs/` 下的 VitePress Markdown。
-- **论文节点**:复用 `papers.data.mjs` 的 VLA / WAM 论文目录、路线与日期。
-- **实体节点**:本地词典抽取概念、数据集、基准、本体与机构。
-- **关系边**:站内链接、章节归属、实体提及、共享实体关系。
-- **渲染产物**:`npm run graph:html` 会重建本地图谱,再用 Graphify 离线生成 `graph.html`。
-- **可信度**:`CURATED` 表示站内人工目录关系,`EXTRACTED` 表示本地可复现抽取,`DERIVED` 表示共享实体推导关系。
-
-## 相关入口
-
-- [论文知识图谱](/ecosystem/paper-graph):人工维护的论文与知识节点图谱,适合稳定学习导航。
-- [生态总览](/ecosystem/):公司关系图谱、就业地图与公司目录。
+离线 Graphify 全站图谱已合并到 **[知识图谱](/ecosystem/paper-graph#offline-graphify)** 页面。若自动跳转没有发生,请点击链接进入离线视图。

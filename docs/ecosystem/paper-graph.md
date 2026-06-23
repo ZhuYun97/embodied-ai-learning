@@ -1,31 +1,28 @@
 ---
-title: 论文知识图谱
-description: VLA / WAM 多类型论文知识图谱入口,把论文、知识概念、数据、基准、机器人本体与机构节点组织成可筛选网络。
+title: 知识图谱
+description: 合并论文策展图谱与 Graphify 离线全站图谱,一页切换浏览 VLA / WAM 论文网络和全站 Markdown 语义拓扑。
 ---
 
-# 🧠 论文知识图谱
+# 🧠 知识图谱
 
-把本站 VLA / WAM 细读从「论文节点图」升级为**多类型知识图谱**:除了论文、主线和技术路线,现在还加入知识概念、数据、基准、机器人本体与机构节点。它更适合看“某篇论文用了什么动作接口 / 数据底座 / 评测基准 / 本体平台”,也能反向从“流匹配、动作分块、世界模型、H2R 重定向”等概念找到相关工作。
+这里合并了两个互补视图:**论文策展图谱**适合稳定学习导航,看 VLA / WAM 论文、技术路线、概念、数据、基准、本体与机构之间的人工标注关系;**离线全站图谱**适合浏览全站 Markdown、站内链接与本地实体词典自动抽取出的更大范围语义网络。两者都不依赖模型 API 来补图谱关系。
 
 <script setup>
-import PaperKnowledgeGraph from '../.vitepress/theme/components/PaperKnowledgeGraph.vue'
+import KnowledgeGraphHub from '../.vitepress/theme/components/KnowledgeGraphHub.vue'
 </script>
 
-<PaperKnowledgeGraph />
+<KnowledgeGraphHub />
 
 ## 读图口径
 
-- **主线节点**:VLA 与 WAM 两条调研主线。
-- **路线节点**:动作 token、连续扩散/流匹配、分层双系统、联合自回归、联合扩散等技术路线。
-- **论文节点**:来自首页路线卡与细读页档案,点击进入对应论文细读。
-- **知识概念节点**:动作 token、动作分块、流匹配、DiT 动作头、双系统、世界模型、知识隔离、运控层等。
-- **数据 / 基准 / 本体 / 机构节点**:OXE、DROID、LIBERO、RoboCasa、ALOHA、Franka、Qwen、PI、NVIDIA 等。
-- **桥接关系**:人工标注的关键跨线关系,用于看范式迁移、同系列迭代和公司/团队内部路线延展。
-- **知识关联**:人工标注的论文-概念、论文-数据、论文-基准、论文-本体、论文-机构关系;用于学习导航,不是严格引用计量图。
+- **论文策展图谱**:主线节点是 VLA / WAM,路线节点覆盖动作 token、连续扩散/流匹配、分层双系统、联合自回归、联合扩散等;论文节点来自首页路线卡与细读页档案,知识节点覆盖概念、数据、基准、本体与机构。桥接关系与知识关联为人工维护,用于学习导航,不是严格引用计量图。
+- **离线全站图谱**:文档节点来自 `docs/` 下的 VitePress Markdown,论文节点复用 `papers.data.mjs` 的目录、路线与日期,实体节点由本地词典抽取概念、数据集、基准、本体与机构;关系边来自站内链接、实体提及和共享实体推导。
+- **Graphify 产物**:`npm run graph:html` 会重建离线 JSON,再生成 `/graphs/graphify.html`;动态新闻、arXiv 编号与外部 GitHub 链接不进入离线图谱。
+- **可信度**:`CURATED` 表示站内人工目录关系,`EXTRACTED` 表示本地可复现抽取,`DERIVED` 表示共享实体推导关系。
 
 ## 相关入口
 
-- [离线全站知识图谱](/ecosystem/offline-knowledge-graph):从全站 Markdown、站内链接与本地词典自动抽取的更大范围网络。
+- [Graphify 全屏控制台](/graphs/graphify.html):离线全站图谱的大屏渲染版本。
 - [生态总览](/ecosystem/):公司关系图谱、就业地图与公司目录。
 - [VLA 论文细读导航](/vla/#-论文细读导航):按 VLA 技术路线浏览。
 - [WAM 总览](/wam/):按 WAM 范式路线浏览。

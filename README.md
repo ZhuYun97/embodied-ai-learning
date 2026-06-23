@@ -25,8 +25,8 @@
 **生态与知识图谱**(`docs/ecosystem/`)
 
 - **生态总览**:`docs/ecosystem/index.md` —— 国际与国内具身智能公司、科研机构、就业城市、代表产品、融资与官网链接。
-- **论文知识图谱**:[`/ecosystem/paper-graph`](https://zhuyun97.github.io/embodied-ai-learning/ecosystem/paper-graph) —— 人工维护的 VLA / WAM 多类型图谱,把论文、技术路线、知识概念、数据集、基准、本体与机构连成可筛选网络。
-- **离线全站知识图谱**:[`/ecosystem/offline-knowledge-graph`](https://zhuyun97.github.io/embodied-ai-learning/ecosystem/offline-knowledge-graph) / [`/graphs/graphify.html`](https://zhuyun97.github.io/embodied-ai-learning/graphs/graphify.html) —— 从全站 Markdown、站内链接、论文目录与本地实体词典离线抽取,用 Graphify `graph.html` 渲染;不调用模型 API。
+- **知识图谱**:[`/ecosystem/paper-graph`](https://zhuyun97.github.io/embodied-ai-learning/ecosystem/paper-graph) —— 同页切换人工维护的 VLA / WAM 论文策展图谱与 Graphify 离线全站图谱;后者从全站 Markdown、站内链接、论文目录与本地实体词典离线抽取,不调用模型 API。
+- **Graphify 全屏控制台**:[`/graphs/graphify.html`](https://zhuyun97.github.io/embodied-ai-learning/graphs/graphify.html) —— 离线全站图谱的大屏渲染版本。
 
 **最新动态**(`docs/news/`)
 
@@ -39,7 +39,7 @@
 - **可信度透镜**:一键暗化 / 仅显已核数据,数据表的 ⚠️ 自评与待核单元格带常驻边缘标记。
 - **阅读进度**:标记已读 + 全站进度条;**相关细读**按机构 / 主干 / 路线自动推荐兄弟模型。
 - **专注阅读**:收起左右侧栏,加宽正文。
-- **双知识图谱入口**:人工策展的论文知识图谱用于稳定学习导航;Graphify 离线全站图谱用于浏览全站 Markdown 之间的主题网络、邻居关系与 community。
+- **知识图谱双视图**:人工策展的论文图谱用于稳定学习导航;Graphify 离线全站图谱用于浏览全站 Markdown 之间的主题网络、邻居关系与 community。
 - **流程图 / 框架图点击放大**(灯箱)、LaTeX 公式、Mermaid 图(CJK 防裁切)。
 - 构建期导出 `llms.txt` / `llms-full.txt` + 每页原始 `.md.txt`,便于外部 LLM 摄取时保留可信度标记。
 - 全程尊重 `prefers-reduced-motion`,关键流程满足 WCAG AA 对比度。

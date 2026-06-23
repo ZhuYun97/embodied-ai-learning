@@ -12,7 +12,7 @@ aside: false
 <p class="qr-lede">Qwen 团队连续放出 <strong>Qwen-RobotManip</strong>、<strong>Qwen-RobotNav</strong>、<strong>Qwen-RobotWorld</strong> 三篇机器人技术报告。它们不是简单的厂商专题,更像 Qwen-VLA 之后拆出来的三条工程化分支:操作、导航、世界模型。</p>
 <div class="qr-actions">
 <a href="../vla/papers/qwen-vla">先看 Qwen-VLA</a>
-<a href="../ecosystem/paper-graph">打开论文图谱</a>
+<a href="../ecosystem/paper-graph">打开知识图谱</a>
 <a href="../news/">返回最新动态</a>
 </div>
 </div>
@@ -170,12 +170,12 @@ aside: false
 <li><a href="../vla/papers/qwen-robotmanip">Qwen-RobotManip</a><span>看操作数据如何对齐到统一 action space。</span></li>
 <li><a href="../vla/papers/qwen-robotnav">Qwen-RobotNav</a><span>看导航如何从单任务模型变成可配置 executor。</span></li>
 <li><a href="../wam/papers/qwen-robotworld">Qwen-RobotWorld</a><span>看 Qwen 系列如何用世界模型扩展数据、评测和规划。</span></li>
-<li><a href="../ecosystem/paper-graph">论文知识图谱</a><span>查看 Qwen-VLA 到三条分支的桥接关系。</span></li>
+<li><a href="../ecosystem/paper-graph">知识图谱</a><span>查看 Qwen-VLA 到三条分支的桥接关系。</span></li>
 </ol>
 </section>
 <footer class="qr-footer">
 <a href="../news/">具身智能新闻</a>
 <a href="../vla/changelog">2026-06-18 更新日志</a>
-<a href="../ecosystem/paper-graph">论文知识图谱</a>
+<a href="../ecosystem/paper-graph">知识图谱</a>
 </footer>
 </div>
