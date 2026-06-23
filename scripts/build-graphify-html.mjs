@@ -693,8 +693,8 @@ function graphifyAtlasScript() {
     amber2: '#fbbf24',
     dim: '#203026',
   };
-  const overviewNodeLimit = 220;
-  const overviewSkeletonLimit = 96;
+  const overviewNodeLimit = Number.POSITIVE_INFINITY;
+  const overviewSkeletonLimit = 140;
   const rawById = new Map(RAW_NODES.map((node) => [node.id, node]));
   const highDegree = Math.max(1, ...RAW_NODES.map((node) => Number(node.degree || 0)));
   const topNode = [...RAW_NODES].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0))[0];
@@ -877,7 +877,7 @@ function graphifyAtlasScript() {
     if (selectedIds.has(node.id) || neighborIds.has(node.id)) return true;
     if (overviewNodeIds.has(node.id)) return true;
     if (kind === 'section') {
-      if (scale < 1.65) return false;
+      if (scale < 1.65) return true;
       if (scale < 2.2) return degree >= 6;
       return true;
     }
@@ -1128,11 +1128,14 @@ function graphifyAtlasScript() {
 
   function nodeVisualFor(node, baseColor, degree, isCommand, isHub) {
     const baseSize = Number(node.size || 10);
+    const isSection = nodeKind(node) === 'section';
     const isMajor = isHub || degree >= 75 || node.id.startsWith('org:') || node.id.startsWith('data:');
-    const tier = isCommand ? 'core' : isHub ? 'hub' : isMajor ? 'major' : 'node';
+    const tier = isSection ? 'section' : isCommand ? 'core' : isHub ? 'hub' : isMajor ? 'major' : 'node';
     const shape = 'dot';
     const muted = mixHex(baseColor, '#9fb7a5', 0.22);
-    const size = tier === 'core'
+    const size = tier === 'section'
+      ? Math.max(2.1, Math.min(3.8, baseSize * 0.26))
+      : tier === 'core'
       ? Math.max(14, Math.min(24, baseSize * 0.62 + 4))
       : tier === 'hub'
         ? Math.max(10, Math.min(18, baseSize * 0.62 + 2.5))
@@ -1144,12 +1147,12 @@ function graphifyAtlasScript() {
       shape,
       size,
       baseColor: muted,
-      fill: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.72 : tier === 'major' ? 0.64 : 0.54),
-      border: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.24 : tier === 'major' ? 0.14 : 0.04),
+      fill: mixHex(muted, graphifyPalette.bg, tier === 'section' ? 0.84 : tier === 'node' ? 0.72 : tier === 'major' ? 0.64 : 0.54),
+      border: mixHex(muted, graphifyPalette.bg, tier === 'section' ? 0.42 : tier === 'node' ? 0.24 : tier === 'major' ? 0.14 : 0.04),
       hoverFill: mixHex(muted, graphifyPalette.bg, 0.42),
       highlightFill: mixHex(muted, graphifyPalette.bg, 0.34),
       highlightBorder: muted,
-      borderWidth: tier === 'core' ? 1.45 : tier === 'hub' ? 1.15 : tier === 'major' ? 0.9 : 0.55,
+      borderWidth: tier === 'section' ? 0.35 : tier === 'core' ? 1.45 : tier === 'hub' ? 1.15 : tier === 'major' ? 0.9 : 0.55,
       degree,
     };
   }
