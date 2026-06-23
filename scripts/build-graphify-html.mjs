@@ -741,7 +741,7 @@ function graphifyAtlasScript() {
     const isCommand = degree >= 250 || node.id.startsWith('track:') || node.id.startsWith('route:');
     const isHub = isCommand || degree >= 150 || node.file_type === 'paper';
     const pos = layout.nodes.get(node.id) || { x: 0, y: 0 };
-    const baseColor = communityColorFor(node);
+    const baseColor = accentForNode(node, degree, isCommand, isHub);
     const visual = nodeVisualFor(node, baseColor, degree, isCommand, isHub);
     node.color = {
       ...(node.color || {}),
@@ -770,7 +770,7 @@ function graphifyAtlasScript() {
       shadow: false,
       font: {
         ...(node.font || {}),
-        color: labelColorForNode(node),
+        color: Number(node.degree || 0) >= 220 || nodeKind(node) === 'paper' ? graphifyPalette.amber2 : graphifyPalette.green2,
         strokeWidth: isHub ? 5 : 4,
         strokeColor: 'rgba(4, 8, 6, 0.92)',
         size: 0,
@@ -1003,7 +1003,9 @@ function graphifyAtlasScript() {
       const level = isHidden ? 0 : labelLevelFor(node, scale, selectedIds, localLabelIds);
       const fontSize = level === 0 ? 0 : level === 1 ? 12 : level === 2 ? 13 : level === 3 ? 14 : 15;
       const next = level === 0 ? '' : node.label;
-      const labelColor = labelColorForNode(node);
+      const labelColor = Number(node.degree || 0) >= 220 || nodeKind(node) === 'paper'
+        ? graphifyPalette.amber2
+        : graphifyPalette.green2;
       const stateKey = next + '|' + fontSize;
       if (labelState.get(node.id) === stateKey) continue;
       labelState.set(node.id, stateKey);
@@ -1031,7 +1033,7 @@ function graphifyAtlasScript() {
       label: node.label,
       font: {
         ...(node.font || {}),
-        color: labelColorForNode(node),
+        color: Number(node.degree || 0) >= 220 || nodeKind(node) === 'paper' ? graphifyPalette.amber2 : graphifyPalette.green2,
         strokeWidth: 6,
         strokeColor: 'rgba(4, 8, 6, 0.98)',
         size: 15,
@@ -1095,12 +1097,19 @@ function graphifyAtlasScript() {
     return degree + typeBoost + (node?.id === topNode?.id ? 1000 : 0);
   }
 
+  function accentForNode(node, degree, isCommand, isHub) {
+    const kind = nodeKind(node);
+    if (isCommand || degree >= 300 || node.id === topNode?.id) return graphifyPalette.amber;
+    if (kind === 'paper' || kind === 'route' || kind === 'track') return graphifyPalette.amber2;
+    return isHub || degree >= 40 ? graphifyPalette.green2 : graphifyPalette.green;
+  }
+
   function edgeAccentFor(from, to) {
     const endpoints = [from, to].filter(Boolean);
-    if (!endpoints.length) return graphifyPalette.green;
-    const base = communityColorFor(endpoints[0]);
-    if (endpoints.length === 1) return base;
-    return mixHex(base, communityColorFor(endpoints[1]), 0.5);
+    if (endpoints.some((node) => Number(node.degree || 0) >= 250 || nodeKind(node) === 'paper')) {
+      return graphifyPalette.amber;
+    }
+    return graphifyPalette.green;
   }
 
   function communityColorFor(node) {
@@ -1110,14 +1119,6 @@ function graphifyAtlasScript() {
     const cid = Number(node.community);
     const legend = LEGEND.find((item) => Number(item.cid) === cid);
     return isHexColor(legend?.color) ? legend.color : graphifyPalette.green;
-  }
-
-  function labelColorForNode(node) {
-    const base = communityColorFor(node);
-    const degree = Number(node?.degree || 0);
-    const kind = nodeKind(node || {});
-    const lift = degree >= 180 || kind === 'paper' || node?.id === topNode?.id ? 0.36 : 0.24;
-    return mixHex(base, '#f4fff5', lift);
   }
 
   function buildNeighborRecords() {
@@ -1250,7 +1251,8 @@ function graphifyAtlasScript() {
     const isMajor = isHub || degree >= 75 || node.id.startsWith('org:') || node.id.startsWith('data:');
     const tier = isCommand ? 'core' : isHub ? 'hub' : isMajor ? 'major' : 'node';
     const shape = 'dot';
-    const muted = mixHex(baseColor, '#d8ffe4', 0.07);
+    const communityColor = communityColorFor(node);
+    const muted = mixHex(baseColor, '#9fb7a5', 0.22);
     const size = tier === 'core'
       ? Math.max(14, Math.min(24, baseSize * 0.62 + 4))
       : tier === 'hub'
@@ -1263,8 +1265,9 @@ function graphifyAtlasScript() {
       shape,
       size,
       baseColor: muted,
-      fill: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.66 : tier === 'major' ? 0.56 : 0.44),
-      border: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.16 : tier === 'major' ? 0.08 : 0.02),
+      communityColor,
+      fill: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.72 : tier === 'major' ? 0.64 : 0.54),
+      border: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.24 : tier === 'major' ? 0.14 : 0.04),
       hoverFill: mixHex(muted, graphifyPalette.bg, 0.42),
       highlightFill: mixHex(muted, graphifyPalette.bg, 0.34),
       highlightBorder: muted,
@@ -1291,7 +1294,7 @@ function graphifyAtlasScript() {
       const target = positions[id];
       if (!node || !target) return;
       const degree = Number(node.degree || 0);
-      const color = communityColorFor(node);
+      const color = degree >= 220 ? graphifyPalette.amber : graphifyPalette.green;
       ctx.setLineDash([]);
       ctx.lineWidth = (degree >= 250 ? 0.9 : 0.58) / Math.max(scale, 0.2);
       ctx.strokeStyle = rgbaFromHex(color, index < 8 ? 0.16 : 0.09);
@@ -1321,7 +1324,12 @@ function graphifyAtlasScript() {
   function drawRoundNode(ctx, visual, scale) {
     const ring = visual.size + (visual.tier === 'core' ? 4.5 : visual.tier === 'hub' ? 2.8 : 1.8) / scale;
     ctx.setLineDash([]);
-    ctx.lineWidth = (visual.tier === 'core' ? 1 : visual.tier === 'hub' ? 0.85 : 0.65) / scale;
+    ctx.lineWidth = (visual.tier === 'core' ? 0.9 : visual.tier === 'hub' ? 0.76 : 0.58) / scale;
+    ctx.strokeStyle = rgbaFromHex(visual.communityColor, visual.tier === 'core' ? 0.5 : visual.tier === 'hub' ? 0.42 : 0.32);
+    ctx.beginPath();
+    ctx.arc(visual.x, visual.y, ring + 1.8 / scale, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.lineWidth = (visual.tier === 'core' ? 0.78 : visual.tier === 'hub' ? 0.62 : 0.5) / scale;
     ctx.strokeStyle = rgbaFromHex(visual.baseColor, visual.tier === 'core' ? 0.45 : visual.tier === 'hub' ? 0.34 : 0.22);
     ctx.beginPath();
     ctx.arc(visual.x, visual.y, ring, 0, Math.PI * 2);
