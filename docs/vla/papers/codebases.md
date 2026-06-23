@@ -7,11 +7,22 @@ description: openpi、OpenVLA/OFT、LeRobot、Isaac-GR00T、Octo 五大开源 VL
 
 > [← 返回主报告](../index.md)
 
-本页是**选型索引**,横向对照 openpi(π 系列)/ OpenVLA(含 OFT)/ LeRobot(+SmolVLA)/ Isaac-GR00T / Octo 五个代码库的关键维度,帮助读者快速定位"我要复现哪个模型、用哪个库"。每一格均标明信源文件;源文件未出现的字段一律标"待核",不臆造数字、版本号或许可证细节。
+<section class="codebase-console">
+  <div class="codebase-console__copy">
+    <p class="codebase-console__kicker">OPEN-SOURCE VLA STACKS</p>
+    <p>本页是<strong>选型索引</strong>,横向对照 openpi(π 系列)/ OpenVLA(含 OFT)/ LeRobot(+SmolVLA)/ Isaac-GR00T / Octo 五个代码库的关键维度,帮助读者快速定位"我要复现哪个模型、用哪个库"。每一格均标明信源文件;源文件未出现的字段一律标"待核",不臆造数字、版本号或许可证细节。</p>
+    <div class="codebase-console__stats" aria-label="页面覆盖范围">
+      <span><b>6</b><small>代码入口</small></span>
+      <span><b>5</b><small>横向维度</small></span>
+      <span><b>3</b><small>选型路径</small></span>
+    </div>
+  </div>
+  <a class="codebase-console__media" href="/figures/codebases-cover-gpt-image2.jpg" aria-label="打开代码库生态图大图">
+    <img src="/figures/codebases-cover-gpt-image2.jpg" alt="GPT-IMAGE2 生成的开源代码库生态图:仓库、权重、数据、仿真、训练任务和机器人部署模块连接成选型网络" width="1672" height="941" loading="eager" decoding="async" />
+  </a>
+</section>
 
-[![GPT-IMAGE2 生成的开源代码库生态图:仓库、权重、数据、仿真、训练任务和机器人部署模块连接成选型网络](/figures/codebases-cover-gpt-image2.jpg)](/figures/codebases-cover-gpt-image2.jpg)
-
-*读图方式:代码库选型要同时看模型覆盖、权重可得性、数据/仿真接口、微调路径、部署支持和许可边界。*
+<p class="codebase-readnote"><strong>读图方式</strong>:代码库选型要同时看模型覆盖、权重可得性、数据/仿真接口、微调路径、部署支持和许可边界。</p>
 
 <div class="codebase-quicklinks">
   <a class="cb-card cb-card--pi" href="https://github.com/Physical-Intelligence/openpi" target="_blank" rel="noopener">
@@ -44,6 +55,24 @@ description: openpi、OpenVLA/OFT、LeRobot、Isaac-GR00T、Octo 五大开源 VL
     <strong>octo</strong>
     <span>开源通用机器人 Transformer</span>
   </a>
+</div>
+
+<div class="codebase-triage" aria-label="选型路径">
+  <div class="cb-triage__item cb-triage__item--model">
+    <span>MODEL</span>
+    <strong>按模型复现</strong>
+    <small>π0 / OpenVLA / GR00T / Octo</small>
+  </div>
+  <div class="cb-triage__item cb-triage__item--body">
+    <span>ROBOT</span>
+    <strong>按本体选择</strong>
+    <small>单臂、双臂、人形、移动操作</small>
+  </div>
+  <div class="cb-triage__item cb-triage__item--head">
+    <span>ACTION</span>
+    <strong>按动作头取舍</strong>
+    <small>离散 token、L1、扩散、流匹配</small>
+  </div>
 </div>
 
 ---
