@@ -498,18 +498,36 @@ function graphifyAtlasStyles() {
     font-style: italic;
   }
   .neighbor-link {
-    display: block;
-    padding: 4px 8px;
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+    padding: 5px 8px;
     margin: 3px 0;
     border-radius: 5px;
     cursor: pointer;
     color: rgba(220, 255, 220, 0.72);
     font-size: 12px;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
     border-left: 3px solid rgba(34, 197, 94, 0.32);
     background: rgba(34, 197, 94, 0.035);
+  }
+  .neighbor-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .neighbor-relation {
+    overflow: hidden;
+    color: rgba(220, 255, 220, 0.34);
+    font-size: 10px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .neighbor-note {
+    color: rgba(220, 255, 220, 0.34);
+    font-size: 10px;
   }
   .neighbor-link:hover {
     background: rgba(34, 197, 94, 0.075);
@@ -709,6 +727,7 @@ function graphifyAtlasScript() {
       to: rawById.get(toId),
     };
   });
+  const neighborRecordsById = buildNeighborRecords();
   if (topNode) {
     document.querySelector('[data-atlas-hotspot]').textContent = topNode.label + ' · ' + Number(topNode.degree || 0);
   }
@@ -1025,6 +1044,7 @@ function graphifyAtlasScript() {
   network.on('hoverNode', (params) => revealNodeLabel(params.node));
   network.on('blurNode', () => scheduleLabelUpdate(true));
   network.on('animationFinished', () => scheduleLabelUpdate(true));
+  installSidebarNeighborInfo();
 
   function nodeKind(node) {
     const rawKind = node.file_type || node.type || node._file_type || 'unknown';
@@ -1090,6 +1110,118 @@ function graphifyAtlasScript() {
       return graphifyPalette.amber;
     }
     return graphifyPalette.green;
+  }
+
+  function buildNeighborRecords() {
+    const byId = new Map();
+    for (const record of edgeRecords) {
+      if (!record.fromId || !record.toId || record.fromId === record.toId) continue;
+      if (!rawById.has(record.fromId) || !rawById.has(record.toId)) continue;
+      addNeighborRecord(byId, record.fromId, record.toId, record);
+      addNeighborRecord(byId, record.toId, record.fromId, record);
+    }
+    for (const [nodeId, neighbors] of byId.entries()) {
+      const ranked = Array.from(neighbors.values())
+        .map((item) => ({
+          ...item,
+          labels: Array.from(item.labels),
+        }))
+        .sort((a, b) => neighborScore(b) - neighborScore(a) || String(rawById.get(a.id)?.label || a.id).localeCompare(String(rawById.get(b.id)?.label || b.id), 'zh-Hans-CN'));
+      byId.set(nodeId, ranked);
+    }
+    return byId;
+  }
+
+  function addNeighborRecord(byId, sourceId, targetId, record) {
+    if (!byId.has(sourceId)) byId.set(sourceId, new Map());
+    const neighbors = byId.get(sourceId);
+    if (!neighbors.has(targetId)) {
+      neighbors.set(targetId, {
+        id: targetId,
+        labels: new Set(),
+        weight: 0,
+        confidenceScore: 0,
+        edgeCount: 0,
+      });
+    }
+    const item = neighbors.get(targetId);
+    const edge = record.edge || {};
+    const label = String(edge.label || edge.type || edge.title || '').replace(/\\s*\\[[^\\]]+]\\s*$/, '').trim();
+    if (label) item.labels.add(label);
+    item.weight += Number(edge.weight || edge.width || 1);
+    item.edgeCount += 1;
+    item.confidenceScore += edge.confidence === 'CURATED' ? 8 : edge.confidence === 'EXTRACTED' ? 4 : 1;
+  }
+
+  function neighborScore(item) {
+    const node = rawById.get(item.id) || {};
+    const kind = nodeKind(node);
+    const typeBoost = {
+      paper: 34,
+      concept: 26,
+      route: 22,
+      track: 22,
+      data: 18,
+      benchmark: 18,
+      org: 16,
+      robot: 14,
+      topic: 10,
+    }[kind] || 0;
+    return item.confidenceScore + item.weight + item.edgeCount * 3 + Number(node.degree || 0) * 0.18 + typeBoost;
+  }
+
+  function installSidebarNeighborInfo() {
+    const atlasShowInfo = function(nodeId) {
+      const raw = rawById.get(nodeId);
+      const dsNode = nodesDS.get(nodeId);
+      const node = raw || dsNode;
+      if (!node) return;
+      const neighbors = neighborRecordsById.get(nodeId) || [];
+      const visibleNeighbors = neighbors.slice(0, 80);
+      const neighborItems = visibleNeighbors.map((item) => {
+        const rawNeighbor = rawById.get(item.id);
+        const dsNeighbor = nodesDS.get(item.id);
+        const label = rawNeighbor?.label || dsNeighbor?.label || item.id;
+        const color = dsNeighbor?.color?.background || rawNeighbor?.color?.background || '#4ade80';
+        const relation = item.labels.slice(0, 2).join(' / ') || 'related';
+        return '<span class="neighbor-link" style="border-left-color:' + atlasEsc(color) + '" onclick="focusNode(' + atlasEsc(JSON.stringify(item.id)) + ')" title="' + atlasEsc(label + ' · ' + relation) + '">'
+          + '<span class="neighbor-label">' + atlasEsc(label) + '</span>'
+          + '<span class="neighbor-relation">' + atlasEsc(relation) + '</span>'
+          + '</span>';
+      }).join('');
+      const neighborBlock = neighbors.length
+        ? '<div class="field" style="margin-top:8px;color:#aaa;font-size:11px">Neighbors (' + neighbors.length + ')</div><div id="neighbors-list">' + neighborItems + '</div>'
+          + (neighbors.length > visibleNeighbors.length ? '<div class="field neighbor-note">Showing top ' + visibleNeighbors.length + ' by relation strength</div>' : '')
+        : '<div class="field neighbor-note" style="margin-top:8px">No recorded neighbors</div>';
+      document.getElementById('info-content').innerHTML =
+        '<div class="field"><b>' + atlasEsc(node.label || node.id) + '</b></div>'
+        + '<div class="field">Type: ' + atlasEsc(node.file_type || node.type || dsNode?._file_type || 'unknown') + '</div>'
+        + '<div class="field">Community: ' + atlasEsc(node.community_name || dsNode?._community_name || '-') + '</div>'
+        + '<div class="field">Source: ' + atlasEsc(node.source_file || dsNode?._source_file || '-') + '</div>'
+        + '<div class="field">Degree: ' + atlasEsc(node.degree ?? dsNode?._degree ?? '-') + '</div>'
+        + neighborBlock;
+    };
+    const atlasFocusNode = function(nodeId) {
+      network.focus(nodeId, { scale: 1.4, animation: true });
+      network.selectNodes([nodeId]);
+      atlasShowInfo(nodeId);
+      updateVisibility();
+      scheduleLabelUpdate(true);
+    };
+    window.showInfo = atlasShowInfo;
+    window.focusNode = atlasFocusNode;
+    try { showInfo = atlasShowInfo; } catch (_) {}
+    try { focusNode = atlasFocusNode; } catch (_) {}
+  }
+
+  function atlasEsc(value) {
+    if (typeof esc === 'function') return esc(value);
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   function restyleLegend() {
