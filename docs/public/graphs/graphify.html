@@ -1473,7 +1473,7 @@ network.on('afterDrawing', function(ctx) {
       communityColor,
       pulse,
       pulseColor: baseColor,
-      pulseOffset: stableHash(node.id) % 2600,
+      pulseOffset: stableHash(node.id) % 2200,
       fill: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.72 : tier === 'major' ? 0.64 : 0.54),
       border: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.24 : tier === 'major' ? 0.14 : 0.04),
       hoverFill: mixHex(muted, graphifyPalette.bg, 0.42),
@@ -1533,14 +1533,14 @@ network.on('afterDrawing', function(ctx) {
     const ring = visual.size + (visual.tier === 'core' ? 4.5 : visual.tier === 'hub' ? 2.8 : 1.8) / scale;
     ctx.setLineDash([]);
     if (visual.pulse && pulseEnabled) {
-      const phase = ((pulseTime + visual.pulseOffset) % 2600) / 2600;
-      const radius = ring + (2.2 + phase * 9.4) / scale;
-      const alphaBase = visual.tier === 'core' ? 0.24 : visual.tier === 'hub' ? 0.18 : 0.13;
-      ctx.lineWidth = (0.78 - phase * 0.34) / scale;
-      ctx.strokeStyle = rgbaFromHex(visual.pulseColor, Math.max(0, alphaBase * (1 - phase)));
-      ctx.beginPath();
-      ctx.arc(visual.x, visual.y, radius, 0, Math.PI * 2);
-      ctx.stroke();
+      const pulseDuration = 2200;
+      const phase = ((pulseTime + visual.pulseOffset) % pulseDuration) / pulseDuration;
+      const secondaryPhase = (phase + 0.46) % 1;
+      const alphaBase = visual.tier === 'core' ? 0.46 : visual.tier === 'hub' ? 0.36 : 0.28;
+      drawPulseRing(ctx, visual, scale, ring, phase, alphaBase, 4.4, 18, 1.24, 0.54);
+      if (visual.tier === 'core' || visual.tier === 'hub') {
+        drawPulseRing(ctx, visual, scale, ring, secondaryPhase, alphaBase * 0.52, 8.8, 22, 0.84, 0.34);
+      }
     }
     ctx.lineWidth = (visual.tier === 'core' ? 0.9 : visual.tier === 'hub' ? 0.76 : 0.58) / scale;
     ctx.strokeStyle = rgbaFromHex(visual.communityColor, visual.tier === 'core' ? 0.5 : visual.tier === 'hub' ? 0.42 : 0.32);
@@ -1551,6 +1551,18 @@ network.on('afterDrawing', function(ctx) {
     ctx.strokeStyle = rgbaFromHex(visual.baseColor, visual.tier === 'core' ? 0.45 : visual.tier === 'hub' ? 0.34 : 0.22);
     ctx.beginPath();
     ctx.arc(visual.x, visual.y, ring, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  function drawPulseRing(ctx, visual, scale, ring, phase, alphaBase, startGap, spread, startWidth, endWidth) {
+    const pulseScale = Math.max(scale, 0.64);
+    const eased = 1 - Math.pow(1 - phase, 2);
+    const radius = ring + (startGap + eased * spread) / pulseScale;
+    const alpha = Math.max(0, alphaBase * Math.pow(1 - phase, 1.28));
+    ctx.lineWidth = (startWidth - phase * (startWidth - endWidth)) / pulseScale;
+    ctx.strokeStyle = rgbaFromHex(visual.pulseColor, alpha);
+    ctx.beginPath();
+    ctx.arc(visual.x, visual.y, radius, 0, Math.PI * 2);
     ctx.stroke();
   }
 
