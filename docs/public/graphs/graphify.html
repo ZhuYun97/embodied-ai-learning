@@ -894,11 +894,13 @@ network.on('afterDrawing', function(ctx) {
     const edge = record.edge;
     const color = edgeAccentFor(record.from, record.to);
     const strong = edge.confidence === 'EXTRACTED';
+    const type = String(edge.type || edge.label || edge.title || '');
+    const structural = /H2|H3|contains|章节|section/i.test(type);
     return {
       id: record.id,
       hidden: true,
-      width: strong ? Math.max(0.32, Math.min(0.72, edge.width || 1)) : 0.22,
-      color: { color, opacity: strong ? 0.08 : 0.025 },
+      width: structural ? 0.22 : strong ? Math.max(0.32, Math.min(0.72, edge.width || 1)) : 0.22,
+      color: { color, opacity: structural ? 0.025 : strong ? 0.08 : 0.025 },
       hoverWidth: strong ? 1.35 : 0.8,
       arrows: { to: { enabled: false } },
       smooth: false,
@@ -1050,12 +1052,13 @@ network.on('afterDrawing', function(ctx) {
     const bothOverview = overviewNodeIds.has(record.fromId) && overviewNodeIds.has(record.toId);
     const hasCore = record.fromId === topNode?.id || record.toId === topNode?.id;
     const structural = /taxonomy|related|links-to|站内|共现|路线/.test(type);
+    const sectionStructure = /H2|H3|contains|章节|section/i.test(type);
 
     if (scale < 0.58) {
-      return bothOverview && (hasCore || (maxDegree >= 250 && minDegree >= 145) || (structural && minDegree >= 170));
+      return bothOverview && (sectionStructure || hasCore || (maxDegree >= 250 && minDegree >= 145) || (structural && minDegree >= 170));
     }
     if (scale < 0.9) {
-      return bothOverview && (hasCore || structural || maxDegree >= 180 || minDegree >= 120);
+      return bothOverview && (sectionStructure || hasCore || structural || maxDegree >= 180 || minDegree >= 120);
     }
     if (scale < 1.25) {
       if (type === 'contains' || type === 'section-mentions') return false;
@@ -1263,7 +1266,7 @@ network.on('afterDrawing', function(ctx) {
     const shape = 'dot';
     const muted = mixHex(baseColor, '#9fb7a5', 0.22);
     const size = tier === 'section'
-      ? Math.max(2.1, Math.min(3.8, baseSize * 0.26))
+      ? Math.max(3.4, Math.min(6.2, baseSize * 0.38))
       : tier === 'core'
       ? Math.max(14, Math.min(24, baseSize * 0.62 + 4))
       : tier === 'hub'
@@ -1276,12 +1279,12 @@ network.on('afterDrawing', function(ctx) {
       shape,
       size,
       baseColor: muted,
-      fill: mixHex(muted, graphifyPalette.bg, tier === 'section' ? 0.84 : tier === 'node' ? 0.72 : tier === 'major' ? 0.64 : 0.54),
-      border: mixHex(muted, graphifyPalette.bg, tier === 'section' ? 0.42 : tier === 'node' ? 0.24 : tier === 'major' ? 0.14 : 0.04),
-      hoverFill: mixHex(muted, graphifyPalette.bg, 0.42),
+      fill: mixHex(muted, graphifyPalette.bg, tier === 'section' ? 0.66 : tier === 'node' ? 0.72 : tier === 'major' ? 0.64 : 0.54),
+      border: mixHex(muted, graphifyPalette.bg, tier === 'section' ? 0.2 : tier === 'node' ? 0.24 : tier === 'major' ? 0.14 : 0.04),
+      hoverFill: mixHex(muted, graphifyPalette.bg, tier === 'section' ? 0.48 : 0.42),
       highlightFill: mixHex(muted, graphifyPalette.bg, 0.34),
       highlightBorder: muted,
-      borderWidth: tier === 'section' ? 0.35 : tier === 'core' ? 1.45 : tier === 'hub' ? 1.15 : tier === 'major' ? 0.9 : 0.55,
+      borderWidth: tier === 'section' ? 0.48 : tier === 'core' ? 1.45 : tier === 'hub' ? 1.15 : tier === 'major' ? 0.9 : 0.55,
       degree,
     };
   }
