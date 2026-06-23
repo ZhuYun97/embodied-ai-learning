@@ -16,7 +16,6 @@ const INTERNAL_DOC_DIRS = new Set(['ecosystem', 'vla', 'wam'])
 const SKIP_DIRS = new Set(['.vitepress', 'public', 'node_modules', 'dist'])
 const MAX_RELATED_PER_DOC = 8
 const MIN_SHARED_ENTITIES = 3
-const MAX_SECTION_ENTITY_EDGES = 8
 
 const ENTITY_GROUPS = [
   {
@@ -208,10 +207,6 @@ function docId(rel) {
   return `doc:${rel.replace(/\.md$/, '')}`
 }
 
-function sectionId(rel, index) {
-  return `section:${rel.replace(/\.md$/, '')}:${index}`
-}
-
 function nodeTypeForDoc(rel, paperByRel) {
   if (paperByRel.has(rel)) return 'paper'
   if (rel === 'index.md') return 'home'
@@ -219,20 +214,6 @@ function nodeTypeForDoc(rel, paperByRel) {
   if (rel.includes('/papers/')) return 'topic'
   if (rel.endsWith('/index.md')) return 'index'
   return 'page'
-}
-
-function extractSections(doc) {
-  const lines = doc.body.split(/\r?\n/)
-  const heads = []
-  for (let i = 0; i < lines.length; i++) {
-    const m = lines[i].match(/^(#{2,3})\s+(.+)$/)
-    if (m) heads.push({ level: m[1].length, title: cleanInline(m[2]), line: i })
-  }
-  return heads.map((h, i) => {
-    const next = heads.find((n, j) => j > i && n.level <= h.level)
-    const block = lines.slice(h.line, next ? next.line : lines.length).join('\n')
-    return { ...h, title: sanitizeGraphText(h.title), index: i, text: stripMarkdown(block).slice(0, 6000) }
-  })
 }
 
 function stripMarkdown(raw) {
@@ -324,14 +305,6 @@ function addEdge(edges, edge) {
   })
 }
 
-function topEntries(map, limit) {
-  return Array.from(map.entries()).sort((a, b) => b[1] - a[1]).slice(0, limit)
-}
-
-function slugifyLabel(s) {
-  return s.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff]+/g, '-').replace(/^-|-$/g, '').slice(0, 60)
-}
-
 function build() {
   const paperData = paperLoader.load()
   const paperByRel = new Map()
@@ -409,37 +382,6 @@ function build() {
       })
     }
 
-    const sections = extractSections(doc)
-    for (const sec of sections) {
-      const sid = sectionId(doc.rel, sec.index)
-      addNode(nodes, {
-        id: sid,
-        label: sec.title,
-        type: 'section',
-        url: `${urlFromRel(doc.rel)}#${slugifyLabel(sec.title)}`,
-        rel: doc.rel,
-        parent: id,
-        level: sec.level,
-      })
-      addEdge(edges, {
-        source: id,
-        target: sid,
-        type: 'contains',
-        label: `H${sec.level}`,
-        confidence: 'EXTRACTED',
-      })
-      for (const [entId, count] of topEntries(entityHits(sec.text), MAX_SECTION_ENTITY_EDGES)) {
-        addEdge(edges, {
-          source: sid,
-          target: entId,
-          type: 'section-mentions',
-          label: '章节提及',
-          weight: Math.min(8, count),
-          confidence: 'EXTRACTED',
-        })
-      }
-    }
-
     for (const targetRel of extractMarkdownLinks(doc, docsByRel)) {
       addEdge(edges, {
         source: id,
@@ -468,7 +410,7 @@ function build() {
         paperCatalog: (paperData.papers || []).length,
       },
       extraction: [
-        'Markdown frontmatter and headings',
+        'Markdown frontmatter and page body text',
         'VitePress internal links',
         'Curated paper taxonomy from papers.data.mjs',
         'Deterministic entity dictionary matching',
@@ -625,7 +567,7 @@ function makeReport(graph) {
     '',
     '## Notes',
     '',
-    '- EXTRACTED edges come from internal links, headings, or exact dictionary matches.',
+    '- EXTRACTED edges come from internal links or exact dictionary matches.',
     '- CURATED edges come from the existing paper taxonomy.',
     '- DERIVED edges connect pages that share multiple extracted entities.',
     '- No model inference was used, so missing synonyms should be fixed by extending the local dictionary.',

@@ -26,7 +26,6 @@ const TYPE_SCORE = {
   index: 300,
   page: 260,
   home: 220,
-  section: 0,
 }
 
 function findGraphifyBin() {
@@ -58,7 +57,6 @@ function buildCommunityLabels(graph) {
   const labels = {}
   for (const [cid, nodes] of groups.entries()) {
     const ranked = nodes
-      .filter((node) => node.type !== 'section')
       .map((node) => ({
         node,
         score: (TYPE_SCORE[node.type] || 100) + Number(node.degree || 0),
@@ -765,13 +763,11 @@ function graphifyAtlasScript() {
     const edge = record.edge;
     const color = edgeAccentFor(record.from, record.to);
     const strong = edge.confidence === 'EXTRACTED';
-    const type = String(edge.type || edge.label || edge.title || '');
-    const structural = /H2|H3|contains|章节|section/i.test(type);
     return {
       id: record.id,
       hidden: true,
-      width: structural ? 0.22 : strong ? Math.max(0.32, Math.min(0.72, edge.width || 1)) : 0.22,
-      color: { color, opacity: structural ? 0.025 : strong ? 0.08 : 0.025 },
+      width: strong ? Math.max(0.32, Math.min(0.72, edge.width || 1)) : 0.22,
+      color: { color, opacity: strong ? 0.08 : 0.025 },
       hoverWidth: strong ? 1.35 : 0.8,
       arrows: { to: { enabled: false } },
       smooth: false,
@@ -875,14 +871,8 @@ function graphifyAtlasScript() {
 
   function visibleAtScale(node, scale, selectedIds, neighborIds) {
     const degree = Number(node.degree || 0);
-    const kind = nodeKind(node);
     if (selectedIds.has(node.id) || neighborIds.has(node.id)) return true;
     if (overviewNodeIds.has(node.id)) return true;
-    if (kind === 'section') {
-      if (scale < 1.65) return true;
-      if (scale < 2.2) return degree >= 6;
-      return true;
-    }
     if (node.id.startsWith('track:') || node.id.startsWith('route:')) return scale >= 0.9 || degree >= 160;
     if (scale < 0.58) return degree >= 72;
     if (scale < 0.9) return degree >= 105;
@@ -923,26 +913,20 @@ function graphifyAtlasScript() {
     const bothOverview = overviewNodeIds.has(record.fromId) && overviewNodeIds.has(record.toId);
     const hasCore = record.fromId === topNode?.id || record.toId === topNode?.id;
     const structural = /taxonomy|related|links-to|站内|共现|路线/.test(type);
-    const sectionStructure = /H2|H3|contains|章节|section/i.test(type);
 
     if (scale < 0.58) {
-      return bothOverview && (sectionStructure || hasCore || (maxDegree >= 250 && minDegree >= 145) || (structural && minDegree >= 170));
+      return bothOverview && (hasCore || (maxDegree >= 250 && minDegree >= 145) || (structural && minDegree >= 170));
     }
     if (scale < 0.9) {
-      return bothOverview && (sectionStructure || hasCore || structural || maxDegree >= 180 || minDegree >= 120);
+      return bothOverview && (hasCore || structural || maxDegree >= 180 || minDegree >= 120);
     }
     if (scale < 1.25) {
-      if (type === 'contains' || type === 'section-mentions') return false;
       return bothOverview || (maxDegree >= 150 && minDegree >= 60) || (structural && maxDegree >= 95 && minDegree >= 42);
     }
     if (scale < 1.65) {
-      if (type === 'contains') return false;
-      if (type === 'section-mentions') return maxDegree >= 120 && minDegree >= 40;
       return maxDegree >= 70 && minDegree >= 28;
     }
     if (scale < 2.2) {
-      if (type === 'contains') return false;
-      if (type === 'section-mentions') return maxDegree >= 65 && minDegree >= 14;
       return true;
     }
     return true;
@@ -976,15 +960,18 @@ function graphifyAtlasScript() {
 
   function labelLevelFor(node, scale, selectedIds, localLabelIds) {
     const degree = Number(node.degree || 0);
+    const kind = nodeKind(node);
+    const isRoute = node.id.startsWith('track:') || node.id.startsWith('route:');
     if (selectedIds.has(node.id)) return 4;
     if (localLabelIds.has(node.id)) return scale < 1.15 ? 2 : scale < 1.8 ? 3 : 4;
-    if (scale < 0.38) return degree >= 300 ? 1 : 0;
-    if (scale < 0.62) return degree >= 200 || node.id.startsWith('track:') ? 1 : 0;
-    if (scale < 0.86) return degree >= 120 || nodeKind(node) === 'paper' || node.id.startsWith('track:') || node.id.startsWith('route:') ? 2 : 0;
-    if (scale < 1.16) return degree >= 140 || (node.file_type === 'paper' && degree >= 80) ? 3 : 0;
-    if (scale < 1.55) return degree >= 110 || (node.file_type === 'paper' && degree >= 65) || node.id.startsWith('route:') || node.id.startsWith('track:') ? 3 : 0;
-    if (scale < 2.15) return degree >= 75 || (node.file_type === 'paper' && degree >= 45) || node.id.startsWith('route:') || node.id.startsWith('track:') ? 3 : 0;
-    return degree >= 38 || node.file_type === 'paper' || node.id.startsWith('route:') || node.id.startsWith('track:') ? 4 : 0;
+    if (node.id === topNode?.id) return scale < 0.62 ? 1 : 2;
+    if (scale < 0.38) return degree >= 190 ? 1 : 0;
+    if (scale < 0.62) return degree >= 145 || isRoute ? 1 : 0;
+    if (scale < 0.86) return degree >= 90 || isRoute ? 2 : 0;
+    if (scale < 1.16) return degree >= 82 || (kind === 'paper' && degree >= 72) || isRoute ? 3 : 0;
+    if (scale < 1.55) return degree >= 64 || (kind === 'paper' && degree >= 56) || isRoute ? 3 : 0;
+    if (scale < 2.15) return degree >= 45 || (kind === 'paper' && degree >= 36) || isRoute ? 3 : 0;
+    return degree >= 28 || kind === 'paper' || isRoute ? 4 : 0;
   }
 
   function updateLabels() {
@@ -1041,7 +1028,7 @@ function graphifyAtlasScript() {
 
   function nodeKind(node) {
     const rawKind = node.file_type || node.type || node._file_type || 'unknown';
-    if (['paper', 'section', 'topic', 'index', 'page', 'home', 'ecosystem'].includes(rawKind)) return rawKind;
+    if (['paper', 'topic', 'index', 'page', 'home', 'ecosystem'].includes(rawKind)) return rawKind;
     const prefix = String(node.id || '').split(':')[0];
     const prefixKind = {
       bench: 'benchmark',
@@ -1051,7 +1038,6 @@ function graphifyAtlasScript() {
       org: 'org',
       robot: 'robot',
       route: 'route',
-      section: 'section',
       track: 'track',
     }[prefix];
     return prefixKind || rawKind;
@@ -1061,7 +1047,6 @@ function graphifyAtlasScript() {
     const ids = new Set();
     if (topNode) ids.add(topNode.id);
     const ranked = [...RAW_NODES]
-      .filter((node) => nodeKind(node) !== 'section')
       .sort((a, b) => nodeVisibilityScore(b) - nodeVisibilityScore(a) || String(a.label).localeCompare(String(b.label), 'zh-Hans-CN'));
     for (const node of ranked) {
       ids.add(node.id);
@@ -1088,7 +1073,6 @@ function graphifyAtlasScript() {
       document: 22,
       page: 18,
       home: 12,
-      section: -700,
     }[kind] || 0;
     return degree + typeBoost + (node?.id === topNode?.id ? 1000 : 0);
   }
@@ -1097,8 +1081,7 @@ function graphifyAtlasScript() {
     const kind = nodeKind(node);
     if (isCommand || degree >= 300 || node.id === topNode?.id) return graphifyPalette.amber;
     if (kind === 'paper' || kind === 'route' || kind === 'track') return graphifyPalette.amber2;
-    if (isHub || degree >= 40 || kind !== 'section') return graphifyPalette.green2;
-    return graphifyPalette.green;
+    return isHub || degree >= 40 ? graphifyPalette.green2 : graphifyPalette.green;
   }
 
   function edgeAccentFor(from, to) {
@@ -1131,14 +1114,11 @@ function graphifyAtlasScript() {
 
   function nodeVisualFor(node, baseColor, degree, isCommand, isHub) {
     const baseSize = Number(node.size || 10);
-    const isSection = nodeKind(node) === 'section';
     const isMajor = isHub || degree >= 75 || node.id.startsWith('org:') || node.id.startsWith('data:');
-    const tier = isSection ? 'section' : isCommand ? 'core' : isHub ? 'hub' : isMajor ? 'major' : 'node';
+    const tier = isCommand ? 'core' : isHub ? 'hub' : isMajor ? 'major' : 'node';
     const shape = 'dot';
     const muted = mixHex(baseColor, '#9fb7a5', 0.22);
-    const size = tier === 'section'
-      ? Math.max(3.4, Math.min(6.2, baseSize * 0.38))
-      : tier === 'core'
+    const size = tier === 'core'
       ? Math.max(14, Math.min(24, baseSize * 0.62 + 4))
       : tier === 'hub'
         ? Math.max(10, Math.min(18, baseSize * 0.62 + 2.5))
@@ -1150,12 +1130,12 @@ function graphifyAtlasScript() {
       shape,
       size,
       baseColor: muted,
-      fill: mixHex(muted, graphifyPalette.bg, tier === 'section' ? 0.66 : tier === 'node' ? 0.72 : tier === 'major' ? 0.64 : 0.54),
-      border: mixHex(muted, graphifyPalette.bg, tier === 'section' ? 0.2 : tier === 'node' ? 0.24 : tier === 'major' ? 0.14 : 0.04),
-      hoverFill: mixHex(muted, graphifyPalette.bg, tier === 'section' ? 0.48 : 0.42),
+      fill: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.72 : tier === 'major' ? 0.64 : 0.54),
+      border: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.24 : tier === 'major' ? 0.14 : 0.04),
+      hoverFill: mixHex(muted, graphifyPalette.bg, 0.42),
       highlightFill: mixHex(muted, graphifyPalette.bg, 0.34),
       highlightBorder: muted,
-      borderWidth: tier === 'section' ? 0.48 : tier === 'core' ? 1.45 : tier === 'hub' ? 1.15 : tier === 'major' ? 0.9 : 0.55,
+      borderWidth: tier === 'core' ? 1.45 : tier === 'hub' ? 1.15 : tier === 'major' ? 0.9 : 0.55,
       degree,
     };
   }
