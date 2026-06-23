@@ -1,5 +1,5 @@
 import DefaultTheme from 'vitepress/theme'
-import { h, ref, reactive, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
+import { h, ref, reactive, computed, watch, onMounted, onUnmounted, nextTick, Teleport } from 'vue'
 import { useRoute, useData, withBase } from 'vitepress'
 import { data as modelData } from '../data/models.data.mjs'
 import { data as paperData } from '../data/papers.data.mjs'
@@ -970,25 +970,24 @@ const HomeRail = {
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
       it.el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
     }
-    return () =>
-      !items.value.length
-        ? null
-        : h(
-            'nav',
-            { class: 'home-rail', 'aria-label': '页面分区导航' },
-            items.value.map((it, i) =>
-              h(
-                'button',
-                {
-                  class: ['home-rail__item', { 'is-active': i === active.value }],
-                  type: 'button',
-                  onClick: () => go(it),
-                  'aria-current': i === active.value ? 'true' : undefined,
-                },
-                [h('i', { class: 'home-rail__dot' }), h('span', { class: 'home-rail__label' }, it.label)]
-              )
-            )
+    const renderRail = () =>
+      h(
+        'nav',
+        { class: 'home-rail', 'aria-label': '页面分区导航' },
+        items.value.map((it, i) =>
+          h(
+            'button',
+            {
+              class: ['home-rail__item', { 'is-active': i === active.value }],
+              type: 'button',
+              onClick: () => go(it),
+              'aria-current': i === active.value ? 'true' : undefined,
+            },
+            [h('i', { class: 'home-rail__dot' }), h('span', { class: 'home-rail__label' }, it.label)]
           )
+        )
+      )
+    return () => (!items.value.length ? null : h(Teleport, { to: 'body' }, [renderRail()]))
   },
 }
 

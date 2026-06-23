@@ -3729,7 +3729,8 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
   right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 30;
+  /* Teleported to body: keep above home orbit/cards while below lightbox utilities. */
+  z-index: 180;
   display: none;
   flex-direction: column;
   gap: 6px;
