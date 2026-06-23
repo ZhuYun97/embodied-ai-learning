@@ -1,5 +1,311 @@
 [
   {
+    "id": "nvidia-halos-for-robotics-safety-system-20260622",
+    "title": "NVIDIA 发布 Halos for Robotics:把机器人安全做成 Physical AI 全栈部署底座",
+    "date": "2026-06-22",
+    "fetched_at": "2026-06-23",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "推理部署",
+      "机器人安全",
+      "Physical AI"
+    ],
+    "summary": "**NVIDIA Halos for Robotics** 在 Automate 2026 发布,官方称其为面向机器人与 Physical AI 的全栈安全系统,把 IGX Thor / Holoscan Sensor Bridge、Halos OS、安全应用、检查实验室与认证流程连成一套架构。Agility 是首个合作方,会把 Halos 元件接入 Digit 人形机器人的工业安全系统;Outside-In Safety Blueprint 也已以早期访问形式开源。这个信号比单个机器人 demo 更重要:人形/AMR 真正进工厂时,安全认证、外部感知与可审计运行会变成部署门槛。",
+    "sources": [
+      {
+        "name": "NVIDIA Newsroom",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-announces-halos-for-robotics-the-industrys-first-full-stack-safety-system-for-physical-ai"
+      },
+      {
+        "name": "GitHub:NVIDIA/halos-outside-in-safety",
+        "url": "https://github.com/NVIDIA/halos-outside-in-safety"
+      }
+    ],
+    "related": [
+      {
+        "label": "推理部署专题",
+        "url": "/vla/papers/inference-deployment"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "robot-com-r-noid-workplace-humanoid-20260622",
+    "title": "Robot.com 发布 R-noid:从校园配送转向轮式人形劳动力服务",
+    "date": "2026-06-22",
+    "fetched_at": "2026-06-23",
+    "importance": "major",
+    "credibility": "todo",
+    "category": [
+      "产品发布",
+      "人形机器人",
+      "具身落地"
+    ],
+    "summary": "**Robot.com** 在 Automate 2026 发布轮式人形平台 **R-noid**,定位为厨房、包装线、拣选、布草折叠和接待等岗位的 RaaS 劳动力。官方页面显示其采用双 7DoF 手臂、每臂 4kg 负载、0-1.9m 垂直工作空间、支持自主与 VR 遥操作;Robotics 24/7 报道称其可在 8-12 周从现场评估推进到自主运行,并强调已有 lighthouse deployment。⚠️ 具体商业部署规模仍需继续核实,但它代表“非双足、任务岗位化、服务化计费”的人形落地方向。",
+    "sources": [
+      {
+        "name": "Robotics 24/7",
+        "url": "https://www.robotics247.com/article/automate-2026-robot.com-launches-r-noid-humanoid-robot"
+      },
+      {
+        "name": "Robot.com R-noid",
+        "url": "https://www.robot.com/r-noid"
+      }
+    ],
+    "related": [
+      {
+        "label": "实验机器人本体",
+        "url": "/vla/papers/robots"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "libero-safety-vla-physical-semantic-safety-20260623",
+    "title": "LIBERO-Safety 发布:把 VLA 安全从成功率评测推进到物理与语义约束评测",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-23",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "评测基准",
+      "VLA 安全"
+    ],
+    "summary": "**LIBERO-Safety**(arXiv:2606.23686) 提出面向 VLA 的安全关键场景程序化生成与评测框架,并构建 **19,664 条严格无碰撞演示**。论文系统评测 8 个 VLA 与 2 个 embodied foundation model,指出一个很实用的矛盾:高多样性训练会让轨迹更安全,但任务成功仍被轨迹合成和语义错配卡住。它适合接到本站的评测基准与失败模式里,因为它把“会做任务”拆成了“成功、物理安全、语义安全”三个维度。",
+    "sources": [
+      {
+        "name": "arXiv:2606.23686",
+        "url": "https://arxiv.org/abs/2606.23686"
+      }
+    ],
+    "related": [
+      {
+        "label": "评测基准全景",
+        "url": "/vla/papers/benchmarks"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "dvla-rl-denoising-trajectory-rl-20260623",
+    "title": "dVLA-RL 提出在离散扩散 VLA 的去噪轨迹上做强化学习",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-23",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "VLA 模型",
+      "在线 RL"
+    ],
+    "summary": "**dVLA-RL**(arXiv:2606.23623) 针对 Discrete Diffusion VLA 只能 SFT、难以直接优化最终动作概率的问题,把去噪生成过程建模为 MDP,将优化目标转到整条 sampled generation path 的联合概率上。作者还提出按任务复杂度调节去噪步数的 schedule,声称在 LIBERO 达到 **99.7%** 成功率,在 RoboTwin 2.0 上比 SFT baseline 提升 **30.6%**。⚠️ 数字为作者自评,但它是“RL Token / VLA 在线 RL”之外另一条值得跟踪的 RL 化路线。",
+    "sources": [
+      {
+        "name": "arXiv:2606.23623",
+        "url": "https://arxiv.org/abs/2606.23623"
+      }
+    ],
+    "related": [
+      {
+        "label": "VLA 在线 RL",
+        "url": "/vla/papers/rl-token"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "recall-active-lifelong-learning-vla-20260623",
+    "title": "RECALL 研究 VLA 主动终身学习:用不确定性采集 recovery demos,同时暴露灾难性遗忘",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-23",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "数据处理",
+      "持续学习"
+    ],
+    "summary": "**RECALL**(arXiv:2606.23617) 不再把 VLA 微调数据当作被动补采,而是让策略在不确定状态主动采集 recovery demonstrations。论文发现这种不确定性引导的数据比普通失败任务补采更高效,但如果只用 recovery data 微调又会造成 catastrophic forgetting,因此比较了 replay mixing 和 EWC 等持续学习手段。这篇很适合放入数据闭环/在线改进语境:关键不只是“收更多数据”,而是收哪里、怎么混、怎么不忘旧能力。",
+    "sources": [
+      {
+        "name": "arXiv:2606.23617",
+        "url": "https://arxiv.org/abs/2606.23617"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身数据处理",
+        "url": "/vla/papers/data-processing"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "autodex-dexterous-grasping-data-collection-20260623",
+    "title": "AutoDex 自动化真实灵巧抓取数据采集:用 20 相机感知闭环替代人工遥操作瓶颈",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-23",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "数据集发布",
+      "灵巧操作"
+    ],
+    "summary": "**AutoDex**(arXiv:2606.23689) 面向灵巧抓取真实数据难采的问题,把候选抓取生成、强遮挡下物体定位、碰撞监控执行、lift-and-hold 成败标注和主动 reset 串成无人闭环。作者用 Allegro / Inspire 手在 100 个物体上采集 **3,593 次真实抓取试验**,并报告同样 500 条轨迹时 AutoDex 用 **10.3h**、人工遥操作用 **49.4h**,吞吐提升 **4.8x**;用 AutoDex 验证库检索的抓取成功率也高于纯仿真验证。⚠️ 代码数据称将公开,后续要看可复用性。",
+    "sources": [
+      {
+        "name": "arXiv:2606.23689",
+        "url": "https://arxiv.org/abs/2606.23689"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身数据处理",
+        "url": "/vla/papers/data-processing"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "last-hd-human-hand-latent-physical-reasoning-20260623",
+    "title": "LaST-HD 用人手示范学习潜在物理推理,推动 human-to-robot manipulation 数据迁移",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-23",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "数据处理",
+      "VLA 模型"
+    ],
+    "summary": "**LaST-HD**(arXiv:2606.23685) 认为人手数据迁移不能只做几何 retarget,还要对齐人手与机器人操作中的物理动态。它用 action-conditioned world model 在未配对人手/机器人轨迹上合成共享 latent targets,监督 VLA 的 reasoning-before-acting 过程;同时配套低成本 **Out-of-Lab Glove** 采集人手关键点。作者称混合训练提升新物体/新场景泛化,在线校正时只用 20 分钟手套数据就能达到 90%+ 准确率。⚠️ 自评结果待复现,但方向和“人类第一视角/人手数据如何转机器人动作”高度相关。",
+    "sources": [
+      {
+        "name": "arXiv:2606.23685",
+        "url": "https://arxiv.org/abs/2606.23685"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身数据处理",
+        "url": "/vla/papers/data-processing"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "coordex-dexterous-humanoid-loco-manipulation-20260623",
+    "title": "CoorDex 面向连续灵巧人形移动操作:把身体与手部先验组合成 latent residual control",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-23",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "人形机器人",
+      "灵巧操作"
+    ],
+    "summary": "**CoorDex**(arXiv:2606.23680) 反对把人形移动操作简化成“走到物体-停下-操作-再走”的 stop-and-go 流程,提出用身体和灵巧手的 latent priors 作为下游 residual RL 动作空间。论文在 Unitree G1 + 20DoF WUJI 手上展示边走边抓瓶、边移动边开冰箱门、pick-and-turn 等连续任务,并指出普通 joint-space PPO、单体 latent 预测等在同样 reward budget 下失败。它提示人形操作的关键可能不是单一大策略,而是可组合的身体/手部运动先验。",
+    "sources": [
+      {
+        "name": "arXiv:2606.23680",
+        "url": "https://arxiv.org/abs/2606.23680"
+      }
+    ],
+    "related": [
+      {
+        "label": "实验机器人本体",
+        "url": "/vla/papers/robots"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "flatness-preserves-instruction-following-vla-20260623",
+    "title": "Flatness Preserves Instruction Following:VLA 微调时保持平坦最小值,缓解语言指令失明",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-23",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "VLA 模型",
+      "失败模式"
+    ],
+    "summary": "**Flatness Preserves Instruction Following in VLA Models**(arXiv:2606.23641) 把 VLA 下游微调后的“instruction blindness”归因于有限机器人数据把模型推向 sharp minima,使策略更依赖视觉捷径而忽略语言。论文用 sharpness-aware minimization 在同样数据上做 flatness-preserving finetuning,声称在多仿真与真机 benchmark 上把指令跟随提升 60%+。这篇很适合补到失败模式与微调配方里:不是换模型或补数据,而是优化几何本身影响语言条件保持。",
+    "sources": [
+      {
+        "name": "arXiv:2606.23641",
+        "url": "https://arxiv.org/abs/2606.23641"
+      }
+    ],
+    "related": [
+      {
+        "label": "共性失败模式",
+        "url": "/vla/papers/failure-modes"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "holoagent-0-embodied-agent-3d-spatial-memory-20260623",
+    "title": "HoloAgent-0 提出带 3D 空间记忆的统一具身 Agent 框架",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-23",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "具身 Agent",
+      "3D 空间记忆"
+    ],
+    "summary": "**HoloAgent-0**(arXiv:2606.23565) 试图把 LLM agent 的 reason-tool-feedback-replan 执行环搬到真实机器人上。框架包含 Embodied AgentOS、3D spatial memory 和 embodied skills:AgentOS 把语言指令转成 skill graph,调度机器人资源、监控执行并根据反馈澄清或重规划;3D 记忆负责物理世界 grounding;skills 连接实际控制器。作者在真实硬件上评估空间记忆、长程导航、跨机器人协作与移动操作。⚠️ 这类 agent OS 论文需要重点看实际接口是否开放、是否能脱离 demo 环境复用。",
+    "sources": [
+      {
+        "name": "arXiv:2606.23565",
+        "url": "https://arxiv.org/abs/2606.23565"
+      }
+    ],
+    "related": [
+      {
+        "label": "论文知识图谱",
+        "url": "/ecosystem/paper-graph"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "see2act-active-perception-robot-imitation-20260623",
+    "title": "See2Act 将主动视角推理接入机器人模仿学习,处理遮挡下的看与做耦合",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-23",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模仿学习",
+      "主动感知"
+    ],
+    "summary": "**Learning to See While Learning to Act / See2Act**(arXiv:2606.23625) 针对桌面模仿学习常假设完全可见的问题,让策略在测试时一边预测动作、一边迭代 refine 视角。训练时用离线示范中的关键动作绑定相机位姿,学习“该看哪里”和“该怎么做”的耦合。作者称在 Ravens 遮挡场景能恢复信息视角,RLBench 上相对 prior methods 最高提升 34%,并用数字孪生采集 50 条示范实现真实 pick-and-place 零样本迁移。它是主动感知进入操作策略的一个干净案例。",
+    "sources": [
+      {
+        "name": "arXiv:2606.23625",
+        "url": "https://arxiv.org/abs/2606.23625"
+      }
+    ],
+    "related": [
+      {
+        "label": "具身训练流程",
+        "url": "/vla/papers/training-pipeline"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "automate-2026-humanoid-pavilion-20260622",
     "title": "Automate 2026 开幕:英伟达赞助人形机器人展区,人形论坛进入北美自动化主舞台",
     "date": "2026-06-22",

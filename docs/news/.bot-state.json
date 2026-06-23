@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-06-22",
+  "last_fetched_at": "2026-06-23",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -62,8 +62,19 @@
     "eventvla-visual-evidence-memory|20260618",
     "vla-fewer-layers-finetuning|20260618",
     "pose6daug-object-swapping-augmentation|20260618",
-    "robot-hands-human-demonstrations|20260618"
+    "robot-hands-human-demonstrations|20260618",
+    "nvidia-halos-for-robotics-safety-system|20260622",
+    "robot-com-r-noid-workplace-humanoid|20260622",
+    "libero-safety-vla-physical-semantic-safety|20260623",
+    "dvla-rl-denoising-trajectory-rl|20260623",
+    "recall-active-lifelong-learning-vla|20260623",
+    "autodex-dexterous-grasping-data-collection|20260623",
+    "last-hd-human-hand-latent-physical-reasoning|20260623",
+    "coordex-dexterous-humanoid-loco-manipulation|20260623",
+    "flatness-preserves-instruction-following-vla|20260623",
+    "holoagent-0-embodied-agent-3d-spatial-memory|20260623",
+    "see2act-active-perception-robot-imitation|20260623"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 62
+  "_count": 73
 }
