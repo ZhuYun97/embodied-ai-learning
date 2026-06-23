@@ -781,6 +781,11 @@ function graphifyAtlasScript(nodeLinks) {
   const visibilityState = new Map();
   const edgeVisibilityState = new Map();
   const nodeVisuals = new Map();
+  const reducedMotionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  let pulseTime = 0;
+  let pulseFrame = 0;
+  let lastPulseDraw = 0;
+  let pulseEnabled = !reducedMotionQuery?.matches;
   nodesDS.update(RAW_NODES.map((node) => {
     const degree = Number(node.degree || 0);
     const isCommand = degree >= 250 || node.id.startsWith('track:') || node.id.startsWith('route:');
@@ -890,6 +895,15 @@ function graphifyAtlasScript(nodeLinks) {
   network.on('deselectNode', () => {
     scheduleLabelUpdate(true);
     updateVisibility();
+  });
+  startBreathingPulse();
+  reducedMotionQuery?.addEventListener?.('change', (event) => {
+    pulseEnabled = !event.matches;
+    if (pulseEnabled) startBreathingPulse();
+    else if (pulseFrame) {
+      cancelAnimationFrame(pulseFrame);
+      pulseFrame = 0;
+    }
   });
 
   let labelTimer = 0;
@@ -1319,6 +1333,7 @@ function graphifyAtlasScript(nodeLinks) {
     const tier = isCommand ? 'core' : isHub ? 'hub' : isMajor ? 'major' : 'node';
     const shape = 'dot';
     const communityColor = communityColorFor(node);
+    const pulse = isWarmNodeColor(baseColor);
     const muted = mixHex(baseColor, '#9fb7a5', 0.22);
     const size = tier === 'core'
       ? Math.max(14, Math.min(24, baseSize * 0.62 + 4))
@@ -1333,6 +1348,9 @@ function graphifyAtlasScript(nodeLinks) {
       size,
       baseColor: muted,
       communityColor,
+      pulse,
+      pulseColor: baseColor,
+      pulseOffset: stableHash(node.id) % 2600,
       fill: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.72 : tier === 'major' ? 0.64 : 0.54),
       border: mixHex(muted, graphifyPalette.bg, tier === 'node' ? 0.24 : tier === 'major' ? 0.14 : 0.04),
       hoverFill: mixHex(muted, graphifyPalette.bg, 0.42),
@@ -1391,6 +1409,16 @@ function graphifyAtlasScript(nodeLinks) {
   function drawRoundNode(ctx, visual, scale) {
     const ring = visual.size + (visual.tier === 'core' ? 4.5 : visual.tier === 'hub' ? 2.8 : 1.8) / scale;
     ctx.setLineDash([]);
+    if (visual.pulse && pulseEnabled) {
+      const phase = ((pulseTime + visual.pulseOffset) % 2600) / 2600;
+      const radius = ring + (2.2 + phase * 9.4) / scale;
+      const alphaBase = visual.tier === 'core' ? 0.24 : visual.tier === 'hub' ? 0.18 : 0.13;
+      ctx.lineWidth = (0.78 - phase * 0.34) / scale;
+      ctx.strokeStyle = rgbaFromHex(visual.pulseColor, Math.max(0, alphaBase * (1 - phase)));
+      ctx.beginPath();
+      ctx.arc(visual.x, visual.y, radius, 0, Math.PI * 2);
+      ctx.stroke();
+    }
     ctx.lineWidth = (visual.tier === 'core' ? 0.9 : visual.tier === 'hub' ? 0.76 : 0.58) / scale;
     ctx.strokeStyle = rgbaFromHex(visual.communityColor, visual.tier === 'core' ? 0.5 : visual.tier === 'hub' ? 0.42 : 0.32);
     ctx.beginPath();
@@ -1401,6 +1429,21 @@ function graphifyAtlasScript(nodeLinks) {
     ctx.beginPath();
     ctx.arc(visual.x, visual.y, ring, 0, Math.PI * 2);
     ctx.stroke();
+  }
+
+  function startBreathingPulse() {
+    if (!pulseEnabled || pulseFrame || ![...nodeVisuals.values()].some((visual) => visual.pulse)) return;
+    const tick = (time) => {
+      pulseFrame = 0;
+      if (!pulseEnabled) return;
+      if (!document.hidden && time - lastPulseDraw >= 56) {
+        pulseTime = time;
+        lastPulseDraw = time;
+        network.redraw();
+      }
+      pulseFrame = requestAnimationFrame(tick);
+    };
+    pulseFrame = requestAnimationFrame(tick);
   }
 
   function drawNodeCoreDot(ctx, visual, scale) {
@@ -1443,6 +1486,20 @@ function graphifyAtlasScript(nodeLinks) {
 
   function isHexColor(value) {
     return typeof value === 'string' && /^#?[0-9a-f]{3}([0-9a-f]{3})?$/i.test(value.trim());
+  }
+
+  function isWarmNodeColor(value) {
+    const color = String(value || '').toLowerCase();
+    return color === graphifyPalette.amber.toLowerCase() || color === graphifyPalette.amber2.toLowerCase();
+  }
+
+  function stableHash(value) {
+    let hash = 0;
+    const text = String(value || '');
+    for (let i = 0; i < text.length; i += 1) {
+      hash = (hash * 31 + text.charCodeAt(i)) >>> 0;
+    }
+    return hash;
   }
 
   function mixHex(hex, target, amount) {
