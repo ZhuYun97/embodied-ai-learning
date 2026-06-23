@@ -13,6 +13,39 @@ description: openpi、OpenVLA/OFT、LeRobot、Isaac-GR00T、Octo 五大开源 VL
 
 *读图方式:代码库选型要同时看模型覆盖、权重可得性、数据/仿真接口、微调路径、部署支持和许可边界。*
 
+<div class="codebase-quicklinks">
+  <a class="cb-card cb-card--pi" href="https://github.com/Physical-Intelligence/openpi" target="_blank" rel="noopener">
+    <span class="cb-card__eyebrow">PI Stack</span>
+    <strong>openpi</strong>
+    <span>π0 / π0.5 训练与推理栈</span>
+  </a>
+  <a class="cb-card cb-card--vla" href="https://github.com/openvla/openvla" target="_blank" rel="noopener">
+    <span class="cb-card__eyebrow">OpenVLA</span>
+    <strong>openvla</strong>
+    <span>7B VLA、LoRA、量化脚本</span>
+  </a>
+  <a class="cb-card cb-card--vla" href="https://openvla-oft.github.io/" target="_blank" rel="noopener">
+    <span class="cb-card__eyebrow">OFT</span>
+    <strong>OpenVLA-OFT</strong>
+    <span>并行解码 + 连续动作微调</span>
+  </a>
+  <a class="cb-card cb-card--hf" href="https://github.com/huggingface/lerobot" target="_blank" rel="noopener">
+    <span class="cb-card__eyebrow">HF</span>
+    <strong>LeRobot</strong>
+    <span>策略训练、数据格式与部署工具</span>
+  </a>
+  <a class="cb-card cb-card--nv" href="https://github.com/NVIDIA/Isaac-GR00T" target="_blank" rel="noopener">
+    <span class="cb-card__eyebrow">NVIDIA</span>
+    <strong>Isaac-GR00T</strong>
+    <span>GR00T N1/N1.5+ 与 Isaac 仿真栈</span>
+  </a>
+  <a class="cb-card cb-card--octo" href="https://github.com/octo-models/octo" target="_blank" rel="noopener">
+    <span class="cb-card__eyebrow">Octo</span>
+    <strong>octo</strong>
+    <span>开源通用机器人 Transformer</span>
+  </a>
+</div>
+
 ---
 
 ## 0. 速览关系图
@@ -42,6 +75,12 @@ graph LR
         octo_repo["octo\ngithub.com/octo-models/octo"]
         octo_repo --> octo["Octo-Small / Octo-Base"]
     end
+    click openpi "https://github.com/Physical-Intelligence/openpi" "openpi GitHub" _blank
+    click openvla_repo "https://github.com/openvla/openvla" "OpenVLA GitHub" _blank
+    click oft "https://openvla-oft.github.io/" "OpenVLA-OFT project" _blank
+    click lerobot "https://github.com/huggingface/lerobot" "LeRobot GitHub" _blank
+    click groot_repo "https://github.com/NVIDIA/Isaac-GR00T" "Isaac-GR00T GitHub" _blank
+    click octo_repo "https://github.com/octo-models/octo" "Octo GitHub" _blank
 ```
 
 ---
@@ -52,11 +91,11 @@ graph LR
 
 | 维度 | **openpi（π 系列）** | **OpenVLA（含 OFT）** | **LeRobot（+SmolVLA）** | **Isaac-GR00T** | **Octo** |
 |---|---|---|---|---|---|
-| **代码库 URL** | github.com/Physical-Intelligence/openpi | github.com/openvla/openvla · openvla-oft.github.io | github.com/huggingface/lerobot | github.com/NVIDIA/Isaac-GR00T | github.com/octo-models/octo |
+| **代码库 URL** | [github.com/Physical-Intelligence/openpi](https://github.com/Physical-Intelligence/openpi) | [github.com/openvla/openvla](https://github.com/openvla/openvla) · [openvla-oft.github.io](https://openvla-oft.github.io/) | [github.com/huggingface/lerobot](https://github.com/huggingface/lerobot) | [github.com/NVIDIA/Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T) | [github.com/octo-models/octo](https://github.com/octo-models/octo) |
 | **维护方** | Physical Intelligence (PI) | Stanford / UC Berkeley / Google DeepMind / Toyota Research / MIT 等（OpenVLA 原班作者） | HuggingFace | NVIDIA GEAR | UC Berkeley / Stanford / CMU / Google DeepMind 等 |
 | **涵盖模型** | π0、π0.5（openpi 为其共用训练/推理栈；π0-FAST 属同门但分开发布） | OpenVLA（7B）、OpenVLA-OFT（优化微调配方） | LeRobot 策略框架 + SmolVLA；兼容 ACT、Diffusion Policy 等本地训练 | GR00T N1（2B）、N1.5、N1.6、N1.7 | Octo-Small（27M）、Octo-Base（93M） |
 | **动作头类型** | **流匹配（flow matching）**：π0 用 ~300M 动作专家（action expert），10 步欧拉积分输出 50 步连续动作块（50 Hz）；π0.5 高层用自回归离散 FAST token，底层用流匹配 action expert（50 步，50 Hz） | OpenVLA：**离散 token**，7 维各量化 256 bin，自回归（4.2 Hz ⚠️）；OpenVLA-OFT：**并行解码 + L1 回归**（或扩散头），一次前向出整块动作，108.8 Hz ⚠️ | 待核（LeRobot 框架支持 ACT/Diffusion Policy 等；SmolVLA 动作头类型待核） | **流匹配（flow matching，velocity prediction）**：DiT 动作头，4 步欧拉积分，16 步动作块，120 Hz ⚠️ | **扩散策略（DDPM）**：Transformer 主干 + 扩散动作头，K 步 cosine 调度去噪，预测连续动作块 |
-| **可下载权重（仅列源文件出现过的 URL）** | 待核（openpi 代码库公开，π0/π0.5 权重开源状态见 openpi 官方 repo；references.md 中 π0 训练数据与权重"当时未完全开源"） | 待核（openvla.github.io 列出 HF 链接；4-bit 量化变体 HF 链接见原项目主页，references.md 未列出具体 HF model ID URL） | 待核（LeRobot 模型卡在 HuggingFace，具体路径源文件未给） | huggingface.co/nvidia/GR00T-N1-2B（GR00T-N1-2B 权重；来源：references.md 中 huggingface.co/blog/nvidia/gr00t-n1-7 与 groot-n1.md 原文） | 待核（octo-models/octo GitHub 指向 HF 权重，具体 URL 源文件未给） |
+| **可下载权重（仅列源文件出现过的 URL）** | 待核（[openpi](https://github.com/Physical-Intelligence/openpi) 代码库公开，π0/π0.5 权重开源状态见 openpi 官方 repo；references.md 中 π0 训练数据与权重"当时未完全开源"） | 待核（[openvla.github.io](https://openvla.github.io/) 列出 HF 链接；4-bit 量化变体 HF 链接见原项目主页，references.md 未列出具体 HF model ID URL） | 待核（LeRobot 模型卡在 HuggingFace，具体路径源文件未给） | [huggingface.co/nvidia/GR00T-N1-2B](https://huggingface.co/nvidia/GR00T-N1-2B)（GR00T-N1-2B 权重；来源：references.md 中 [huggingface.co/blog/nvidia/gr00t-n1-7](https://huggingface.co/blog/nvidia/gr00t-n1-7) 与 groot-n1.md 原文） | 待核（[octo-models/octo](https://github.com/octo-models/octo) GitHub 指向 HF 权重，具体 URL 源文件未给） |
 | **仿真/真机依赖** | 真机为主（叠衣服、收桌、移动操作等 7 种机器人本体）；开源数据含 OXE / Bridge v2 / DROID；π0.5 评测：全新真实住宅 ⚠️ | 真机为主（OXE 970k 条演示 + BridgeData V2 / DROID 等）；OFT 在 LIBERO 仿真与 ALOHA 真机评测 ⚠️；SimplerEnv 仿真社区复现 | 待核 | Isaac Sim / Isaac Lab（NVIDIA 仿真栈，arXiv:2511.04831）+ DexMimicGen 仿真；RoboCasa（仿真厨房）；真机集中于 GR-1 人形机器人 ⚠️ | 真机为主（OXE 约 80 万条轨迹，25 子数据集）；SimplerEnv 仿真社区复现；LIBERO 仿真基准 |
 | **支持本体** | 7 种机器人配置（单臂 / 双臂灵巧手 / 移动底盘 + 双臂等）；状态/动作统一零填充到 18 维（双臂 6-DoF×2=12 + 2 夹爪 + 移动底盘 + 升降躯干）；OXE 22 种机器人（开源混合部分） | 单臂末端执行器控制为主（7 维：Δ位置 3 + Δ姿态 3 + 夹爪 1）；OXE 覆盖多种机械臂；灵巧手/双臂支持弱（论文明确提到局限） | 待核 | 单臂机械臂 → 双臂人形灵巧手（GR-1、Unitree G1 等）；相对末端执行器动作空间 + 具身感知编码器跨本体 | delta 末端执行器控制为主；OXE 25 子数据集多种本体；双视角（第三人称 + 腕部） |
 | **关联细读** | [π0 细读](pi0.md) · [π0.5 细读](pi05.md) | [OpenVLA 细读](openvla.md) · openvla-oft.md | 待核（无独立细读页） | [GR00T N1 细读](groot-n1.md) | [Octo 细读](octo.md) |
@@ -98,7 +137,7 @@ graph TD
 
 - **OpenVLA 主干**：Prismatic-7B（DINOv2 + SigLIP 双流视觉编码器 + 2 层 MLP 投影 + Llama 2 7B），共约 7.5B 参数。
 - **训练**：OXE 970k 条真机演示，64 块 A100 训练 14 天（约 21,500 A100·小时），batch size 2048，27 个 epoch。来源：[openvla.md](openvla.md)。
-- **OFT 改造四件套**：并行解码（双向注意力）+ 动作分块 + 连续动作表示 + L1 回归，速度从 4.2 Hz → 108.8 Hz（A100）⚠️，LIBERO 成功率 76.5% → 97.1% ⚠️（发表时 SOTA）。来源：[references.md](references.md)（arXiv:2502.19645 / openvla-oft.github.io）。
+- **OFT 改造四件套**：并行解码（双向注意力）+ 动作分块 + 连续动作表示 + L1 回归，速度从 4.2 Hz → 108.8 Hz（A100）⚠️，LIBERO 成功率 76.5% → 97.1% ⚠️（发表时 SOTA）。来源：[references.md](references.md)（arXiv:2502.19645 / [openvla-oft.github.io](https://openvla-oft.github.io/)）。
 - **不输入本体感知**：原始 OpenVLA 不喂 proprioception（与 π0 / GR00T 形成分水岭）。来源：[data-processing.md](data-processing.md)。
 
 ### 3.3 LeRobot（+SmolVLA）
@@ -132,12 +171,12 @@ graph TD
 
 **按你要复现的模型：**
 
-- **想复现 π0 / π0.5**：用 **openpi**（Physical Intelligence 官方栈）。注意 π0 权重当时"未完全开源"（pi0.md §5），使用前需确认当前开放状态。π0.5 数据亦未开源。
-- **想复现 OpenVLA 原版**：用 **openvla** 仓库（github.com/openvla/openvla），有完整训练/LoRA/4-bit 量化脚本。
-- **想复现 OpenVLA-OFT**：用 **openvla-oft.github.io** 配套仓库（arXiv:2502.19645），四件套改造（并行解码 + L1）均在其中。
-- **想复现 GR00T N1/N1.5+**：用 **github.com/NVIDIA/Isaac-GR00T**，配合 Isaac Sim / Lab 仿真栈；真机建议从 GR-1 或 Unitree G1 入手（N1.5 消融在此两机器人上）。
-- **想复现 Octo**：用 **github.com/octo-models/octo**，配合 dlimp 数据加载器；OXE 数据走 RLDS/TFRecord 格式。
-- **想用框架自训新策略**：用 **LeRobot**（HuggingFace），原生支持 ACT / Diffusion Policy，数据格式用 LeRobotDataset v2/v3。
+- **想复现 π0 / π0.5**：用 **[openpi](https://github.com/Physical-Intelligence/openpi)**（Physical Intelligence 官方栈）。注意 π0 权重当时"未完全开源"（pi0.md §5），使用前需确认当前开放状态。π0.5 数据亦未开源。
+- **想复现 OpenVLA 原版**：用 **[openvla](https://github.com/openvla/openvla)** 仓库，有完整训练/LoRA/4-bit 量化脚本。
+- **想复现 OpenVLA-OFT**：用 **[openvla-oft.github.io](https://openvla-oft.github.io/)** 配套仓库（arXiv:2502.19645），四件套改造（并行解码 + L1）均在其中。
+- **想复现 GR00T N1/N1.5+**：用 **[github.com/NVIDIA/Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T)**，配合 Isaac Sim / Lab 仿真栈；真机建议从 GR-1 或 Unitree G1 入手（N1.5 消融在此两机器人上）。
+- **想复现 Octo**：用 **[github.com/octo-models/octo](https://github.com/octo-models/octo)**，配合 dlimp 数据加载器；OXE 数据走 RLDS/TFRecord 格式。
+- **想用框架自训新策略**：用 **[LeRobot](https://github.com/huggingface/lerobot)**（HuggingFace），原生支持 ACT / Diffusion Policy，数据格式用 LeRobotDataset v2/v3。
 
 **按本体：**
 
