@@ -1,5 +1,302 @@
 [
   {
+    "id": "insight-steerable-vla-skill-acquisition-20260623",
+    "title": "InSight 提出可 steer 的 VLA 自主技能获取:从缺失 primitive 自动补数据",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-24",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "VLA 模型",
+      "持续学习"
+    ],
+    "summary": "**InSight**(arXiv:2606.24884) 把演示分割成带标签的 primitive action,让 VLA 能在“移动到碗旁、上提、倾倒”等低层原语上被 steer。框架再用 VLM 找出新任务缺失的 primitive,自主尝试、自动标注并把成功演示并回训练集;作者在仿真和真实操作中测试了翻块、关抽屉、清扫、旋转和倒液等任务。它和本站的 steerable policy / 数据闭环主题很贴:不是只扩大离线数据,而是让策略自己发现还缺哪类技能。",
+    "sources": [
+      {
+        "name": "arXiv:2606.24884",
+        "url": "https://arxiv.org/abs/2606.24884"
+      }
+    ],
+    "related": [
+      {
+        "label": "steerable-policies",
+        "url": "/vla/papers/steerable-policies"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "g3vla-geometric-inductive-bias-20260623",
+    "title": "G³VLA 给 VLA 注入相机几何归纳偏置:多视角视觉 token 不再只当 2D 图像处理",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-24",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "VLA 模型",
+      "空间理解"
+    ],
+    "summary": "**G³VLA**(arXiv:2606.24472) 针对多相机 VLA 把各视角当独立 2D 图像处理的问题,加入 intrinsic-conditioned ray embedding、projective positional encoding 和 cross-view fusion。论文在 π0、π0.5 与 GR00T 1.5 上验证,称在 LIBERO、RoboCasa24、RoboTwin2.0 和真实机器人任务上都有增益,尤其是空间和物体敏感任务。⚠️ 结果为作者自评,但它把“VLA 是否真正用上机器人相机标定几何”这个问题讲得很直接。",
+    "sources": [
+      {
+        "name": "arXiv:2606.24472",
+        "url": "https://arxiv.org/abs/2606.24472"
+      }
+    ],
+    "related": [
+      {
+        "label": "spatialvla",
+        "url": "/vla/papers/spatialvla"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "world-value-models-robotic-manipulation-20260623",
+    "title": "World Value Models 把世界模型接到机器人价值估计,用于筛选混合质量演示数据",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-24",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "WAM",
+      "数据处理"
+    ],
+    "summary": "**World Value Models**(arXiv:2606.24742) 认为机器人 value model 需要深层时间理解,而静态或稀疏视觉预训练的 VLM 主干并不天然适合。论文把 world model 与 value estimation 结合,用于估计任务进展和数据质量,并提出 **Suboptimal-Value-Bench**:800 条多本体 suboptimal 轨迹与人工帧级标注。它很适合放进“混合质量数据如何筛选/加权训练”的新闻脉络。",
+    "sources": [
+      {
+        "name": "arXiv:2606.24742",
+        "url": "https://arxiv.org/abs/2606.24742"
+      }
+    ],
+    "related": [
+      {
+        "label": "",
+        "url": "/wam/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "space-cross-robot-data-generalist-policy-20260623",
+    "title": "SPACE 用笛卡尔状态增量统一跨机器人动作表示,面向 generalist policy 数据混训",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-24",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "数据处理",
+      "跨本体泛化"
+    ],
+    "summary": "**SPACE**(arXiv:2606.24049) 直面跨机器人数据混训中的动作不一致问题:同一末端运动在不同本体上需要不同控制命令。它用 Cartesian state delta 作为通用动作表示,再通过 Action Adapter 转成机器人专属命令;实验覆盖跨本体、同本体不同硬件单元和部署时动力学漂移。对本站的数据格式和本体统一问题来说,这是“动作空间标准化”的一个清晰新方案。",
+    "sources": [
+      {
+        "name": "arXiv:2606.24049",
+        "url": "https://arxiv.org/abs/2606.24049"
+      }
+    ],
+    "related": [
+      {
+        "label": "data-processing",
+        "url": "/vla/papers/data-processing"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "supervise-what-survives-geometry-guided-vla-20260623",
+    "title": "Supervise What Survives:用生成机器人视频里保留下来的几何监督 VLA,不硬恢复伪动作",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-24",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "VLA 模型",
+      "数据处理"
+    ],
+    "summary": "**Supervise What Survives**(arXiv:2606.24448) 认为生成机器人视频保留下来的是“在哪里运动”的几何轨迹,而不是可直接监督控制的真实动作。论文提出 GRA,把从人类视频经姿态估计、retarget、仿真和投影得到的未来 2D 末端路标作为视觉 backbone 的辅助监督,动作头仍只用真实演示训练。这个观点对“视频生成能不能替代真实遥操作数据”很有参考价值。",
+    "sources": [
+      {
+        "name": "arXiv:2606.24448",
+        "url": "https://arxiv.org/abs/2606.24448"
+      }
+    ],
+    "related": [
+      {
+        "label": "embodied-data",
+        "url": "/vla/papers/embodied-data"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "robosr-structured-scene-representations-20260623",
+    "title": "RoBoSR 提出面向具身推理的结构化场景表示,配套 Manip-Cognition-1.6M 数据集",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-24",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "数据集发布",
+      "具身推理"
+    ],
+    "summary": "**RoBoSR**(arXiv:2606.24338) 把机器人操作表述为物体中心场景图上的逐步状态转移,试图把高层任务推理从原始输入中解耦出来。论文同时构建 **Manip-Cognition-1.6M** 数据集,联合监督场景理解、指令解释和子任务规划,并在多个 benchmark 与真实演示上比较零样本和长程任务表现。它与本站知识图谱/长程任务失败模式也能形成呼应:关键不只是会动作,还要显式表示前置条件、效果和目标状态。",
+    "sources": [
+      {
+        "name": "arXiv:2606.24338",
+        "url": "https://arxiv.org/abs/2606.24338"
+      }
+    ],
+    "related": [
+      {
+        "label": "failure-modes",
+        "url": "/vla/papers/failure-modes"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "navwm-navigation-world-model-20260623",
+    "title": "NavWM 发布导航世界模型:用未来视觉想象做闭环路径选择",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-24",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "WAM",
+      "导航"
+    ],
+    "summary": "**NavWM**(arXiv:2606.24101) 是一篇 ECCV 2026 接收论文,提出统一导航 world model,把 latent world reasoning、多模态动作预测和可控未来视觉生成放在同一框架里。它用 anchor-based multimodal trajectory forecasting 生成多样候选动作,再通过视觉 foresight 评估路径,目标是缓解视觉导航中的短视决策和 mode collapse。对 WAM 页面来说,这是从 manipulation 扩展到 navigation 的新样本。",
+    "sources": [
+      {
+        "name": "arXiv:2606.24101",
+        "url": "https://arxiv.org/abs/2606.24101"
+      }
+    ],
+    "related": [
+      {
+        "label": "",
+        "url": "/wam/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "optimization-guided-diffusion-robot-control-20260623",
+    "title": "Optimization-Guided Diffusion 用推理时约束优化给机器人扩散策略补物理可行性",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-24",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "扩散策略",
+      "推理部署"
+    ],
+    "summary": "**Grounding Generative Policies in Physics**(arXiv:2606.24208) 关注扩散策略输出“分布上合理但部署不可行”的问题。论文把 denoising guidance 写成带约束的优化问题,在采样阶段加入 reachability、collision avoidance、closed-loop executability 等硬约束或软惩罚,无需重训扩散模型。作者在灵巧抓取和动态操作中报告任务成功率相对最佳 baseline 提升最高 20pp/23pp;⚠️ 数字为作者自评。",
+    "sources": [
+      {
+        "name": "arXiv:2606.24208",
+        "url": "https://arxiv.org/abs/2606.24208"
+      }
+    ],
+    "related": [
+      {
+        "label": "diffusion-policy",
+        "url": "/vla/papers/diffusion-policy"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "retvl-retry-supervised-value-learning-20260623",
+    "title": "ReTVL 从失败重试片段学习 value model,把 imperfect demos 中的纠错行为用起来",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-24",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "模仿学习",
+      "数据处理"
+    ],
+    "summary": "**ReTVL**(arXiv:2606.24633) 反对把人类演示里的抓偏、对不齐、接触不稳和重复尝试一概当噪声丢掉。它把 retry event 当稀疏监督,学习对局部错误和恢复更敏感的 value function,再用来重加权 demonstration chunks 进行行为克隆。这个方向对真实遥操作数据很实际:人类演示天然不完美,但“怎么纠错”本身也是训练信号。",
+    "sources": [
+      {
+        "name": "arXiv:2606.24633",
+        "url": "https://arxiv.org/abs/2606.24633"
+      }
+    ],
+    "related": [
+      {
+        "label": "data-processing",
+        "url": "/vla/papers/data-processing"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "faraday-future-futurist-faber-eai-robot-world-20260623",
+    "title": "FF 在 Automate 发布 Futurist 与 Faber:把 EAI 机器人产品线扩到人形与移动操作平台",
+    "date": "2026-06-23",
+    "fetched_at": "2026-06-24",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "人形机器人",
+      "具身落地"
+    ],
+    "summary": "**Faraday Future** 在 Automate 2026 发布 FF EAI Robot World 后半段产品线,包括 All-New Futurist 人形机器人和 FF Faber 工业级移动操作平台。官方称 Futurist 定价 **89,900 美元**、31 自由度、约 6 小时续航;Faber 系列面向工业上下料、物流搬运、巡检等场景,并围绕 VLA + World Model 建构“一个大脑、多种形态”的产品叙事。⚠️ 这是公司官方公告,商业交付规模和长期可持续性仍需后续验证。",
+    "sources": [
+      {
+        "name": "Faraday Future Investor Relations",
+        "url": "https://investors.ff.com/news-releases/news-release-details/faraday-future-unveils-its-second-half-launch-ff-eai-robot-world"
+      }
+    ],
+    "related": [
+      {
+        "label": "robots",
+        "url": "/vla/papers/robots"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "xiongan-embodied-ai-training-center-20260624",
+    "title": "新华社披露雄安具身智能训练中心:用仿真化场景生成机器人训练数据",
+    "date": "2026-06-24",
+    "fetched_at": "2026-06-24",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "产业动态",
+      "数据处理",
+      "中国具身智能"
+    ],
+    "summary": "新华社英文图文报道了河北雄安的具身智能训练中心,称该中心自 2025 年 12 月起建设面向多场景的训练环境,通过模拟工坊、物流等真实场景产生机器人数据。报道展示了人形机器人介绍、工作人员训练机器人、物流场景训练等画面。它不是模型或产品发布,但说明国内正在把“场景数据工厂”作为具身智能基础设施来建设。",
+    "sources": [
+      {
+        "name": "Xinhua",
+        "url": "https://english.news.cn/20260624/9cee0f4a71324df58d172b7b77d637fb/c.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "data-processing",
+        "url": "/vla/papers/data-processing"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "nvidia-halos-for-robotics-safety-system-20260622",
     "title": "NVIDIA 发布 Halos for Robotics:把机器人安全做成 Physical AI 全栈部署底座",
     "date": "2026-06-22",

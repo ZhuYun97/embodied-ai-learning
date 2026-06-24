@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-06-23",
+  "last_fetched_at": "2026-06-24T10:30:34+08:00",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -73,8 +73,19 @@
     "coordex-dexterous-humanoid-loco-manipulation|20260623",
     "flatness-preserves-instruction-following-vla|20260623",
     "holoagent-0-embodied-agent-3d-spatial-memory|20260623",
-    "see2act-active-perception-robot-imitation|20260623"
+    "see2act-active-perception-robot-imitation|20260623",
+    "insight-steerable-vla-skill-acquisition|20260623",
+    "g3vla-geometric-inductive-bias|20260623",
+    "world-value-models-robotic-manipulation|20260623",
+    "space-cross-robot-data-generalist-policy|20260623",
+    "supervise-what-survives-geometry-guided-vla|20260623",
+    "robosr-structured-scene-representations|20260623",
+    "navwm-navigation-world-model|20260623",
+    "optimization-guided-diffusion-robot-control|20260623",
+    "retvl-retry-supervised-value-learning|20260623",
+    "faraday-future-futurist-faber-eai-robot-world|20260623",
+    "xiongan-embodied-ai-training-center|20260624"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 73
+  "_count": 84
 }
