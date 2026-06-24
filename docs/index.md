@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: "具身智能学习站"
-  text: "Embodied AI Learning"
-  tagline: 梳理具身智能两条主线 —— VLA 发展脉络 × WAM(世界-行动模型)最新前沿
+  name: "具身星图"
+  text: "Embodied AI Atlas"
+  tagline: 在 VLA × WAM 的论文谱系、知识图谱、新闻与产业生态之间导航
   actions:
     - theme: brand
       text: VLA 调研报告 →
@@ -216,7 +216,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   <div class="home-coda__main">
     <span class="home-coda__eyebrow">// ABOUT · 关于本站 × 持续探索</span>
     <p class="home-coda__title">两条主线 · 逐篇细读 · 持续更新</p>
-    <p class="home-coda__sub">一份<strong>持续生长的具身智能学习笔记</strong>:沿 <strong>VLA(视觉-语言-动作)</strong> 发展深度调研 × <strong>WAM(世界-行动模型)</strong> 前沿两条主线展开,各配一组逐篇论文细读。所有结论经 <code>deep-research</code> 多源检索 + 3 票对抗式事实核查整理;⚠️ 自评(多为厂商/作者数据、非独立第三方复现)/ ✅ 已核 / 待核 三级标注,绝不把厂商自评洗成裸事实。</p>
+    <p class="home-coda__sub">一张<strong>持续生长的具身智能研究星图</strong>:沿 <strong>VLA(视觉-语言-动作)</strong> 发展深度调研 × <strong>WAM(世界-行动模型)</strong> 前沿两条主线展开,串联逐篇论文细读、知识图谱、新闻与产业生态。所有结论经 <code>deep-research</code> 多源检索 + 3 票对抗式事实核查整理;⚠️ 自评(多为厂商/作者数据、非独立第三方复现)/ ✅ 已核 / 待核 三级标注,绝不把厂商自评洗成裸事实。</p>
     <p class="home-coda__hint">📌 VLA 线先读 <a href="vla/">发展深度调研总报告</a> 把握全局,再按 <a href="vla/#-论文细读导航">论文细读导航</a> 逐篇深入;WAM 线从 <a href="wam/">WAM 总览(定义 / taxonomy)</a> 进入。第一次来?看 <a href="vla/guide">如何阅读本站</a> 与 <a href="vla/changelog">更新日志</a>。</p>
     <p class="home-coda__term" aria-hidden="true">$ keep_researching <span class="home-coda__flag">--forever</span><span class="home-coda__caret"></span></p>
   </div>

@@ -102,8 +102,8 @@ function installWikiLinks(md) {
 }
 
 export default withMermaid(defineConfig({
-  title: '具身智能学习站',
-  description: '具身智能 (Embodied AI) 学习笔记 — 从 VLA 模型发展脉络到 2026 年最新前沿',
+  title: '具身星图',
+  description: '具身智能研究导航 — VLA × WAM 论文谱系、知识图谱、新闻与产业生态',
   lang: 'zh-CN',
   base: SITE_BASE,
   // 全站默认深色:科技控制台基调(深空底/辉光/数据包等效果均以暗色为最佳态)。
@@ -242,7 +242,7 @@ export default withMermaid(defineConfig({
         }
         const h1 = raw.match(/^#\s+(.+)$/m)
         if (h1) return h1[1].trim()
-        return rel === 'index.md' ? '具身智能学习站(首页)' : rel
+        return rel === 'index.md' ? '具身星图(首页)' : rel
       }
       const urlOf = (rel) => ORIGIN + rel.replace(/\.md$/, '').replace(/(^|\/)index$/, '$1')
 
@@ -320,7 +320,7 @@ export default withMermaid(defineConfig({
         fs.writeFileSync(newsOutPath, newsMd.join('\n'), 'utf-8')
       }
 
-      const header = `# 具身智能学习站 · Embodied AI Learning\n\n> VLA 模型发展深度调研 + 62 篇论文细读 + 横切分析专题。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
+      const header = `# 具身星图 · Embodied AI Atlas\n\n> VLA × WAM 前沿谱系 + 72 篇论文细读 + 知识图谱与产业生态。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
       fs.writeFileSync(path.join(outDir, 'llms.txt'), header + index.join('\n') + '\n', 'utf-8')
       fs.writeFileSync(path.join(outDir, 'llms-full.txt'), header + fullParts.join('\n\n---\n\n') + '\n', 'utf-8')
       console.log(`[buildEnd] 已导出 llms.txt / llms-full.txt + ${files.length} 页原始 .md.txt`)
@@ -340,25 +340,25 @@ export default withMermaid(defineConfig({
     // 站点字体:Inter(正文/中文回退)+ JetBrains Mono(等宽代码/链接 chip)+ Orbitron(科幻显示体:英文标题/数字/HUD)
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@500;600;700;800;900&display=swap' }],
     ['meta', { name: 'theme-color', content: '#2563eb' }],
-    ['meta', { name: 'author', content: '具身智能学习站' }],
+    ['meta', { name: 'author', content: '具身星图' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:site_name', content: '具身智能学习站' }],
+    ['meta', { property: 'og:site_name', content: '具身星图' }],
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:url', content: 'https://zhuyun97.github.io/embodied-ai-learning/' }],
-    ['meta', { property: 'og:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { property: 'og:description', content: 'VLA 模型发展深度调研 + 62 篇论文细读 + 横切分析专题,经多源检索与对抗式事实核查整理。' }],
+    ['meta', { property: 'og:title', content: '具身星图 · Embodied AI Atlas' }],
+    ['meta', { property: 'og:description', content: 'VLA × WAM 前沿谱系、72 篇论文细读、知识图谱、新闻与产业生态,经多源检索与对抗式事实核查整理。' }],
     ['meta', { property: 'og:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:title', content: '具身智能学习站 · Embodied AI Learning' }],
-    ['meta', { name: 'twitter:description', content: 'VLA 模型发展深度调研 + 62 篇论文细读 + 横切分析专题,经对抗式事实核查整理。' }],
+    ['meta', { name: 'twitter:title', content: '具身星图 · Embodied AI Atlas' }],
+    ['meta', { name: 'twitter:description', content: 'VLA × WAM 前沿谱系、72 篇论文细读、知识图谱与产业生态,经对抗式事实核查整理。' }],
     ['meta', { name: 'twitter:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
   ],
 
   themeConfig: {
-    logo: { light: '/logo-gpt-image2-256.png', dark: '/logo-gpt-image2-256.png', alt: '具身智能学习站' },
-    siteTitle: '具身智能学习站',
+    logo: { light: '/logo-gpt-image2-256.png', dark: '/logo-gpt-image2-256.png', alt: '具身星图' },
+    siteTitle: '具身星图',
 
     nav: [
       { text: '首页', link: '/' },

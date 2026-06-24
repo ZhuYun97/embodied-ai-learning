@@ -1,8 +1,8 @@
-# 具身智能学习站 · Embodied AI Learning
+# 具身星图 · Embodied AI Atlas
 
 > 🌐 **在线访问:<https://zhuyun97.github.io/embodied-ai-learning/>**
 
-一个持续生长的**具身智能(Embodied AI)学习笔记**站点,沿两条主线展开:
+一张持续生长的**具身智能(Embodied AI)研究星图**,沿两条主线展开:
 
 - **VLA(视觉-语言-动作)模型发展深度调研** —— 从 RT-1/RT-2 奠基,到 2026 年最新前沿(WALL-OSS、Qwen-VLA、π0.6/π*0.6、π0.7、Gemini Robotics 等)。
 - **WAM(世界-行动模型)前沿梳理** —— 联合预测「未来状态 + 动作」的新范式,按综述 taxonomy(级联 vs 联合)组织。

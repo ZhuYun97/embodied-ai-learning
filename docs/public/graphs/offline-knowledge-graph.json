@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Embodied AI Offline Knowledge Graph",
-    "generatedAt": "2026-06-23T06:25:48.748Z",
+    "generatedAt": "2026-06-24T09:28:22.701Z",
     "mode": "offline-local",
     "apiCalls": 0,
     "source": {
@@ -197,8 +197,8 @@
       "id": "concept:motion-control",
       "label": "运控层",
       "type": "concept",
-      "degree": 11,
-      "size": 47.17691453623979
+      "degree": 12,
+      "size": 48.449961479175904
     },
     {
       "id": "concept:online-rl",
@@ -396,7 +396,7 @@
       "type": "page",
       "url": "/vla/changelog",
       "rel": "vla/changelog.md",
-      "description": "具身智能学习站更新日志,按时间倒序记录站点内容与功能演进——从初版 12 篇细读成长为 VLA × WAM 双轨、62 篇论文细读、生态图谱与就业地图、具身入门与训练全流程专题,以及深色 HUD 视觉与交互升级。",
+      "description": "具身星图更新日志,按时间倒序记录站点内容与功能演进——从初版 12 篇细读成长为 VLA × WAM 双轨、72 篇论文细读、生态图谱与就业地图、具身入门与训练全流程专题,以及深色 HUD 视觉与交互升级。",
       "degree": 147,
       "size": 72
     },
@@ -406,8 +406,8 @@
       "type": "page",
       "url": "/vla/guide",
       "rel": "vla/guide.md",
-      "description": "如何阅读本站——具身智能学习站的内容地图、推荐阅读路径、可信度标注约定(⚠️/✅/待核)与贡献反馈方式,帮助新读者快速上手 VLA 视觉-语言-动作模型深度调研。",
-      "degree": 76,
+      "description": "如何阅读具身星图——内容地图、推荐阅读路径、可信度标注约定(⚠️/✅/待核)与贡献反馈方式,帮助新读者快速上手 VLA 视觉-语言-动作模型深度调研。",
+      "degree": 77,
       "size": 72
     },
     {
@@ -15114,6 +15114,16 @@
       "evidence": []
     },
     {
+      "id": "mentions:doc:vla/guide->concept:motion-control",
+      "source": "doc:vla/guide",
+      "target": "concept:motion-control",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
       "id": "mentions:doc:vla/guide->concept:predictive-policy",
       "source": "doc:vla/guide",
       "target": "concept:predictive-policy",
@@ -15149,7 +15159,7 @@
       "target": "concept:wam",
       "type": "mentions",
       "label": "提及",
-      "weight": 6,
+      "weight": 7,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -15459,7 +15469,7 @@
       "target": "concept:world-model",
       "type": "mentions",
       "label": "提及",
-      "weight": 4,
+      "weight": 5,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -16479,7 +16489,7 @@
       "target": "concept:action-token",
       "type": "mentions",
       "label": "提及",
-      "weight": 5,
+      "weight": 6,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -16529,7 +16539,7 @@
       "target": "concept:flow-matching",
       "type": "mentions",
       "label": "提及",
-      "weight": 8,
+      "weight": 9,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -16539,7 +16549,7 @@
       "target": "concept:inference-deploy",
       "type": "mentions",
       "label": "提及",
-      "weight": 6,
+      "weight": 8,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -16569,7 +16579,7 @@
       "target": "concept:vla",
       "type": "mentions",
       "label": "提及",
-      "weight": 3,
+      "weight": 5,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -18689,7 +18699,7 @@
       "target": "concept:wam",
       "type": "mentions",
       "label": "提及",
-      "weight": 9,
+      "weight": 10,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -31025,8 +31035,8 @@
       "source": "doc:vla/guide",
       "target": "doc:vla/papers/motion-control",
       "type": "related",
-      "label": "共现 9",
-      "weight": 9,
+      "label": "共现 10",
+      "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
