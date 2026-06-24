@@ -16,8 +16,8 @@ import './custom.css'
 // =====================================================================
 // 首屏 WebGL 扭曲背景(HeroBG → GridDistortion):蓝紫流体抽象底图
 // (public/hero-bg.jpg,Unsplash,与站点配色同源)铺满首个视口,鼠标拖动产生网格扭曲;
-// 叠两层科技增强(见 custom.css):.hero-bg-halo 机器人位锚定青蓝辉光、
-// .hero-bg-tech HUD 科技层(扫描线 + 暗角聚焦 + 缓慢扫描带)。
+// 叠两层科技增强(见 custom.css):.hero-bg-halo 人物位锚定青蓝辉光(消除人物与背景
+// 脱节感)、.hero-bg-tech HUD 科技层(扫描线 + 暗角聚焦 + 缓慢扫描带)。
 // 随滚动收起(--hero-collapse,见 setupHeroCollapse)。client-only。
 // =====================================================================
 const HeroBG = {
@@ -539,214 +539,6 @@ const HERO_STATS = [
   { n: '57', unit: '家', label: '生态公司' },
   { n: '2', unit: '条', label: '研究主线' },
 ]
-
-function renderAtlasBot() {
-  return h(
-    'svg',
-    {
-      class: 'atlas-bot',
-      viewBox: '0 0 520 520',
-      focusable: 'false',
-      'aria-hidden': 'true',
-    },
-    [
-      h('defs', [
-        h('linearGradient', { id: 'atlasBotShell', x1: '95', y1: '62', x2: '418', y2: '444', gradientUnits: 'userSpaceOnUse' }, [
-          h('stop', { offset: '0%', 'stop-color': '#effcff' }),
-          h('stop', { offset: '24%', 'stop-color': '#74d9f4' }),
-          h('stop', { offset: '52%', 'stop-color': '#173a82' }),
-          h('stop', { offset: '100%', 'stop-color': '#050b21' }),
-        ]),
-        h('linearGradient', { id: 'atlasBotGlass', x1: '160', y1: '126', x2: '360', y2: '228', gradientUnits: 'userSpaceOnUse' }, [
-          h('stop', { offset: '0%', 'stop-color': '#082355' }),
-          h('stop', { offset: '52%', 'stop-color': '#040817' }),
-          h('stop', { offset: '100%', 'stop-color': '#0e4b80' }),
-        ]),
-        h('linearGradient', { id: 'atlasBotPanel', x1: '146', y1: '226', x2: '372', y2: '454', gradientUnits: 'userSpaceOnUse' }, [
-          h('stop', { offset: '0%', 'stop-color': '#eafcff' }),
-          h('stop', { offset: '38%', 'stop-color': '#54d7f6' }),
-          h('stop', { offset: '100%', 'stop-color': '#07142f' }),
-        ]),
-        h('radialGradient', { id: 'atlasBotCore', cx: '50%', cy: '46%', r: '58%' }, [
-          h('stop', { offset: '0%', 'stop-color': '#ffffff' }),
-          h('stop', { offset: '32%', 'stop-color': '#67e8f9' }),
-          h('stop', { offset: '66%', 'stop-color': '#2563eb' }),
-          h('stop', { offset: '100%', 'stop-color': '#071126' }),
-        ]),
-        h('filter', { id: 'atlasBotGlow', x: '-30%', y: '-30%', width: '160%', height: '160%' }, [
-          h('feGaussianBlur', { stdDeviation: '6', result: 'blur' }),
-          h('feColorMatrix', {
-            in: 'blur',
-            type: 'matrix',
-            values: '0 0 0 0 0.10 0 0 0 0 0.80 0 0 0 0 1 0 0 0 .68 0',
-            result: 'glow',
-          }),
-          h('feMerge', [h('feMergeNode', { in: 'glow' }), h('feMergeNode', { in: 'SourceGraphic' })]),
-        ]),
-      ]),
-      h('g', { class: 'atlas-bot__back' }, [
-        h('ellipse', { class: 'atlas-bot__halo atlas-bot__halo--wide', cx: '260', cy: '282', rx: '198', ry: '158' }),
-        h('ellipse', { class: 'atlas-bot__halo atlas-bot__halo--thin', cx: '260', cy: '268', rx: '152', ry: '116' }),
-        h('path', { class: 'atlas-bot__arc atlas-bot__arc--a', d: 'M88 279C115 153 222 83 341 106c58 11 95 45 113 92' }),
-        h('path', { class: 'atlas-bot__arc atlas-bot__arc--b', d: 'M432 307c-40 105-148 157-256 121-58-19-95-57-112-102' }),
-        h('circle', { class: 'atlas-bot__sat atlas-bot__sat--a', cx: '113', cy: '333', r: '9' }),
-        h('circle', { class: 'atlas-bot__sat atlas-bot__sat--b', cx: '421', cy: '190', r: '7' }),
-        h('path', { class: 'atlas-bot__signal', d: 'M382 143h48M406 119v48' }),
-      ]),
-      h('g', { class: 'atlas-bot__side atlas-bot__side--left' }, [
-        h('path', { d: 'M146 245c-49 14-75 53-74 111 1 40 17 69 48 88 22-58 42-118 59-180-7-10-18-17-33-19z' }),
-        h('path', { class: 'atlas-bot__side-line', d: 'M107 407c23-53 40-101 53-145' }),
-      ]),
-      h('g', { class: 'atlas-bot__side atlas-bot__side--right' }, [
-        h('path', { d: 'M374 245c49 14 75 53 74 111-1 40-17 69-48 88-22-58-42-118-59-180 7-10 18-17 33-19z' }),
-        h('path', { class: 'atlas-bot__side-line', d: 'M413 407c-23-53-40-101-53-145' }),
-      ]),
-      h('g', { class: 'atlas-bot__core' }, [
-        h('g', { class: 'atlas-bot__head' }, [
-          h('path', {
-            class: 'atlas-bot__head-shell',
-            d: 'M153 150c16-57 64-91 107-91s91 34 107 91c12 43-3 80-39 101-41 25-95 25-136 0-36-21-51-58-39-101z',
-          }),
-          h('path', { class: 'atlas-bot__head-cap', d: 'M185 132c34-35 116-50 150 0-22-11-51-17-75-17s-53 6-75 17z' }),
-          h('g', { class: 'atlas-bot__gaze' }, [
-            h('path', {
-              class: 'atlas-bot__face',
-              d: 'M181 158c28-25 130-25 158 0 7 34-10 63-42 78-21 10-53 10-74 0-32-15-49-44-42-78z',
-            }),
-            h('path', { class: 'atlas-bot__visor', d: 'M203 174c31-14 83-14 114 0-7 22-22 36-44 41h-26c-22-5-37-19-44-41z' }),
-            h('path', { class: 'atlas-bot__eye atlas-bot__eye--left', d: 'M217 185c17 1 29 4 39 12-14 8-28 9-42 3z' }),
-            h('path', { class: 'atlas-bot__eye atlas-bot__eye--right', d: 'M303 185c-17 1-29 4-39 12 14 8 28 9 42 3z' }),
-          ]),
-        ]),
-        h('g', { class: 'atlas-bot__torso' }, [
-          h('path', { class: 'atlas-bot__neck', d: 'M224 250h72l15 34c-35 12-67 12-102 0z' }),
-          h('path', {
-            class: 'atlas-bot__body',
-            d: 'M151 303c31-39 70-58 109-58s78 19 109 58c-8 96-49 143-109 158-60-15-101-62-109-158z',
-          }),
-          h('path', { class: 'atlas-bot__body-glint', d: 'M176 314c33-34 68-47 105-43-46 34-78 86-97 151-19-26-29-62-8-108z' }),
-          h('circle', { class: 'atlas-bot__core-light', cx: '260', cy: '341', r: '44' }),
-          h('circle', { class: 'atlas-bot__core-ring', cx: '260', cy: '341', r: '27' }),
-          h('path', { class: 'atlas-bot__chest-line atlas-bot__chest-line--left', d: 'M182 382c30-3 49-14 60-35' }),
-          h('path', { class: 'atlas-bot__chest-line atlas-bot__chest-line--right', d: 'M338 382c-30-3-49-14-60-35' }),
-        ]),
-      ]),
-      h('g', { class: 'atlas-bot__foreground' }, [
-        h('ellipse', { class: 'atlas-bot__base', cx: '260', cy: '456', rx: '115', ry: '24' }),
-        h('path', { class: 'atlas-bot__scan', d: 'M118 466h284' }),
-      ]),
-    ]
-  )
-}
-
-function renderIndustrialBot() {
-  return h(
-    'svg',
-    {
-      class: 'atlas-bot industrial-bot',
-      viewBox: '0 0 520 520',
-      focusable: 'false',
-      'aria-hidden': 'true',
-    },
-    [
-      h('defs', [
-        h('linearGradient', { id: 'industrialShell', x1: '114', y1: '52', x2: '382', y2: '478', gradientUnits: 'userSpaceOnUse' }, [
-          h('stop', { offset: '0%', 'stop-color': '#ffffff' }),
-          h('stop', { offset: '28%', 'stop-color': '#dff8ff' }),
-          h('stop', { offset: '58%', 'stop-color': '#8fb5c7' }),
-          h('stop', { offset: '100%', 'stop-color': '#1d2633' }),
-        ]),
-        h('linearGradient', { id: 'industrialGlass', x1: '202', y1: '55', x2: '313', y2: '220', gradientUnits: 'userSpaceOnUse' }, [
-          h('stop', { offset: '0%', 'stop-color': '#27313c' }),
-          h('stop', { offset: '46%', 'stop-color': '#05080f' }),
-          h('stop', { offset: '100%', 'stop-color': '#111824' }),
-        ]),
-        h('linearGradient', { id: 'industrialDark', x1: '180', y1: '185', x2: '350', y2: '472', gradientUnits: 'userSpaceOnUse' }, [
-          h('stop', { offset: '0%', 'stop-color': '#202733' }),
-          h('stop', { offset: '50%', 'stop-color': '#050914' }),
-          h('stop', { offset: '100%', 'stop-color': '#141923' }),
-        ]),
-        h('radialGradient', { id: 'industrialCyan', cx: '50%', cy: '50%', r: '58%' }, [
-          h('stop', { offset: '0%', 'stop-color': '#effcff' }),
-          h('stop', { offset: '34%', 'stop-color': '#67e8f9' }),
-          h('stop', { offset: '70%', 'stop-color': '#0891b2' }),
-          h('stop', { offset: '100%', 'stop-color': '#071126' }),
-        ]),
-        h('filter', { id: 'industrialGlow', x: '-35%', y: '-35%', width: '170%', height: '170%' }, [
-          h('feGaussianBlur', { stdDeviation: '5', result: 'blur' }),
-          h('feColorMatrix', {
-            in: 'blur',
-            type: 'matrix',
-            values: '0 0 0 0 0.05 0 0 0 0 0.82 0 0 0 0 1 0 0 0 .72 0',
-            result: 'glow',
-          }),
-          h('feMerge', [h('feMergeNode', { in: 'glow' }), h('feMergeNode', { in: 'SourceGraphic' })]),
-        ]),
-      ]),
-      h('g', { class: 'industrial-bot__hud' }, [
-        h('ellipse', { class: 'industrial-bot__orbit industrial-bot__orbit--wide', cx: '260', cy: '278', rx: '200', ry: '158' }),
-        h('ellipse', { class: 'industrial-bot__orbit industrial-bot__orbit--thin', cx: '260', cy: '294', rx: '146', ry: '116' }),
-        h('path', { class: 'industrial-bot__arc industrial-bot__arc--a', d: 'M90 282c25-105 99-170 194-172 77-2 134 34 163 92' }),
-        h('path', { class: 'industrial-bot__arc industrial-bot__arc--b', d: 'M427 326c-38 88-118 132-211 116-61-11-105-43-132-92' }),
-        h('path', { class: 'industrial-bot__target', d: 'M399 129h44M421 107v44' }),
-        h('circle', { class: 'industrial-bot__node industrial-bot__node--a', cx: '98', cy: '344', r: '7' }),
-        h('circle', { class: 'industrial-bot__node industrial-bot__node--b', cx: '430', cy: '224', r: '6' }),
-      ]),
-      h('g', { class: 'industrial-bot__rig' }, [
-        h('g', { class: 'industrial-bot__arms' }, [
-          h('g', { class: 'industrial-bot__arm industrial-bot__arm--left' }, [
-            h('path', { class: 'industrial-bot__socket', d: 'M151 256c-20 1-38 16-44 38l36 20 38-39c-6-12-16-19-30-19z' }),
-            h('path', { class: 'industrial-bot__upper-arm', d: 'M112 292c-25 38-32 82-20 126 13 6 29 4 43-6 6-42 18-82 39-119-17-7-38-8-62-1z' }),
-            h('circle', { class: 'industrial-bot__joint', cx: '136', cy: '414', r: '16' }),
-            h('path', { class: 'industrial-bot__forearm', d: 'M118 427c4 28 13 52 27 69 13-4 24-13 31-26-11-23-19-43-24-62-13 7-25 13-34 19z' }),
-          ]),
-          h('g', { class: 'industrial-bot__arm industrial-bot__arm--right' }, [
-            h('path', { class: 'industrial-bot__socket', d: 'M369 256c20 1 38 16 44 38l-36 20-38-39c6-12 16-19 30-19z' }),
-            h('path', { class: 'industrial-bot__upper-arm', d: 'M408 292c25 38 32 82 20 126-13 6-29 4-43-6-6-42-18-82-39-119 17-7 38-8 62-1z' }),
-            h('circle', { class: 'industrial-bot__joint', cx: '384', cy: '414', r: '16' }),
-            h('path', { class: 'industrial-bot__forearm', d: 'M402 427c-4 28-13 52-27 69-13-4-24-13-31-26 11-23 19-43 24-62 13 7 25 13 34 19z' }),
-          ]),
-        ]),
-        h('g', { class: 'industrial-bot__body-group' }, [
-          h('path', { class: 'industrial-bot__neck-shadow', d: 'M219 190h82l18 72c-35 24-83 24-118 0z' }),
-          h('path', { class: 'industrial-bot__neck-rib', d: 'M219 204h82M215 222h90M210 241h100' }),
-          h('path', {
-            class: 'industrial-bot__torso-dark industrial-bot__torso-dark--left',
-            d: 'M169 274c20-32 50-52 91-61l-15 250c-36-8-63-24-82-48-6-61-4-109 6-141z',
-          }),
-          h('path', {
-            class: 'industrial-bot__torso-dark industrial-bot__torso-dark--right',
-            d: 'M351 274c-20-32-50-52-91-61l15 250c36-8 63-24 82-48 6-61 4-109-6-141z',
-          }),
-          h('path', {
-            class: 'industrial-bot__torso',
-            d: 'M177 272c24-41 55-61 83-61s59 20 83 61c3 74-9 139-37 188-29 15-63 15-92 0-28-49-40-114-37-188z',
-          }),
-          h('path', { class: 'industrial-bot__chest-split', d: 'M260 225v232' }),
-          h('path', { class: 'industrial-bot__chest-glint', d: 'M197 287c23-31 48-47 78-48-30 43-50 98-60 166-21-31-27-71-18-118z' }),
-          h('circle', { class: 'industrial-bot__chest-port', cx: '260', cy: '316', r: '18' }),
-          h('path', { class: 'industrial-bot__belt', d: 'M206 440c35 16 73 16 108 0l20 27c-46 25-102 25-148 0z' }),
-        ]),
-        h('g', { class: 'industrial-bot__head' }, [
-          h('path', {
-            class: 'industrial-bot__head-side',
-            d: 'M221 62c-22 22-34 60-34 103 0 42 13 78 38 98 14 11 30 17 47 18-32-35-45-74-39-118 6-43 23-76 55-99-20-13-48-14-67-2z',
-          }),
-          h('path', {
-            class: 'industrial-bot__faceplate',
-            d: 'M226 55c39-31 101-8 116 48 18 69-5 153-51 171-38 15-81-13-95-66-15-59-3-127 30-153z',
-          }),
-          h('path', { class: 'industrial-bot__jaw', d: 'M212 219c24 30 66 44 97 18-11 25-32 41-54 41-18 0-34-20-43-59z' }),
-          h('circle', { class: 'industrial-bot__sensor-ring', cx: '236', cy: '132', r: '22' }),
-          h('circle', { class: 'industrial-bot__sensor-dot', cx: '236', cy: '132', r: '8' }),
-          h('path', { class: 'industrial-bot__head-highlight', d: 'M217 75c18-17 51-22 78-9-37 10-64 39-77 86-8-29-8-57-1-77z' }),
-        ]),
-      ]),
-      h('ellipse', { class: 'industrial-bot__base', cx: '260', cy: '472', rx: '114', ry: '19' }),
-    ]
-  )
-}
-
 const HeroStats = {
   setup() {
     // 数字「读出」:进入首屏即从 0 计数到目标值(tabular mono → HUD 遥测感)。
@@ -990,6 +782,7 @@ const TechHero = {
       clockTimer = setInterval(tick, 1000)
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
       bindHeroUnit(reduce)
+      bindHeroVideo(reduce)
       if (reduce) return
       // 开机序列:状态条 → 终端提示语,逐字打出(一次性;机器人物化见 custom.css robotMaterialize)
       armBootSkip()
@@ -1109,15 +902,18 @@ const TechHero = {
               h('span', { class: 'tu-tag tu-tag--tl' }, 'EMBODIED-UNIT'),
               h('span', { class: 'tu-tag tu-tag--tr' }, 'VLA · WAM'),
               h('div', { class: 'thero__robot-wrap', title: '点我 · 单元会回应' }, [
-                h(
-                  'div',
-                  {
-                    class: 'thero__robot thero__robot--mech',
-                    role: 'img',
-                    'aria-label': '可交互的具身星图机器人',
-                  },
-                  [renderIndustrialBot()]
-                ),
+                // 镭光人概念视频(public/hero-laser-human.mp4,自托管):桌面精确指针
+                // = 鼠标推扫逐帧(bindHeroVideo),窄屏/触屏 = 静音循环播放,reduced-motion = 静帧
+                h('video', {
+                  class: 'thero__robot thero__robot--video',
+                  src: withBase('/hero-laser-human.mp4'),
+                  muted: true,
+                  playsinline: true,
+                  'webkit-playsinline': true,
+                  preload: 'auto',
+                  loop: true,
+                  'aria-label': '镭光人 · 具身智能概念视频',
+                }),
                 h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),
               h('span', { class: 'tu-scan', 'aria-hidden': 'true' }),
@@ -1336,39 +1132,192 @@ const ROBOT_LINES = [
   '自评存疑,待复现 · ⚠',
   '双主线就绪 · VLA × WAM',
 ]
+// =====================================================================
+// 镭光人视频交互(spec: Native Scrubbing 移植)+ 实时抠像:
+// 源片是浅紫白底,直接上屏要么成卡片要么得羽化(均被否)→ 视频仅作隐藏解码源,
+// 可见层为 canvas:每帧方裁右对齐绘入,采四角均值作底色参考,从边缘做容差泛洪
+// (只清除与边缘连通的底色,人物内部的白高光不受伤),命中像素置全透明、
+// 邻接像素半透明作 1px 软边——人物以透明底直接立在页面上(与旧 SVG 机器人同款承载)。
+// 模式:① 桌面(pointer:fine + ≥1024 + 允许动效)= 鼠标推扫,(ΔX/视宽)*0.8*时长,
+//        seeked 节流,每次 seek 完成重抠重绘;
+//      ② 窄屏 / 触屏 = 静音循环自动播放,requestVideoFrameCallback(降级 rAF)逐帧抠;
+//      ③ prefers-reduced-motion = 只抠首帧静像。
+// =====================================================================
+function bindHeroVideo(reduce) {
+  if (typeof document === 'undefined') return
+  const video = document.querySelector('.thero__robot--video')
+  if (!video || video.dataset.scrub) return
+  video.dataset.scrub = '1'
+  video.muted = true
+  const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
+  const SIZE = fine ? 720 : 480
+  const canvas = document.createElement('canvas')
+  canvas.width = SIZE
+  canvas.height = SIZE
+  canvas.className = 'thero__robot thero__robot--keyed'
+  canvas.setAttribute('role', 'img')
+  canvas.setAttribute('aria-label', '镭光人 · 具身智能概念视频')
+  video.insertAdjacentElement('afterend', canvas)
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })
+  ctx.imageSmoothingEnabled = true
+  ctx.imageSmoothingQuality = 'high'
+  const N = SIZE * SIZE
+  const queue = new Int32Array(N)
+  const visited = new Uint8Array(N)
+  const maskA = new Uint8Array(N)
+  const maskB = new Uint8Array(N)
+  const keyFrame = () => {
+    const vw = video.videoWidth
+    const vh = video.videoHeight
+    if (!vw || !vh || video.readyState < 2) return
+    const s = Math.min(vw, vh)
+    ctx.clearRect(0, 0, SIZE, SIZE)
+    ctx.drawImage(video, vw - s, 0, s, s, 0, 0, SIZE, SIZE)
+    let img
+    try { img = ctx.getImageData(0, 0, SIZE, SIZE) } catch (e) { return }
+    const d = img.data
+    // 底色参考 = 四角均值(逐帧自适应光照/暗角)
+    let rr = 0, rg = 0, rb = 0
+    for (const p of [(2 * SIZE + 2), (2 * SIZE + SIZE - 3), ((SIZE - 3) * SIZE + 2), ((SIZE - 3) * SIZE + SIZE - 3)]) {
+      rr += d[p * 4]; rg += d[p * 4 + 1]; rb += d[p * 4 + 2]
+    }
+    rr /= 4; rg /= 4; rb /= 4
+    const TOL2 = 56 * 56
+    visited.fill(0)
+    let qh = 0
+    let qt = 0
+    const tryPush = (p) => {
+      if (visited[p]) return
+      const i = p * 4
+      const dr = d[i] - rr, dg = d[i + 1] - rg, db = d[i + 2] - rb
+      if (dr * dr + dg * dg + db * db < TOL2) { visited[p] = 1; queue[qt++] = p }
+    }
+    for (let x = 0; x < SIZE; x++) { tryPush(x); tryPush(N - SIZE + x) }
+    for (let y = 1; y < SIZE - 1; y++) { tryPush(y * SIZE); tryPush(y * SIZE + SIZE - 1) }
+    while (qh < qt) {
+      const p = queue[qh++]
+      const x = p % SIZE
+      if (x > 0) tryPush(p - 1)
+      if (x < SIZE - 1) tryPush(p + 1)
+      if (p >= SIZE) tryPush(p - SIZE)
+      if (p < N - SIZE) tryPush(p + SIZE)
+    }
+    // —— 边缘整形:收边 1px(去沾底色的最外圈)→ 两道 3×3 盒模糊软化蒙版 → 去边 ——
+    for (let p = 0; p < N; p++) maskA[p] = visited[p] ? 0 : 255
+    for (let p = 0; p < N; p++) {
+      if (!maskA[p]) { maskB[p] = 0; continue }
+      const x = p % SIZE
+      maskB[p] =
+        (x > 0 && !maskA[p - 1]) || (x < SIZE - 1 && !maskA[p + 1]) || (p >= SIZE && !maskA[p - SIZE]) || (p < N - SIZE && !maskA[p + SIZE])
+          ? 0
+          : 255
+    }
+    // 两轮 H+V 盒模糊(半径 1,边界夹取)≈ 高斯软化,过渡带约 4px
+    for (let round = 0; round < 2; round++) {
+      for (let p = 0; p < N; p++) {
+        const x = p % SIZE
+        const l = x > 0 ? maskB[p - 1] : maskB[p]
+        const r = x < SIZE - 1 ? maskB[p + 1] : maskB[p]
+        maskA[p] = (l + maskB[p] + r) / 3
+      }
+      for (let p = 0; p < N; p++) {
+        const u = p >= SIZE ? maskA[p - SIZE] : maskA[p]
+        const dn = p < N - SIZE ? maskA[p + SIZE] : maskA[p]
+        maskB[p] = (u + maskA[p] + dn) / 3
+      }
+    }
+    for (let p = 0; p < N; p++) {
+      const a = maskB[p]
+      const i = p * 4
+      d[i + 3] = a
+      // 去边:半透明过渡像素按 alpha 反混掉底色成分,消除浅紫描边
+      if (a > 24 && a < 250) {
+        d[i] = Math.max(0, Math.min(255, (d[i] * 255 - (255 - a) * rr) / a))
+        d[i + 1] = Math.max(0, Math.min(255, (d[i + 1] * 255 - (255 - a) * rg) / a))
+        d[i + 2] = Math.max(0, Math.min(255, (d[i + 2] * 255 - (255 - a) * rb) / a))
+      }
+    }
+    ctx.putImageData(img, 0, 0)
+  }
+  const paintWhenReady = () => {
+    if (video.readyState >= 2) keyFrame()
+    else video.addEventListener('loadeddata', keyFrame, { once: true })
+  }
+  if (reduce) {
+    paintWhenReady()
+    return
+  }
+  if (!fine || window.innerWidth < 1024) {
+    // —— 自动播放模式:逐帧抠像 ——
+    video.autoplay = true
+    const p = video.play()
+    if (p && p.catch) p.catch(() => {})
+    if ('requestVideoFrameCallback' in HTMLVideoElement.prototype) {
+      const onFrame = () => { keyFrame(); video.requestVideoFrameCallback(onFrame) }
+      video.requestVideoFrameCallback(onFrame)
+    } else {
+      const loop = () => { keyFrame(); requestAnimationFrame(loop) }
+      requestAnimationFrame(loop)
+    }
+    return
+  }
+  // —— 桌面推扫模式 ——
+  paintWhenReady()
+  let prevX = null
+  let target = 0
+  let seeking = false
+  const apply = () => {
+    if (seeking || !Number.isFinite(video.duration) || video.duration <= 0) return
+    const clamped = Math.max(0, Math.min(video.duration - 0.05, target))
+    if (Math.abs(clamped - video.currentTime) < 0.02) return
+    seeking = true
+    try { video.currentTime = clamped } catch (e) { seeking = false }
+  }
+  video.addEventListener('seeked', () => {
+    seeking = false
+    keyFrame()
+    apply()
+  })
+  window.addEventListener(
+    'mousemove',
+    (e) => {
+      if (window.innerWidth < 1024) return
+      if (!Number.isFinite(video.duration) || video.duration <= 0) return
+      if (prevX === null) {
+        prevX = e.clientX
+        return
+      }
+      const delta = e.clientX - prevX
+      prevX = e.clientX
+      target = Math.max(0, Math.min(video.duration, target + (delta / window.innerWidth) * 0.8 * video.duration))
+      apply()
+    },
+    { passive: true }
+  )
+}
+
 function bindHeroUnit(reduce) {
   if (typeof document === 'undefined') return
   const unit = document.querySelector('.thero__unit')
   if (!unit || unit.dataset.delight) return
   unit.dataset.delight = '1'
   const wrap = unit.querySelector('.thero__robot-wrap')
-  const robot = unit.querySelector('.thero__robot--mech')
   const baseText = unit.querySelector('.tu-base-text')
   if (!wrap) return
-  const setRobotVar = (name, value) => {
-    wrap.style.setProperty(name, value)
-    if (robot) robot.style.setProperty(name, value)
-  }
   const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
   if (fine && !reduce) {
     unit.addEventListener('pointermove', (e) => {
       const r = unit.getBoundingClientRect()
       const px = (e.clientX - r.left) / r.width - 0.5
       const py = (e.clientY - r.top) / r.height - 0.5
-      setRobotVar('--ry', (px * 14).toFixed(2) + 'deg')
-      setRobotVar('--rx', (-py * 10).toFixed(2) + 'deg')
-      setRobotVar('--look-x', (px * 13).toFixed(2) + 'px')
-      setRobotVar('--look-y', (py * 10).toFixed(2) + 'px')
-      setRobotVar('--reach', Math.min(1, Math.hypot(px, py) * 2.2).toFixed(3))
+      wrap.style.setProperty('--ry', (px * 14).toFixed(2) + 'deg')
+      wrap.style.setProperty('--rx', (-py * 10).toFixed(2) + 'deg')
     })
   }
   unit.addEventListener('pointerenter', () => { if (baseText) baseText.textContent = ROBOT_HELLO })
   unit.addEventListener('pointerleave', () => {
-    setRobotVar('--ry', '0deg')
-    setRobotVar('--rx', '0deg')
-    setRobotVar('--look-x', '0px')
-    setRobotVar('--look-y', '0px')
-    setRobotVar('--reach', '0')
+    wrap.style.setProperty('--ry', '0deg')
+    wrap.style.setProperty('--rx', '0deg')
     if (baseText) baseText.textContent = ROBOT_DEFAULT
   })
   let clicks = 0
@@ -1376,10 +1325,6 @@ function bindHeroUnit(reduce) {
     clicks++
     if (baseText) baseText.textContent = ROBOT_LINES[(clicks - 1) % ROBOT_LINES.length]
     if (!reduce) {
-      wrap.classList.remove('is-calibrating')
-      void wrap.offsetWidth
-      wrap.classList.add('is-calibrating')
-      setTimeout(() => wrap.classList.remove('is-calibrating'), 900)
       const p = document.createElement('span')
       p.className = 'tu-pulse'
       p.setAttribute('aria-hidden', 'true')
@@ -1902,7 +1847,7 @@ function setupDelight() {
   delightBound = true
   try {
     console.log(
-      '%c⊕ 具身星图 · Embodied AI Atlas',
+      '%c⊕ 具身智能学习站 · Embodied AI Learning',
       'color:#2563eb;font-weight:700;font-size:14px'
     )
     console.log(
