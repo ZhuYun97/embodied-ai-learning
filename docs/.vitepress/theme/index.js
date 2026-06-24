@@ -539,6 +539,106 @@ const HERO_STATS = [
   { n: '57', unit: '家', label: '生态公司' },
   { n: '2', unit: '条', label: '研究主线' },
 ]
+
+function renderAtlasBot() {
+  return h(
+    'svg',
+    {
+      class: 'atlas-bot',
+      viewBox: '0 0 520 520',
+      focusable: 'false',
+      'aria-hidden': 'true',
+    },
+    [
+      h('defs', [
+        h('linearGradient', { id: 'atlasBotShell', x1: '95', y1: '62', x2: '418', y2: '444', gradientUnits: 'userSpaceOnUse' }, [
+          h('stop', { offset: '0%', 'stop-color': '#effcff' }),
+          h('stop', { offset: '24%', 'stop-color': '#74d9f4' }),
+          h('stop', { offset: '52%', 'stop-color': '#173a82' }),
+          h('stop', { offset: '100%', 'stop-color': '#050b21' }),
+        ]),
+        h('linearGradient', { id: 'atlasBotGlass', x1: '160', y1: '126', x2: '360', y2: '228', gradientUnits: 'userSpaceOnUse' }, [
+          h('stop', { offset: '0%', 'stop-color': '#082355' }),
+          h('stop', { offset: '52%', 'stop-color': '#040817' }),
+          h('stop', { offset: '100%', 'stop-color': '#0e4b80' }),
+        ]),
+        h('linearGradient', { id: 'atlasBotPanel', x1: '146', y1: '226', x2: '372', y2: '454', gradientUnits: 'userSpaceOnUse' }, [
+          h('stop', { offset: '0%', 'stop-color': '#eafcff' }),
+          h('stop', { offset: '38%', 'stop-color': '#54d7f6' }),
+          h('stop', { offset: '100%', 'stop-color': '#07142f' }),
+        ]),
+        h('radialGradient', { id: 'atlasBotCore', cx: '50%', cy: '46%', r: '58%' }, [
+          h('stop', { offset: '0%', 'stop-color': '#ffffff' }),
+          h('stop', { offset: '32%', 'stop-color': '#67e8f9' }),
+          h('stop', { offset: '66%', 'stop-color': '#2563eb' }),
+          h('stop', { offset: '100%', 'stop-color': '#071126' }),
+        ]),
+        h('filter', { id: 'atlasBotGlow', x: '-30%', y: '-30%', width: '160%', height: '160%' }, [
+          h('feGaussianBlur', { stdDeviation: '6', result: 'blur' }),
+          h('feColorMatrix', {
+            in: 'blur',
+            type: 'matrix',
+            values: '0 0 0 0 0.10 0 0 0 0 0.80 0 0 0 0 1 0 0 0 .68 0',
+            result: 'glow',
+          }),
+          h('feMerge', [h('feMergeNode', { in: 'glow' }), h('feMergeNode', { in: 'SourceGraphic' })]),
+        ]),
+      ]),
+      h('g', { class: 'atlas-bot__back' }, [
+        h('ellipse', { class: 'atlas-bot__halo atlas-bot__halo--wide', cx: '260', cy: '282', rx: '198', ry: '158' }),
+        h('ellipse', { class: 'atlas-bot__halo atlas-bot__halo--thin', cx: '260', cy: '268', rx: '152', ry: '116' }),
+        h('path', { class: 'atlas-bot__arc atlas-bot__arc--a', d: 'M88 279C115 153 222 83 341 106c58 11 95 45 113 92' }),
+        h('path', { class: 'atlas-bot__arc atlas-bot__arc--b', d: 'M432 307c-40 105-148 157-256 121-58-19-95-57-112-102' }),
+        h('circle', { class: 'atlas-bot__sat atlas-bot__sat--a', cx: '113', cy: '333', r: '9' }),
+        h('circle', { class: 'atlas-bot__sat atlas-bot__sat--b', cx: '421', cy: '190', r: '7' }),
+        h('path', { class: 'atlas-bot__signal', d: 'M382 143h48M406 119v48' }),
+      ]),
+      h('g', { class: 'atlas-bot__side atlas-bot__side--left' }, [
+        h('path', { d: 'M146 245c-49 14-75 53-74 111 1 40 17 69 48 88 22-58 42-118 59-180-7-10-18-17-33-19z' }),
+        h('path', { class: 'atlas-bot__side-line', d: 'M107 407c23-53 40-101 53-145' }),
+      ]),
+      h('g', { class: 'atlas-bot__side atlas-bot__side--right' }, [
+        h('path', { d: 'M374 245c49 14 75 53 74 111-1 40-17 69-48 88-22-58-42-118-59-180 7-10 18-17 33-19z' }),
+        h('path', { class: 'atlas-bot__side-line', d: 'M413 407c-23-53-40-101-53-145' }),
+      ]),
+      h('g', { class: 'atlas-bot__core' }, [
+        h('g', { class: 'atlas-bot__head' }, [
+          h('path', {
+            class: 'atlas-bot__head-shell',
+            d: 'M153 150c16-57 64-91 107-91s91 34 107 91c12 43-3 80-39 101-41 25-95 25-136 0-36-21-51-58-39-101z',
+          }),
+          h('path', { class: 'atlas-bot__head-cap', d: 'M185 132c34-35 116-50 150 0-22-11-51-17-75-17s-53 6-75 17z' }),
+          h('g', { class: 'atlas-bot__gaze' }, [
+            h('path', {
+              class: 'atlas-bot__face',
+              d: 'M181 158c28-25 130-25 158 0 7 34-10 63-42 78-21 10-53 10-74 0-32-15-49-44-42-78z',
+            }),
+            h('path', { class: 'atlas-bot__visor', d: 'M203 174c31-14 83-14 114 0-7 22-22 36-44 41h-26c-22-5-37-19-44-41z' }),
+            h('path', { class: 'atlas-bot__eye atlas-bot__eye--left', d: 'M217 185c17 1 29 4 39 12-14 8-28 9-42 3z' }),
+            h('path', { class: 'atlas-bot__eye atlas-bot__eye--right', d: 'M303 185c-17 1-29 4-39 12 14 8 28 9 42 3z' }),
+          ]),
+        ]),
+        h('g', { class: 'atlas-bot__torso' }, [
+          h('path', { class: 'atlas-bot__neck', d: 'M224 250h72l15 34c-35 12-67 12-102 0z' }),
+          h('path', {
+            class: 'atlas-bot__body',
+            d: 'M151 303c31-39 70-58 109-58s78 19 109 58c-8 96-49 143-109 158-60-15-101-62-109-158z',
+          }),
+          h('path', { class: 'atlas-bot__body-glint', d: 'M176 314c33-34 68-47 105-43-46 34-78 86-97 151-19-26-29-62-8-108z' }),
+          h('circle', { class: 'atlas-bot__core-light', cx: '260', cy: '341', r: '44' }),
+          h('circle', { class: 'atlas-bot__core-ring', cx: '260', cy: '341', r: '27' }),
+          h('path', { class: 'atlas-bot__chest-line atlas-bot__chest-line--left', d: 'M182 382c30-3 49-14 60-35' }),
+          h('path', { class: 'atlas-bot__chest-line atlas-bot__chest-line--right', d: 'M338 382c-30-3-49-14-60-35' }),
+        ]),
+      ]),
+      h('g', { class: 'atlas-bot__foreground' }, [
+        h('ellipse', { class: 'atlas-bot__base', cx: '260', cy: '456', rx: '115', ry: '24' }),
+        h('path', { class: 'atlas-bot__scan', d: 'M118 466h284' }),
+      ]),
+    ]
+  )
+}
+
 const HeroStats = {
   setup() {
     // 数字「读出」:进入首屏即从 0 计数到目标值(tabular mono → HUD 遥测感)。
@@ -908,36 +1008,7 @@ const TechHero = {
                     role: 'img',
                     'aria-label': '可交互的具身星图机器人',
                   },
-                  [
-                    h('span', { class: 'mech-orbit mech-orbit--outer', 'aria-hidden': 'true' }, [
-                      h('i', { class: 'mech-node mech-node--a' }),
-                      h('i', { class: 'mech-node mech-node--b' }),
-                      h('i', { class: 'mech-star' }),
-                    ]),
-                    h('span', { class: 'mech-orbit mech-orbit--inner', 'aria-hidden': 'true' }),
-                    h('span', { class: 'mech-aura', 'aria-hidden': 'true' }),
-                    h('span', { class: 'mech-arm mech-arm--left', 'aria-hidden': 'true' }),
-                    h('span', { class: 'mech-arm mech-arm--right', 'aria-hidden': 'true' }),
-                    h('span', { class: 'mech-leg mech-leg--left', 'aria-hidden': 'true' }),
-                    h('span', { class: 'mech-leg mech-leg--right', 'aria-hidden': 'true' }),
-                    h('span', { class: 'mech-core', 'aria-hidden': 'true' }, [
-                      h('span', { class: 'mech-head' }, [
-                        h('span', { class: 'mech-antenna' }),
-                        h('span', { class: 'mech-face' }, [
-                          h('span', { class: 'mech-visor' }),
-                          h('span', { class: 'mech-eye mech-eye--left' }),
-                          h('span', { class: 'mech-eye mech-eye--right' }),
-                        ]),
-                      ]),
-                      h('span', { class: 'mech-neck' }),
-                      h('span', { class: 'mech-body' }, [
-                        h('span', { class: 'mech-reactor' }),
-                        h('span', { class: 'mech-rib mech-rib--left' }),
-                        h('span', { class: 'mech-rib mech-rib--right' }),
-                      ]),
-                    ]),
-                    h('span', { class: 'mech-shadow', 'aria-hidden': 'true' }),
-                  ]
+                  [renderAtlasBot()]
                 ),
                 h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),

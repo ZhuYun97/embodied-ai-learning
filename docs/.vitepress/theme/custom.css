@@ -5468,11 +5468,13 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
 
 /* ============================================================
    具身星图交互机器人:
-   纯 DOM/CSS 机器人取代原视频抠像,鼠标驱动头盔/视线/机械臂/轨道响应,
-   点击触发校准脉冲;无视频解码和逐帧抠图,首屏更轻。
+   SVG 全息机器人取代拼装式机械零件,鼠标驱动视线/头部/侧翼响应,
+   点击触发核心校准脉冲;无视频解码和逐帧抠图,首屏更轻。
    ============================================================ */
 .thero__robot--mech {
   position: relative;
+  display: grid;
+  place-items: center;
   aspect-ratio: 1 / 1;
   width: min(100%, 440px);
   height: auto;
@@ -5481,335 +5483,254 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   contain: layout;
 }
 
-.mech-aura,
-.mech-orbit,
-.mech-core,
-.mech-arm,
-.mech-leg,
-.mech-shadow {
-  position: absolute;
-  pointer-events: none;
+.atlas-bot {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: translateZ(0);
+  filter:
+    drop-shadow(0 24px 38px rgba(0, 8, 32, 0.34))
+    drop-shadow(0 0 26px rgba(56, 189, 248, 0.22));
 }
 
-.mech-aura {
-  inset: 8% 6% 6%;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 46%, rgba(255, 255, 255, 0.16), transparent 18%),
-    radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.2), transparent 50%),
-    radial-gradient(circle at 50% 66%, rgba(59, 130, 246, 0.18), transparent 70%);
-  filter: blur(2px);
-  opacity: 0.95;
-  transform: translateZ(-70px);
+.atlas-bot * {
+  vector-effect: non-scaling-stroke;
 }
 
-.mech-orbit {
-  left: 7%;
-  top: 8%;
-  width: 86%;
-  height: 78%;
-  border-radius: 50%;
-  transform-origin: 50% 54%;
+.atlas-bot__halo {
+  fill: none;
+  stroke: rgba(186, 230, 253, 0.5);
+  stroke-width: 1.8;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
-.mech-orbit--outer {
-  border: 3px solid rgba(12, 35, 80, 0.82);
-  border-left-color: rgba(34, 211, 238, 0.95);
-  border-bottom-color: rgba(14, 165, 233, 0.9);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.36),
-    0 0 26px rgba(34, 211, 238, 0.16);
-  transform: rotate(-16deg) translateZ(-24px);
+.atlas-bot__halo--wide {
+  stroke-dasharray: 248 62;
+  stroke-width: 2.4;
+  filter: url(#atlasBotGlow);
+  opacity: 0.9;
 }
 
-.mech-orbit--outer::before,
-.mech-orbit--inner::before {
-  content: '';
-  position: absolute;
-  inset: 12%;
-  border-radius: 50%;
-  border: 1.5px solid rgba(226, 247, 255, 0.76);
-  border-left-color: transparent;
-  border-bottom-color: rgba(34, 211, 238, 0.42);
-}
-
-.mech-orbit--inner {
-  left: 18%;
-  top: 20%;
-  width: 64%;
-  height: 52%;
-  border: 1px solid rgba(56, 189, 248, 0.32);
-  transform: rotate(19deg) translateZ(-18px);
+.atlas-bot__halo--thin {
+  stroke: rgba(199, 210, 254, 0.42);
+  stroke-dasharray: 26 18;
   opacity: 0.82;
 }
 
-.mech-node {
-  position: absolute;
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 48%, #effcff 0 28%, #22d3ee 30% 56%, #0b2a5a 58% 100%);
-  box-shadow: 0 0 14px rgba(34, 211, 238, 0.5);
+.atlas-bot__arc {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 3.2;
+  stroke-dasharray: 74 26 18 36;
+  opacity: 0.82;
 }
 
-.mech-node--a { left: 12%; top: 76%; }
-.mech-node--b { right: 9%; top: 48%; transform: scale(0.82); }
-
-.mech-star {
-  position: absolute;
-  right: -2%;
-  top: 25%;
-  width: 34px;
-  height: 34px;
-  background: linear-gradient(135deg, #fff8cb, #f59e0b 58%, #fff7d6);
-  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
-  filter: drop-shadow(0 0 9px rgba(245, 158, 11, 0.56));
+.atlas-bot__arc--a {
+  stroke: rgba(103, 232, 249, 0.92);
+  filter: url(#atlasBotGlow);
 }
 
-.mech-core {
-  left: 50%;
-  top: 48%;
-  width: 48%;
-  height: 70%;
+.atlas-bot__arc--b {
+  stroke: rgba(167, 139, 250, 0.58);
+}
+
+.atlas-bot__sat {
+  fill: #06152f;
+  stroke: rgba(186, 230, 253, 0.94);
+  stroke-width: 3;
+  filter: url(#atlasBotGlow);
+}
+
+.atlas-bot__signal {
+  fill: none;
+  stroke: rgba(34, 211, 238, 0.74);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.72));
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.atlas-bot__core,
+.atlas-bot__head,
+.atlas-bot__gaze,
+.atlas-bot__side {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.atlas-bot__core {
   transform:
-    translate3d(calc(-50% + var(--look-x) * 0.22), calc(-50% + var(--look-y) * 0.12), 28px)
-    rotateX(calc(var(--rx, 0deg) * -0.1))
-    rotateY(calc(var(--ry, 0deg) * 0.1));
-  transform-origin: 50% 36%;
-  z-index: 2;
-  transition: transform 0.22s ease;
+    translate(calc(var(--look-x) * 0.16), calc(var(--look-y) * 0.08))
+    rotateX(calc(var(--rx, 0deg) * -0.06))
+    rotateY(calc(var(--ry, 0deg) * 0.06));
 }
 
-.mech-head,
-.mech-face,
-.mech-body,
-.mech-neck,
-.mech-reactor,
-.mech-rib {
-  position: absolute;
-  pointer-events: none;
-}
-
-.mech-head {
-  left: 50%;
-  top: 4%;
-  width: 72%;
-  height: 38%;
+.atlas-bot__head {
   transform:
-    translateX(calc(-50% + var(--look-x) * 0.22))
-    translateY(calc(var(--look-y) * 0.12));
-  transition: transform 0.18s ease;
+    translate(calc(var(--look-x) * 0.36), calc(var(--look-y) * 0.24))
+    rotate(calc(var(--ry, 0deg) * 0.05));
 }
 
-.mech-head::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(155deg, rgba(255, 255, 255, 0.98) 0 24%, rgba(185, 227, 255, 0.96) 25% 38%, transparent 39%),
-    linear-gradient(25deg, transparent 0 18%, rgba(240, 249, 255, 0.96) 19% 36%, rgba(13, 36, 84, 0.98) 37% 100%);
-  clip-path: polygon(50% 0, 86% 18%, 100% 56%, 78% 100%, 22% 100%, 0 56%, 14% 18%);
-  box-shadow:
-    inset 0 -16px 22px rgba(9, 23, 61, 0.78),
-    inset 0 0 0 2px rgba(255, 255, 255, 0.82),
-    0 18px 34px rgba(0, 0, 0, 0.22);
+.atlas-bot__gaze {
+  transform: translate(calc(var(--look-x) * 0.72), calc(var(--look-y) * 0.48));
 }
 
-.mech-antenna {
-  position: absolute;
-  left: 50%;
-  top: -22%;
-  width: 5px;
-  height: 42px;
-  transform: translateX(-50%);
-  background: linear-gradient(#e0faff, #38bdf8 62%, transparent);
-  border-radius: 999px;
-  box-shadow: 0 0 13px rgba(34, 211, 238, 0.55);
+.atlas-bot__head-shell {
+  fill: url(#atlasBotShell);
+  stroke: rgba(230, 252, 255, 0.8);
+  stroke-width: 2.4;
+  filter: drop-shadow(0 18px 24px rgba(0, 6, 22, 0.36));
 }
 
-.mech-antenna::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: -8px;
-  width: 17px;
-  height: 17px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, #effcff 0 28%, #22d3ee 30% 68%, #0b2a5a 70%);
+.atlas-bot__head-cap {
+  fill: rgba(255, 255, 255, 0.54);
+  opacity: 0.74;
 }
 
-.mech-face {
-  left: 13%;
-  right: 13%;
-  bottom: 10%;
-  height: 48%;
-  background: linear-gradient(180deg, #06152f, #020817);
-  clip-path: polygon(5% 12%, 26% 0, 74% 0, 95% 12%, 82% 82%, 58% 100%, 42% 100%, 18% 82%);
-  box-shadow:
-    inset 0 0 0 2px rgba(17, 42, 86, 0.92),
-    0 0 18px rgba(34, 211, 238, 0.22);
+.atlas-bot__face {
+  fill: url(#atlasBotGlass);
+  stroke: rgba(104, 231, 255, 0.48);
+  stroke-width: 2;
 }
 
-.mech-visor {
-  position: absolute;
-  left: 16%;
-  right: 16%;
-  top: 28%;
-  height: 36%;
-  background:
-    linear-gradient(90deg, transparent 0 38%, rgba(255, 255, 255, 0.75) 48% 52%, transparent 62%),
-    linear-gradient(90deg, #67e8f9, #22d3ee 44%, transparent 45% 55%, #22d3ee 56%, #67e8f9);
-  clip-path: polygon(0 0, 40% 16%, 48% 100%, 50% 100%, 60% 16%, 100% 0, 86% 82%, 60% 86%, 50% 100%, 40% 86%, 14% 82%);
-  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.82));
-  transform: translate(var(--look-x), var(--look-y));
-  transition: transform 0.16s ease;
+.atlas-bot__visor {
+  fill: rgba(23, 220, 255, 0.2);
+  stroke: rgba(207, 250, 254, 0.64);
+  stroke-width: 1.4;
 }
 
-.mech-eye {
-  position: absolute;
-  top: 43%;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: #e8fbff;
-  box-shadow: 0 0 12px #22d3ee, 0 0 22px rgba(34, 211, 238, 0.7);
-  transform: translate(var(--look-x), var(--look-y));
-  transition: transform 0.16s ease;
-}
-.mech-eye--left { left: 28%; }
-.mech-eye--right { right: 28%; }
-
-.mech-neck {
-  left: 50%;
-  top: 39%;
-  width: 26%;
-  height: 10%;
-  transform: translateX(-50%);
-  border-radius: 8px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(56, 189, 248, 0.12));
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38);
+.atlas-bot__eye {
+  fill: rgba(209, 250, 255, 0.96);
+  filter: url(#atlasBotGlow);
 }
 
-.mech-body {
-  left: 50%;
-  top: 45%;
-  width: 82%;
-  height: 38%;
-  transform: translateX(-50%);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0 16%, transparent 17%),
-    linear-gradient(225deg, rgba(255, 255, 255, 0.92) 0 15%, transparent 16%),
-    linear-gradient(180deg, #09204e, #020817 80%);
-  clip-path: polygon(50% 0, 92% 14%, 100% 54%, 78% 100%, 22% 100%, 0 54%, 8% 14%);
-  box-shadow:
-    inset 0 0 0 2px rgba(225, 247, 255, 0.36),
-    inset 0 -22px 32px rgba(0, 0, 0, 0.34),
-    0 18px 34px rgba(0, 0, 0, 0.24);
+.atlas-bot__neck {
+  fill: rgba(211, 246, 255, 0.64);
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 1.2;
 }
 
-.mech-reactor {
-  left: 50%;
-  top: 42%;
-  width: 48px;
-  height: 48px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle, #f0fdff 0 18%, #22d3ee 20% 46%, rgba(37, 99, 235, 0.18) 48% 100%);
-  box-shadow:
-    0 0 22px rgba(34, 211, 238, 0.66),
-    inset 0 0 0 8px rgba(7, 21, 47, 0.88);
+.atlas-bot__body {
+  fill: url(#atlasBotPanel);
+  stroke: rgba(214, 250, 255, 0.6);
+  stroke-width: 2.2;
+  filter: drop-shadow(0 18px 28px rgba(0, 6, 24, 0.32));
 }
 
-.mech-rib {
-  top: 60%;
-  width: 31%;
-  height: 12px;
-  background: linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.92));
-  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.55));
-}
-.mech-rib--left { left: 13%; transform: rotate(32deg); }
-.mech-rib--right { right: 13%; transform: rotate(-32deg) scaleX(-1); }
-
-.mech-arm {
-  z-index: 1;
-  top: 47%;
-  width: 18%;
-  height: 33%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(240, 249, 255, 0.92), rgba(34, 211, 238, 0.22) 45%, rgba(8, 26, 65, 0.92));
-  box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.34),
-    0 0 22px rgba(34, 211, 238, 0.18);
-  transition: transform 0.22s ease;
-}
-.mech-arm--left {
-  left: 17%;
-  transform: rotate(calc(-23deg - var(--reach) * 10deg)) translateY(calc(var(--reach) * -12px));
-}
-.mech-arm--right {
-  right: 17%;
-  transform: rotate(calc(23deg + var(--reach) * 10deg)) translateY(calc(var(--reach) * -12px));
+.atlas-bot__body-glint {
+  fill: rgba(255, 255, 255, 0.18);
+  opacity: 0.82;
 }
 
-.mech-leg {
-  z-index: 0;
-  bottom: 10%;
-  width: 13%;
-  height: 27%;
-  border-radius: 999px 999px 10px 10px;
-  background: linear-gradient(180deg, #10285e, #081226 72%, rgba(34, 211, 238, 0.42));
-  box-shadow: inset 0 0 0 2px rgba(125, 211, 252, 0.2);
+.atlas-bot__core-light {
+  fill: url(#atlasBotCore);
+  stroke: rgba(226, 247, 255, 0.8);
+  stroke-width: 2;
+  filter: url(#atlasBotGlow);
 }
-.mech-leg--left { left: 39%; transform: rotate(5deg); }
-.mech-leg--right { right: 39%; transform: rotate(-5deg); }
 
-.mech-shadow {
-  left: 18%;
-  right: 18%;
-  bottom: 3%;
-  height: 13%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(34, 211, 238, 0.24), transparent 72%);
-  filter: blur(5px);
-  transform: translateZ(-80px);
+.atlas-bot__core-ring {
+  fill: none;
+  stroke: rgba(9, 17, 40, 0.9);
+  stroke-width: 12;
+}
+
+.atlas-bot__chest-line {
+  fill: none;
+  stroke: rgba(125, 249, 255, 0.84);
+  stroke-width: 7;
+  stroke-linecap: round;
+  opacity: 0.68;
+  filter: url(#atlasBotGlow);
+}
+
+.atlas-bot__side {
+  opacity: 0.72;
+}
+
+.atlas-bot__side path:first-child {
+  fill: rgba(226, 247, 255, 0.18);
+  stroke: rgba(186, 230, 253, 0.46);
+  stroke-width: 2;
+}
+
+.atlas-bot__side-line {
+  fill: none;
+  stroke: rgba(103, 232, 249, 0.58);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.atlas-bot__side--left {
+  transform: translate(calc(var(--reach) * -9px), calc(var(--look-y) * 0.08)) rotate(calc(var(--reach) * -3deg));
+}
+
+.atlas-bot__side--right {
+  transform: translate(calc(var(--reach) * 9px), calc(var(--look-y) * 0.08)) rotate(calc(var(--reach) * 3deg));
+}
+
+.atlas-bot__base {
+  fill: rgba(34, 211, 238, 0.16);
+  filter: blur(1px);
+}
+
+.atlas-bot__scan {
+  fill: none;
+  stroke: rgba(186, 230, 253, 0.48);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 54 18;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .mech-orbit--outer { animation: mechOrbitDrift 8s ease-in-out infinite; }
-  .mech-orbit--inner { animation: mechOrbitCounter 10s ease-in-out infinite; }
-  .mech-reactor { animation: mechReactor 2.4s ease-in-out infinite; }
-  .mech-star { animation: mechStarPulse 2.7s ease-in-out infinite; }
-  .thero__robot-wrap.is-calibrating .mech-core { animation: mechCalibrate 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
-  .thero__robot-wrap.is-calibrating .mech-orbit--outer { animation: mechCalibrateOrbit 0.8s cubic-bezier(0.22, 1, 0.36, 1), mechOrbitDrift 8s ease-in-out 0.8s infinite; }
+  .atlas-bot__halo--wide { animation: atlasBotOrbit 9s ease-in-out infinite; }
+  .atlas-bot__halo--thin { animation: atlasBotCounter 11s ease-in-out infinite; }
+  .atlas-bot__arc--a,
+  .atlas-bot__arc--b,
+  .atlas-bot__scan { animation: atlasBotDash 4.8s linear infinite; }
+  .atlas-bot__core-light { animation: atlasBotCore 2.4s ease-in-out infinite; }
+  .atlas-bot__signal { animation: atlasBotSignal 2.8s ease-in-out infinite; }
+  .thero__robot-wrap.is-calibrating .atlas-bot__core-light { animation: atlasBotCalibrate 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+  .thero__robot-wrap.is-calibrating .atlas-bot__halo--wide { animation: atlasBotPing 0.8s cubic-bezier(0.22, 1, 0.36, 1), atlasBotOrbit 9s ease-in-out 0.8s infinite; }
 }
 
-@keyframes mechOrbitDrift {
-  0%, 100% { transform: rotate(-16deg) translateZ(-24px); }
-  50% { transform: rotate(-8deg) translateZ(-24px) scale(1.02); }
+@keyframes atlasBotOrbit {
+  0%, 100% { transform: rotate(-4deg) scale(1); opacity: 0.82; }
+  50% { transform: rotate(7deg) scale(1.025); opacity: 1; }
 }
-@keyframes mechOrbitCounter {
-  0%, 100% { transform: rotate(19deg) translateZ(-18px); }
-  50% { transform: rotate(30deg) translateZ(-18px); }
+
+@keyframes atlasBotCounter {
+  0%, 100% { transform: rotate(5deg); }
+  50% { transform: rotate(-9deg); }
 }
-@keyframes mechReactor {
-  0%, 100% { filter: brightness(1); transform: translate(-50%, -50%) scale(1); }
-  50% { filter: brightness(1.22); transform: translate(-50%, -50%) scale(1.08); }
+
+@keyframes atlasBotDash {
+  to { stroke-dashoffset: -160; }
 }
-@keyframes mechStarPulse {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 9px rgba(245, 158, 11, 0.56)); }
-  50% { transform: scale(1.15); filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.84)); }
+
+@keyframes atlasBotCore {
+  0%, 100% { opacity: 0.92; filter: url(#atlasBotGlow) brightness(1); }
+  50% { opacity: 1; filter: url(#atlasBotGlow) brightness(1.18); }
 }
-@keyframes mechCalibrate {
-  0% { transform: translate3d(-50%, -50%, 28px) scale(1); }
-  36% { transform: translate3d(-50%, -54%, 36px) scale(1.06); }
-  100% { transform: translate3d(-50%, -50%, 28px) scale(1); }
+
+@keyframes atlasBotSignal {
+  0%, 100% { transform: scale(1); opacity: 0.72; }
+  50% { transform: scale(1.16); opacity: 1; }
 }
-@keyframes mechCalibrateOrbit {
-  0% { transform: rotate(-16deg) translateZ(-24px) scale(1); }
-  48% { transform: rotate(28deg) translateZ(-24px) scale(1.08); }
-  100% { transform: rotate(-16deg) translateZ(-24px) scale(1); }
+
+@keyframes atlasBotCalibrate {
+  0% { transform: scale(1); opacity: 0.96; }
+  42% { transform: scale(1.22); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.96; }
+}
+
+@keyframes atlasBotPing {
+  0% { transform: scale(1); opacity: 0.9; stroke-width: 2.4; }
+  55% { transform: scale(1.12); opacity: 1; stroke-width: 4; }
+  100% { transform: scale(1); opacity: 0.9; stroke-width: 2.4; }
 }
 
 /* ============================================================
