@@ -639,6 +639,114 @@ function renderAtlasBot() {
   )
 }
 
+function renderIndustrialBot() {
+  return h(
+    'svg',
+    {
+      class: 'atlas-bot industrial-bot',
+      viewBox: '0 0 520 520',
+      focusable: 'false',
+      'aria-hidden': 'true',
+    },
+    [
+      h('defs', [
+        h('linearGradient', { id: 'industrialShell', x1: '114', y1: '52', x2: '382', y2: '478', gradientUnits: 'userSpaceOnUse' }, [
+          h('stop', { offset: '0%', 'stop-color': '#ffffff' }),
+          h('stop', { offset: '28%', 'stop-color': '#dff8ff' }),
+          h('stop', { offset: '58%', 'stop-color': '#8fb5c7' }),
+          h('stop', { offset: '100%', 'stop-color': '#1d2633' }),
+        ]),
+        h('linearGradient', { id: 'industrialGlass', x1: '202', y1: '55', x2: '313', y2: '220', gradientUnits: 'userSpaceOnUse' }, [
+          h('stop', { offset: '0%', 'stop-color': '#27313c' }),
+          h('stop', { offset: '46%', 'stop-color': '#05080f' }),
+          h('stop', { offset: '100%', 'stop-color': '#111824' }),
+        ]),
+        h('linearGradient', { id: 'industrialDark', x1: '180', y1: '185', x2: '350', y2: '472', gradientUnits: 'userSpaceOnUse' }, [
+          h('stop', { offset: '0%', 'stop-color': '#202733' }),
+          h('stop', { offset: '50%', 'stop-color': '#050914' }),
+          h('stop', { offset: '100%', 'stop-color': '#141923' }),
+        ]),
+        h('radialGradient', { id: 'industrialCyan', cx: '50%', cy: '50%', r: '58%' }, [
+          h('stop', { offset: '0%', 'stop-color': '#effcff' }),
+          h('stop', { offset: '34%', 'stop-color': '#67e8f9' }),
+          h('stop', { offset: '70%', 'stop-color': '#0891b2' }),
+          h('stop', { offset: '100%', 'stop-color': '#071126' }),
+        ]),
+        h('filter', { id: 'industrialGlow', x: '-35%', y: '-35%', width: '170%', height: '170%' }, [
+          h('feGaussianBlur', { stdDeviation: '5', result: 'blur' }),
+          h('feColorMatrix', {
+            in: 'blur',
+            type: 'matrix',
+            values: '0 0 0 0 0.05 0 0 0 0 0.82 0 0 0 0 1 0 0 0 .72 0',
+            result: 'glow',
+          }),
+          h('feMerge', [h('feMergeNode', { in: 'glow' }), h('feMergeNode', { in: 'SourceGraphic' })]),
+        ]),
+      ]),
+      h('g', { class: 'industrial-bot__hud' }, [
+        h('ellipse', { class: 'industrial-bot__orbit industrial-bot__orbit--wide', cx: '260', cy: '278', rx: '200', ry: '158' }),
+        h('ellipse', { class: 'industrial-bot__orbit industrial-bot__orbit--thin', cx: '260', cy: '294', rx: '146', ry: '116' }),
+        h('path', { class: 'industrial-bot__arc industrial-bot__arc--a', d: 'M90 282c25-105 99-170 194-172 77-2 134 34 163 92' }),
+        h('path', { class: 'industrial-bot__arc industrial-bot__arc--b', d: 'M427 326c-38 88-118 132-211 116-61-11-105-43-132-92' }),
+        h('path', { class: 'industrial-bot__target', d: 'M399 129h44M421 107v44' }),
+        h('circle', { class: 'industrial-bot__node industrial-bot__node--a', cx: '98', cy: '344', r: '7' }),
+        h('circle', { class: 'industrial-bot__node industrial-bot__node--b', cx: '430', cy: '224', r: '6' }),
+      ]),
+      h('g', { class: 'industrial-bot__rig' }, [
+        h('g', { class: 'industrial-bot__arms' }, [
+          h('g', { class: 'industrial-bot__arm industrial-bot__arm--left' }, [
+            h('path', { class: 'industrial-bot__socket', d: 'M151 256c-20 1-38 16-44 38l36 20 38-39c-6-12-16-19-30-19z' }),
+            h('path', { class: 'industrial-bot__upper-arm', d: 'M112 292c-25 38-32 82-20 126 13 6 29 4 43-6 6-42 18-82 39-119-17-7-38-8-62-1z' }),
+            h('circle', { class: 'industrial-bot__joint', cx: '136', cy: '414', r: '16' }),
+            h('path', { class: 'industrial-bot__forearm', d: 'M118 427c4 28 13 52 27 69 13-4 24-13 31-26-11-23-19-43-24-62-13 7-25 13-34 19z' }),
+          ]),
+          h('g', { class: 'industrial-bot__arm industrial-bot__arm--right' }, [
+            h('path', { class: 'industrial-bot__socket', d: 'M369 256c20 1 38 16 44 38l-36 20-38-39c6-12 16-19 30-19z' }),
+            h('path', { class: 'industrial-bot__upper-arm', d: 'M408 292c25 38 32 82 20 126-13 6-29 4-43-6-6-42-18-82-39-119 17-7 38-8 62-1z' }),
+            h('circle', { class: 'industrial-bot__joint', cx: '384', cy: '414', r: '16' }),
+            h('path', { class: 'industrial-bot__forearm', d: 'M402 427c-4 28-13 52-27 69-13-4-24-13-31-26 11-23 19-43 24-62 13 7 25 13 34 19z' }),
+          ]),
+        ]),
+        h('g', { class: 'industrial-bot__body-group' }, [
+          h('path', { class: 'industrial-bot__neck-shadow', d: 'M219 190h82l18 72c-35 24-83 24-118 0z' }),
+          h('path', { class: 'industrial-bot__neck-rib', d: 'M219 204h82M215 222h90M210 241h100' }),
+          h('path', {
+            class: 'industrial-bot__torso-dark industrial-bot__torso-dark--left',
+            d: 'M169 274c20-32 50-52 91-61l-15 250c-36-8-63-24-82-48-6-61-4-109 6-141z',
+          }),
+          h('path', {
+            class: 'industrial-bot__torso-dark industrial-bot__torso-dark--right',
+            d: 'M351 274c-20-32-50-52-91-61l15 250c36-8 63-24 82-48 6-61 4-109-6-141z',
+          }),
+          h('path', {
+            class: 'industrial-bot__torso',
+            d: 'M177 272c24-41 55-61 83-61s59 20 83 61c3 74-9 139-37 188-29 15-63 15-92 0-28-49-40-114-37-188z',
+          }),
+          h('path', { class: 'industrial-bot__chest-split', d: 'M260 225v232' }),
+          h('path', { class: 'industrial-bot__chest-glint', d: 'M197 287c23-31 48-47 78-48-30 43-50 98-60 166-21-31-27-71-18-118z' }),
+          h('circle', { class: 'industrial-bot__chest-port', cx: '260', cy: '316', r: '18' }),
+          h('path', { class: 'industrial-bot__belt', d: 'M206 440c35 16 73 16 108 0l20 27c-46 25-102 25-148 0z' }),
+        ]),
+        h('g', { class: 'industrial-bot__head' }, [
+          h('path', {
+            class: 'industrial-bot__head-side',
+            d: 'M221 62c-22 22-34 60-34 103 0 42 13 78 38 98 14 11 30 17 47 18-32-35-45-74-39-118 6-43 23-76 55-99-20-13-48-14-67-2z',
+          }),
+          h('path', {
+            class: 'industrial-bot__faceplate',
+            d: 'M226 55c39-31 101-8 116 48 18 69-5 153-51 171-38 15-81-13-95-66-15-59-3-127 30-153z',
+          }),
+          h('path', { class: 'industrial-bot__jaw', d: 'M212 219c24 30 66 44 97 18-11 25-32 41-54 41-18 0-34-20-43-59z' }),
+          h('circle', { class: 'industrial-bot__sensor-ring', cx: '236', cy: '132', r: '22' }),
+          h('circle', { class: 'industrial-bot__sensor-dot', cx: '236', cy: '132', r: '8' }),
+          h('path', { class: 'industrial-bot__head-highlight', d: 'M217 75c18-17 51-22 78-9-37 10-64 39-77 86-8-29-8-57-1-77z' }),
+        ]),
+      ]),
+      h('ellipse', { class: 'industrial-bot__base', cx: '260', cy: '472', rx: '114', ry: '19' }),
+    ]
+  )
+}
+
 const HeroStats = {
   setup() {
     // 数字「读出」:进入首屏即从 0 计数到目标值(tabular mono → HUD 遥测感)。
@@ -1008,7 +1116,7 @@ const TechHero = {
                     role: 'img',
                     'aria-label': '可交互的具身星图机器人',
                   },
-                  [renderAtlasBot()]
+                  [renderIndustrialBot()]
                 ),
                 h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),

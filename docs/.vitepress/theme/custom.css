@@ -5733,6 +5733,248 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   100% { transform: scale(1); opacity: 0.9; stroke-width: 2.4; }
 }
 
+.industrial-bot {
+  filter:
+    drop-shadow(0 28px 42px rgba(0, 8, 28, 0.42))
+    drop-shadow(0 0 34px rgba(34, 211, 238, 0.18));
+}
+
+.industrial-bot__orbit {
+  fill: none;
+  stroke: rgba(186, 230, 253, 0.36);
+  stroke-width: 1.6;
+  stroke-dasharray: 82 28;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.industrial-bot__orbit--wide {
+  stroke: rgba(103, 232, 249, 0.46);
+  stroke-width: 2.2;
+  filter: url(#industrialGlow);
+}
+
+.industrial-bot__orbit--thin {
+  stroke: rgba(167, 139, 250, 0.32);
+  stroke-dasharray: 18 18;
+}
+
+.industrial-bot__arc {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 3;
+  stroke-dasharray: 62 22 12 28;
+  opacity: 0.75;
+}
+
+.industrial-bot__arc--a {
+  stroke: rgba(103, 232, 249, 0.9);
+  filter: url(#industrialGlow);
+}
+
+.industrial-bot__arc--b {
+  stroke: rgba(199, 210, 254, 0.44);
+}
+
+.industrial-bot__target {
+  fill: none;
+  stroke: rgba(103, 232, 249, 0.76);
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.65));
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.industrial-bot__node {
+  fill: #060a13;
+  stroke: rgba(214, 250, 255, 0.95);
+  stroke-width: 3;
+  filter: url(#industrialGlow);
+}
+
+.industrial-bot__rig,
+.industrial-bot__head,
+.industrial-bot__body-group,
+.industrial-bot__arm {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.industrial-bot__rig {
+  transform:
+    translate(calc(var(--look-x) * 0.12), calc(var(--look-y) * 0.06))
+    rotateX(calc(var(--rx, 0deg) * -0.04))
+    rotateY(calc(var(--ry, 0deg) * 0.04));
+}
+
+.industrial-bot__head {
+  transform:
+    translate(calc(var(--look-x) * 0.44), calc(var(--look-y) * 0.26))
+    rotate(calc(var(--ry, 0deg) * 0.035));
+}
+
+.industrial-bot__body-group {
+  transform: translate(calc(var(--look-x) * 0.07), calc(var(--look-y) * 0.04));
+}
+
+.industrial-bot__arm--left {
+  transform: translate(calc(var(--reach) * -12px), calc(var(--look-y) * 0.05)) rotate(calc(var(--reach) * -2.5deg));
+}
+
+.industrial-bot__arm--right {
+  transform: translate(calc(var(--reach) * 12px), calc(var(--look-y) * 0.05)) rotate(calc(var(--reach) * 2.5deg));
+}
+
+.industrial-bot__head-side {
+  fill: url(#industrialShell);
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 1.6;
+  opacity: 0.95;
+}
+
+.industrial-bot__faceplate {
+  fill: url(#industrialGlass);
+  stroke: rgba(230, 252, 255, 0.36);
+  stroke-width: 1.8;
+  filter:
+    drop-shadow(0 16px 22px rgba(0, 4, 14, 0.4))
+    drop-shadow(0 0 12px rgba(34, 211, 238, 0.1));
+}
+
+.industrial-bot__jaw {
+  fill: rgba(9, 12, 18, 0.92);
+  opacity: 0.86;
+}
+
+.industrial-bot__head-highlight {
+  fill: rgba(255, 255, 255, 0.22);
+}
+
+.industrial-bot__sensor-ring {
+  fill: none;
+  stroke: #22d3ee;
+  stroke-width: 6;
+  filter: url(#industrialGlow);
+}
+
+.industrial-bot__sensor-dot {
+  fill: rgba(11, 18, 32, 0.9);
+  stroke: rgba(186, 230, 253, 0.5);
+  stroke-width: 1.4;
+}
+
+.industrial-bot__neck-shadow {
+  fill: url(#industrialDark);
+  stroke: rgba(148, 163, 184, 0.36);
+  stroke-width: 1.3;
+}
+
+.industrial-bot__neck-rib {
+  fill: none;
+  stroke: rgba(203, 213, 225, 0.36);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.industrial-bot__torso {
+  fill: url(#industrialShell);
+  stroke: rgba(255, 255, 255, 0.78);
+  stroke-width: 2;
+  filter: drop-shadow(0 18px 28px rgba(0, 5, 18, 0.32));
+}
+
+.industrial-bot__torso-dark {
+  fill: url(#industrialDark);
+  opacity: 0.96;
+}
+
+.industrial-bot__chest-split {
+  fill: none;
+  stroke: rgba(15, 23, 42, 0.28);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.industrial-bot__chest-glint {
+  fill: rgba(255, 255, 255, 0.2);
+  opacity: 0.74;
+}
+
+.industrial-bot__chest-port {
+  fill: url(#industrialCyan);
+  stroke: rgba(9, 17, 40, 0.92);
+  stroke-width: 10;
+  filter: url(#industrialGlow);
+}
+
+.industrial-bot__belt {
+  fill: rgba(11, 15, 23, 0.94);
+  stroke: rgba(203, 213, 225, 0.25);
+  stroke-width: 1.2;
+}
+
+.industrial-bot__socket,
+.industrial-bot__joint {
+  fill: url(#industrialDark);
+  stroke: rgba(226, 232, 240, 0.34);
+  stroke-width: 1.4;
+}
+
+.industrial-bot__upper-arm,
+.industrial-bot__forearm {
+  fill: url(#industrialShell);
+  stroke: rgba(255, 255, 255, 0.54);
+  stroke-width: 1.7;
+}
+
+.industrial-bot__base {
+  fill: rgba(34, 211, 238, 0.14);
+  filter: blur(1px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .industrial-bot__orbit--wide { animation: industrialOrbit 8.6s ease-in-out infinite; }
+  .industrial-bot__orbit--thin { animation: industrialCounter 11s ease-in-out infinite; }
+  .industrial-bot__arc { animation: industrialDash 4.6s linear infinite; }
+  .industrial-bot__target { animation: industrialTarget 2.8s ease-in-out infinite; }
+  .industrial-bot__sensor-ring,
+  .industrial-bot__chest-port { animation: industrialPulse 2.5s ease-in-out infinite; }
+  .thero__robot-wrap.is-calibrating .industrial-bot__sensor-ring,
+  .thero__robot-wrap.is-calibrating .industrial-bot__chest-port { animation: industrialCalibrate 0.82s cubic-bezier(0.22, 1, 0.36, 1); }
+}
+
+@keyframes industrialOrbit {
+  0%, 100% { transform: rotate(-3deg) scale(1); opacity: 0.8; }
+  50% { transform: rotate(8deg) scale(1.02); opacity: 1; }
+}
+
+@keyframes industrialCounter {
+  0%, 100% { transform: rotate(6deg); }
+  50% { transform: rotate(-8deg); }
+}
+
+@keyframes industrialDash {
+  to { stroke-dashoffset: -124; }
+}
+
+@keyframes industrialTarget {
+  0%, 100% { transform: scale(1); opacity: 0.58; }
+  50% { transform: scale(1.18); opacity: 1; }
+}
+
+@keyframes industrialPulse {
+  0%, 100% { opacity: 0.88; filter: url(#industrialGlow) brightness(1); }
+  50% { opacity: 1; filter: url(#industrialGlow) brightness(1.22); }
+}
+
+@keyframes industrialCalibrate {
+  0% { transform: scale(1); opacity: 0.9; }
+  45% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.92; }
+}
+
 /* ============================================================
    英文主标题 ShuffleText 容器(替代原 Orbitron 逐字点亮入场):
    字体/字号沿用原 .thero__title-en 口径(Orbitron · clamp · 700),
