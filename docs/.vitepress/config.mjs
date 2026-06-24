@@ -334,7 +334,7 @@ export default withMermaid(defineConfig({
     ['script', {}, "try{if(localStorage.getItem('zen-reading')==='1')document.documentElement.classList.add('zen-reading')}catch(e){}"],
     // 预渲染恢复「可信度透镜」状态(dim=暗化自评/待核,strict=仅显已核),避免刷新闪烁
     ['script', {}, "try{var l=localStorage.getItem('cred-lens');if(l==='dim'||l==='strict')document.documentElement.classList.add('lens-'+l)}catch(e){}"],
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/embodied-ai-learning/favicon.svg' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/embodied-ai-learning/favicon.png' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
     // 站点字体:Inter(正文/中文回退)+ JetBrains Mono(等宽代码/链接 chip)+ Orbitron(科幻显示体:英文标题/数字/HUD)
@@ -357,7 +357,7 @@ export default withMermaid(defineConfig({
   ],
 
   themeConfig: {
-    logo: { light: '/logo-light.svg', dark: '/logo-dark.svg', alt: '具身智能学习站' },
+    logo: { light: '/logo-gpt-image2-256.png', dark: '/logo-gpt-image2-256.png', alt: '具身智能学习站' },
     siteTitle: '具身智能学习站',
 
     nav: [
