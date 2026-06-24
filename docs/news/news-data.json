@@ -74,7 +74,7 @@
     ],
     "related": [
       {
-        "label": "",
+        "label": "wam",
         "url": "/wam/"
       }
     ],
@@ -178,6 +178,33 @@
       {
         "name": "arXiv:2606.24101",
         "url": "https://arxiv.org/abs/2606.24101"
+      }
+    ],
+    "related": [
+      {
+        "label": "",
+        "url": "/wam/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "world-action-models-survey-dream-less-act-more-20260618",
+    "title": "World Action Models: A Survey 发布:用“少做梦、多行动”重新整理 WAM 分类",
+    "date": "2026-06-18",
+    "fetched_at": "2026-06-24",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "论文发表",
+      "综述",
+      "WAM"
+    ],
+    "summary": "**World Action Models: A Survey**(arXiv:2606.20781) 是一篇 57 页 WAM 新综述,副标题为 **Dream Less, Act More**。它把 WAM 定义为“让未来预测可被动作使用”的 predictive-action system,并用两套视角整理现有工作:一是 design philosophy 层面的 endpoint-conditioned、plan-in-latent、value-guided 等路线,二是组件层面的 state representation、action interface、training signal、test-time use 等解剖维度。它和本站 WAM 总览所依据的 OpenMOSS 综述(arXiv:2605.12090)可互补阅读:前者更强调预测与控制之间的契约,后者更强调 Cascaded/Joint taxonomy。",
+    "sources": [
+      {
+        "name": "arXiv:2606.20781",
+        "url": "https://arxiv.org/abs/2606.20781"
       }
     ],
     "related": [
