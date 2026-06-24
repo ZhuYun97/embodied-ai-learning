@@ -1667,6 +1667,9 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
    ④ 读出条数字悬停「重扫」微辉光
    ============================================================ */
 .thero__robot-wrap {
+  --look-x: 0px;
+  --look-y: 0px;
+  --reach: 0;
   position: relative; display: block; cursor: pointer;
   transform-style: preserve-3d;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -5464,24 +5467,349 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
 }
 
 /* ============================================================
-   镭光人英雄视频(.thero__robot--video,替换原 hero-robot.svg):
-   沿用 .thero__robot 的物化揭示 + 浮动动画;矩形媒体收圆角;
-   暗色用 screen 混合把深底视频融进深空背景,矩形 drop-shadow 关闭。
-   交互逻辑见 theme/index.js bindHeroVideo(推扫 / 自动播放 / 静帧)。
+   具身星图交互机器人:
+   纯 DOM/CSS 机器人取代原视频抠像,鼠标驱动头盔/视线/机械臂/轨道响应,
+   点击触发校准脉冲;无视频解码和逐帧抠图,首屏更轻。
    ============================================================ */
-/* 视频仅作隐藏解码源;可见层是 bindHeroVideo 注入的实时抠像 canvas
-   (.thero__robot--keyed,共享 .thero__robot 的物化/浮动/辉光,与旧 SVG 同款承载) */
-.thero__robot--video {
+.thero__robot--mech {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: min(100%, 440px);
+  height: auto;
+  transform-style: preserve-3d;
+  overflow: visible;
+  contain: layout;
+}
+
+.mech-aura,
+.mech-orbit,
+.mech-core,
+.mech-arm,
+.mech-leg,
+.mech-shadow {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
   pointer-events: none;
 }
-.thero__robot--keyed {
-  aspect-ratio: 1 / 1;
-  width: 100%;
-  height: auto;
+
+.mech-aura {
+  inset: 8% 6% 6%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(255, 255, 255, 0.16), transparent 18%),
+    radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.2), transparent 50%),
+    radial-gradient(circle at 50% 66%, rgba(59, 130, 246, 0.18), transparent 70%);
+  filter: blur(2px);
+  opacity: 0.95;
+  transform: translateZ(-70px);
+}
+
+.mech-orbit {
+  left: 7%;
+  top: 8%;
+  width: 86%;
+  height: 78%;
+  border-radius: 50%;
+  transform-origin: 50% 54%;
+}
+
+.mech-orbit--outer {
+  border: 3px solid rgba(12, 35, 80, 0.82);
+  border-left-color: rgba(34, 211, 238, 0.95);
+  border-bottom-color: rgba(14, 165, 233, 0.9);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.36),
+    0 0 26px rgba(34, 211, 238, 0.16);
+  transform: rotate(-16deg) translateZ(-24px);
+}
+
+.mech-orbit--outer::before,
+.mech-orbit--inner::before {
+  content: '';
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(226, 247, 255, 0.76);
+  border-left-color: transparent;
+  border-bottom-color: rgba(34, 211, 238, 0.42);
+}
+
+.mech-orbit--inner {
+  left: 18%;
+  top: 20%;
+  width: 64%;
+  height: 52%;
+  border: 1px solid rgba(56, 189, 248, 0.32);
+  transform: rotate(19deg) translateZ(-18px);
+  opacity: 0.82;
+}
+
+.mech-node {
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 48%, #effcff 0 28%, #22d3ee 30% 56%, #0b2a5a 58% 100%);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.5);
+}
+
+.mech-node--a { left: 12%; top: 76%; }
+.mech-node--b { right: 9%; top: 48%; transform: scale(0.82); }
+
+.mech-star {
+  position: absolute;
+  right: -2%;
+  top: 25%;
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, #fff8cb, #f59e0b 58%, #fff7d6);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  filter: drop-shadow(0 0 9px rgba(245, 158, 11, 0.56));
+}
+
+.mech-core {
+  left: 50%;
+  top: 48%;
+  width: 48%;
+  height: 70%;
+  transform:
+    translate3d(calc(-50% + var(--look-x) * 0.22), calc(-50% + var(--look-y) * 0.12), 28px)
+    rotateX(calc(var(--rx, 0deg) * -0.1))
+    rotateY(calc(var(--ry, 0deg) * 0.1));
+  transform-origin: 50% 36%;
+  z-index: 2;
+  transition: transform 0.22s ease;
+}
+
+.mech-head,
+.mech-face,
+.mech-body,
+.mech-neck,
+.mech-reactor,
+.mech-rib {
+  position: absolute;
+  pointer-events: none;
+}
+
+.mech-head {
+  left: 50%;
+  top: 4%;
+  width: 72%;
+  height: 38%;
+  transform:
+    translateX(calc(-50% + var(--look-x) * 0.22))
+    translateY(calc(var(--look-y) * 0.12));
+  transition: transform 0.18s ease;
+}
+
+.mech-head::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.98) 0 24%, rgba(185, 227, 255, 0.96) 25% 38%, transparent 39%),
+    linear-gradient(25deg, transparent 0 18%, rgba(240, 249, 255, 0.96) 19% 36%, rgba(13, 36, 84, 0.98) 37% 100%);
+  clip-path: polygon(50% 0, 86% 18%, 100% 56%, 78% 100%, 22% 100%, 0 56%, 14% 18%);
+  box-shadow:
+    inset 0 -16px 22px rgba(9, 23, 61, 0.78),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.82),
+    0 18px 34px rgba(0, 0, 0, 0.22);
+}
+
+.mech-antenna {
+  position: absolute;
+  left: 50%;
+  top: -22%;
+  width: 5px;
+  height: 42px;
+  transform: translateX(-50%);
+  background: linear-gradient(#e0faff, #38bdf8 62%, transparent);
+  border-radius: 999px;
+  box-shadow: 0 0 13px rgba(34, 211, 238, 0.55);
+}
+
+.mech-antenna::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  width: 17px;
+  height: 17px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #effcff 0 28%, #22d3ee 30% 68%, #0b2a5a 70%);
+}
+
+.mech-face {
+  left: 13%;
+  right: 13%;
+  bottom: 10%;
+  height: 48%;
+  background: linear-gradient(180deg, #06152f, #020817);
+  clip-path: polygon(5% 12%, 26% 0, 74% 0, 95% 12%, 82% 82%, 58% 100%, 42% 100%, 18% 82%);
+  box-shadow:
+    inset 0 0 0 2px rgba(17, 42, 86, 0.92),
+    0 0 18px rgba(34, 211, 238, 0.22);
+}
+
+.mech-visor {
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  top: 28%;
+  height: 36%;
+  background:
+    linear-gradient(90deg, transparent 0 38%, rgba(255, 255, 255, 0.75) 48% 52%, transparent 62%),
+    linear-gradient(90deg, #67e8f9, #22d3ee 44%, transparent 45% 55%, #22d3ee 56%, #67e8f9);
+  clip-path: polygon(0 0, 40% 16%, 48% 100%, 50% 100%, 60% 16%, 100% 0, 86% 82%, 60% 86%, 50% 100%, 40% 86%, 14% 82%);
+  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.82));
+  transform: translate(var(--look-x), var(--look-y));
+  transition: transform 0.16s ease;
+}
+
+.mech-eye {
+  position: absolute;
+  top: 43%;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #e8fbff;
+  box-shadow: 0 0 12px #22d3ee, 0 0 22px rgba(34, 211, 238, 0.7);
+  transform: translate(var(--look-x), var(--look-y));
+  transition: transform 0.16s ease;
+}
+.mech-eye--left { left: 28%; }
+.mech-eye--right { right: 28%; }
+
+.mech-neck {
+  left: 50%;
+  top: 39%;
+  width: 26%;
+  height: 10%;
+  transform: translateX(-50%);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(56, 189, 248, 0.12));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38);
+}
+
+.mech-body {
+  left: 50%;
+  top: 45%;
+  width: 82%;
+  height: 38%;
+  transform: translateX(-50%);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0 16%, transparent 17%),
+    linear-gradient(225deg, rgba(255, 255, 255, 0.92) 0 15%, transparent 16%),
+    linear-gradient(180deg, #09204e, #020817 80%);
+  clip-path: polygon(50% 0, 92% 14%, 100% 54%, 78% 100%, 22% 100%, 0 54%, 8% 14%);
+  box-shadow:
+    inset 0 0 0 2px rgba(225, 247, 255, 0.36),
+    inset 0 -22px 32px rgba(0, 0, 0, 0.34),
+    0 18px 34px rgba(0, 0, 0, 0.24);
+}
+
+.mech-reactor {
+  left: 50%;
+  top: 42%;
+  width: 48px;
+  height: 48px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #f0fdff 0 18%, #22d3ee 20% 46%, rgba(37, 99, 235, 0.18) 48% 100%);
+  box-shadow:
+    0 0 22px rgba(34, 211, 238, 0.66),
+    inset 0 0 0 8px rgba(7, 21, 47, 0.88);
+}
+
+.mech-rib {
+  top: 60%;
+  width: 31%;
+  height: 12px;
+  background: linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.92));
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.55));
+}
+.mech-rib--left { left: 13%; transform: rotate(32deg); }
+.mech-rib--right { right: 13%; transform: rotate(-32deg) scaleX(-1); }
+
+.mech-arm {
+  z-index: 1;
+  top: 47%;
+  width: 18%;
+  height: 33%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(240, 249, 255, 0.92), rgba(34, 211, 238, 0.22) 45%, rgba(8, 26, 65, 0.92));
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.34),
+    0 0 22px rgba(34, 211, 238, 0.18);
+  transition: transform 0.22s ease;
+}
+.mech-arm--left {
+  left: 17%;
+  transform: rotate(calc(-23deg - var(--reach) * 10deg)) translateY(calc(var(--reach) * -12px));
+}
+.mech-arm--right {
+  right: 17%;
+  transform: rotate(calc(23deg + var(--reach) * 10deg)) translateY(calc(var(--reach) * -12px));
+}
+
+.mech-leg {
+  z-index: 0;
+  bottom: 10%;
+  width: 13%;
+  height: 27%;
+  border-radius: 999px 999px 10px 10px;
+  background: linear-gradient(180deg, #10285e, #081226 72%, rgba(34, 211, 238, 0.42));
+  box-shadow: inset 0 0 0 2px rgba(125, 211, 252, 0.2);
+}
+.mech-leg--left { left: 39%; transform: rotate(5deg); }
+.mech-leg--right { right: 39%; transform: rotate(-5deg); }
+
+.mech-shadow {
+  left: 18%;
+  right: 18%;
+  bottom: 3%;
+  height: 13%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(34, 211, 238, 0.24), transparent 72%);
+  filter: blur(5px);
+  transform: translateZ(-80px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mech-orbit--outer { animation: mechOrbitDrift 8s ease-in-out infinite; }
+  .mech-orbit--inner { animation: mechOrbitCounter 10s ease-in-out infinite; }
+  .mech-reactor { animation: mechReactor 2.4s ease-in-out infinite; }
+  .mech-star { animation: mechStarPulse 2.7s ease-in-out infinite; }
+  .thero__robot-wrap.is-calibrating .mech-core { animation: mechCalibrate 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+  .thero__robot-wrap.is-calibrating .mech-orbit--outer { animation: mechCalibrateOrbit 0.8s cubic-bezier(0.22, 1, 0.36, 1), mechOrbitDrift 8s ease-in-out 0.8s infinite; }
+}
+
+@keyframes mechOrbitDrift {
+  0%, 100% { transform: rotate(-16deg) translateZ(-24px); }
+  50% { transform: rotate(-8deg) translateZ(-24px) scale(1.02); }
+}
+@keyframes mechOrbitCounter {
+  0%, 100% { transform: rotate(19deg) translateZ(-18px); }
+  50% { transform: rotate(30deg) translateZ(-18px); }
+}
+@keyframes mechReactor {
+  0%, 100% { filter: brightness(1); transform: translate(-50%, -50%) scale(1); }
+  50% { filter: brightness(1.22); transform: translate(-50%, -50%) scale(1.08); }
+}
+@keyframes mechStarPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 9px rgba(245, 158, 11, 0.56)); }
+  50% { transform: scale(1.15); filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.84)); }
+}
+@keyframes mechCalibrate {
+  0% { transform: translate3d(-50%, -50%, 28px) scale(1); }
+  36% { transform: translate3d(-50%, -54%, 36px) scale(1.06); }
+  100% { transform: translate3d(-50%, -50%, 28px) scale(1); }
+}
+@keyframes mechCalibrateOrbit {
+  0% { transform: rotate(-16deg) translateZ(-24px) scale(1); }
+  48% { transform: rotate(28deg) translateZ(-24px) scale(1.08); }
+  100% { transform: rotate(-16deg) translateZ(-24px) scale(1); }
 }
 
 /* ============================================================
@@ -5638,8 +5966,8 @@ html:not(.dark) .hero-bg-layer { display: none; }
   inset: 0;
   pointer-events: none;
 }
-/* ① 人物锚定辉光:右侧人物位置一团青→蓝径向光,screen 混合把人物"嵌入"场景、
-   消除与流体背景的脱节感(随 --hero-collapse 一并淡出) */
+/* ① 机器人锚定辉光:右侧视觉位一团青→蓝径向光,screen 混合把机器人嵌入场景
+   (随 --hero-collapse 一并淡出) */
 .hero-bg-halo {
   background:
     radial-gradient(34% 46% at 72% 50%, rgba(34, 211, 238, 0.34), transparent 70%),

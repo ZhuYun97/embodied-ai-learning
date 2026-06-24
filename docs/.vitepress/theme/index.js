@@ -16,8 +16,8 @@ import './custom.css'
 // =====================================================================
 // 首屏 WebGL 扭曲背景(HeroBG → GridDistortion):蓝紫流体抽象底图
 // (public/hero-bg.jpg,Unsplash,与站点配色同源)铺满首个视口,鼠标拖动产生网格扭曲;
-// 叠两层科技增强(见 custom.css):.hero-bg-halo 人物位锚定青蓝辉光(消除人物与背景
-// 脱节感)、.hero-bg-tech HUD 科技层(扫描线 + 暗角聚焦 + 缓慢扫描带)。
+// 叠两层科技增强(见 custom.css):.hero-bg-halo 机器人位锚定青蓝辉光、
+// .hero-bg-tech HUD 科技层(扫描线 + 暗角聚焦 + 缓慢扫描带)。
 // 随滚动收起(--hero-collapse,见 setupHeroCollapse)。client-only。
 // =====================================================================
 const HeroBG = {
@@ -782,7 +782,6 @@ const TechHero = {
       clockTimer = setInterval(tick, 1000)
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
       bindHeroUnit(reduce)
-      bindHeroVideo(reduce)
       if (reduce) return
       // 开机序列:状态条 → 终端提示语,逐字打出(一次性;机器人物化见 custom.css robotMaterialize)
       armBootSkip()
@@ -902,18 +901,44 @@ const TechHero = {
               h('span', { class: 'tu-tag tu-tag--tl' }, 'EMBODIED-UNIT'),
               h('span', { class: 'tu-tag tu-tag--tr' }, 'VLA · WAM'),
               h('div', { class: 'thero__robot-wrap', title: '点我 · 单元会回应' }, [
-                // 镭光人概念视频(public/hero-laser-human.mp4,自托管):桌面精确指针
-                // = 鼠标推扫逐帧(bindHeroVideo),窄屏/触屏 = 静音循环播放,reduced-motion = 静帧
-                h('video', {
-                  class: 'thero__robot thero__robot--video',
-                  src: withBase('/hero-laser-human.mp4'),
-                  muted: true,
-                  playsinline: true,
-                  'webkit-playsinline': true,
-                  preload: 'auto',
-                  loop: true,
-                  'aria-label': '镭光人 · 具身智能概念视频',
-                }),
+                h(
+                  'div',
+                  {
+                    class: 'thero__robot thero__robot--mech',
+                    role: 'img',
+                    'aria-label': '可交互的具身星图机器人',
+                  },
+                  [
+                    h('span', { class: 'mech-orbit mech-orbit--outer', 'aria-hidden': 'true' }, [
+                      h('i', { class: 'mech-node mech-node--a' }),
+                      h('i', { class: 'mech-node mech-node--b' }),
+                      h('i', { class: 'mech-star' }),
+                    ]),
+                    h('span', { class: 'mech-orbit mech-orbit--inner', 'aria-hidden': 'true' }),
+                    h('span', { class: 'mech-aura', 'aria-hidden': 'true' }),
+                    h('span', { class: 'mech-arm mech-arm--left', 'aria-hidden': 'true' }),
+                    h('span', { class: 'mech-arm mech-arm--right', 'aria-hidden': 'true' }),
+                    h('span', { class: 'mech-leg mech-leg--left', 'aria-hidden': 'true' }),
+                    h('span', { class: 'mech-leg mech-leg--right', 'aria-hidden': 'true' }),
+                    h('span', { class: 'mech-core', 'aria-hidden': 'true' }, [
+                      h('span', { class: 'mech-head' }, [
+                        h('span', { class: 'mech-antenna' }),
+                        h('span', { class: 'mech-face' }, [
+                          h('span', { class: 'mech-visor' }),
+                          h('span', { class: 'mech-eye mech-eye--left' }),
+                          h('span', { class: 'mech-eye mech-eye--right' }),
+                        ]),
+                      ]),
+                      h('span', { class: 'mech-neck' }),
+                      h('span', { class: 'mech-body' }, [
+                        h('span', { class: 'mech-reactor' }),
+                        h('span', { class: 'mech-rib mech-rib--left' }),
+                        h('span', { class: 'mech-rib mech-rib--right' }),
+                      ]),
+                    ]),
+                    h('span', { class: 'mech-shadow', 'aria-hidden': 'true' }),
+                  ]
+                ),
                 h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),
               h('span', { class: 'tu-scan', 'aria-hidden': 'true' }),
@@ -1132,192 +1157,39 @@ const ROBOT_LINES = [
   '自评存疑,待复现 · ⚠',
   '双主线就绪 · VLA × WAM',
 ]
-// =====================================================================
-// 镭光人视频交互(spec: Native Scrubbing 移植)+ 实时抠像:
-// 源片是浅紫白底,直接上屏要么成卡片要么得羽化(均被否)→ 视频仅作隐藏解码源,
-// 可见层为 canvas:每帧方裁右对齐绘入,采四角均值作底色参考,从边缘做容差泛洪
-// (只清除与边缘连通的底色,人物内部的白高光不受伤),命中像素置全透明、
-// 邻接像素半透明作 1px 软边——人物以透明底直接立在页面上(与旧 SVG 机器人同款承载)。
-// 模式:① 桌面(pointer:fine + ≥1024 + 允许动效)= 鼠标推扫,(ΔX/视宽)*0.8*时长,
-//        seeked 节流,每次 seek 完成重抠重绘;
-//      ② 窄屏 / 触屏 = 静音循环自动播放,requestVideoFrameCallback(降级 rAF)逐帧抠;
-//      ③ prefers-reduced-motion = 只抠首帧静像。
-// =====================================================================
-function bindHeroVideo(reduce) {
-  if (typeof document === 'undefined') return
-  const video = document.querySelector('.thero__robot--video')
-  if (!video || video.dataset.scrub) return
-  video.dataset.scrub = '1'
-  video.muted = true
-  const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
-  const SIZE = fine ? 720 : 480
-  const canvas = document.createElement('canvas')
-  canvas.width = SIZE
-  canvas.height = SIZE
-  canvas.className = 'thero__robot thero__robot--keyed'
-  canvas.setAttribute('role', 'img')
-  canvas.setAttribute('aria-label', '镭光人 · 具身智能概念视频')
-  video.insertAdjacentElement('afterend', canvas)
-  const ctx = canvas.getContext('2d', { willReadFrequently: true })
-  ctx.imageSmoothingEnabled = true
-  ctx.imageSmoothingQuality = 'high'
-  const N = SIZE * SIZE
-  const queue = new Int32Array(N)
-  const visited = new Uint8Array(N)
-  const maskA = new Uint8Array(N)
-  const maskB = new Uint8Array(N)
-  const keyFrame = () => {
-    const vw = video.videoWidth
-    const vh = video.videoHeight
-    if (!vw || !vh || video.readyState < 2) return
-    const s = Math.min(vw, vh)
-    ctx.clearRect(0, 0, SIZE, SIZE)
-    ctx.drawImage(video, vw - s, 0, s, s, 0, 0, SIZE, SIZE)
-    let img
-    try { img = ctx.getImageData(0, 0, SIZE, SIZE) } catch (e) { return }
-    const d = img.data
-    // 底色参考 = 四角均值(逐帧自适应光照/暗角)
-    let rr = 0, rg = 0, rb = 0
-    for (const p of [(2 * SIZE + 2), (2 * SIZE + SIZE - 3), ((SIZE - 3) * SIZE + 2), ((SIZE - 3) * SIZE + SIZE - 3)]) {
-      rr += d[p * 4]; rg += d[p * 4 + 1]; rb += d[p * 4 + 2]
-    }
-    rr /= 4; rg /= 4; rb /= 4
-    const TOL2 = 56 * 56
-    visited.fill(0)
-    let qh = 0
-    let qt = 0
-    const tryPush = (p) => {
-      if (visited[p]) return
-      const i = p * 4
-      const dr = d[i] - rr, dg = d[i + 1] - rg, db = d[i + 2] - rb
-      if (dr * dr + dg * dg + db * db < TOL2) { visited[p] = 1; queue[qt++] = p }
-    }
-    for (let x = 0; x < SIZE; x++) { tryPush(x); tryPush(N - SIZE + x) }
-    for (let y = 1; y < SIZE - 1; y++) { tryPush(y * SIZE); tryPush(y * SIZE + SIZE - 1) }
-    while (qh < qt) {
-      const p = queue[qh++]
-      const x = p % SIZE
-      if (x > 0) tryPush(p - 1)
-      if (x < SIZE - 1) tryPush(p + 1)
-      if (p >= SIZE) tryPush(p - SIZE)
-      if (p < N - SIZE) tryPush(p + SIZE)
-    }
-    // —— 边缘整形:收边 1px(去沾底色的最外圈)→ 两道 3×3 盒模糊软化蒙版 → 去边 ——
-    for (let p = 0; p < N; p++) maskA[p] = visited[p] ? 0 : 255
-    for (let p = 0; p < N; p++) {
-      if (!maskA[p]) { maskB[p] = 0; continue }
-      const x = p % SIZE
-      maskB[p] =
-        (x > 0 && !maskA[p - 1]) || (x < SIZE - 1 && !maskA[p + 1]) || (p >= SIZE && !maskA[p - SIZE]) || (p < N - SIZE && !maskA[p + SIZE])
-          ? 0
-          : 255
-    }
-    // 两轮 H+V 盒模糊(半径 1,边界夹取)≈ 高斯软化,过渡带约 4px
-    for (let round = 0; round < 2; round++) {
-      for (let p = 0; p < N; p++) {
-        const x = p % SIZE
-        const l = x > 0 ? maskB[p - 1] : maskB[p]
-        const r = x < SIZE - 1 ? maskB[p + 1] : maskB[p]
-        maskA[p] = (l + maskB[p] + r) / 3
-      }
-      for (let p = 0; p < N; p++) {
-        const u = p >= SIZE ? maskA[p - SIZE] : maskA[p]
-        const dn = p < N - SIZE ? maskA[p + SIZE] : maskA[p]
-        maskB[p] = (u + maskA[p] + dn) / 3
-      }
-    }
-    for (let p = 0; p < N; p++) {
-      const a = maskB[p]
-      const i = p * 4
-      d[i + 3] = a
-      // 去边:半透明过渡像素按 alpha 反混掉底色成分,消除浅紫描边
-      if (a > 24 && a < 250) {
-        d[i] = Math.max(0, Math.min(255, (d[i] * 255 - (255 - a) * rr) / a))
-        d[i + 1] = Math.max(0, Math.min(255, (d[i + 1] * 255 - (255 - a) * rg) / a))
-        d[i + 2] = Math.max(0, Math.min(255, (d[i + 2] * 255 - (255 - a) * rb) / a))
-      }
-    }
-    ctx.putImageData(img, 0, 0)
-  }
-  const paintWhenReady = () => {
-    if (video.readyState >= 2) keyFrame()
-    else video.addEventListener('loadeddata', keyFrame, { once: true })
-  }
-  if (reduce) {
-    paintWhenReady()
-    return
-  }
-  if (!fine || window.innerWidth < 1024) {
-    // —— 自动播放模式:逐帧抠像 ——
-    video.autoplay = true
-    const p = video.play()
-    if (p && p.catch) p.catch(() => {})
-    if ('requestVideoFrameCallback' in HTMLVideoElement.prototype) {
-      const onFrame = () => { keyFrame(); video.requestVideoFrameCallback(onFrame) }
-      video.requestVideoFrameCallback(onFrame)
-    } else {
-      const loop = () => { keyFrame(); requestAnimationFrame(loop) }
-      requestAnimationFrame(loop)
-    }
-    return
-  }
-  // —— 桌面推扫模式 ——
-  paintWhenReady()
-  let prevX = null
-  let target = 0
-  let seeking = false
-  const apply = () => {
-    if (seeking || !Number.isFinite(video.duration) || video.duration <= 0) return
-    const clamped = Math.max(0, Math.min(video.duration - 0.05, target))
-    if (Math.abs(clamped - video.currentTime) < 0.02) return
-    seeking = true
-    try { video.currentTime = clamped } catch (e) { seeking = false }
-  }
-  video.addEventListener('seeked', () => {
-    seeking = false
-    keyFrame()
-    apply()
-  })
-  window.addEventListener(
-    'mousemove',
-    (e) => {
-      if (window.innerWidth < 1024) return
-      if (!Number.isFinite(video.duration) || video.duration <= 0) return
-      if (prevX === null) {
-        prevX = e.clientX
-        return
-      }
-      const delta = e.clientX - prevX
-      prevX = e.clientX
-      target = Math.max(0, Math.min(video.duration, target + (delta / window.innerWidth) * 0.8 * video.duration))
-      apply()
-    },
-    { passive: true }
-  )
-}
-
 function bindHeroUnit(reduce) {
   if (typeof document === 'undefined') return
   const unit = document.querySelector('.thero__unit')
   if (!unit || unit.dataset.delight) return
   unit.dataset.delight = '1'
   const wrap = unit.querySelector('.thero__robot-wrap')
+  const robot = unit.querySelector('.thero__robot--mech')
   const baseText = unit.querySelector('.tu-base-text')
   if (!wrap) return
+  const setRobotVar = (name, value) => {
+    wrap.style.setProperty(name, value)
+    if (robot) robot.style.setProperty(name, value)
+  }
   const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
   if (fine && !reduce) {
     unit.addEventListener('pointermove', (e) => {
       const r = unit.getBoundingClientRect()
       const px = (e.clientX - r.left) / r.width - 0.5
       const py = (e.clientY - r.top) / r.height - 0.5
-      wrap.style.setProperty('--ry', (px * 14).toFixed(2) + 'deg')
-      wrap.style.setProperty('--rx', (-py * 10).toFixed(2) + 'deg')
+      setRobotVar('--ry', (px * 14).toFixed(2) + 'deg')
+      setRobotVar('--rx', (-py * 10).toFixed(2) + 'deg')
+      setRobotVar('--look-x', (px * 13).toFixed(2) + 'px')
+      setRobotVar('--look-y', (py * 10).toFixed(2) + 'px')
+      setRobotVar('--reach', Math.min(1, Math.hypot(px, py) * 2.2).toFixed(3))
     })
   }
   unit.addEventListener('pointerenter', () => { if (baseText) baseText.textContent = ROBOT_HELLO })
   unit.addEventListener('pointerleave', () => {
-    wrap.style.setProperty('--ry', '0deg')
-    wrap.style.setProperty('--rx', '0deg')
+    setRobotVar('--ry', '0deg')
+    setRobotVar('--rx', '0deg')
+    setRobotVar('--look-x', '0px')
+    setRobotVar('--look-y', '0px')
+    setRobotVar('--reach', '0')
     if (baseText) baseText.textContent = ROBOT_DEFAULT
   })
   let clicks = 0
@@ -1325,6 +1197,10 @@ function bindHeroUnit(reduce) {
     clicks++
     if (baseText) baseText.textContent = ROBOT_LINES[(clicks - 1) % ROBOT_LINES.length]
     if (!reduce) {
+      wrap.classList.remove('is-calibrating')
+      void wrap.offsetWidth
+      wrap.classList.add('is-calibrating')
+      setTimeout(() => wrap.classList.remove('is-calibrating'), 900)
       const p = document.createElement('span')
       p.className = 'tu-pulse'
       p.setAttribute('aria-hidden', 'true')
@@ -1847,7 +1723,7 @@ function setupDelight() {
   delightBound = true
   try {
     console.log(
-      '%c⊕ 具身智能学习站 · Embodied AI Learning',
+      '%c⊕ 具身星图 · Embodied AI Atlas',
       'color:#2563eb;font-weight:700;font-size:14px'
     )
     console.log(
