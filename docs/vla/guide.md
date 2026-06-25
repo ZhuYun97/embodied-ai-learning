@@ -23,7 +23,7 @@ description: 如何阅读具身星图——内容地图、推荐阅读路径、�
 | **第一次了解 VLA** | [总报告](/vla/) 摘要 + 第一部分发展主线 → [发展时间线](timeline) → 任选 [RT-2](papers/rt2) / [π0](papers/pi0) 细读 |
 | **快速建立全景** | [总报告](/vla/) 的论文细读导航表 + [术语速查表](papers/glossary) |
 | **深挖某个模型** | 论文细读导航里点对应条目;每篇细读结构统一:TL;DR → 要解决的问题 → 方法与架构 → 实验结果表 → 局限 |
-| **找数据/基准/硬件** | [具身数据全景](papers/embodied-data) · [数据集与基准](papers/benchmarks) · [实验机器人本体](papers/robots) |
+| **找数据/基准/硬件** | [具身数据论文索引](papers/embodied-data-papers) · [具身数据全景](papers/embodied-data) · [数据集与基准](papers/benchmarks) · [实验机器人本体](papers/robots) |
 | **查术语 / 找原文** | [术语速查表](papers/glossary) · [参考文献](papers/references) |
 
 > 每篇细读底部都有「本系列」页脚,可一键跳到相关专题与速查页。
@@ -47,7 +47,7 @@ description: 如何阅读具身星图——内容地图、推荐阅读路径、�
 ### 🥈 第二档 · 推荐(按技术路线补全)
 
 - **模型**:[Diffusion Policy](papers/diffusion-policy)(连续奠基)· [RT-1](papers/rt1)(离散前史)· [Octo](papers/octo) · [CogACT](papers/cogact) · [π0-FAST](papers/pi0-fast) · [GR00T N1](papers/groot-n1)(双系统) · [π0.6 / π*0.6](papers/pi06)(从经验学习)
-- **横切/数据**:[全模型规格对比大表](papers/models-spec)(一页看全 26 个 VLA 代表模型)· [双系统架构原理](papers/dual-system-architecture) · [具身数据全景](papers/embodied-data)
+- **横切/数据**:[全模型规格对比大表](papers/models-spec)(一页看全 26 个 VLA 代表模型)· [双系统架构原理](papers/dual-system-architecture) · [具身数据论文索引](papers/embodied-data-papers) · [具身数据全景](papers/embodied-data)
 
 ### 🥉 第三档 · 选读(最新前沿 / 特定主题 / 补充)
 

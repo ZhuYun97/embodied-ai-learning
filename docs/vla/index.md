@@ -96,6 +96,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | 专题 | 范围 | 一句话 | 细读 |
 |---|---|---|---|
 | 具身数据全景 | 数据来源 / 采集 / 配比 / scaling | 四层数据金字塔 + 10 个真机数据集横评 + 采集范式成本 + co-training/scaling,8 条规模数字经对抗核查确认 | [→ 细读](papers/embodied-data.md) |
+| 具身数据论文索引 | 数据集 / 人类视频 / 合成数据 / 筛选 / 基准 | 把站内外具身数据相关论文按用途聚合,作为进入数据方向的目录页 | [→ 索引](papers/embodied-data-papers.md) |
 | 具身数据处理 | 清洗 / 标注 / 动作&观测处理 / 伪标签 / 配比 / 格式 | 从原始采集到可训练样本的处理流水线:归一化/分词/分块、IDM/潜动作伪标签、Re-Mix/n^0.43 配比、RLDS/LeRobot 格式 | [→ 专题](papers/data-processing.md) |
 | 数据集与基准 | SimplerEnv / LIBERO / CALVIN / RoboCasa | 四大评测全景 + 逐模型成绩表(含 RoboCasa 同口径排行榜) | [→ 专题](papers/benchmarks.md) |
 | 实验机器人本体 | 单臂 / 双臂 / 人形 / 跨本体 | 19 个实验本体对照表(平台/厂商/形态/DoF/关联模型与数据集)+ 跨本体迁移要点 | [→ 专题](papers/robots.md) |

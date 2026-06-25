@@ -118,7 +118,7 @@ description: 具身智能 / VLA 领域公开高质量外部资源导航——精
 
 ## 四、大规模数据集与采集平台(官方站)
 
-数据金字塔与横评见 [具身数据全景](embodied-data.md) 与 [具身数据处理](data-processing.md);官方下载/文档入口:
+数据论文入口见 [具身数据论文索引](embodied-data-papers.md);数据金字塔与横评见 [具身数据全景](embodied-data.md) 与 [具身数据处理](data-processing.md);官方下载/文档入口:
 
 <div class="res-grid" data-tone="emerald">
 <a class="res-card" href="https://robotics-transformer-x.github.io" target="_blank" rel="noopener">
