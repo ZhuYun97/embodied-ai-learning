@@ -11,6 +11,7 @@ import DotField from './components/DotField.vue'
 import ShuffleText from './components/ShuffleText.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
 import GridDistortion from './components/GridDistortion.vue'
+import AutoResearchLab from './components/AutoResearchLab.vue'
 import './custom.css'
 
 // =====================================================================
@@ -1888,6 +1889,7 @@ export default {
     // 小红书精选页(SRC papers/xiaohongshu.md 同步)的两个展示组件
     app.component('XhsAccounts', XhsAccounts)
     app.component('XhsBoard', XhsBoard)
+    app.component('AutoResearchLab', AutoResearchLab)
   },
   setup() {
     onMounted(setupLightbox)

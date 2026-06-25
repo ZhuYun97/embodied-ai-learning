@@ -2838,6 +2838,12 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   background: radial-gradient(58% 100% at 28% 0%, rgba(37, 99, 235, 0.12), transparent 72%);
 }
 
+/* Autoresearch 是完整工具界面,不用文章页头部雾层;否则移动端会被 -60px 装饰层撑出横向滚动。 */
+.dark .VPDoc .vp-doc._embodied-ai-learning_autoresearch_::before {
+  content: none;
+  display: none;
+}
+
 /* ---- 文章标题:渐变眉标 + 收紧 + 底部渐变规则线 ---- */
 .VPDoc .vp-doc h1 {
   position: relative;

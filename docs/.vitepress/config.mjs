@@ -248,6 +248,7 @@ export default withMermaid(defineConfig({
 
       const index = []
       const fullParts = []
+      const researchDocs = []
       for (const file of files) {
         const rel = path.relative(srcDir, file).split(path.sep).join('/')
         const raw = fs.readFileSync(file, 'utf-8')
@@ -256,6 +257,7 @@ export default withMermaid(defineConfig({
         const body = clean(raw)
         index.push(`- [${title}](${url}): 原始 markdown ${ORIGIN}${rel}.txt`)
         fullParts.push(`# ${title}\n来源:${url}\n\n${body}`)
+        researchDocs.push({ title, url, path: rel, text: body.slice(0, 4000) })
         // 每页原始 .md.txt(镜像目录结构)
         const outRaw = path.join(outDir, rel + '.txt')
         fs.mkdirSync(path.dirname(outRaw), { recursive: true })
@@ -317,12 +319,24 @@ export default withMermaid(defineConfig({
         // 写入 news/index.md.txt
         const newsOutPath = path.join(outDir, 'news/index.md.txt')
         fs.mkdirSync(path.dirname(newsOutPath), { recursive: true })
-        fs.writeFileSync(newsOutPath, newsMd.join('\n'), 'utf-8')
+        const newsText = newsMd.join('\n')
+        fs.writeFileSync(newsOutPath, newsText, 'utf-8')
+        researchDocs.push({
+          title: '具身智能新闻',
+          url: ORIGIN + 'news/',
+          path: 'news/index.md',
+          text: clean(newsText).slice(0, 7000),
+        })
       }
 
       const header = `# 具身星图 · Embodied AI Atlas\n\n> VLA × WAM 前沿谱系 + 87 篇论文细读 + 知识图谱与产业生态。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
       fs.writeFileSync(path.join(outDir, 'llms.txt'), header + index.join('\n') + '\n', 'utf-8')
       fs.writeFileSync(path.join(outDir, 'llms-full.txt'), header + fullParts.join('\n\n---\n\n') + '\n', 'utf-8')
+      fs.writeFileSync(path.join(outDir, 'autoresearch-corpus.json'), JSON.stringify({
+        generated_at: new Date().toISOString(),
+        source: 'docs markdown + generated news mirror',
+        docs: researchDocs,
+      }), 'utf-8')
       console.log(`[buildEnd] 已导出 llms.txt / llms-full.txt + ${files.length} 页原始 .md.txt`)
     } catch (e) {
       console.warn('[buildEnd] llms 导出失败(不阻断构建):', e.message)
@@ -364,8 +378,9 @@ export default withMermaid(defineConfig({
       { text: '首页', link: '/' },
       {
         text: '最新动态',
-        activeMatch: '^/(papers/latest|news/|vla/(changelog|papers/(timeline|xiaohongshu)))',
+        activeMatch: '^/(autoresearch/|papers/latest|news/|vla/(changelog|papers/(timeline|xiaohongshu)))',
         items: [
+          { text: 'Autoresearch 工作台', link: '/autoresearch/' },
           { text: '每日最新论文', link: '/papers/latest' },
           { text: '具身新闻', link: '/news/' },
           { text: 'Qwen-Robot 系列专题', link: '/news/qwen-robot' },
@@ -494,10 +509,22 @@ export default withMermaid(defineConfig({
     },
 
     sidebar: {
+      '/autoresearch/': [
+        {
+          text: 'Autoresearch',
+          items: [
+            { text: 'Autoresearch 工作台', link: '/autoresearch/' },
+            { text: '每日最新论文', link: '/papers/latest' },
+            { text: '知识图谱', link: '/ecosystem/paper-graph' },
+            { text: '具身新闻', link: '/news/' },
+          ],
+        },
+      ],
       '/papers/': [
         {
           text: '每日论文队列',
           items: [
+            { text: 'Autoresearch 工作台', link: '/autoresearch/' },
             { text: '每日最新论文', link: '/papers/latest' },
             { text: '具身新闻', link: '/news/' },
             { text: '发展时间线', link: '/vla/papers/timeline' },
