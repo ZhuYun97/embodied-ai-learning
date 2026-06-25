@@ -320,7 +320,7 @@ export default withMermaid(defineConfig({
         fs.writeFileSync(newsOutPath, newsMd.join('\n'), 'utf-8')
       }
 
-      const header = `# 具身星图 · Embodied AI Atlas\n\n> VLA × WAM 前沿谱系 + 72 篇论文细读 + 知识图谱与产业生态。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
+      const header = `# 具身星图 · Embodied AI Atlas\n\n> VLA × WAM 前沿谱系 + 87 篇论文细读 + 知识图谱与产业生态。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
       fs.writeFileSync(path.join(outDir, 'llms.txt'), header + index.join('\n') + '\n', 'utf-8')
       fs.writeFileSync(path.join(outDir, 'llms-full.txt'), header + fullParts.join('\n\n---\n\n') + '\n', 'utf-8')
       console.log(`[buildEnd] 已导出 llms.txt / llms-full.txt + ${files.length} 页原始 .md.txt`)
@@ -346,13 +346,13 @@ export default withMermaid(defineConfig({
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:url', content: 'https://zhuyun97.github.io/embodied-ai-learning/' }],
     ['meta', { property: 'og:title', content: '具身星图 · Embodied AI Atlas' }],
-    ['meta', { property: 'og:description', content: 'VLA × WAM 前沿谱系、72 篇论文细读、知识图谱、新闻与产业生态,经多源检索与对抗式事实核查整理。' }],
+    ['meta', { property: 'og:description', content: 'VLA × WAM 前沿谱系、87 篇论文细读、知识图谱、新闻与产业生态,经多源检索与对抗式事实核查整理。' }],
     ['meta', { property: 'og:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: '具身星图 · Embodied AI Atlas' }],
-    ['meta', { name: 'twitter:description', content: 'VLA × WAM 前沿谱系、72 篇论文细读、知识图谱与产业生态,经对抗式事实核查整理。' }],
+    ['meta', { name: 'twitter:description', content: 'VLA × WAM 前沿谱系、87 篇论文细读、知识图谱与产业生态,经对抗式事实核查整理。' }],
     ['meta', { name: 'twitter:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
   ],
 
@@ -538,6 +538,8 @@ export default withMermaid(defineConfig({
             { text: 'CogACT（认知+扩散）', link: '/vla/papers/cogact' },
             { text: 'GR00T N1', link: '/vla/papers/groot-n1' },
             { text: 'Qwen-RobotManip（Qwen·操作 VLA）', link: '/vla/papers/qwen-robotmanip' },
+            { text: 'WOLF-VLA（人形全身控制）', link: '/vla/papers/wolf-vla' },
+            { text: 'Learning Action Priors（跨本体动作先验）', link: '/vla/papers/learning-action-priors' },
             { text: 'GR-3（字节 Seed 双臂移动）', link: '/vla/papers/gr-3' },
             { text: 'GR-Dexter（双臂灵巧手·字节 Seed）', link: '/vla/papers/gr-dexter' },
             { text: 'RDT-1B（扩散双臂基座）', link: '/vla/papers/rdt-1b' },
@@ -554,6 +556,7 @@ export default withMermaid(defineConfig({
             { text: 'π0.5', link: '/vla/papers/pi05' },
             { text: 'WALL-OSS（自变量）', link: '/vla/papers/wall-oss' },
             { text: 'Wall-OSS-0.5（梯度桥接·可部署）', link: '/vla/papers/wall-oss-05' },
+            { text: 'SPACE（跨本体动作表示）', link: '/vla/papers/space' },
           ],
         },
         {
@@ -568,7 +571,9 @@ export default withMermaid(defineConfig({
             { text: 'Qwen-RobotNav（Qwen·导航执行器）', link: '/vla/papers/qwen-robotnav' },
             { text: 'SteerVLA（自动驾驶·分层操控）', link: '/vla/papers/steervla' },
             { text: 'Steerable Policies（可操控分层·操作）', link: '/vla/papers/steerable-policies' },
+            { text: 'InSight（可 steer VLA·自主技能获取）', link: '/vla/papers/insight' },
             { text: 'PointACT（双系统·3D 点云·Inria）', link: '/vla/papers/pointact' },
+            { text: 'SVP-IL（空间视觉提示）', link: '/vla/papers/svp-il' },
           ],
         },
         {
@@ -588,6 +593,12 @@ export default withMermaid(defineConfig({
             { text: 'AtomicVLA（技能引导 MoE·CVPR26）', link: '/vla/papers/atomicvla' },
             { text: 'SeeTraceAct（可见性潜轨迹·GT/AI2）', link: '/vla/papers/seetraceact' },
             { text: 'AffordanceVLA（affordance 中间表征·北大等）', link: '/vla/papers/affordancevla' },
+            { text: 'G³VLA（多视角几何归纳偏置）', link: '/vla/papers/g3vla' },
+            { text: 'Supervise What Survives（生成视频几何监督）', link: '/vla/papers/supervise-what-survives' },
+            { text: 'FORCE（VLA 强化微调）', link: '/vla/papers/force-vla' },
+            { text: 'ROAD-VLA（在线自适应后训练）', link: '/vla/papers/road-vla' },
+            { text: 'Reflective VLA（行动后果上下文）', link: '/vla/papers/reflective-vla' },
+            { text: 'Action ControlNet（异步控制稳定器）', link: '/vla/papers/action-controlnet' },
           ],
         },
         {
@@ -660,6 +671,7 @@ export default withMermaid(defineConfig({
             { text: 'GigaWorld-Policy（动作中心·视频可选·GigaAI）', link: '/wam/papers/gigaworld-policy' },
             { text: 'WAV（世界-价值-动作·西湖）', link: '/wam/papers/wav' },
             { text: 'MotuBrain（三流 MoT·生数/清华）', link: '/wam/papers/motubrain' },
+            { text: 'MotionWAM（人形实时全身移动操作）', link: '/wam/papers/motionwam' },
           ],
         },
         {
@@ -670,6 +682,8 @@ export default withMermaid(defineConfig({
             { text: 'FLARE（未来潜表征对齐）', link: '/wam/papers/flare' },
             { text: 'OA-WAM（对象槽位·清华深圳）', link: '/wam/papers/oa-wam' },
             { text: 'HiMem-WAM（分层潜动作+记忆门控·港大系·观察级）', link: '/wam/papers/himem-wam' },
+            { text: 'NavWM（导航世界模型）', link: '/wam/papers/navwm' },
+            { text: 'ω-EVA（设想-验证-执行闭环）', link: '/wam/papers/omega-eva' },
           ],
         },
         {
@@ -681,6 +695,7 @@ export default withMermaid(defineConfig({
             { text: 'Genie Envisioner（智元 AgiBot）', link: '/wam/papers/genie-envisioner' },
             { text: 'GE-Sim 2.0（智元·闭环视频世界模拟器）', link: '/wam/papers/ge-sim-2' },
             { text: 'RoboDream（TRI·数据合成引擎）', link: '/wam/papers/robodream' },
+            { text: 'World Value Models（世界模型价值估计）', link: '/wam/papers/world-value-models' },
           ],
         },
         {

@@ -68,6 +68,17 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 | SeeTraceAct (2026.06) | GT / AI2 / JHU / UW | demo 条件 VLA:可见性感知潜轨迹规划(GR00T N1.5 基座),附新基准 RoboCasa-DC;仓库占位、代码未放 | [→ 细读](papers/seetraceact.md) |
 | AffordanceVLA (2026.06) | 北大 / 港科大(广州) / 港中文 / Knowin AI | MoT 三专家以 affordance 为面向任务的中间表征;LIBERO 95.8 自评,MIT 开源 | [→ 细读](papers/affordancevla.md) |
 | OmniVLA-RL (2026.04) | 碧桂园服务 AI Lab / ECNU 等 | MoT 三专家(推理/空间/动作)+ 流匹配 + Flow-GSPO 在线 RL;LIBERO 97.6 自评(数字仅在全文,摘要含糊——观察级收录) | [→ 细读](papers/omnivla-rl.md) |
+| Learning Action Priors (2026.06) | 待核 | 跨本体 action prior:先学可迁移动作分布,再接视觉语言条件 | [→ 细读](papers/learning-action-priors.md) |
+| FORCE (2026.06) | 待核 | VLA reinforcement fine-tuning,把后训练推向更高效在线强化微调 | [→ 细读](papers/force-vla.md) |
+| ROAD-VLA (2026.06) | 待核 | scalable online post-training + self-distillation,面向部署分布自适应 | [→ 细读](papers/road-vla.md) |
+| Action ControlNet (2026.06) | 待核 | 在慢速 VLA 与高频控制之间加异步动作稳定器,处理推理延迟 | [→ 细读](papers/action-controlnet.md) |
+| Reflective VLA (2026.06) | 待核 | 用 observation-action-consequence 上下文让策略利用行动后果反思 | [→ 细读](papers/reflective-vla.md) |
+| InSight (2026.06) | 待核 | 可 steer 的 primitive VLA + 自主发现缺失技能并回流数据 | [→ 细读](papers/insight.md) |
+| G³VLA (2026.06) | 待核 | 多视角 intrinsic/ray/projective 几何编码,让 VLA 真正用相机标定 | [→ 细读](papers/g3vla.md) |
+| Supervise What Survives (2026.06) | 待核 | 生成机器人视频只监督保留下来的几何轨迹,不伪造动作标签 | [→ 细读](papers/supervise-what-survives.md) |
+| SPACE (2026.06) | 待核 | 用 Cartesian state delta 统一跨机器人动作表示,再由 adapter 落到本体命令 | [→ 细读](papers/space.md) |
+| WOLF-VLA (2026.06) | 待核 | 面向人形 whole-body locomotion and manipulation 的 VLA 候选 | [→ 细读](papers/wolf-vla.md) |
+| SVP-IL (2026.06) | 待核 | spatial visual prompts 作为更细粒度的空间操作接口 | [→ 细读](papers/svp-il.md) |
 
 **更多代表模型(扩散基座 / 潜动作 / 记忆 / 空间 / 人形)**
 

@@ -1,10 +1,16 @@
 ---
-description: 具身星图更新日志,按时间倒序记录站点内容与功能演进——从初版 12 篇细读成长为 VLA × WAM 双轨、72 篇论文细读、生态图谱与就业地图、具身入门与训练全流程专题,以及深色 HUD 视觉与交互升级。
+description: 具身星图更新日志,按时间倒序记录站点内容与功能演进——从初版 12 篇细读成长为 VLA × WAM 双轨、87 篇论文细读、生态图谱与就业地图、具身入门与训练全流程专题,以及深色 HUD 视觉与交互升级。
 ---
 
 # 更新日志
 
 本站持续生长,这里按时间倒序记录主要更新。⚠️ 标记的自评数据与"待核"缺口在各页内就地标注。
+
+## 2026-06-25
+
+**VLA / WAM 新论文补入细读目录**
+- 📄 **新增 15 篇观察级论文细读**:VLA +11 —— [Learning Action Priors](/vla/papers/learning-action-priors)(2606.26095)、[FORCE](/vla/papers/force-vla)(2606.26006)、[Action ControlNet](/vla/papers/action-controlnet)(2606.25985)、[ROAD-VLA](/vla/papers/road-vla)(2606.25800)、[Reflective VLA](/vla/papers/reflective-vla)(2606.25215)、[InSight](/vla/papers/insight)(2606.24884)、[G³VLA](/vla/papers/g3vla)(2606.24472)、[Supervise What Survives](/vla/papers/supervise-what-survives)(2606.24448)、[SPACE](/vla/papers/space)(2606.24049)、[WOLF-VLA](/vla/papers/wolf-vla)(2606.25591)、[SVP-IL](/vla/papers/svp-il)(2606.25360);WAM +4 —— [World Value Models](/wam/papers/world-value-models)(2606.24742)、[NavWM](/wam/papers/navwm)(2606.24101)、[MotionWAM](/wam/papers/motionwam)(2606.09215)、[ω-EVA](/wam/papers/omega-eva)(2606.09457)。全站细读入口更新为 **VLA 54 + WAM 33 = 87 篇**。
+- 🧭 **全站接线**:首页路线卡、VLA/WAM 侧栏、VLA 主报告前沿表、WAM 总览顶部细读清单和 `llms.txt` 头部计数同步更新;新增页均带 arXiv 一手来源与“作者自评/待核”边界说明。
 
 ## 2026-06-24
 

@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 43 + WAM 29 篇,逐模块拆架构 / 数据 / 实验。
+    details: VLA 54 + WAM 33 篇,逐模块拆架构 / 数据 / 实验。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -77,6 +77,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/cogact">CogACT</a>
       <a href="vla/papers/groot-n1">GR00T N1</a>
       <a href="vla/papers/qwen-robotmanip">Qwen-RobotManip</a>
+      <a href="vla/papers/wolf-vla">WOLF-VLA</a>
+      <a href="vla/papers/learning-action-priors">Learning Action Priors</a>
       <a href="vla/papers/gr-3">GR-3</a>
       <a href="vla/papers/gr-dexter">GR-Dexter</a>
       <a href="vla/papers/rdt-1b">RDT-1B</a>
@@ -94,6 +96,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/pi05">π0.5</a>
       <a href="vla/papers/wall-oss">WALL-OSS</a>
       <a href="vla/papers/wall-oss-05">Wall-OSS-0.5</a>
+      <a href="vla/papers/space">SPACE</a>
     </div>
   </div>
   <div class="route-card">
@@ -109,7 +112,9 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/qwen-robotnav">Qwen-RobotNav</a>
       <a href="vla/papers/steervla">SteerVLA</a>
       <a href="vla/papers/steerable-policies">Steerable Policies</a>
+      <a href="vla/papers/insight">InSight</a>
       <a href="vla/papers/pointact">PointACT</a>
+      <a href="vla/papers/svp-il">SVP-IL</a>
     </div>
   </div>
   <div class="route-card">
@@ -130,6 +135,12 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/atomicvla">AtomicVLA</a>
       <a href="vla/papers/seetraceact">SeeTraceAct</a>
       <a href="vla/papers/affordancevla">AffordanceVLA</a>
+      <a href="vla/papers/g3vla">G³VLA</a>
+      <a href="vla/papers/supervise-what-survives">Supervise What Survives</a>
+      <a href="vla/papers/force-vla">FORCE</a>
+      <a href="vla/papers/road-vla">ROAD-VLA</a>
+      <a href="vla/papers/reflective-vla">Reflective VLA</a>
+      <a href="vla/papers/action-controlnet">Action ControlNet</a>
     </div>
   </div>
 </div>
@@ -185,6 +196,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/gigaworld-policy">GigaWorld-Policy</a>
       <a href="wam/papers/wav">WAV</a>
       <a href="wam/papers/motubrain">MotuBrain</a>
+      <a href="wam/papers/motionwam">MotionWAM</a>
     </div>
   </div>
   <div class="route-card">
@@ -196,6 +208,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/flare">FLARE</a>
       <a href="wam/papers/oa-wam">OA-WAM</a>
       <a href="wam/papers/himem-wam">HiMem-WAM</a>
+      <a href="wam/papers/navwm">NavWM</a>
+      <a href="wam/papers/omega-eva">ω-EVA</a>
     </div>
   </div>
   <div class="route-card">
@@ -208,6 +222,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="wam/papers/genie-envisioner">Genie Envisioner</a>
       <a href="wam/papers/ge-sim-2">GE-Sim 2.0</a>
       <a href="wam/papers/robodream">RoboDream</a>
+      <a href="wam/papers/world-value-models">World Value Models</a>
     </div>
   </div>
 </div>
