@@ -5,14 +5,13 @@ description: VLA / WAM / 具身数据每日新论文候选池,按日期记录最
 
 # 每日最新论文
 
-> **每日论文队列** · 今日新论文 → 候选池 → 正式细读  
-> 本页只记录与 **VLA / WAM / 具身数据 / 具身智能基础模型 / 人形机器人策略学习** 强相关的论文。产业新闻仍在 [具身新闻](/news/),正式长文进入 [VLA 论文细读](/vla/#-论文细读导航)、[WAM 总览](/wam/) 或 [具身数据论文索引](/vla/papers/embodied-data-papers)。
+<p class="paper-radar-intro"><strong>每日论文队列</strong> · 候选 → 细读。产业新闻见 <a href="/embodied-ai-learning/news/">具身新闻</a>。</p>
 
 <div class="latest-paper-hero">
   <div>
     <span class="latest-paper-hero__eyebrow">PAPER RADAR · 2026-06-25</span>
-    <p class="latest-paper-hero__title">第一期:6 月 25 日 VLA / WAM / DATA 新论文批次</p>
-    <p class="latest-paper-hero__text">本期共筛出 15 篇强相关论文,已全部进入观察级细读。DATA 是数据侧标签,覆盖数据集、合成数据、数据筛选、数据处理、scaling 与 benchmark-as-data。</p>
+    <p class="latest-paper-hero__title">6 月 25 日 · VLA / WAM / DATA</p>
+    <p class="latest-paper-hero__text">15 篇强相关论文已进入细读;DATA 覆盖数据集、合成、筛选、处理与 scaling。</p>
   </div>
   <div class="latest-paper-stats" aria-label="论文队列统计">
     <span><b>15</b>今日新增</span>
@@ -23,26 +22,16 @@ description: VLA / WAM / 具身数据每日新论文候选池,按日期记录最
   </div>
 </div>
 
-<div class="paper-status-strip" aria-label="状态说明">
-  <span class="paper-status paper-status--done">已细读</span>
-  <span class="paper-status paper-status--todo">待细读</span>
-  <span class="paper-status paper-status--watch">观察</span>
-  <span class="paper-status paper-status--hold">暂缓</span>
-  <span class="paper-status paper-status--drop">排除</span>
-</div>
 <div class="paper-track-strip" aria-label="方向说明">
-  <span class="paper-track paper-track--vla">VLA:模型 / 策略</span>
-  <span class="paper-track paper-track--wam">WAM:世界-行动模型</span>
-  <span class="paper-track paper-track--data">DATA:数据集 / 合成 / 筛选 / 处理</span>
+  <span class="paper-track paper-track--vla">VLA · 模型策略</span>
+  <span class="paper-track paper-track--wam">WAM · 世界模型</span>
+  <span class="paper-track paper-track--data">DATA · 数据侧</span>
 </div>
 
-## 2026-06-25
+<div class="paper-day-heading">2026-06-25</div>
 
 <div class="daily-paper-section">
-  <div class="daily-paper-section__head">
-    <span>本期判断</span>
-    <p>VLA 侧集中在后训练、跨本体动作、几何归纳偏置和部署控制;WAM 侧从 manipulation 扩到导航、人形全身移动操作和价值评估;DATA 侧单独标出合成数据、数据筛选、动作标签和世界模型数据引擎。</p>
-  </div>
+  <p class="paper-day-note"><strong>本期判断</strong>:VLA 聚焦后训练/跨本体/几何/部署;WAM 扩到导航、人形和价值评估;DATA 标出合成、筛选、动作标签和数据引擎。</p>
 
   <div class="paper-queue-grid">
     <article class="paper-ticket paper-ticket--vla">
@@ -142,36 +131,31 @@ description: VLA / WAM / 具身数据每日新论文候选池,按日期记录最
     <span>具身数据轨道</span>
     <p>这里补上数据方向的入口:它们不一定都是“模型范式”论文,但决定数据怎么采、怎么合成、怎么筛、怎么变成可训练监督。完整目录见 <a href="/embodied-ai-learning/vla/papers/embodied-data-papers">具身数据论文索引</a>。</p>
   </div>
-  <div class="paper-queue-grid">
-    <article class="paper-ticket paper-ticket--data">
-      <div class="paper-ticket__meta"><span>DATA</span><span>P0</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="/embodied-ai-learning/wam/papers/robodream">RoboDream</a></h3>
-      <p>世界模型作数据合成引擎:锚定真实机器人运动,生成新场景/新物体/新视角演示,用于减少真机数据需求。</p>
-      <div class="paper-ticket__links"><a href="/embodied-ai-learning/wam/papers/robodream">细读</a><a href="https://arxiv.org/abs/2606.02577" target="_blank" rel="noreferrer">arXiv</a></div>
+  <div class="paper-data-list">
+    <article class="paper-data-item">
+      <div><span>DATA · P0</span><h3><a href="/embodied-ai-learning/wam/papers/robodream">RoboDream</a></h3></div>
+      <p>世界模型作数据合成引擎,减少真机数据需求。</p>
+      <a href="https://arxiv.org/abs/2606.02577" target="_blank" rel="noreferrer">arXiv</a>
     </article>
-    <article class="paper-ticket paper-ticket--data">
-      <div class="paper-ticket__meta"><span>DATA</span><span>WAM</span><span>P0</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="/embodied-ai-learning/wam/papers/qwen-robotworld">Qwen-RobotWorld</a></h3>
-      <p>语言条件视频世界模型,用 EWK 数据生成未来视觉轨迹,服务合成数据、评测和规划。</p>
-      <div class="paper-ticket__links"><a href="/embodied-ai-learning/wam/papers/qwen-robotworld">细读</a><a href="https://arxiv.org/abs/2606.17030" target="_blank" rel="noreferrer">arXiv</a></div>
+    <article class="paper-data-item">
+      <div><span>DATA · WAM · P0</span><h3><a href="/embodied-ai-learning/wam/papers/qwen-robotworld">Qwen-RobotWorld</a></h3></div>
+      <p>语言条件视频世界模型,服务合成数据、评测和规划。</p>
+      <a href="https://arxiv.org/abs/2606.17030" target="_blank" rel="noreferrer">arXiv</a>
     </article>
-    <article class="paper-ticket paper-ticket--data">
-      <div class="paper-ticket__meta"><span>DATA</span><span>WAM</span><span>P1</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="/embodied-ai-learning/wam/papers/ge-sim-2">GE-Sim 2.0</a></h3>
-      <p>闭环视频世界模拟器:未来画面、本体状态和自动成功打分一起给策略评估与过滤式 BC 提供数据引擎。</p>
-      <div class="paper-ticket__links"><a href="/embodied-ai-learning/wam/papers/ge-sim-2">细读</a><a href="https://arxiv.org/abs/2605.27491" target="_blank" rel="noreferrer">arXiv</a></div>
+    <article class="paper-data-item">
+      <div><span>DATA · WAM · P1</span><h3><a href="/embodied-ai-learning/wam/papers/ge-sim-2">GE-Sim 2.0</a></h3></div>
+      <p>闭环视频世界模拟器,给策略评估与过滤式 BC 提供数据引擎。</p>
+      <a href="https://arxiv.org/abs/2605.27491" target="_blank" rel="noreferrer">arXiv</a>
     </article>
-    <article class="paper-ticket paper-ticket--data">
-      <div class="paper-ticket__meta"><span>DATA</span><span>WAM</span><span>P1</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="/embodied-ai-learning/wam/papers/world-value-models">World Value Models</a></h3>
-      <p>把世界模型接到 value estimation,重点用途之一就是判断任务进展与数据质量,筛掉次优/失败轨迹。</p>
-      <div class="paper-ticket__links"><a href="/embodied-ai-learning/wam/papers/world-value-models">细读</a><a href="https://arxiv.org/abs/2606.24742" target="_blank" rel="noreferrer">arXiv</a></div>
+    <article class="paper-data-item">
+      <div><span>DATA · WAM · P1</span><h3><a href="/embodied-ai-learning/wam/papers/world-value-models">World Value Models</a></h3></div>
+      <p>判断任务进展与数据质量,筛掉次优/失败轨迹。</p>
+      <a href="https://arxiv.org/abs/2606.24742" target="_blank" rel="noreferrer">arXiv</a>
     </article>
-    <article class="paper-ticket paper-ticket--data">
-      <div class="paper-ticket__meta"><span>DATA</span><span>VLA</span><span>P1</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="/embodied-ai-learning/vla/papers/supervise-what-survives">Supervise What Survives</a></h3>
-      <p>合成机器人视频只抽取可靠几何监督,不硬把生成画面伪造成动作标签,适合放在合成数据可信度边界里看。</p>
-      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/supervise-what-survives">细读</a><a href="https://arxiv.org/abs/2606.24448" target="_blank" rel="noreferrer">arXiv</a></div>
+    <article class="paper-data-item">
+      <div><span>DATA · VLA · P1</span><h3><a href="/embodied-ai-learning/vla/papers/supervise-what-survives">Supervise What Survives</a></h3></div>
+      <p>只抽取可靠几何监督,不硬造伪动作标签。</p>
+      <a href="https://arxiv.org/abs/2606.24448" target="_blank" rel="noreferrer">arXiv</a>
     </article>
   </div>
 </div>
