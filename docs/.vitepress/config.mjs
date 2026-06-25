@@ -364,8 +364,9 @@ export default withMermaid(defineConfig({
       { text: '首页', link: '/' },
       {
         text: '最新动态',
-        activeMatch: '^/(news/|vla/(changelog|papers/(timeline|xiaohongshu)))',
+        activeMatch: '^/(papers/latest|news/|vla/(changelog|papers/(timeline|xiaohongshu)))',
         items: [
+          { text: '每日最新论文', link: '/papers/latest' },
           { text: '具身新闻', link: '/news/' },
           { text: 'Qwen-Robot 系列专题', link: '/news/qwen-robot' },
           { text: '发展时间线', link: '/vla/papers/timeline' },
@@ -482,6 +483,17 @@ export default withMermaid(defineConfig({
     },
 
     sidebar: {
+      '/papers/': [
+        {
+          text: '每日论文队列',
+          items: [
+            { text: '每日最新论文', link: '/papers/latest' },
+            { text: '具身新闻', link: '/news/' },
+            { text: '发展时间线', link: '/vla/papers/timeline' },
+            { text: '更新日志', link: '/vla/changelog' },
+          ],
+        },
+      ],
       '/vla/': [
         {
           text: 'VLA 发展深度调研',

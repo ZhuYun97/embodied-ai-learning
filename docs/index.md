@@ -13,8 +13,8 @@ hero:
       text: WAM 世界-行动模型 →
       link: /wam/
     - theme: alt
-      text: 论文细读导航
-      link: /vla/#-论文细读导航
+      text: 每日最新论文
+      link: /papers/latest
 
 features:
   - icon: { src: /icons/route.svg, width: 28, height: 28 }
@@ -33,10 +33,10 @@ features:
     link: /vla/guide
     linkText: 看可信度体例
   - icon: { src: /icons/newspaper.svg, width: 28, height: 28 }
-    title: 具身智能新闻
-    details: 论文 / 公司 / 融资 / 数据集动态,每条标一手来源。
-    link: /news/
-    linkText: 看最新动态
+    title: 最新论文与新闻
+    details: 每日论文队列 + 公司 / 融资 / 数据集动态,每条标一手来源。
+    link: /papers/latest
+    linkText: 看论文队列
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
     title: 基准硬数据 + 速查
     details: 50+ 评测基准成绩表,附「读表铁律」与术语速查。
@@ -237,6 +237,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <nav class="home-coda__links" aria-label="更多入口">
     <a href="vla/papers/getting-started">新手入门</a>
+    <a href="papers/latest">每日论文</a>
     <a href="ecosystem/">生态图谱</a>
     <a href="news/">最新新闻</a>
     <a href="vla/papers/benchmarks">基准速查</a>
