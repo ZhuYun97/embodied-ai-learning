@@ -1,5 +1,140 @@
 [
   {
+    "id": "agility-robotics-spac-digit-v5-public-listing-20260624",
+    "title": "Agility Robotics 拟通过 SPAC 上市:Digit v5 已拿到超 3 亿美元多年订单",
+    "date": "2026-06-24",
+    "fetched_at": "2026-06-25",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "产业动态",
+      "人形机器人",
+      "资本市场"
+    ],
+    "summary": "Agility Robotics 与 Churchill Capital Corp XI 签署业务合并协议,交易给出的 pre-money equity value 为 25 亿美元,预计带来超过 6.2 亿美元 gross proceeds,合并后计划以 AGLT 代码上市。官方披露 Digit 已在 Schaeffler、GXO、Toyota Motor Manufacturing Canada、Mercado Libre 等真实场景运行,下一代 Digit v5 定位为面向规模化部署的 cooperatively safe AI-enabled humanoid,并已取得超过 3 亿美元多年期订单。这是人形机器人从 demo 叙事进入公开资本市场检验的强信号。",
+    "sources": [
+      {
+        "name": "Agility Robotics",
+        "url": "https://www.agilityrobotics.com/content/agility-robotics-to-go-public-through-merger-with-churchill-capital-corp-xi"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "hyundai-workers-strike-atlas-automation-labor-20260625",
+    "title": "Hyundai 韩国工会因 Atlas 自动化计划投票罢工:人形机器人进入劳资谈判主场",
+    "date": "2026-06-25",
+    "fetched_at": "2026-06-25",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产业动态",
+      "人形机器人",
+      "劳动力影响"
+    ],
+    "summary": "Financial Times 报道称,Hyundai Motor 韩国约 4 万名工会成员中约 87% 支持罢工,核心焦点之一是公司在工厂引入 Boston Dynamics Atlas 等人形机器人。工会要求在 AI 和自动化落地中拥有更大话语权,Hyundai 则强调机器人将承担危险、重复任务,并计划到 2028 年在 Georgia EV 工厂等场景部署。这个事件说明具身智能商业化的瓶颈不只是模型和硬件,还包括劳动关系、岗位重构和安全认证。",
+    "sources": [
+      {
+        "name": "Financial Times",
+        "url": "https://www.ft.com/content/e5f2892a-d3b1-4779-88db-8d3b034b078a"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "byd-stella-li-humanoid-robots-showrooms-20260625",
+    "title": "BYD Stella Li:希望把人形机器人放进每个汽车展厅,并面向家庭与服务场景",
+    "date": "2026-06-25",
+    "fetched_at": "2026-06-25",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "公司战略",
+      "人形机器人",
+      "服务机器人"
+    ],
+    "summary": "Business Insider 报道称,BYD 执行副总裁 Stella Li 在 Cannes Lions 期间表示,公司正在内部开发人形机器人,希望未来每个汽车展厅都能用机器人演示和讲解车辆,但不是取代销售人员。她还提到家庭和服务行业会是巨大市场,商业化时间窗口可能在一到两年内,同时 BYD 也在推进更高自动化水平的 dark factory。对具身智能产业链而言,这代表汽车公司开始把机器人视为渠道、服务和制造自动化的统一延展。",
+    "sources": [
+      {
+        "name": "Business Insider",
+        "url": "https://www.businessinsider.com/byd-stella-li-humanoid-robots-car-showroom-sell-evs-2026-6"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "realsense-automate-2026-visual-cortex-physical-ai-20260625",
+    "title": "RealSense 在 Automate 2026 强调 Physical AI 视觉皮层:人形机器人部署先过安全导航",
+    "date": "2026-06-25",
+    "fetched_at": "2026-06-25",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "Physical AI",
+      "感知系统"
+    ],
+    "summary": "RealSense 在 Automate 2026 的 6 月 25 日议程中安排了 The Visual Cortex for Physical AI: Building the Perception Stack for Humanoid Robots。页面明确把人形机器人从研究实验室进入仓库、工厂和共享工作空间作为背景,强调在抓取、装配、搬运前,机器人必须先能在动态人类环境中安全导航;关键技术包括 depth perception、GPU-accelerated visual SLAM、NVIDIA Isaac simulation-first development 等。这条新闻适合作为感知栈/部署基础设施方向的观察点。",
+    "sources": [
+      {
+        "name": "RealSense",
+        "url": "https://www.realsenseai.com/events/automate-2026/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "automate-2026-humanoid-pavilion-physical-ai-floor-report-20260625",
+    "title": "Automate 2026 现场观察:人形机器人首次拥有独立展区,Physical AI 成为主叙事",
+    "date": "2026-06-25",
+    "fetched_at": "2026-06-25",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "人形机器人",
+      "Physical AI"
+    ],
+    "summary": "Humanoid.guide 的 Automate 2026 现场报道提到,本届展会规模超过 5 万名观众、1000 多家展商、45 万平方英尺展区,并首次设置由 NVIDIA 赞助的人形机器人专属展区,20 多个平台同场展示。报道认为现场讨论已经从“人形机器人是否能工作”转向“工厂能多快吸收它们”,同时 Physical AI 成为贯穿展会的关键词:用演示数据、仿真和世界模型让机器人从逐行编程走向可部署学习系统。",
+    "sources": [
+      {
+        "name": "Humanoid.guide",
+        "url": "https://humanoid.guide/automate-2026-humanoid-robots/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "insight-steerable-vla-skill-acquisition-20260623",
     "title": "InSight 提出可 steer 的 VLA 自主技能获取:从缺失 primitive 自动补数据",
     "date": "2026-06-23",

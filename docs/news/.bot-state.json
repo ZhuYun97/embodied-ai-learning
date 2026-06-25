@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-06-24T11:31:01+08:00",
+  "last_fetched_at": "2026-06-25T11:44:44+08:00",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -85,8 +85,13 @@
     "retvl-retry-supervised-value-learning|20260623",
     "faraday-future-futurist-faber-eai-robot-world|20260623",
     "xiongan-embodied-ai-training-center|20260624",
-    "world-action-models-survey-dream-less-act-more|20260618"
+    "world-action-models-survey-dream-less-act-more|20260618",
+    "agility-robotics-spac-digit-v5-public-listing|20260624",
+    "hyundai-workers-strike-atlas-automation-labor|20260625",
+    "byd-stella-li-humanoid-robots-showrooms|20260625",
+    "realsense-automate-2026-visual-cortex-physical-ai|20260625",
+    "automate-2026-humanoid-pavilion-physical-ai-floor-report|20260625"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 85
+  "_count": 90
 }
