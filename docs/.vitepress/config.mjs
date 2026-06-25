@@ -443,13 +443,23 @@ export default withMermaid(defineConfig({
             ],
           },
           {
-            text: '数据 / 训练 / 评测',
+            text: '数据专题',
             items: [
               { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
               { text: '具身数据论文索引', link: '/vla/papers/embodied-data-papers' },
               { text: '具身数据处理', link: '/vla/papers/data-processing' },
+            ],
+          },
+          {
+            text: '训练与评测',
+            items: [
               { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
               { text: '评测基准全景', link: '/vla/papers/benchmarks' },
+            ],
+          },
+          {
+            text: '机器人系统',
+            items: [
               { text: '实验机器人本体', link: '/vla/papers/robots' },
               { text: '运控算法基础', link: '/vla/papers/motion-control' },
             ],
@@ -503,15 +513,33 @@ export default withMermaid(defineConfig({
           ],
         },
         {
-          text: '通用专题(VLA × WAM 共用)',
+          text: '通用导读',
           collapsed: false,
           items: [
             { text: '具身入门 · 新手起步', link: '/vla/papers/getting-started' },
+          ],
+        },
+        {
+          text: '数据专题',
+          collapsed: false,
+          items: [
             { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
             { text: '具身数据论文索引', link: '/vla/papers/embodied-data-papers' },
             { text: '具身数据处理', link: '/vla/papers/data-processing' },
+          ],
+        },
+        {
+          text: '训练与评测专题',
+          collapsed: false,
+          items: [
             { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
             { text: '评测基准全景', link: '/vla/papers/benchmarks' },
+          ],
+        },
+        {
+          text: '机器人系统基础',
+          collapsed: false,
+          items: [
             { text: '实验机器人本体', link: '/vla/papers/robots' },
             { text: '运控算法基础', link: '/vla/papers/motion-control' },
           ],
@@ -713,15 +741,33 @@ export default withMermaid(defineConfig({
           ],
         },
         {
-          text: '通用专题(VLA × WAM 共用)',
+          text: '通用导读',
           collapsed: false,
           items: [
             { text: '具身入门 · 新手起步', link: '/vla/papers/getting-started' },
+          ],
+        },
+        {
+          text: '数据专题',
+          collapsed: false,
+          items: [
             { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
             { text: '具身数据论文索引', link: '/vla/papers/embodied-data-papers' },
             { text: '具身数据处理', link: '/vla/papers/data-processing' },
+          ],
+        },
+        {
+          text: '训练与评测专题',
+          collapsed: false,
+          items: [
             { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
             { text: '评测基准全景', link: '/vla/papers/benchmarks' },
+          ],
+        },
+        {
+          text: '机器人系统基础',
+          collapsed: false,
+          items: [
             { text: '实验机器人本体', link: '/vla/papers/robots' },
             { text: '运控算法基础', link: '/vla/papers/motion-control' },
           ],
