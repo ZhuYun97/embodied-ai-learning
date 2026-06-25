@@ -6,7 +6,7 @@ description: VLA / WAM / 具身智能每日新论文候选池,按日期记录最
 # 每日最新论文
 
 > **每日论文队列** · 今日新论文 → 候选池 → 正式细读  
-> 本页只记录与 **VLA / WAM / 具身智能基础模型 / 人形机器人策略学习** 强相关的论文。产业新闻仍在 [具身新闻](../news/),正式长文进入 [VLA 论文细读](../vla/#-论文细读导航) 或 [WAM 总览](../wam/)。
+> 本页只记录与 **VLA / WAM / 具身智能基础模型 / 人形机器人策略学习** 强相关的论文。产业新闻仍在 [具身新闻](/news/),正式长文进入 [VLA 论文细读](/vla/#-论文细读导航) 或 [WAM 总览](/wam/)。
 
 <div class="latest-paper-hero">
   <div>
@@ -41,107 +41,107 @@ description: VLA / WAM / 具身智能每日新论文候选池,按日期记录最
   <div class="paper-queue-grid">
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>P0</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/insight">InSight</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/insight">InSight</a></h3>
       <p>可 steer 的 primitive VLA + 自主发现缺失技能,把“补数据”变成按技能缺口闭环。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/insight">细读</a><a href="https://arxiv.org/abs/2606.24884" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/insight">细读</a><a href="https://arxiv.org/abs/2606.24884" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>P0</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/g3vla">G³VLA</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/g3vla">G³VLA</a></h3>
       <p>把相机内参、射线和投影关系显式注入多视角 VLA,补齐“多相机但不懂几何”的短板。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/g3vla">细读</a><a href="https://arxiv.org/abs/2606.24472" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/g3vla">细读</a><a href="https://arxiv.org/abs/2606.24472" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>P0</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/learning-action-priors">Learning Action Priors</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/learning-action-priors">Learning Action Priors</a></h3>
       <p>先学习跨本体 action prior,再接视觉语言条件,适合放进跨机器人动作迁移主线。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/learning-action-priors">细读</a><a href="https://arxiv.org/abs/2606.26095" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/learning-action-priors">细读</a><a href="https://arxiv.org/abs/2606.26095" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>P0</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/force-vla">FORCE</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/force-vla">FORCE</a></h3>
       <p>VLA reinforcement fine-tuning 候选,把纯模仿学习继续推向在线强化微调。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/force-vla">细读</a><a href="https://arxiv.org/abs/2606.26006" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/force-vla">细读</a><a href="https://arxiv.org/abs/2606.26006" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>P0</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/road-vla">ROAD-VLA</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/road-vla">ROAD-VLA</a></h3>
       <p>online post-training + self-distillation,对应部署分布下的持续自适应问题。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/road-vla">细读</a><a href="https://arxiv.org/abs/2606.25800" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/road-vla">细读</a><a href="https://arxiv.org/abs/2606.25800" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--wam">
       <div class="paper-ticket__meta"><span>WAM</span><span>P0</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../wam/papers/world-value-models">World Value Models</a></h3>
+      <h3><a href="/embodied-ai-learning/wam/papers/world-value-models">World Value Models</a></h3>
       <p>把 world model 接到 value estimation,用于任务进展判断与混合质量数据筛选。</p>
-      <div class="paper-ticket__links"><a href="../wam/papers/world-value-models">细读</a><a href="https://arxiv.org/abs/2606.24742" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/wam/papers/world-value-models">细读</a><a href="https://arxiv.org/abs/2606.24742" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>P1</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/action-controlnet">Action ControlNet</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/action-controlnet">Action ControlNet</a></h3>
       <p>处理慢 VLA 推理与高频机器人控制之间的异步错位,偏部署和控制稳定性。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/action-controlnet">细读</a><a href="https://arxiv.org/abs/2606.25985" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/action-controlnet">细读</a><a href="https://arxiv.org/abs/2606.25985" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>P1</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/reflective-vla">Reflective VLA</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/reflective-vla">Reflective VLA</a></h3>
       <p>把 observation-action-consequence 组织进上下文,与记忆增强和反思式策略相邻。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/reflective-vla">细读</a><a href="https://arxiv.org/abs/2606.25215" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/reflective-vla">细读</a><a href="https://arxiv.org/abs/2606.25215" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>P1</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/space">SPACE</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/space">SPACE</a></h3>
       <p>用 Cartesian state delta 统一跨机器人动作表示,再通过 adapter 落到具体本体。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/space">细读</a><a href="https://arxiv.org/abs/2606.24049" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/space">细读</a><a href="https://arxiv.org/abs/2606.24049" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>P1</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/supervise-what-survives">Supervise What Survives</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/supervise-what-survives">Supervise What Survives</a></h3>
       <p>生成机器人视频只用于几何监督,不把合成视频硬转成伪动作标签。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/supervise-what-survives">细读</a><a href="https://arxiv.org/abs/2606.24448" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/supervise-what-survives">细读</a><a href="https://arxiv.org/abs/2606.24448" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--wam">
       <div class="paper-ticket__meta"><span>WAM</span><span>P1</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../wam/papers/navwm">NavWM</a></h3>
+      <h3><a href="/embodied-ai-learning/wam/papers/navwm">NavWM</a></h3>
       <p>导航 world model:生成多路径候选并用未来视觉想象做 foresight 评估。</p>
-      <div class="paper-ticket__links"><a href="../wam/papers/navwm">细读</a><a href="https://arxiv.org/abs/2606.24101" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/wam/papers/navwm">细读</a><a href="https://arxiv.org/abs/2606.24101" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--wam">
       <div class="paper-ticket__meta"><span>WAM</span><span>P1</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../wam/papers/motionwam">MotionWAM</a></h3>
+      <h3><a href="/embodied-ai-learning/wam/papers/motionwam">MotionWAM</a></h3>
       <p>把 WAM 推向人形实时全身移动操作,与 WOLF-VLA 形成 VLA/WAM 对照。</p>
-      <div class="paper-ticket__links"><a href="../wam/papers/motionwam">细读</a><a href="https://arxiv.org/abs/2606.09215" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/wam/papers/motionwam">细读</a><a href="https://arxiv.org/abs/2606.09215" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--wam">
       <div class="paper-ticket__meta"><span>WAM</span><span>P1</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../wam/papers/omega-eva">ω-EVA</a></h3>
+      <h3><a href="/embodied-ai-learning/wam/papers/omega-eva">ω-EVA</a></h3>
       <p>Envision-Verify-Act 闭环,在执行前用潜在世界模型设想并验证动作后果。</p>
-      <div class="paper-ticket__links"><a href="../wam/papers/omega-eva">细读</a><a href="https://arxiv.org/abs/2606.09457" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/wam/papers/omega-eva">细读</a><a href="https://arxiv.org/abs/2606.09457" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>P2</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/wolf-vla">WOLF-VLA</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/wolf-vla">WOLF-VLA</a></h3>
       <p>whole-body humanoid VLA 候选,把 VLA 从桌面操作扩到人形移动操作。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/wolf-vla">细读</a><a href="https://arxiv.org/abs/2606.25591" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/wolf-vla">细读</a><a href="https://arxiv.org/abs/2606.25591" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
 
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA 相关</span><span>P2</span><span class="paper-status paper-status--done">已细读</span></div>
-      <h3><a href="../vla/papers/svp-il">SVP-IL</a></h3>
+      <h3><a href="/embodied-ai-learning/vla/papers/svp-il">SVP-IL</a></h3>
       <p>spatial visual prompts 作为更细的模仿学习接口,与可操控策略和空间接地相关。</p>
-      <div class="paper-ticket__links"><a href="../vla/papers/svp-il">细读</a><a href="https://arxiv.org/abs/2606.25360" target="_blank" rel="noreferrer">arXiv</a></div>
+      <div class="paper-ticket__links"><a href="/embodied-ai-learning/vla/papers/svp-il">细读</a><a href="https://arxiv.org/abs/2606.25360" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
   </div>
 </div>
