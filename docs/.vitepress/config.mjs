@@ -380,7 +380,7 @@ export default withMermaid(defineConfig({
         text: '最新动态',
         activeMatch: '^/(autoresearch/|papers/latest|news/|vla/(changelog|papers/(timeline|xiaohongshu)))',
         items: [
-          { text: '论文 Idea 生成器', link: '/autoresearch/' },
+          { text: '每日论文 Ideas', link: '/autoresearch/' },
           { text: '每日最新论文', link: '/papers/latest' },
           { text: '具身新闻', link: '/news/' },
           { text: 'Qwen-Robot 系列专题', link: '/news/qwen-robot' },
@@ -513,7 +513,7 @@ export default withMermaid(defineConfig({
         {
           text: 'Ideas',
           items: [
-            { text: '论文 Idea 生成器', link: '/autoresearch/' },
+            { text: '每日论文 Ideas', link: '/autoresearch/' },
             { text: '每日最新论文', link: '/papers/latest' },
             { text: '知识图谱', link: '/ecosystem/paper-graph' },
             { text: '具身新闻', link: '/news/' },
@@ -524,7 +524,7 @@ export default withMermaid(defineConfig({
         {
           text: '每日论文队列',
           items: [
-            { text: '论文 Idea 生成器', link: '/autoresearch/' },
+            { text: '每日论文 Ideas', link: '/autoresearch/' },
             { text: '每日最新论文', link: '/papers/latest' },
             { text: '具身新闻', link: '/news/' },
             { text: '发展时间线', link: '/vla/papers/timeline' },
