@@ -107,6 +107,7 @@ const loadError = ref('')
 const result = ref(null)
 const lastRunAt = ref('')
 const corpusSource = ref('')
+const selectedIdeaId = ref('')
 let timer = 0
 
 const today = computed(() => new Date(dailyClock.value))
@@ -124,6 +125,16 @@ const dailyDirection = computed(() => {
 })
 
 const dailySeed = computed(() => `${todayKey.value} · ${dailyDirection.value.seed}`)
+
+const selectedIdea = computed(() => {
+  if (!selectedIdeaId.value || !result.value?.ideas?.length) return null
+  return result.value.ideas.find((idea) => idea.id === selectedIdeaId.value) || null
+})
+
+const selectedIdeaIndex = computed(() => {
+  if (!selectedIdea.value || !result.value?.ideas?.length) return -1
+  return result.value.ideas.findIndex((idea) => idea.id === selectedIdea.value.id)
+})
 
 const corpusStats = computed(() => {
   const stats = { all: corpus.value.length, vla: 0, wam: 0, data: 0, latest: 0, news: 0, ecosystem: 0 }
@@ -934,6 +945,14 @@ function runResearch() {
   lastRunAt.value = new Date().toLocaleTimeString('zh-CN', { hour12: false })
 }
 
+function openIdeaDetail(id) {
+  selectedIdeaId.value = id
+}
+
+function closeIdeaDetail() {
+  selectedIdeaId.value = ''
+}
+
 function buildPrompt(q, evidence, focus, ideas, frontiers) {
   const refs = evidence.slice(0, 8).map((doc, idx) => `${idx + 1}. ${doc.title} - ${doc.url}`).join('\n')
   const frontierRefs = frontiers.map((item, idx) => `${idx + 1}. ${item.title} (${item.date}) - ${item.url}`).join('\n')
@@ -1016,6 +1035,10 @@ async function loadCorpus() {
 watch(mode, () => {
   window.clearTimeout(timer)
   timer = window.setTimeout(runResearch, 420)
+})
+
+watch(result, () => {
+  if (selectedIdeaId.value && !selectedIdea.value) selectedIdeaId.value = ''
 })
 
 onMounted(loadCorpus)
@@ -1263,48 +1286,135 @@ onMounted(loadCorpus)
         <h2 v-if="mode === 'deep'">{{ result.date }} · {{ result.daily.label }}</h2>
         <p v-if="mode === 'deep'" class="ar-daily-summary">{{ result.daily.focus }}</p>
         <div class="ar-ideas">
-          <article v-for="(idea, index) in result.ideas" :key="idea.id" class="ar-idea">
-            <header>
-              <span class="ar-idea-rank">#{{ index + 1 }}</span>
-              <span class="ar-idea-tension">{{ idea.tension }}</span>
-              <span class="ar-idea-score">N{{ idea.novelty }} / F{{ idea.feasibility }}</span>
-            </header>
-            <h3>{{ idea.title }}</h3>
-            <p>{{ idea.thesis }}</p>
-            <div class="ar-why">
-              <span>WHY NOW</span>
-              <p>{{ idea.whyNow }}</p>
-              <a v-if="idea.frontier" :href="idea.frontier.url" target="_blank" rel="noopener">{{ idea.frontier.title }}</a>
-            </div>
-            <div class="ar-idea-grid">
-              <section>
-                <h4>动机</h4>
-                <p>{{ idea.motivation }}</p>
-              </section>
-              <section>
-                <h4>贡献</h4>
-                <ul class="ar-tight-list">
-                  <li v-for="item in idea.contributions" :key="`${idea.id}-c-${item}`">{{ item }}</li>
-                </ul>
-              </section>
-              <section>
-                <h4>方法</h4>
-                <ul class="ar-tight-list">
-                  <li v-for="item in idea.method" :key="`${idea.id}-m-${item}`">{{ item }}</li>
-                </ul>
-              </section>
-              <section>
-                <h4>验证</h4>
-                <p>{{ idea.evaluation }}</p>
-              </section>
-            </div>
-            <div class="ar-source-row">
-              <a v-for="doc in idea.sources" :key="`${idea.id}-${doc.id}`" :href="doc.url" target="_blank" rel="noopener">
-                {{ doc.title }}
-              </a>
+          <article
+            v-for="(idea, index) in result.ideas"
+            :key="idea.id"
+            class="ar-idea"
+            :class="{ 'is-selected': selectedIdeaId === idea.id }"
+            role="button"
+            tabindex="0"
+            @click="openIdeaDetail(idea.id)"
+            @keydown.enter.prevent="openIdeaDetail(idea.id)"
+            @keydown.space.prevent="openIdeaDetail(idea.id)"
+          >
+            <button class="ar-idea-thumb" type="button" :aria-label="`查看 ${idea.title} 详情`" @click.stop="openIdeaDetail(idea.id)">
+              <span class="ar-thumb-mark" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+              </span>
+              <span>DETAIL</span>
+            </button>
+            <div class="ar-idea-body">
+              <header>
+                <span class="ar-idea-rank">#{{ index + 1 }}</span>
+                <span class="ar-idea-tension">{{ idea.tension }}</span>
+                <span class="ar-idea-score">N{{ idea.novelty }} / F{{ idea.feasibility }}</span>
+              </header>
+              <h3>{{ idea.title }}</h3>
+              <p>{{ idea.thesis }}</p>
+              <div class="ar-why">
+                <span>WHY NOW</span>
+                <p>{{ idea.whyNow }}</p>
+                <a v-if="idea.frontier" :href="idea.frontier.url" target="_blank" rel="noopener" @click.stop>{{ idea.frontier.title }}</a>
+              </div>
+              <div class="ar-idea-grid">
+                <section>
+                  <h4>动机</h4>
+                  <p>{{ idea.motivation }}</p>
+                </section>
+                <section>
+                  <h4>贡献</h4>
+                  <ul class="ar-tight-list">
+                    <li v-for="item in idea.contributions" :key="`${idea.id}-c-${item}`">{{ item }}</li>
+                  </ul>
+                </section>
+                <section>
+                  <h4>方法</h4>
+                  <ul class="ar-tight-list">
+                    <li v-for="item in idea.method" :key="`${idea.id}-m-${item}`">{{ item }}</li>
+                  </ul>
+                </section>
+                <section>
+                  <h4>验证</h4>
+                  <p>{{ idea.evaluation }}</p>
+                </section>
+              </div>
+              <div class="ar-source-row" @click.stop>
+                <a v-for="doc in idea.sources" :key="`${idea.id}-${doc.id}`" :href="doc.url" target="_blank" rel="noopener">
+                  {{ doc.title }}
+                </a>
+              </div>
             </div>
           </article>
         </div>
+      </div>
+
+      <div v-if="selectedIdea" class="ar-detail-backdrop" @click="closeIdeaDetail">
+        <article
+          class="ar-detail-sheet"
+          role="dialog"
+          aria-modal="true"
+          :aria-labelledby="`idea-detail-${selectedIdea.id}`"
+          @click.stop
+        >
+          <header class="ar-detail-head">
+            <div>
+              <span class="ar-panel__tag">IDEA DETAIL</span>
+              <h2 :id="`idea-detail-${selectedIdea.id}`">{{ selectedIdea.title }}</h2>
+            </div>
+            <button type="button" aria-label="关闭详情" @click="closeIdeaDetail">×</button>
+          </header>
+
+          <div class="ar-detail-meta">
+            <span>#{{ selectedIdeaIndex + 1 }}</span>
+            <span>{{ selectedIdea.tension }}</span>
+            <span>Novelty {{ selectedIdea.novelty }}</span>
+            <span>Feasibility {{ selectedIdea.feasibility }}</span>
+          </div>
+
+          <p class="ar-detail-thesis">{{ selectedIdea.thesis }}</p>
+
+          <section class="ar-detail-why">
+            <span>WHY NOW</span>
+            <p>{{ selectedIdea.whyNow }}</p>
+            <a v-if="selectedIdea.frontier" :href="selectedIdea.frontier.url" target="_blank" rel="noopener">
+              {{ selectedIdea.frontier.title }}
+            </a>
+          </section>
+
+          <div class="ar-detail-grid">
+            <section>
+              <h3>动机</h3>
+              <p>{{ selectedIdea.motivation }}</p>
+            </section>
+            <section>
+              <h3>核心贡献</h3>
+              <ul>
+                <li v-for="item in selectedIdea.contributions" :key="`detail-c-${item}`">{{ item }}</li>
+              </ul>
+            </section>
+            <section>
+              <h3>方法路径</h3>
+              <ul>
+                <li v-for="item in selectedIdea.method" :key="`detail-m-${item}`">{{ item }}</li>
+              </ul>
+            </section>
+            <section>
+              <h3>验证方式</h3>
+              <p>{{ selectedIdea.evaluation }}</p>
+            </section>
+          </div>
+
+          <section class="ar-detail-sources">
+            <h3>站内证据与近邻论文</h3>
+            <div class="ar-source-row">
+              <a v-for="doc in selectedIdea.sources" :key="`detail-${selectedIdea.id}-${doc.id}`" :href="doc.url" target="_blank" rel="noopener">
+                {{ doc.title }}
+              </a>
+            </div>
+          </section>
+        </article>
       </div>
 
       <div v-if="mode === 'deep'" class="ar-panel">
@@ -1931,6 +2041,16 @@ onMounted(loadCorpus)
   border-left: 3px solid rgba(246, 198, 103, 0.74);
 }
 
+.ar-idea-body {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ar-idea-thumb {
+  display: none;
+}
+
 .ar-brief--quick .ar-ideas {
   grid-template-columns: 1fr;
   gap: 8px;
@@ -1939,6 +2059,8 @@ onMounted(loadCorpus)
 
 .ar-brief--quick .ar-idea {
   position: relative;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: stretch;
   gap: 7px;
   padding: 10px 11px 10px 12px;
   border-color: rgba(125, 211, 252, 0.18);
@@ -1947,6 +2069,7 @@ onMounted(loadCorpus)
     linear-gradient(90deg, var(--idea-accent, #38bdf8) 0 3px, transparent 3px),
     linear-gradient(135deg, color-mix(in srgb, var(--idea-accent, #38bdf8) 12%, transparent), transparent 48%),
     rgba(15, 23, 42, 0.62);
+  cursor: pointer;
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
@@ -1966,6 +2089,112 @@ onMounted(loadCorpus)
   border-color: color-mix(in srgb, var(--idea-accent, #38bdf8) 42%, rgba(125, 211, 252, 0.2));
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22), inset 0 1px rgba(255, 255, 255, 0.06);
   transform: translateY(-1px);
+}
+
+.ar-brief--quick .ar-idea:focus-visible,
+.ar-brief--quick .ar-idea.is-selected {
+  outline: 2px solid color-mix(in srgb, var(--idea-accent, #38bdf8) 62%, transparent);
+  outline-offset: 2px;
+}
+
+.ar-brief--quick .ar-idea-body {
+  gap: 7px;
+}
+
+.ar-brief--quick .ar-idea-thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 6px;
+  min-height: 100%;
+  padding: 8px 6px;
+  border: 1px solid color-mix(in srgb, var(--idea-accent, #38bdf8) 34%, rgba(125, 211, 252, 0.12));
+  border-radius: 7px;
+  background:
+    radial-gradient(circle at 50% 28%, color-mix(in srgb, var(--idea-accent, #38bdf8) 24%, transparent), transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 42%),
+    rgba(2, 6, 23, 0.42);
+  color: color-mix(in srgb, var(--idea-accent, #38bdf8) 72%, #f8fafc);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.ar-brief--quick .ar-idea-thumb::before {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border: 1px solid color-mix(in srgb, var(--idea-accent, #38bdf8) 22%, transparent);
+  border-radius: 6px;
+  opacity: 0.8;
+}
+
+.ar-brief--quick .ar-idea-thumb > span:last-child {
+  position: relative;
+  z-index: 1;
+  font: 900 0.56rem/1 var(--font-display);
+  letter-spacing: 0.08em;
+}
+
+.ar-thumb-mark {
+  position: relative;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  border: 1px solid color-mix(in srgb, var(--idea-accent, #38bdf8) 45%, transparent);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--idea-accent, #38bdf8) 60%, #f8fafc) 0 3px, transparent 4px),
+    conic-gradient(from 42deg, transparent, color-mix(in srgb, var(--idea-accent, #38bdf8) 44%, transparent), transparent 42%);
+  box-shadow: inset 0 0 18px color-mix(in srgb, var(--idea-accent, #38bdf8) 18%, transparent);
+}
+
+.ar-thumb-mark::before,
+.ar-thumb-mark::after {
+  content: '';
+  position: absolute;
+  background: color-mix(in srgb, var(--idea-accent, #38bdf8) 56%, #f8fafc);
+  opacity: 0.72;
+}
+
+.ar-thumb-mark::before {
+  left: 8px;
+  right: 8px;
+  top: 20px;
+  height: 1px;
+  transform: rotate(-24deg);
+}
+
+.ar-thumb-mark::after {
+  left: 20px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  transform: rotate(28deg);
+}
+
+.ar-thumb-mark i {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--idea-accent, #38bdf8) 64%, #f8fafc);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--idea-accent, #38bdf8) 42%, transparent);
+}
+
+.ar-thumb-mark i:nth-child(1) {
+  left: 9px;
+  top: 12px;
+}
+
+.ar-thumb-mark i:nth-child(2) {
+  right: 9px;
+  top: 18px;
+}
+
+.ar-thumb-mark i:nth-child(3) {
+  left: 18px;
+  bottom: 8px;
 }
 
 .ar-idea-rank {
@@ -1993,7 +2222,7 @@ onMounted(loadCorpus)
   color: #f8d78a;
 }
 
-.ar-brief--quick .ar-idea > p,
+.ar-brief--quick .ar-idea-body > p,
 .ar-brief--quick .ar-why p,
 .ar-brief--quick .ar-idea-grid p,
 .ar-brief--quick .ar-tight-list li {
@@ -2003,7 +2232,7 @@ onMounted(loadCorpus)
   -webkit-line-clamp: 2;
 }
 
-.ar-brief--quick .ar-idea > p {
+.ar-brief--quick .ar-idea-body > p {
   -webkit-line-clamp: 1;
 }
 
@@ -2346,6 +2575,167 @@ onMounted(loadCorpus)
   font-size: 0.7rem;
 }
 
+.ar-detail-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.18), transparent 34%),
+    rgba(2, 6, 23, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.ar-detail-sheet {
+  width: min(980px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  padding: 18px;
+  border: 1px solid rgba(125, 211, 252, 0.28);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(246, 198, 103, 0.1), transparent 34%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.96));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.46), inset 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.ar-detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.ar-detail-head h2 {
+  margin: 8px 0 0 !important;
+  color: #f8fafc;
+  font-size: clamp(1.28rem, 2vw, 1.82rem);
+  line-height: 1.18;
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.ar-detail-head button {
+  flex: none;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 7px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #f8fafc;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ar-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.ar-detail-meta span {
+  padding: 5px 8px;
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  border-radius: 999px;
+  background: rgba(14, 165, 233, 0.09);
+  color: #dbeafe;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.ar-detail-thesis {
+  margin: 14px 0 0;
+  color: #f8fafc;
+  font-size: 1.02rem;
+  font-weight: 800;
+  line-height: 1.62;
+}
+
+.ar-detail-why {
+  display: grid;
+  gap: 7px;
+  margin-top: 14px;
+  padding: 12px 13px;
+  border: 1px solid rgba(246, 198, 103, 0.24);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(246, 198, 103, 0.12), transparent 55%),
+    rgba(120, 53, 15, 0.12);
+}
+
+.ar-detail-why span,
+.ar-detail-grid h3,
+.ar-detail-sources h3 {
+  margin: 0;
+  color: #f6c667;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ar-detail-why p,
+.ar-detail-grid p,
+.ar-detail-grid li {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.62;
+}
+
+.ar-detail-why a {
+  color: #7dd3fc;
+  font-size: 0.84rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.ar-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.ar-detail-grid section {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.17);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 38%),
+    rgba(2, 6, 23, 0.38);
+}
+
+.ar-detail-grid ul {
+  display: grid;
+  gap: 7px;
+  margin: 7px 0 0;
+  padding-left: 18px;
+}
+
+.ar-detail-grid h3 {
+  margin-bottom: 7px;
+}
+
+.ar-detail-sources {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.ar-detail-sources .ar-source-row {
+  margin-top: 9px;
+}
+
 .ar-mini strong,
 .ar-matrix small,
 .ar-outline small,
@@ -2508,6 +2898,20 @@ onMounted(loadCorpus)
     grid-template-columns: 1fr;
   }
 
+  .ar-brief--quick .ar-idea {
+    grid-template-columns: 54px minmax(0, 1fr);
+    padding: 9px;
+  }
+
+  .ar-brief--quick .ar-idea-thumb {
+    padding: 6px 4px;
+  }
+
+  .ar-thumb-mark {
+    width: 34px;
+    height: 34px;
+  }
+
   .ar-brief--quick .ar-idea-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -2520,6 +2924,20 @@ onMounted(loadCorpus)
   .ar-brief--quick .ar-idea-grid p,
   .ar-brief--quick .ar-tight-list li {
     -webkit-line-clamp: 1;
+  }
+
+  .ar-detail-backdrop {
+    padding: 10px;
+  }
+
+  .ar-detail-sheet {
+    width: min(100%, calc(100vw - 20px));
+    max-height: calc(100vh - 20px);
+    padding: 14px;
+  }
+
+  .ar-detail-grid {
+    grid-template-columns: 1fr;
   }
 }
 
