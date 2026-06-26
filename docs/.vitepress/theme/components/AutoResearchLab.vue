@@ -1514,10 +1514,27 @@ onMounted(loadCorpus)
 
 <style scoped>
 .ar-lab {
+  position: relative;
+  isolation: isolate;
   display: grid;
   gap: 12px;
   margin-top: 10px;
   container-type: inline-size;
+}
+
+.ar-lab::before {
+  content: '';
+  position: absolute;
+  inset: -14px -18px;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(56, 189, 248, 0.065) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(56, 189, 248, 0.055) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(135deg, rgba(246, 198, 103, 0.08), transparent 22%, transparent 70%, rgba(14, 165, 233, 0.06)),
+    linear-gradient(180deg, rgba(14, 165, 233, 0.05), transparent 38%);
+  mask-image: linear-gradient(180deg, transparent, #000 8%, #000 86%, transparent);
+  opacity: 0.72;
 }
 
 .ar-lab,
@@ -1537,6 +1554,7 @@ onMounted(loadCorpus)
     linear-gradient(135deg, rgba(37, 99, 235, 0.14), transparent 40%),
     linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(2, 6, 23, 0.82));
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(10px);
   overflow: hidden;
 }
 
@@ -1549,6 +1567,18 @@ onMounted(loadCorpus)
   background:
     linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.12), transparent) 0 0 / 100% 1px no-repeat,
     linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 32%);
+}
+
+.ar-hero::after,
+.ar-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, transparent 0 42%, rgba(125, 211, 252, 0.08) 50%, transparent 58%) -90% 0 / 62% 100% no-repeat,
+    linear-gradient(90deg, rgba(125, 211, 252, 0.06), transparent 16%, transparent 84%, rgba(246, 198, 103, 0.06));
+  opacity: 0.34;
 }
 
 .ar-hero {
@@ -2070,7 +2100,34 @@ onMounted(loadCorpus)
     linear-gradient(135deg, color-mix(in srgb, var(--idea-accent, #38bdf8) 12%, transparent), transparent 48%),
     rgba(15, 23, 42, 0.62);
   cursor: pointer;
+  overflow: hidden;
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ar-brief--quick .ar-idea::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--idea-accent, #38bdf8) 58%, transparent), transparent 46%) 0 0 / 32px 1px no-repeat,
+    linear-gradient(180deg, color-mix(in srgb, var(--idea-accent, #38bdf8) 46%, transparent), transparent 52%) 0 0 / 1px 36px no-repeat,
+    linear-gradient(270deg, color-mix(in srgb, var(--idea-accent, #38bdf8) 42%, transparent), transparent 52%) 100% 100% / 34px 1px no-repeat,
+    linear-gradient(0deg, color-mix(in srgb, var(--idea-accent, #38bdf8) 38%, transparent), transparent 52%) 100% 100% / 1px 34px no-repeat;
+  opacity: 0.78;
+}
+
+.ar-brief--quick .ar-idea::after {
+  content: '';
+  position: absolute;
+  inset: -20% auto -20% -28%;
+  width: 18%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--idea-accent, #38bdf8) 24%, transparent), transparent);
+  opacity: 0;
+  transform: skewX(-18deg);
+  transition: transform 0.55s ease, opacity 0.2s ease;
 }
 
 .ar-brief--quick .ar-idea:nth-child(1) {
@@ -2091,6 +2148,11 @@ onMounted(loadCorpus)
   transform: translateY(-1px);
 }
 
+.ar-brief--quick .ar-idea:hover::after {
+  opacity: 1;
+  transform: translateX(740%) skewX(-18deg);
+}
+
 .ar-brief--quick .ar-idea:focus-visible,
 .ar-brief--quick .ar-idea.is-selected {
   outline: 2px solid color-mix(in srgb, var(--idea-accent, #38bdf8) 62%, transparent);
@@ -2098,11 +2160,14 @@ onMounted(loadCorpus)
 }
 
 .ar-brief--quick .ar-idea-body {
+  position: relative;
+  z-index: 1;
   gap: 7px;
 }
 
 .ar-brief--quick .ar-idea-thumb {
   position: relative;
+  z-index: 1;
   display: grid;
   place-items: center;
   align-content: center;
@@ -2129,6 +2194,19 @@ onMounted(loadCorpus)
   opacity: 0.8;
 }
 
+.ar-brief--quick .ar-idea-thumb::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 13px;
+  height: 1px;
+  background: color-mix(in srgb, var(--idea-accent, #38bdf8) 68%, #f8fafc);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--idea-accent, #38bdf8) 52%, transparent);
+  opacity: 0.64;
+  animation: arThumbScan 3.8s ease-in-out infinite;
+}
+
 .ar-brief--quick .ar-idea-thumb > span:last-child {
   position: relative;
   z-index: 1;
@@ -2147,6 +2225,7 @@ onMounted(loadCorpus)
     radial-gradient(circle, color-mix(in srgb, var(--idea-accent, #38bdf8) 60%, #f8fafc) 0 3px, transparent 4px),
     conic-gradient(from 42deg, transparent, color-mix(in srgb, var(--idea-accent, #38bdf8) 44%, transparent), transparent 42%);
   box-shadow: inset 0 0 18px color-mix(in srgb, var(--idea-accent, #38bdf8) 18%, transparent);
+  animation: arThumbOrbit 14s linear infinite;
 }
 
 .ar-thumb-mark::before,
@@ -2589,6 +2668,7 @@ onMounted(loadCorpus)
 }
 
 .ar-detail-sheet {
+  position: relative;
   width: min(980px, calc(100vw - 32px));
   max-height: calc(100vh - 48px);
   overflow: auto;
@@ -2601,7 +2681,33 @@ onMounted(loadCorpus)
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.46), inset 0 1px rgba(255, 255, 255, 0.06);
 }
 
+.ar-detail-sheet::before,
+.ar-detail-sheet::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.ar-detail-sheet::before {
+  background:
+    linear-gradient(90deg, rgba(125, 211, 252, 0.55), transparent 72px) 0 0 / 72px 1px no-repeat,
+    linear-gradient(180deg, rgba(125, 211, 252, 0.48), transparent 72px) 0 0 / 1px 72px no-repeat,
+    linear-gradient(270deg, rgba(246, 198, 103, 0.38), transparent 72px) 100% 0 / 72px 1px no-repeat,
+    linear-gradient(180deg, rgba(246, 198, 103, 0.32), transparent 72px) 100% 0 / 1px 72px no-repeat,
+    linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.08), transparent) 0 44px / 100% 1px no-repeat;
+}
+
+.ar-detail-sheet::after {
+  background: linear-gradient(115deg, transparent 0 36%, rgba(125, 211, 252, 0.1) 46%, transparent 56%) -80% 0 / 72% 100% no-repeat;
+  opacity: 0.78;
+  animation: arPanelSweep 8s ease-in-out infinite;
+}
+
 .ar-detail-head {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -2635,6 +2741,8 @@ onMounted(loadCorpus)
 }
 
 .ar-detail-meta {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
@@ -2652,6 +2760,8 @@ onMounted(loadCorpus)
 }
 
 .ar-detail-thesis {
+  position: relative;
+  z-index: 1;
   margin: 14px 0 0;
   color: #f8fafc;
   font-size: 1.02rem;
@@ -2660,6 +2770,8 @@ onMounted(loadCorpus)
 }
 
 .ar-detail-why {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: 7px;
   margin-top: 14px;
@@ -2699,6 +2811,8 @@ onMounted(loadCorpus)
 }
 
 .ar-detail-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
@@ -2706,6 +2820,7 @@ onMounted(loadCorpus)
 }
 
 .ar-detail-grid section {
+  position: relative;
   min-width: 0;
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.17);
@@ -2713,6 +2828,18 @@ onMounted(loadCorpus)
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 38%),
     rgba(2, 6, 23, 0.38);
+  overflow: hidden;
+}
+
+.ar-detail-grid section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(125, 211, 252, 0.72), transparent 42%, rgba(246, 198, 103, 0.4));
+  opacity: 0.58;
 }
 
 .ar-detail-grid ul {
@@ -2727,6 +2854,8 @@ onMounted(loadCorpus)
 }
 
 .ar-detail-sources {
+  position: relative;
+  z-index: 1;
   margin-top: 14px;
   padding-top: 12px;
   border-top: 1px solid rgba(148, 163, 184, 0.16);
@@ -2821,6 +2950,54 @@ onMounted(loadCorpus)
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   line-height: 1.6;
+}
+
+@keyframes arThumbScan {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.34;
+  }
+
+  45% {
+    transform: translateY(34px);
+    opacity: 0.86;
+  }
+}
+
+@keyframes arThumbOrbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes arPanelSweep {
+  0%,
+  76%,
+  100% {
+    background-position: -80% 0;
+    opacity: 0;
+  }
+
+  88% {
+    background-position: 180% 0;
+    opacity: 0.72;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ar-thumb-mark,
+  .ar-brief--quick .ar-idea-thumb::after,
+  .ar-detail-sheet::after {
+    animation: none;
+  }
+
+  .ar-brief--quick .ar-idea,
+  .ar-brief--quick .ar-idea::after,
+  .ar-runbtn,
+  .ar-mode button {
+    transition: none;
+  }
 }
 
 @media (max-width: 860px) {
