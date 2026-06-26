@@ -236,7 +236,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <p class="home-coda__term" aria-hidden="true">$ keep_researching <span class="home-coda__flag">--forever</span><span class="home-coda__caret"></span></p>
   </div>
   <nav class="home-coda__links" aria-label="更多入口">
-    <a href="autoresearch/">Autoresearch</a>
+    <a href="autoresearch/">论文 Ideas</a>
     <a href="vla/papers/getting-started">新手入门</a>
     <a href="papers/latest">每日论文</a>
     <a href="ecosystem/">生态图谱</a>

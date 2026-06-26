@@ -1,6 +1,6 @@
 ---
-title: Autoresearch 工作台
-description: 基于具身星图已收录内容的离线科研工作台,从站内语料自动挖掘证据张力、候选课题、研究假设、实验矩阵和论文骨架。
+title: 论文 Idea 生成器
+description: 结合最新研究信号与具身星图已落盘论文,离线生成可写成 paper 的 ideas,包含动机、贡献、方法、验证方案和站内证据链接。
 ---
 
 <AutoResearchLab />
