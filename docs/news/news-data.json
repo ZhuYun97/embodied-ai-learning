@@ -1,5 +1,86 @@
 [
   {
+    "id": "dobot-shenzhen-chinext-humanoid-robots-20260626",
+    "title": "Dobot 计划登陆深交所创业板:拟募资 12 亿元押注多足与人形机器人",
+    "date": "2026-06-26",
+    "fetched_at": "2026-06-26",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "中国具身智能",
+      "人形机器人"
+    ],
+    "summary": "Bamboo Works 报道称,越疆科技(Dobot,2432.HK)计划在深圳创业板募资 12 亿元人民币(约 1.77 亿美元),其中 5.5 亿元投向多足机器人项目、2.5 亿元投向人形机器人、1 亿元用于营销能力、3 亿元补充流动资金。报道还提到,公司 2025 年协作机器人销量全球第一,具身智能机器人收入同比增长近 419%,但 2023-2025 年仍连续亏损,预计 2028 年前难以盈亏平衡。",
+    "sources": [
+      {
+        "name": "Bamboo Works",
+        "url": "https://thebambooworks.com/dobot-taps-shenzhen-market-to-fund-its-bet-on-humanoid-robots/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "catl-galbot-s1-battery-factory-deployment-20260624",
+    "title": "CATL 与银河通用签署战略合作:S1 重载人形机器人进入电池智能产线",
+    "date": "2026-06-24",
+    "fetched_at": "2026-06-26",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产业落地",
+      "中国具身智能",
+      "人形机器人"
+    ],
+    "summary": "CnEVPost 报道称,CATL 与银河通用(Galbot)签署战略合作,将推动具身智能机器人在智能产线中的规模化部署与全球拓展。Galbot S1 已进入 CATL 智能生产线,具备 50kg 双臂负载、纯视觉厘米级定位、360 度避障和 8 小时续航,用于模组/电池包生产中的搬运与拣选等长时自主任务。",
+    "sources": [
+      {
+        "name": "CnEVPost",
+        "url": "https://cnevpost.com/2026/06/24/catl-galbot-scale-humanoid-robots-battery-factories/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "mwc-shanghai-humanoid-robot-football-challenge-20260624",
+    "title": "MWC 上海设人形机器人点球挑战:通信展把 embodied AI 推到现场主舞台",
+    "date": "2026-06-24",
+    "fetched_at": "2026-06-26",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "行业活动",
+      "人形机器人",
+      "具身落地"
+    ],
+    "summary": "GSMA 在 MWC26 Shanghai 设置 Mobile AI Innovation Frontiers 展区,其中包括 6 月 24-25 日的人形机器人点球挑战。官方新闻稿称该挑战展示运动控制、环境感知、自主决策与网络化能力,并把人形机器人、AI 设备和无人系统放在连接基础设施的展示叙事中。",
+    "sources": [
+      {
+        "name": "GSMA / PRNewswire",
+        "url": "https://www.prnewswire.com/news-releases/watch-humanoid-robots-compete-in-penalty-football-from-gsma-mwc26-shanghai-302807952.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "agility-robotics-spac-digit-v5-public-listing-20260624",
     "title": "Agility Robotics 拟通过 SPAC 上市:Digit v5 已拿到超 3 亿美元多年订单",
     "date": "2026-06-24",
