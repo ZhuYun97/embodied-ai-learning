@@ -1535,7 +1535,7 @@ onMounted(loadCorpus)
   position: relative;
   isolation: isolate;
   display: grid;
-  gap: 12px;
+  gap: 14px;
   margin-top: 10px;
   container-type: inline-size;
 }
@@ -1603,9 +1603,9 @@ onMounted(loadCorpus)
 
 .ar-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(250px, 0.82fr);
-  gap: 8px 12px;
-  padding: 12px 14px;
+  grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.78fr);
+  gap: 14px 20px;
+  padding: 18px 20px;
 }
 
 .ar-strands {
@@ -1705,20 +1705,21 @@ onMounted(loadCorpus)
 
 .ar-title {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px 12px;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
 }
 
 .ar-title p {
-  flex: 1 1 250px;
+  flex: none;
+  max-width: 82ch;
 }
 
 .ar-stats {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin: 0 0 0 auto;
+  gap: 7px;
+  margin: 3px 0 0;
 }
 
 .ar-stats span {
@@ -1809,9 +1810,10 @@ onMounted(loadCorpus)
 
 .ar-run {
   display: grid;
-  grid-template-columns: minmax(170px, 0.8fr) minmax(130px, 0.5fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: center;
   align-items: center;
-  gap: 7px;
+  gap: 9px 12px;
 }
 
 .ar-runbtn {
@@ -1838,16 +1840,17 @@ onMounted(loadCorpus)
 }
 
 .ar-note {
+  grid-column: 1 / -1;
   margin: 0;
   color: #94a3b8;
   font-size: 0.74rem;
   line-height: 1.25;
-  text-align: right;
+  text-align: left;
 }
 
 .ar-output {
   display: grid;
-  gap: 10px;
+  gap: 14px;
 }
 
 .ar-panel {
@@ -2095,7 +2098,7 @@ onMounted(loadCorpus)
 }
 
 .ar-ideas {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
 }
 
 .ar-idea,
@@ -3244,5 +3247,22 @@ onMounted(loadCorpus)
   .ar-rank-grid section:nth-child(4) {
     display: none;
   }
+}
+</style>
+
+<!--
+  Page-level layout overrides (unscoped). The frontmatter sets
+  `aside: false`, which frees the doc column from its default ~688px
+  cap so this multi-panel lab can use its intended full width. Here we
+  keep that width tasteful: capped and centered on ultra-wide screens.
+-->
+<style>
+.ar-page .content-container {
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+.ar-page .VPDoc {
+  padding-bottom: 40px;
 }
 </style>
