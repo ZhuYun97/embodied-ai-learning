@@ -1254,17 +1254,20 @@ onMounted(loadCorpus)
       </section>
 
       <div class="ar-panel ar-brief" :class="{ 'ar-brief--quick': mode === 'quick' }">
-        <span class="ar-panel__tag">TODAY'S PAPER IDEAS</span>
+        <div class="ar-brief-head">
+          <span class="ar-panel__tag">TODAY'S PAPER IDEAS</span>
+          <div class="ar-focus">
+            <span v-for="tag in result.focus" :key="tag">{{ tag }}</span>
+          </div>
+        </div>
         <h2 v-if="mode === 'deep'">{{ result.date }} · {{ result.daily.label }}</h2>
         <p v-if="mode === 'deep'" class="ar-daily-summary">{{ result.daily.focus }}</p>
-        <div class="ar-focus">
-          <span v-for="tag in result.focus" :key="tag">{{ tag }}</span>
-        </div>
         <div class="ar-ideas">
-          <article v-for="idea in result.ideas" :key="idea.id" class="ar-idea">
+          <article v-for="(idea, index) in result.ideas" :key="idea.id" class="ar-idea">
             <header>
-              <span>{{ idea.tension }}</span>
-              <span>N{{ idea.novelty }} / F{{ idea.feasibility }}</span>
+              <span class="ar-idea-rank">#{{ index + 1 }}</span>
+              <span class="ar-idea-tension">{{ idea.tension }}</span>
+              <span class="ar-idea-score">N{{ idea.novelty }} / F{{ idea.feasibility }}</span>
             </header>
             <h3>{{ idea.title }}</h3>
             <p>{{ idea.thesis }}</p>
@@ -1275,23 +1278,23 @@ onMounted(loadCorpus)
             </div>
             <div class="ar-idea-grid">
               <section>
-                <h4>动机 Motivation</h4>
+                <h4>动机</h4>
                 <p>{{ idea.motivation }}</p>
               </section>
               <section>
-                <h4>贡献 Contributions</h4>
+                <h4>贡献</h4>
                 <ul class="ar-tight-list">
                   <li v-for="item in idea.contributions" :key="`${idea.id}-c-${item}`">{{ item }}</li>
                 </ul>
               </section>
               <section>
-                <h4>方法 Method</h4>
+                <h4>方法</h4>
                 <ul class="ar-tight-list">
                   <li v-for="item in idea.method" :key="`${idea.id}-m-${item}`">{{ item }}</li>
                 </ul>
               </section>
               <section>
-                <h4>验证 Evaluation</h4>
+                <h4>验证</h4>
                 <p>{{ idea.evaluation }}</p>
               </section>
             </div>
@@ -1424,13 +1427,25 @@ onMounted(loadCorpus)
     linear-gradient(135deg, rgba(37, 99, 235, 0.14), transparent 40%),
     linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(2, 6, 23, 0.82));
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+}
+
+.ar-hero::before,
+.ar-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.12), transparent) 0 0 / 100% 1px no-repeat,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 32%);
 }
 
 .ar-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(210px, 0.58fr);
-  gap: 10px;
-  padding: 14px 16px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(250px, 0.82fr);
+  gap: 8px 12px;
+  padding: 12px 14px;
 }
 
 .ar-title {
@@ -1451,9 +1466,21 @@ onMounted(loadCorpus)
 .ar-kicker,
 .ar-panel__tag {
   display: inline-flex;
+  align-items: center;
+  gap: 7px;
   color: #7dd3fc;
   font: 800 0.72rem/1 var(--font-display);
   letter-spacing: 0.08em;
+}
+
+.ar-kicker::before,
+.ar-panel__tag::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #38bdf8, #f6c667);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
 }
 
 .ar-hero h1,
@@ -1493,7 +1520,7 @@ onMounted(loadCorpus)
 .ar-title {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px 12px;
+  gap: 6px 12px;
   align-items: baseline;
 }
 
@@ -1512,11 +1539,11 @@ onMounted(loadCorpus)
   display: inline-flex;
   align-items: baseline;
   gap: 5px;
-  padding: 3px 7px;
-  border: 1px solid rgba(148, 163, 184, 0.22);
+  padding: 3px 6px;
+  border: 1px solid rgba(125, 211, 252, 0.18);
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.62);
-  color: #aebbd0;
+  background: rgba(14, 165, 233, 0.08);
+  color: #dbeafe;
   font-size: 0.68rem !important;
   font-weight: 800;
   line-height: 1 !important;
@@ -1528,10 +1555,12 @@ onMounted(loadCorpus)
   align-items: baseline;
   gap: 6px 12px;
   min-width: 0;
-  padding: 8px 10px;
-  border: 1px solid rgba(125, 211, 252, 0.16);
+  padding: 7px 9px;
+  border: 1px solid rgba(125, 211, 252, 0.22);
   border-radius: 7px;
-  background: rgba(2, 6, 23, 0.28);
+  background:
+    linear-gradient(135deg, rgba(14, 165, 233, 0.08), transparent 56%),
+    rgba(2, 6, 23, 0.3);
 }
 
 .ar-daily h2 {
@@ -1582,28 +1611,39 @@ onMounted(loadCorpus)
   padding: 5px 8px;
   line-height: 1.1;
   cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease, transform 0.18s ease;
 }
 
 .ar-mode button.on {
   border-color: rgba(125, 211, 252, 0.6);
-  background: rgba(14, 165, 233, 0.18);
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(45, 212, 191, 0.12));
   color: #e0f2fe;
+  box-shadow: inset 0 0 0 1px rgba(125, 211, 252, 0.12), 0 0 18px rgba(14, 165, 233, 0.12);
 }
 
 .ar-run {
   display: grid;
   grid-template-columns: minmax(170px, 0.8fr) minmax(130px, 0.5fr) minmax(0, 1fr);
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 }
 
 .ar-runbtn {
   width: 100%;
   padding: 8px 10px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(6, 182, 212, 0.95)),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   color: white;
   cursor: pointer;
+  box-shadow: 0 10px 24px rgba(14, 165, 233, 0.18);
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.ar-runbtn:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 
 .ar-runbtn:disabled {
@@ -1621,11 +1661,18 @@ onMounted(loadCorpus)
 
 .ar-output {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .ar-panel {
-  padding: 16px;
+  padding: 14px;
+}
+
+.ar-brief-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .ar-panel-head {
@@ -1832,12 +1879,18 @@ onMounted(loadCorpus)
 }
 
 .ar-focus {
-  margin: 12px 0 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
 }
 
 .ar-focus span {
-  padding: 5px 8px;
-  color: #f6c667;
+  padding: 4px 7px;
+  border-color: rgba(246, 198, 103, 0.26);
+  background: rgba(246, 198, 103, 0.08);
+  color: #f8d78a;
+  font-size: 0.68rem;
 }
 
 .ar-ideas,
@@ -1880,11 +1933,64 @@ onMounted(loadCorpus)
 
 .ar-brief--quick .ar-ideas {
   grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .ar-brief--quick .ar-idea {
-  gap: 9px;
-  padding: 13px;
+  position: relative;
+  gap: 7px;
+  padding: 10px 11px 10px 12px;
+  border-color: rgba(125, 211, 252, 0.18);
+  border-left: 0;
+  background:
+    linear-gradient(90deg, var(--idea-accent, #38bdf8) 0 3px, transparent 3px),
+    linear-gradient(135deg, color-mix(in srgb, var(--idea-accent, #38bdf8) 12%, transparent), transparent 48%),
+    rgba(15, 23, 42, 0.62);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ar-brief--quick .ar-idea:nth-child(1) {
+  --idea-accent: #f6c667;
+}
+
+.ar-brief--quick .ar-idea:nth-child(2) {
+  --idea-accent: #38bdf8;
+}
+
+.ar-brief--quick .ar-idea:nth-child(3) {
+  --idea-accent: #2dd4bf;
+}
+
+.ar-brief--quick .ar-idea:hover {
+  border-color: color-mix(in srgb, var(--idea-accent, #38bdf8) 42%, rgba(125, 211, 252, 0.2));
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22), inset 0 1px rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+}
+
+.ar-idea-rank {
+  display: inline-grid;
+  min-width: 30px;
+  height: 20px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--idea-accent, #38bdf8) 48%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--idea-accent, #38bdf8) 14%, rgba(2, 6, 23, 0.9));
+  color: #f8fafc;
+  font: 900 0.68rem/1 var(--font-display);
+}
+
+.ar-idea-tension {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: #9fb6d4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ar-idea-score {
+  color: #f8d78a;
 }
 
 .ar-brief--quick .ar-idea > p,
@@ -1897,6 +2003,10 @@ onMounted(loadCorpus)
   -webkit-line-clamp: 2;
 }
 
+.ar-brief--quick .ar-idea > p {
+  -webkit-line-clamp: 1;
+}
+
 .ar-brief--quick .ar-why,
 .ar-brief--quick .ar-source-row {
   display: none;
@@ -1904,12 +2014,35 @@ onMounted(loadCorpus)
 
 .ar-brief--quick .ar-idea-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
 }
 
 .ar-brief--quick .ar-idea-grid section {
-  max-height: 116px;
+  max-height: 88px;
   overflow: hidden;
-  padding: 9px;
+  padding: 7px 8px;
+  border-color: rgba(148, 163, 184, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 42%),
+    rgba(2, 6, 23, 0.32);
+}
+
+.ar-brief--quick .ar-idea h3 {
+  color: #f8fafc;
+  font-size: 0.98rem;
+  line-height: 1.25;
+}
+
+.ar-brief--quick .ar-idea-grid h4 {
+  color: color-mix(in srgb, var(--idea-accent, #38bdf8) 55%, #f8fafc);
+  font-size: 0.62rem;
+  margin-bottom: 4px;
+}
+
+.ar-brief--quick .ar-idea-grid p,
+.ar-brief--quick .ar-tight-list {
+  font-size: 0.76rem;
+  line-height: 1.38;
 }
 
 .ar-brief--quick .ar-idea-grid section:nth-child(4),
@@ -2349,10 +2482,10 @@ onMounted(loadCorpus)
   }
 
   .ar-stats {
-    margin-left: 0;
+    display: none;
   }
 
-  .ar-daily p {
+  .ar-daily {
     display: none;
   }
 
@@ -2375,20 +2508,18 @@ onMounted(loadCorpus)
     grid-template-columns: 1fr;
   }
 
-  .ar-stats {
-    display: none;
-  }
-
-  .ar-daily .ar-kicker {
-    display: none;
-  }
-
   .ar-brief--quick .ar-idea-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .ar-brief--quick .ar-idea-grid section {
-    max-height: 86px;
+    max-height: 78px;
+    padding: 6px;
+  }
+
+  .ar-brief--quick .ar-idea-grid p,
+  .ar-brief--quick .ar-tight-list li {
+    -webkit-line-clamp: 1;
   }
 }
 
@@ -2418,6 +2549,16 @@ onMounted(loadCorpus)
   .ar-rank header,
   .ar-idea header {
     display: grid;
+  }
+
+  .ar-brief--quick .ar-idea header {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .ar-brief--quick .ar-idea-tension {
+    display: none;
   }
 
   .ar-funnel-row {
