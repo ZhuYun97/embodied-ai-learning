@@ -1,6 +1,6 @@
 ---
 title: 论文 Idea 生成器
-description: 结合最新研究信号与具身星图已落盘论文,离线生成可写成 paper 的 ideas,包含动机、贡献、方法、验证方案和站内证据链接。
+description: 结合 idea-discovery pipeline、最新研究信号与具身星图已落盘论文,离线生成候选漏斗、novelty check、reviewer critique、refined proposal 与实验计划。
 ---
 
 <AutoResearchLab />

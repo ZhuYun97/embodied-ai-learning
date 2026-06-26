@@ -13,6 +13,11 @@ const PRESETS = [
   '只从每日最新论文队列里生成 3 个新 idea。',
 ]
 
+const MODES = [
+  { id: 'deep', label: 'Deep Discovery' },
+  { id: 'quick', label: 'Quick Ideas' },
+]
+
 const SCOPES = [
   { id: 'all', label: '全站' },
   { id: 'vla', label: 'VLA' },
@@ -76,6 +81,7 @@ const STOP = new Set([
 
 const question = ref(DEFAULT_QUESTION)
 const scope = ref('all')
+const mode = ref('deep')
 const corpus = ref([])
 const loading = ref(true)
 const loadError = ref('')
@@ -491,6 +497,331 @@ function buildNextActions(ideas) {
   ]
 }
 
+function clampScore(value, min = 0, max = 100) {
+  return Math.max(min, Math.min(max, Math.round(value)))
+}
+
+function candidateFromIdea(idea) {
+  return {
+    title: idea.title,
+    oneLiner: idea.thesis,
+    problemAnchor: idea.motivation,
+    hypothesis: idea.thesis,
+    method: idea.method,
+    tags: [...new Set([...(idea.sources || []).flatMap((doc) => doc.tags), idea.frontier?.tags || []].flat())].slice(0, 5),
+    sources: idea.sources || [],
+    risk: idea.title.includes('Critic') ? '世界模型分数可能只相关于视觉保真度,不相关于真实执行成功率。' : '需要把站内自然语言证据转成可复现实验变量,否则容易停留在综述层。',
+    pilot: idea.evaluation,
+    pilotHours: idea.title.includes('Critic') ? 2 : 1.5,
+    novelty: idea.novelty,
+    feasibility: idea.feasibility,
+    origin: 'shortlisted',
+  }
+}
+
+function buildExtraCandidates(evidence, frontiers) {
+  return [
+    {
+      title: 'Coverage-Aware WAM: 面向低覆盖状态的幻觉风险门控',
+      oneLiner: '把 world model hallucination 从生成质量问题改成 state-action coverage 的风险估计问题。',
+      problemAnchor: '最新论文队列里已有 world model hallucination 与覆盖区域相关的信号,站内 WAM 细读也反复提到 rollout 漂移和物理一致性。',
+      hypothesis: '如果在执行前估计 state-action coverage,就能过滤掉更可能幻觉的 WAM rollout,提升 critic 可靠性。',
+      method: ['从演示轨迹估计 coverage proxy。', '给 WAM rollout 加 coverage-aware risk head。', '比较无门控、置信度门控和 coverage 门控。'],
+      tags: ['WAM', 'EVAL', 'DATA'],
+      sources: pickEvidence(evidence, ['WAM', 'EVAL', 'LATEST'], 3),
+      risk: 'coverage proxy 可能过粗,需要证明它比简单不确定性更有用。',
+      pilot: '用离线轨迹重放做 1 个 toy coverage split,测试风险分数与失败率相关性。',
+      pilotHours: 1.5,
+      novelty: 80,
+      feasibility: 76,
+      origin: 'generated',
+    },
+    {
+      title: 'Stage-Aware VLA Post-training: 用关键帧阶段监督减少接触点失败',
+      oneLiner: '把 gripper event / keyframe / task stage 变成 VLA 后训练的稀疏结构监督。',
+      problemAnchor: '站内数据处理、动作接口和最新论文队列都显示,失败常集中在接触切换和关键帧附近。',
+      hypothesis: '阶段监督能让同等数据量的 VLA 更稳地处理接触前后状态切换。',
+      method: ['从轨迹中自动提取 gripper event 与关键帧。', '给 action head 加 phase-aware auxiliary loss。', '在接触密集任务上做去除阶段监督消融。'],
+      tags: ['VLA', 'DATA', 'CONTROL'],
+      sources: pickEvidence(evidence, ['VLA', 'DATA', 'CONTROL', 'LATEST'], 3),
+      risk: '如果任务阶段标签噪声过大,辅助监督会误导动作生成。',
+      pilot: '先在 1 个开源操作数据集上自动抽 keyframes,检查标签稳定性和失败集中度。',
+      pilotHours: 2,
+      novelty: 78,
+      feasibility: 82,
+      origin: 'generated',
+    },
+    {
+      title: 'Human-to-Robot Data Quality Estimator: 第一视角视频到机器人监督的可迁移性评分',
+      oneLiner: '在人类视频进入训练前,估计它能否被转成有效机器人动作监督。',
+      problemAnchor: '具身数据页覆盖第一视角、人类示范和跨本体数据,但缺少一个输入训练前的数据可用性判据。',
+      hypothesis: '只保留 kinematic gap 小、物体交互清晰、阶段可分的视频片段,比盲目扩大人类视频数据更有效。',
+      method: ['抽取手/物体/视角稳定性特征。', '估计 retargeting difficulty 与 label confidence。', '按质量分层训练 VLA 或 action prior。'],
+      tags: ['DATA', 'CONTROL', 'EVAL'],
+      sources: pickEvidence(evidence, ['DATA', 'CONTROL', 'EVAL'], 3),
+      risk: '质量评分可能和任务难度耦合,需要分离“难但有用”和“噪声大”。',
+      pilot: '对 50-100 个视频片段人工打分,验证自动质量分和人工可迁移性判断的一致性。',
+      pilotHours: 1,
+      novelty: 76,
+      feasibility: 84,
+      origin: 'generated',
+    },
+    {
+      title: 'Deployment Smoke-Test Router: 用上线前 rollout 选择 VLA 专家',
+      oneLiner: '把短 smoke test 的失败轨迹转成 frozen VLA experts 的路由监督。',
+      problemAnchor: '多专家 VLA 和部署选择已经进入每日论文队列,但多数路由仍依赖静态任务标签或语言描述。',
+      hypothesis: '少量上线前 smoke rollout 比任务文本更能预测哪一个专家适合当前环境/本体。',
+      method: ['对每个专家执行极短 horizon smoke rollout。', '抽取失败类型、时延和动作平滑度。', '训练 router 选择或组合专家。'],
+      tags: ['VLA', 'DEPLOY', 'EVAL'],
+      sources: pickEvidence(evidence, ['VLA', 'DEPLOY', 'EVAL', 'LATEST'], 3),
+      risk: 'smoke test 成本必须低于专家切换收益,否则工程意义不足。',
+      pilot: '离线重放已有 rollout,模拟只看前 N 秒能否预测最终成功率。',
+      pilotHours: 1.5,
+      novelty: 74,
+      feasibility: 80,
+      origin: 'generated',
+    },
+    {
+      title: 'Tactile-WAM Failure Oracle: 触觉未来预测作为操作失败早预警',
+      oneLiner: '把触觉未来状态预测接到 WAM critic,专门处理视觉难以发现的滑动、空抓和接触异常。',
+      problemAnchor: '最新 WAM 方向开始加入触觉未来状态,而站内操作失败模式多发生在接触状态不可见或不稳定时。',
+      hypothesis: '触觉未来预测能比纯视觉 WAM 更早发现接触失败,尤其在遮挡和小物体任务中。',
+      method: ['把 tactile token 作为 WAM rollout 的辅助分支。', '训练 contact-risk score。', '比较视觉-only、触觉-only、多模态 critic。'],
+      tags: ['WAM', 'CONTROL', 'EVAL'],
+      sources: pickEvidence(evidence, ['WAM', 'CONTROL', 'EVAL', 'LATEST'], 3),
+      risk: '触觉数据难收集,需要先证明小规模数据也能提供增益。',
+      pilot: '用公开/自有小规模触觉片段做 binary failure prediction sanity check。',
+      pilotHours: 2.5,
+      novelty: 82,
+      feasibility: 62,
+      origin: 'generated',
+    },
+  ].map((candidate) => ({
+    ...candidate,
+    frontier: frontiers.find((item) => candidate.tags.some((tag) => item.tags.includes(tag))) || frontiers[0],
+  }))
+}
+
+function closestExistingWork(candidate, evidence) {
+  const tokens = tokenize(`${candidate.title} ${candidate.oneLiner} ${candidate.problemAnchor}`)
+  const scored = evidence.map((doc) => {
+    const hay = `${doc.title} ${doc.text}`.toLowerCase()
+    let score = 0
+    for (const token of tokens) if (hay.includes(token)) score += 1
+    for (const tag of candidate.tags || []) if (doc.tags.includes(tag)) score += 2
+    if (doc.bucket === 'latest') score += 1
+    return { doc, score }
+  })
+  return scored.sort((a, b) => b.score - a.score).slice(0, 3).map(({ doc, score }) => ({ ...doc, matchScore: score }))
+}
+
+function noveltyCheck(candidate, evidence) {
+  const closest = closestExistingWork(candidate, evidence)
+  const top = closest[0]
+  const noveltyPenalty = Math.min(18, Math.max(0, (top?.matchScore || 0) - 8))
+  const score = clampScore((candidate.novelty || 70) - noveltyPenalty)
+  const status = score >= 80 ? 'LOCAL NOVELTY: STRONG' : score >= 68 ? 'LOCAL NOVELTY: PLAUSIBLE' : 'TOO CLOSE LOCALLY'
+  const closestTitle = top ? compactTitle(top.title) : '站内未找到近邻'
+  return {
+    score,
+    status,
+    closest,
+    differentiation: `最近站内近邻是「${closestTitle}」。当前 idea 的区分点应写清:问题变量、干预模块、评测协议至少有一项不同。`,
+  }
+}
+
+function reviewerRubric(candidate, novelty) {
+  const clarity = candidate.method?.length >= 3 ? 8 : 6
+  const feasibility = Math.round((candidate.feasibility || 70) / 10)
+  const noveltyScore = Math.round(novelty.score / 10)
+  const pilot = candidate.pilotHours <= 2 ? 8 : 5
+  const reviewerScore = Math.min(10, Math.round((clarity + feasibility + noveltyScore + pilot) / 4))
+  const concern = reviewerScore >= 8
+    ? '主要风险在实验协议是否足够干净,需要把自评指标和可复现实验分开。'
+    : '当前 idea 需要进一步收窄变量,否则贡献可能被审稿人认为只是系统集成。'
+  return { reviewerScore, concern }
+}
+
+function rankCandidate(candidate, evidence, focus, index) {
+  const novelty = noveltyCheck(candidate, evidence)
+  const review = reviewerRubric(candidate, novelty)
+  const focusBoost = (candidate.tags || []).filter((tag) => focus.includes(tag)).length * 4
+  const pilotBoost = candidate.pilotHours <= 2 ? 6 : -5
+  const finalScore = clampScore(novelty.score * 0.36 + (candidate.feasibility || 70) * 0.26 + review.reviewerScore * 6 + focusBoost + pilotBoost)
+  return {
+    ...candidate,
+    id: `candidate-${index}`,
+    novelty,
+    reviewerScore: review.reviewerScore,
+    reviewerConcern: review.concern,
+    finalScore,
+    pilotStatus: candidate.pilotHours <= 2 ? 'PAPER PILOT OK' : 'NEEDS MANUAL PILOT',
+  }
+}
+
+function buildDiscoveryCandidates(ideas, evidence, focus, frontiers) {
+  const seedCandidates = ideas.map(candidateFromIdea)
+  const candidates = [...seedCandidates, ...buildExtraCandidates(evidence, frontiers)]
+  const seen = new Set()
+  return candidates
+    .filter((candidate) => {
+      const key = candidate.title.toLowerCase()
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+    .map((candidate, index) => rankCandidate(candidate, evidence, focus, index))
+    .sort((a, b) => b.finalScore - a.finalScore)
+}
+
+function buildLandscape(focus, evidence, frontiers, tensions) {
+  const rows = [
+    {
+      title: 'VLA 后训练与数据闭环',
+      scope: '失败样本、数据操作、动作接口和部署回流。',
+      gap: '缺少从失败类型到补采/合成/重标注的触发器。',
+      tags: ['VLA', 'DATA'],
+    },
+    {
+      title: 'WAM / WLA 作为执行前 critic',
+      scope: '未来状态预测、语言目标、动作候选和真实成功率。',
+      gap: '缺少把 world rollout 分数接到真实控制成功率的评测协议。',
+      tags: ['WAM', 'WLA', 'EVAL'],
+    },
+    {
+      title: '跨本体动作接口',
+      scope: 'action token、EEF delta、waypoint、action prior 和 router。',
+      gap: '缺少同一任务族下动作接口的最小充分表示对照。',
+      tags: ['CONTROL', 'VLA'],
+    },
+    {
+      title: '可信每日论文雷达',
+      scope: 'P0/P1、已细读、待核、作者自评与第三方复现。',
+      gap: '缺少从最新论文到可投稿 idea 的可信度排序机制。',
+      tags: ['LATEST', 'EVAL'],
+    },
+  ]
+  return rows
+    .map((row) => ({
+      ...row,
+      active: row.tags.some((tag) => focus.includes(tag)) || row.tags.some((tag) => evidence.some((doc) => doc.tags.includes(tag))),
+      evidence: pickEvidence(evidence, row.tags, 2),
+      frontier: frontiers.find((item) => row.tags.some((tag) => item.tags.includes(tag))),
+      tension: tensions.find((item) => row.tags.some((tag) => item.title.toUpperCase().includes(tag)))?.title,
+    }))
+    .sort((a, b) => Number(b.active) - Number(a.active))
+}
+
+function buildExperimentPlan(top) {
+  if (!top) return []
+  return [
+    {
+      block: 'E0 Sanity Pilot',
+      goal: top.pilot,
+      metric: '方向性信号是否为正,以及失败样例是否集中在假设变量上。',
+      budget: top.pilotHours <= 2 ? `${top.pilotHours}h local / no GPU required first` : `${top.pilotHours}h+,先人工确认数据可得性`,
+    },
+    {
+      block: 'E1 Main Ablation',
+      goal: '只替换主方法模块,其余数据、基座和评测保持一致。',
+      metric: '成功率、样本效率、失败类型分布、可信度标记。',
+      budget: '1-2 个小任务或离线重放集。',
+    },
+    {
+      block: 'E2 Negative Control',
+      goal: '找一个理论上不该受益的任务/数据切片,防止方法只是过拟合排序规则。',
+      metric: '无关切片不应显著提升,否则需要重写机制解释。',
+      budget: '复用 E1 数据,只做分层分析。',
+    },
+  ]
+}
+
+function buildDiscoveryReport(seed, pipeline) {
+  const ranked = pipeline.ranked.map((item, index) => {
+    const sources = item.novelty.closest.slice(0, 2).map((doc) => doc.title).join(' / ')
+    return `${index + 1}. ${item.title}
+   - Score: ${item.finalScore} | Novelty: ${item.novelty.status} (${item.novelty.score}) | Reviewer: ${item.reviewerScore}/10 | Pilot: ${item.pilotStatus}
+   - Motivation: ${item.problemAnchor}
+   - Contribution: ${item.oneLiner}
+   - Method: ${item.method.join(' ')}
+   - Closest local work: ${sources || 'none'}
+   - Concern: ${item.reviewerConcern}`
+  }).join('\n\n')
+  const eliminated = pipeline.eliminated.map((item) => `- ${item.title}: ${item.eliminateReason}`).join('\n')
+  const plan = pipeline.experimentPlan.map((item) => `- ${item.block}: ${item.goal} Metric: ${item.metric} Budget: ${item.budget}`).join('\n')
+  return `# Idea Discovery Report
+
+Direction: ${seed}
+Pipeline: local brief -> site literature landscape -> candidate generation -> local novelty check -> reviewer rubric -> refined proposal
+Mode: offline, site corpus only, no external API calls
+
+## Executive Summary
+Recommended idea: ${pipeline.top?.title || 'none'}
+Reason: highest combined score across local novelty, feasibility, reviewer rubric, and <=2h pilot feasibility.
+
+## Literature Landscape
+${pipeline.landscape.map((item) => `- ${item.title}: ${item.gap}`).join('\n')}
+
+## Ranked Ideas
+${ranked}
+
+## Eliminated Ideas
+${eliminated || '- none'}
+
+## Refined Proposal
+Problem anchor: ${pipeline.top?.problemAnchor || ''}
+Method thesis: ${pipeline.top?.oneLiner || ''}
+Dominant risk: ${pipeline.top?.risk || ''}
+
+## Experiment Plan
+${plan}
+
+## Next Steps
+- Turn the top idea into a one-page proposal.
+- Verify closest work manually before writing claims.
+- Run E0 sanity pilot before expanding the method.`
+}
+
+function buildDiscoveryPipeline(seed, focus, evidence, tensions, frontiers, ideas) {
+  const candidates = buildDiscoveryCandidates(ideas, evidence, focus, frontiers)
+  const ranked = candidates.slice(0, 5)
+  const eliminated = candidates.slice(5, 8).map((item) => ({
+    ...item,
+    eliminateReason: item.pilotHours > 2
+      ? '超过 2h paper pilot 预算,先标记为 needs manual pilot。'
+      : item.novelty.score < 70
+        ? '站内近邻过近,需要更清楚 differentiation 后再进入 top list。'
+        : '综合分低于 top ideas,暂列备选。',
+  }))
+  const top = ranked[0]
+  const landscape = buildLandscape(focus, evidence, frontiers, tensions)
+  const experimentPlan = buildExperimentPlan(top)
+  const pipeline = {
+    constants: [
+      'PILOT_MAX_HOURS = 2',
+      'MAX_PILOT_IDEAS = 3',
+      'CANONICAL_REPORT = IDEA_REPORT',
+      'MODE = offline site corpus',
+    ],
+    phases: [
+      { id: '0', title: 'Load Local Brief', status: 'DONE', text: '用输入 seed + 站内语料替代外部 research brief。' },
+      { id: '1', title: 'Literature Landscape', status: 'DONE', text: '从站内论文、每日论文和前沿信号抽取子方向、缺口和近邻。' },
+      { id: '2', title: 'Idea Generation', status: 'DONE', text: `生成 ${candidates.length} 个候选,保留前 ${ranked.length} 个。` },
+      { id: '3', title: 'Local Novelty Check', status: 'DONE', text: '用站内 corpus 查 closest work 与 differentiation,不联网调用 API。' },
+      { id: '4', title: 'Reviewer Rubric', status: 'DONE', text: '按 novelty、feasibility、clarity、pilot cost 给审稿人式分数。' },
+      { id: '4.5', title: 'Refined Proposal', status: 'READY', text: '为 top idea 输出 problem anchor、method thesis 和实验计划。' },
+    ],
+    landscape,
+    candidates,
+    ranked,
+    eliminated,
+    top,
+    experimentPlan,
+  }
+  pipeline.report = buildDiscoveryReport(seed, pipeline)
+  return pipeline
+}
+
 function runResearch() {
   if (!corpus.value.length) return
   const q = question.value.trim() || DEFAULT_QUESTION
@@ -506,6 +837,7 @@ function runResearch() {
   const frontiers = buildFrontierMatches(qTokens, focus)
   const tensions = buildTensions(focus, evidence, frontiers)
   const ideas = buildPaperIdeas(q, focus, evidence, tensions, frontiers)
+  const discovery = buildDiscoveryPipeline(q, focus, evidence, tensions, frontiers, ideas)
   result.value = {
     seed: q,
     focus,
@@ -513,6 +845,7 @@ function runResearch() {
     evidence,
     tensions,
     ideas,
+    discovery,
     readingQueue: buildReadingQueue(evidence),
     experiments: buildIdeaMatrix(ideas, focus),
     outline: buildPaperOutline(ideas, tensions),
@@ -594,7 +927,7 @@ async function loadCorpus() {
   }
 }
 
-watch([question, scope], () => {
+watch([question, scope, mode], () => {
   window.clearTimeout(timer)
   timer = window.setTimeout(runResearch, 420)
 })
@@ -608,7 +941,7 @@ onMounted(loadCorpus)
       <div>
         <span class="ar-kicker">// PAPER IDEA LAB</span>
         <h1>论文 Idea 生成器</h1>
-        <p>最新研究信号 + 站内落盘论文 → 动机、贡献、方法、验证方案。离线运行,不调用外部 API。</p>
+        <p>Skill-inspired deep discovery + 站内落盘论文 → 候选漏斗、novelty check、reviewer critique、refined proposal。离线运行,不调用外部 API。</p>
       </div>
       <div class="ar-stats" aria-label="语料统计">
         <span><b>{{ corpusStats.all }}</b>文档</span>
@@ -629,6 +962,17 @@ onMounted(loadCorpus)
       </div>
 
       <aside class="ar-run">
+        <div class="ar-mode" role="group" aria-label="发现模式">
+          <button
+            v-for="item in MODES"
+            :key="item.id"
+            type="button"
+            :class="{ on: mode === item.id }"
+            @click="mode = item.id"
+          >
+            {{ item.label }}
+          </button>
+        </div>
         <div class="ar-scope" role="group" aria-label="语料范围">
           <button
             v-for="item in SCOPES"
@@ -641,7 +985,7 @@ onMounted(loadCorpus)
           </button>
         </div>
         <button class="ar-runbtn" type="button" :disabled="loading" @click="runResearch">
-          {{ loading ? '加载语料中' : '生成论文 Ideas' }}
+          {{ loading ? '加载语料中' : mode === 'deep' ? '运行 Discovery Pipeline' : '生成论文 Ideas' }}
         </button>
         <p class="ar-note">
           <span v-if="loadError">{{ loadError }}</span>
@@ -653,8 +997,133 @@ onMounted(loadCorpus)
     </section>
 
     <section v-if="result" class="ar-output">
+      <section v-if="mode === 'deep' && result.discovery" class="ar-panel ar-discovery">
+        <div class="ar-panel-head">
+          <div>
+            <span class="ar-panel__tag">LOCAL IDEA-DISCOVERY PIPELINE</span>
+            <h2>Deep Discovery · 从方向到可投稿 proposal</h2>
+          </div>
+          <a href="https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep/blob/main/skills/idea-discovery/SKILL.md" target="_blank" rel="noopener">
+            skill source
+          </a>
+        </div>
+        <p class="ar-lead">
+          参考 idea-discovery 的 research-lit → idea-creator → novelty-check → research-review → refine pipeline,但改成本地站内语料版:不跑 WebSearch / Gemini / GPT / GPU pilot,只用已落盘论文、每日论文和内置前沿信号做可解释筛选。
+        </p>
+        <div class="ar-constants">
+          <span v-for="item in result.discovery.constants" :key="item">{{ item }}</span>
+        </div>
+        <div class="ar-phases">
+          <article v-for="phase in result.discovery.phases" :key="phase.id" class="ar-phase">
+            <header>
+              <span>PHASE {{ phase.id }}</span>
+              <b>{{ phase.status }}</b>
+            </header>
+            <h3>{{ phase.title }}</h3>
+            <p>{{ phase.text }}</p>
+          </article>
+        </div>
+      </section>
+
+      <div v-if="mode === 'deep' && result.discovery" class="ar-grid">
+        <section class="ar-panel">
+          <span class="ar-panel__tag">LITERATURE LANDSCAPE</span>
+          <div class="ar-landscape">
+            <article v-for="item in result.discovery.landscape" :key="item.title" class="ar-mini" :class="{ muted: !item.active }">
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.scope }}</p>
+              <strong>{{ item.gap }}</strong>
+              <div class="ar-source-row">
+                <a v-for="doc in item.evidence" :key="`${item.title}-${doc.id}`" :href="doc.url" target="_blank" rel="noopener">{{ doc.title }}</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="ar-panel">
+          <span class="ar-panel__tag">CANDIDATE FUNNEL</span>
+          <div class="ar-funnel">
+            <article v-for="item in result.discovery.candidates" :key="item.id" class="ar-funnel-row">
+              <span>{{ item.finalScore }}</span>
+              <div>
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.novelty.status }} · Reviewer {{ item.reviewerScore }}/10 · {{ item.pilotStatus }}</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <section v-if="mode === 'deep' && result.discovery" class="ar-panel">
+        <span class="ar-panel__tag">RANKED IDEAS AFTER LOCAL REVIEW</span>
+        <div class="ar-ranked">
+          <article v-for="(item, index) in result.discovery.ranked" :key="`rank-${item.id}`" class="ar-rank">
+            <header>
+              <span>#{{ index + 1 }}</span>
+              <span>score {{ item.finalScore }}</span>
+            </header>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.oneLiner }}</p>
+            <dl>
+              <div>
+                <dt>Novelty</dt>
+                <dd>{{ item.novelty.status }} · {{ item.novelty.differentiation }}</dd>
+              </div>
+              <div>
+                <dt>Reviewer</dt>
+                <dd>{{ item.reviewerScore }}/10 · {{ item.reviewerConcern }}</dd>
+              </div>
+              <div>
+                <dt>Pilot</dt>
+                <dd>{{ item.pilotStatus }} · {{ item.pilot }}</dd>
+              </div>
+            </dl>
+            <div class="ar-source-row">
+              <a v-for="doc in item.novelty.closest" :key="`${item.id}-${doc.id}`" :href="doc.url" target="_blank" rel="noopener">{{ doc.title }}</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div v-if="mode === 'deep' && result.discovery" class="ar-grid">
+        <section class="ar-panel ar-proposal">
+          <span class="ar-panel__tag">REFINED TOP PROPOSAL</span>
+          <h2>{{ result.discovery.top.title }}</h2>
+          <p>{{ result.discovery.top.problemAnchor }}</p>
+          <div class="ar-why">
+            <span>METHOD THESIS</span>
+            <p>{{ result.discovery.top.oneLiner }}</p>
+          </div>
+          <ul class="ar-tight-list">
+            <li v-for="item in result.discovery.top.method" :key="`top-${item}`">{{ item }}</li>
+          </ul>
+        </section>
+
+        <section class="ar-panel">
+          <span class="ar-panel__tag">EXPERIMENT PLAN</span>
+          <div class="ar-outline">
+            <article v-for="item in result.discovery.experimentPlan" :key="item.block">
+              <b>{{ item.block }}</b>
+              <p>{{ item.goal }}</p>
+              <small>{{ item.metric }}</small>
+              <small>{{ item.budget }}</small>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <section v-if="mode === 'deep' && result.discovery" class="ar-panel">
+        <span class="ar-panel__tag">ELIMINATED / BACKUP IDEAS</span>
+        <div class="ar-eliminated">
+          <article v-for="item in result.discovery.eliminated" :key="`elim-${item.id}`" class="ar-mini">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.eliminateReason }}</p>
+          </article>
+        </div>
+      </section>
+
       <div class="ar-panel ar-brief">
-        <span class="ar-panel__tag">PAPER IDEAS</span>
+        <span class="ar-panel__tag">{{ mode === 'deep' ? 'SHORTLISTED PAPER IDEAS' : 'PAPER IDEAS' }}</span>
         <h2>{{ result.seed }}</h2>
         <div class="ar-focus">
           <span v-for="tag in result.focus" :key="tag">{{ tag }}</span>
@@ -791,8 +1260,8 @@ onMounted(loadCorpus)
       </section>
 
       <section class="ar-panel">
-        <span class="ar-panel__tag">COPYABLE IDEA BRIEF</span>
-        <pre>{{ result.prompt }}</pre>
+        <span class="ar-panel__tag">{{ mode === 'deep' ? 'COPYABLE IDEA_DISCOVERY REPORT' : 'COPYABLE IDEA BRIEF' }}</span>
+        <pre>{{ mode === 'deep' ? result.discovery.report : result.prompt }}</pre>
       </section>
     </section>
   </section>
@@ -839,6 +1308,8 @@ onMounted(loadCorpus)
 .ar-card,
 .ar-idea,
 .ar-frontier,
+.ar-phase,
+.ar-rank,
 .ar-stats {
   min-width: 0;
 }
@@ -932,9 +1403,11 @@ onMounted(loadCorpus)
 }
 
 .ar-presets,
+.ar-mode,
 .ar-scope,
 .ar-tags,
-.ar-focus {
+.ar-focus,
+.ar-constants {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
@@ -945,10 +1418,12 @@ onMounted(loadCorpus)
 }
 
 .ar-presets button,
+.ar-mode button,
 .ar-scope button,
 .ar-runbtn,
 .ar-tags span,
-.ar-focus span {
+.ar-focus span,
+.ar-constants span {
   border: 1px solid rgba(148, 163, 184, 0.22);
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.64);
@@ -958,11 +1433,13 @@ onMounted(loadCorpus)
 }
 
 .ar-presets button,
+.ar-mode button,
 .ar-scope button {
   padding: 7px 10px;
   cursor: pointer;
 }
 
+.ar-mode button.on,
 .ar-scope button.on {
   border-color: rgba(125, 211, 252, 0.6);
   background: rgba(14, 165, 233, 0.18);
@@ -1005,6 +1482,37 @@ onMounted(loadCorpus)
   padding: 18px;
 }
 
+.ar-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.ar-panel-head a {
+  flex: none;
+  color: #7dd3fc;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.ar-lead {
+  max-width: 940px;
+  margin: 10px 0 0;
+  color: #aebbd0;
+  line-height: 1.65;
+}
+
+.ar-constants {
+  margin-top: 12px;
+}
+
+.ar-constants span {
+  padding: 5px 9px;
+  color: #a7f3d0;
+}
+
 .ar-brief ul,
 .ar-list {
   display: grid;
@@ -1033,6 +1541,11 @@ onMounted(loadCorpus)
 
 .ar-ideas,
 .ar-frontiers,
+.ar-phases,
+.ar-landscape,
+.ar-funnel,
+.ar-ranked,
+.ar-eliminated,
 .ar-tensions,
 .ar-matrix,
 .ar-outline {
@@ -1076,7 +1589,21 @@ onMounted(loadCorpus)
     rgba(2, 6, 23, 0.42);
 }
 
+.ar-phases {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+}
+
+.ar-phase {
+  padding: 13px;
+  border: 1px solid rgba(125, 211, 252, 0.18);
+  border-radius: 8px;
+  background: rgba(2, 6, 23, 0.34);
+}
+
+.ar-phase header,
 .ar-idea header,
+.ar-rank header,
+.ar-funnel-row,
 .ar-frontier header,
 .ar-card header {
   display: flex;
@@ -1087,7 +1614,14 @@ onMounted(loadCorpus)
   letter-spacing: 0.06em;
 }
 
+.ar-phase header b {
+  color: #a7f3d0;
+}
+
+.ar-phase h3,
 .ar-idea h3,
+.ar-rank h3,
+.ar-funnel-row h3,
 .ar-frontier h3,
 .ar-mini h3 {
   margin: 0;
@@ -1096,12 +1630,19 @@ onMounted(loadCorpus)
   line-height: 1.35;
 }
 
+.ar-phase h3 {
+  margin-top: 9px;
+}
+
 .ar-frontier h3 a {
   color: #f8fafc;
   text-decoration: none;
 }
 
+.ar-phase p,
 .ar-idea p,
+.ar-rank p,
+.ar-funnel-row p,
 .ar-frontier p,
 .ar-mini p,
 .ar-matrix p,
@@ -1109,6 +1650,41 @@ onMounted(loadCorpus)
   margin: 0;
   color: #aebbd0;
   line-height: 1.6;
+}
+
+.ar-landscape .muted {
+  opacity: 0.66;
+}
+
+.ar-funnel-row {
+  align-items: center;
+  justify-content: flex-start;
+  padding: 11px 12px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 7px;
+  background: rgba(2, 6, 23, 0.34);
+  letter-spacing: 0;
+}
+
+.ar-funnel-row > span {
+  display: grid;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(246, 198, 103, 0.28);
+  border-radius: 50%;
+  color: #f6c667;
+  font: 900 0.9rem/1 var(--font-display);
+}
+
+.ar-funnel-row h3 {
+  font-size: 0.9rem;
+}
+
+.ar-funnel-row p {
+  margin-top: 4px;
+  font-size: 0.78rem;
 }
 
 .ar-why {
@@ -1142,7 +1718,31 @@ onMounted(loadCorpus)
   gap: 10px;
 }
 
+.ar-ranked {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+}
+
+.ar-rank {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid rgba(125, 211, 252, 0.22);
+  border-left: 3px solid rgba(45, 212, 191, 0.72);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.12), transparent 50%),
+    rgba(15, 23, 42, 0.52);
+}
+
+.ar-rank dl {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+}
+
 .ar-idea-grid section,
+.ar-rank dl > div,
 .ar-mini,
 .ar-matrix article,
 .ar-outline article {
@@ -1153,6 +1753,7 @@ onMounted(loadCorpus)
 }
 
 .ar-idea-grid h4,
+.ar-rank dt,
 .ar-matrix span,
 .ar-outline b {
   display: block;
@@ -1162,6 +1763,13 @@ onMounted(loadCorpus)
   font-weight: 900;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.ar-rank dd {
+  margin: 0;
+  color: #dbeafe;
+  font-size: 0.84rem;
+  line-height: 1.55;
 }
 
 .ar-tight-list {
@@ -1199,6 +1807,7 @@ onMounted(loadCorpus)
 
 .ar-mini strong,
 .ar-matrix small,
+.ar-outline small,
 .ar-reading span,
 .ar-frontier strong {
   display: block;
