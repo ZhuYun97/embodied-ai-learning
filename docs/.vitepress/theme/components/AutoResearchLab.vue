@@ -2,30 +2,50 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { withBase } from 'vitepress'
 
-const DEFAULT_QUESTION = '结合最新 WLA / WAM / VLA 后训练与站内落盘论文,生成 3 个可写成 paper 的 ideas。'
 const BASE_PATH = import.meta.env.BASE_URL || '/'
+const MARKDOWN_MODULES = import.meta.glob('../../../**/*.md', { query: '?raw', import: 'default' })
 
-const PRESETS = [
-  '生成 VLA 后训练 + 数据闭环方向的 paper ideas。',
-  '生成 WAM / WLA 融合方向的 paper ideas。',
-  '围绕跨机器人本体动作表示生成 paper ideas。',
-  '从具身数据 scaling 与自动标注中生成 paper ideas。',
-  '只从每日最新论文队列里生成 3 个新 idea。',
+const DAILY_DIRECTIONS = [
+  {
+    id: 'latest',
+    label: '最新论文雷达',
+    scope: 'latest',
+    focus: 'P0/P1 新论文、已细读候选与可验证 claim。',
+    seed: '从每日最新论文队列和站内细读里筛出 3 个今日可推进 paper ideas。',
+  },
+  {
+    id: 'data',
+    label: '具身数据闭环',
+    scope: 'data',
+    focus: '数据采集、自动标注、失败回流和 VLA 后训练。',
+    seed: '围绕具身数据 scaling、自动标注和失败驱动后训练生成今日 paper ideas。',
+  },
+  {
+    id: 'wam',
+    label: 'WAM / WLA',
+    scope: 'wam',
+    focus: '世界模型、未来预测、候选动作 critic 与真实执行成功率。',
+    seed: '围绕 WAM / WLA 如何服务 VLA 控制和评测生成今日 paper ideas。',
+  },
+  {
+    id: 'vla',
+    label: 'VLA 后训练',
+    scope: 'vla',
+    focus: '动作接口、跨本体迁移、post-training 和部署反馈。',
+    seed: '围绕 VLA 后训练、动作接口和部署反馈生成今日 paper ideas。',
+  },
+  {
+    id: 'all',
+    label: '全站交叉',
+    scope: 'all',
+    focus: '把 VLA、WAM、数据、评测与产业信号交叉成新问题。',
+    seed: '结合全站落盘论文和最新研究信号生成今日 paper ideas。',
+  },
 ]
 
 const MODES = [
   { id: 'deep', label: 'Deep Discovery' },
   { id: 'quick', label: 'Quick Ideas' },
-]
-
-const SCOPES = [
-  { id: 'all', label: '全站' },
-  { id: 'vla', label: 'VLA' },
-  { id: 'wam', label: 'WAM' },
-  { id: 'data', label: 'DATA' },
-  { id: 'latest', label: '最新论文' },
-  { id: 'news', label: 'NEWS' },
-  { id: 'ecosystem', label: '生态' },
 ]
 
 const FRONTIER_SIGNALS = [
@@ -79,9 +99,8 @@ const STOP = new Set([
   '一个', '哪些', '如何', '什么', '主要', '以及', '还是', '之间', '是否', '可以', '进行', '研究',
 ])
 
-const question = ref(DEFAULT_QUESTION)
-const scope = ref('all')
-const mode = ref('deep')
+const dailyClock = ref(Date.now())
+const mode = ref('quick')
 const corpus = ref([])
 const loading = ref(true)
 const loadError = ref('')
@@ -89,6 +108,22 @@ const result = ref(null)
 const lastRunAt = ref('')
 const corpusSource = ref('')
 let timer = 0
+
+const today = computed(() => new Date(dailyClock.value))
+
+const todayKey = computed(() => today.value.toLocaleDateString('zh-CN', {
+  month: '2-digit',
+  day: '2-digit',
+  weekday: 'short',
+}))
+
+const dailyDirection = computed(() => {
+  const date = today.value
+  const dayIndex = Math.floor(new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() / 86400000)
+  return DAILY_DIRECTIONS[Math.abs(dayIndex) % DAILY_DIRECTIONS.length]
+})
+
+const dailySeed = computed(() => `${todayKey.value} · ${dailyDirection.value.seed}`)
 
 const corpusStats = computed(() => {
   const stats = { all: corpus.value.length, vla: 0, wam: 0, data: 0, latest: 0, news: 0, ecosystem: 0 }
@@ -164,6 +199,45 @@ function parseCorpus(raw) {
     .filter(Boolean)
 }
 
+function titleFromMarkdown(raw, rel) {
+  const fmBlock = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)
+  if (fmBlock) {
+    const title = fmBlock[1].match(/^title:\s*(.+)$/m)
+    if (title) return title[1].trim().replace(/^["']|["']$/g, '')
+  }
+  const h1 = raw.match(/^#\s+(.+)$/m)
+  if (h1) return h1[1].trim()
+  return rel === 'index.md' ? '具身星图' : rel.replace(/\.md$/, '')
+}
+
+function stripMarkdown(raw) {
+  return raw
+    .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '')
+    .replace(/```mermaid[\s\S]*?```/g, '[流程图,详见网页]')
+    .replace(/<div[\s\S]*?<\/div>/g, '')
+    .trim()
+}
+
+function routeFromRel(rel) {
+  const route = rel.replace(/\.md$/, '').replace(/(^|\/)index$/, '$1')
+  return withBase(`/${route}`)
+}
+
+async function loadMarkdownFallback() {
+  const docs = []
+  for (const [file, load] of Object.entries(MARKDOWN_MODULES)) {
+    const rel = file.replace(/^(\.\.\/){3}/, '')
+    if (!rel || rel === '404.md' || rel.startsWith('.vitepress/')) continue
+    const raw = await load()
+    docs.push({
+      title: titleFromMarkdown(raw, rel),
+      url: routeFromRel(rel),
+      text: stripMarkdown(raw).slice(0, 4000),
+    })
+  }
+  return normalizeDocs(docs)
+}
+
 function normalizeDocs(docs) {
   return docs
     .map((doc, index) => {
@@ -179,10 +253,11 @@ function normalizeDocs(docs) {
 }
 
 function scopeMatch(doc) {
-  if (scope.value === 'all') return true
-  if (scope.value === 'data') return doc.tags.includes('DATA')
-  if (scope.value === 'latest') return doc.bucket === 'latest' || doc.tags.includes('LATEST') || doc.title.includes('每日最新论文')
-  return doc.bucket === scope.value
+  const currentScope = dailyDirection.value.scope
+  if (currentScope === 'all') return true
+  if (currentScope === 'data') return doc.tags.includes('DATA')
+  if (currentScope === 'latest') return doc.bucket === 'latest' || doc.tags.includes('LATEST') || doc.title.includes('每日最新论文')
+  return doc.bucket === currentScope
 }
 
 function scoreDoc(doc, qTokens) {
@@ -804,7 +879,7 @@ function buildDiscoveryPipeline(seed, focus, evidence, tensions, frontiers, idea
       'MODE = offline site corpus',
     ],
     phases: [
-      { id: '0', title: 'Load Local Brief', status: 'DONE', text: '用输入 seed + 站内语料替代外部 research brief。' },
+      { id: '0', title: 'Load Daily Direction', status: 'DONE', text: '用今日方向 + 站内语料替代外部 research brief。' },
       { id: '1', title: 'Literature Landscape', status: 'DONE', text: '从站内论文、每日论文和前沿信号抽取子方向、缺口和近邻。' },
       { id: '2', title: 'Idea Generation', status: 'DONE', text: `生成 ${candidates.length} 个候选,保留前 ${ranked.length} 个。` },
       { id: '3', title: 'Local Novelty Check', status: 'DONE', text: '用站内 corpus 查 closest work 与 differentiation,不联网调用 API。' },
@@ -824,8 +899,10 @@ function buildDiscoveryPipeline(seed, focus, evidence, tensions, frontiers, idea
 
 function runResearch() {
   if (!corpus.value.length) return
-  const q = question.value.trim() || DEFAULT_QUESTION
-  const qTokens = tokenize(q)
+  dailyClock.value = Date.now()
+  const direction = dailyDirection.value
+  const q = dailySeed.value
+  const qTokens = tokenize(`${q} ${direction.focus}`)
   const candidates = corpus.value
     .filter(scopeMatch)
     .map((doc) => ({ doc, score: scoreDoc(doc, qTokens) }))
@@ -840,6 +917,8 @@ function runResearch() {
   const discovery = buildDiscoveryPipeline(q, focus, evidence, tensions, frontiers, ideas)
   result.value = {
     seed: q,
+    date: todayKey.value,
+    daily: direction,
     focus,
     frontiers,
     evidence,
@@ -878,11 +957,6 @@ ${refs}
 5. 列出需要继续查的一手来源清单`
 }
 
-function pickPreset(text) {
-  question.value = text
-  runResearch()
-}
-
 function assetUrl(path) {
   return `${BASE_PATH.replace(/\/$/, '')}/${path.replace(/^\//, '')}`
 }
@@ -897,7 +971,14 @@ async function loadCorpus() {
     for (const url of jsonUrls) {
       const jsonRes = await fetch(url, { cache: 'no-store' })
       if (!jsonRes.ok) continue
-      const payload = await jsonRes.json()
+      const contentType = jsonRes.headers.get('content-type') || ''
+      if (!contentType.includes('json')) continue
+      let payload
+      try {
+        payload = await jsonRes.json()
+      } catch {
+        continue
+      }
       docs = normalizeDocs(payload.docs || [])
       if (docs.length) {
         corpusSource.value = 'JSON'
@@ -910,12 +991,17 @@ async function loadCorpus() {
         const res = await fetch(url, { cache: 'no-store' })
         if (!res.ok) continue
         const raw = await res.text()
+        if (/^\s*</.test(raw)) continue
         docs = parseCorpus(raw)
         if (docs.length) {
           corpusSource.value = 'FULLTEXT'
           break
         }
       }
+    }
+    if (!docs.length) {
+      docs = await loadMarkdownFallback()
+      if (docs.length) corpusSource.value = 'MARKDOWN'
     }
     if (!docs.length) throw new Error('empty corpus')
     corpus.value = docs
@@ -927,7 +1013,7 @@ async function loadCorpus() {
   }
 }
 
-watch([question, scope, mode], () => {
+watch(mode, () => {
   window.clearTimeout(timer)
   timer = window.setTimeout(runResearch, 420)
 })
@@ -939,9 +1025,9 @@ onMounted(loadCorpus)
   <section class="ar-lab">
     <header class="ar-hero">
       <div>
-        <span class="ar-kicker">// PAPER IDEA LAB</span>
-        <h1>论文 Idea 生成器</h1>
-        <p>Skill-inspired deep discovery + 站内落盘论文 → 候选漏斗、novelty check、reviewer critique、refined proposal。离线运行,不调用外部 API。</p>
+        <span class="ar-kicker">// DAILY IDEA PUSH</span>
+        <h1>每日论文 Ideas</h1>
+        <p>每天自动从最新论文队列和站内落盘论文中推送 3 个可写成 paper 的 ideas。离线运行,不调用外部 API。</p>
       </div>
       <div class="ar-stats" aria-label="语料统计">
         <span><b>{{ corpusStats.all }}</b>文档</span>
@@ -953,11 +1039,14 @@ onMounted(loadCorpus)
     </header>
 
     <section class="ar-console">
-      <div class="ar-query">
-        <label for="ar-question">Idea Seed</label>
-        <textarea id="ar-question" v-model="question" rows="4" />
-        <div class="ar-presets" aria-label="预设问题">
-          <button v-for="item in PRESETS" :key="item" type="button" @click="pickPreset(item)">{{ item }}</button>
+      <div class="ar-daily">
+        <span class="ar-kicker">// TODAY'S TRACK</span>
+        <h2>{{ todayKey }} · {{ dailyDirection.label }}</h2>
+        <p>{{ dailyDirection.focus }}</p>
+        <div class="ar-daily-meta" aria-label="今日推送说明">
+          <span>每日自动换轨道</span>
+          <span>站内论文优先</span>
+          <span>无 API 调用</span>
         </div>
       </div>
 
@@ -973,24 +1062,13 @@ onMounted(loadCorpus)
             {{ item.label }}
           </button>
         </div>
-        <div class="ar-scope" role="group" aria-label="语料范围">
-          <button
-            v-for="item in SCOPES"
-            :key="item.id"
-            type="button"
-            :class="{ on: scope === item.id }"
-            @click="scope = item.id"
-          >
-            {{ item.label }}
-          </button>
-        </div>
         <button class="ar-runbtn" type="button" :disabled="loading" @click="runResearch">
-          {{ loading ? '加载语料中' : mode === 'deep' ? '运行 Discovery Pipeline' : '生成论文 Ideas' }}
+          {{ loading ? '加载语料中' : '刷新今日 Ideas' }}
         </button>
         <p class="ar-note">
           <span v-if="loadError">{{ loadError }}</span>
           <span v-else>
-            离线 idea mining,不调用外部 API。{{ corpusSource ? `语料源 ${corpusSource}。` : '' }}{{ lastRunAt ? `上次运行 ${lastRunAt}` : '' }}
+            {{ corpusSource ? `语料源 ${corpusSource}。` : '' }}{{ lastRunAt ? `上次生成 ${lastRunAt}` : '' }}
           </span>
         </p>
       </aside>
@@ -1001,14 +1079,14 @@ onMounted(loadCorpus)
         <div class="ar-panel-head">
           <div>
             <span class="ar-panel__tag">LOCAL IDEA-DISCOVERY PIPELINE</span>
-            <h2>Deep Discovery · 从方向到可投稿 proposal</h2>
+            <h2>今日 Idea Discovery</h2>
           </div>
           <a href="https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep/blob/main/skills/idea-discovery/SKILL.md" target="_blank" rel="noopener">
             skill source
           </a>
         </div>
         <p class="ar-lead">
-          参考 idea-discovery 的 research-lit → idea-creator → novelty-check → research-review → refine pipeline,但改成本地站内语料版:不跑 WebSearch / Gemini / GPT / GPU pilot,只用已落盘论文、每日论文和内置前沿信号做可解释筛选。
+          参考 idea-discovery 的筛选链路,但改成本地站内语料版:只用已落盘论文、每日论文和内置前沿信号做可解释筛选。
         </p>
         <div class="ar-constants">
           <span v-for="item in result.discovery.constants" :key="item">{{ item }}</span>
@@ -1184,8 +1262,9 @@ onMounted(loadCorpus)
       </section>
 
       <div class="ar-panel ar-brief">
-        <span class="ar-panel__tag">{{ mode === 'deep' ? 'SHORTLISTED PAPER IDEAS' : 'PAPER IDEAS' }}</span>
-        <h2>{{ result.seed }}</h2>
+        <span class="ar-panel__tag">TODAY'S PAPER IDEAS</span>
+        <h2>{{ result.date }} · {{ result.daily.label }}</h2>
+        <p class="ar-daily-summary">{{ result.daily.focus }}</p>
         <div class="ar-focus">
           <span v-for="tag in result.focus" :key="tag">{{ tag }}</span>
         </div>
@@ -1233,7 +1312,7 @@ onMounted(loadCorpus)
         </div>
       </div>
 
-      <div class="ar-panel">
+      <div v-if="mode === 'deep'" class="ar-panel">
         <span class="ar-panel__tag">LATEST RESEARCH SIGNALS</span>
         <div class="ar-frontiers">
           <article v-for="item in result.frontiers" :key="item.url" class="ar-frontier">
@@ -1248,7 +1327,7 @@ onMounted(loadCorpus)
         </div>
       </div>
 
-      <div class="ar-panel">
+      <div v-if="mode === 'deep'" class="ar-panel">
         <span class="ar-panel__tag">SITE PAPERS USED</span>
         <div class="ar-evidence">
           <article v-for="doc in result.evidence" :key="doc.id" class="ar-card">
@@ -1265,7 +1344,7 @@ onMounted(loadCorpus)
         </div>
       </div>
 
-      <div class="ar-grid">
+      <div v-if="mode === 'deep'" class="ar-grid">
         <section class="ar-panel">
           <span class="ar-panel__tag">IDEA GAPS</span>
           <div class="ar-tensions">
@@ -1291,7 +1370,7 @@ onMounted(loadCorpus)
         </section>
       </div>
 
-      <div class="ar-grid">
+      <div v-if="mode === 'deep'" class="ar-grid">
         <section class="ar-panel">
           <span class="ar-panel__tag">READING QUEUE</span>
           <ol class="ar-reading">
@@ -1313,16 +1392,16 @@ onMounted(loadCorpus)
         </section>
       </div>
 
-      <section class="ar-panel">
+      <section v-if="mode === 'deep'" class="ar-panel">
         <span class="ar-panel__tag">NEXT IDEA REFINEMENT</span>
         <ol class="ar-list">
           <li v-for="step in result.nextActions" :key="step">{{ step }}</li>
         </ol>
       </section>
 
-      <section class="ar-panel">
-        <span class="ar-panel__tag">{{ mode === 'deep' ? 'COPYABLE IDEA_DISCOVERY REPORT' : 'COPYABLE IDEA BRIEF' }}</span>
-        <pre>{{ mode === 'deep' ? result.discovery.report : result.prompt }}</pre>
+      <section v-if="mode === 'deep'" class="ar-panel">
+        <span class="ar-panel__tag">COPYABLE IDEA_DISCOVERY REPORT</span>
+        <pre>{{ result.discovery.report }}</pre>
       </section>
     </section>
   </section>
@@ -1433,58 +1512,54 @@ onMounted(loadCorpus)
 
 .ar-console {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-columns: minmax(0, 1fr) 260px;
   gap: 16px;
   padding: 18px;
 }
 
-.ar-query label {
-  display: block;
-  margin-bottom: 8px;
-  color: #e2e8f0;
-  font-weight: 800;
+.ar-daily {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  min-height: 150px;
+  padding: 18px;
+  border: 1px solid rgba(125, 211, 252, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(14, 165, 233, 0.12), transparent 42%),
+    rgba(2, 6, 23, 0.34);
 }
 
-.ar-query textarea {
-  width: 100%;
-  resize: vertical;
-  min-height: 128px;
-  padding: 14px 15px;
-  border: 1px solid rgba(148, 163, 184, 0.24);
-  border-radius: 6px;
-  background: rgba(2, 6, 23, 0.72);
+.ar-daily h2 {
+  margin: 0;
   color: #f8fafc;
-  font: 500 0.95rem/1.6 var(--vp-font-family-base);
-  outline: none;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  line-height: 1.16;
 }
 
-.ar-query textarea:focus {
-  border-color: rgba(125, 211, 252, 0.62);
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.14);
+.ar-daily p,
+.ar-daily-summary {
+  margin: 0;
+  color: #aebbd0;
+  line-height: 1.6;
 }
 
-.ar-presets,
 .ar-mode,
-.ar-scope,
 .ar-tags,
 .ar-focus,
-.ar-constants {
+.ar-constants,
+.ar-daily-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
 }
 
-.ar-presets {
-  margin-top: 10px;
-}
-
-.ar-presets button,
 .ar-mode button,
-.ar-scope button,
 .ar-runbtn,
 .ar-tags span,
 .ar-focus span,
-.ar-constants span {
+.ar-constants span,
+.ar-daily-meta span {
   border: 1px solid rgba(148, 163, 184, 0.22);
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.64);
@@ -1493,15 +1568,17 @@ onMounted(loadCorpus)
   font-weight: 800;
 }
 
-.ar-presets button,
-.ar-mode button,
-.ar-scope button {
+.ar-daily-meta span {
+  padding: 5px 8px;
+  color: #a7f3d0;
+}
+
+.ar-mode button {
   padding: 7px 10px;
   cursor: pointer;
 }
 
-.ar-mode button.on,
-.ar-scope button.on {
+.ar-mode button.on {
   border-color: rgba(125, 211, 252, 0.6);
   background: rgba(14, 165, 233, 0.18);
   color: #e0f2fe;

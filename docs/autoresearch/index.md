@@ -1,6 +1,6 @@
 ---
-title: 论文 Idea 生成器
-description: 结合 idea-discovery pipeline、最新研究信号与具身星图已落盘论文,离线生成候选漏斗、novelty check、reviewer critique、refined proposal 与实验计划。
+title: 每日论文 Ideas
+description: 每天自动结合最新论文队列、内置研究信号与站内落盘论文,离线推送可写成 paper 的 ideas。
 ---
 
 <AutoResearchLab />
