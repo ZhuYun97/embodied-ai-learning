@@ -1024,30 +1024,22 @@ onMounted(loadCorpus)
 <template>
   <section class="ar-lab">
     <header class="ar-hero">
-      <div>
+      <div class="ar-title">
         <span class="ar-kicker">// DAILY IDEA PUSH</span>
         <h1>每日论文 Ideas</h1>
         <p>每天自动从最新论文队列和站内落盘论文中推送 3 个可写成 paper 的 ideas。离线运行,不调用外部 API。</p>
+        <div class="ar-stats" aria-label="语料统计">
+          <span>{{ corpusStats.all }} 文档</span>
+          <span>{{ corpusStats.vla }} VLA</span>
+          <span>{{ corpusStats.wam }} WAM</span>
+          <span>{{ corpusStats.latest }} 最新</span>
+          <span>{{ corpusStats.data }} DATA</span>
+        </div>
       </div>
-      <div class="ar-stats" aria-label="语料统计">
-        <span><b>{{ corpusStats.all }}</b>文档</span>
-        <span><b>{{ corpusStats.vla }}</b>VLA</span>
-        <span><b>{{ corpusStats.wam }}</b>WAM</span>
-        <span><b>{{ corpusStats.latest }}</b>最新</span>
-        <span><b>{{ corpusStats.data }}</b>DATA</span>
-      </div>
-    </header>
-
-    <section class="ar-console">
       <div class="ar-daily">
         <span class="ar-kicker">// TODAY'S TRACK</span>
         <h2>{{ todayKey }} · {{ dailyDirection.label }}</h2>
         <p>{{ dailyDirection.focus }}</p>
-        <div class="ar-daily-meta" aria-label="今日推送说明">
-          <span>每日自动换轨道</span>
-          <span>站内论文优先</span>
-          <span>无 API 调用</span>
-        </div>
       </div>
 
       <aside class="ar-run">
@@ -1072,7 +1064,7 @@ onMounted(loadCorpus)
           </span>
         </p>
       </aside>
-    </section>
+    </header>
 
     <section v-if="result" class="ar-output">
       <section v-if="mode === 'deep' && result.discovery" class="ar-panel ar-discovery">
@@ -1261,10 +1253,10 @@ onMounted(loadCorpus)
         </div>
       </section>
 
-      <div class="ar-panel ar-brief">
+      <div class="ar-panel ar-brief" :class="{ 'ar-brief--quick': mode === 'quick' }">
         <span class="ar-panel__tag">TODAY'S PAPER IDEAS</span>
-        <h2>{{ result.date }} · {{ result.daily.label }}</h2>
-        <p class="ar-daily-summary">{{ result.daily.focus }}</p>
+        <h2 v-if="mode === 'deep'">{{ result.date }} · {{ result.daily.label }}</h2>
+        <p v-if="mode === 'deep'" class="ar-daily-summary">{{ result.daily.focus }}</p>
         <div class="ar-focus">
           <span v-for="tag in result.focus" :key="tag">{{ tag }}</span>
         </div>
@@ -1410,8 +1402,9 @@ onMounted(loadCorpus)
 <style scoped>
 .ar-lab {
   display: grid;
-  gap: 18px;
-  margin-top: 20px;
+  gap: 12px;
+  margin-top: 10px;
+  container-type: inline-size;
 }
 
 .ar-lab,
@@ -1420,7 +1413,6 @@ onMounted(loadCorpus)
 }
 
 .ar-hero,
-.ar-console,
 .ar-panel {
   position: relative;
   min-width: 0;
@@ -1436,14 +1428,16 @@ onMounted(loadCorpus)
 
 .ar-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 18px;
-  align-items: end;
-  padding: 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 0.58fr);
+  gap: 10px;
+  padding: 14px 16px;
+}
+
+.ar-title {
+  grid-column: 1 / -1;
 }
 
 .ar-hero > *,
-.ar-console > *,
 .ar-panel > *,
 .ar-card,
 .ar-idea,
@@ -1464,11 +1458,18 @@ onMounted(loadCorpus)
 
 .ar-hero h1,
 .ar-panel h2 {
-  margin: 8px 0 8px;
+  margin: 0 !important;
   color: #f8fafc;
-  font-size: clamp(1.5rem, 3vw, 2.35rem);
+  font-size: clamp(1.35rem, 2.25vw, 2rem);
   line-height: 1.1;
   overflow-wrap: anywhere;
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.ar-hero .ar-title h1 {
+  font-size: clamp(1.45rem, 1.9vw, 1.72rem) !important;
+  line-height: 1.05 !important;
 }
 
 .ar-lab h1::before,
@@ -1482,73 +1483,82 @@ onMounted(loadCorpus)
 }
 
 .ar-hero p {
-  max-width: 760px;
   margin: 0;
   color: #aebbd0;
-  line-height: 1.65;
+  font-size: 0.82rem;
+  line-height: 1.35;
   overflow-wrap: anywhere;
 }
 
+.ar-title {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 12px;
+  align-items: baseline;
+}
+
+.ar-title p {
+  flex: 1 1 250px;
+}
+
 .ar-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
-  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 0 auto;
 }
 
 .ar-stats span {
-  padding: 10px 12px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 3px 7px;
   border: 1px solid rgba(148, 163, 184, 0.22);
-  border-radius: 6px;
+  border-radius: 999px;
   background: rgba(15, 23, 42, 0.62);
   color: #aebbd0;
-  font-size: 0.78rem;
-}
-
-.ar-stats b {
-  display: block;
-  color: #f8fafc;
-  font: 900 1.2rem/1 var(--font-display);
-}
-
-.ar-console {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
-  gap: 16px;
-  padding: 18px;
+  font-size: 0.68rem !important;
+  font-weight: 800;
+  line-height: 1 !important;
 }
 
 .ar-daily {
-  display: grid;
-  align-content: center;
-  gap: 10px;
-  min-height: 150px;
-  padding: 18px;
-  border: 1px solid rgba(125, 211, 252, 0.18);
-  border-radius: 8px;
-  background:
-    linear-gradient(135deg, rgba(14, 165, 233, 0.12), transparent 42%),
-    rgba(2, 6, 23, 0.34);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(125, 211, 252, 0.16);
+  border-radius: 7px;
+  background: rgba(2, 6, 23, 0.28);
 }
 
 .ar-daily h2 {
-  margin: 0;
+  margin: 0 !important;
   color: #f8fafc;
-  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  font-size: clamp(0.98rem, 1.35vw, 1.16rem);
   line-height: 1.16;
+  border-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 .ar-daily p,
 .ar-daily-summary {
   margin: 0;
   color: #aebbd0;
-  line-height: 1.6;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.ar-daily p {
+  flex: 1 1 240px;
 }
 
 .ar-mode,
 .ar-tags,
 .ar-focus,
-.ar-constants,
-.ar-daily-meta {
+.ar-constants {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
@@ -1558,8 +1568,7 @@ onMounted(loadCorpus)
 .ar-runbtn,
 .ar-tags span,
 .ar-focus span,
-.ar-constants span,
-.ar-daily-meta span {
+.ar-constants span {
   border: 1px solid rgba(148, 163, 184, 0.22);
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.64);
@@ -1568,13 +1577,10 @@ onMounted(loadCorpus)
   font-weight: 800;
 }
 
-.ar-daily-meta span {
-  padding: 5px 8px;
-  color: #a7f3d0;
-}
-
 .ar-mode button {
-  padding: 7px 10px;
+  flex: 1 1 0;
+  padding: 5px 8px;
+  line-height: 1.1;
   cursor: pointer;
 }
 
@@ -1585,14 +1591,15 @@ onMounted(loadCorpus)
 }
 
 .ar-run {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: minmax(170px, 0.8fr) minmax(130px, 0.5fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
 }
 
 .ar-runbtn {
   width: 100%;
-  padding: 12px 14px;
+  padding: 8px 10px;
   border-radius: 6px;
   background: linear-gradient(135deg, #2563eb, #06b6d4);
   color: white;
@@ -1607,17 +1614,18 @@ onMounted(loadCorpus)
 .ar-note {
   margin: 0;
   color: #94a3b8;
-  font-size: 0.82rem;
-  line-height: 1.55;
+  font-size: 0.74rem;
+  line-height: 1.25;
+  text-align: right;
 }
 
 .ar-output {
   display: grid;
-  gap: 16px;
+  gap: 12px;
 }
 
 .ar-panel {
-  padding: 18px;
+  padding: 16px;
 }
 
 .ar-panel-head {
@@ -1868,6 +1876,45 @@ onMounted(loadCorpus)
 .ar-idea {
   align-content: start;
   border-left: 3px solid rgba(246, 198, 103, 0.74);
+}
+
+.ar-brief--quick .ar-ideas {
+  grid-template-columns: 1fr;
+}
+
+.ar-brief--quick .ar-idea {
+  gap: 9px;
+  padding: 13px;
+}
+
+.ar-brief--quick .ar-idea > p,
+.ar-brief--quick .ar-why p,
+.ar-brief--quick .ar-idea-grid p,
+.ar-brief--quick .ar-tight-list li {
+  display: -webkit-box !important;
+  overflow: hidden !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ar-brief--quick .ar-why,
+.ar-brief--quick .ar-source-row {
+  display: none;
+}
+
+.ar-brief--quick .ar-idea-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ar-brief--quick .ar-idea-grid section {
+  max-height: 116px;
+  overflow: hidden;
+  padding: 9px;
+}
+
+.ar-brief--quick .ar-idea-grid section:nth-child(4),
+.ar-brief--quick .ar-tight-list li:nth-child(n + 2) {
+  display: none;
 }
 
 .ar-frontiers {
@@ -2255,7 +2302,6 @@ onMounted(loadCorpus)
 
 @media (max-width: 860px) {
   .ar-hero,
-  .ar-console,
   .ar-grid {
     grid-template-columns: 1fr;
   }
@@ -2286,20 +2332,86 @@ onMounted(loadCorpus)
     justify-content: flex-start;
   }
 
+  .ar-run {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .ar-mode {
+    min-width: 0;
+  }
+}
+
+@container (max-width: 760px) {
+  .ar-title p {
+    display: none;
+  }
+
   .ar-stats {
-    grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+    margin-left: 0;
+  }
+
+  .ar-daily p {
+    display: none;
+  }
+
+  .ar-run {
+    grid-template-columns: 1fr;
+  }
+
+  .ar-note {
+    display: none;
+  }
+
+  .ar-mode {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@container (max-width: 520px) {
+  .ar-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .ar-stats {
+    display: none;
+  }
+
+  .ar-daily .ar-kicker {
+    display: none;
+  }
+
+  .ar-brief--quick .ar-idea-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ar-brief--quick .ar-idea-grid section {
+    max-height: 86px;
   }
 }
 
 @media (max-width: 560px) {
   .ar-hero,
-  .ar-console,
   .ar-panel {
-    padding: 14px;
+    padding: 12px;
+  }
+
+  .ar-hero {
+    gap: 10px;
+  }
+
+  .ar-title p {
+    display: none;
   }
 
   .ar-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 8px;
+  }
+
+  .ar-run {
+    grid-template-columns: 1fr;
   }
 
   .ar-panel-head,
