@@ -647,7 +647,7 @@ function rankCandidate(candidate, evidence, focus, index) {
   const review = reviewerRubric(candidate, novelty)
   const focusBoost = (candidate.tags || []).filter((tag) => focus.includes(tag)).length * 4
   const pilotBoost = candidate.pilotHours <= 2 ? 6 : -5
-  const finalScore = clampScore(novelty.score * 0.36 + (candidate.feasibility || 70) * 0.26 + review.reviewerScore * 6 + focusBoost + pilotBoost)
+  const finalScore = clampScore(novelty.score * 0.36 + (candidate.feasibility || 70) * 0.26 + review.reviewerScore * 6 + focusBoost + pilotBoost, 0, 96)
   return {
     ...candidate,
     id: `candidate-${index}`,
@@ -1025,6 +1025,53 @@ onMounted(loadCorpus)
         </div>
       </section>
 
+      <section v-if="mode === 'deep' && result.discovery" class="ar-panel ar-top-idea">
+        <div class="ar-top-shell">
+          <aside class="ar-score-tower" aria-label="Top idea score">
+            <span>TOP IDEA</span>
+            <b>{{ result.discovery.top.finalScore }}</b>
+            <small>Reviewer {{ result.discovery.top.reviewerScore }}/10</small>
+          </aside>
+          <div class="ar-top-main">
+            <div class="ar-top-head">
+              <div>
+                <span class="ar-panel__tag">RECOMMENDED PROPOSAL</span>
+                <h2>{{ result.discovery.top.title }}</h2>
+              </div>
+              <div class="ar-chipline">
+                <span>{{ result.discovery.top.novelty.status }}</span>
+                <span>{{ result.discovery.top.pilotStatus }}</span>
+                <span v-for="tag in result.discovery.top.tags" :key="`top-tag-${tag}`">{{ tag }}</span>
+              </div>
+            </div>
+            <p class="ar-thesis">{{ result.discovery.top.oneLiner }}</p>
+            <div class="ar-top-columns">
+              <section>
+                <h3>动机</h3>
+                <p>{{ result.discovery.top.problemAnchor }}</p>
+              </section>
+              <section>
+                <h3>方法</h3>
+                <ol>
+                  <li v-for="item in result.discovery.top.method" :key="`top-method-${item}`">{{ item }}</li>
+                </ol>
+              </section>
+              <section>
+                <h3>验证</h3>
+                <p>{{ result.discovery.top.pilot }}</p>
+                <small>{{ result.discovery.top.reviewerConcern }}</small>
+              </section>
+            </div>
+            <div class="ar-evidence-strip">
+              <span>closest local work</span>
+              <a v-for="doc in result.discovery.top.novelty.closest" :key="`top-close-${doc.id}`" :href="doc.url" target="_blank" rel="noopener">
+                {{ doc.title }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div v-if="mode === 'deep' && result.discovery" class="ar-grid">
         <section class="ar-panel">
           <span class="ar-panel__tag">LITERATURE LANDSCAPE</span>
@@ -1043,11 +1090,17 @@ onMounted(loadCorpus)
         <section class="ar-panel">
           <span class="ar-panel__tag">CANDIDATE FUNNEL</span>
           <div class="ar-funnel">
-            <article v-for="item in result.discovery.candidates" :key="item.id" class="ar-funnel-row">
+            <article
+              v-for="item in result.discovery.candidates"
+              :key="item.id"
+              class="ar-funnel-row"
+              :style="{ '--score': `${item.finalScore}%` }"
+            >
               <span>{{ item.finalScore }}</span>
               <div>
                 <h3>{{ item.title }}</h3>
                 <p>{{ item.novelty.status }} · Reviewer {{ item.reviewerScore }}/10 · {{ item.pilotStatus }}</p>
+                <i class="ar-scorebar" aria-hidden="true"></i>
               </div>
             </article>
           </div>
@@ -1060,45 +1113,44 @@ onMounted(loadCorpus)
           <article v-for="(item, index) in result.discovery.ranked" :key="`rank-${item.id}`" class="ar-rank">
             <header>
               <span>#{{ index + 1 }}</span>
-              <span>score {{ item.finalScore }}</span>
+              <span>{{ item.finalScore }}/100</span>
             </header>
             <h3>{{ item.title }}</h3>
             <p>{{ item.oneLiner }}</p>
-            <dl>
-              <div>
-                <dt>Novelty</dt>
-                <dd>{{ item.novelty.status }} · {{ item.novelty.differentiation }}</dd>
-              </div>
-              <div>
-                <dt>Reviewer</dt>
-                <dd>{{ item.reviewerScore }}/10 · {{ item.reviewerConcern }}</dd>
-              </div>
-              <div>
-                <dt>Pilot</dt>
-                <dd>{{ item.pilotStatus }} · {{ item.pilot }}</dd>
-              </div>
-            </dl>
-            <div class="ar-source-row">
-              <a v-for="doc in item.novelty.closest" :key="`${item.id}-${doc.id}`" :href="doc.url" target="_blank" rel="noopener">{{ doc.title }}</a>
+            <div class="ar-rank-metrics">
+              <span>{{ item.novelty.status }}</span>
+              <span>Reviewer {{ item.reviewerScore }}/10</span>
+              <span>{{ item.pilotStatus }}</span>
+            </div>
+            <div class="ar-rank-grid">
+              <section>
+                <h4>Why</h4>
+                <p>{{ item.problemAnchor }}</p>
+              </section>
+              <section>
+                <h4>How</h4>
+                <ul>
+                  <li v-for="method in item.method.slice(0, 2)" :key="`${item.id}-rank-method-${method}`">{{ method }}</li>
+                  <li v-if="item.method.length > 2">+{{ item.method.length - 2 }} method step in report</li>
+                </ul>
+              </section>
+              <section>
+                <h4>Check</h4>
+                <p>{{ item.pilot }}</p>
+              </section>
+              <section>
+                <h4>Risk</h4>
+                <p>{{ item.risk }}</p>
+              </section>
+            </div>
+            <div class="ar-source-row ar-source-row--compact">
+              <a v-for="doc in item.novelty.closest.slice(0, 2)" :key="`${item.id}-${doc.id}`" :href="doc.url" target="_blank" rel="noopener">{{ doc.title }}</a>
             </div>
           </article>
         </div>
       </section>
 
-      <div v-if="mode === 'deep' && result.discovery" class="ar-grid">
-        <section class="ar-panel ar-proposal">
-          <span class="ar-panel__tag">REFINED TOP PROPOSAL</span>
-          <h2>{{ result.discovery.top.title }}</h2>
-          <p>{{ result.discovery.top.problemAnchor }}</p>
-          <div class="ar-why">
-            <span>METHOD THESIS</span>
-            <p>{{ result.discovery.top.oneLiner }}</p>
-          </div>
-          <ul class="ar-tight-list">
-            <li v-for="item in result.discovery.top.method" :key="`top-${item}`">{{ item }}</li>
-          </ul>
-        </section>
-
+      <div v-if="mode === 'deep' && result.discovery" class="ar-grid ar-plan-grid">
         <section class="ar-panel">
           <span class="ar-panel__tag">EXPERIMENT PLAN</span>
           <div class="ar-outline">
@@ -1108,6 +1160,15 @@ onMounted(loadCorpus)
               <small>{{ item.metric }}</small>
               <small>{{ item.budget }}</small>
             </article>
+          </div>
+        </section>
+
+        <section class="ar-panel">
+          <span class="ar-panel__tag">WHY THIS IDEA WINS</span>
+          <div class="ar-mini ar-decision">
+            <h3>{{ result.discovery.top.title }}</h3>
+            <p>{{ result.discovery.top.novelty.differentiation }}</p>
+            <strong>{{ result.discovery.top.reviewerConcern }}</strong>
           </div>
         </section>
       </div>
@@ -1513,6 +1574,161 @@ onMounted(loadCorpus)
   color: #a7f3d0;
 }
 
+.ar-top-idea {
+  border-color: rgba(246, 198, 103, 0.34);
+  background:
+    linear-gradient(135deg, rgba(246, 198, 103, 0.14), transparent 32%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.84));
+}
+
+.ar-top-shell {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.ar-score-tower {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 9px;
+  min-height: 210px;
+  padding: 18px 12px;
+  border: 1px solid rgba(246, 198, 103, 0.32);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(246, 198, 103, 0.22), transparent 42%),
+    rgba(2, 6, 23, 0.5);
+  text-align: center;
+}
+
+.ar-score-tower span,
+.ar-score-tower small {
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ar-score-tower b {
+  color: #f8fafc;
+  font: 900 3.6rem/0.9 var(--font-display);
+}
+
+.ar-top-main {
+  display: grid;
+  gap: 14px;
+}
+
+.ar-top-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.ar-top-head h2 {
+  margin-bottom: 0;
+}
+
+.ar-chipline {
+  display: flex;
+  flex: 0 1 360px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.ar-chipline span {
+  padding: 5px 8px;
+  border: 1px solid rgba(125, 211, 252, 0.22);
+  border-radius: 999px;
+  background: rgba(14, 165, 233, 0.1);
+  color: #dbeafe;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.ar-thesis {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 1.02rem;
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.ar-top-columns {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  gap: 10px;
+}
+
+.ar-top-columns section {
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 8px;
+  background: rgba(2, 6, 23, 0.38);
+}
+
+.ar-top-columns h3,
+.ar-rank-grid h4 {
+  margin: 0 0 7px;
+  color: #f6c667;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ar-top-columns p,
+.ar-top-columns small {
+  margin: 0;
+  color: #aebbd0;
+  line-height: 1.6;
+}
+
+.ar-top-columns ol {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+  color: #dbeafe;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.ar-evidence-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.ar-evidence-strip span {
+  color: #94a3b8;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ar-evidence-strip a {
+  max-width: 100%;
+  padding: 5px 8px;
+  border: 1px solid rgba(125, 211, 252, 0.22);
+  border-radius: 999px;
+  background: rgba(14, 165, 233, 0.1);
+  color: #7dd3fc;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
 .ar-brief ul,
 .ar-list {
   display: grid;
@@ -1659,6 +1875,7 @@ onMounted(loadCorpus)
 .ar-funnel-row {
   align-items: center;
   justify-content: flex-start;
+  gap: 11px;
   padding: 11px 12px;
   border: 1px solid rgba(148, 163, 184, 0.16);
   border-radius: 7px;
@@ -1685,6 +1902,16 @@ onMounted(loadCorpus)
 .ar-funnel-row p {
   margin-top: 4px;
   font-size: 0.78rem;
+}
+
+.ar-scorebar {
+  display: block;
+  width: 100%;
+  height: 4px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(45, 212, 191, 0.9) var(--score), rgba(30, 41, 59, 0.92) var(--score));
 }
 
 .ar-why {
@@ -1719,7 +1946,7 @@ onMounted(loadCorpus)
 }
 
 .ar-ranked {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
 }
 
 .ar-rank {
@@ -1735,14 +1962,66 @@ onMounted(loadCorpus)
     rgba(15, 23, 42, 0.52);
 }
 
-.ar-rank dl {
+.ar-rank:first-child {
+  border-color: rgba(246, 198, 103, 0.32);
+  border-left-color: rgba(246, 198, 103, 0.9);
+  background:
+    linear-gradient(135deg, rgba(246, 198, 103, 0.12), transparent 44%),
+    rgba(15, 23, 42, 0.58);
+}
+
+.ar-rank-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.ar-rank-metrics span {
+  padding: 4px 7px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 999px;
+  background: rgba(2, 6, 23, 0.36);
+  color: #dbeafe;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.ar-rank-grid {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 9px;
+}
+
+.ar-rank-grid section {
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 7px;
+  background: rgba(2, 6, 23, 0.34);
+}
+
+.ar-rank-grid p,
+.ar-rank-grid li {
+  color: #aebbd0;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.ar-rank-grid p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ar-rank-grid ul {
+  display: grid;
+  gap: 6px;
   margin: 0;
+  padding-left: 17px;
 }
 
 .ar-idea-grid section,
-.ar-rank dl > div,
 .ar-mini,
 .ar-matrix article,
 .ar-outline article {
@@ -1753,7 +2032,6 @@ onMounted(loadCorpus)
 }
 
 .ar-idea-grid h4,
-.ar-rank dt,
 .ar-matrix span,
 .ar-outline b {
   display: block;
@@ -1765,11 +2043,12 @@ onMounted(loadCorpus)
   text-transform: uppercase;
 }
 
-.ar-rank dd {
-  margin: 0;
-  color: #dbeafe;
-  font-size: 0.84rem;
-  line-height: 1.55;
+.ar-plan-grid {
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+}
+
+.ar-decision {
+  border-color: rgba(246, 198, 103, 0.24);
 }
 
 .ar-tight-list {
@@ -1803,6 +2082,11 @@ onMounted(loadCorpus)
   background: rgba(14, 165, 233, 0.1);
   font-size: 0.76rem;
   overflow-wrap: anywhere;
+}
+
+.ar-source-row--compact a {
+  padding: 4px 7px;
+  font-size: 0.7rem;
 }
 
 .ar-mini strong,
@@ -1899,8 +2183,30 @@ onMounted(loadCorpus)
     grid-template-columns: 1fr;
   }
 
-  .ar-idea-grid {
+  .ar-top-shell,
+  .ar-top-columns,
+  .ar-idea-grid,
+  .ar-rank-grid {
     grid-template-columns: 1fr;
+  }
+
+  .ar-score-tower {
+    min-height: auto;
+    grid-template-columns: auto auto auto;
+    justify-content: start;
+    padding: 14px;
+  }
+
+  .ar-score-tower b {
+    font-size: 2.1rem;
+  }
+
+  .ar-top-head {
+    display: grid;
+  }
+
+  .ar-chipline {
+    justify-content: flex-start;
   }
 
   .ar-stats {
@@ -1917,6 +2223,55 @@ onMounted(loadCorpus)
 
   .ar-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ar-panel-head,
+  .ar-rank header,
+  .ar-idea header {
+    display: grid;
+  }
+
+  .ar-funnel-row {
+    align-items: start;
+  }
+
+  .ar-funnel-row > span {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+  }
+
+  .ar-thesis,
+  .ar-top-columns p,
+  .ar-top-columns small {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+  }
+
+  .ar-top-columns li {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .ar-rank {
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .ar-rank h3 {
+    font-size: 0.98rem;
+  }
+
+  .ar-rank-grid section {
+    padding: 9px;
+  }
+
+  .ar-rank-grid section:nth-child(4) {
+    display: none;
   }
 }
 </style>
