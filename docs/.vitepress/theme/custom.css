@@ -6209,6 +6209,12 @@ html:not(.dark) .hero-bg-layer { display: none; }
   margin: 0 0 12px;
 }
 
+/* 每日最新论文页:与 autoresearch 同款——frontmatter 的 aside:false 释放
+   全列宽,论文票据网格(auto-fit 320px)自动从 2 列扩到 3–4 列;这里在超宽屏
+   封顶居中,避免过宽。 */
+.paper-radar-page .content-container { max-width: 1280px; margin-inline: auto; }
+.paper-radar-page .VPDoc { padding-bottom: 40px; }
+
 .latest-paper-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(190px, 250px);

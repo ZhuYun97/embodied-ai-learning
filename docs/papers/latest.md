@@ -1,6 +1,8 @@
 ---
 title: 每日最新论文
 description: VLA / WAM / 具身数据每日新论文候选池,按日期记录最新 arXiv 与公开论文,标注已细读、待细读、观察、暂缓和排除状态,作为新闻与正式论文细读之间的收录队列。
+aside: false
+pageClass: paper-radar-page
 ---
 
 # 每日最新论文
