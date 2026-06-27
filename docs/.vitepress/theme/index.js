@@ -122,6 +122,28 @@ function setupNavScroll() {
 }
 
 // =====================================================================
+// 论文卡片光标光斑(setupPaperSpotlight):pointermove 写入 --spot-x/y,
+// 让 .paper-ticket::after 的类目色径向辉光跟手(借鉴 Aceternity / Linear 卡片)。
+// 事件委托在 document,只在指针位于某张票据上时生效,全站轻量。
+// =====================================================================
+let paperSpotlightBound = false
+function setupPaperSpotlight() {
+  if (paperSpotlightBound || typeof window === 'undefined') return
+  paperSpotlightBound = true
+  document.addEventListener(
+    'pointermove',
+    (e) => {
+      const card = e.target && e.target.closest && e.target.closest('.paper-ticket')
+      if (!card) return
+      const r = card.getBoundingClientRect()
+      card.style.setProperty('--spot-x', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%')
+      card.style.setProperty('--spot-y', (((e.clientY - r.top) / r.height) * 100).toFixed(1) + '%')
+    },
+    { passive: true }
+  )
+}
+
+// =====================================================================
 // 主页鼠标互动点阵(HomeDots):DotField 的首页包装层。
 // fixed 全视口背景层(z-index:0,内容 z-index:1 之上不受影响;fixed 不被
 // .VPHome overflow:hidden 裁剪),随 home-hero-before 槽只在首页挂载;
@@ -1929,5 +1951,6 @@ export default {
     onMounted(setupRouteCounts)
     onMounted(setupHeroCollapse)
     onMounted(setupNavScroll)
+    onMounted(setupPaperSpotlight)
   },
 }

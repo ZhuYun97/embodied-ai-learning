@@ -6499,15 +6499,27 @@ html:not(.dark) .hero-bg-layer { display: none; }
   text-align: right;
 }
 
+/* 光斑层(借鉴 Aceternity / Linear 卡片):跟随光标的类目色径向辉光,
+   静态时顶部一抹淡光,hover 跟手点亮。坐标 --spot-x/y 由 setupPaperSpotlight 写入。 */
 .paper-ticket::after {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 61px;
-  width: 1px;
-  background: var(--paper-ticket-line);
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--spot-x, 50%) var(--spot-y, 0%),
+    color-mix(in srgb, var(--paper-ticket-accent) calc(28% * var(--fx-glow, 1)), transparent),
+    transparent 60%
+  );
+  opacity: 0.4;
+  transition: opacity var(--ar-dur-base, 0.24s) ease;
 }
+.paper-ticket:hover::after { opacity: 1; }
+/* 内容浮在光斑之上 */
+.paper-ticket > * { position: relative; z-index: 1; }
+.paper-ticket::before { z-index: 1; }
 
 .paper-ticket--vla {
   --paper-ticket-accent: #2563eb;
@@ -6723,6 +6735,55 @@ html:not(.dark) .hero-bg-layer { display: none; }
 
 .dark .paper-ticket__links a:hover {
   background: rgba(30, 41, 59, 0.72);
+}
+
+/* —— 论文票据:美化补丁(2026-06-27)——
+   ① 类目实色左缘条:一眼分辨 VLA(蓝)/ WAM(绿)/ DATA(金);
+   ② 数字徽标加类目辉光;③ 卡片级 hover:浮起 + 按类描边柔光。
+   发光强度随 P0 的 --fx-glow 总闸收放,与 autoresearch idea 卡同语言。 */
+.paper-ticket {
+  border-left: 3px solid var(--paper-ticket-accent);
+  transition: transform var(--ar-dur-base, 0.24s) var(--ar-ease-out, ease),
+              border-color var(--ar-dur-base, 0.24s) ease,
+              box-shadow var(--ar-dur-base, 0.24s) ease;
+}
+.dark .paper-ticket { border-left-color: var(--paper-ticket-accent); }
+.paper-ticket::before {
+  text-shadow: 0 0 10px color-mix(in srgb, var(--paper-ticket-accent) calc(45% * var(--fx-glow, 1)), transparent);
+}
+.paper-ticket:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 22px 40px rgba(15, 23, 42, 0.16),
+    0 0 0 1px color-mix(in srgb, var(--paper-ticket-accent) 30%, transparent),
+    0 0 22px color-mix(in srgb, var(--paper-ticket-accent) calc(22% * var(--fx-glow, 1)), transparent);
+}
+.dark .paper-ticket:hover {
+  box-shadow:
+    0 26px 46px rgba(0, 0, 0, 0.34),
+    0 0 0 1px color-mix(in srgb, var(--paper-ticket-accent) 38%, transparent),
+    0 0 26px color-mix(in srgb, var(--paper-ticket-accent) calc(30% * var(--fx-glow, 1)), transparent);
+}
+.paper-ticket:hover h3 a { color: var(--paper-ticket-accent); }
+@media (prefers-reduced-motion: reduce) {
+  .paper-ticket { transition: none; }
+  .paper-ticket:hover { transform: none; }
+}
+
+/* —— 论文票据:外形升级(2026-06-27)——
+   ① 圆角柔化(3px → 12px,与 autoresearch 面板同档,去掉过时的尖角收据感);
+   ② 描边带一点类目色,外形随方向「呼吸」;
+   ③ 票根竖线 → 类目色虚线穿孔,强化「可撕的票」外形。 */
+.paper-ticket {
+  border-radius: 12px;
+  border-top-color: color-mix(in srgb, var(--paper-ticket-accent) 22%, #ded3c4);
+  border-right-color: color-mix(in srgb, var(--paper-ticket-accent) 18%, #ded3c4);
+  border-bottom-color: color-mix(in srgb, var(--paper-ticket-accent) 22%, #ded3c4);
+}
+.dark .paper-ticket {
+  border-top-color: color-mix(in srgb, var(--paper-ticket-accent) 30%, rgba(148, 163, 184, 0.22));
+  border-right-color: color-mix(in srgb, var(--paper-ticket-accent) 22%, rgba(148, 163, 184, 0.22));
+  border-bottom-color: color-mix(in srgb, var(--paper-ticket-accent) 30%, rgba(148, 163, 184, 0.22));
 }
 
 .paper-data-list {
