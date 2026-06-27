@@ -18,6 +18,54 @@
   --font-display: 'Orbitron', var(--vp-font-family-base);
 }
 
+/* ============================================================
+   设计 Token 层(P0 · 2026-06-27)— 单一事实来源
+   既有 --vp-c-* / --surface-* / --tech-* / --font-* 全部保留;
+   这里补齐三处缺口,让全站有统一词汇、可一处调全局:
+     ① 强调色阶:收敛散落各处的 青 / 蓝 / 金 / 紫
+     ② 间距 · 圆角 · 字阶(4px 基准)
+     ③ 动效时长/缓动 +「强度总闸」--fx-*(克制原则的中央开关)
+   迁移策略:增量。新组件直接用这些变量;旧值逐步替换,不强求一次到位。
+   ============================================================ */
+:root {
+  /* —— 强调色(品牌识别:青·蓝·金·紫)—— */
+  --ar-cyan: #38bdf8;    --ar-cyan-bright: #22d3ee;  --ar-cyan-soft: rgba(56, 189, 248, 0.14);
+  --ar-blue: #2563eb;    --ar-blue-soft: rgba(37, 99, 235, 0.14);
+  --ar-teal: #2dd4bf;    --ar-teal-soft: rgba(45, 212, 191, 0.14);
+  --ar-gold: #f6c667;    --ar-gold-soft: rgba(246, 198, 103, 0.16);
+  --ar-violet: #8b5cf6;  --ar-violet-soft: rgba(139, 92, 246, 0.14);
+  /* 角色化:单一高亮 = 金(CTA / 重点);结构线 · 标签 = 青。
+     「一个招牌强调色 + 中性」是 Linear / Vercel 那类克制感的来源。 */
+  --ar-accent: var(--ar-gold);
+  --ar-structural: var(--ar-cyan);
+
+  /* —— 间距(4px 基准)—— */
+  --ar-space-1: 4px;  --ar-space-2: 8px;  --ar-space-3: 12px; --ar-space-4: 16px;
+  --ar-space-5: 24px; --ar-space-6: 32px; --ar-space-7: 48px; --ar-space-8: 64px;
+
+  /* —— 圆角 —— */
+  --ar-radius-1: 6px; --ar-radius-2: 8px; --ar-radius-3: 12px; --ar-radius-pill: 999px;
+
+  /* —— 字阶 —— */
+  --ar-text-xs: 0.72rem; --ar-text-sm: 0.82rem; --ar-text-base: 0.94rem; --ar-text-lg: 1.12rem;
+  --ar-text-xl: 1.4rem;  --ar-text-2xl: 1.85rem; --ar-text-3xl: 2.4rem;
+
+  /* —— 动效:统一时长 + 缓动 —— */
+  --ar-dur-fast: 0.16s; --ar-dur-base: 0.24s; --ar-dur-slow: 0.5s;
+  --ar-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ar-ease-inout: cubic-bezier(0.65, 0.05, 0.36, 1);
+
+  /* —— 强度总闸:克制原则的中央调节(0 = 静,1 = 满)——
+     想让全站更安静,把下面三个调小即可;reduced-motion 会强制 --fx-motion 归零。 */
+  --fx-aura: 0.82;       /* 背景辉光 / 极光不透明度系数 */
+  --fx-glow: 0.9;        /* 发光阴影强度系数(预留给后续组件迁移) */
+  --fx-motion: 1;        /* 装饰性动画总开关 */
+  --fx-drift-dur: 26s;   /* 背景漂移基准时长(原 18s → 放慢更稳,少与主体争注意力) */
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --fx-motion: 0; }
+}
+
 /* ---------- 配色:浅色(Slate + Blue) ---------- */
 :root {
   /* 强调蓝(链接/按钮/重点)——AA 对比安全 */
@@ -869,7 +917,7 @@ img.zoom-lightbox__content {
   height: 540px;
   z-index: 0;
   pointer-events: none;
-  opacity: var(--home-bridge-opacity, 0.18);
+  opacity: calc(var(--home-bridge-opacity, 0.18) * var(--fx-aura));
   transform: translateY(var(--home-bridge-y, 0));
   background:
     radial-gradient(70% 95% at 50% 8%, rgba(34, 211, 238, 0.2), transparent 66%),
@@ -899,8 +947,8 @@ img.zoom-lightbox__content {
     radial-gradient(circle at 72% 48%, rgba(34, 211, 238, 0.20), transparent 58%),
     radial-gradient(circle at 52% 72%, rgba(139, 92, 246, 0.20), transparent 60%);
   filter: blur(46px);
-  opacity: 0.9;
-  animation: techDrift 18s ease-in-out infinite alternate;
+  opacity: calc(0.9 * var(--fx-aura));
+  animation: techDrift var(--fx-drift-dur) ease-in-out infinite alternate;
 }
 @keyframes techDrift {
   from { transform: translateX(-53%) translateY(-6px); }
@@ -5467,6 +5515,8 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  /* 环境点阵随强度总闸一起收敛,让 GridDistortion 流体 + 镭光人成为唯一主角 */
+  opacity: var(--fx-aura);
 }
 
 /* ============================================================
