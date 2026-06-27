@@ -95,6 +95,33 @@ function setupHeroCollapse() {
 }
 
 // =====================================================================
+// 顶栏滚动感知:滚动后给 <html> 加 .nav-scrolled,顶栏从「顶部更干净」
+// 过渡到「实起来」(玻璃更厚 + 发丝线点亮 + 轻浮起,样式见 custom.css)。全站生效。
+// =====================================================================
+let navScrollBound = false
+function setupNavScroll() {
+  if (navScrollBound || typeof window === 'undefined') return
+  navScrollBound = true
+  const root = document.documentElement
+  let ticking = false
+  const apply = () => {
+    ticking = false
+    root.classList.toggle('nav-scrolled', window.scrollY > 8)
+  }
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(apply)
+      }
+    },
+    { passive: true }
+  )
+  apply()
+}
+
+// =====================================================================
 // 主页鼠标互动点阵(HomeDots):DotField 的首页包装层。
 // fixed 全视口背景层(z-index:0,内容 z-index:1 之上不受影响;fixed 不被
 // .VPHome overflow:hidden 裁剪),随 home-hero-before 槽只在首页挂载;
@@ -1901,5 +1928,6 @@ export default {
     onMounted(setupElectricBorder)
     onMounted(setupRouteCounts)
     onMounted(setupHeroCollapse)
+    onMounted(setupNavScroll)
   },
 }

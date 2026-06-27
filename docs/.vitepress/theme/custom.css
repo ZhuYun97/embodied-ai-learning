@@ -1199,6 +1199,36 @@ html.home-transition-bound.home-next-ready .VPHome .VPFeatures {
 .VPNavBarMenuLink.active { text-shadow: 0 0 10px rgba(56, 189, 248, 0.55); }
 .dark .VPNavBarMenuLink.active { text-shadow: 0 0 12px rgba(103, 232, 249, 0.6); }
 
+/* —— 顶栏:滚动感知 + 微克制(2026-06-27)——
+   顶部更干净(底色更透、发丝线收一档、扫描光不掠过英雄区);滚动后再「实」
+   起来(玻璃更厚 + 发丝线点亮 + 轻浮起阴影)。发丝线/扫描光的辉光接入 P0
+   的 --fx-glow 总闸,默认收一档。.nav-scrolled 由 setupNavScroll 切换。 */
+.VPNavBar {
+  transition: background-color var(--ar-dur-slow, 0.4s) var(--ar-ease-out, ease),
+              box-shadow var(--ar-dur-slow, 0.4s) var(--ar-ease-out, ease),
+              backdrop-filter var(--ar-dur-slow, 0.4s) ease;
+}
+/* 顶部:更透 + 发丝线收一档 + 扫描光关 + 无浮起 */
+html:not(.nav-scrolled) .VPNavBar { background-color: rgba(255, 255, 255, 0.5) !important; }
+html.dark:not(.nav-scrolled) .VPNavBar { background-color: rgba(15, 23, 42, 0.4) !important; }
+html:not(.nav-scrolled) .VPNavBar::after { opacity: 0.22; box-shadow: none; }
+html:not(.nav-scrolled) .VPNavBar::before { opacity: 0; animation: none; }
+/* 滚动后:玻璃更厚 + 发丝线点亮 + 轻浮起 */
+html.nav-scrolled .VPNavBar {
+  background-color: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(16px) saturate(1.35);
+  -webkit-backdrop-filter: blur(16px) saturate(1.35);
+  box-shadow: 0 6px 22px rgba(2, 6, 23, 0.12);
+}
+html.dark.nav-scrolled .VPNavBar {
+  background-color: rgba(13, 20, 36, 0.74) !important;
+  box-shadow: 0 8px 26px rgba(2, 6, 23, 0.36);
+}
+html.nav-scrolled .VPNavBar::after { opacity: 1; }
+/* 发丝线 / 扫描光辉光接入强度总闸(克制) */
+.VPNavBar::after { box-shadow: 0 0 8px rgba(34, 211, 238, calc(0.5 * var(--fx-glow, 1))); }
+.VPNavBar::before { box-shadow: 0 0 10px rgba(34, 211, 238, calc(0.72 * var(--fx-glow, 1))); }
+
 /* ===================================================================
    交互功能层(地基:models-spec 解析器 + 4 个快赢)
    可信度透镜 / 透镜横幅 / 相关细读 / 阅读进度
