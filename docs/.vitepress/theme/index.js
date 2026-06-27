@@ -71,11 +71,11 @@ function setupHeroCollapse() {
         : window.innerHeight * 0.86
     const raw = Math.min(1, Math.max(0, window.scrollY / collapseDistance))
     const p = smoothstep(raw)
-    const next = smoothstep((raw - 0.14) / 0.76)
+    const next = smoothstep(raw / 0.72)
     const bridge = Math.sin(raw * Math.PI)
     document.documentElement.style.setProperty('--hero-collapse', p.toFixed(3))
     document.documentElement.style.setProperty('--home-next-opacity', next.toFixed(3))
-    document.documentElement.style.setProperty('--home-next-y', ((1 - next) * 56).toFixed(1) + 'px')
+    document.documentElement.style.setProperty('--home-next-y', ((1 - next) * 16).toFixed(1) + 'px')
     document.documentElement.style.setProperty('--home-bridge-opacity', (0.2 + bridge * 0.64).toFixed(3))
     document.documentElement.style.setProperty('--home-bridge-y', ((0.5 - raw) * 44).toFixed(1) + 'px')
     document.documentElement.classList.toggle('home-next-ready', next >= 0.62)
