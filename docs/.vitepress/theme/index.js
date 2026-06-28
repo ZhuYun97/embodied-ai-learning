@@ -11,7 +11,6 @@ import DotField from './components/DotField.vue'
 import ShuffleText from './components/ShuffleText.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
 import GridDistortion from './components/GridDistortion.vue'
-import HeroModel from './components/HeroModel.vue'
 import AutoResearchLab from './components/AutoResearchLab.vue'
 import './custom.css'
 
@@ -963,10 +962,18 @@ const TechHero = {
               h('span', { class: 'tu-tag tu-tag--tl' }, 'EMBODIED-UNIT'),
               h('span', { class: 'tu-tag tu-tag--tr' }, 'VLA · WAM'),
               h('div', { class: 'thero__robot-wrap', title: '点我 · 单元会回应' }, [
-                // 具身单元 3D 模型(public/models/model.glb,three+GLTFLoader 实时渲染)。
-                // 画布 pointer-events:none → 单元的悬停视差/点击脉冲/彩蛋照常工作,模型跟随鼠标转头。
-                // 渲染 / reduced-motion / 离屏停帧 / 失败回退逻辑见 components/HeroModel.vue。
-                h(HeroModel),
+                // 镭光人概念视频(public/hero-laser-human.mp4,自托管):桌面精确指针
+                // = 鼠标推扫逐帧(bindHeroVideo),窄屏/触屏 = 静音循环播放,reduced-motion = 静帧
+                h('video', {
+                  class: 'thero__robot thero__robot--video',
+                  src: withBase('/hero-laser-human.mp4'),
+                  muted: true,
+                  playsinline: true,
+                  'webkit-playsinline': true,
+                  preload: 'auto',
+                  loop: true,
+                  'aria-label': '镭光人 · 具身智能概念视频',
+                }),
                 h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),
               h('span', { class: 'tu-scan', 'aria-hidden': 'true' }),
