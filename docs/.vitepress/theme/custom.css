@@ -514,6 +514,17 @@ html {
   font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
     'Noto Sans SC', 'Source Han Sans SC', sans-serif !important;
 }
+/* 节点文字对比修复:全站 55 张手绘图的节点底色都是浅粉彩(classDef fill:#…,
+   经核查无一深底);但暗色模式下 Mermaid 把节点文字默认刷成浅灰 #ccc,
+   浅字压在浅底上糊成一团,根本看不清。这里只给「带内联浅底」的节点强制深墨,
+   用 :has(rect[style*="fill:#"]) 精准锁定被 classDef 上色的节点——
+   不碰未上色节点(可能深底浅字)、不碰边标签(深底浅字,见下方)、不碰子图标题。 */
+.mermaid g.node:has(rect[style*="fill:#"]) text,
+.mermaid g.node:has(rect[style*="fill:#"]) tspan,
+.mermaid g.node:has(rect[style*="fill:#"]) .nodeLabel {
+  fill: #16223b !important;
+  color: #16223b !important;
+}
 /* 节点不裁切溢出(双保险) */
 .mermaid .node foreignObject,
 .mermaid .label foreignObject {
