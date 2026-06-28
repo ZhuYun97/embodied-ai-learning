@@ -5613,6 +5613,15 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   width: 100%;
   height: auto;
 }
+/* 3D 模型画布(.thero__robot--model):与抠像 canvas 同款承载——方形、满宽、
+   共享 .thero__robot 的物化揭示 / 浮动 / 辉光。pointer-events:none → 不抢单元的
+   悬停视差 / 点击脉冲 / 彩蛋,模型跟随鼠标转头,并随单元框做 3D 倾斜。渲染见 HeroModel.vue。 */
+.thero__robot--model {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
 
 /* ============================================================
    英文主标题 ShuffleText 容器(替代原 Orbitron 逐字点亮入场):
