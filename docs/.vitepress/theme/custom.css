@@ -1202,8 +1202,8 @@ html.home-transition-bound.home-next-ready .VPHome .VPFeatures {
 @keyframes navScan { 0% { left: -16%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
 /* 顶栏菜单:字距 + 当前项青色辉光(更 HUD) */
 .VPNavBarMenuLink { letter-spacing: 0.02em; }
-.VPNavBarMenuLink.active { text-shadow: 0 0 10px rgba(56, 189, 248, 0.55); }
-.dark .VPNavBarMenuLink.active { text-shadow: 0 0 12px rgba(103, 232, 249, 0.6); }
+.VPNavBarMenuLink.active { text-shadow: 0 0 10px color-mix(in srgb, var(--ar-cyan, #38bdf8) calc(55% * var(--fx-glow, 1)), transparent); }
+.dark .VPNavBarMenuLink.active { text-shadow: 0 0 12px color-mix(in srgb, var(--ar-cyan-bright, #67e8f9) calc(60% * var(--fx-glow, 1)), transparent); }
 
 /* —— 顶栏:滚动感知 + 微克制(2026-06-27)——
    顶部更干净(底色更透、发丝线收一档、扫描光不掠过英雄区);滚动后再「实」
@@ -2269,8 +2269,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   opacity: 1;
   background: color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
   border-color: color-mix(in srgb, var(--vp-c-brand-1) 50%, transparent);
-  box-shadow: inset 0 0 9px rgba(56, 189, 248, 0.10);
-  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.22));
+  box-shadow: inset 0 0 9px color-mix(in srgb, var(--ar-cyan, #38bdf8) calc(10% * var(--fx-glow, 1)), transparent);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--ar-cyan, #38bdf8) calc(22% * var(--fx-glow, 1)), transparent));
 }
 .dark .VPNavBar .VPNavBarMenu .VPNavBarMenuLink:hover::before,
 .dark .VPNavBar .VPNavBarMenu .VPFlyout:hover > .button::before {
@@ -2280,9 +2280,9 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .dark .VPNavBar .VPNavBarMenu .VPNavBarMenuLink.active::before,
 .dark .VPNavBar .VPNavBarMenu .VPFlyout.active > .button::before {
   background: rgba(56, 189, 248, 0.14);
-  border-color: rgba(103, 232, 249, 0.62);
-  box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.12);
-  filter: drop-shadow(0 0 7px rgba(56, 189, 248, 0.32));
+  border-color: color-mix(in srgb, var(--ar-cyan-bright, #67e8f9) 62%, transparent);
+  box-shadow: inset 0 0 10px color-mix(in srgb, var(--ar-cyan, #38bdf8) calc(12% * var(--fx-glow, 1)), transparent);
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--ar-cyan, #38bdf8) calc(32% * var(--fx-glow, 1)), transparent));
 }
 /* 雪佛龙(▾):常驻淡青、悬停/展开提亮,随终端标签语言统一 */
 .VPNavBar .VPNavBarMenu .VPFlyout > .button .vpi-chevron-down {
