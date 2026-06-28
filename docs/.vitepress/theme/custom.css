@@ -2006,6 +2006,33 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 }
 
 /* ===== VLA/WAM 路线卡 强化悬停(科技感):随光标 3D 倾斜 + 光斑辉光 + 强霓虹环 + 顶边发光 ===== */
+/* —— 共享卡片光标光斑(C · 2026-06-28)——
+   路线卡 / 新闻卡的伪元素已占满,改用 JS 懒注入的 <span class="fx-spot"> 承载。
+   screen 混合 = 只增亮、不挡字;默认透明,hover 跟手淡入,强度随 --fx-glow。
+   刻意做得 subtle,呼应路线卡原本「不跟随光标 / 不突兀」的取舍。 */
+.route-card .fx-spot,
+.news-card .fx-spot {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    200px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    color-mix(in srgb, var(--ar-cyan, #38bdf8) calc(20% * var(--fx-glow, 1)), transparent),
+    transparent 60%
+  );
+  transition: opacity var(--ar-dur-base, 0.24s) ease;
+}
+.route-card:hover .fx-spot,
+.news-card:hover .fx-spot { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .route-card .fx-spot,
+  .news-card .fx-spot { transition: none; }
+}
+
 /* 悬停扫描线(JS 注入的 .route-card__spot):青色细线自上而下扫过卡片一次,像扫描/读取——**不跟随光标**,故不突兀。
    z-index:2 浮于内容、pointer-events:none;reduced-motion 下不扫(静默)。 */
 .VPHome .route-card__spot {

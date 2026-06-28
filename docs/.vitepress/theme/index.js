@@ -122,22 +122,32 @@ function setupNavScroll() {
 }
 
 // =====================================================================
-// 论文卡片光标光斑(setupPaperSpotlight):pointermove 写入 --spot-x/y,
-// 让 .paper-ticket::after 的类目色径向辉光跟手(借鉴 Aceternity / Linear 卡片)。
-// 事件委托在 document,只在指针位于某张票据上时生效,全站轻量。
+// 卡片光标光斑(setupCardSpotlight):pointermove 写入 --spot-x/y。
+// · 论文票据用自身 ::after 承载光斑;
+// · 路线卡 / 新闻卡的伪元素已被占用,故懒注入一个 <span class="fx-spot">
+//   叠加层(screen 混合、只增亮不挡字,subtle 以尊重路线卡「不突兀」原意)。
+// 事件委托在 document,只在指针位于卡片上时生效,全站轻量。
 // =====================================================================
-let paperSpotlightBound = false
-function setupPaperSpotlight() {
-  if (paperSpotlightBound || typeof window === 'undefined') return
-  paperSpotlightBound = true
+let cardSpotlightBound = false
+function setupCardSpotlight() {
+  if (cardSpotlightBound || typeof window === 'undefined') return
+  cardSpotlightBound = true
   document.addEventListener(
     'pointermove',
     (e) => {
-      const card = e.target && e.target.closest && e.target.closest('.paper-ticket')
+      const card =
+        e.target && e.target.closest && e.target.closest('.paper-ticket, .route-card, .news-card')
       if (!card) return
       const r = card.getBoundingClientRect()
       card.style.setProperty('--spot-x', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%')
       card.style.setProperty('--spot-y', (((e.clientY - r.top) / r.height) * 100).toFixed(1) + '%')
+      // 论文票据用 ::after,其余卡片懒注入叠加层
+      if (!card.classList.contains('paper-ticket') && !card.querySelector('.fx-spot')) {
+        const s = document.createElement('span')
+        s.className = 'fx-spot'
+        s.setAttribute('aria-hidden', 'true')
+        card.appendChild(s)
+      }
     },
     { passive: true }
   )
@@ -1951,6 +1961,6 @@ export default {
     onMounted(setupRouteCounts)
     onMounted(setupHeroCollapse)
     onMounted(setupNavScroll)
-    onMounted(setupPaperSpotlight)
+    onMounted(setupCardSpotlight)
   },
 }
