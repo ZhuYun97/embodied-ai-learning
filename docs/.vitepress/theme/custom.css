@@ -5723,6 +5723,23 @@ html:not(.dark) .VPHome .electric-card:focus-within > .electric-border-canvas {
    避免暗底图叠亮色模式深色正文导致副标题/标签发灰难读 */
 html:not(.dark) .hero-bg-layer { display: none; }
 
+/* —— Light 模式首屏机器人 parity(2026-06-28)——
+   镭光人视频自带深色底,贴在浅色页上会成「黑方块」。把它装进一张干净的
+   深色「英雄媒体卡」:圆角 + 柔和外发光 + 蓝色发丝描边 + 顶部沉光,
+   让深色视频成为有意为之的视觉主体,而非突兀的黑块。 */
+html:not(.dark) .thero__robot-wrap {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0a1126;
+  box-shadow:
+    0 26px 60px rgba(15, 23, 42, 0.22),
+    0 0 0 1px color-mix(in srgb, var(--ar-blue, #2563eb) 18%, transparent),
+    0 0 46px color-mix(in srgb, var(--ar-cyan, #38bdf8) calc(16% * var(--fx-glow, 1)), transparent),
+    inset 0 1px 0 rgba(125, 211, 252, 0.18);
+}
+html:not(.dark) .thero__robot { border-radius: inherit; }
+
 /* —— 科技增强叠层(均覆于 GridDistortion canvas 之上、正文 z-index:1 之下) —— */
 .hero-bg-halo,
 .hero-bg-tech {
