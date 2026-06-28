@@ -647,12 +647,14 @@ img.zoom-lightbox__content {
   height: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--vp-c-divider);
-  border-radius: 6px;
+  background: color-mix(in srgb, var(--ar-cyan, #38bdf8) 26%, var(--vp-c-divider));
+  border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--vp-c-text-3);
+  background: color-mix(in srgb, var(--ar-cyan, #38bdf8) 52%, var(--vp-c-divider));
 }
+/* Firefox 细滚动条 + 品牌色 */
+html { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--ar-cyan, #38bdf8) 30%, var(--vp-c-divider)) transparent; }
 
 /* ---------- 首页「按技术路线浏览」卡片网格 ---------- */
 .route-grid {
@@ -1160,9 +1162,13 @@ html.home-transition-bound.home-next-ready .VPHome .VPFeatures {
 
 /* ---------- 侧边栏当前项:渐变指示条(替代纯色) ---------- */
 .VPSidebarItem.is-active > .item .indicator {
-  background: linear-gradient(180deg, #2563eb, #22d3ee) !important;
-  box-shadow: 0 0 8px rgba(34, 211, 238, 0.4);
+  background: linear-gradient(180deg, var(--ar-blue, #2563eb), var(--ar-cyan-bright, #22d3ee)) !important;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--ar-cyan-bright, #22d3ee) calc(40% * var(--fx-glow, 1)), transparent);
 }
+/* 侧边栏 hover:文字转青 + 链接微移,与顶栏同语言 */
+.VPSidebarItem .link { transition: color var(--ar-dur-fast, 0.16s) ease; }
+.VPSidebarItem:not(.is-active) > .item .link:hover .text { color: var(--ar-cyan, #38bdf8); }
+.dark .VPSidebarItem:not(.is-active) > .item .link:hover .text { color: var(--ar-cyan-bright, #22d3ee); }
 
 /* ---------- 顶栏 logo 标题:轻微渐变(克制,保证可读)---------- */
 .VPNavBarTitle .text {
