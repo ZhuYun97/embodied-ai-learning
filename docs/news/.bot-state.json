@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-06-26T10:24:01+08:00",
+  "last_fetched_at": "2026-06-29T11:16:39+08:00",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -93,8 +93,13 @@
     "automate-2026-humanoid-pavilion-physical-ai-floor-report|20260625",
     "dobot-shenzhen-chinext-humanoid-robots|20260626",
     "catl-galbot-s1-battery-factory-deployment|20260624",
-    "mwc-shanghai-humanoid-robot-football-challenge|20260624"
+    "mwc-shanghai-humanoid-robot-football-challenge|20260624",
+    "ai2-robotics-zhifang-50b-financing-valuation-200b|20260629",
+    "archon-robotics-seed-round-whole-body-embodied-brain|20260629",
+    "agibot-g2-six-day-factory-livestream-64828-tasks|20260629",
+    "ubtech-tianjin-north-manufacturing-base-embodied-ai-center|20260629",
+    "faraday-future-eai-robot-105-june-2000-target|20260629"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 93
+  "_count": 98
 }

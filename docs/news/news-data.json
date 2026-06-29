@@ -1,5 +1,140 @@
 [
   {
+    "id": "ai2-robotics-zhifang-50b-financing-valuation-200b-20260629",
+    "title": "智平方完成近 50 亿元新融资:估值升至超 200 亿元",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-29",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "中国具身智能",
+      "机器人大脑"
+    ],
+    "summary": "具身智能企业智平方完成一系列新融资,融资总额近 50 亿元人民币,投后估值升至超 200 亿元。公司称资金将用于加速“机器人大脑”的迭代升级、规模化量产,并强化“模型 x 硬件 x 场景”的全栈能力。该事件反映国内具身智能大脑与全栈机器人公司的融资热度仍在抬升,但后续仍需跟踪真实交付规模和场景收入。",
+    "sources": [
+      {
+        "name": "东方财富 / 财联社",
+        "url": "https://finance.eastmoney.com/a/202606293785696480.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "archon-robotics-seed-round-whole-body-embodied-brain-20260629",
+    "title": "源策未来完成数亿元种子轮融资:押注通用全身具身大脑",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-29",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "中国具身智能",
+      "人形机器人"
+    ],
+    "summary": "通用全身具身大脑公司源策未来 Archon Robotics 完成数亿元种子轮融资,投资方包括真格基金、高榕创投、IDG 资本、五源资本、戈壁创投与香港大学联名基金、奇绩创投、上海创智学院等。公司计划将资金投入全身人形基础模型、多模态全身动作数据采集、团队扩充与产业合作生态,并推动开源人形基座模型落地。",
+    "sources": [
+      {
+        "name": "证券时报 / 人民财讯",
+        "url": "https://www.stcn.com/article/detail/3984618.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "agibot-g2-six-day-factory-livestream-64828-tasks-20260629",
+    "title": "智元完成 6 天真实工厂直播:8 台 G2 在产线执行 64828 次任务",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-29",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产业落地",
+      "人形机器人",
+      "工厂部署"
+    ],
+    "summary": "智元机器人披露 6 天工厂产线直播结果:AGIBOT G2 在真实制造节奏下累计运行超过 64 小时,完成 64828 次产线任务,参与 4 个以上生产流程,贡献 17625 件累计产出,任务成功率为 99.99%。这是从发布会 Demo 转向真实产线验证的高信号事件,但数据来自公司官方口径,仍需结合后续客户复购和长期稳定运行记录观察。",
+    "sources": [
+      {
+        "name": "智元机器人",
+        "url": "https://www.agibot.com/article/231/detail/83.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "ubtech-tianjin-north-manufacturing-base-embodied-ai-center-20260629",
+    "title": "优必选落子天津经开区:建设北方智能制造基地与具身智能创新中心",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-29",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产业落地",
+      "人形机器人",
+      "产能建设"
+    ],
+    "summary": "天津经开区与优必选签署合作备忘录,优必选拟将仿真人形机器人北方智能制造基地、具身智能产业创新中心、机器人运维服务中心及二次开发平台等项目落地经开区。项目覆盖整机生产、数据采集、运维服务和面向汽车制造、园区巡检、港口运营等场景的二次开发,有利于观察人形机器人从样机展示走向区域化产能与场景服务闭环。",
+    "sources": [
+      {
+        "name": "天津日报",
+        "url": "https://epaper.tianjinwe.com/tjrb/html/2026-06/29/content_143084_3583702.htm"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "faraday-future-eai-robot-105-june-2000-target-20260629",
+    "title": "Faraday Future:6 月 EAI 机器人销售/出货/交付 105 台,全年目标上调至 2000 台",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-29",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "公司战略",
+      "机器人产品",
+      "出货数据"
+    ],
+    "summary": "Faraday Future 在 CEO 周报中披露,6 月 EAI 机器人销售、出货与交付达到 105 台,3-6 月累计 242 台,超过原定 220 台目标;公司同时把 2026 年全年出货目标上调至 2000 台。该事件属于公司官方披露,可作为其机器人业务从发布走向销售数据披露的跟踪节点,但仍需等待财报收入确认与客户结构细节进一步验证。",
+    "sources": [
+      {
+        "name": "Faraday Future Investor Relations",
+        "url": "https://investors.ff.com/news-releases/news-release-details/faraday-future-founder-and-global-ceo-yt-jia-shares-weekly-5"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "dobot-shenzhen-chinext-humanoid-robots-20260626",
     "title": "Dobot 计划登陆深交所创业板:拟募资 12 亿元押注多足与人形机器人",
     "date": "2026-06-26",
