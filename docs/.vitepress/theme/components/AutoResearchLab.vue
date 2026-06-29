@@ -84,6 +84,134 @@ const FRONTIER_SIGNALS = [
   },
 ]
 
+const DAILY_SOURCE_POOL = {
+  agibotFactory: {
+    title: '智元 G2 真实工厂 6 天直播:64828 次产线任务',
+    url: 'https://www.agibot.com/article/231/detail/83.html',
+    bucket: 'news',
+    tags: ['NEWS', 'DEPLOY', 'WAM', 'EVAL'],
+  },
+  ubtechTianjin: {
+    title: '优必选天津经开区北方智能制造基地与具身智能创新中心',
+    url: 'https://epaper.tianjinwe.com/tjrb/html/2026-06/29/content_143084_3583702.htm',
+    bucket: 'news',
+    tags: ['NEWS', 'DEPLOY', 'DATA'],
+  },
+  zhifangFunding: {
+    title: '智平方近 50 亿元融资:具身大脑与全栈机器人生态',
+    url: 'https://finance.eastmoney.com/a/202606293785696480.html',
+    bucket: 'news',
+    tags: ['NEWS', 'VLA', 'EVAL'],
+  },
+  archonFunding: {
+    title: '源策未来数亿元种子轮:通用全身具身大脑',
+    url: 'https://www.stcn.com/article/detail/3984618.html',
+    bucket: 'news',
+    tags: ['NEWS', 'VLA', 'CONTROL'],
+  },
+  faradayShipments: {
+    title: 'Faraday Future EAI 机器人 6 月销售/出货/交付 105 台',
+    url: 'https://investors.ff.com/news-releases/news-release-details/faraday-future-founder-and-global-ceo-yt-jia-shares-weekly-5',
+    bucket: 'news',
+    tags: ['NEWS', 'DEPLOY', 'EVAL'],
+  },
+  tau0Wm: {
+    title: 'τ0-WM:统一视频-动作世界模型',
+    url: withBase('/wam/papers/tau0-wm'),
+    bucket: 'wam',
+    tags: ['WAM', 'CONTROL', 'EVAL'],
+  },
+  lingbotVa: {
+    title: 'LingBot-VA:因果视频-动作世界模型',
+    url: withBase('/wam/papers/lingbot-va'),
+    bucket: 'wam',
+    tags: ['WAM', 'CONTROL'],
+  },
+  rynnvla: {
+    title: 'RynnVLA-002:VLA 与世界模型联合共训',
+    url: withBase('/wam/papers/rynnvla-002'),
+    bucket: 'wam',
+    tags: ['WAM', 'VLA', 'CONTROL'],
+  },
+  brainRanking: {
+    title: '具身大脑公司分档榜',
+    url: withBase('/ecosystem/brain-ranking'),
+    bucket: 'ecosystem',
+    tags: ['NEWS', 'EVAL', 'VLA'],
+  },
+}
+
+const DAILY_IDEA_PACKS = {
+  '2026-06-29': [
+    {
+      title: 'Factory-WAM: 从真实产线直播中学习可执行世界模型',
+      thesis: '把真实工厂运行轨迹从展示素材变成 WAM/VLA critic 的训练与评测数据,预测下一步动作是否会带来任务进度、异常恢复或人工干预。',
+      tension: '真实产线开始产生长时序轨迹,但 WAM 仍缺少和生产成功率绑定的训练目标',
+      motivation: '智元 G2 已经把 8 台机器人放到手机产线直播验证,优必选也在建设区域化制造与二次开发平台;站内 τ0-WM、LingBot-VA 等路线说明视频-动作世界模型正在具备“预测未来 + 辅助动作选择”的技术底座。',
+      contributions: [
+        '提出 production event graph:把搬运、插槽、避障、换电、异常恢复拆成可学习的事件节点。',
+        '把 WAM 评价目标从 RGB 保真度改成 progress / intervention / recovery 三类可执行信号。',
+        '构建真实产线轨迹到 VLA 候选动作重排序的闭环协议,让世界模型服务生产成功率。',
+      ],
+      method: [
+        '从产线视频或日志中抽取 phase、contact、object state、human intervention 与 recovery segment。',
+        '训练或冻结 WAM 作为短 horizon critic,对 VLA 采样出的候选动作打 progress/risk 分。',
+        '用 top-k action rerank 替代单次动作输出,比较无 critic、视觉相似度 critic 与 Factory-WAM critic。',
+      ],
+      evaluation: '物料搬运、插槽对位、补料/换电等任务;指标包括干预率下降、异常提前预警 AUROC、单位时间产出、真实成功率和闭环延迟。',
+      novelty: 91,
+      feasibility: 68,
+      whyNow: '今天的产业新闻给了少见的长时序真实工厂信号,正好可以把 WAM 从“会想象”推向“会判断是否值得执行”。',
+      sourceIds: ['agibotFactory', 'ubtechTianjin', 'tau0Wm', 'lingbotVa'],
+      frontierId: 'agibotFactory',
+    },
+    {
+      title: 'Embodied-Brain ClaimBench: 给“具身大脑”融资叙事做可核评测',
+      thesis: '把“通用全身具身大脑”“机器人大脑”“全栈智能体”等公司叙事转成可复现 benchmark,区分模型能力、硬件能力和场景交付能力。',
+      tension: '具身大脑公司融资快速升温,但外界很难判断能力来自模型泛化、本体工程还是场景脚本',
+      motivation: '智平方和源策未来今天都围绕“具身大脑/全身具身大脑”释放融资信号;这类说法如果没有统一评测协议,很容易把商业叙事和技术能力混在一起。',
+      contributions: [
+        '提出 embodied-brain claim taxonomy:感知、语言规划、全身控制、异常恢复、跨场景迁移、在线部署六类 claim。',
+        '把每类 claim 绑定最小可验证任务,并要求区分 zero-shot、few-shot、脚本化流程和人工接管。',
+        '给出融资新闻/公司白皮书到评测需求的 claim extraction 流程,为站内生态榜提供技术证据层。',
+      ],
+      method: [
+        '收集公司公开材料中的能力句子,标注 claim 类型、证据等级和可测变量。',
+        '为每类 claim 生成 2 个 tabletop + 2 个移动操作 + 1 个全身协调任务的最小协议。',
+        '用同一评价表比较 VLA/WAM/全身控制系统,并单独记录人工接管和场景工程量。',
+      ],
+      evaluation: 'claim 可核率、跨评测者一致性、脚本依赖度、任务泛化得分、人工接管率和复现实验成本。',
+      novelty: 86,
+      feasibility: 82,
+      whyNow: '融资事件正在把“具身大脑”推成关键词,现在补一个 ClaimBench 可以让后续公司/模型对比更不玄学。',
+      sourceIds: ['zhifangFunding', 'archonFunding', 'brainRanking', 'rynnvla'],
+      frontierId: 'zhifangFunding',
+    },
+    {
+      title: 'Deployment-Calibrated VLA: 用出货与运行数据校准机器人风险预测',
+      thesis: '把机器人出货量、运行小时和任务次数纳入 VLA/WAM 风险模型校准,让 demo 成功率可以外推到真实部署可靠性。',
+      tension: '机器人开始披露交付和产线任务数,但论文指标仍主要停留在单次任务成功率',
+      motivation: 'Faraday Future 披露 EAI 机器人月度销售/出货/交付数据,智元披露数万次产线任务;这说明行业开始出现 deployment scale signal,可以反向推动论文评测从“成功率”走向“可靠性曲线”。',
+      contributions: [
+        '提出 deployment-calibrated risk curve:把累计任务数、运行小时、干预事件映射到模型置信度校准。',
+        '区分 demo success、batch success、uptime reliability 三层指标,避免把单次成功率误当规模部署能力。',
+        '把风险校准结果反馈给数据采集策略,优先补齐高频低置信的部署失败簇。',
+      ],
+      method: [
+        '把任务执行日志聚合为 hours-to-failure、intervention interval、task family drift 三类部署变量。',
+        '训练轻量 risk head 校准 VLA/WAM 的 action confidence,输出是否需要重规划、降速或请求接管。',
+        '用部署风险分数驱动 failure-to-data 队列,只补采最能改善可靠性曲线的样本。',
+      ],
+      evaluation: 'ECE/Brier 校准误差、干预事件召回率、单位小时故障率、成功率随任务数衰减曲线、补采样本效率。',
+      novelty: 83,
+      feasibility: 72,
+      whyNow: '今天的出货与长时序任务披露让“规模部署可靠性”第一次有了可量化入口,可以反过来定义下一代 VLA/WAM 评测。',
+      sourceIds: ['faradayShipments', 'agibotFactory', 'tau0Wm', 'rynnvla'],
+      frontierId: 'faradayShipments',
+    },
+  ],
+}
+
 const TAG_RULES = [
   { tag: 'WLA', terms: ['wla', 'world-language-action', 'world language action', '世界-语言-动作'] },
   { tag: 'VLA', terms: ['vla', '视觉-语言-动作', 'vision-language-action', 'openvla', 'qwen-vla', 'π0', 'pi0'] },
@@ -403,7 +531,46 @@ function sourceTitles(docs) {
   return docs.map((doc) => compactTitle(doc.title)).filter(Boolean).slice(0, 3).join(' / ')
 }
 
+function localDateKey(date) {
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
+
+function dailySource(id) {
+  const source = DAILY_SOURCE_POOL[id]
+  if (!source) return null
+  return {
+    ...source,
+    id,
+    text: source.title,
+    tokens: tokenize(source.title),
+  }
+}
+
+function buildDailyPaperIdeas(seed, tensions) {
+  const pack = DAILY_IDEA_PACKS[localDateKey(today.value)]
+  if (!pack?.length) return null
+  const anchor = '2026-06-29 今日产业信号 × 站内 WAM/VLA 细读'
+  return pack.map((item, index) => {
+    const sources = item.sourceIds.map(dailySource).filter(Boolean)
+    return {
+      ...item,
+      id: `idea-${index}`,
+      anchor,
+      seed,
+      sources,
+      frontier: dailySource(item.frontierId) || sources[0] || null,
+      tension: item.tension || tensions[index % tensions.length]?.title || '今日证据张力',
+    }
+  })
+}
+
 function buildPaperIdeas(seed, focus, evidence, tensions, frontiers) {
+  const dailyIdeas = buildDailyPaperIdeas(seed, tensions)
+  if (dailyIdeas) return dailyIdeas
+
   const ideas = []
   const first = compactTitle(evidence[0]?.title || '站内核心证据')
   const second = compactTitle(evidence[1]?.title || '对照证据')
