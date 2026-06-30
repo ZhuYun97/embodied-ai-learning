@@ -139,6 +139,83 @@ const DAILY_SOURCE_POOL = {
     bucket: 'ecosystem',
     tags: ['NEWS', 'EVAL', 'VLA'],
   },
+  xSquareFunding: {
+    title: 'X Square Robot 连续四轮融资:Physical AI 基座模型',
+    url: 'https://www.prnewswire.com/apac/news-releases/x-square-robot-secures-four-consecutive-financing-rounds-surpasses-us2-8-billion-valuation-in-push-for-physical-ai-foundation-models-302813098.html',
+    bucket: 'news',
+    tags: ['NEWS', 'VLA', 'DATA', 'DEPLOY'],
+  },
+  stridingFoundation: {
+    title: 'Striding AI 机器人基础系统:世界模型、强化学习与部署工程',
+    url: 'https://www.momenta.media/article/striding-ai-announces-robotics-foundation-system-plans',
+    bucket: 'news',
+    tags: ['NEWS', 'VLA', 'WAM', 'DEPLOY'],
+  },
+  bmwFigure03: {
+    title: 'BMW Spartanburg 项目引入 Figure 03 人形机器人',
+    url: 'https://humanoidroboticstechnology.com/industry-news/figure-03-humanoids-at-bmw-group-project-in-spartanburg/',
+    bucket: 'news',
+    tags: ['NEWS', 'DEPLOY', 'VLA', 'EVAL'],
+  },
+  koreaHumanoidChallenge: {
+    title: '韩国 2026 Humanoid Challenge 制造业场景验证',
+    url: 'https://www.ajudaily.com/view/20250629135149621',
+    bucket: 'news',
+    tags: ['NEWS', 'EVAL', 'HUMANOID', 'DEPLOY'],
+  },
+  tapVla: {
+    title: 'TAP-VLA:把触觉 shear field 作为视觉标注注入 VLA',
+    url: 'https://arxiv.org/abs/2606.29089',
+    bucket: 'latest',
+    tags: ['LATEST', 'VLA', 'TACTILE', 'CONTROL'],
+  },
+  t2vla: {
+    title: 'T²VLA:用离散动作 VLA 置信度做 test-time RL',
+    url: 'https://arxiv.org/abs/2606.29892',
+    bucket: 'latest',
+    tags: ['LATEST', 'VLA', 'CONTROL', 'EVAL'],
+  },
+  saVla: {
+    title: 'SA-VLA:state-aware action tokenizer',
+    url: 'https://arxiv.org/abs/2606.30113',
+    bucket: 'latest',
+    tags: ['LATEST', 'VLA', 'CONTROL', 'DATA'],
+  },
+  zr0: {
+    title: 'ZR-0:dense embodied chain-of-thought 对齐跨本体表征',
+    url: 'https://arxiv.org/abs/2606.30552',
+    bucket: 'latest',
+    tags: ['LATEST', 'VLA', 'CONTROL', 'EVAL'],
+  },
+  eventVla: {
+    title: 'Event-VLA:事件相机增强低光场景动作鲁棒性',
+    url: 'https://arxiv.org/abs/2606.29384',
+    bucket: 'latest',
+    tags: ['LATEST', 'VLA', 'CONTROL', 'DEPLOY'],
+  },
+  criticalIntervalMse: {
+    title: 'Critical Interval MSE:关键片段 offline validation loss',
+    url: 'https://arxiv.org/abs/2606.29898',
+    bucket: 'latest',
+    tags: ['LATEST', 'EVAL', 'VLA', 'DATA'],
+  },
+  steam: {
+    title: 'STEAM:frame-level advantage 识别真实轨迹停滞、失败与恢复片段',
+    url: 'https://arxiv.org/abs/2606.29834',
+    bucket: 'latest',
+    tags: ['LATEST', 'DATA', 'EVAL', 'CONTROL'],
+  },
+  dailyPapers0630: {
+    title: '每日最新论文 2026-06-30:VLA / WAM / DATA-EVAL / HUMANOID-TACTILE',
+    url: withBase('/papers/latest'),
+    bucket: 'latest',
+    tags: ['LATEST', 'VLA', 'WAM', 'DATA', 'EVAL'],
+  },
+}
+
+const DAILY_IDEA_ANCHORS = {
+  '2026-06-29': '2026-06-29 今日产业信号 × 站内 WAM/VLA 细读',
+  '2026-06-30': '2026-06-30 今日论文雷达 × 6/30 产业部署信号',
 }
 
 const DAILY_IDEA_PACKS = {
@@ -208,6 +285,74 @@ const DAILY_IDEA_PACKS = {
       whyNow: '今天的出货与长时序任务披露让“规模部署可靠性”第一次有了可量化入口,可以反过来定义下一代 VLA/WAM 评测。',
       sourceIds: ['faradayShipments', 'agibotFactory', 'tau0Wm', 'rynnvla'],
       frontierId: 'faradayShipments',
+    },
+  ],
+  '2026-06-30': [
+    {
+      title: 'Confidence-to-Policy: 用 VLA 自置信驱动测试时后训练',
+      thesis: '把离散动作 VLA 的生成置信度、关键片段误差和部署失败片段合成一个 test-time policy improvement loop,让策略在真实环境试运行中小步自我修正。',
+      tension: 'VLA 开始出现 test-time RL 与关键片段 validation,但部署场景仍缺少“何时相信模型、何时改策略”的闭环判据',
+      motivation: 'T²VLA 把动作生成置信度转成内生 reward,Critical Interval MSE 和 STEAM 则把失败/关键片段从离线数据里显式挖出来;同时 BMW/Figure 与 X Square 的部署/融资信号说明真实机器人很快会产生大量短 rollout。今天最适合把“置信度”从日志指标变成后训练触发器。',
+      contributions: [
+        '提出 confidence-to-policy loop:把 action confidence、critical interval error、frame-level advantage 三个信号统一成测试时更新权重。',
+        '给出 safety-gated update:只在高可逆、低风险、短 horizon 子任务里允许策略自举改进。',
+        '建立部署数据 replay benchmark,比较无更新、离线重训、test-time RL 与 confidence-gated update。',
+      ],
+      method: [
+        '用 T²VLA 式生成置信度构造内生 reward,但加入 critical interval mask,避免被非关键帧噪声带偏。',
+        '用 STEAM 类 temporal-offset ensemble 标出停滞、失败和恢复片段,只对这些片段触发小步策略更新。',
+        '在真实 UR5/移动操作或仿真重放中限制更新步数,并记录更新前后动作分布漂移。',
+      ],
+      evaluation: '关键片段成功率、ECE/Brier 置信校准、失败恢复率、更新后退化率、单位 rollout 改善幅度和安全拒绝率。',
+      novelty: 90,
+      feasibility: 74,
+      whyNow: '今天论文队列首次把 VLA test-time RL、关键片段误差和轨迹质量估计同时推到前台,正好能形成一条可写 paper 的后训练闭环。',
+      sourceIds: ['t2vla', 'criticalIntervalMse', 'steam', 'bmwFigure03', 'dailyPapers0630'],
+      frontierId: 't2vla',
+    },
+    {
+      title: 'State-Aware Action Tokens: 面向跨本体部署的动作 token 自适应解码',
+      thesis: '让同一个离散动作 token 根据 robot state、接触阶段和本体差异解码为不同连续动作,把 action tokenizer 从压缩工具升级为跨机器人部署接口。',
+      tension: 'SA-VLA 证明 state-aware tokenizer 有价值,ZR-0 强调跨本体表征,但两者之间还缺少面向部署的动作接口协议',
+      motivation: 'SA-VLA 把 robot state 注入 VQ action tokenizer,ZR-0 用 dense ECoT 对齐跨 embodiment 表征;新闻侧 X Square 与 Striding AI 都在强调机器人基础系统/Physical AI 基座模型。一个自然的问题是:通用模型到底该输出固定动作,还是输出可由本体状态解码的动作 token?',
+      contributions: [
+        '提出 state-aware action token contract:token 表示意图/阶段,robot state decoder 负责本体化连续动作。',
+        '把 dense ECoT 中的任务阶段、接触意图和空间关系蒸馏到 action-token decoder 的条件变量。',
+        '设计跨本体消融,区分失败来自高层策略、tokenizer 压缩损失还是本体解码器。',
+      ],
+      method: [
+        '以 SA-VLA tokenizer 为主干,加入关节状态、末端位姿、接触状态和目标物关系作为 decoder context。',
+        '用 ZR-0 式 dense embodied CoT 生成阶段标签,训练时作为辅助监督,推理时只保留轻量 stage embedding。',
+        '在单臂、移动操作和人形上复用同一 token sequence,只替换 state decoder 与低层控制约束。',
+      ],
+      evaluation: '跨本体成功率、token reuse ratio、动作平滑度、接触错误率、少量目标本体数据适配效率和 decoder-only fine-tune 增益。',
+      novelty: 88,
+      feasibility: 70,
+      whyNow: '今日 VLA 论文同时出现 action tokenizer 和跨本体 ECoT,产业侧又在讲通用机器人大脑,动作 token 接口正好是二者之间最硬的研究缝隙。',
+      sourceIds: ['saVla', 'zr0', 'xSquareFunding', 'stridingFoundation', 'dailyPapers0630'],
+      frontierId: 'saVla',
+    },
+    {
+      title: 'Contact-Prompted VLA: 把触觉与事件视觉变成可迁移接触提示',
+      thesis: '不重训 VLA 主干,把触觉 shear field、事件相机和接触阶段提示包装成视觉/动作 prompt,专门提升低光、遮挡和细粒度接触任务的鲁棒性。',
+      tension: 'TAP-VLA 和 Event-VLA 都在补 RGB 的感知盲区,但缺少统一的 contact prompt 表示来服务真实工厂任务',
+      motivation: 'TAP-VLA 用触觉 shear field 作为视觉 annotation,Event-VLA 用事件相机补低光动态信息;韩国 Humanoid Challenge 与 BMW/Figure 这类制造业场景的共同难点恰好是接触、遮挡、低光和安全接管。今天的 idea 应该把“更多传感器”收敛成一个 VLA 可消费的接触提示接口。',
+      contributions: [
+        '提出 contact prompt abstraction:把触觉运动场、事件流和阶段标签统一成局部接触风险图。',
+        '无需改 VLA 主干,把 contact prompt 渲染进多视角 RGB 或作为 action-query routing 的辅助 token。',
+        '给出接触密集任务的鲁棒性评测,区分低光、遮挡、滑移、空抓和接触过力五类失败。',
+      ],
+      method: [
+        '从触觉图像估计 shear/motion field,从事件相机估计高速边缘变化,投影到末端/物体局部坐标。',
+        '把局部 contact prompt 叠加到 RGB 或生成 compact token,接入冻结 VLA 的视觉 encoder / action query。',
+        '用少量接触任务数据做 prompt adapter,和纯 RGB、触觉早融合、事件相机单独分支对照。',
+      ],
+      evaluation: '低光成功率、滑移检测召回、空抓率、接触力超限率、跨物体泛化和 prompt adapter 所需样本量。',
+      novelty: 85,
+      feasibility: 76,
+      whyNow: '今天 VLA 队列同时出现触觉注入和事件视觉路线,而制造业落地新闻给了明确场景压力:接触失败比语言理解更先卡住部署。',
+      sourceIds: ['tapVla', 'eventVla', 'koreaHumanoidChallenge', 'bmwFigure03', 'dailyPapers0630'],
+      frontierId: 'tapVla',
     },
   ],
 }
@@ -550,9 +695,10 @@ function dailySource(id) {
 }
 
 function buildDailyPaperIdeas(seed, tensions) {
-  const pack = DAILY_IDEA_PACKS[localDateKey(today.value)]
+  const dateKey = localDateKey(today.value)
+  const pack = DAILY_IDEA_PACKS[dateKey]
   if (!pack?.length) return null
-  const anchor = '2026-06-29 今日产业信号 × 站内 WAM/VLA 细读'
+  const anchor = DAILY_IDEA_ANCHORS[dateKey] || `${dateKey} 今日站内语料 × 最新研究信号`
   return pack.map((item, index) => {
     const sources = item.sourceIds.map(dailySource).filter(Boolean)
     return {
