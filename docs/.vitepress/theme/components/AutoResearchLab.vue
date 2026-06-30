@@ -238,6 +238,17 @@ const DAILY_IDEA_PACKS = {
       evaluation: '物料搬运、插槽对位、补料/换电等任务;指标包括干预率下降、异常提前预警 AUROC、单位时间产出、真实成功率和闭环延迟。',
       novelty: 91,
       feasibility: 68,
+      academicScores: {
+        novelty: 8.6,
+        hypothesis: 8.1,
+        method: 7.8,
+        evaluation: 7.4,
+        feasibility: 6.7,
+        differentiation: 8.2,
+        paperFit: 8.2,
+        riskControl: 6.8,
+      },
+      academicVerdict: '适合做真实部署数据驱动的 WAM paper,短板是产线轨迹可得性,先用公开或自有日志验证 progress/risk 标签。',
       whyNow: '今天的产业新闻给了少见的长时序真实工厂信号,正好可以把 WAM 从“会想象”推向“会判断是否值得执行”。',
       sourceIds: ['agibotFactory', 'ubtechTianjin', 'tau0Wm', 'lingbotVa'],
       frontierId: 'agibotFactory',
@@ -260,6 +271,17 @@ const DAILY_IDEA_PACKS = {
       evaluation: 'claim 可核率、跨评测者一致性、脚本依赖度、任务泛化得分、人工接管率和复现实验成本。',
       novelty: 86,
       feasibility: 82,
+      academicScores: {
+        novelty: 7.8,
+        hypothesis: 8.4,
+        method: 7.4,
+        evaluation: 8.5,
+        feasibility: 8.4,
+        differentiation: 7.6,
+        paperFit: 8,
+        riskControl: 8,
+      },
+      academicVerdict: '适合做 benchmark / workshop paper,核心要把 claim taxonomy、证据等级和跨评审一致性做扎实。',
       whyNow: '融资事件正在把“具身大脑”推成关键词,现在补一个 ClaimBench 可以让后续公司/模型对比更不玄学。',
       sourceIds: ['zhifangFunding', 'archonFunding', 'brainRanking', 'rynnvla'],
       frontierId: 'zhifangFunding',
@@ -282,6 +304,17 @@ const DAILY_IDEA_PACKS = {
       evaluation: 'ECE/Brier 校准误差、干预事件召回率、单位小时故障率、成功率随任务数衰减曲线、补采样本效率。',
       novelty: 83,
       feasibility: 72,
+      academicScores: {
+        novelty: 8.2,
+        hypothesis: 8.1,
+        method: 7.7,
+        evaluation: 8,
+        feasibility: 7,
+        differentiation: 7.9,
+        paperFit: 8,
+        riskControl: 7.3,
+      },
+      academicVerdict: '适合写 deployment reliability 方向论文,但需要尽快确认真实运行日志或可公开替代日志的可得性。',
       whyNow: '今天的出货与长时序任务披露让“规模部署可靠性”第一次有了可量化入口,可以反过来定义下一代 VLA/WAM 评测。',
       sourceIds: ['faradayShipments', 'agibotFactory', 'tau0Wm', 'rynnvla'],
       frontierId: 'faradayShipments',
@@ -306,6 +339,17 @@ const DAILY_IDEA_PACKS = {
       evaluation: '关键片段成功率、ECE/Brier 置信校准、失败恢复率、更新后退化率、单位 rollout 改善幅度和安全拒绝率。',
       novelty: 90,
       feasibility: 74,
+      academicScores: {
+        novelty: 7.8,
+        hypothesis: 8.9,
+        method: 8.2,
+        evaluation: 8.8,
+        feasibility: 8.1,
+        differentiation: 7.4,
+        paperFit: 8.3,
+        riskControl: 7.6,
+      },
+      academicVerdict: '短期最值得跑 pilot,但贡献必须从 T²VLA 中区分出来:安全门控、关键片段和校准置信度要成为核心机制。',
       whyNow: '今天论文队列首次把 VLA test-time RL、关键片段误差和轨迹质量估计同时推到前台,正好能形成一条可写 paper 的后训练闭环。',
       sourceIds: ['t2vla', 'criticalIntervalMse', 'steam', 'bmwFigure03', 'dailyPapers0630'],
       frontierId: 't2vla',
@@ -328,6 +372,17 @@ const DAILY_IDEA_PACKS = {
       evaluation: '跨本体成功率、token reuse ratio、动作平滑度、接触错误率、少量目标本体数据适配效率和 decoder-only fine-tune 增益。',
       novelty: 88,
       feasibility: 70,
+      academicScores: {
+        novelty: 8.9,
+        hypothesis: 8.4,
+        method: 8.3,
+        evaluation: 7.2,
+        feasibility: 6.3,
+        differentiation: 8.8,
+        paperFit: 8.8,
+        riskControl: 6.8,
+      },
+      academicVerdict: '长期主论文潜力最高,但第一版要收窄成 embodiment-conditioned decoder,否则实验规模会失控。',
       whyNow: '今日 VLA 论文同时出现 action tokenizer 和跨本体 ECoT,产业侧又在讲通用机器人大脑,动作 token 接口正好是二者之间最硬的研究缝隙。',
       sourceIds: ['saVla', 'zr0', 'xSquareFunding', 'stridingFoundation', 'dailyPapers0630'],
       frontierId: 'saVla',
@@ -350,12 +405,36 @@ const DAILY_IDEA_PACKS = {
       evaluation: '低光成功率、滑移检测召回、空抓率、接触力超限率、跨物体泛化和 prompt adapter 所需样本量。',
       novelty: 85,
       feasibility: 76,
+      academicScores: {
+        novelty: 7.4,
+        hypothesis: 8.1,
+        method: 7.8,
+        evaluation: 8.1,
+        feasibility: 6.9,
+        differentiation: 6.8,
+        paperFit: 7.8,
+        riskControl: 7.1,
+      },
+      academicVerdict: '适合做鲁棒操作技术论文,需要证明 contact prompt abstraction 优于触觉/事件视觉的简单早融合。',
       whyNow: '今天 VLA 队列同时出现触觉注入和事件视觉路线,而制造业落地新闻给了明确场景压力:接触失败比语言理解更先卡住部署。',
       sourceIds: ['tapVla', 'eventVla', 'koreaHumanoidChallenge', 'bmwFigure03', 'dailyPapers0630'],
       frontierId: 'tapVla',
     },
   ],
 }
+
+const ACADEMIC_SCORE_DIMENSIONS = [
+  { key: 'novelty', label: '新颖性', short: '新颖' },
+  { key: 'hypothesis', label: '假设清晰度', short: '假设' },
+  { key: 'method', label: '方法深度', short: '方法' },
+  { key: 'evaluation', label: '评测闭环', short: '评测' },
+  { key: 'feasibility', label: '实验可行性', short: '可行' },
+  { key: 'differentiation', label: '近期工作区分度', short: '区分' },
+  { key: 'paperFit', label: '投稿潜力', short: '投稿' },
+  { key: 'riskControl', label: '风险可控性', short: '风险' },
+]
+
+const ACADEMIC_CARD_KEYS = ['novelty', 'method', 'evaluation', 'feasibility']
 
 const TAG_RULES = [
   { tag: 'WLA', terms: ['wla', 'world-language-action', 'world language action', '世界-语言-动作'] },
@@ -694,6 +773,84 @@ function dailySource(id) {
   }
 }
 
+function roundAcademicScore(value) {
+  return Math.round(value * 10) / 10
+}
+
+function clampAcademicScore(value) {
+  const numeric = Number(value)
+  if (!Number.isFinite(numeric)) return 7
+  const normalized = numeric > 10 ? numeric / 10 : numeric
+  return roundAcademicScore(Math.max(0, Math.min(10, normalized)))
+}
+
+function defaultAcademicScores(idea) {
+  const novelty = clampAcademicScore(idea.novelty)
+  const feasibility = clampAcademicScore(idea.feasibility)
+  const methodCount = Array.isArray(idea.method) ? idea.method.length : 0
+  const contributionCount = Array.isArray(idea.contributions) ? idea.contributions.length : 0
+  const sourceCount = Array.isArray(idea.sources) ? idea.sources.length : Array.isArray(idea.sourceIds) ? idea.sourceIds.length : 0
+  const hypothesis = clampAcademicScore((idea.thesis || '').length > 48 ? 8 : 6.8)
+  const method = clampAcademicScore(6.2 + Math.min(methodCount, 3) * 0.55 + Math.min(contributionCount, 3) * 0.22)
+  const evaluation = clampAcademicScore((idea.evaluation || '').length > 42 ? 7.8 : 6.6)
+  const differentiation = clampAcademicScore((novelty * 0.72) + Math.min(sourceCount, 4) * 0.28)
+  const paperFit = clampAcademicScore((novelty * 0.34) + (hypothesis * 0.16) + (method * 0.2) + (evaluation * 0.2) + (differentiation * 0.1))
+  const riskControl = clampAcademicScore((feasibility * 0.56) + (evaluation * 0.24) + 1.4)
+
+  return {
+    novelty,
+    hypothesis,
+    method,
+    evaluation,
+    feasibility,
+    differentiation,
+    paperFit,
+    riskControl,
+  }
+}
+
+function normalizeAcademicScores(idea) {
+  const base = defaultAcademicScores(idea)
+  const manual = idea.academicScores || {}
+  return Object.fromEntries(ACADEMIC_SCORE_DIMENSIONS.map((item) => [
+    item.key,
+    clampAcademicScore(manual[item.key] ?? base[item.key]),
+  ]))
+}
+
+function academicTierFromScore(score) {
+  if (score >= 8.4) return '主论文候选'
+  if (score >= 7.8) return '强 pilot 候选'
+  if (score >= 7.2) return '可收窄推进'
+  return '备选探索'
+}
+
+function academicVerdictFor(idea, score) {
+  if (score >= 8.4) return '值得优先写一页 proposal,下一步重点压实最近工作对比和主实验闭环。'
+  if ((idea.academicScores?.feasibility ?? idea.feasibility / 10) < 6.8) return '研究问题有潜力,但需要先做最小可行实验确认数据、平台或传感器条件。'
+  if (score >= 7.8) return '适合进入 1-2 周 pilot,先证明核心假设,再扩展成完整方法。'
+  return '更适合作为备选方向,先继续补近邻论文和反例,避免贡献停留在系统拼装。'
+}
+
+function attachAcademicReview(idea) {
+  const academicScores = normalizeAcademicScores(idea)
+  const academicScoreItems = ACADEMIC_SCORE_DIMENSIONS.map((item) => ({
+    ...item,
+    value: academicScores[item.key],
+  }))
+  const academicScore = roundAcademicScore(academicScoreItems.reduce((sum, item) => sum + item.value, 0) / academicScoreItems.length)
+  const academicTier = idea.academicTier || academicTierFromScore(academicScore)
+  return {
+    ...idea,
+    academicScores,
+    academicScoreItems,
+    academicCardScores: academicScoreItems.filter((item) => ACADEMIC_CARD_KEYS.includes(item.key)),
+    academicScore,
+    academicTier,
+    academicVerdict: idea.academicVerdict || academicVerdictFor(idea, academicScore),
+  }
+}
+
 function buildDailyPaperIdeas(seed, tensions) {
   const dateKey = localDateKey(today.value)
   const pack = DAILY_IDEA_PACKS[dateKey]
@@ -701,7 +858,7 @@ function buildDailyPaperIdeas(seed, tensions) {
   const anchor = DAILY_IDEA_ANCHORS[dateKey] || `${dateKey} 今日站内语料 × 最新研究信号`
   return pack.map((item, index) => {
     const sources = item.sourceIds.map(dailySource).filter(Boolean)
-    return {
+    return attachAcademicReview({
       ...item,
       id: `idea-${index}`,
       anchor,
@@ -709,7 +866,7 @@ function buildDailyPaperIdeas(seed, tensions) {
       sources,
       frontier: dailySource(item.frontierId) || sources[0] || null,
       tension: item.tension || tensions[index % tensions.length]?.title || '今日证据张力',
-    }
+    })
   })
 }
 
@@ -843,7 +1000,7 @@ function buildPaperIdeas(seed, focus, evidence, tensions, frontiers) {
     })
   }
 
-  return ideas.slice(0, 3).map((idea, index) => ({
+  return ideas.slice(0, 3).map((idea, index) => attachAcademicReview({
     ...idea,
     id: `idea-${index}`,
     anchor: `${first} × ${second}`,
@@ -1640,10 +1797,17 @@ onMounted(loadCorpus)
               <header>
                 <span class="ar-idea-rank">#{{ index + 1 }}</span>
                 <span class="ar-idea-tension">{{ idea.tension }}</span>
-                <span class="ar-idea-score">N{{ idea.novelty }} / F{{ idea.feasibility }}</span>
+                <span class="ar-idea-score">{{ idea.academicTier }} · {{ idea.academicScore }}/10</span>
               </header>
               <h3>{{ idea.title }}</h3>
               <p>{{ idea.thesis }}</p>
+              <div class="ar-academic-mini" aria-label="学术多维评分">
+                <span v-for="item in idea.academicCardScores" :key="`${idea.id}-score-${item.key}`">
+                  <b>{{ item.short }}</b>
+                  <i>{{ item.value }}</i>
+                </span>
+              </div>
+              <p class="ar-academic-verdict">{{ idea.academicVerdict }}</p>
               <div class="ar-why">
                 <span>WHY NOW</span>
                 <p>{{ idea.whyNow }}</p>
@@ -1700,11 +1864,25 @@ onMounted(loadCorpus)
           <div class="ar-detail-meta">
             <span>#{{ selectedIdeaIndex + 1 }}</span>
             <span>{{ selectedIdea.tension }}</span>
-            <span>Novelty {{ selectedIdea.novelty }}</span>
-            <span>Feasibility {{ selectedIdea.feasibility }}</span>
+            <span>学术总分 {{ selectedIdea.academicScore }}/10</span>
+            <span>{{ selectedIdea.academicTier }}</span>
           </div>
 
           <p class="ar-detail-thesis">{{ selectedIdea.thesis }}</p>
+
+          <section class="ar-detail-academic">
+            <header>
+              <span>学术多维评分</span>
+              <strong>{{ selectedIdea.academicScore }}/10</strong>
+            </header>
+            <div class="ar-academic-grid">
+              <span v-for="item in selectedIdea.academicScoreItems" :key="`detail-score-${selectedIdea.id}-${item.key}`">
+                <b>{{ item.label }}</b>
+                <i>{{ item.value }}/10</i>
+              </span>
+            </div>
+            <p>{{ selectedIdea.academicVerdict }}</p>
+          </section>
 
           <section class="ar-detail-why">
             <span>WHY NOW</span>
@@ -2660,7 +2838,55 @@ onMounted(loadCorpus)
 }
 
 .ar-idea-score {
+  flex: 0 0 auto;
   color: #f8d78a;
+  white-space: nowrap;
+}
+
+.ar-academic-mini {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.ar-academic-mini span {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 7px;
+  border: 1px solid color-mix(in srgb, var(--idea-accent, #38bdf8) 22%, rgba(148, 163, 184, 0.16));
+  border-radius: 6px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 46%),
+    color-mix(in srgb, var(--idea-accent, #38bdf8) 8%, rgba(2, 6, 23, 0.42));
+}
+
+.ar-academic-mini b,
+.ar-academic-mini i {
+  min-width: 0;
+  font-style: normal;
+  line-height: 1;
+}
+
+.ar-academic-mini b {
+  color: #b7c9df;
+  font-size: 0.66rem;
+  font-weight: 900;
+}
+
+.ar-academic-mini i {
+  color: #f8fafc;
+  font: 900 0.72rem/1 var(--font-display);
+}
+
+.ar-academic-verdict {
+  margin: -2px 0 0;
+  color: #dbeafe !important;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.5 !important;
 }
 
 .ar-brief--quick .ar-idea-body > p,
@@ -2680,6 +2906,21 @@ onMounted(loadCorpus)
 .ar-brief--quick .ar-why,
 .ar-brief--quick .ar-source-row {
   display: none;
+}
+
+.ar-brief--quick .ar-academic-mini {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.ar-brief--quick .ar-academic-mini span {
+  padding: 5px 6px;
+}
+
+.ar-brief--quick .ar-academic-verdict {
+  display: -webkit-box !important;
+  overflow: hidden !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 .ar-brief--quick .ar-idea-grid {
@@ -3131,6 +3372,83 @@ onMounted(loadCorpus)
   line-height: 1.62;
 }
 
+.ar-detail-academic {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 13px;
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(14, 165, 233, 0.12), transparent 48%),
+    rgba(2, 6, 23, 0.38);
+}
+
+.ar-detail-academic header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ar-detail-academic header span {
+  color: #7dd3fc;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ar-detail-academic header strong {
+  color: #f8d78a;
+  font: 900 0.92rem/1 var(--font-display);
+}
+
+.ar-academic-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.ar-academic-grid span {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+  padding: 9px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 48%),
+    rgba(15, 23, 42, 0.52);
+}
+
+.ar-academic-grid b,
+.ar-academic-grid i {
+  min-width: 0;
+  font-style: normal;
+}
+
+.ar-academic-grid b {
+  color: #cbd5e1;
+  font-size: 0.76rem;
+  line-height: 1.25;
+}
+
+.ar-academic-grid i {
+  color: #f8fafc;
+  font: 900 0.88rem/1 var(--font-display);
+}
+
+.ar-detail-academic p {
+  margin: 0;
+  color: #dbeafe;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.58;
+}
+
 .ar-detail-why {
   position: relative;
   z-index: 1;
@@ -3463,6 +3781,12 @@ onMounted(loadCorpus)
   .ar-brief--quick .ar-idea-grid p,
   .ar-brief--quick .ar-tight-list li {
     -webkit-line-clamp: 1;
+  }
+
+  .ar-academic-mini,
+  .ar-brief--quick .ar-academic-mini,
+  .ar-academic-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .ar-detail-backdrop {
