@@ -23,6 +23,64 @@ function titleOfMarkdown(file, slug) {
   return cleanWikiLabel(title, slug)
 }
 
+const MANUAL_WIKI_ALIASES = {
+  'pi0': ['pi0', 'Pi0'],
+  'pi05': ['pi0.5', 'Pi0.5'],
+  'pi06': ['pi0.6', 'Pi0.6', 'π*0.6', 'RECAP'],
+  'pi07': ['pi0.7', 'Pi0.7'],
+  'pi0-fast': ['pi0-FAST', 'Pi0-FAST'],
+  'groot-n1': ['GR00T-N1', 'GROOT N1', 'GROOT-N1'],
+  'groot-n2': ['GR00T-N2', 'GROOT N2', 'GROOT-N2'],
+  'wall-oss-05': ['WALL-OSS-0.5', 'Wall-OSS-0.5'],
+  'rynnvla': ['RynnVLA', 'RynnVLA-001'],
+  'rynnvla-002': ['RynnVLA-002'],
+  'openvla-oft': ['OpenVLA-OFT'],
+  'rt1': ['RT1'],
+  'rt2': ['RT2'],
+  'rdt-1b': ['RDT-1B'],
+  'qwen-vla': ['Qwen VLA'],
+  'qwen-robotworld': ['Qwen RobotWorld'],
+  'world-value-models': ['WVM', 'World Value Model'],
+  'worldvla': ['World VLA'],
+  'x-wam': ['XWAM'],
+  'tau0-wm': ['tau0-WM', 'τ0 WM'],
+  'embodied-data': ['Open X-Embodiment', 'OXE', 'RT-X', '具身数据全景'],
+  'dual-system-architecture': ['dual-system', '双系统架构'],
+}
+
+const AUTO_WIKI_ALIAS_BLOCKLIST = new Set([
+  'VLA',
+  'WAM',
+  'RL',
+  'DATA',
+  'ACT',
+  'Code',
+  'Project',
+  'Paper',
+  'Resources',
+])
+
+function normalizeAutoAlias(alias) {
+  return (alias || '')
+    .replace(/^["']|["']$/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function aliasesOfPaper(slug, label) {
+  const aliases = new Set([label, ...(MANUAL_WIKI_ALIASES[slug] || [])])
+  if (/^[a-z0-9-]+$/.test(slug) && slug.length >= 3) {
+    const hyphenTitle = slug
+      .split('-')
+      .map((part) => part ? part[0].toUpperCase() + part.slice(1) : part)
+      .join('-')
+    aliases.add(hyphenTitle)
+  }
+  return [...aliases]
+    .map(normalizeAutoAlias)
+    .filter((alias) => alias.length >= 3 && !AUTO_WIKI_ALIAS_BLOCKLIST.has(alias))
+}
+
 function buildWikiLinkIndex() {
   const links = new Map()
   for (const track of ['vla', 'wam']) {
@@ -33,16 +91,83 @@ function buildWikiLinkIndex() {
       const slug = ent.name.replace(/\.md$/, '')
       const href = `/${track}/papers/${slug}`
       const label = titleOfMarkdown(path.join(dir, ent.name), slug)
-      links.set(slug, { href, label })
-      links.set(slug.toLowerCase(), { href, label })
+      const entry = { href, label, slug, track, aliases: aliasesOfPaper(slug, label) }
+      links.set(slug, entry)
+      links.set(slug.toLowerCase(), entry)
     }
   }
-  links.set('OXE', { href: '/vla/papers/embodied-data#二、主流真机数据集横向对比', label: 'OXE / RT-X' })
+  links.set('OXE', {
+    href: '/vla/papers/embodied-data#二、主流真机数据集横向对比',
+    label: 'OXE / RT-X',
+    slug: 'embodied-data',
+    track: 'vla',
+    aliases: ['OXE', 'Open X-Embodiment', 'RT-X'],
+  })
   links.set('oxe', links.get('OXE'))
   return links
 }
 
 const WIKI_LINKS = buildWikiLinkIndex()
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+function buildAutoWikiLinks() {
+  const seenEntries = new Set()
+  const aliasToEntry = new Map()
+  for (const entry of WIKI_LINKS.values()) {
+    if (seenEntries.has(entry.href)) continue
+    seenEntries.add(entry.href)
+    for (const alias of entry.aliases || []) {
+      if (!aliasToEntry.has(alias)) aliasToEntry.set(alias, entry)
+    }
+  }
+  const aliases = [...aliasToEntry.keys()].sort((a, b) => b.length - a.length)
+  return {
+    aliasToEntry,
+    pattern: aliases.length ? new RegExp(aliases.map(escapeRegExp).join('|'), 'g') : null,
+  }
+}
+
+const AUTO_WIKI_LINKS = buildAutoWikiLinks()
+
+function paperHrefFromPath(rawPath) {
+  const rel = String(rawPath || '').replace(/\\/g, '/')
+  const match = rel.match(/(?:^|\/)(vla|wam)\/papers\/([^/]+)\.md$/)
+  return match ? `/${match[1]}/papers/${match[2]}` : ''
+}
+
+function normalizeInternalHref(href, baseDir = '') {
+  let value = String(href || '')
+    .replace(/^https?:\/\/zhuyun97\.github\.io\/embodied-ai-learning/, '')
+    .replace(/^\/embodied-ai-learning/, '')
+  if (!value || /^(https?:|mailto:|tel:)/.test(value)) return value
+  const hashIndex = value.indexOf('#')
+  if (hashIndex >= 0) value = value.slice(0, hashIndex)
+  value = value.replace(/\.md$/, '').replace(/\.html$/, '')
+  if (value.startsWith('./') || value.startsWith('../') || !value.startsWith('/')) {
+    value = path.posix.normalize(`${baseDir || ''}/${value}`)
+    if (!value.startsWith('/')) value = `/${value}`
+  }
+  return value
+}
+
+function isPaperPageEnv(env) {
+  return Boolean(paperHrefFromPath(env?.relativePath || env?.path || env?.filePath))
+}
+
+const AUTO_WIKI_BOUNDARY_CHARS = /[A-Za-z0-9_.\-\u0370-\u03ff]/
+
+function hasAliasBoundary(text, start, end, alias) {
+  const first = alias[0]
+  const last = alias[alias.length - 1]
+  const before = start > 0 ? text[start - 1] : ''
+  const after = end < text.length ? text[end] : ''
+  if (AUTO_WIKI_BOUNDARY_CHARS.test(first) && before && AUTO_WIKI_BOUNDARY_CHARS.test(before)) return false
+  if (AUTO_WIKI_BOUNDARY_CHARS.test(last) && after && AUTO_WIKI_BOUNDARY_CHARS.test(after)) return false
+  return true
+}
 
 function installWikiLinks(md) {
   md.core.ruler.after('inline', 'paper-wiki-links', (state) => {
@@ -60,14 +185,50 @@ function installWikiLinks(md) {
       const close = new state.Token('link_close', 'a', -1)
       return [open, text, close]
     }
+    const makeAutoLink = (entry, label) => makeLink(entry, label, false)
+    const autoEnabled = isPaperPageEnv(state.env)
+    const currentHref = paperHrefFromPath(state.env?.relativePath || state.env?.path || state.env?.filePath)
+    const currentDir = currentHref.replace(/\/[^/]+$/, '')
+    const autoLinkedHrefs = new Set([currentHref])
 
-    for (const token of state.tokens) {
+    const autoLinkText = (text) => {
+      if (!autoEnabled || !AUTO_WIKI_LINKS.pattern || !text) return [makeText(text)]
+      const out = []
+      let last = 0
+      AUTO_WIKI_LINKS.pattern.lastIndex = 0
+      let match
+      while ((match = AUTO_WIKI_LINKS.pattern.exec(text))) {
+        const alias = match[0]
+        const entry = AUTO_WIKI_LINKS.aliasToEntry.get(alias)
+        const href = normalizeInternalHref(entry?.href)
+        const end = match.index + alias.length
+        if (
+          !entry ||
+          autoLinkedHrefs.has(href) ||
+          !hasAliasBoundary(text, match.index, end, alias)
+        ) {
+          continue
+        }
+        if (match.index > last) out.push(makeText(text.slice(last, match.index)))
+        out.push(...makeAutoLink(entry, alias))
+        autoLinkedHrefs.add(href)
+        last = end
+      }
+      if (last < text.length) out.push(makeText(text.slice(last)))
+      return out.length ? out : [makeText(text)]
+    }
+
+    for (let tokenIndex = 0; tokenIndex < state.tokens.length; tokenIndex += 1) {
+      const token = state.tokens[tokenIndex]
       if (token.type !== 'inline' || !token.children?.length) continue
+      if (state.tokens[tokenIndex - 1]?.type === 'heading_open') continue
       const out = []
       let linkDepth = 0
       for (const child of token.children) {
         if (child.type === 'link_open') {
           linkDepth += 1
+          const href = normalizeInternalHref(child.attrGet('href'), currentDir)
+          if (href) autoLinkedHrefs.add(href)
           out.push(child)
           continue
         }
@@ -77,7 +238,8 @@ function installWikiLinks(md) {
           continue
         }
         if (linkDepth || child.type !== 'text' || !child.content.includes('[[')) {
-          out.push(child)
+          if (!linkDepth && child.type === 'text') out.push(...autoLinkText(child.content))
+          else out.push(child)
           continue
         }
         const text = child.content
@@ -92,9 +254,10 @@ function installWikiLinks(md) {
           const entry = WIKI_LINKS.get(slug) || WIKI_LINKS.get(slug.toLowerCase())
           if (entry) out.push(...makeLink(entry, customLabel || entry.label || slug, marker))
           else out.push(makeText(match[0]))
+          if (entry) autoLinkedHrefs.add(normalizeInternalHref(entry.href))
           last = match.index + match[0].length
         }
-        if (last < text.length) out.push(makeText(text.slice(last)))
+        if (last < text.length) out.push(...autoLinkText(text.slice(last)))
       }
       token.children = out
     }
