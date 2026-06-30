@@ -1,5 +1,194 @@
 [
   {
+    "id": "x-square-robot-series-c-2-8b-valuation-20260629",
+    "title": "X Square Robot 连续完成四轮融资:估值超 28 亿美元,推进 Physical AI 基座模型",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-30",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "中国具身智能",
+      "机器人基础模型"
+    ],
+    "summary": "自变量机器人 X Square Robot 宣布连续完成四轮融资,其中 C 轮由阿里巴巴领投,老股东持续跟投,公司估值超过 28 亿美元。官方口径强调资金将用于 Physical AI 基座模型、通用机器人数据平台和自研本体等方向。该事件与本站已收录的 Wall-OSS-0.5 开源不同,这是新的融资与公司战略节点;但融资披露仍属公司新闻稿口径,后续应继续跟踪真实部署规模。",
+    "sources": [
+      {
+        "name": "PR Newswire / X Square Robot",
+        "url": "https://www.prnewswire.com/apac/news-releases/x-square-robot-secures-four-consecutive-financing-rounds-surpasses-us2-8-billion-valuation-in-push-for-physical-ai-foundation-models-302813098.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "wall-oss",
+        "url": "/vla/papers/wall-oss"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "striding-ai-angel-100m-robotics-foundation-system-20260629",
+    "title": "Striding AI 获近 1 亿美元天使轮融资:宣布开发新一代机器人基础系统",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-30",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "机器人基础模型",
+      "公司战略"
+    ],
+    "summary": "Striding AI 宣布获得近 1 亿美元天使轮融资,并披露将开发下一代 Robotic Foundation System,目标是把世界模型、强化学习、具身数据和机器人部署工程结合起来。公司将其定位为面向复杂真实环境的机器人基础系统,而不是单点动作模型。该事件值得收录为基础模型公司融资与技术路线信号,但目前仍以公司规划为主,尚需后续产品、论文或部署数据验证。",
+    "sources": [
+      {
+        "name": "Momenta Media",
+        "url": "https://www.momenta.media/article/striding-ai-announces-robotics-foundation-system-plans"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "deep-robotics-global-partner-1xn-strategy-20260629",
+    "title": "云深处全球合作伙伴大会发布 1+X+N 战略:加速四足机器人商业化具身智能",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-30",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "公司战略",
+      "产业落地",
+      "四足机器人"
+    ],
+    "summary": "DEEP Robotics 云深处在全球合作伙伴大会上发布 1+X+N 战略,将四足机器人平台、行业方案和全球伙伴生态组合起来,推动巡检、安防、应急、工业等场景的商业化扩张。相较单纯产品更新,这条新闻的关键在于其把 embodied AI 的落地路径从单机能力转向渠道、方案和行业模板复制。",
+    "sources": [
+      {
+        "name": "Newsfile / DEEP Robotics",
+        "url": "https://www.newsfilecorp.com/release/303225/DEEP-Robotics-Hosts-Global-Partner-Conference-Unveiling-1XN-Strategy-to-Accelerate-Commercial-Embodied-AI-Worldwide"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "agibot-15000th-g2-rolls-off-production-line-20260629",
+    "title": "智元第 15000 台 G2 人形机器人下线:量产节点与工厂直播形成连续信号",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-30",
+    "importance": "major",
+    "credibility": "todo",
+    "category": [
+      "产能建设",
+      "人形机器人",
+      "产业落地"
+    ],
+    "summary": "Humanoid Robotics Technology 报道称,智元第 15000 台 G2 人形机器人已下线。结合本站已收录的 6 天真实工厂直播,这条新闻更像是智元从场景验证走向量产规模叙事的连续节点。⚠️ 当前来源为行业媒体转述,具体产能结构、客户构成和长期运行数据仍需官方披露或第三方验证。",
+    "sources": [
+      {
+        "name": "Humanoid Robotics Technology",
+        "url": "https://humanoidroboticstechnology.com/industry-news/agibots-15000th-humanoid-robot-rolls-off-the-production-line/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "wirobotics-allex-simulation-model-physical-ai-20260629",
+    "title": "WIRobotics 发布 ALLEX 仿真模型路线图:建设 Physical AI 开发生态",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-30",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "平台发布",
+      "Physical AI",
+      "仿真训练"
+    ],
+    "summary": "韩国 WIRobotics 宣布技术披露路线图,首个释放的方向是 ALLEX simulation model,用于构建 Physical AI 开发生态。公司希望把机器人硬件、仿真、控制和开发者工具联动起来,降低具身智能应用开发门槛。该事件不是论文发布,而是平台/生态路线披露;后续可跟踪其仿真模型是否开放、是否有真实机器人闭环数据支撑。",
+    "sources": [
+      {
+        "name": "PR Newswire / WIRobotics",
+        "url": "https://www.prnewswire.com/news-releases/wirobotics-begins-building-a-physical-ai-development-ecosystem-the-first-technology-release-features-the-allex-simulation-model-302812541.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "korea-2026-humanoid-challenge-manufacturing-verification-20260629",
+    "title": "韩国 2026 Humanoid Challenge 进入制造业场景验证:12 支队伍参加决赛",
+    "date": "2026-06-29",
+    "fetched_at": "2026-06-30",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "行业活动",
+      "人形机器人",
+      "评测验证"
+    ],
+    "summary": "韩国 2026 Humanoid Challenge 在安山进入决赛阶段,赛事由产业通商资源部等支持,围绕制造业操作场景进行人形机器人验证,入围的 12 支队伍将在真实工业任务设定下竞争。对本站而言,这类赛事的价值不在于单次排名,而在于政府和产业界开始把人形机器人评测从舞台展示推向制造业操作验证。",
+    "sources": [
+      {
+        "name": "Aju Business Daily",
+        "url": "https://www.ajudaily.com/view/20250629135149621"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "bmw-figure-03-spartanburg-logistics-deployment-20260626",
+    "title": "BMW Spartanburg 项目引入 Figure 03:人形机器人进入汽车物流排序任务",
+    "date": "2026-06-26",
+    "fetched_at": "2026-06-30",
+    "importance": "normal",
+    "credibility": "todo",
+    "category": [
+      "产业落地",
+      "人形机器人",
+      "汽车制造"
+    ],
+    "summary": "Humanoid Robotics Technology 报道 Figure 03 人形机器人进入 BMW Group Spartanburg 项目,重点面向物流排序等工厂任务。该事件与此前 Figure 03 产能提升新闻互补:一个指向制造供给能力,一个指向汽车工厂场景落地。⚠️ 当前为媒体转述与项目进展报道,仍需持续跟踪 BMW/Figure 官方后续披露、任务时长和安全接管数据。",
+    "sources": [
+      {
+        "name": "Humanoid Robotics Technology",
+        "url": "https://humanoidroboticstechnology.com/industry-news/figure-03-humanoids-at-bmw-group-project-in-spartanburg/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "ai2-robotics-zhifang-50b-financing-valuation-200b-20260629",
     "title": "智平方完成近 50 亿元新融资:估值升至超 200 亿元",
     "date": "2026-06-29",
