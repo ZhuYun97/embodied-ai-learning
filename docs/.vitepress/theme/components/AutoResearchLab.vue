@@ -12,35 +12,35 @@ const DAILY_DIRECTIONS = [
     label: '最新论文雷达',
     scope: 'latest',
     focus: 'P0/P1 新论文、已细读候选与可验证 claim。',
-    seed: '从每日最新论文队列和站内细读里筛出 3 个今日可推进 paper ideas。',
+    seed: '从每日最新论文队列和站内细读里筛出 3 个当日可推进 paper ideas。',
   },
   {
     id: 'data',
     label: '具身数据闭环',
     scope: 'data',
     focus: '数据采集、自动标注、失败回流和 VLA 后训练。',
-    seed: '围绕具身数据 scaling、自动标注和失败驱动后训练生成今日 paper ideas。',
+    seed: '围绕具身数据 scaling、自动标注和失败驱动后训练生成当日 paper ideas。',
   },
   {
     id: 'wam',
     label: 'WAM / WLA',
     scope: 'wam',
     focus: '世界模型、未来预测、候选动作 critic 与真实执行成功率。',
-    seed: '围绕 WAM / WLA 如何服务 VLA 控制和评测生成今日 paper ideas。',
+    seed: '围绕 WAM / WLA 如何服务 VLA 控制和评测生成当日 paper ideas。',
   },
   {
     id: 'vla',
     label: 'VLA 后训练',
     scope: 'vla',
     focus: '动作接口、跨本体迁移、post-training 和部署反馈。',
-    seed: '围绕 VLA 后训练、动作接口和部署反馈生成今日 paper ideas。',
+    seed: '围绕 VLA 后训练、动作接口和部署反馈生成当日 paper ideas。',
   },
   {
     id: 'all',
     label: '全站交叉',
     scope: 'all',
     focus: '把 VLA、WAM、数据、评测与产业信号交叉成新问题。',
-    seed: '结合全站落盘论文和最新研究信号生成今日 paper ideas。',
+    seed: '结合全站落盘论文和最新研究信号生成当日 paper ideas。',
   },
 ]
 
@@ -461,9 +461,23 @@ const result = ref(null)
 const lastRunAt = ref('')
 const corpusSource = ref('')
 const selectedIdeaId = ref('')
+const selectedIdeaDate = ref(localDateKey(new Date()))
 let timer = 0
 
-const today = computed(() => new Date(dailyClock.value))
+const currentDateKey = computed(() => localDateKey(new Date(dailyClock.value)))
+
+const ideaHistoryOptions = computed(() => {
+  const keys = new Set([currentDateKey.value, ...Object.keys(DAILY_IDEA_PACKS)])
+  return [...keys]
+    .sort((a, b) => b.localeCompare(a))
+    .map((key) => ({
+      key,
+      label: formatIdeaDateLabel(key),
+      archived: Boolean(DAILY_IDEA_PACKS[key]),
+    }))
+})
+
+const today = computed(() => dateFromKey(selectedIdeaDate.value || currentDateKey.value))
 
 const todayKey = computed(() => today.value.toLocaleDateString('zh-CN', {
   month: '2-digit',
@@ -762,6 +776,24 @@ function localDateKey(date) {
   return `${y}-${m}-${d}`
 }
 
+function dateFromKey(key) {
+  const match = String(key || '').match(/^(\d{4})-(\d{2})-(\d{2})$/)
+  if (!match) return new Date()
+  return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]))
+}
+
+function formatIdeaDateLabel(key) {
+  const date = dateFromKey(key)
+  const label = date.toLocaleDateString('zh-CN', {
+    month: '2-digit',
+    day: '2-digit',
+    weekday: 'short',
+  })
+  if (key === localDateKey(new Date())) return `${label} · 今日`
+  if (DAILY_IDEA_PACKS[key]) return `${label} · 已归档`
+  return `${label} · 自动生成`
+}
+
 function dailySource(id) {
   const source = DAILY_SOURCE_POOL[id]
   if (!source) return null
@@ -855,7 +887,7 @@ function buildDailyPaperIdeas(seed, tensions) {
   const dateKey = localDateKey(today.value)
   const pack = DAILY_IDEA_PACKS[dateKey]
   if (!pack?.length) return null
-  const anchor = DAILY_IDEA_ANCHORS[dateKey] || `${dateKey} 今日站内语料 × 最新研究信号`
+  const anchor = DAILY_IDEA_ANCHORS[dateKey] || `${dateKey} 当日站内语料 × 最新研究信号`
   return pack.map((item, index) => {
     const sources = item.sourceIds.map(dailySource).filter(Boolean)
     return attachAcademicReview({
@@ -865,7 +897,7 @@ function buildDailyPaperIdeas(seed, tensions) {
       seed,
       sources,
       frontier: dailySource(item.frontierId) || sources[0] || null,
-      tension: item.tension || tensions[index % tensions.length]?.title || '今日证据张力',
+      tension: item.tension || tensions[index % tensions.length]?.title || '当日证据张力',
     })
   })
 }
@@ -1361,7 +1393,7 @@ function buildDiscoveryPipeline(seed, focus, evidence, tensions, frontiers, idea
       'MODE = offline site corpus',
     ],
     phases: [
-      { id: '0', title: 'Load Daily Direction', status: 'DONE', text: '用今日方向 + 站内语料替代外部 research brief。' },
+      { id: '0', title: 'Load Daily Direction', status: 'DONE', text: '用所选日期方向 + 站内语料替代外部 research brief。' },
       { id: '1', title: 'Literature Landscape', status: 'DONE', text: '从站内论文、每日论文和前沿信号抽取子方向、缺口和近邻。' },
       { id: '2', title: 'Idea Generation', status: 'DONE', text: `生成 ${candidates.length} 个候选,保留前 ${ranked.length} 个。` },
       { id: '3', title: 'Local Novelty Check', status: 'DONE', text: '用站内 corpus 查 closest work 与 differentiation,不联网调用 API。' },
@@ -1508,6 +1540,12 @@ watch(mode, () => {
   timer = window.setTimeout(runResearch, 420)
 })
 
+watch(selectedIdeaDate, () => {
+  selectedIdeaId.value = ''
+  window.clearTimeout(timer)
+  if (corpus.value.length) timer = window.setTimeout(runResearch, 180)
+})
+
 watch(result, () => {
   if (selectedIdeaId.value && !selectedIdea.value) selectedIdeaId.value = ''
 })
@@ -1548,9 +1586,17 @@ onMounted(loadCorpus)
         </div>
       </div>
       <div class="ar-daily">
-        <span class="ar-kicker">// TODAY'S TRACK</span>
+        <span class="ar-kicker">// IDEA TRACK</span>
         <h2>{{ todayKey }} · {{ dailyDirection.label }}</h2>
         <p>{{ dailyDirection.focus }}</p>
+        <label class="ar-history">
+          <span>DATE</span>
+          <select v-model="selectedIdeaDate" aria-label="选择 Ideas 日期">
+            <option v-for="item in ideaHistoryOptions" :key="item.key" :value="item.key">
+              {{ item.label }}
+            </option>
+          </select>
+        </label>
       </div>
 
       <aside class="ar-run">
@@ -1566,7 +1612,7 @@ onMounted(loadCorpus)
           </button>
         </div>
         <button class="ar-runbtn" type="button" :disabled="loading" @click="runResearch">
-          {{ loading ? '加载语料中' : '刷新今日 Ideas' }}
+          {{ loading ? '加载语料中' : '刷新该日 Ideas' }}
         </button>
         <p class="ar-note">
           <span v-if="loadError">{{ loadError }}</span>
@@ -1582,7 +1628,7 @@ onMounted(loadCorpus)
         <div class="ar-panel-head">
           <div>
             <span class="ar-panel__tag">LOCAL IDEA-DISCOVERY PIPELINE</span>
-            <h2>今日 Idea Discovery</h2>
+            <h2>该日 Idea Discovery</h2>
           </div>
           <a href="https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep/blob/main/skills/idea-discovery/SKILL.md" target="_blank" rel="noopener">
             skill source
@@ -1766,7 +1812,7 @@ onMounted(loadCorpus)
 
       <div class="ar-panel ar-brief" :class="{ 'ar-brief--quick': mode === 'quick' }">
         <div class="ar-brief-head">
-          <span class="ar-panel__tag">TODAY'S PAPER IDEAS</span>
+          <span class="ar-panel__tag">PAPER IDEAS</span>
           <div class="ar-focus">
             <span v-for="tag in result.focus" :key="tag">{{ tag }}</span>
           </div>
@@ -2260,6 +2306,40 @@ onMounted(loadCorpus)
 
 .ar-daily p {
   flex: 1 1 240px;
+}
+
+.ar-history {
+  flex: 0 1 210px;
+  display: grid;
+  gap: 4px;
+  min-width: 180px;
+  margin-left: auto;
+}
+
+.ar-history span {
+  color: #7dd3fc;
+  font: 900 0.58rem/1 var(--font-display);
+  letter-spacing: 0.1em;
+}
+
+.ar-history select {
+  width: 100%;
+  min-width: 0;
+  padding: 6px 28px 6px 9px;
+  border: 1px solid rgba(125, 211, 252, 0.24);
+  border-radius: 6px;
+  background:
+    linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(45, 212, 191, 0.06)),
+    rgba(2, 6, 23, 0.72);
+  color: #e0f2fe;
+  font-size: 0.78rem;
+  font-weight: 850;
+  outline: none;
+}
+
+.ar-history select:focus {
+  border-color: rgba(125, 211, 252, 0.62);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
 }
 
 .ar-mode,
@@ -3706,6 +3786,11 @@ onMounted(loadCorpus)
 
   .ar-top-head {
     display: grid;
+  }
+
+  .ar-history {
+    flex-basis: 100%;
+    margin-left: 0;
   }
 
   .ar-chipline {
