@@ -321,9 +321,15 @@ const HomeDots = {
 const PANEL_ICON =
   '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><line x1="5" y1="3" x2="5" y2="13"/><line x1="11" y1="3" x2="11" y2="13"/></svg>'
 
+const shouldShowZenToggle = (path) => {
+  const normalized = String(path || '').replace(/\/+$/, '') || '/'
+  return !['/', '/index', '/index.html', '/404'].includes(normalized)
+}
+
 const ZenToggle = {
   setup() {
     const route = useRoute()
+    const { frontmatter } = useData()
     const on = ref(false)
     onMounted(() => {
       on.value =
@@ -338,8 +344,8 @@ const ZenToggle = {
       } catch (e) {}
     }
     return () => {
-      // 仅在有左右侧栏的文档页(/vla/*)显示,首页/404 不显示
-      if (!/\/vla\//.test(route.path)) return null
+      // 普通文档页都显示:zen-reading 是全站状态,否则跨目录后会有开关却无出口。
+      if (frontmatter.value?.layout === 'home' || !shouldShowZenToggle(route.path)) return null
       return h(
         'button',
         {
