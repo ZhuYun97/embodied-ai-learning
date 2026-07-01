@@ -27,6 +27,33 @@
     "bot": true
   },
   {
+    "id": "japan-ai-robotics-strategy-10m-robots-noetra-20260630",
+    "title": "日本修订 AI 机器人战略:2040 年部署约 1000 万台机器人并建设 Physical AI 数据基座",
+    "date": "2026-06-30",
+    "fetched_at": "2026-07-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "政策标准",
+      "行业动态",
+      "机器人基础模型"
+    ],
+    "summary": "日本经济产业省在部长记者会上公布修订版 **AI Robotics Strategy**,提出到 **2040 年部署约 1000 万台机器人**,并把餐饮、食品制造、医疗等纳入总计 18 个社会实施领域。METI 还披露 Noetra 与 AIST 联合体入选国产多模态基础模型项目,强调要利用医疗、灾害响应、制造、福岛退役等场景数据,建设面向 **Physical AI 与机器人**的数据基础设施。这是国家级政策与机器人基础模型路线合流的强信号。",
+    "sources": [
+      {
+        "name": "METI",
+        "url": "https://www.meti.go.jp/speeches/kaiken/2026/20260630001.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "china-tax-embodied-ai-sales-growth-20260630",
     "title": "税务总局披露具身智能产业增长:1-5 月销售收入同比增 22.4%",
     "date": "2026-06-30",
@@ -43,6 +70,60 @@
       {
         "name": "央视网 / 国家税务总局数据",
         "url": "https://jingji.cctv.com/2026/07/01/ARTIt0mpATUgHujFhB6UE7Vu260630.shtml"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "south-korea-physical-ai-humanoid-10-industries-20260629",
+    "title": "韩国三大 AI Mega Projects 纳入 Physical AI:2028 年推动 10 大行业人形机器人商业化",
+    "date": "2026-06-29",
+    "fetched_at": "2026-07-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "政策标准",
+      "人形机器人",
+      "产业落地"
+    ],
+    "summary": "韩国公布覆盖半导体、Physical AI 和 AI 数据中心的三大 mega projects。Reuters factbox 披露,韩国目标到 2030 年成为全球前三 AI robot power,并在 Physical AI 上争取全球领先;具体机器人侧包括开发行业专用 AI 机器人、到 **2028 年面向 10 大行业商业化人形机器人**、建设 data factories、支持韩国 Physical AI foundation models,以及未来五年培养 **1 万名 AI robotics specialists**。这条新闻把人形机器人从单家公司部署提升到国家产业规划层级。",
+    "sources": [
+      {
+        "name": "Reuters / WMBD Radio",
+        "url": "https://wmbdradio.com/2026/06/29/factbox-key-facts-on-south-koreas-three-chip-and-ai-mega-projects/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "nvidia-china-robotics-hiring-embodied-ai-sim-deploy-20260630",
+    "title": "NVIDIA 中国机器人团队扩招:围绕具身智能、仿真、部署和方案架构四大方向",
+    "date": "2026-06-30",
+    "fetched_at": "2026-07-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "公司战略",
+      "人形机器人",
+      "机器人基础模型"
+    ],
+    "summary": "据央视财经报道,NVIDIA 机器人团队在北京、上海、深圳开放招聘,方向覆盖**具身智能、仿真、部署、解决方案架构**。其中具身智能岗位聚焦灵巧操作、穿戴式传感器人体建模、全身移动操作与全身控制;仿真方向围绕 Isaac Sim、Isaac Lab 和机器人学习平台;部署方向则面向人形机器人与具身智能算法真机落地。相较单次产品发布,这更像 NVIDIA 在中国继续加码 Physical AI 工程与生态落地的组织信号。",
+    "sources": [
+      {
+        "name": "央视财经 / 极目新闻",
+        "url": "https://www.ctdsb.net/c1476_202606/2785995.html"
       }
     ],
     "related": [
@@ -97,6 +178,33 @@
       {
         "name": "36氪",
         "url": "https://36kr.com/p/3875059110221064"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "amity-robotics-7m-seed-ai-concierge-arc-move-20260701",
+    "title": "泰国 Amity Robotics 获 700 万美元种子轮:AI concierge 机器人已落地 30 多个物业",
+    "date": "2026-07-01",
+    "fetched_at": "2026-07-01",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "产业落地",
+      "机器人产品"
+    ],
+    "summary": "泰国 Physical AI 公司 **Amity Robotics** 完成 **700 万美元种子轮**股债融资,股权部分由 East Ventures 领投,500 Global 参投,债务部分由 AlteriQ Global 领投。公司核心产品 ARC Base 是面向商场、酒店等物业的 AI concierge kiosk,已部署在新加坡、阿联酋、沙特、香港、泰国、马来西亚、印尼等市场的 30 多个物业;其首个移动机器人 ARC Move 计划进入市场。这条新闻提供了东南亚 Physical AI 服务机器人商业落地样本。",
+    "sources": [
+      {
+        "name": "Techsauce",
+        "url": "https://techsauce.co/en/news/amity-robotics-seed-round-en"
       }
     ],
     "related": [
