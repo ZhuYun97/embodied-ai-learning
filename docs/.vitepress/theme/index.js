@@ -154,6 +154,135 @@ function setupCardSpotlight() {
 }
 
 // =====================================================================
+// 每日论文页分类筛选:从每张 paper-ticket 的 meta 标签自动推断类目。
+// 后续每日新增卡片只要沿用 VLA/WAM/DATA/HUMANOID/TACTILE/P0/已细读 等标签,
+// 筛选按钮和数量会自动更新;hash 支持分享 /papers/latest#vla。
+// =====================================================================
+let paperFilterBound = false
+function setupPaperFilters() {
+  if (paperFilterBound || typeof window === 'undefined') return
+  paperFilterBound = true
+
+  const FILTER_LABELS = {
+    all: '全部',
+    vla: 'VLA',
+    wam: 'WAM',
+    data: 'DATA/EVAL',
+    humanoid: 'HUMANOID',
+    tactile: 'TACTILE',
+    p0: 'P0 优先',
+    done: '已细读',
+  }
+
+  const normalize = (value) => String(value || '').trim().toUpperCase()
+
+  const inferCategories = (ticket) => {
+    const tags = Array.from(ticket.querySelectorAll('.paper-ticket__meta span')).map((span) =>
+      normalize(span.textContent)
+    )
+    const tagText = tags.join(' ')
+    const categories = new Set(['all'])
+
+    if (ticket.classList.contains('paper-ticket--vla') || /\bVLA\b/.test(tagText)) categories.add('vla')
+    if (ticket.classList.contains('paper-ticket--wam') || /\bWAM\b/.test(tagText)) categories.add('wam')
+    if (ticket.classList.contains('paper-ticket--data')) categories.add('data')
+    if (/\b(DATA|EVAL|BENCH|DEX|REWARD|PREFERENCE|PLANNING|SURVEY|SAFETY|OFFLINE)\b/.test(tagText)) {
+      categories.add('data')
+    }
+    if (/\bHUMANOID\b/.test(tagText)) categories.add('humanoid')
+    if (/\b(TACTILE|FORCE|TOUCH)\b/.test(tagText)) categories.add('tactile')
+    if (/\bP0\b/.test(tagText)) categories.add('p0')
+    if (/已细读|DONE/.test(tagText)) categories.add('done')
+
+    ticket.dataset.paperCategories = Array.from(categories).join(' ')
+    return categories
+  }
+
+  const initPanel = (panel) => {
+    if (panel.dataset.paperFilterReady) return
+    const buttons = Array.from(panel.querySelectorAll('[data-paper-filter]'))
+    const counter = panel.querySelector('[data-paper-filter-count]')
+    const tickets = Array.from(document.querySelectorAll('.paper-ticket'))
+    if (!buttons.length || !tickets.length) return
+    panel.dataset.paperFilterReady = '1'
+    tickets.forEach(inferCategories)
+
+    let empty = document.querySelector('[data-paper-filter-empty]')
+    if (!empty) {
+      empty = document.createElement('p')
+      empty.className = 'paper-filter-empty'
+      empty.dataset.paperFilterEmpty = '1'
+      empty.hidden = true
+      empty.textContent = '当前分类暂无论文。'
+      const lastSection = document.querySelector('.daily-paper-section')
+      lastSection?.parentNode?.insertBefore(empty, lastSection)
+    }
+
+    const getFilterFromHash = () => {
+      const key = decodeURIComponent(window.location.hash.replace(/^#/, '')).toLowerCase()
+      return buttons.some((button) => button.dataset.paperFilter === key) ? key : 'all'
+    }
+
+    const apply = (filter, updateHash = true) => {
+      const active = filter || 'all'
+      let visible = 0
+      tickets.forEach((ticket) => {
+        const cats = ticket.dataset.paperCategories || ''
+        const show = active === 'all' || cats.split(/\s+/).includes(active)
+        ticket.hidden = !show
+        ticket.classList.toggle('is-filtered-out', !show)
+        if (show) visible += 1
+      })
+
+      document.querySelectorAll('.daily-paper-section').forEach((section) => {
+        const cards = Array.from(section.querySelectorAll('.paper-ticket'))
+        const hasVisible = cards.some((card) => !card.hidden)
+        section.hidden = !hasVisible
+        const heading = section.previousElementSibling
+        if (heading?.classList?.contains('paper-day-heading')) heading.hidden = !hasVisible
+      })
+
+      buttons.forEach((button) => {
+        const on = button.dataset.paperFilter === active
+        button.classList.toggle('is-active', on)
+        button.setAttribute('aria-pressed', String(on))
+      })
+
+      if (counter) {
+        const label = FILTER_LABELS[active] || active.toUpperCase()
+        counter.textContent = active === 'all' ? `显示 ${visible} 篇` : `${label} · ${visible} 篇`
+      }
+      empty.hidden = visible !== 0
+
+      if (updateHash) {
+        const next = active === 'all' ? window.location.pathname + window.location.search : `#${active}`
+        if (active === 'all') window.history.replaceState(null, '', next)
+        else window.history.replaceState(null, '', next)
+      }
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => apply(button.dataset.paperFilter || 'all'))
+    })
+    window.addEventListener('hashchange', () => apply(getFilterFromHash(), false))
+    apply(getFilterFromHash(), false)
+  }
+
+  const bind = () => {
+    document.querySelectorAll('[data-paper-filter-panel]').forEach(initPanel)
+  }
+
+  bind()
+  if ('MutationObserver' in window) {
+    let t
+    new MutationObserver(() => {
+      clearTimeout(t)
+      t = setTimeout(bind, 200)
+    }).observe(document.body, { childList: true, subtree: true })
+  }
+}
+
+// =====================================================================
 // 主页鼠标互动点阵(HomeDots):DotField 的首页包装层。
 // fixed 全视口背景层(z-index:0,内容 z-index:1 之上不受影响;fixed 不被
 // .VPHome overflow:hidden 裁剪),随 home-hero-before 槽只在首页挂载;
@@ -1962,5 +2091,6 @@ export default {
     onMounted(setupHeroCollapse)
     onMounted(setupNavScroll)
     onMounted(setupCardSpotlight)
+    onMounted(setupPaperFilters)
   },
 }

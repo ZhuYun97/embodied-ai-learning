@@ -33,6 +33,23 @@ pageClass: paper-radar-page
   <span class="paper-track paper-track--wam">TACTILE · 接触感知</span>
 </div>
 
+<div class="paper-filter-panel" data-paper-filter-panel>
+  <div class="paper-filter-panel__head">
+    <span>分类筛选</span>
+    <output data-paper-filter-count>全部论文</output>
+  </div>
+  <div class="paper-filter-panel__controls" role="group" aria-label="按论文分类筛选">
+    <button type="button" class="paper-filter-chip is-active" data-paper-filter="all">全部</button>
+    <button type="button" class="paper-filter-chip" data-paper-filter="vla">VLA</button>
+    <button type="button" class="paper-filter-chip" data-paper-filter="wam">WAM</button>
+    <button type="button" class="paper-filter-chip" data-paper-filter="data">DATA/EVAL</button>
+    <button type="button" class="paper-filter-chip" data-paper-filter="humanoid">HUMANOID</button>
+    <button type="button" class="paper-filter-chip" data-paper-filter="tactile">TACTILE</button>
+    <button type="button" class="paper-filter-chip" data-paper-filter="p0">P0 优先</button>
+    <button type="button" class="paper-filter-chip" data-paper-filter="done">已细读</button>
+  </div>
+</div>
+
 <div class="paper-day-heading">2026-07-01</div>
 
 <div class="daily-paper-section">
