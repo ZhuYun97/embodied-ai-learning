@@ -1,5 +1,113 @@
 [
   {
+    "id": "general-intuition-320m-game-data-physical-ai-20260630",
+    "title": "General Intuition 融资 3.2 亿美元:用游戏交互数据训练物理世界 AI 代理",
+    "date": "2026-06-26",
+    "fetched_at": "2026-07-01",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "具身数据",
+      "机器人基础模型"
+    ],
+    "summary": "General Intuition 宣布完成 **3.2 亿美元融资**,投资方包括 Khosla Ventures、General Catalyst 等,公司估值约 **23 亿美元**。其路线是把大型游戏世界中的交互数据用于训练能够迁移到现实世界的 AI 代理,目标覆盖机器人、自动化和其他 physical AI 场景。该事件不是论文发布,而是资本市场对“游戏数据 -> 通用具身代理”路线的高估值下注,与本站关注的 WAM/VLA 数据来源扩展高度相关。",
+    "sources": [
+      {
+        "name": "The Robot Report",
+        "url": "https://www.therobotreport.com/general-intuition-raises-320m-uses-video-game-data-train-robots/"
+      }
+    ],
+    "related": [
+      {
+        "label": "embodied-data",
+        "url": "/vla/papers/embodied-data"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "china-tax-embodied-ai-sales-growth-20260630",
+    "title": "税务总局披露具身智能产业增长:1-5 月销售收入同比增 22.4%",
+    "date": "2026-06-30",
+    "fetched_at": "2026-07-01",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "政策标准",
+      "产业落地"
+    ],
+    "summary": "国家税务总局公布的税收数据显示,2026 年 1-5 月中国**具身智能产业企业销售收入同比增长 22.4%**,其中机器人本体与整机制造销售收入增长 **30.1%**,AI 算法与软件集成增长 **24.5%**,系统集成与行业应用增长 **27.9%**。这不是单家公司新闻,但它提供了官方口径下具身智能产业景气度与结构变化的量化信号,适合作为政策/产业落地类新闻跟踪。",
+    "sources": [
+      {
+        "name": "央视网 / 国家税务总局数据",
+        "url": "https://jingji.cctv.com/2026/07/01/ARTIt0mpATUgHujFhB6UE7Vu260630.shtml"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "kawasaki-rl030n-8dof-physical-ai-platform-20260626",
+    "title": "川崎发布 RL030N 8 轴 Physical AI 工业机器人平台:面向动态狭窄工位",
+    "date": "2026-06-26",
+    "fetched_at": "2026-07-01",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "产业落地",
+      "机器人产品"
+    ],
+    "summary": "Kawasaki Robotics 在 Automate 2026 展示 **RL030N 8DoF 机器人平台**,称其面向 Physical AI 应用,强调高速运动、额外自由度、轻量化结构和可由外部系统实时编排,适合动态、狭窄或需要更复杂姿态调整的工业工位。这条新闻的价值不在于人形形态,而在于传统工业机器人厂商开始把 Physical AI、实时控制和机器视觉包装成新一代产线平台。",
+    "sources": [
+      {
+        "name": "Kawasaki Robotics",
+        "url": "https://kawasakirobotics.com/news/kawasaki-robotics-unveils-dexterous-physical-ai-robot-platform-advanced-automation-technologies-at-automate-2026/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "neowa-robotics-50m-angel-embodied-action-intelligence-20260701",
+    "title": "纽娲机器人完成 5000 万元天使轮融资:押注具行智能与灵巧操作数据闭环",
+    "date": "2026-07-01",
+    "fetched_at": "2026-07-01",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "机器人基础模型",
+      "具身数据"
+    ],
+    "summary": "纽娲机器人完成 **5000 万元天使轮融资**,由蓝湖资本领投,资金将用于具行智能核心技术研发、机器人本体迭代、数据采集与场景落地。公司强调把具身感知、运动控制和灵巧操作结合起来,服务工业、商业和家庭场景。这类早期融资金额不大,但可作为国内机器人基础系统与数据闭环创业方向的新增样本。",
+    "sources": [
+      {
+        "name": "36氪",
+        "url": "https://36kr.com/p/3875059110221064"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "x-square-robot-series-c-2-8b-valuation-20260629",
     "title": "X Square Robot 连续完成四轮融资:估值超 28 亿美元,推进 Physical AI 基座模型",
     "date": "2026-06-29",

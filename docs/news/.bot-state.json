@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-06-30T22:32:18+08:00",
+  "last_fetched_at": "2026-07-01",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -105,8 +105,12 @@
     "wirobotics-allex-simulation-model-physical-ai|20260629",
     "korea-2026-humanoid-challenge-manufacturing-verification|20260629",
     "agibot-15000th-g2-rolls-off-production-line|20260629",
-    "bmw-figure-03-spartanburg-logistics-deployment|20260626"
+    "bmw-figure-03-spartanburg-logistics-deployment|20260626",
+    "kawasaki-rl030n-8dof-physical-ai-platform|20260626",
+    "china-tax-embodied-ai-sales-growth|20260630",
+    "general-intuition-320m-game-data-physical-ai|20260630",
+    "neowa-robotics-50m-angel-embodied-action-intelligence|20260701"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 105
+  "_count": 109
 }
