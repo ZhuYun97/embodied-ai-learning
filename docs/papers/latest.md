@@ -11,17 +11,17 @@ pageClass: paper-radar-page
 
 <div class="latest-paper-hero">
   <div>
-    <span class="latest-paper-hero__eyebrow">PAPER RADAR · 2026-06-30</span>
-    <p class="latest-paper-hero__title">6 月 30 日 · VLA / WAM / DATA-EVAL / HUMANOID-TACTILE</p>
-    <p class="latest-paper-hero__text">今日 arXiv cs.RO new 94 篇 + cross-list 13 篇中筛出 25 篇强相关候选;VLA 转向 action tokenizer、dense ECoT、test-time RL 与鲁棒感知,WAM 转向可诊断、可规划、可作为 simulator/policy prior。</p>
+    <span class="latest-paper-hero__eyebrow">PAPER RADAR · 2026-07-01</span>
+    <p class="latest-paper-hero__title">7 月 1 日 · VLA / WAM / DATA-EVAL / HUMANOID-TACTILE</p>
+    <p class="latest-paper-hero__text">今日 arXiv cs.RO new 59 篇 + cross-list 10 篇中筛出 26 篇强相关候选;VLA 继续转向 RL post-training、test-time compute 与 3D guidance,WAM 进入零样本 sim-to-real 与高效视频生成,触觉/人形数据集和安全评测明显升温。</p>
   </div>
   <div class="latest-paper-stats" aria-label="论文队列统计">
-    <span><b>25</b>今日新增</span>
+    <span><b>26</b>今日新增</span>
     <span><b>0</b>已细读</span>
     <span><b>8</b>VLA</span>
-    <span><b>7</b>WAM</span>
-    <span><b>6</b>DATA/EVAL</span>
-    <span><b>4</b>HUMANOID/TACTILE</span>
+    <span><b>2</b>WAM</span>
+    <span><b>8</b>DATA/EVAL</span>
+    <span><b>8</b>HUMANOID/TACTILE</span>
   </div>
 </div>
 
@@ -31,6 +31,171 @@ pageClass: paper-radar-page
   <span class="paper-track paper-track--data">DATA · 数据侧</span>
   <span class="paper-track paper-track--vla">HUMANOID · 全身操作</span>
   <span class="paper-track paper-track--wam">TACTILE · 接触感知</span>
+</div>
+
+<div class="paper-day-heading">2026-07-01</div>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读三条线:第一是 VLA 后训练和推理时扩展,Z-1、SARL、ELASTIC 都把“部署后怎么变强”具体化;第二是触觉/力觉从附加输入变成可迁移表征、未来接触预测和数据基准;第三是人形/具身数据开始围绕 human-present、ego-exo human video、Unitree G1 触觉操作和实验室精密操作扩张。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>EVAL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.30686" target="_blank" rel="noreferrer">Position: VLA Models Cannot Be Verified to Perform Physical Reasoning</a></h3>
+      <p>把 VLA 成功率拆成语义匹配与物理决策两个不可辨识来源,指出现有 benchmark 很难证明 VLM backbone 真有物理泛化。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.30686" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DEX</span><span>PRETRAIN</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.30749" target="_blank" rel="noreferrer">From Grasps to Dexterity</a></h3>
+      <p>把 35.5 万条 dexterous grasp 轨迹用于低层控制器预训练,再迁移到 articulated tool use,说明抓取数据可作为接触操作先验。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.30749" target="_blank" rel="noreferrer">arXiv</a><a href="https://yingyuan0414.github.io/grasp2dexterity/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>TACTILE</span><span>FORCE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.30988" target="_blank" rel="noreferrer">MuSe</a></h3>
+      <p>研究如何把有限力觉数据接入预训练 vision-only policy,通过多阶段融合、未来多模态预测和 replay 保住原传感器能力。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.30988" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>BENCH</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31037" target="_blank" rel="noreferrer">Labimus</a></h3>
+      <p>面向有机化学实验室的人形灵巧操作仿真与 benchmark,用精度感知评测区分“完成动作”和“满足实验容差”。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31037" target="_blank" rel="noreferrer">arXiv</a><a href="https://labimus.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>SIM2REAL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31101" target="_blank" rel="noreferrer">Efficient Sim-to-Real Transfer of World-Action Models from Synthetic Priors</a></h3>
+      <p>基于 Cosmos Policy 和 AnyTask 合成演示,尝试把 world-action model 从仿真零样本迁移到真实 Franka 操作,是 WAM 落地链路的重要信号。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31101" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>TEST-TIME</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31132" target="_blank" rel="noreferrer">ELASTIC</a></h3>
+      <p>给 diffusion/flow 机器人策略学习状态相关的推理时计算分配,在 pi0.5 实机上用更低延迟接近 best-of-10 成功率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31132" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>MEMORY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31167" target="_blank" rel="noreferrer">MIRTH</a></h3>
+      <p>给 VLA 加长短期 temporal memory hub、互信息 latent reasoning token 和并行动作解码,主打缓解单帧 VLA 的时序短视。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31167" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>TACTILE</span><span>TRANSFER</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31236" target="_blank" rel="noreferrer">TactX</a></h3>
+      <p>跨 resistive、magnetic、vision-based 触觉传感器学习共享 latent,让一类传感器训练的策略可零样本迁移到另一类传感器。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31236" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>PLANNING</span><span>SYMBOLIC RL</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31260" target="_blank" rel="noreferrer">Plan Right, Then Plan Tight</a></h3>
+      <p>用从视频或任务构造的 BDDL 规格作为可验证接口,给 embodied planner 提供毫秒级 dense reward 和长度自适应训练信号。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31260" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>3D GUIDANCE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31329" target="_blank" rel="noreferrer">3D HAMSTER</a></h3>
+      <p>让层级 VLA 的 planner 直接输出 3D waypoint,避免 2D 轨迹投到点云策略时产生错误深度与几何畸变。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31329" target="_blank" rel="noreferrer">arXiv</a><a href="https://davian-robotics.github.io/3D_HAMSTER/" target="_blank" rel="noreferrer">Project</a><a href="https://github.com/DAVIAN-Robotics/3D_HAMSTER" target="_blank" rel="noreferrer">Code</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>REWARD</span><span>VIDEO</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31377" target="_blank" rel="noreferrer">Stage-Transition Dense Reward Modeling</a></h3>
+      <p>从非结构化专家视频推断任务阶段,给长程 manipulation RL 提供阶段转移和阶段内进度两类视觉 dense reward。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31377" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>PRUNING</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31382" target="_blank" rel="noreferrer">Revisiting Parameter Redundancy in VLA Models</a></h3>
+      <p>用 VLM-to-VLA 适配过程中的参数漂移定位可剪枝模块,在 OpenVLA 和 pi0.5 上做 recovery-free 参数裁剪诊断。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31382" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>TACTILE</span><span>GENERATION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31451" target="_blank" rel="noreferrer">UniTac</a></h3>
+      <p>把触觉理解和触觉生成统一到 multimodal model,同时建模传感器属性与物体属性,面向跨传感器触觉表征。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31451" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>POLICY</span><span>FLOW</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31493" target="_blank" rel="noreferrer">ChronoFlow-Policy</a></h3>
+      <p>用过去、当前、未来的物体和夹爪稀疏 3D keypoint flow 统一描述交互动态,再与 diffusion policy 联合训练。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31493" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>SURVEY</span><span>ROBUSTNESS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31494" target="_blank" rel="noreferrer">Robustness of Robotic Manipulation</a></h3>
+      <p>系统整理 manipulation robustness 的定义、概率/控制论表述、评测指标和感知/规划/控制/策略学习/硬件机制。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31494" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DATA</span><span>HRI</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31682" target="_blank" rel="noreferrer">HABIT</a></h3>
+      <p>10K+ episodes、160+ 小时的人在场机器人操作数据,把 collaborator、coworker、supervisor 作为数据多样性新轴。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31682" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>TACTILE</span><span>DATA</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31694" target="_blank" rel="noreferrer">RCT</a></h3>
+      <p>机器人采集的 touch-vision-language 触觉数据集,强调按接触序列和 held-out material 评测,暴露现有 tactile split 泄漏问题。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31694" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>TACTILE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31723" target="_blank" rel="noreferrer">UniTacVLA</a></h3>
+      <p>把 tactile latent、tactile chain-of-thought 与未来触觉预测接入 VLA,再用触觉-动作混合控制器修正低频 action chunk。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31723" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>DATA</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31836" target="_blank" rel="noreferrer">RoboTacDex</a></h3>
+      <p>Unitree G1 上的视觉-触觉-动作人形灵巧操作数据集,6K trajectories 覆盖双臂灵巧手、多视角 RGB-D、触觉和语义标注。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31836" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>RL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31846" target="_blank" rel="noreferrer">Z-1</a></h3>
+      <p>基于 pi0.5 的 flow-based VLA RL 后训练,用 RoboCasa 公共数据 SFT 后做 task-wise GRPO,主打无私有示教提升策略。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31846" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DEX</span><span>ZERO-DEMO</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31909" target="_blank" rel="noreferrer">CoDex</a></h3>
+      <p>无需人工示教,由 VLM 推断功能性约束,再用解析优化和 RL 发现 spray bottle、glue gun 等可执行灵巧功能操作。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31909" target="_blank" rel="noreferrer">arXiv</a><a href="https://robin-lab.cs.utexas.edu/CoDex/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>SEMANTIC RL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31958" target="_blank" rel="noreferrer">Semantic Action Reinforcement Learning</a></h3>
+      <p>不直接在机器人动作空间做 RL,而是在 generalist policy 的语言 prompt 空间学习组合技能,用于超出 zero-shot 能力的长程任务。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31958" target="_blank" rel="noreferrer">arXiv</a><a href="https://semantic-action-rl.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EVAL</span><span>SAFETY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.31993" target="_blank" rel="noreferrer">OopsieVerse</a></h3>
+      <p>给 household manipulation 引入 damage-aware simulator 和 benchmark,把接触力、温度、液体等损伤纳入 VLA/策略安全评估。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.31993" target="_blank" rel="noreferrer">arXiv</a><a href="https://robin-lab.cs.utexas.edu/oopsieverse/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>HUMAN VIDEO</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.32009" target="_blank" rel="noreferrer">Human-as-Humanoid</a></h3>
+      <p>把同步 ego-exo 人类视频恢复并 retarget 成 60-DoF 人形 action chunk,用于高自由度 humanoid VLA 训练和零样本部署。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.32009" target="_blank" rel="noreferrer">arXiv</a><a href="https://zgc-embodyai.github.io/Human-as-Humanoid" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>PREFERENCE</span><span>RLHF</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.32027" target="_blank" rel="noreferrer">Freeform Preference Learning</a></h3>
+      <p>让标注者用自然语言定义速度、安全、摆放质量等偏好轴,学习 language-conditioned reward 并训练可按偏好 steering 的操作策略。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.32027" target="_blank" rel="noreferrer">arXiv</a><a href="https://freeform-pl.github.io/fpl.website/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>VIDEO</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.32028" target="_blank" rel="noreferrer">DVG-WM</a></h3>
+      <p>把 embodied world model 拆成 dynamics learning 与 visual synthesis 两段,用高效级联机制提升 LIBERO 和实机平台上的视频预测速度与质量。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.32028" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+  </div>
 </div>
 
 <div class="paper-day-heading">2026-06-30</div>
