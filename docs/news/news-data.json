@@ -1,5 +1,60 @@
 [
   {
+    "id": "x-square-wall-wm-open-source-event-world-action-model-20260529",
+    "title": "自变量开源 WALL-WM:把机器人世界模型从定长动作块转向事件级预测",
+    "date": "2026-05-29",
+    "fetched_at": "2026-07-02",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "模型发布",
+      "开源代码",
+      "WAM",
+      "机器人基础模型"
+    ],
+    "summary": "自变量机器人 X Square Robot 宣布开源 **WALL-WM**,将 World Action Model 的训练单元从固定长度 action chunk 转向 **reach / grasp / lift / place** 等动作锚定的语义事件。模型围绕事件级视频、事件级轨迹和事件 caption 进行对齐,并支持 Event Mode 与 Unified Mode 两种推理方式。它不是单纯 arXiv 条目:公司同步发布项目、代码和 PRNewswire 公告;本站已有 WAM 细读页,这条补进新闻页用于记录模型/开源发布事件。",
+    "sources": [
+      {
+        "name": "PR Newswire / X Square Robot",
+        "url": "https://www.prnewswire.com/news-releases/x-square-robot-open-sources-wall-wm-shifting-robot-world-modeling-from-chunks-to-events-302785692.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "wall-wm",
+        "url": "/wam/papers/wall-wm"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "x-square-xrzero-g0-g0-dataset-robot-free-data-20260610",
+    "title": "自变量开源 XRZero-G0 与 G0-Dataset:用无本体数据采集扩展机器人学习",
+    "date": "2026-06-10",
+    "fetched_at": "2026-07-02",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "开源代码",
+      "具身数据",
+      "平台/开源发布"
+    ],
+    "summary": "自变量机器人开源 **XRZero-G0**,定位为硬件-软件协同的 robot-free data collection、可训练策略生成和真机评测框架,并发布 **G0-Dataset**。公告称系统用头戴相机与双腕部相机对齐人类示范和机器人观测空间,通过 Collection-Inspection-Training-Evaluation 闭环治理数据可训练性;实验中约 **10 条无本体示范 + 1 条真机示范**可接近纯真机数据效果,并将真机数据需求最多降低 20 倍。该事件补上了自变量在具身数据基础设施上的开源动作。",
+    "sources": [
+      {
+        "name": "PR Newswire / X Square Robot",
+        "url": "https://www.prnewswire.com/news-releases/x-square-robot-open-sources-xrzero-g0-to-scale-robot-learning-with-interfaces-data-quality-and-ratios-302796281.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "embodied-data",
+        "url": "/vla/papers/embodied-data"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "general-intuition-320m-game-data-physical-ai-20260630",
     "title": "General Intuition 融资 3.2 亿美元:用游戏交互数据训练物理世界 AI 代理",
     "date": "2026-06-26",

@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-07-01",
+  "last_fetched_at": "2026-07-02",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -113,8 +113,10 @@
     "japan-ai-robotics-strategy-10m-robots-noetra|20260630",
     "south-korea-physical-ai-humanoid-10-industries|20260629",
     "nvidia-china-robotics-hiring-embodied-ai-sim-deploy|20260630",
-    "amity-robotics-7m-seed-ai-concierge-arc-move|20260701"
+    "amity-robotics-7m-seed-ai-concierge-arc-move|20260701",
+    "x-square-wall-wm-open-source-event-world-action-model|20260529",
+    "x-square-xrzero-g0-g0-dataset-robot-free-data|20260610"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 113
+  "_count": 115
 }
