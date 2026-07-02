@@ -981,6 +981,7 @@ const TechHero = {
       clockTimer = setInterval(tick, 1000)
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
       bindHeroUnit(reduce)
+      bindHeroVideo(reduce)
       if (reduce) return
       // 开机序列:状态条 → 终端提示语,逐字打出(一次性;机器人物化见 custom.css robotMaterialize)
       armBootSkip()
@@ -1100,19 +1101,18 @@ const TechHero = {
               h('span', { class: 'tu-tag tu-tag--tl' }, 'EMBODIED-UNIT'),
               h('span', { class: 'tu-tag tu-tag--tr' }, 'VLA · WAM'),
               h('div', { class: 'thero__robot-wrap', title: '点我 · 单元会回应' }, [
-                h('img', {
-                  class: 'thero__robot thero__robot--image',
-                  src: withBase('/hero-embodied-robot-3d-cutout.png'),
-                  alt: '立体半身人形机器人 · 具身智能概念图',
-                  decoding: 'async',
-                  fetchpriority: 'high',
+                // 镭光人概念视频(public/hero-laser-human.mp4,自托管):桌面精确指针
+                // = 鼠标推扫逐帧(bindHeroVideo),窄屏/触屏 = 静音循环播放,reduced-motion = 静帧
+                h('video', {
+                  class: 'thero__robot thero__robot--video',
+                  src: withBase('/hero-laser-human.mp4'),
+                  muted: true,
+                  playsinline: true,
+                  'webkit-playsinline': true,
+                  preload: 'auto',
+                  loop: true,
+                  'aria-label': '镭光人 · 具身智能概念视频',
                 }),
-                h('span', { class: 'tu-gaze', 'aria-hidden': 'true' }, [
-                  h('i'),
-                  h('i'),
-                ]),
-                h('span', { class: 'tu-ambient', 'aria-hidden': 'true' }),
-                h('span', { class: 'tu-grade', 'aria-hidden': 'true' }),
                 h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),
               h('span', { class: 'tu-scan', 'aria-hidden': 'true' }),
