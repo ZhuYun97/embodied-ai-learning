@@ -115,8 +115,12 @@
     "nvidia-china-robotics-hiring-embodied-ai-sim-deploy|20260630",
     "amity-robotics-7m-seed-ai-concierge-arc-move|20260701",
     "x-square-wall-wm-open-source-event-world-action-model|20260529",
-    "x-square-xrzero-g0-g0-dataset-robot-free-data|20260610"
+    "x-square-xrzero-g0-g0-dataset-robot-free-data|20260610",
+    "zerothlexiangprea|20260702",
+    "skfleaderdrivejointventure|20260702",
+    "ciei2026shanghaiopens|20260702",
+    "siggraph2026roboticssimulation|20260702"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 115
+  "_count": 119
 }

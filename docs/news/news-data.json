@@ -55,6 +55,93 @@
     "bot": true
   },
   {
+    "id": "zerothlexiangprea-20260702",
+    "title": "乐享科技融资近 5 亿元并发布元点 Zeroth:面向家庭具身智能与 Physical AI 生态",
+    "date": "2026-07-02",
+    "fetched_at": "2026-07-02",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "产品发布",
+      "人形机器人"
+    ],
+    "summary": "**乐享科技**宣布完成近 **5 亿元 Pre-A 轮融资**,累计融资达 10 亿元,并发布家庭具身智能品牌 **元点 Zeroth**。本轮由蚂蚁集团领投,吉利资本、三七互娱、元禾璞华跟投,资金用于本体结构、具身通用模型、VLA、关节模组、轻量化机械臂等六项核心技术自研和市场拓展。公司披露在手机器人订单已突破 3 万台,同时预告面向人形机器人的 Physical AI 生态,发布全尺寸人形机器人 Jupiter 与家庭协作机器人 N1。",
+    "sources": [
+      {
+        "name": "新京报贝壳财经",
+        "url": "https://www.bjnews.com.cn/detail/1782961352129000.html"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "skfleaderdrivejointventure-20260702",
+    "title": "SKF 与绿的谐波设立中国合资公司:切入具身人形机器人关节传动部件",
+    "date": "2026-07-02",
+    "fetched_at": "2026-07-02",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "合作协议",
+      "人形机器人",
+      "产能里程碑"
+    ],
+    "summary": "**SKF** 与精密机器人传动部件厂商 **Leaderdrive(绿的谐波)** 签署协议,将在中国设立面向人形机器人关节的高精度传动部件合资公司,SKF 持股 60%。合资公司将开发和供应支撑工业场景连续运行所需的机器人关节传动部件,计划靠近中国供应链和客户,并借助 SKF 全球销售网络覆盖欧洲、日本、美国等市场。公司预计该合资公司将在 2026 年底投入运营,反映人形机器人供应链从样机验证走向批量化准备。",
+    "sources": [
+      {
+        "name": "SKF / PR Newswire",
+        "url": "https://www.prnewswire.com/news-releases/skf-and-leaderdrive-form-a-venture-for-precision-components-in-humanoids-302816708.html"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "ciei2026shanghaiopens-20260702",
+    "title": "首届上海国际具身智能产业博览会开幕:近 200 家企业展示全产业链落地",
+    "date": "2026-07-02",
+    "fetched_at": "2026-07-02",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "学术会议",
+      "行业动态",
+      "竞赛"
+    ],
+    "summary": "**CIEI 2026 首届上海国际具身智能产业博览会**在国家会展中心(上海)开幕,主办方披露展会吸引近 200 家行业企业、超 15000 名专业观众参与,覆盖具身智能本体、感知系统、决策认知系统、执行系统、汽车智能网联和应用场景等链条。现场展示包括宇树 H2 人形机器人、文旅双足人形机器人、力控双臂与理疗机器人等,并同期举办全国具身智能技术应用大赛、具身智能机器人应用场景大赛等赛事,强化产业落地与标准化测试导向。",
+    "sources": [
+      {
+        "name": "澎湃新闻",
+        "url": "https://www.thepaper.cn/newsDetail_forward_33502614"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "siggraph2026roboticssimulation-20260702",
+    "title": "SIGGRAPH 2026 强化机器人与仿真主线:NVIDIA 课程覆盖端到端 Physical AI 系统",
+    "date": "2026-07-02",
+    "fetched_at": "2026-07-02",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "学术会议",
+      "行业动态"
+    ],
+    "summary": "**SIGGRAPH 2026** 公布机器人相关会议主线,将 Technical Papers、Emerging Technologies、Courses、Frontiers、Workshops 等多个板块串联到机器人设计、训练与部署。会议强调 **simulation-first** 方法,其中 NVIDIA 主导的课程覆盖端到端 Physical AI 机器人系统、Isaac Lab 与 Newton 加速机器人学习、OpenUSD 灵巧手仿真资产构建等主题;技术论文还包括用 MLLM 将静态 3D 网格转为可仿真关节资产、面向人形和四足形态的物理感知动作迁移等方向。",
+    "sources": [
+      {
+        "name": "SIGGRAPH / PR Newswire",
+        "url": "https://www.prnewswire.com/news-releases/siggraph-2026-explores-the-future-of-robotics-through-computer-graphics-simulation-and-creative-expression-302816301.html"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "general-intuition-320m-game-data-physical-ai-20260630",
     "title": "General Intuition 融资 3.2 亿美元:用游戏交互数据训练物理世界 AI 代理",
     "date": "2026-06-26",
