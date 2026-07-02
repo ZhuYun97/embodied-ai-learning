@@ -1111,6 +1111,8 @@ const TechHero = {
                   h('i'),
                   h('i'),
                 ]),
+                h('span', { class: 'tu-ambient', 'aria-hidden': 'true' }),
+                h('span', { class: 'tu-grade', 'aria-hidden': 'true' }),
                 h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),
               h('span', { class: 'tu-scan', 'aria-hidden': 'true' }),
