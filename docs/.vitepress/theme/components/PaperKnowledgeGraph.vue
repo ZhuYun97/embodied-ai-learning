@@ -49,6 +49,7 @@ const BRIDGES = [
   ['qwen-vla', 'qwen-robotnav', 'Qwen 导航分支'],
   ['qwen-vla', 'qwen-robotworld', 'Qwen 世界模型分支'],
   ['wall-oss', 'wall-oss-05', 'WALL 梯度桥接'],
+  ['wall-oss-05', 'x-tokenizer', '动作分词器正式化'],
   ['rynnvla', 'rynnvla-002', 'Rynn VLA→WAM'],
   ['worldvla', 'rynnvla-002', '自回归联合建模'],
   ['uwm', 'x-wam', '耦合扩散改进'],
@@ -65,7 +66,7 @@ const BRIDGES = [
 const IMPORTANT = new Set([
   'rt2', 'openvla', 'pi0', 'pi05', 'pi06', 'pi07', 'groot-n1', 'qwen-vla',
   'qwen-robotmanip', 'qwen-robotnav', 'qwen-robotworld', 'rynnvla', 'rynnvla-002',
-  'worldvla', 'dreamzero', 'x-wam', 'groot-n2', 'diffusion-policy', 'octo',
+  'worldvla', 'dreamzero', 'x-wam', 'groot-n2', 'diffusion-policy', 'octo', 'x-tokenizer',
 ])
 
 const KIND_META = {
@@ -242,6 +243,8 @@ const KNOWLEDGE_EDGES = [
   ['gemini-robotics', 'org:deepmind', 'DeepMind'],
   ['wall-oss', 'org:xsquare', 'X Square'],
   ['wall-oss-05', 'org:xsquare', 'X Square'],
+  ['x-tokenizer', 'org:xsquare', 'X Square'],
+  ['x-tokenizer', 'concept:action-token', '语义动作 token'],
   ['wall-wm', 'org:xsquare', 'X Square'],
   ['rynnvla', 'org:damo', 'DAMO'],
   ['rynnvla-002', 'org:damo', 'DAMO'],

@@ -47,7 +47,7 @@ description: 如何阅读具身星图——内容地图、推荐阅读路径、�
 ### 🥈 第二档 · 推荐(按技术路线补全)
 
 - **模型**:[Diffusion Policy](papers/diffusion-policy)(连续奠基)· [RT-1](papers/rt1)(离散前史)· [Octo](papers/octo) · [CogACT](papers/cogact) · [π0-FAST](papers/pi0-fast) · [GR00T N1](papers/groot-n1)(双系统) · [π0.6 / π*0.6](papers/pi06)(从经验学习)
-- **横切/数据**:[全模型规格对比大表](papers/models-spec)(一页看全 26 个 VLA 代表模型)· [双系统架构原理](papers/dual-system-architecture) · [具身数据论文索引](papers/embodied-data-papers) · [具身数据全景](papers/embodied-data)
+- **横切/数据**:[全模型规格对比大表](papers/models-spec)(一页看全 27 项 VLA 代表模型/动作接口)· [双系统架构原理](papers/dual-system-architecture) · [具身数据论文索引](papers/embodied-data-papers) · [具身数据全景](papers/embodied-data)
 
 ### 🥉 第三档 · 选读(最新前沿 / 特定主题 / 补充)
 

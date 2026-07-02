@@ -423,6 +423,12 @@ pageClass: paper-radar-page
       <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.30113" target="_blank" rel="noreferrer">arXiv</a></div>
     </article>
     <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>TOKENIZER</span><span>P0</span><span class="paper-status paper-status--done">已细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2606.14752" target="_blank" rel="noreferrer">X-Tokenizer</a></h3>
+      <p>自变量把 Wall-OSS-0.5 的动作分词器路线正式独立成论文/代码/权重:SRQ 用 q0 学语义意图,q1-q3 保留运动残差,2.4M 轨迹/2B action frames 预训练,作为混合离散-连续 VLA 的冻结语义动作接口。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2606.14752" target="_blank" rel="noreferrer">arXiv</a><a href="https://x-square-robot.github.io/X-Tokenizer_projectPage/" target="_blank" rel="noreferrer">Project</a><a href="https://github.com/X-Square-Robot/X-Tokenizer" target="_blank" rel="noreferrer">Code</a><a href="https://huggingface.co/x-square-robot/X-Tokenizer" target="_blank" rel="noreferrer">HF</a><a href="/vla/papers/x-tokenizer">细读</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>ECoT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
       <h3><a href="https://arxiv.org/abs/2606.30552" target="_blank" rel="noreferrer">ZR-0</a></h3>
       <p>用 dense embodied chain-of-thought 监督对齐跨 embodiment 表征,推理时跳过 ECoT 生成,动作专家仍以 flow matching 输出 action chunk。</p>

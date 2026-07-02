@@ -8,6 +8,8 @@ description: Wall-OSS-0.5(自变量 X Square Robot)是建于 Qwen2.5-VL-3B 之�
 > **来源**: 《Wall-OSS-0.5 Technical Report — Pretrain Once, Act Anywhere》 · X Square Robot(自变量机器人)· 2026(arXiv 编号**待核**;本地 PDF 文件名 wallx_2602,疑似 2026.02)· 代码 github.com/X-Square-Robot/wall-x · **路线**:梯度桥接 co-training(离散 RVQ 桥 + 多模态锚 + 流匹配部署),MoT 双专家
 > [← 返回主报告](../index.md)
 
+> **更新**:2026-06 自变量已将这条动作分词器路线独立成 [X-Tokenizer](x-tokenizer.md)(arXiv:2606.14752),正式写法从"Vision-Aligned RVQ"推进到 **Semantic Residual Quantization(SRQ)**:顶层 `q0` 学语义动作意图,`q1-q3` 保留运动残差。本文保留 Wall-OSS-0.5 技术报告原始术语,并在分词器处注明新口径。
+
 ---
 
 ## TL;DR
@@ -65,6 +67,8 @@ flowchart TB
 ### 2.2 Vision-Aligned RVQ 动作分词器(替代 FAST)
 
 为让离散 token 成为"对主干有语义"的训练接口(而非单纯低失真压缩),用一个**学习式 Vision-Aligned 残差向量量化(RVQ)分词器**替代规则式 [FAST](pi0-fast.md):Encoder–RVQ–Decoder 结构,工作在 **delta-action(增量动作)**空间;三个目标共塑 token 空间——**视觉-动作对齐**(把动作 latent 拉向 VLM 视觉特征)、**下一帧预测**(让 token 编码动作后果)、**DCT 域重建**(抑制高频抖动)。得到的离散表示同时可重建、视觉对齐、物理平滑。
+
+2026-06 的 [X-Tokenizer](x-tokenizer.md) 可视为该分词器线的正式公开版本:它把 RVQ 明确改写为 **SRQ**(Semantic Residual Quantization),让顶层 `q0` 通过 Masked Action Modeling 学粗粒度动作意图,下层 `q1-q3` 继续做重建残差;同时用冻结 VLM 表征对齐和下一帧 VL 特征预测把动作 token 拉入多模态语义空间。换言之,Wall-OSS-0.5 的"离散梯度桥"现在有了更明确的 tokenizer 论文/代码/权重出处。
 
 ### 2.3 Action-Space Supervision(动作空间监督)
 
@@ -142,15 +146,16 @@ Wall-OSS-0.5 是 [WALL-OSS](wall-oss.md) 之后自变量的技术报告级基座
 - [π0.5](pi05.md) / [知识隔离 KI](knowledge-insulation.md) 用 **stop-gradient 隔离**动作专家梯度,**保护**预训练主干不被连续控制信号污染;
 - **Wall-OSS-0.5 保留端到端梯度流**,反而主动用**离散 RVQ 动作 token 的交叉熵当"桥"**,让动作目标去**塑造**主干——它认为问题不是"动作梯度会污染主干",而是"连续流匹配对主干塑造太弱",于是借离散通路的强梯度补上。
 
-这正好补全本站 [双系统架构原理](dual-system-architecture.md) 里"梯度隔离"一类的**反例/对立面**:同样面对"主干 vs 动作专家如何共处",π 系选择隔离、自变量选择桥接。与 [WALL-OSS](wall-oss.md) 相比,Wall-OSS-0.5 的主要进化是:MoT 双专家显式路由、Vision-Aligned RVQ 替代 FAST、Action-Space Supervision、以及"预训练即可部署"的评测立场。底层动作生成仍属"连续流匹配"家族(同 [π0](pi0.md))。
+这正好补全本站 [双系统架构原理](dual-system-architecture.md) 里"梯度隔离"一类的**反例/对立面**:同样面对"主干 vs 动作专家如何共处",π 系选择隔离、自变量选择桥接。与 [WALL-OSS](wall-oss.md) 相比,Wall-OSS-0.5 的主要进化是:MoT 双专家显式路由、Vision-Aligned RVQ / [X-Tokenizer](x-tokenizer.md) 动作分词器、Action-Space Supervision、以及"预训练即可部署"的评测立场。底层动作生成仍属"连续流匹配"家族(同 [π0](pi0.md))。
 
-相关条目:[WALL-OSS](wall-oss.md) · [π0.5](pi05.md) · [知识隔离 KI](knowledge-insulation.md) · [双系统架构原理](dual-system-architecture.md) · [π0-FAST](pi0-fast.md)(FAST 分词对照)· [π0](pi0.md)
+相关条目:[WALL-OSS](wall-oss.md) · [X-Tokenizer](x-tokenizer.md) · [π0.5](pi05.md) · [知识隔离 KI](knowledge-insulation.md) · [双系统架构原理](dual-system-architecture.md) · [π0-FAST](pi0-fast.md)(FAST 分词对照)· [π0](pi0.md)
 
 ---
 
 ## 来源
 
 - 技术报告:《Wall-OSS-0.5 Technical Report: Pretrain Once, Act Anywhere》,X Square Robot Team(自变量机器人),2026(arXiv 编号待核;本地 PDF wallx_2602)。架构(MoT/RVQ/Action-Space Supervision)、梯度桥接 co-training、损失权重、数据配方、Table 2/3/4/7 成绩均出自此报告正文与附录。
+- 动作分词器正式论文:[X-Tokenizer: A Multimodal Action Tokenizer for Vision-Language-Action Pretraining](x-tokenizer.md),arXiv:2606.14752;项目页 <https://x-square-robot.github.io/X-Tokenizer_projectPage/>;代码 <https://github.com/X-Square-Robot/X-Tokenizer>;权重 <https://huggingface.co/x-square-robot/X-Tokenizer>。
 - 代码:github.com/X-Square-Robot/wall-x
 - 前作:[WALL-OSS 细读](wall-oss.md)(arXiv:2509.11766)
 - 说明:本页定量均为厂商技术报告自评、无第三方统一基准复现;task progress 为分步完成度口径;"保住通用 VL"一项已据其自家 Table 7 做了纠偏(见 §5)。

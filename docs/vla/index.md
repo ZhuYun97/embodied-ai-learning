@@ -52,6 +52,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 |---|---|---|---|
 | WALL-OSS (2025.09) | 自变量 X²Robot | Qwen2.5-VL MoE 端到端基座,FAST+流匹配双分支,Wall-OSS-0.5 零样本真机 | [→ 细读](papers/wall-oss.md) |
 | Wall-OSS-0.5 (2026) | 自变量 X²Robot | 梯度桥接 co-training(离散 RVQ 桥+多模态锚+流匹配部署),MoT 双专家,4B 预训练即可部署,微调超 π0.5 17.5pp | [→ 细读](papers/wall-oss-05.md) |
+| X-Tokenizer (2026.06) | 自变量 X²Robot / CityU / Tsinghua | 动作分词器正式论文:SRQ 把 q0 变成语义意图 token,q1-q3 保留运动残差,2.4M 轨迹/2B action frames 预训练,Apache-2.0 权重 | [→ 细读](papers/x-tokenizer.md) |
 | Qwen-VLA (2026.05) | 阿里 Qwen | Qwen3.5-4B + 1.15B DiT,统一操作/导航/轨迹 | [→ 细读](papers/qwen-vla.md) |
 | Qwen-RobotManip (2026.06) | 阿里 Qwen | 操作 VLA:Qwen3.5-4B + flow-matching DiT,80 维统一 state-action,约 38,100h 语料 | [→ 细读](papers/qwen-robotmanip.md) |
 | Qwen-RobotNav (2026.06) | 阿里 Qwen | 导航执行器:Qwen3-VL + waypoint head,task mode + observation context 可重配置 | [→ 细读](papers/qwen-robotnav.md) |
@@ -106,7 +107,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 
 | 专题 | 范围 | 一句话 | 链接 |
 |---|---|---|---|
-| 全模型规格对比 | 26 模型 × 12 维 | 主干/视觉编码器/参数/动作表示/频率/语料/单体or双系统/许可一表打尽(成绩见基准、年代见时间线) | [→ 大表](papers/models-spec.md) |
+| 全模型规格对比 | 27 项模型/动作接口 × 12 维 | 主干/视觉编码器/参数/动作表示/频率/语料/单体or双系统/许可一表打尽(成绩见基准、年代见时间线) | [→ 大表](papers/models-spec.md) |
 | 双系统架构原理 | System 1/2 / 分层 / 知识隔离 | 辨析"频率解耦 vs 语义分层 vs 梯度隔离"三种常被混用的解耦,含跨系统对比表与单模型反例 | [→ 专题](papers/dual-system-architecture.md) |
 | 预测式 VLA | 世界模型作策略主体 | VPP/DreamVLA/WorldVLA:推理时预演未来→反推动作,区别于 RynnVLA 的"预测只当训练先验" | [→ 专题](papers/predictive-vla.md) |
 | 知识隔离训练配方 | KI(arXiv:2505.23705) | stop-gradient 挡住动作专家梯度 + FAST 离散监督主干 + co-training,π0.6/π0.7 背后的训练技法 | [→ 细读](papers/knowledge-insulation.md) |

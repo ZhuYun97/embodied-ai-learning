@@ -168,6 +168,7 @@ flowchart TD
 | **2026.05** | **Qwen-VLA** | 阿里 Qwen | 连续(统一基座) | Qwen3.5-4B + 1.15B DiT 流匹配,一个架构统一操作/导航/轨迹;⚠️ LIBERO 97.9%、R2R 69.0% OSR | [→ 细读](qwen-vla.md) |
 | **2026.06** | **Qwen-RobotManip** | 阿里 Qwen | 连续(操作 VLA) | Qwen3.5-4B + flow-matching DiT,80 维统一 state-action + camera-frame EEF delta;约 38,100h 开源/人类视频语料 ⚠️ | [→ 细读](qwen-robotmanip.md) |
 | **2026.06** | **Qwen-RobotNav** | 阿里 Qwen | 导航 waypoint 执行器 | Qwen3-VL + 轻量 waypoint head,VLN/PointNav/ObjNav/Tracking/driving 统一为可重配置 observation context 的导航调用 ⚠️ | [→ 细读](qwen-robotnav.md) |
+| **2026.06** | **X-Tokenizer** | 自变量 X Square / CityU / Tsinghua | 动作 tokenizer / 语义接口 | 把动作分词从低失真压缩改为语义接口学习:SRQ 顶层 q0 对齐动作意图,q1-q3 保留运动残差,2.4M 轨迹 / 2B action frames 预训练,权重 Apache-2.0 | [→ 细读](x-tokenizer.md) |
 
 ### 3.2 WAM 主线
 

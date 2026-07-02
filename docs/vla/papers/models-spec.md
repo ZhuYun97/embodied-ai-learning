@@ -1,13 +1,13 @@
 ---
 title: 全模型规格对比大表
-description: 一页看全 26 个 VLA / 具身智能代表模型的横切规格大表——主干 VLM、视觉编码器、参数量、动作表示、控制频率、训练语料、单体/双系统、开源许可,按时间排序并交叉链接各细读。
+description: 一页看全 27 项 VLA / 具身智能代表模型与动作接口的横切规格大表——主干 VLM、视觉编码器、参数量、动作表示、控制频率、训练语料、单体/双系统、开源许可,按时间排序并交叉链接各细读。
 ---
 
 # 全模型规格对比大表
 
 > [← 返回主报告](../index.md)
 
-> **本页用途**:把 26 个代表模型的规格拍平成**一张主对比大表**,让你一页看全"谁用什么主干、动作怎么生成、跑多快、用多少数据、开不开源"。这是一张**横切对照页**,只做规组与交叉引用,**不复述单模型细节**——任何一格想深究,点对应细读。
+> **本页用途**:把 27 项代表模型/动作接口的规格拍平成**一张主对比大表**,让你一页看全"谁用什么主干、动作怎么生成、跑多快、用多少数据、开不开源"。这是一张**横切对照页**,只做规格与交叉引用,**不复述单模型细节**——任何一格想深究,点对应细读。
 > **可信度体例**:⚠️ = 提出方/厂商自评数字;✅ = 经核查/基准维护方统一评测;**待核** = 源文件未给出一手定量,**不编造**(尤其许可证与参数量)。
 > **三处权威源声明(务必先读)**:① **规格以各模型细读为权威源**(本表的数字均可在对应 `xx.md` 里找到出处);② **成绩(成功率/基准分)一律见 [数据集与基准](benchmarks.md)**,本表不抄成绩;③ **年代序与机构以 [发展时间线](timeline.md) 为准**。
 
@@ -17,7 +17,7 @@ description: 一页看全 26 个 VLA / 具身智能代表模型的横切规格�
 
 ---
 
-## 一、主对比大表(26 模型 × 12 维,按时间排序)
+## 一、主对比大表(27 项 × 12 维,按时间排序)
 
 > **动作表示图例**:`离散token` = 离散自回归动作 token;`流匹配` = flow matching 连续动作;`扩散DiT` = Diffusion Transformer 连续动作;`L1` = 连续表示 + L1 回归;`混合` = 高层离散 + 底层连续;`视频生成` = 第三条路(视频生成预训练)。
 > **系统形态图例**:`单体` = 单一模型端到端;`双系统` = 慢 VLM 推理(System 2)+ 快控制器执行(System 1)。
@@ -50,6 +50,7 @@ description: 一页看全 26 个 VLA / 具身智能代表模型的横切规格�
 | **Qwen-VLA** | 2026.05 | 阿里巴巴 Qwen 团队 | Qwen3.5-4B(稠密) | Qwen3.5-VL 内置视觉 | Qwen3.5-4B 主干 + 1.15B DiT 解码器(总数源未给,~5.2B 系相加估算) | 扩散DiT / 流匹配(统一"动作-轨迹"空间) | 待核(技术报告全文未放出) | 操作轨迹 + VLN 导航 + 轨迹监督 + 辅助 VL 数据(规模**待核**) | 单体(VL 主干 + DiT 双流) | **开放程度待确认**(仓库主要为报告/Demo,权重/许可证未明) | [qwen-vla.md](qwen-vla.md) |
 | **Qwen-RobotManip** | 2026.06 | 阿里巴巴 Qwen 团队 | Qwen3.5-4B | Qwen3.5-VL 内置视觉 | 主干 4B + DiT 动作专家(10 blocks,hidden 768;总数待核) | 流匹配 DiT(80 维 canonical state-action,camera-frame EEF delta) | 推理 4 步 Euler;控制频率待核 | 约 38,100h(开源机器人数据 + 人类视频 + human-to-robot 合成;15 平台合成约 24,808h) ⚠️ | 单体(VL backbone + action expert) | 官方 GitHub 公开;权重/许可证待核 | [qwen-robotmanip.md](qwen-robotmanip.md) |
 | **Qwen-RobotNav** | 2026.06 | 阿里巴巴 Qwen 团队 | Qwen3-VL(2B/4B/8B 变体) | Qwen3-VL 内置 SigLIP-2 视觉 | 2B/4B/8B + 轻量 4 层 waypoint head | Waypoint 回归(K=8,每点 x/y/theta;task-adaptive observation encoding) | 待核(真实部署有云端/本机延迟对比,未统一为控制 Hz) | 15.6M samples(85% 导航轨迹规划 + 15% VL reasoning) ⚠️ | 分层系统中的导航执行器(上层 planner 可重配置调用) | 官方 GitHub 公开;权重/许可证待核 | [qwen-robotnav.md](qwen-robotnav.md) |
+| **X-Tokenizer** | 2026.06 | X Square Robot / CityU / Tsinghua | 非 VLA 主干(动作 tokenizer;下游以 Wall-OSS / Qwen2.5-VL 系测试) | 冻结 VLM 表征作对齐目标(项目页称三视角视频 + 语言/子任务上下文) | tokenizer 参数量待核 | 离散token(SRQ:顶层 q0 语义意图 + q1-q3 运动残差;可解码回连续动作) | 作为 tokenizer,控制频率不适用;chunk size 8-64 | 2.4M trajectories / 2.0B action frames / 17 arm families;HF/GitHub model card 写 18 canonical embodiments | 动作接口模块(冻结后供混合离散-连续 VLA 预训练监督) | **Apache-2.0** HF 权重 + GitHub 代码 | [x-tokenizer.md](x-tokenizer.md) |
 
 > **关于"成绩"**:上表**刻意不列任何成功率/基准分**。各模型的 LIBERO / SimplerEnv / 真机成功率及其可信度标注,**统一见 [数据集与基准](benchmarks.md)**(那里区分了 ⚠️ 自评与 ✅ 第三方核查)。
 

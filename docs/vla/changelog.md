@@ -6,6 +6,12 @@ description: 具身星图更新日志,按时间倒序记录站点内容与功能
 
 本站持续生长,这里按时间倒序记录主要更新。⚠️ 标记的自评数据与"待核"缺口在各页内就地标注。
 
+## 2026-07-02
+
+**自变量 X-Tokenizer 收录**
+- 📄 新增 [X-Tokenizer 细读](/vla/papers/x-tokenizer)(arXiv:2606.14752):把动作分词器作为 VLA 预训练的语义接口单独拆解,覆盖 Encoder-SRQ-Decoder、q0 意图 token / q1-q3 运动残差、2.4M trajectories / 2B action frames 预训练、HF Apache-2.0 权重与作者自评边界。
+- 🔗 **全站接线**:VLA 主报告、发展时间线、全模型规格对比、参考文献、每日最新论文队列与 Wall-OSS / Wall-OSS-0.5 细读页同步加入口;公司分档榜的自变量 T0 证据补入 X-Tokenizer,同时保留 RoboChallenge 低于 π0.5 基线和 tokenizer 指标作者自评的风险提示。
+
 ## 2026-06-25
 
 **新增每日最新论文队列页**

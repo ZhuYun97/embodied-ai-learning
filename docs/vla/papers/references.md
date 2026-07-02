@@ -67,6 +67,7 @@ graph LR
 | **Gemini Robotics** | Google DeepMind 2025 | arxiv.org/abs/2503.20020 | [📄 gemini-robotics](gemini-robotics.md) | Gemini 2.0 基座的 VLA |
 | **CogACT** | Microsoft 2024 | arxiv.org/abs/2411.19650 · github.com/microsoft/CogACT · huggingface.co/CogACT | [📄 cogact](cogact.md) | 认知-动作组件化 VLA |
 | **WALL-OSS** | X-Square Robot 2025 | arxiv.org/abs/2509.11766 · github.com/X-Square-Robot/wall-x · huggingface.co/x-square-robot | [📄 wall-oss](wall-oss.md) | 端到端具身基座,Qwen2.5-VL MoE ~4B,流匹配 + FAST 双分支 ⚠️ |
+| **X-Tokenizer** | X Square Robot / CityU / Tsinghua 2026 | arxiv.org/abs/2606.14752 · x-square-robot.github.io/X-Tokenizer_projectPage/ · github.com/X-Square-Robot/X-Tokenizer · huggingface.co/x-square-robot/X-Tokenizer | [📄 x-tokenizer](x-tokenizer.md) | 动作分词器/语义接口,SRQ(q0 意图 + q1-q3 残差),Apache-2.0 权重 ⚠️ |
 | **Qwen-VLA** | Qwen 团队 2026 | arxiv.org/abs/2605.30280 · github.com/QwenLM/Qwen-VLA | [📄 qwen-vla](qwen-vla.md) | ⚠️ arXiv 编号落在 2026,极新 |
 | **Qwen-RobotManip** | Qwen 团队 2026 | arxiv.org/abs/2606.17846 · github.com/QwenLM/Qwen-RobotManip | [📄 qwen-robotmanip](qwen-robotmanip.md) | 操作 VLA,多本体 state-action 对齐 + 38,100h 语料 ⚠️ |
 | **Qwen-RobotNav** | Qwen 团队 2026 | arxiv.org/abs/2606.18112 · github.com/QwenLM/Qwen-RobotNav | [📄 qwen-robotnav](qwen-robotnav.md) | 导航基础模型,可重配置 observation context ⚠️ |

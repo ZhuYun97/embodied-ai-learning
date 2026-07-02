@@ -105,7 +105,7 @@ $$x_t=(1-\rho(t))\,x_0+\rho(t)\,\epsilon,\qquad \mathcal{L}_{\text{Integration}}
 
 **Wall-OSS-0.5** 在 WALL-OSS 基础上提出 **"Gradient-Bridged Pretraining(梯度桥接预训练)"**:**以离散动作 token 的交叉熵作为"梯度桥(gradient bridge)"**,把离散动作先验的监督信号桥接到连续控制的学习中(可理解为对 WALL-OSS"离散先验→连续控制"两阶段思路的进一步内聚)。规模仍约 **4B**,主打 **"可直接部署(deploy-ready)、零样本真机操作(zero-shot real-robot)"**——即开箱即用、无需在目标任务上再采数微调即可上真机。
 
-> 📄 **Wall-OSS-0.5 已有独立技术报告与细读**:MoT 双专家路由、Vision-Aligned RVQ 动作分词器、Action-Space Supervision、梯度桥接 co-training 的完整拆解,以及零样本(17 任务)/微调(超 π0.5 17.5pp)/多模态成绩,见 **[Wall-OSS-0.5 细读](wall-oss-05.md)**。其关键立场是"预训练即可部署(Pretrain Once, Act Anywhere)";与 [π0.5](pi05.md)/[知识隔离](knowledge-insulation.md) 的 stop-gradient **相反**——它保留端到端梯度、用离散通路主动塑造主干。
+> 📄 **Wall-OSS-0.5 已有独立技术报告与细读**:MoT 双专家路由、Vision-Aligned RVQ / [X-Tokenizer](x-tokenizer.md) 动作分词器、Action-Space Supervision、梯度桥接 co-training 的完整拆解,以及零样本(17 任务)/微调(超 π0.5 17.5pp)/多模态成绩,见 **[Wall-OSS-0.5 细读](wall-oss-05.md)**。其关键立场是"预训练即可部署(Pretrain Once, Act Anywhere)";与 [π0.5](pi05.md)/[知识隔离](knowledge-insulation.md) 的 stop-gradient **相反**——它保留端到端梯度、用离散通路主动塑造主干。
 
 ---
 
@@ -189,7 +189,7 @@ $$x_t=(1-\rho(t))\,x_0+\rho(t)\,\epsilon,\qquad \mathcal{L}_{\text{Integration}}
 - **与分层前沿对照([[groot-n1]])**:GR00T N1 走"System-2 推理 + System-1 控制"的**双系统/分层**;WALL-OSS 反其道而行,主打**单模型 Uni-CoT**——把推理、子任务与连续动作压进同一可微前向,声称这样能更强地绑定语言与动作。
 - **与离散自回归路线([[rt2]]、[[openvla]])对照**:WALL-OSS 并不二选一,而是把离散(LM Head / FAST)与连续(Flow Head / 流匹配)装进同一主干,用阶段化课程各取所长。
 
-一句话:**WALL-OSS 是自变量机器人提出的端到端具身基座,用"紧耦合 MoE + 静态路由"把离散 FAST 与连续流匹配两条动作建模路线装进同一个 Qwen2.5-VL 主干,并以 Unified Cross-Level CoT 在单一可微框架里统一"指令推理→子目标分解→细粒度动作合成";它沿用 π0-FAST 的 FAST tokenizer、复刻 π0.5 的"离散→连续"两阶段配方,代价是性能与"零样本可直接部署"均为厂商自评、尚待第三方验证,且 Wall-OSS-0.5 的梯度桥接预训练属后续开源发布而非原论文内容。**
+一句话:**WALL-OSS 是自变量机器人提出的端到端具身基座,用"紧耦合 MoE + 静态路由"把离散 FAST 与连续流匹配两条动作建模路线装进同一个 Qwen2.5-VL 主干,并以 Unified Cross-Level CoT 在单一可微框架里统一"指令推理→子目标分解→细粒度动作合成";早期沿用 π0-FAST 的 FAST tokenizer,Wall-OSS-0.5 后续把离散桥升级为 Vision-Aligned RVQ / [X-Tokenizer](x-tokenizer.md) 语义动作分词器,代价是性能与"零样本可直接部署"均为厂商自评、尚待第三方验证,且 Wall-OSS-0.5 的梯度桥接预训练属后续开源发布而非原论文内容。**
 
 ---
 
@@ -199,6 +199,7 @@ $$x_t=(1-\rho(t))\,x_0+\rho(t)\,\epsilon,\qquad \mathcal{L}_{\text{Integration}}
 - HTML 全文(图 3/4 来源):<https://arxiv.org/html/2509.11766v1>
 - 代码:GitHub <https://github.com/X-Square-Robot/wall-x>
 - 模型:HuggingFace `x-square-robot/wall-oss-flow`、`x-square-robot/wall-oss-fast`
+- 动作分词器:[X-Tokenizer](x-tokenizer.md),arXiv:2606.14752,代码 <https://github.com/X-Square-Robot/X-Tokenizer>,权重 <https://huggingface.co/x-square-robot/X-Tokenizer>
 - 项目页:<https://x2robot.com>
 - 架构图:本仓库 `images/wall-oss_arch.webp`(原文 Figure 3 Architecture of WALL-OSS,源文件 `x3.png`)
 - 训练/推理流程图:本仓库 `images/wall-oss_pipeline.webp`(原文 Figure 4 training and inference pipeline,源文件 `x4.png`)

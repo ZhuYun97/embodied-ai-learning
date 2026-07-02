@@ -24,7 +24,7 @@ features:
     linkText: 看发展总报告
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
-    details: VLA 54 + WAM 33 篇,逐模块拆架构 / 数据 / 实验。
+    details: VLA 55 + WAM 33 篇,逐模块拆架构 / 数据 / 实验。
     link: /vla/#-论文细读导航
     linkText: 进入细读导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
@@ -96,6 +96,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
       <a href="vla/papers/pi05">π0.5</a>
       <a href="vla/papers/wall-oss">WALL-OSS</a>
       <a href="vla/papers/wall-oss-05">Wall-OSS-0.5</a>
+      <a href="vla/papers/x-tokenizer">X-Tokenizer</a>
       <a href="vla/papers/space">SPACE</a>
     </div>
   </div>
