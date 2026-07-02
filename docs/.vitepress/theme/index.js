@@ -20,8 +20,8 @@ import './custom.css'
 
 // =====================================================================
 // 首屏 WebGL 扭曲背景(HeroBG → GridDistortion):蓝紫流体抽象底图
-// (public/hero-bg.jpg,Unsplash,与站点配色同源)铺满首个视口,鼠标拖动产生网格扭曲;
-// 叠两层科技增强(见 custom.css):.hero-bg-halo 人物位锚定青蓝辉光(消除人物与背景
+// (public/hero-bg.jpg)铺满首个视口,鼠标拖动产生网格扭曲;
+// 叠两层科技增强(见 custom.css):.hero-bg-halo 机器人位锚定青蓝辉光(消除主体与背景
 // 脱节感)、.hero-bg-tech HUD 科技层(扫描线 + 暗角聚焦 + 缓慢扫描带)。
 // 随滚动收起(--hero-collapse,见 setupHeroCollapse)。client-only。
 // =====================================================================
@@ -981,7 +981,6 @@ const TechHero = {
       clockTimer = setInterval(tick, 1000)
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
       bindHeroUnit(reduce)
-      bindHeroVideo(reduce)
       if (reduce) return
       // 开机序列:状态条 → 终端提示语,逐字打出(一次性;机器人物化见 custom.css robotMaterialize)
       armBootSkip()
@@ -1101,17 +1100,12 @@ const TechHero = {
               h('span', { class: 'tu-tag tu-tag--tl' }, 'EMBODIED-UNIT'),
               h('span', { class: 'tu-tag tu-tag--tr' }, 'VLA · WAM'),
               h('div', { class: 'thero__robot-wrap', title: '点我 · 单元会回应' }, [
-                // 镭光人概念视频(public/hero-laser-human.mp4,自托管):桌面精确指针
-                // = 鼠标推扫逐帧(bindHeroVideo),窄屏/触屏 = 静音循环播放,reduced-motion = 静帧
-                h('video', {
-                  class: 'thero__robot thero__robot--video',
-                  src: withBase('/hero-laser-human.mp4'),
-                  muted: true,
-                  playsinline: true,
-                  'webkit-playsinline': true,
-                  preload: 'auto',
-                  loop: true,
-                  'aria-label': '镭光人 · 具身智能概念视频',
+                h('img', {
+                  class: 'thero__robot thero__robot--image',
+                  src: withBase('/hero-embodied-robot-cutout.png'),
+                  alt: '立体半身人形机器人 · 具身智能概念图',
+                  decoding: 'async',
+                  fetchpriority: 'high',
                 }),
                 h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),

@@ -5594,13 +5594,19 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
 }
 
 /* ============================================================
-   镭光人英雄视频(.thero__robot--video,替换原 hero-robot.svg):
-   沿用 .thero__robot 的物化揭示 + 浮动动画;矩形媒体收圆角;
-   暗色用 screen 混合把深底视频融进深空背景,矩形 drop-shadow 关闭。
-   交互逻辑见 theme/index.js bindHeroVideo(推扫 / 自动播放 / 静帧)。
+   首页半身机器人媒体(.thero__robot--image):
+   使用项目本地 AI 生成抠像资产 hero-embodied-robot-cutout.png,替换原镭光人视频;
+   沿用 .thero__robot 的物化揭示 + 浮动动画,更贴合具身智能主题。
    ============================================================ */
-/* 视频仅作隐藏解码源;可见层是 bindHeroVideo 注入的实时抠像 canvas
-   (.thero__robot--keyed,共享 .thero__robot 的物化/浮动/辉光,与旧 SVG 同款承载) */
+.thero__robot--image {
+  width: min(112%, 560px);
+  max-width: none;
+  object-fit: contain;
+  object-position: 50% 50%;
+  filter:
+    drop-shadow(0 0 32px rgba(56, 189, 248, 0.28))
+    drop-shadow(0 28px 62px rgba(2, 6, 23, 0.36));
+}
 .thero__robot--video {
   position: absolute;
   width: 1px;
