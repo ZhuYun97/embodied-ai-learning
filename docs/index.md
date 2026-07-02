@@ -7,10 +7,10 @@ hero:
   tagline: 在 VLA × WAM 的论文谱系、知识图谱、新闻与产业生态之间导航
   actions:
     - theme: brand
-      text: VLA 调研报告 →
+      text: VLA 调研总览 →
       link: /vla/
     - theme: brand
-      text: WAM 世界-行动模型 →
+      text: WAM 调研总览 →
       link: /wam/
     - theme: alt
       text: 每日最新论文
@@ -21,7 +21,7 @@ features:
     title: 两条主线 · VLA × WAM
     details: VLA(RT-1 → π0.7)× WAM(未来状态 + 动作),双轨并进。
     link: /vla/
-    linkText: 看发展总报告
+    linkText: 看调研总览
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 逐篇论文细读
     details: VLA 55 + WAM 33 篇,逐模块拆架构 / 数据 / 实验。
@@ -51,7 +51,7 @@ features:
 
 ## VLA:按技术路线浏览
 
-VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文细读;按时间轴的谱系图已嵌入 [VLA 调研总报告](vla/) 与 [WAM 总览](wam/):
+VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文细读;按时间轴的谱系图已嵌入 [VLA 调研总览](vla/) 与 [WAM 调研总览](wam/):
 
 <div class="route-grid">
   <div class="route-card">
@@ -148,7 +148,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
 
 ## WAM:按范式浏览
 
-世界-行动模型(WAM)按综述 taxonomy 分「级联」与「联合」两支,联合再分自回归 / 扩散;此外另有跨范式的**基座 / 平台 / 仿真器**(作通用底座与数据·评测引擎,而非单一动作范式)。点击进入对应细读(范式总览见 [WAM 调研](wam/)):
+世界-行动模型(WAM)按综述 taxonomy 分「级联」与「联合」两支,联合再分自回归 / 扩散;此外另有跨范式的**基座 / 平台 / 仿真器**(作通用底座与数据·评测引擎,而非单一动作范式)。点击进入对应细读(范式总览见 [WAM 调研总览](wam/)):
 
 <div class="route-grid route-grid--wam">
   <div class="route-card">
@@ -233,7 +233,7 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
     <span class="home-coda__eyebrow">// ABOUT · 关于本站 × 持续探索</span>
     <p class="home-coda__title">两条主线 · 逐篇细读 · 持续更新</p>
     <p class="home-coda__sub">一张<strong>持续生长的具身智能研究星图</strong>:沿 <strong>VLA(视觉-语言-动作)</strong> 发展深度调研 × <strong>WAM(世界-行动模型)</strong> 前沿两条主线展开,串联逐篇论文细读、知识图谱、新闻与产业生态。所有结论经 <code>deep-research</code> 多源检索 + 3 票对抗式事实核查整理;⚠️ 自评(多为厂商/作者数据、非独立第三方复现)/ ✅ 已核 / 待核 三级标注,绝不把厂商自评洗成裸事实。</p>
-    <p class="home-coda__hint">📌 VLA 线先读 <a href="vla/">发展深度调研总报告</a> 把握全局,再按 <a href="vla/#-论文细读导航">论文细读导航</a> 逐篇深入;WAM 线从 <a href="wam/">WAM 总览(定义 / taxonomy)</a> 进入。第一次来?看 <a href="vla/guide">如何阅读本站</a> 与 <a href="vla/changelog">更新日志</a>。</p>
+    <p class="home-coda__hint">📌 VLA 线先读 <a href="vla/">VLA 调研总览</a> 把握全局,再按 <a href="vla/#-论文细读导航">论文细读导航</a> 逐篇深入;WAM 线从 <a href="wam/">WAM 调研总览</a> 进入。第一次来?看 <a href="vla/guide">如何阅读本站</a> 与 <a href="vla/changelog">更新日志</a>。</p>
     <p class="home-coda__term" aria-hidden="true">$ keep_researching <span class="home-coda__flag">--forever</span><span class="home-coda__caret"></span></p>
   </div>
   <nav class="home-coda__links" aria-label="更多入口">

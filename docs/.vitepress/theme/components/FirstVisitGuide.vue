@@ -46,8 +46,8 @@ const menuGroups = [
     title: '看主线走 VLA / WAM',
     body: 'VLA 关注视觉语言到动作,WAM 关注世界模型与动作预测。两条线可以对照看,不要只读单篇结论。',
     links: [
-      ['VLA 总报告', '/vla/'],
-      ['WAM 总览', '/wam/'],
+      ['VLA 调研总览', '/vla/'],
+      ['WAM 调研总览', '/wam/'],
       ['全模型规格对比', '/vla/papers/models-spec'],
     ],
   },

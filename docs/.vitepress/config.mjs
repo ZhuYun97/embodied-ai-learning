@@ -560,7 +560,7 @@ export default withMermaid(defineConfig({
           {
             text: '主入口',
             items: [
-              { text: 'VLA 总报告', link: '/vla/#vla-视觉-语言-动作-模型发展深度调研报告', activeMatch: '^/vla/$' },
+              { text: 'VLA 调研总览', link: '/vla/#vla-视觉-语言-动作-模型发展深度调研报告', activeMatch: '^/vla/$' },
               { text: '论文细读导航', link: '/vla/#📄-论文细读导航', activeMatch: '^/vla/$' },
               { text: '全模型规格对比', link: '/vla/papers/models-spec' },
             ],
@@ -592,7 +592,7 @@ export default withMermaid(defineConfig({
           {
             text: '主入口',
             items: [
-              { text: 'WAM 总览(定义 / taxonomy)', link: '/wam/' },
+              { text: 'WAM 调研总览', link: '/wam/' },
               { text: '代表模型细读', link: '/wam/#三、代表模型细读' },
               { text: '全模型规格对比(29 篇横向)', link: '/wam/papers/models-spec' },
             ],
@@ -673,9 +673,9 @@ export default withMermaid(defineConfig({
       ],
       '/vla/': [
         {
-          text: 'VLA 发展深度调研',
+          text: 'VLA 调研',
           items: [
-            { text: '总报告', link: '/vla/' },
+            { text: '调研总览', link: '/vla/' },
           ],
         },
         {
@@ -837,7 +837,7 @@ export default withMermaid(defineConfig({
         {
           text: 'WAM 调研',
           items: [
-            { text: '总览:定义 / taxonomy / 数据评测', link: '/wam/' },
+            { text: '调研总览', link: '/wam/' },
             { text: '全模型规格对比（29 篇横向）', link: '/wam/papers/models-spec' },
           ],
         },
@@ -952,7 +952,7 @@ export default withMermaid(defineConfig({
             { text: '预测式 VLA(WAM 早期切片)', link: '/vla/papers/predictive-vla' },
             { text: 'RynnVLA-001(预测当先验)', link: '/vla/papers/rynnvla' },
             { text: 'GR00T N1(VLA 世代)', link: '/vla/papers/groot-n1' },
-            { text: 'VLA 调研报告', link: '/vla/' },
+            { text: 'VLA 调研总览', link: '/vla/' },
           ],
         },
       ],
