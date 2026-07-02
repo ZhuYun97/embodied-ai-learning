@@ -1763,15 +1763,17 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
    ============================================================ */
 .thero__robot-wrap {
   position: relative; display: block; cursor: pointer;
+  transform-origin: 50% 30%;
   transform-style: preserve-3d;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   will-change: transform;
 }
-/* 指针视差倾斜(--rx/--ry 由 JS 写入;仅精确指针 + 允许动效) */
+/* 指针视差倾斜(--rx/--ry 由 JS 写入;监听整个 hero,机器人会看向鼠标方向) */
 @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .thero__unit:hover .thero__robot-wrap {
-    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.04);
+  .VPHome .thero__robot-wrap {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--look-scale, 1));
   }
+  .thero__unit:hover .thero__robot-wrap { --look-scale: 1.04; }
 }
 .thero__unit:hover .thero__robot { filter: drop-shadow(0 0 52px rgba(56, 189, 248, 0.5)); }
 .thero__unit:hover .tu-scan { animation-duration: 2.1s; }
@@ -5606,6 +5608,38 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
   filter:
     drop-shadow(0 0 32px rgba(56, 189, 248, 0.28))
     drop-shadow(0 28px 62px rgba(2, 6, 23, 0.36));
+}
+.tu-gaze {
+  position: absolute;
+  left: 50%;
+  top: 18.5%;
+  z-index: 2;
+  width: 58px;
+  height: 22px;
+  transform:
+    translate3d(calc(-50% + var(--gaze-x, 0px)), calc(-50% + var(--gaze-y, 0px)), 42px)
+    rotateX(var(--look-rx, 0deg))
+    rotateY(var(--look-ry, 0deg));
+  transform-style: preserve-3d;
+  pointer-events: none;
+  opacity: 0.92;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+}
+.tu-gaze i {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 3px;
+  border-radius: 999px;
+  background: #7dd3fc;
+  box-shadow:
+    0 0 8px rgba(125, 211, 252, 0.95),
+    0 0 18px rgba(34, 211, 238, 0.55);
+}
+.tu-gaze i:first-child { left: 15px; }
+.tu-gaze i:last-child { right: 15px; }
+@media (prefers-reduced-motion: no-preference) {
+  .tu-gaze i { animation: bpBlink 4.8s steps(1, end) infinite; }
 }
 .thero__robot--video {
   position: absolute;

@@ -1107,6 +1107,10 @@ const TechHero = {
                   decoding: 'async',
                   fetchpriority: 'high',
                 }),
+                h('span', { class: 'tu-gaze', 'aria-hidden': 'true' }, [
+                  h('i'),
+                  h('i'),
+                ]),
                 h('span', { class: 'tu-mat', 'aria-hidden': 'true' }),
               ]),
               h('span', { class: 'tu-scan', 'aria-hidden': 'true' }),
@@ -1491,6 +1495,7 @@ function bindHeroVideo(reduce) {
 
 function bindHeroUnit(reduce) {
   if (typeof document === 'undefined') return
+  const hero = document.querySelector('.VPHome .thero')
   const unit = document.querySelector('.thero__unit')
   if (!unit || unit.dataset.delight) return
   unit.dataset.delight = '1'
@@ -1498,19 +1503,34 @@ function bindHeroUnit(reduce) {
   const baseText = unit.querySelector('.tu-base-text')
   if (!wrap) return
   const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
+  const resetLook = () => {
+    wrap.style.setProperty('--ry', '0deg')
+    wrap.style.setProperty('--rx', '0deg')
+    wrap.style.setProperty('--look-ry', '0deg')
+    wrap.style.setProperty('--look-rx', '0deg')
+    wrap.style.setProperty('--gaze-x', '0px')
+    wrap.style.setProperty('--gaze-y', '0px')
+  }
   if (fine && !reduce) {
-    unit.addEventListener('pointermove', (e) => {
+    const followPointer = (e) => {
       const r = unit.getBoundingClientRect()
       const px = (e.clientX - r.left) / r.width - 0.5
       const py = (e.clientY - r.top) / r.height - 0.5
-      wrap.style.setProperty('--ry', (px * 14).toFixed(2) + 'deg')
-      wrap.style.setProperty('--rx', (-py * 10).toFixed(2) + 'deg')
-    })
+      const hx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width * 0.5)) / (r.width * 0.62)))
+      const hy = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height * 0.28)) / (r.height * 0.58)))
+      wrap.style.setProperty('--ry', (px * 10).toFixed(2) + 'deg')
+      wrap.style.setProperty('--rx', (-py * 7).toFixed(2) + 'deg')
+      wrap.style.setProperty('--look-ry', (hx * -12).toFixed(2) + 'deg')
+      wrap.style.setProperty('--look-rx', (hy * 7).toFixed(2) + 'deg')
+      wrap.style.setProperty('--gaze-x', (hx * 13).toFixed(1) + 'px')
+      wrap.style.setProperty('--gaze-y', (hy * 9).toFixed(1) + 'px')
+    }
+    ;(hero || unit).addEventListener('pointermove', followPointer, { passive: true })
+    ;(hero || unit).addEventListener('pointerleave', resetLook, { passive: true })
   }
   unit.addEventListener('pointerenter', () => { if (baseText) baseText.textContent = ROBOT_HELLO })
   unit.addEventListener('pointerleave', () => {
-    wrap.style.setProperty('--ry', '0deg')
-    wrap.style.setProperty('--rx', '0deg')
+    resetLook()
     if (baseText) baseText.textContent = ROBOT_DEFAULT
   })
   let clicks = 0
