@@ -15,6 +15,7 @@ import AutoResearchLab from './components/AutoResearchLab.vue'
 import BenchmarkBoard from './components/BenchmarkBoard.vue'
 import DatasetCatalog from './components/DatasetCatalog.vue'
 import RoadmapGraph from './components/RoadmapGraph.vue'
+import FirstVisitGuide from './components/FirstVisitGuide.vue'
 import './custom.css'
 
 // =====================================================================
@@ -2075,6 +2076,7 @@ export default {
         h(HomeRail),
       ],
       'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle), h(ThemeToggle)],
+      'layout-bottom': () => h(FirstVisitGuide),
       'doc-before': () => [h(DocReadBar), h(PaperDossier), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
     })
