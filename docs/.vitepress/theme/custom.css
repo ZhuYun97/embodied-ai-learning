@@ -1768,6 +1768,39 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   will-change: transform;
 }
+.thero__robot-wrap::before,
+.thero__robot-wrap::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+.thero__robot-wrap::before {
+  inset: 5% -6% 18%;
+  z-index: -1;
+  border-radius: 42% 58% 40% 52%;
+  background:
+    radial-gradient(closest-side at 42% 34%, rgba(125, 211, 252, 0.28), transparent 68%),
+    radial-gradient(closest-side at 64% 58%, rgba(139, 92, 246, 0.2), transparent 72%);
+  filter: blur(22px);
+  transform: translate3d(calc(var(--gaze-x, 0px) * -0.28), calc(var(--gaze-y, 0px) * -0.18), -80px);
+  opacity: 0.8;
+}
+.thero__robot-wrap::after {
+  left: 15%;
+  right: 8%;
+  bottom: 4%;
+  z-index: -1;
+  height: 18%;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, rgba(2, 6, 23, 0.58), rgba(34, 211, 238, 0.2) 58%, transparent 78%);
+  transform:
+    perspective(760px)
+    rotateX(66deg)
+    translate3d(calc(var(--gaze-x, 0px) * -0.18), 18px, -120px);
+  filter: blur(3px);
+  opacity: 0.75;
+}
 /* 指针视差倾斜(--rx/--ry 由 JS 写入;监听整个 hero,机器人会看向鼠标方向) */
 @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .VPHome .thero__robot-wrap {
@@ -5597,24 +5630,25 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
 
 /* ============================================================
    首页半身机器人媒体(.thero__robot--image):
-   使用项目本地 AI 生成抠像资产 hero-embodied-robot-cutout.png,替换原镭光人视频;
+   使用项目本地 AI 生成 3/4 透视抠像资产 hero-embodied-robot-3d-cutout.png,替换原镭光人视频;
    沿用 .thero__robot 的物化揭示 + 浮动动画,更贴合具身智能主题。
    ============================================================ */
 .thero__robot--image {
-  width: min(112%, 560px);
+  width: min(126%, 620px);
   max-width: none;
+  margin: -8% -10% -1% auto;
   object-fit: contain;
-  object-position: 50% 50%;
+  object-position: 56% 50%;
   filter:
-    drop-shadow(0 0 32px rgba(56, 189, 248, 0.28))
-    drop-shadow(0 28px 62px rgba(2, 6, 23, 0.36));
+    drop-shadow(-18px 10px 20px rgba(14, 165, 233, 0.18))
+    drop-shadow(28px 26px 46px rgba(2, 6, 23, 0.42));
 }
 .tu-gaze {
   position: absolute;
-  left: 50%;
-  top: 18.5%;
+  left: 40%;
+  top: 24%;
   z-index: 2;
-  width: 58px;
+  width: 48px;
   height: 22px;
   transform:
     translate3d(calc(-50% + var(--gaze-x, 0px)), calc(-50% + var(--gaze-y, 0px)), 42px)
@@ -5637,7 +5671,7 @@ html.boot-done .tu-mat { animation: none !important; opacity: 0; }
     0 0 18px rgba(34, 211, 238, 0.55);
 }
 .tu-gaze i:first-child { left: 15px; }
-.tu-gaze i:last-child { right: 15px; }
+.tu-gaze i:last-child { right: 10px; }
 @media (prefers-reduced-motion: no-preference) {
   .tu-gaze i { animation: bpBlink 4.8s steps(1, end) infinite; }
 }

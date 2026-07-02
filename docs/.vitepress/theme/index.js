@@ -1102,7 +1102,7 @@ const TechHero = {
               h('div', { class: 'thero__robot-wrap', title: '点我 · 单元会回应' }, [
                 h('img', {
                   class: 'thero__robot thero__robot--image',
-                  src: withBase('/hero-embodied-robot-cutout.png'),
+                  src: withBase('/hero-embodied-robot-3d-cutout.png'),
                   alt: '立体半身人形机器人 · 具身智能概念图',
                   decoding: 'async',
                   fetchpriority: 'high',
