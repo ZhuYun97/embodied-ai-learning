@@ -1,14 +1,21 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, withBase } from 'vitepress'
 
 const STORAGE_KEY = 'atlas-first-visit-guide-v1'
+const FEATURE_TIP_KEYS = {
+  lens: 'atlas-feature-tip-lens-v1',
+  zen: 'atlas-feature-tip-zen-v1',
+}
 
 const route = useRoute()
 const mounted = ref(false)
 const open = ref(false)
 const activeKey = ref('start')
 const dismissed = ref(false)
+const featureTip = ref(null)
+const featureTipStyle = ref({})
+let featureTimer = 0
 
 const menuGroups = [
   {
@@ -78,12 +85,28 @@ function markSeen() {
   } catch (e) {}
 }
 
+function hasSeenFeature(key) {
+  try {
+    return localStorage.getItem(FEATURE_TIP_KEYS[key]) === '1'
+  } catch (e) {
+    return false
+  }
+}
+
+function markFeatureSeen(key) {
+  try {
+    localStorage.setItem(FEATURE_TIP_KEYS[key], '1')
+  } catch (e) {}
+}
+
 function closePanel(remember = false) {
   open.value = false
   if (remember) markSeen()
+  scheduleFeatureTip(500)
 }
 
 function openPanel() {
+  featureTip.value = null
   open.value = true
 }
 
@@ -94,6 +117,54 @@ function selectGroup(key) {
 function onKeydown(event) {
   if (!open.value) return
   if (event.key === 'Escape') closePanel()
+}
+
+function closeFeatureTip(remember = true) {
+  if (remember && featureTip.value) markFeatureSeen(featureTip.value.key)
+  featureTip.value = null
+  if (remember) scheduleFeatureTip(500)
+}
+
+function buildFeatureTip(key, target) {
+  const rect = target.getBoundingClientRect()
+  const narrow = window.innerWidth <= 640
+  featureTipStyle.value = narrow
+    ? {}
+    : {
+        top: `${Math.round(rect.bottom + 10)}px`,
+        right: `${Math.max(18, Math.round(window.innerWidth - rect.right))}px`,
+      }
+
+  featureTip.value =
+    key === 'lens'
+      ? {
+          key,
+          kicker: '可信度透镜',
+          title: '第一次看到这个按钮?',
+          body: '它用来切换证据强度视图:全部显示、暗化自评/待核、仅突出已核。看模型分数和排行榜时优先打开它。',
+        }
+      : {
+          key,
+          kicker: '专注模式',
+          title: '长文细读可以用专注模式',
+          body: '它会收起左侧目录和右侧大纲,把正文区域放宽。适合读论文细读、训练流程和长表格说明。',
+        }
+}
+
+function scheduleFeatureTip(delay = 900) {
+  if (typeof window === 'undefined') return
+  window.clearTimeout(featureTimer)
+  featureTimer = window.setTimeout(async () => {
+    if (open.value || featureTip.value) return
+    await nextTick()
+    const candidates = [
+      ['lens', document.querySelector('.lens-toggle')],
+      ['zen', document.querySelector('.zen-toggle')],
+    ]
+    const match = candidates.find(([key, target]) => target && !hasSeenFeature(key))
+    if (!match) return
+    buildFeatureTip(match[0], match[1])
+  }, delay)
 }
 
 onMounted(() => {
@@ -107,28 +178,39 @@ onMounted(() => {
     window.setTimeout(() => {
       open.value = true
     }, isHome.value ? 900 : 1400)
+  } else {
+    scheduleFeatureTip(1100)
   }
   window.addEventListener('keydown', onKeydown)
 })
 
 onUnmounted(() => {
+  window.clearTimeout(featureTimer)
   window.removeEventListener('keydown', onKeydown)
 })
+
+watch(
+  () => route.path,
+  () => {
+    closeFeatureTip(false)
+    scheduleFeatureTip(1200)
+  }
+)
 </script>
 
 <template>
-  <button
-    class="first-guide-launcher"
-    type="button"
-    :aria-expanded="open ? 'true' : 'false'"
-    aria-controls="first-guide-panel"
-    @click="openPanel"
-  >
-    <span class="first-guide-launcher__mark" aria-hidden="true">?</span>
-    <span>导览</span>
-  </button>
-
   <Teleport v-if="mounted" to="body">
+    <button
+      class="first-guide-launcher"
+      type="button"
+      :aria-expanded="open ? 'true' : 'false'"
+      aria-controls="first-guide-panel"
+      @click="openPanel"
+    >
+      <span class="first-guide-launcher__mark" aria-hidden="true">?</span>
+      <span>导览</span>
+    </button>
+
     <Transition name="first-guide-fade">
       <div v-if="open" class="first-guide-shell" role="presentation">
         <button class="first-guide-scrim" type="button" aria-label="关闭导览" @click="closePanel()" />
@@ -189,23 +271,48 @@ onUnmounted(() => {
         </section>
       </div>
     </Transition>
+
+    <Transition name="first-guide-fade">
+      <section
+        v-if="featureTip"
+        class="feature-tip"
+        :style="featureTipStyle"
+        role="dialog"
+        aria-modal="false"
+        :aria-labelledby="`feature-tip-${featureTip.key}`"
+      >
+        <div class="feature-tip__head">
+          <span>{{ featureTip.kicker }}</span>
+          <button class="feature-tip__close" type="button" aria-label="关闭功能提示" @click="closeFeatureTip()">
+            ×
+          </button>
+        </div>
+        <h2 :id="`feature-tip-${featureTip.key}`">{{ featureTip.title }}</h2>
+        <p>{{ featureTip.body }}</p>
+        <button class="feature-tip__ok" type="button" @click="closeFeatureTip()">知道了</button>
+      </section>
+    </Transition>
   </Teleport>
 </template>
 
 <style scoped>
 .first-guide-launcher {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 70;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 34px;
-  margin-left: 8px;
-  padding: 0 11px 0 8px;
+  min-height: 40px;
+  padding: 0 13px 0 10px;
   border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 38%, var(--vp-c-divider));
   border-radius: 999px;
-  background: color-mix(in srgb, var(--vp-c-bg) 82%, transparent);
+  background: color-mix(in srgb, var(--vp-c-bg) 88%, transparent);
   color: var(--vp-c-text-1);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
   backdrop-filter: blur(16px);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 650;
   line-height: 1;
   cursor: pointer;
@@ -214,12 +321,12 @@ onUnmounted(() => {
 .first-guide-launcher__mark {
   display: grid;
   place-items: center;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 999px;
   background: var(--vp-c-brand-1);
   color: white;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
 }
 
@@ -241,7 +348,7 @@ onUnmounted(() => {
 .first-guide-panel {
   position: absolute;
   right: max(18px, env(safe-area-inset-right));
-  top: calc(var(--vp-nav-height, 64px) + 12px);
+  bottom: calc(max(18px, env(safe-area-inset-bottom)) + 54px);
   width: min(520px, calc(100vw - 28px));
   border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 26%, var(--vp-c-divider));
   border-radius: 12px;
@@ -408,22 +515,88 @@ onUnmounted(() => {
   opacity: 0;
 }
 
+.feature-tip {
+  position: fixed;
+  top: var(--feature-tip-top, auto);
+  right: var(--feature-tip-right, 18px);
+  z-index: 75;
+  width: min(330px, calc(100vw - 28px));
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 30%, var(--vp-c-divider));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--vp-c-bg) 96%, var(--vp-c-bg-soft));
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.2);
+}
+
+.feature-tip__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--vp-c-brand-1);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.feature-tip__close {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-2);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.feature-tip h2 {
+  margin: 8px 0 6px;
+  color: var(--vp-c-text-1);
+  font-size: 17px;
+  line-height: 1.28;
+  letter-spacing: 0;
+}
+
+.feature-tip p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.feature-tip__ok {
+  min-height: 32px;
+  margin-top: 12px;
+  padding: 0 12px;
+  border: 1px solid var(--vp-c-brand-1);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
+  color: var(--vp-c-brand-1);
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
 @media (max-width: 640px) {
   .first-guide-launcher {
-    position: fixed;
     right: max(14px, env(safe-area-inset-right));
     bottom: max(14px, env(safe-area-inset-bottom));
-    z-index: 70;
-    min-height: 40px;
-    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
   }
 
   .first-guide-panel {
     right: 14px;
     left: 14px;
     bottom: 68px;
-    top: auto;
     width: auto;
+  }
+
+  .feature-tip {
+    top: auto !important;
+    right: 14px !important;
+    bottom: 68px;
   }
 
   .first-guide-links {
