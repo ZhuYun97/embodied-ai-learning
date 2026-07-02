@@ -12,6 +12,9 @@ import ShuffleText from './components/ShuffleText.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
 import GridDistortion from './components/GridDistortion.vue'
 import AutoResearchLab from './components/AutoResearchLab.vue'
+import BenchmarkBoard from './components/BenchmarkBoard.vue'
+import DatasetCatalog from './components/DatasetCatalog.vue'
+import RoadmapGraph from './components/RoadmapGraph.vue'
 import './custom.css'
 
 // =====================================================================
@@ -2084,6 +2087,9 @@ export default {
     app.component('XhsAccounts', XhsAccounts)
     app.component('XhsBoard', XhsBoard)
     app.component('AutoResearchLab', AutoResearchLab)
+    app.component('BenchmarkBoard', BenchmarkBoard)
+    app.component('DatasetCatalog', DatasetCatalog)
+    app.component('RoadmapGraph', RoadmapGraph)
   },
   setup() {
     onMounted(setupLightbox)

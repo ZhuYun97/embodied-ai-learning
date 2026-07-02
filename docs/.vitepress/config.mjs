@@ -610,19 +610,21 @@ export default withMermaid(defineConfig({
       },
       {
         text: '具身基础',
-        activeMatch: '^/vla/(papers/(getting-started|embodied-data|embodied-data-papers|data-processing|training-pipeline|benchmarks|robots|motion-control|glossary|references|resources)|guide)',
+        activeMatch: '^/vla/(papers/(getting-started|roadmap|embodied-data|embodied-data-papers|data-processing|datasets-catalog|training-pipeline|benchmarks|leaderboard|robots|motion-control|glossary|references|resources)|guide)',
         items: [
           {
             text: '学习路径',
             items: [
-              { text: '如何阅读本站', link: '/vla/guide' },
+              { text: '学习路线图', link: '/vla/papers/roadmap' },
               { text: '具身入门 · 新手起步', link: '/vla/papers/getting-started' },
+              { text: '如何阅读本站', link: '/vla/guide' },
               { text: '术语速查表', link: '/vla/papers/glossary' },
             ],
           },
           {
             text: '数据专题',
             items: [
+              { text: '数据集与仿真环境图鉴', link: '/vla/papers/datasets-catalog' },
               { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
               { text: '具身数据论文索引', link: '/vla/papers/embodied-data-papers' },
               { text: '具身数据处理', link: '/vla/papers/data-processing' },
@@ -631,6 +633,7 @@ export default withMermaid(defineConfig({
           {
             text: '训练与评测',
             items: [
+              { text: '统一基准榜', link: '/vla/papers/leaderboard' },
               { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
               { text: '评测基准全景', link: '/vla/papers/benchmarks' },
             ],
@@ -706,6 +709,7 @@ export default withMermaid(defineConfig({
           text: '通用导读',
           collapsed: false,
           items: [
+            { text: '学习路线图', link: '/vla/papers/roadmap' },
             { text: '具身入门 · 新手起步', link: '/vla/papers/getting-started' },
           ],
         },
@@ -713,6 +717,7 @@ export default withMermaid(defineConfig({
           text: '数据专题',
           collapsed: false,
           items: [
+            { text: '数据集与仿真环境图鉴', link: '/vla/papers/datasets-catalog' },
             { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
             { text: '具身数据论文索引', link: '/vla/papers/embodied-data-papers' },
             { text: '具身数据处理', link: '/vla/papers/data-processing' },
@@ -722,6 +727,7 @@ export default withMermaid(defineConfig({
           text: '训练与评测专题',
           collapsed: false,
           items: [
+            { text: '统一基准榜', link: '/vla/papers/leaderboard' },
             { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
             { text: '评测基准全景', link: '/vla/papers/benchmarks' },
           ],
@@ -934,6 +940,7 @@ export default withMermaid(defineConfig({
           text: '通用导读',
           collapsed: false,
           items: [
+            { text: '学习路线图', link: '/vla/papers/roadmap' },
             { text: '具身入门 · 新手起步', link: '/vla/papers/getting-started' },
           ],
         },
@@ -941,6 +948,7 @@ export default withMermaid(defineConfig({
           text: '数据专题',
           collapsed: false,
           items: [
+            { text: '数据集与仿真环境图鉴', link: '/vla/papers/datasets-catalog' },
             { text: '具身数据全景梳理', link: '/vla/papers/embodied-data' },
             { text: '具身数据论文索引', link: '/vla/papers/embodied-data-papers' },
             { text: '具身数据处理', link: '/vla/papers/data-processing' },
@@ -950,6 +958,7 @@ export default withMermaid(defineConfig({
           text: '训练与评测专题',
           collapsed: false,
           items: [
+            { text: '统一基准榜', link: '/vla/papers/leaderboard' },
             { text: '具身模型训练全流程', link: '/vla/papers/training-pipeline' },
             { text: '评测基准全景', link: '/vla/papers/benchmarks' },
           ],
