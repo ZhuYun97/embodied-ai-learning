@@ -2075,8 +2075,7 @@ export default {
         h(TechHero),
         h(HomeRail),
       ],
-      'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle), h(ThemeToggle)],
-      'layout-bottom': () => h(FirstVisitGuide),
+      'nav-bar-content-after': () => [h(FirstVisitGuide), h(ConfidenceLens), h(ZenToggle), h(ThemeToggle)],
       'doc-before': () => [h(DocReadBar), h(PaperDossier), h(LensBanner)],
       'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
     })
