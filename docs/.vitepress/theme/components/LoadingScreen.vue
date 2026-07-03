@@ -21,12 +21,12 @@ const cleanupFns = []
 // 检查是否首次访问
 const checkFirstVisit = () => {
   try {
-    const visited = localStorage.getItem('vp-visited-loader-v8')
+    const visited = localStorage.getItem('vp-visited-loader-v9')
     if (visited) {
       isFirstVisit.value = false
       return false
     }
-    localStorage.setItem('vp-visited-loader-v8', '1')
+    localStorage.setItem('vp-visited-loader-v9', '1')
     return true
   } catch (e) {
     return true
@@ -723,16 +723,29 @@ onBeforeUnmount(() => {
 }
 
 .brand-cn {
-  font-family: 'Inter', -apple-system, system-ui, sans-serif;
-  font-size: 2.15rem;
-  font-weight: 800;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Source Han Sans SC', sans-serif;
+  font-size: 2.02rem;
+  font-weight: 650;
+  line-height: 1.18;
   letter-spacing: 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #9eeeff 38%, #f0d789 76%, #ffffff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #eefcff;
   margin-bottom: 0.5rem;
-  text-shadow: 0 0 40px rgba(56, 189, 248, 0.3);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 18px rgba(109, 232, 255, 0.34),
+    0 0 34px rgba(159, 140, 255, 0.16);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.brand-cn::after {
+  content: '';
+  display: block;
+  width: 72px;
+  height: 1px;
+  margin: 0.55rem auto 0;
+  background: linear-gradient(90deg, transparent, rgba(109, 232, 255, 0.72), rgba(233, 196, 106, 0.48), transparent);
+  opacity: 0.88;
 }
 
 .brand-en {
