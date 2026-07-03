@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeUnmount, onMounted, computed } from 'vue'
+import { ref, onBeforeUnmount, onMounted, computed, nextTick } from 'vue'
 import { withBase } from 'vitepress'
 import Strands from './Strands.vue'
 
@@ -7,23 +7,27 @@ const isVisible = ref(true)
 const robotOpacity = ref(0)
 const textOpacity = ref(0)
 const coreReady = ref(false)
+const pageReady = ref(false)
+const minDurationElapsed = ref(false)
 const isFirstVisit = ref(true)
 
 let timer = null
 let robotTimer = null
 let textTimer = null
 let coreTimer = null
+let readyTimer = null
 let handleSkip = null
+const cleanupFns = []
 
 // 检查是否首次访问
 const checkFirstVisit = () => {
   try {
-    const visited = localStorage.getItem('vp-visited-loader-v5')
+    const visited = localStorage.getItem('vp-visited-loader-v6')
     if (visited) {
       isFirstVisit.value = false
       return false
     }
-    localStorage.setItem('vp-visited-loader-v5', '1')
+    localStorage.setItem('vp-visited-loader-v6', '1')
     return true
   } catch (e) {
     return true
@@ -32,11 +36,131 @@ const checkFirstVisit = () => {
 
 // 显示时长：首次访问保留完整启动感，后续访问快速掠过
 const displayDuration = computed(() => isFirstVisit.value ? 2400 : 720)
+const maxReadyWait = computed(() => isFirstVisit.value ? 6500 : 3200)
+const hintText = computed(() => pageReady.value ? '点击或按任意键进入' : '正在装载首页内容')
+
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+const withTimeout = (promise, ms) => {
+  let done = false
+  return new Promise((resolve) => {
+    const timeout = setTimeout(() => {
+      if (done) return
+      done = true
+      resolve()
+    }, ms)
+    Promise.resolve(promise)
+      .catch(() => undefined)
+      .then(() => {
+        if (done) return
+        done = true
+        clearTimeout(timeout)
+        resolve()
+      })
+  })
+}
+
+const waitForEvent = (target, events) => {
+  if (!target?.addEventListener) return Promise.resolve()
+  const names = Array.isArray(events) ? events : [events]
+  return new Promise((resolve) => {
+    let settled = false
+    const done = () => {
+      if (settled) return
+      settled = true
+      names.forEach((name) => target.removeEventListener(name, done))
+      resolve()
+    }
+    names.forEach((name) => target.addEventListener(name, done, { once: true }))
+    cleanupFns.push(() => names.forEach((name) => target.removeEventListener(name, done)))
+  })
+}
+
+const waitForWindowLoad = () => {
+  if (document.readyState === 'complete') return Promise.resolve()
+  return waitForEvent(window, 'load')
+}
+
+const waitForFonts = () => {
+  if (!document.fonts?.ready) return Promise.resolve()
+  return document.fonts.ready
+}
+
+const waitForImageElement = (img) => {
+  if (!img || (img.complete && img.naturalWidth > 0)) return Promise.resolve()
+  return waitForEvent(img, ['load', 'error'])
+}
+
+const waitForStandaloneImage = (src) => {
+  if (!src) return Promise.resolve()
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.onload = resolve
+    img.onerror = resolve
+    img.src = src
+    if (img.complete) resolve()
+  })
+}
+
+const waitForVideoElement = (video) => {
+  if (!video || video.readyState >= 2) return Promise.resolve()
+  try {
+    if (video.preload === 'none') video.preload = 'auto'
+    video.load?.()
+  } catch (e) {}
+  return waitForEvent(video, ['loadeddata', 'canplay', 'error'])
+}
+
+const isInitialViewportMedia = (el) => {
+  const rect = el.getBoundingClientRect()
+  return rect.width > 0 && rect.height > 0 && rect.top < window.innerHeight * 1.35 && rect.bottom > -80
+}
+
+const waitForCriticalMedia = async () => {
+  await nextTick()
+  await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+
+  const media = Array.from(document.querySelectorAll('img, video')).filter(isInitialViewportMedia)
+  const imageWaits = media
+    .filter((el) => el.tagName === 'IMG')
+    .map((img) => withTimeout(waitForImageElement(img), 2200))
+  const videoWaits = media
+    .filter((el) => el.tagName === 'VIDEO')
+    .map((video) => withTimeout(waitForVideoElement(video), 2600))
+
+  const knownHeroAssets = [
+    withBase('/hero-robot.svg'),
+    withBase('/hero-bg.jpg'),
+  ].map((src) => withTimeout(waitForStandaloneImage(src), 2200))
+
+  await Promise.all([...imageWaits, ...videoWaits, ...knownHeroAssets])
+}
+
+const markPageReady = () => {
+  if (pageReady.value) return
+  pageReady.value = true
+  requestClose()
+}
+
+const waitForPageReady = async () => {
+  await Promise.all([
+    withTimeout(waitForWindowLoad(), 3600),
+    withTimeout(waitForFonts(), 2200),
+    withTimeout(waitForCriticalMedia(), 3200),
+  ])
+  await wait(80)
+  markPageReady()
+}
 
 // 跳过加载动画
 const skip = () => {
-  if (!isVisible.value) return
+  requestClose()
+}
+
+const requestClose = () => {
+  if (!isVisible.value || !pageReady.value || !minDurationElapsed.value) return
   isVisible.value = false
+  document.documentElement.classList.add('boot-done')
 }
 
 onMounted(() => {
@@ -53,8 +177,12 @@ onMounted(() => {
 
   // 自动关闭
   timer = setTimeout(() => {
-    skip()
+    minDurationElapsed.value = true
+    requestClose()
   }, displayDuration.value)
+
+  readyTimer = setTimeout(markPageReady, maxReadyWait.value)
+  waitForPageReady()
 })
 
 onBeforeUnmount(() => {
@@ -62,6 +190,8 @@ onBeforeUnmount(() => {
   clearTimeout(robotTimer)
   clearTimeout(textTimer)
   clearTimeout(coreTimer)
+  clearTimeout(readyTimer)
+  cleanupFns.splice(0).forEach((cleanup) => cleanup())
   if (handleSkip) {
     window.removeEventListener('keydown', handleSkip)
     window.removeEventListener('click', handleSkip)
@@ -120,12 +250,12 @@ onBeforeUnmount(() => {
         </div>
       </div>
 
-      <div class="boot-progress" aria-hidden="true">
+      <div class="boot-progress" :class="{ 'is-ready': pageReady }" aria-hidden="true">
         <span></span>
       </div>
 
       <!-- 跳过提示 -->
-      <div class="skip-hint">点击或按任意键进入</div>
+      <div class="skip-hint">{{ hintText }}</div>
     </div>
   </Transition>
 </template>
@@ -432,6 +562,25 @@ onBeforeUnmount(() => {
   box-shadow: 0 0 24px rgba(34, 211, 238, 0.14);
 }
 
+.boot-progress::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 38%;
+  background: linear-gradient(90deg, transparent, rgba(226, 232, 240, 0.5), transparent);
+  transform: translateX(-110%);
+  animation: ready-scan 1.1s ease-in-out infinite;
+}
+
+.boot-progress.is-ready {
+  background: rgba(34, 211, 238, 0.18);
+  box-shadow: 0 0 28px rgba(34, 211, 238, 0.26);
+}
+
+.boot-progress.is-ready::after {
+  opacity: 0;
+}
+
 .boot-progress span {
   display: block;
   width: 100%;
@@ -455,6 +604,10 @@ onBeforeUnmount(() => {
 @keyframes boot-fill {
   from { transform: scaleX(0.08); }
   to { transform: scaleX(1); }
+}
+
+@keyframes ready-scan {
+  to { transform: translateX(280%); }
 }
 
 /* 跳过提示 */
