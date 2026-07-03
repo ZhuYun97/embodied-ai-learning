@@ -21,12 +21,12 @@ const cleanupFns = []
 // 检查是否首次访问
 const checkFirstVisit = () => {
   try {
-    const visited = localStorage.getItem('vp-visited-loader-v11')
+    const visited = localStorage.getItem('vp-visited-loader-v12')
     if (visited) {
       isFirstVisit.value = false
       return false
     }
-    localStorage.setItem('vp-visited-loader-v11', '1')
+    localStorage.setItem('vp-visited-loader-v12', '1')
     return true
   } catch (e) {
     return true
@@ -34,7 +34,7 @@ const checkFirstVisit = () => {
 }
 
 // 显示时长：首次访问保留完整入场镜头，后续访问快速掠过
-const displayDuration = computed(() => isFirstVisit.value ? 3000 : 760)
+const displayDuration = computed(() => isFirstVisit.value ? 2600 : 680)
 const maxReadyWait = computed(() => isFirstVisit.value ? 12000 : 9000)
 const hintText = computed(() => pageReady.value ? '点击进入' : '请稍候')
 const readinessLabel = computed(() => pageReady.value ? '入口已开' : '入场中')
@@ -158,7 +158,9 @@ const waitForCriticalMedia = async () => {
   await nextTick()
   await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
 
-  const media = Array.from(document.querySelectorAll('img, video')).filter(isInitialViewportMedia)
+  const media = Array.from(document.querySelectorAll('img, video'))
+    .filter((el) => !el.closest('.loading-screen'))
+    .filter(isInitialViewportMedia)
   const imageWaits = media
     .filter((el) => el.tagName === 'IMG')
     .map((img) => withTimeout(waitForImageElement(img), 2200))
@@ -167,7 +169,6 @@ const waitForCriticalMedia = async () => {
     .map((video) => withTimeout(waitForVideoElement(video), 2600))
 
   const knownHeroAssets = [
-    withBase('/hero-robot.svg'),
     withBase('/hero-bg.jpg'),
   ].map((src) => withTimeout(waitForStandaloneImage(src), 2200))
 
@@ -1914,6 +1915,270 @@ onBeforeUnmount(() => {
   .guide-video,
   .guide-shadow {
     opacity: 1;
+  }
+}
+
+/* v12: premium minimal reveal, no HUD ornaments */
+.loading-screen {
+  background: #030510;
+}
+
+.cinema-backdrop {
+  inset: -7%;
+  background-image:
+    linear-gradient(90deg, rgba(2, 5, 14, 0.88), rgba(2, 5, 14, 0.42) 50%, rgba(2, 5, 14, 0.86)),
+    var(--loader-bg);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.42;
+  filter: saturate(0.95) contrast(1.08) brightness(0.68);
+  animation: v12-bg-drift 7s ease-in-out infinite alternate;
+}
+
+.cinema-grade {
+  background:
+    radial-gradient(ellipse at 58% 46%, rgba(137, 210, 255, 0.1), transparent 32%),
+    linear-gradient(180deg, rgba(3, 5, 16, 0.58), rgba(3, 5, 16, 0.2) 42%, rgba(3, 5, 16, 0.78)),
+    linear-gradient(90deg, rgba(3, 5, 16, 0.7), transparent 36%, transparent 64%, rgba(3, 5, 16, 0.78));
+}
+
+.surface-grain {
+  opacity: 0.07;
+}
+
+.loading-center {
+  z-index: 2;
+  width: min(620px, calc(100vw - 48px));
+  transform: translateY(8px);
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.loading-center.is-ready {
+  transform: translateY(0);
+}
+
+.entry-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  opacity: 1 !important;
+  perspective: none;
+}
+
+.entry-scene::before {
+  content: '';
+  position: absolute;
+  left: 52%;
+  top: 9vh;
+  width: 1px;
+  height: 58vh;
+  background: linear-gradient(180deg, transparent, rgba(246, 252, 255, 0.52), rgba(133, 226, 255, 0.22), transparent);
+  box-shadow:
+    0 0 32px rgba(133, 226, 255, 0.18),
+    0 0 90px rgba(133, 226, 255, 0.12);
+  transform-origin: top center;
+  animation: v12-slit 2.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.entry-scene::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 28%;
+  width: min(560px, 70vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(246, 252, 255, 0.28), rgba(133, 226, 255, 0.18), transparent);
+  transform: translateX(-50%) scaleX(0.74);
+  opacity: 0;
+  animation: v12-horizon 2.6s ease forwards;
+}
+
+.portal-depth,
+.portal-slit,
+.portal-bloom,
+.floor-plane,
+.floor-trace,
+.guide-figure,
+.guide-shadow {
+  display: none;
+}
+
+.guide-video {
+  position: absolute;
+  z-index: 0;
+  left: auto;
+  right: clamp(-300px, -14vw, -120px);
+  top: 50%;
+  bottom: auto;
+  width: min(860px, 82vw);
+  height: min(860px, 82vw);
+  object-fit: cover;
+  object-position: 69% 48%;
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter:
+    saturate(1.05)
+    contrast(1.04)
+    brightness(0.74)
+    drop-shadow(0 0 56px rgba(133, 226, 255, 0.1));
+  transform: translateY(-50%) translateX(20px) scale(1.02);
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 18%, #000 58%, transparent 82%),
+    radial-gradient(ellipse at 54% 48%, #000 0 38%, rgba(0, 0, 0, 0.78) 58%, transparent 78%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 18%, #000 58%, transparent 82%),
+    radial-gradient(ellipse at 54% 48%, #000 0 38%, rgba(0, 0, 0, 0.78) 58%, transparent 78%);
+  mask-composite: intersect;
+  animation: v12-figure 2.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.brand-lockup {
+  position: relative;
+  z-index: 3;
+  transform: none;
+  transition: opacity 0.72s cubic-bezier(0.4, 0, 0.2, 1) 0.12s;
+}
+
+.brand-cn {
+  font-size: 2rem;
+  font-weight: 520;
+  color: rgba(247, 253, 255, 0.95);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.12),
+    0 18px 46px rgba(0, 0, 0, 0.4),
+    0 0 22px rgba(133, 226, 255, 0.18);
+}
+
+.brand-cn::after {
+  width: 34px;
+  margin-top: 0.65rem;
+  background: linear-gradient(90deg, transparent, rgba(247, 253, 255, 0.62), transparent);
+  opacity: 0.58;
+}
+
+.brand-en {
+  margin-top: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(226, 232, 240, 0.46);
+}
+
+.status-line {
+  display: none;
+}
+
+.boot-progress {
+  left: 50%;
+  bottom: calc(50% - 118px);
+  width: min(220px, calc(100vw - 96px));
+  height: 1px;
+  background: rgba(226, 232, 240, 0.1);
+  box-shadow: none;
+}
+
+.boot-progress::after {
+  display: none;
+}
+
+.boot-progress span {
+  background: linear-gradient(90deg, transparent, rgba(247, 253, 255, 0.78), rgba(133, 226, 255, 0.44), transparent);
+  animation: v12-fill 2.25s cubic-bezier(0.2, 0.82, 0.2, 1) forwards;
+}
+
+.skip-hint {
+  bottom: 2rem;
+  color: rgba(203, 213, 225, 0.28);
+}
+
+@keyframes v12-bg-drift {
+  from { transform: scale(1.04) translate3d(-0.3%, 0, 0); }
+  to { transform: scale(1.07) translate3d(0.4%, -0.4%, 0); }
+}
+
+@keyframes v12-slit {
+  0% { opacity: 0; transform: scaleY(0.18); }
+  44% { opacity: 0.74; }
+  100% { opacity: 0.5; transform: scaleY(1); }
+}
+
+@keyframes v12-horizon {
+  0%, 28% { opacity: 0; transform: translateX(-50%) scaleX(0.3); }
+  100% { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
+}
+
+@keyframes v12-figure {
+  0% { opacity: 0; transform: translateY(-50%) translateX(54px) scale(1.06); filter: saturate(0.94) contrast(1) brightness(0.54) blur(3px); }
+  42% { opacity: 0.22; }
+  100% { opacity: 0.34; transform: translateY(-50%) translateX(0) scale(1); filter: saturate(1.05) contrast(1.04) brightness(0.74) blur(0); }
+}
+
+@keyframes v12-fill {
+  from { transform: scaleX(0.06); }
+  to { transform: scaleX(1); }
+}
+
+@media (max-width: 768px) {
+  .loading-center {
+    width: min(320px, calc(100vw - 44px));
+  }
+
+  .guide-video {
+    right: clamp(-260px, -48vw, -180px);
+    width: 640px;
+    height: 640px;
+    opacity: 0;
+  }
+
+  .entry-scene::before {
+    left: 50%;
+    top: 13vh;
+    height: 48vh;
+  }
+
+  .entry-scene::after {
+    bottom: 33%;
+    width: 72vw;
+  }
+
+  .brand-cn {
+    font-size: 1.52rem;
+  }
+
+  .brand-en {
+    font-size: 0.66rem;
+  }
+
+  .boot-progress {
+    bottom: calc(50% - 104px);
+    width: min(190px, calc(100vw - 112px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinema-backdrop,
+  .entry-scene::before,
+  .entry-scene::after,
+  .guide-video,
+  .boot-progress span {
+    animation: none;
+  }
+
+  .entry-scene::before,
+  .entry-scene::after {
+    opacity: 0.45;
+  }
+
+  .guide-video {
+    opacity: 0.28;
+    transform: translateY(-50%);
+  }
+
+  .boot-progress span {
+    transform: scaleX(1);
   }
 }
 </style>
