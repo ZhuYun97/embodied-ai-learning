@@ -555,23 +555,6 @@ export default withMermaid(defineConfig({
         letter-spacing: 0.05em;
       }
     `],
-    // 内联 HTML:加载遮罩结构(body 开头注入)
-    ['script', {}, `
-      (function() {
-        var loader = document.createElement('div');
-        loader.id = 'vp-loading-screen';
-        loader.innerHTML = '<svg class="vp-loading-logo" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="url(#grad)" stroke-width="8" fill="none"/><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#2563eb"/></linearGradient></defs></svg><div class="vp-loading-spinner"></div><div class="vp-loading-text">加载中...</div>';
-        document.body.insertBefore(loader, document.body.firstChild);
-
-        // 页面完全加载后移除(包括图片/样式)
-        window.addEventListener('load', function() {
-          setTimeout(function() {
-            loader.classList.add('loaded');
-            setTimeout(function() { loader.remove(); }, 400);
-          }, 200);
-        });
-      })();
-    `],
     // 预渲染恢复「专注阅读」状态,避免刷新时左右侧栏闪烁
     ['script', {}, "try{if(localStorage.getItem('zen-reading')==='1')document.documentElement.classList.add('zen-reading')}catch(e){}"],
     // 预渲染恢复「可信度透镜」状态(dim=暗化自评/待核,strict=仅显已核),避免刷新闪烁

@@ -15,6 +15,7 @@ import AutoResearchLab from './components/AutoResearchLab.vue'
 import BenchmarkBoard from './components/BenchmarkBoard.vue'
 import DatasetCatalog from './components/DatasetCatalog.vue'
 import RoadmapGraph from './components/RoadmapGraph.vue'
+import LoadingScreen from './components/LoadingScreen.vue'
 import FirstVisitGuide from './components/FirstVisitGuide.vue'
 import './custom.css'
 
@@ -2083,6 +2084,7 @@ export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
+      'layout-top': () => h(LoadingScreen),
       'home-hero-before': () => [
         h(HomeDots),
         // 首屏背景:GridDistortion 蓝紫流体扭曲层(替代原 HeroFX 深空星场,应用户指定)
