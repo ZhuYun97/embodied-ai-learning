@@ -1,7 +1,6 @@
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
 import { withBase } from 'vitepress'
-import Strands from './Strands.vue'
 
 const BASE_PATH = import.meta.env.BASE_URL || '/'
 const MARKDOWN_MODULES = import.meta.glob('../../../**/*.md', { query: '?raw', import: 'default' })
@@ -1742,23 +1741,6 @@ onMounted(loadCorpus)
 <template>
   <section class="ar-lab">
     <header class="ar-hero">
-      <div class="ar-strands" aria-hidden="true">
-        <Strands
-          :colors="['#38bdf8', '#2dd4bf', '#f6c667']"
-          :count="4"
-          :speed="0.32"
-          :amplitude="0.92"
-          :waviness="1.18"
-          :thickness="0.52"
-          :glow="2.1"
-          :taper="3.4"
-          :spread="1.08"
-          :intensity="0.42"
-          :saturation="1.28"
-          :opacity="0.82"
-          :scale="1.36"
-        />
-      </div>
       <div class="ar-title">
         <span class="ar-kicker">// DAILY IDEA PUSH</span>
         <h1>每日论文 Ideas</h1>
@@ -2331,26 +2313,6 @@ onMounted(loadCorpus)
   padding: 18px 20px;
 }
 
-.ar-strands {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.78;
-  mix-blend-mode: screen;
-  mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 76%, transparent 100%);
-}
-
-.ar-strands::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(2, 6, 23, 0.5), transparent 22%, transparent 68%, rgba(2, 6, 23, 0.74)),
-    linear-gradient(180deg, transparent, rgba(2, 6, 23, 0.72));
-}
-
 .ar-title {
   grid-column: 1 / -1;
 }
@@ -2366,7 +2328,7 @@ onMounted(loadCorpus)
   min-width: 0;
 }
 
-.ar-hero > :not(.ar-strands),
+.ar-hero > *,
 .ar-panel > * {
   position: relative;
   z-index: 1;
