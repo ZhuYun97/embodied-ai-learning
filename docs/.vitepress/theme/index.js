@@ -1349,6 +1349,15 @@ function bindHeroVideo(reduce) {
   if (!video || video.dataset.scrub) return
   video.dataset.scrub = '1'
   video.muted = true
+  let readyMarked = false
+  const markReady = () => {
+    if (readyMarked) return
+    readyMarked = true
+    video.dataset.ready = '1'
+    const keyed = video.parentElement?.querySelector('.thero__robot--keyed')
+    if (keyed) keyed.dataset.ready = '1'
+  }
+  video.addEventListener('error', markReady, { once: true })
   const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
   const SIZE = fine ? 720 : 480
   const canvas = document.createElement('canvas')
@@ -1438,6 +1447,7 @@ function bindHeroVideo(reduce) {
       }
     }
     ctx.putImageData(img, 0, 0)
+    markReady()
   }
   const paintWhenReady = () => {
     if (video.readyState >= 2) keyFrame()

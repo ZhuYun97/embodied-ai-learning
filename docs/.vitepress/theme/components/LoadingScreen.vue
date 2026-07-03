@@ -35,7 +35,7 @@ const checkFirstVisit = () => {
 
 // 显示时长：首次访问保留完整启动感，后续访问快速掠过
 const displayDuration = computed(() => isFirstVisit.value ? 2400 : 720)
-const maxReadyWait = computed(() => isFirstVisit.value ? 6500 : 3200)
+const maxReadyWait = computed(() => isFirstVisit.value ? 12000 : 9000)
 const hintText = computed(() => pageReady.value ? '点击或按任意键进入' : '正在装载首页内容')
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -79,6 +79,33 @@ const waitForWindowLoad = () => {
   if (document.readyState === 'complete') return Promise.resolve()
   return waitForEvent(window, 'load')
 }
+
+const waitForFrames = (count = 1) =>
+  new Promise((resolve) => {
+    const step = () => {
+      count -= 1
+      if (count <= 0) resolve()
+      else requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  })
+
+const waitForCondition = (check, timeout = 4000) =>
+  new Promise((resolve) => {
+    const start = performance.now()
+    const tick = () => {
+      let ok = false
+      try {
+        ok = Boolean(check())
+      } catch (e) {}
+      if (ok || performance.now() - start >= timeout) {
+        resolve(ok)
+        return
+      }
+      requestAnimationFrame(tick)
+    }
+    tick()
+  })
 
 const waitForFonts = () => {
   if (!document.fonts?.ready) return Promise.resolve()
@@ -135,8 +162,75 @@ const waitForCriticalMedia = async () => {
   await Promise.all([...imageWaits, ...videoWaits, ...knownHeroAssets])
 }
 
+const getBasePath = () => {
+  try {
+    return new URL(import.meta.env.BASE_URL || '/', window.location.origin).pathname
+  } catch (e) {
+    return '/'
+  }
+}
+
+const isHomePath = () => {
+  const base = getBasePath()
+  const path = window.location.pathname
+  return path === base || path === base.replace(/\/$/, '') || path === `${base}index.html`
+}
+
+const waitForHomeShell = async () => {
+  if (!isHomePath() && !document.querySelector('.VPHome')) return false
+  const hasShell = await waitForCondition(() => {
+    const home = document.querySelector('.VPHome')
+    if (!home) return false
+    return (
+      home.querySelector('.thero') &&
+      home.querySelector('.VPFeatures .VPFeature') &&
+      home.querySelector('.vp-doc .route-card')
+    )
+  }, 8200)
+  return hasShell
+}
+
+const waitForHomeBootDone = async () => {
+  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  if (reduce || !document.querySelector('.VPHome .thero')) return
+  await waitForCondition(() => document.documentElement.classList.contains('boot-done'), 3600)
+}
+
+const waitForHeroVideoReady = async () => {
+  await waitForCondition(() => {
+    const video = document.querySelector('.thero__robot--video')
+    if (!video) return true
+    const canvas = document.querySelector('.thero__robot--keyed')
+    return video.dataset.ready === '1' || canvas?.dataset.ready === '1'
+  }, 8200)
+}
+
+const waitForHeroBackgroundReady = async () => {
+  if (!document.documentElement.classList.contains('dark')) return
+  await waitForCondition(() => {
+    const layer = document.querySelector('.hero-bg-layer')
+    if (!layer) return true
+    const distortion = layer.querySelector('.distortion-container')
+    return distortion?.dataset.ready === 'true'
+  }, 8200)
+}
+
+const waitForHomeContent = async () => {
+  const hasHome = await waitForHomeShell()
+  if (!hasHome) return
+  await waitForFrames(2)
+  await Promise.all([
+    waitForHomeBootDone(),
+    waitForHeroVideoReady(),
+    waitForHeroBackgroundReady(),
+    waitForCriticalMedia(),
+  ])
+  await waitForFrames(2)
+}
+
 const markPageReady = () => {
   if (pageReady.value) return
+  clearTimeout(readyTimer)
   pageReady.value = true
   requestClose()
 }
@@ -146,6 +240,7 @@ const waitForPageReady = async () => {
     withTimeout(waitForWindowLoad(), 3600),
     withTimeout(waitForFonts(), 2200),
     withTimeout(waitForCriticalMedia(), 3200),
+    waitForHomeContent(),
   ])
   await wait(80)
   markPageReady()

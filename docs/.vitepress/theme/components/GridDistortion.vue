@@ -12,6 +12,7 @@
     ref="containerEl"
     class="distortion-container"
     :class="{ 'is-static': isStatic }"
+    :data-ready="isReady ? 'true' : 'false'"
     :style="isStatic ? { backgroundImage: `url(${imageSrc})` } : null"
   ></div>
 </template>
@@ -29,14 +30,20 @@ const props = defineProps({
 
 const containerEl = ref(null)
 const isStatic = ref(false)
+const isReady = ref(false)
 
 let cleanup = null
+
+const markReady = () => {
+  isReady.value = true
+}
 
 onMounted(async () => {
   const reduce =
     window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   if (reduce) {
     isStatic.value = true
+    markReady()
     return
   }
   let THREE
@@ -44,16 +51,21 @@ onMounted(async () => {
     THREE = await import('three')
   } catch (e) {
     isStatic.value = true
+    markReady()
     return
   }
   const container = containerEl.value
-  if (!container) return
+  if (!container) {
+    markReady()
+    return
+  }
 
   let renderer
   try {
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
   } catch (e) {
     isStatic.value = true
+    markReady()
     return
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
@@ -134,6 +146,10 @@ onMounted(async () => {
     uniforms.uTexture.value = texture
     handleResize()
     wake()
+    requestAnimationFrame(markReady)
+  }, undefined, () => {
+    isStatic.value = true
+    markReady()
   })
 
   let ro = null
