@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onBeforeUnmount, onMounted, computed, nextTick } from 'vue'
 import { withBase } from 'vitepress'
-import Strands from './Strands.vue'
 
 const isVisible = ref(true)
 const robotOpacity = ref(0)
@@ -202,25 +201,6 @@ onBeforeUnmount(() => {
 <template>
   <Transition name="fade">
     <div v-if="isVisible" class="loading-screen" @click="skip">
-      <!-- Strands 能量流 -->
-      <div class="strands-layer">
-        <Strands
-          :colors="['#22d3ee', '#38bdf8', '#8b5cf6', '#10b981']"
-          :count="6"
-          :speed="0.34"
-          :amplitude="1.25"
-          :waviness="1.9"
-          :thickness="0.75"
-          :glow="3.4"
-          :taper="2"
-          :spread="1.35"
-          :intensity="0.92"
-          :saturation="1.7"
-          :opacity="0.9"
-          :scale="1"
-        />
-      </div>
-
       <div class="loading-grid" aria-hidden="true"></div>
       <div class="loading-vignette" aria-hidden="true"></div>
 
@@ -275,14 +255,6 @@ onBeforeUnmount(() => {
   cursor: pointer;
   overflow: hidden;
   isolation: isolate;
-}
-
-.strands-layer {
-  position: absolute;
-  inset: 0;
-  opacity: 0.72;
-  pointer-events: none;
-  mix-blend-mode: screen;
 }
 
 .loading-grid {
