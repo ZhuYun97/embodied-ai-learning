@@ -508,6 +508,70 @@ export default withMermaid(defineConfig({
   },
 
   head: [
+    // ===== 页面加载动画 =====
+    // 内联 CSS:加载遮罩 + 旋转 logo,避免首屏布局混乱(FOUC)
+    ['style', {}, `
+      #vp-loading-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+      }
+      #vp-loading-screen.loaded {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .vp-loading-logo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1.5rem;
+        animation: vp-logo-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      @keyframes vp-logo-pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(0.95); }
+      }
+      .vp-loading-spinner {
+        width: 48px;
+        height: 48px;
+        border: 3px solid rgba(56, 189, 248, 0.2);
+        border-top-color: #38bdf8;
+        border-radius: 50%;
+        animation: vp-spin 1s linear infinite;
+      }
+      @keyframes vp-spin {
+        to { transform: rotate(360deg); }
+      }
+      .vp-loading-text {
+        margin-top: 1.5rem;
+        font-family: 'Inter', system-ui, sans-serif;
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.05em;
+      }
+    `],
+    // 内联 HTML:加载遮罩结构(body 开头注入)
+    ['script', {}, `
+      (function() {
+        var loader = document.createElement('div');
+        loader.id = 'vp-loading-screen';
+        loader.innerHTML = '<svg class="vp-loading-logo" viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="url(#grad)" stroke-width="8" fill="none"/><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#2563eb"/></linearGradient></defs></svg><div class="vp-loading-spinner"></div><div class="vp-loading-text">加载中...</div>';
+        document.body.insertBefore(loader, document.body.firstChild);
+
+        // 页面完全加载后移除(包括图片/样式)
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            loader.classList.add('loaded');
+            setTimeout(function() { loader.remove(); }, 400);
+          }, 200);
+        });
+      })();
+    `],
     // 预渲染恢复「专注阅读」状态,避免刷新时左右侧栏闪烁
     ['script', {}, "try{if(localStorage.getItem('zen-reading')==='1')document.documentElement.classList.add('zen-reading')}catch(e){}"],
     // 预渲染恢复「可信度透镜」状态(dim=暗化自评/待核,strict=仅显已核),避免刷新闪烁
