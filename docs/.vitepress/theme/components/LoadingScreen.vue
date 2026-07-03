@@ -21,12 +21,12 @@ const cleanupFns = []
 // 检查是否首次访问
 const checkFirstVisit = () => {
   try {
-    const visited = localStorage.getItem('vp-visited-loader-v10')
+    const visited = localStorage.getItem('vp-visited-loader-v11')
     if (visited) {
       isFirstVisit.value = false
       return false
     }
-    localStorage.setItem('vp-visited-loader-v10', '1')
+    localStorage.setItem('vp-visited-loader-v11', '1')
     return true
   } catch (e) {
     return true
@@ -34,11 +34,11 @@ const checkFirstVisit = () => {
 }
 
 // 显示时长：首次访问保留完整入场镜头，后续访问快速掠过
-const displayDuration = computed(() => isFirstVisit.value ? 3100 : 780)
+const displayDuration = computed(() => isFirstVisit.value ? 3000 : 760)
 const maxReadyWait = computed(() => isFirstVisit.value ? 12000 : 9000)
 const hintText = computed(() => pageReady.value ? '点击进入' : '请稍候')
-const readinessLabel = computed(() => pageReady.value ? '入口开启' : '引导中')
-const statusText = computed(() => pageReady.value ? '具身世界已就绪' : '正在构建具身世界')
+const readinessLabel = computed(() => pageReady.value ? '入口已开' : '入场中')
+const statusText = computed(() => pageReady.value ? '具身世界已就绪' : '正在打开具身世界')
 const shimmerStyles = Array.from({ length: 14 }, (_, index) => {
   const n = index + 1
   return {
@@ -278,8 +278,8 @@ onMounted(() => {
   window.addEventListener('click', handleSkip, { once: true })
 
   coreTimer = setTimeout(() => { coreReady.value = true }, 80)
-  robotTimer = setTimeout(() => { robotOpacity.value = 1 }, 160)
-  textTimer = setTimeout(() => { textOpacity.value = 1 }, 620)
+  robotTimer = setTimeout(() => { robotOpacity.value = 1 }, 140)
+  textTimer = setTimeout(() => { textOpacity.value = 1 }, 720)
 
   // 自动关闭
   timer = setTimeout(() => {
@@ -307,45 +307,44 @@ onBeforeUnmount(() => {
 
 <template>
   <Transition name="fade">
-    <div v-if="isVisible" class="loading-screen" :class="{ 'is-ready': pageReady }" @click="skip">
-      <div class="light-sculpture" aria-hidden="true">
-        <span class="light light--cyan"></span>
-        <span class="light light--violet"></span>
-        <span class="light light--gold"></span>
-      </div>
-      <div class="shimmer-field" aria-hidden="true">
-        <span v-for="(style, index) in shimmerStyles" :key="index" :style="style"></span>
-      </div>
+    <div
+      v-if="isVisible"
+      class="loading-screen"
+      :class="{ 'is-ready': pageReady }"
+      :style="{ '--loader-bg': `url(${withBase('/hero-bg.jpg')})` }"
+      @click="skip"
+    >
+      <div class="cinema-backdrop" aria-hidden="true"></div>
+      <div class="cinema-grade" aria-hidden="true"></div>
       <div class="surface-grain" aria-hidden="true"></div>
-      <div class="stage-lines" aria-hidden="true">
-        <span></span>
-        <span></span>
-      </div>
 
       <div class="loading-center" :class="{ 'is-ready': coreReady }">
-        <div class="premium-lens" :style="{ opacity: robotOpacity }" aria-hidden="true">
-          <span class="lens-shadow"></span>
-          <div class="embodied-world">
-            <span class="world-sky"></span>
-            <span class="world-grid"></span>
-            <span class="world-horizon"></span>
-            <span class="entry-gate entry-gate--outer"></span>
-            <span class="entry-gate entry-gate--inner"></span>
-            <span class="entry-core"></span>
-            <span class="entry-scan"></span>
-            <span class="route-line route-line--left"></span>
-            <span class="route-line route-line--right"></span>
-            <span class="world-node world-node--vision"></span>
-            <span class="world-node world-node--touch"></span>
-            <span class="world-node world-node--policy"></span>
-            <span class="world-node world-node--data"></span>
+        <div class="entry-scene" :style="{ opacity: robotOpacity }" aria-hidden="true">
+          <span class="portal-depth"></span>
+          <span class="portal-slit"></span>
+          <span class="portal-bloom"></span>
+          <span class="floor-plane"></span>
+          <span class="floor-trace floor-trace--near"></span>
+          <span class="floor-trace floor-trace--far"></span>
+          <video
+            class="guide-video"
+            :src="withBase('/hero-laser-human.mp4')"
+            muted
+            playsinline
+            autoplay
+            loop
+            preload="auto"
+          ></video>
+          <div class="guide-figure">
+            <span class="guide-halo"></span>
+            <span class="guide-head"></span>
+            <span class="guide-torso"></span>
+            <span class="guide-arm guide-arm--left"></span>
+            <span class="guide-arm guide-arm--right"></span>
+            <span class="guide-leg guide-leg--left"></span>
+            <span class="guide-leg guide-leg--right"></span>
           </div>
-          <div class="robot-capsule">
-            <span class="capsule-sheen"></span>
-            <span class="guide-beam guide-beam--left"></span>
-            <span class="guide-beam guide-beam--right"></span>
-            <img :src="withBase('/hero-robot.svg')" alt="" />
-          </div>
+          <span class="guide-shadow"></span>
         </div>
 
         <div class="brand-lockup" :style="{ opacity: textOpacity }">
@@ -1365,6 +1364,556 @@ onBeforeUnmount(() => {
   .premium-lens,
   .brand-lockup {
     transition: opacity 0.3s ease;
+  }
+}
+
+/* v11 cinematic loader: restrained robot-guide entrance */
+.loading-screen {
+  --loader-cyan: #8ae8ff;
+  --loader-violet: #7f7cff;
+  --loader-gold: #d6b36a;
+  align-items: center;
+  justify-content: center;
+  background: #050713;
+  color: #eefcff;
+}
+
+.loading-screen::before {
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(138, 232, 255, 0.14), transparent 30rem),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.04), rgba(2, 6, 23, 0.72));
+  opacity: 1;
+  filter: none;
+  animation: none;
+}
+
+.loading-screen::after {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 18%, rgba(0, 0, 0, 0.42)),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0, rgba(255, 255, 255, 0.018) 1px, transparent 1px, transparent 6px);
+  opacity: 0.62;
+}
+
+.cinema-backdrop,
+.cinema-grade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cinema-backdrop {
+  inset: -5%;
+  background-image:
+    linear-gradient(90deg, rgba(3, 7, 18, 0.82), rgba(3, 7, 18, 0.24) 46%, rgba(3, 7, 18, 0.76)),
+    var(--loader-bg);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.54;
+  filter: saturate(1.04) contrast(1.06) brightness(0.82);
+  transform: scale(1.04);
+  animation: cinematic-drift 7s ease-in-out infinite alternate;
+}
+
+.cinema-grade {
+  background:
+    radial-gradient(ellipse at 50% 44%, rgba(138, 232, 255, 0.12), transparent 32%),
+    radial-gradient(ellipse at 50% 84%, rgba(3, 7, 18, 0.6), transparent 54%),
+    linear-gradient(90deg, rgba(3, 7, 18, 0.72), transparent 34%, transparent 66%, rgba(3, 7, 18, 0.72));
+}
+
+.surface-grain {
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.16) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 78% 68%, rgba(138, 232, 255, 0.18) 0 1px, transparent 1.4px);
+  background-size: 96px 96px, 140px 140px;
+  opacity: 0.11;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+
+.loading-center {
+  width: min(720px, calc(100vw - 36px));
+  transform: translateY(12px) scale(0.99);
+  filter: none;
+}
+
+.loading-center.is-ready {
+  transform: translateY(0) scale(1);
+  filter: none;
+}
+
+.entry-scene {
+  position: relative;
+  width: min(560px, 88vw);
+  height: 340px;
+  margin: 0 auto 1.3rem;
+  transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  perspective: 900px;
+}
+
+.portal-depth,
+.portal-slit,
+.portal-bloom,
+.floor-plane,
+.floor-trace,
+.guide-video,
+.guide-figure,
+.guide-shadow {
+  position: absolute;
+  pointer-events: none;
+}
+
+.portal-depth {
+  inset: -6px 40px 64px;
+  border-radius: 36px;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(236, 254, 255, 0.1), rgba(138, 232, 255, 0.05) 28%, rgba(3, 7, 18, 0.08) 58%, transparent 76%);
+  border: 0;
+  box-shadow: none;
+  opacity: 0;
+  transform: scaleX(0.82);
+  animation: portal-reveal 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.portal-slit {
+  left: 42%;
+  top: 18px;
+  width: 2px;
+  height: 244px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, #f8fdff 18%, #8ae8ff 48%, rgba(127, 124, 255, 0.4) 78%, transparent);
+  box-shadow:
+    0 0 20px rgba(138, 232, 255, 0.42),
+    0 0 70px rgba(138, 232, 255, 0.22),
+    0 0 110px rgba(127, 124, 255, 0.12);
+  transform: translateX(-50%);
+  animation: slit-open 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.portal-bloom {
+  left: 46%;
+  top: 74px;
+  width: 320px;
+  height: 190px;
+  background:
+    radial-gradient(ellipse at 50% 36%, rgba(248, 253, 255, 0.22), rgba(138, 232, 255, 0.11) 30%, transparent 72%);
+  transform: translateX(-50%);
+  opacity: 0;
+  filter: blur(4px);
+  animation: bloom-in 3s ease forwards;
+}
+
+.floor-plane {
+  left: 50%;
+  bottom: 0;
+  width: min(520px, 86vw);
+  height: 118px;
+  transform: translateX(-50%) perspective(480px) rotateX(68deg);
+  transform-origin: center bottom;
+  background:
+    linear-gradient(rgba(138, 232, 255, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(138, 232, 255, 0.16) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 0%, rgba(138, 232, 255, 0.18), transparent 64%);
+  background-size: 100% 24px, 36px 100%, 100% 100%;
+  opacity: 0;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 72%, transparent 100%);
+  animation: floor-rise 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.floor-trace {
+  left: 50%;
+  bottom: 56px;
+  width: min(380px, 70vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(248, 253, 255, 0.72), rgba(138, 232, 255, 0.36), transparent);
+  opacity: 0;
+  transform: translateX(-50%);
+  box-shadow: 0 0 24px rgba(138, 232, 255, 0.26);
+  animation: trace-pass 3s ease forwards;
+}
+
+.floor-trace--far {
+  bottom: 106px;
+  width: min(260px, 54vw);
+  opacity: 0;
+  animation-delay: 0.18s;
+}
+
+.guide-video {
+  z-index: 4;
+  left: 50%;
+  bottom: 34px;
+  width: 332px;
+  height: 332px;
+  object-fit: cover;
+  object-position: 70% 48%;
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter:
+    saturate(1.22)
+    contrast(1.08)
+    brightness(1.04)
+    drop-shadow(0 0 34px rgba(138, 232, 255, 0.18));
+  transform: translateX(-50%) translateY(24px) scale(0.92);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 46%, #000 0 48%, rgba(0, 0, 0, 0.86) 62%, transparent 78%);
+  mask-image: radial-gradient(ellipse at 50% 46%, #000 0 48%, rgba(0, 0, 0, 0.86) 62%, transparent 78%);
+  animation: video-guide-approach 3s cubic-bezier(0.18, 0.82, 0.22, 1) forwards;
+}
+
+.guide-figure {
+  z-index: 3;
+  left: 50%;
+  bottom: 62px;
+  width: 128px;
+  height: 218px;
+  transform: translateX(-50%) translateY(24px) scale(0.88);
+  transform-origin: center bottom;
+  opacity: 0;
+  animation: figure-approach 3s cubic-bezier(0.18, 0.82, 0.22, 1) forwards;
+}
+
+.guide-halo,
+.guide-head,
+.guide-torso,
+.guide-arm,
+.guide-leg {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.guide-halo {
+  top: -28px;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(138, 232, 255, 0.2), transparent 64%);
+  filter: blur(8px);
+  opacity: 0.72;
+}
+
+.guide-head {
+  top: 0;
+  width: 46px;
+  height: 52px;
+  border-radius: 44% 44% 48% 48%;
+  background:
+    radial-gradient(circle at 64% 24%, rgba(248, 253, 255, 0.5), transparent 10px),
+    linear-gradient(145deg, rgba(213, 244, 255, 0.28), rgba(6, 16, 34, 0.72));
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 28px rgba(138, 232, 255, 0.28);
+}
+
+.guide-torso {
+  top: 58px;
+  width: 74px;
+  height: 96px;
+  border-radius: 28px 28px 34px 34px;
+  background:
+    linear-gradient(180deg, rgba(226, 247, 255, 0.18), rgba(6, 16, 34, 0.58)),
+    radial-gradient(circle at 50% 42%, rgba(138, 232, 255, 0.18), transparent 28%);
+  border: 1px solid rgba(226, 232, 240, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 22px 60px rgba(0, 0, 0, 0.34),
+    0 0 26px rgba(138, 232, 255, 0.16);
+}
+
+.guide-torso::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f8fdff, #8ae8ff 52%, transparent 68%);
+  transform: translateX(-50%);
+  box-shadow: 0 0 22px rgba(138, 232, 255, 0.72);
+}
+
+.guide-arm {
+  top: 72px;
+  width: 14px;
+  height: 86px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(226, 247, 255, 0.18), rgba(138, 232, 255, 0.08), rgba(6, 16, 34, 0.54));
+  border: 1px solid rgba(226, 232, 240, 0.1);
+}
+
+.guide-arm--left {
+  margin-left: -56px;
+  transform: translateX(-50%) rotate(7deg);
+}
+
+.guide-arm--right {
+  margin-left: 56px;
+  transform: translateX(-50%) rotate(-7deg);
+}
+
+.guide-leg {
+  top: 146px;
+  width: 18px;
+  height: 82px;
+  border-radius: 999px 999px 10px 10px;
+  background: linear-gradient(180deg, rgba(226, 247, 255, 0.16), rgba(6, 16, 34, 0.62));
+  border: 1px solid rgba(226, 232, 240, 0.1);
+}
+
+.guide-leg--left {
+  margin-left: -22px;
+  transform: translateX(-50%) rotate(2deg);
+}
+
+.guide-leg--right {
+  margin-left: 22px;
+  transform: translateX(-50%) rotate(-2deg);
+}
+
+.guide-shadow {
+  left: 50%;
+  bottom: 42px;
+  width: 188px;
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.48), rgba(138, 232, 255, 0.12) 58%, transparent 72%);
+  transform: translateX(-50%);
+  filter: blur(8px);
+  opacity: 0;
+  animation: shadow-land 3s ease forwards;
+}
+
+.brand-lockup {
+  transform: translateY(-4px);
+  text-align: center;
+}
+
+.brand-cn {
+  font-size: 1.92rem;
+  font-weight: 560;
+  color: rgba(244, 253, 255, 0.96);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.16),
+    0 18px 42px rgba(0, 0, 0, 0.32),
+    0 0 26px rgba(138, 232, 255, 0.24);
+}
+
+.brand-cn::after {
+  width: 44px;
+  margin-top: 0.62rem;
+  background: linear-gradient(90deg, transparent, rgba(248, 253, 255, 0.7), transparent);
+  opacity: 0.68;
+}
+
+.brand-en {
+  margin-top: 0.04rem;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: rgba(226, 232, 240, 0.58);
+}
+
+.status-line {
+  margin-top: 0.95rem;
+  padding: 7px 12px;
+  border-color: rgba(226, 232, 240, 0.12);
+  background: rgba(3, 7, 18, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 20px 60px rgba(0, 0, 0, 0.22);
+}
+
+.status-dot {
+  background: #8ae8ff;
+  box-shadow: 0 0 16px rgba(138, 232, 255, 0.74);
+}
+
+.boot-progress {
+  bottom: 4.6rem;
+  width: min(260px, calc(100vw - 72px));
+  height: 2px;
+  background: rgba(226, 232, 240, 0.11);
+  box-shadow: none;
+}
+
+.boot-progress span {
+  background: linear-gradient(90deg, rgba(138, 232, 255, 0.18), #f8fdff, rgba(127, 124, 255, 0.5));
+  animation-duration: 2.45s;
+}
+
+.skip-hint {
+  bottom: 2rem;
+  color: rgba(203, 213, 225, 0.36);
+}
+
+@keyframes cinematic-drift {
+  from { transform: scale(1.04) translate3d(-0.4%, 0, 0); }
+  to { transform: scale(1.075) translate3d(0.4%, -0.6%, 0); }
+}
+
+@keyframes portal-reveal {
+  0% { opacity: 0; transform: scaleX(0.72) translateY(14px); }
+  34% { opacity: 0.62; }
+  100% { opacity: 0.88; transform: scaleX(1) translateY(0); }
+}
+
+@keyframes slit-open {
+  0% { opacity: 0; transform: translateX(-50%) scaleY(0.18); }
+  34% { opacity: 1; transform: translateX(-50%) scaleY(1); }
+  100% { opacity: 0.82; transform: translateX(-50%) scaleY(1); }
+}
+
+@keyframes bloom-in {
+  0%, 18% { opacity: 0; transform: translateX(-50%) scale(0.62); }
+  56% { opacity: 0.8; }
+  100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes floor-rise {
+  0% { opacity: 0; transform: translateX(-50%) perspective(480px) rotateX(68deg) translateY(28px) scaleX(0.72); }
+  48% { opacity: 0.48; }
+  100% { opacity: 0.38; transform: translateX(-50%) perspective(480px) rotateX(68deg) translateY(0) scaleX(1); }
+}
+
+@keyframes trace-pass {
+  0%, 30% { opacity: 0; transform: translateX(-50%) scaleX(0.18); }
+  56% { opacity: 0.68; }
+  100% { opacity: 0.26; transform: translateX(-50%) scaleX(1); }
+}
+
+@keyframes figure-approach {
+  0% { opacity: 0; transform: translateX(-50%) translateY(34px) scale(0.78); filter: blur(2px); }
+  34% { opacity: 0.18; filter: blur(0.8px); }
+  100% { opacity: 0.12; transform: translateX(-50%) translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes video-guide-approach {
+  0% { opacity: 0; transform: translateX(-50%) translateY(38px) scale(0.84); filter: saturate(1.1) contrast(1.02) brightness(0.86) blur(2px); }
+  30% { opacity: 0.34; }
+  100% { opacity: 0.86; transform: translateX(-50%) translateY(0) scale(1); filter: saturate(1.22) contrast(1.08) brightness(1.04) blur(0); }
+}
+
+@keyframes shadow-land {
+  0% { opacity: 0; transform: translateX(-50%) scaleX(0.56); }
+  100% { opacity: 0.72; transform: translateX(-50%) scaleX(1); }
+}
+
+@media (max-width: 768px) {
+  .loading-center {
+    width: min(340px, calc(100vw - 32px));
+  }
+
+  .entry-scene {
+    width: min(330px, 88vw);
+    height: 316px;
+    margin-bottom: 1.1rem;
+  }
+
+  .portal-depth {
+    inset: 12px 12px 74px;
+    border-radius: 28px;
+  }
+
+  .portal-slit {
+    left: 40%;
+    top: 34px;
+    height: 216px;
+  }
+
+  .portal-bloom {
+    top: 92px;
+    width: 230px;
+    height: 150px;
+  }
+
+  .floor-plane {
+    width: 310px;
+    height: 104px;
+  }
+
+  .guide-figure {
+    bottom: 70px;
+    width: 106px;
+    height: 188px;
+  }
+
+  .guide-video {
+    bottom: 48px;
+    width: 256px;
+    height: 256px;
+  }
+
+  .guide-head {
+    width: 40px;
+    height: 46px;
+  }
+
+  .guide-torso {
+    top: 52px;
+    width: 64px;
+    height: 84px;
+  }
+
+  .guide-arm {
+    top: 62px;
+    height: 76px;
+  }
+
+  .guide-arm--left {
+    margin-left: -48px;
+  }
+
+  .guide-arm--right {
+    margin-left: 48px;
+  }
+
+  .guide-leg {
+    top: 128px;
+    height: 70px;
+  }
+
+  .brand-cn {
+    font-size: 1.48rem;
+  }
+
+  .brand-en {
+    font-size: 0.68rem;
+  }
+
+  .status-line {
+    margin-top: 0.8rem;
+  }
+
+  .boot-progress {
+    bottom: 3.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinema-backdrop,
+  .portal-depth,
+  .portal-slit,
+  .portal-bloom,
+  .floor-plane,
+  .floor-trace,
+  .guide-figure,
+  .guide-video,
+  .guide-shadow {
+    animation: none;
+  }
+
+  .portal-depth,
+  .portal-slit,
+  .portal-bloom,
+  .floor-plane,
+  .floor-trace,
+  .guide-figure,
+  .guide-video,
+  .guide-shadow {
+    opacity: 1;
   }
 }
 </style>
