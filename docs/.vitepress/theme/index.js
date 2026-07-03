@@ -1100,7 +1100,7 @@ const TechHero = {
               h('span', { class: 'tu-corner tu-corner--br' }),
               h('span', { class: 'tu-tag tu-tag--tl' }, 'EMBODIED-UNIT'),
               h('span', { class: 'tu-tag tu-tag--tr' }, 'VLA · WAM'),
-              h('div', { class: 'thero__robot-wrap', title: '点我 · 单元会回应' }, [
+              h('div', { class: 'thero__robot-wrap thero__robot-wrap--laser', title: '点我 · 单元会回应' }, [
                 // 镭光人概念视频(public/hero-laser-human.mp4,自托管):桌面精确指针
                 // = 鼠标推扫逐帧(bindHeroVideo),窄屏/触屏 = 静音循环播放,reduced-motion = 静帧
                 h('video', {
