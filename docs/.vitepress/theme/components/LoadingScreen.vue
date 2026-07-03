@@ -21,12 +21,12 @@ const cleanupFns = []
 // 检查是否首次访问
 const checkFirstVisit = () => {
   try {
-    const visited = localStorage.getItem('vp-visited-loader-v6')
+    const visited = localStorage.getItem('vp-visited-loader-v7')
     if (visited) {
       isFirstVisit.value = false
       return false
     }
-    localStorage.setItem('vp-visited-loader-v6', '1')
+    localStorage.setItem('vp-visited-loader-v7', '1')
     return true
   } catch (e) {
     return true
@@ -37,6 +37,26 @@ const checkFirstVisit = () => {
 const displayDuration = computed(() => isFirstVisit.value ? 2400 : 720)
 const maxReadyWait = computed(() => isFirstVisit.value ? 12000 : 9000)
 const hintText = computed(() => pageReady.value ? '点击或按任意键进入' : '正在装载首页内容')
+const bootPhase = computed(() => {
+  if (pageReady.value) return 'HOME READY'
+  if (coreReady.value) return 'SYNCING ATLAS'
+  return 'WAKING CORE'
+})
+const bootSubline = computed(() =>
+  pageReady.value ? '首屏资源已就绪' : '校准 VLA / WAM / DATA 首屏索引'
+)
+const telemetryItems = ['VLA INDEX', 'WAM GRAPH', 'DATA ROUTES']
+const particleCount = 18
+const particleStyles = Array.from({ length: particleCount }, (_, index) => {
+  const n = index + 1
+  return {
+    '--x': `${n * 5.4 - 4}%`,
+    '--h': `${44 + (n % 5) * 12}px`,
+    '--dur': `${3.6 + (n % 7) * 0.38}s`,
+    '--delay': `${n * -0.31}s`,
+    '--op': String(0.18 + (n % 4) * 0.08),
+  }
+})
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -296,13 +316,34 @@ onBeforeUnmount(() => {
 <template>
   <Transition name="fade">
     <div v-if="isVisible" class="loading-screen" @click="skip">
+      <div class="loading-aurora" aria-hidden="true">
+        <span class="aurora-field aurora-field--a"></span>
+        <span class="aurora-field aurora-field--b"></span>
+        <span class="aurora-field aurora-field--c"></span>
+      </div>
       <div class="loading-grid" aria-hidden="true"></div>
       <div class="loading-vignette" aria-hidden="true"></div>
+      <div class="data-rain" aria-hidden="true">
+        <span v-for="(style, index) in particleStyles" :key="index" :style="style"></span>
+      </div>
+      <div class="corner-frame" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 
       <!-- 中央内容 -->
       <div class="loading-center" :class="{ 'is-ready': coreReady }">
+        <div class="system-label" :class="{ 'is-ready': pageReady }">
+          <span>// ATLAS BOOT</span>
+          <strong>{{ bootPhase }}</strong>
+        </div>
+
         <!-- 机器人剪影 -->
         <div class="boot-core" :style="{ opacity: robotOpacity }" aria-hidden="true">
+          <span class="core-shell"></span>
+          <span class="core-ticks"></span>
           <span class="orbit orbit-a"></span>
           <span class="orbit orbit-b"></span>
           <span class="orbit orbit-c"></span>
@@ -310,6 +351,10 @@ onBeforeUnmount(() => {
           <span class="core-glow"></span>
           <div class="robot-silhouette">
             <img :src="withBase('/hero-robot.svg')" alt="" />
+          </div>
+          <div class="core-readout">
+            <span>NEURAL NAV</span>
+            <b>{{ pageReady ? 'READY' : 'SYNC' }}</b>
           </div>
         </div>
 
@@ -321,6 +366,10 @@ onBeforeUnmount(() => {
             <span>VLA</span>
             <span>WAM</span>
             <span>DATA</span>
+          </div>
+          <div class="boot-terminal">
+            <span>{{ bootSubline }}</span>
+            <i v-for="item in telemetryItems" :key="item">{{ item }}</i>
           </div>
         </div>
       </div>
@@ -344,24 +393,90 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(circle at 50% 44%, rgba(34, 211, 238, 0.18), transparent 28rem),
-    radial-gradient(circle at 72% 30%, rgba(139, 92, 246, 0.16), transparent 30rem),
+    radial-gradient(circle at 50% 44%, rgba(34, 211, 238, 0.16), transparent 28rem),
+    radial-gradient(circle at 72% 30%, rgba(139, 92, 246, 0.14), transparent 30rem),
+    radial-gradient(circle at 24% 76%, rgba(245, 158, 11, 0.08), transparent 24rem),
     linear-gradient(145deg, #050914 0%, #08111f 48%, #0d1825 100%);
   cursor: pointer;
   overflow: hidden;
   isolation: isolate;
 }
 
+.loading-screen::before {
+  content: '';
+  position: absolute;
+  inset: -18%;
+  background:
+    conic-gradient(from 220deg at 50% 48%, transparent 0 18%, rgba(34, 211, 238, 0.1) 24%, transparent 34% 58%, rgba(167, 139, 250, 0.12) 66%, transparent 76% 100%),
+    radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0), rgba(2, 6, 23, 0.6) 74%);
+  opacity: 0.84;
+  filter: blur(18px);
+  animation: nebula-turn 18s linear infinite;
+}
+
+.loading-aurora,
+.data-rain,
+.corner-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.aurora-field {
+  position: absolute;
+  width: 54vw;
+  height: 54vh;
+  min-width: 420px;
+  min-height: 320px;
+  border-radius: 999px;
+  filter: blur(48px);
+  opacity: 0.46;
+  mix-blend-mode: screen;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-field--a {
+  left: -14%;
+  top: 8%;
+  background: rgba(34, 211, 238, 0.28);
+  animation: aurora-drift-a 7.8s ease-in-out infinite;
+}
+
+.aurora-field--b {
+  right: -16%;
+  top: 18%;
+  background: rgba(139, 92, 246, 0.26);
+  animation: aurora-drift-b 9.2s ease-in-out infinite;
+}
+
+.aurora-field--c {
+  left: 28%;
+  bottom: -24%;
+  background: rgba(16, 185, 129, 0.18);
+  animation: aurora-drift-c 8.6s ease-in-out infinite;
+}
+
 .loading-grid {
   position: absolute;
   inset: -2px;
-  opacity: 0.28;
+  opacity: 0.26;
   background-image:
     linear-gradient(rgba(125, 211, 252, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(125, 211, 252, 0.1) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 72%);
   animation: grid-drift 8s linear infinite;
+}
+
+.loading-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0 47%, rgba(125, 211, 252, 0.14) 50%, transparent 53% 100%),
+    linear-gradient(180deg, transparent 0 47%, rgba(52, 211, 153, 0.1) 50%, transparent 53% 100%);
+  background-size: 260px 260px;
+  animation: grid-lock 4.8s ease-in-out infinite;
 }
 
 .loading-vignette {
@@ -372,6 +487,77 @@ onBeforeUnmount(() => {
     radial-gradient(circle at 50% 48%, transparent 0 22rem, rgba(0, 0, 0, 0.28) 38rem);
   pointer-events: none;
 }
+
+.data-rain span {
+  position: absolute;
+  left: var(--x);
+  top: -12%;
+  width: 1px;
+  height: var(--h);
+  background: linear-gradient(180deg, transparent, rgba(125, 211, 252, 0.72), transparent);
+  opacity: var(--op);
+  transform: translateY(-20vh);
+  animation: data-fall var(--dur) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.data-rain span:nth-child(3n) {
+  background: linear-gradient(180deg, transparent, rgba(52, 211, 153, 0.68), transparent);
+}
+
+.data-rain span:nth-child(4n) {
+  background: linear-gradient(180deg, transparent, rgba(245, 158, 11, 0.58), transparent);
+}
+
+.corner-frame span {
+  position: absolute;
+  width: min(18vw, 142px);
+  height: min(18vw, 142px);
+  border: 1px solid rgba(125, 211, 252, 0.28);
+  opacity: 0.84;
+}
+
+.corner-frame span:nth-child(1) {
+  top: 24px;
+  left: 24px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.corner-frame span:nth-child(2) {
+  top: 24px;
+  right: 24px;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.corner-frame span:nth-child(3) {
+  right: 24px;
+  bottom: 24px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.corner-frame span:nth-child(4) {
+  bottom: 24px;
+  left: 24px;
+  border-right: 0;
+  border-top: 0;
+}
+
+.corner-frame span::after {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: #67e8f9;
+  box-shadow: 0 0 14px rgba(103, 232, 249, 0.84);
+}
+
+.corner-frame span:nth-child(1)::after { top: -4px; left: -4px; }
+.corner-frame span:nth-child(2)::after { top: -4px; right: -4px; }
+.corner-frame span:nth-child(3)::after { right: -4px; bottom: -4px; }
+.corner-frame span:nth-child(4)::after { bottom: -4px; left: -4px; }
 
 .loading-center {
   position: relative;
@@ -389,14 +575,104 @@ onBeforeUnmount(() => {
   transform: translateY(0);
 }
 
+.system-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 32px;
+  margin-bottom: 1.05rem;
+  padding: 5px 12px 5px 6px;
+  border: 1px solid rgba(125, 211, 252, 0.24);
+  border-radius: 6px;
+  background: rgba(2, 6, 23, 0.34);
+  color: rgba(226, 232, 240, 0.9);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 14px 42px rgba(2, 6, 23, 0.28);
+}
+
+.system-label span {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 4px;
+  background: rgba(34, 211, 238, 0.1);
+  color: #7dd3fc;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.system-label strong {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.system-label.is-ready {
+  border-color: rgba(52, 211, 153, 0.42);
+}
+
+.system-label.is-ready span {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.12);
+}
+
 .boot-core {
   position: relative;
-  width: 214px;
-  height: 214px;
-  margin-bottom: 1.75rem;
+  width: 238px;
+  height: 238px;
+  margin-bottom: 1.45rem;
   display: grid;
   place-items: center;
   transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.boot-core::before,
+.boot-core::after {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.boot-core::before {
+  border: 1px solid rgba(226, 232, 240, 0.14);
+  box-shadow:
+    inset 0 0 40px rgba(34, 211, 238, 0.08),
+    0 0 60px rgba(34, 211, 238, 0.16);
+}
+
+.boot-core::after {
+  border: 1px dashed rgba(125, 211, 252, 0.24);
+  animation: dial-spin 10s linear infinite reverse;
+}
+
+.core-shell {
+  position: absolute;
+  inset: 6px;
+  border-radius: 999px;
+  background:
+    conic-gradient(from 90deg, rgba(34, 211, 238, 0.04), rgba(34, 211, 238, 0.56), rgba(16, 185, 129, 0.28), rgba(245, 158, 11, 0.34), rgba(139, 92, 246, 0.52), rgba(34, 211, 238, 0.04));
+  -webkit-mask: radial-gradient(circle, transparent 0 58%, #000 59% 62%, transparent 63%);
+  mask: radial-gradient(circle, transparent 0 58%, #000 59% 62%, transparent 63%);
+  animation: shell-scan 3.8s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+
+.core-ticks {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background:
+    repeating-conic-gradient(from 0deg, rgba(226, 232, 240, 0.28) 0deg 1.8deg, transparent 1.8deg 10deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 47%, #000 48% 49.5%, transparent 50.5%);
+  mask: radial-gradient(circle, transparent 0 47%, #000 48% 49.5%, transparent 50.5%);
+  opacity: 0.42;
+  animation: dial-spin 18s linear infinite;
 }
 
 .core-glow {
@@ -503,6 +779,37 @@ onBeforeUnmount(() => {
   animation: robot-float 2.6s ease-in-out infinite;
 }
 
+.core-readout {
+  position: absolute;
+  right: 8px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 24px;
+  padding: 4px 7px;
+  border: 1px solid rgba(125, 211, 252, 0.24);
+  border-radius: 5px;
+  background: rgba(2, 6, 23, 0.54);
+  box-shadow: 0 0 22px rgba(34, 211, 238, 0.14);
+}
+
+.core-readout span,
+.core-readout b {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.58rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.core-readout span {
+  color: rgba(226, 232, 240, 0.62);
+}
+
+.core-readout b {
+  color: #67e8f9;
+}
+
 @keyframes robot-float {
   0%, 100% {
     transform: translateY(0px);
@@ -510,6 +817,45 @@ onBeforeUnmount(() => {
   50% {
     transform: translateY(-10px);
   }
+}
+
+@keyframes nebula-turn {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes aurora-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(12%, -6%, 0) scale(1.08); }
+}
+
+@keyframes aurora-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-10%, 8%, 0) scale(1.05); }
+}
+
+@keyframes aurora-drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(4%, -12%, 0) scale(1.12); }
+}
+
+@keyframes data-fall {
+  to { transform: translateY(120vh); }
+}
+
+@keyframes grid-lock {
+  0%, 100% { opacity: 0.18; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.04); }
+}
+
+@keyframes shell-scan {
+  0% { transform: rotate(0deg); opacity: 0.68; }
+  55% { opacity: 1; }
+  100% { transform: rotate(360deg); opacity: 0.68; }
+}
+
+@keyframes dial-spin {
+  to { transform: rotate(360deg); }
 }
 
 @keyframes orbit-turn-a {
@@ -616,6 +962,43 @@ onBeforeUnmount(() => {
   animation-delay: 0.32s;
 }
 
+.boot-terminal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  width: min(420px, calc(100vw - 48px));
+  margin: 1.1rem auto 0;
+  color: rgba(203, 213, 225, 0.74);
+}
+
+.boot-terminal span,
+.boot-terminal i {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 5px;
+  background: rgba(15, 23, 42, 0.34);
+  font-size: 0.68rem;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.boot-terminal span {
+  flex-basis: 100%;
+  justify-content: center;
+  color: rgba(226, 232, 240, 0.82);
+}
+
+.boot-terminal i {
+  color: rgba(125, 211, 252, 0.76);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+}
+
 .boot-progress {
   position: absolute;
   left: 50%;
@@ -717,9 +1100,9 @@ onBeforeUnmount(() => {
 /* 响应式 */
 @media (max-width: 768px) {
   .boot-core {
-    width: 172px;
-    height: 172px;
-    margin-bottom: 1.5rem;
+    width: 188px;
+    height: 188px;
+    margin-bottom: 1.25rem;
   }
 
   .orbit-a {
@@ -743,6 +1126,22 @@ onBeforeUnmount(() => {
     border-radius: 24px;
   }
 
+  .core-readout {
+    right: -4px;
+    bottom: 16px;
+    transform: scale(0.88);
+  }
+
+  .system-label {
+    margin-bottom: 0.85rem;
+    gap: 8px;
+  }
+
+  .system-label span,
+  .system-label strong {
+    font-size: 0.62rem;
+  }
+
   .brand-cn {
     font-size: 1.5rem;
   }
@@ -759,11 +1158,29 @@ onBeforeUnmount(() => {
   .boot-progress {
     bottom: 3.8rem;
   }
+
+  .boot-terminal {
+    width: min(330px, calc(100vw - 36px));
+    gap: 5px;
+  }
+
+  .boot-terminal span,
+  .boot-terminal i {
+    font-size: 0.62rem;
+    padding: 4px 6px;
+  }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
+  .loading-screen::before,
+  .aurora-field,
   .loading-grid,
+  .loading-grid::after,
+  .data-rain span,
+  .core-shell,
+  .core-ticks,
+  .boot-core::after,
   .robot-silhouette img,
   .orbit,
   .scan-line,
