@@ -21,12 +21,12 @@ const cleanupFns = []
 // 检查是否首次访问
 const checkFirstVisit = () => {
   try {
-    const visited = localStorage.getItem('vp-visited-loader-v7')
+    const visited = localStorage.getItem('vp-visited-loader-v8')
     if (visited) {
       isFirstVisit.value = false
       return false
     }
-    localStorage.setItem('vp-visited-loader-v7', '1')
+    localStorage.setItem('vp-visited-loader-v8', '1')
     return true
   } catch (e) {
     return true
@@ -36,13 +36,9 @@ const checkFirstVisit = () => {
 // 显示时长：首次访问保留完整启动感，后续访问快速掠过
 const displayDuration = computed(() => isFirstVisit.value ? 2400 : 720)
 const maxReadyWait = computed(() => isFirstVisit.value ? 12000 : 9000)
-const hintText = computed(() => pageReady.value ? '点击进入' : '正在预热首页')
-const readinessLabel = computed(() => {
-  if (pageReady.value) return 'READY'
-  if (coreReady.value) return 'SYNC'
-  return 'WAKE'
-})
-const statusText = computed(() => pageReady.value ? '首页已就绪' : '正在载入研究星图')
+const hintText = computed(() => pageReady.value ? '点击进入' : '请稍候')
+const readinessLabel = computed(() => pageReady.value ? '已就绪' : '准备中')
+const statusText = computed(() => pageReady.value ? '首屏内容已准备好' : '正在准备首屏内容')
 const shimmerStyles = Array.from({ length: 14 }, (_, index) => {
   const n = index + 1
   return {
@@ -777,7 +773,7 @@ onBeforeUnmount(() => {
 }
 
 .status-line b {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   font-weight: 700;
   color: var(--loader-gold);
 }
