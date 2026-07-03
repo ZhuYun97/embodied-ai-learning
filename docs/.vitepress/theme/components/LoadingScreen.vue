@@ -1,11 +1,12 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { withBase } from 'vitepress'
 import Strands from './Strands.vue'
 
 const isVisible = ref(true)
-const strandsReady = ref(false)
+const robotOpacity = ref(0)
+const textOpacity = ref(0)
 const isFirstVisit = ref(true)
-const loadingText = ref('具身星图加载中')
 
 // 检查是否首次访问
 const checkFirstVisit = () => {
@@ -22,8 +23,8 @@ const checkFirstVisit = () => {
   }
 }
 
-// 显示时长：首次访问 1200ms，后续访问 400ms
-const displayDuration = computed(() => isFirstVisit.value ? 1200 : 400)
+// 显示时长：首次访问 1500ms，后续访问 600ms
+const displayDuration = computed(() => isFirstVisit.value ? 1500 : 600)
 
 // 跳过加载动画
 const skip = () => {
@@ -35,35 +36,22 @@ onMounted(() => {
   const firstVisit = checkFirstVisit()
 
   // 键盘/鼠标跳过
-  const handleSkip = (e) => {
-    // 任意键盘按键或点击跳过
-    skip()
-  }
-
+  const handleSkip = () => skip()
   window.addEventListener('keydown', handleSkip, { once: true })
   window.addEventListener('click', handleSkip, { once: true })
 
-  // 文字动画
-  const textFrames = ['具身星图加载中', '具身星图加载中.', '具身星图加载中..', '具身星图加载中...']
-  let textIndex = 0
-  const textInterval = setInterval(() => {
-    textIndex = (textIndex + 1) % textFrames.length
-    loadingText.value = textFrames[textIndex]
-  }, 400)
+  // 机器人渐入动画
+  setTimeout(() => { robotOpacity.value = 1 }, 200)
+  setTimeout(() => { textOpacity.value = 1 }, 600)
 
-  // 等待 VitePress 完全渲染后淡出
+  // 自动关闭
   const timer = setTimeout(() => {
-    loadingText.value = '准备就绪'
-    setTimeout(() => {
-      skip()
-      clearInterval(textInterval)
-    }, 200)
+    skip()
   }, displayDuration.value)
 
   // Cleanup
   return () => {
     clearTimeout(timer)
-    clearInterval(textInterval)
     window.removeEventListener('keydown', handleSkip)
     window.removeEventListener('click', handleSkip)
   }
@@ -72,68 +60,67 @@ onMounted(() => {
 
 <template>
   <Transition name="fade">
-    <div v-if="isVisible" class="vp-loading-screen" @click="skip">
-      <!-- Strands WebGL 流体背景 -->
-      <div class="loading-bg">
+    <div v-if="isVisible" class="loading-screen" @click="skip">
+      <!-- Strands 能量流 -->
+      <div class="strands-layer">
         <Strands
-          :colors="['#38bdf8', '#2563eb', '#7c3aed']"
-          :count="3"
-          :speed="0.3"
-          :amplitude="1.2"
-          :waviness="1.5"
-          :thickness="0.8"
-          :glow="3.0"
-          :taper="2.5"
-          :spread="1.2"
-          :intensity="0.8"
-          :saturation="1.8"
-          :opacity="0.9"
-          :scale="1.2"
-          @vue:mounted="strandsReady = true"
+          :colors="['#38bdf8', '#2563eb', '#7c3aed', '#06b6d4']"
+          :count="5"
+          :speed="0.4"
+          :amplitude="1.5"
+          :waviness="2"
+          :thickness="0.9"
+          :glow="4.0"
+          :taper="2"
+          :spread="1.5"
+          :intensity="1.0"
+          :saturation="2.0"
+          :opacity="1"
+          :scale="1"
         />
       </div>
 
-      <!-- 前景内容 -->
-      <div class="loading-content">
-        <div class="loading-logo">
-          <svg viewBox="0 0 256 256" fill="none">
-            <circle cx="128" cy="128" r="96" stroke="url(#grad)" stroke-width="8" fill="none"/>
-            <defs>
-              <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#38bdf8"/>
-                <stop offset="100%" style="stop-color:#2563eb"/>
-              </linearGradient>
-            </defs>
-          </svg>
+      <!-- 中央内容 -->
+      <div class="loading-center">
+        <!-- 机器人剪影 -->
+        <div class="robot-silhouette" :style="{ opacity: robotOpacity }">
+          <img :src="withBase('/hero-robot.svg')" alt="Embodied AI" />
         </div>
-        <div class="loading-spinner"></div>
-        <div class="loading-text">{{ loadingText }}</div>
-        <div class="loading-hint">点击任意位置或按任意键跳过</div>
+
+        <!-- 品牌文字 -->
+        <div class="brand-text" :style="{ opacity: textOpacity }">
+          <div class="brand-cn">具身星图</div>
+          <div class="brand-en">Embodied AI Atlas</div>
+        </div>
       </div>
+
+      <!-- 跳过提示 -->
+      <div class="skip-hint">按任意键继续</div>
     </div>
   </Transition>
 </template>
 
 <style scoped>
-.vp-loading-screen {
+.loading-screen {
   position: fixed;
   inset: 0;
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: #0a0e1a;
   cursor: pointer;
+  overflow: hidden;
 }
 
-.loading-bg {
+.strands-layer {
   position: absolute;
   inset: 0;
-  opacity: 0.6;
+  opacity: 0.85;
   pointer-events: none;
 }
 
-.loading-content {
+.loading-center {
   position: relative;
   z-index: 1;
   display: flex;
@@ -143,73 +130,90 @@ onMounted(() => {
   pointer-events: none;
 }
 
-.loading-logo {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 1.5rem;
-  animation: logo-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+/* 机器人剪影 */
+.robot-silhouette {
+  width: 160px;
+  height: 160px;
+  margin-bottom: 2rem;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 40px rgba(56, 189, 248, 0.6))
+          drop-shadow(0 0 80px rgba(37, 99, 235, 0.4));
 }
 
-@keyframes logo-pulse {
+.robot-silhouette img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: robot-float 3s ease-in-out infinite;
+}
+
+@keyframes robot-float {
   0%, 100% {
-    opacity: 1;
-    transform: scale(1);
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 品牌文字 */
+.brand-text {
+  text-align: center;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.brand-cn {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 40px rgba(56, 189, 248, 0.3);
+}
+
+.brand-en {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: rgba(148, 163, 184, 0.8);
+  text-transform: uppercase;
+}
+
+/* 跳过提示 */
+.skip-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.75rem;
+  color: rgba(148, 163, 184, 0.5);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  animation: hint-pulse 2s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+  0%, 100% {
+    opacity: 0.3;
   }
   50% {
     opacity: 0.7;
-    transform: scale(0.95);
   }
 }
 
-.loading-spinner {
-  width: 48px;
-  height: 48px;
-  border: 3px solid rgba(56, 189, 248, 0.2);
-  border-top-color: #38bdf8;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.loading-text {
-  margin-top: 1.5rem;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-  min-width: 180px;
-  text-align: center;
-}
-
-.loading-hint {
-  margin-top: 2rem;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 0.03em;
-  animation: hint-fade 2s ease-in-out infinite;
-}
-
-@keyframes hint-fade {
-  0%, 100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
+/* 淡入淡出 */
 .fade-enter-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.6s ease;
 }
 
 .fade-enter-from,
@@ -217,33 +221,42 @@ onMounted(() => {
   opacity: 0;
 }
 
-/* 响应式优化 */
+/* 响应式 */
 @media (max-width: 768px) {
-  .loading-logo {
-    width: 60px;
-    height: 60px;
+  .robot-silhouette {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1.5rem;
   }
 
-  .loading-spinner {
-    width: 40px;
-    height: 40px;
+  .brand-cn {
+    font-size: 1.5rem;
   }
 
-  .loading-text {
-    font-size: 0.8125rem;
+  .brand-en {
+    font-size: 0.75rem;
   }
 
-  .loading-hint {
+  .skip-hint {
+    bottom: 1.5rem;
     font-size: 0.6875rem;
   }
 }
 
-/* 降低动画减少motion */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .loading-logo,
-  .loading-spinner,
-  .loading-hint {
+  .robot-silhouette img {
     animation: none;
+  }
+
+  .skip-hint {
+    animation: none;
+    opacity: 0.5;
+  }
+
+  .robot-silhouette,
+  .brand-text {
+    transition: opacity 0.3s ease;
   }
 }
 </style>
