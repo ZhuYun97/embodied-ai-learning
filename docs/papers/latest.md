@@ -11,17 +11,17 @@ pageClass: paper-radar-page
 
 <div class="latest-paper-hero">
   <div>
-    <span class="latest-paper-hero__eyebrow">PAPER RADAR · 2026-07-02</span>
-    <p class="latest-paper-hero__title">7 月 2 日 · VLA / WAM / DATA-EVAL / HUMANOID-TACTILE</p>
-    <p class="latest-paper-hero__text">今日 arXiv cs.RO new 53 篇 + cross-list/replacement 41 篇中筛出 22 篇强相关候选;VLA 继续围绕组合泛化、单样本域适配和长程双臂装配展开,WAM 明显转向 3D/4D 结构化预测和可替代实机评测的神经模拟器,触觉预训练与接触灵巧操作仍在加速。</p>
+    <span class="latest-paper-hero__eyebrow">PAPER RADAR · 2026-07-03</span>
+    <p class="latest-paper-hero__title">7 月 3 日 · VLA / WAM / DATA-EVAL / HUMANOID-TACTILE</p>
+    <p class="latest-paper-hero__text">今日 arXiv cs.RO new 38 篇 + cross-list/replacement 43 篇中筛出 25 篇强相关候选;VLA 主线转向安全约束、动作 chunk 自纠错和推理时可靠性信号,WAM 出现面向动态 3D 操作、视频-触觉预测和 sample-efficient 学习的新工作,触觉想象、单示教实机 RL 与真实机器人评测继续升温。</p>
   </div>
   <div class="latest-paper-stats" aria-label="论文队列统计">
-    <span><b>22</b>今日新增</span>
+    <span><b>25</b>今日新增</span>
     <span><b>0</b>已细读</span>
-    <span><b>5</b>VLA</span>
-    <span><b>5</b>WAM</span>
-    <span><b>6</b>DATA/EVAL</span>
-    <span><b>6</b>HUMANOID/TACTILE</span>
+    <span><b>9</b>VLA</span>
+    <span><b>6</b>WAM</span>
+    <span><b>7</b>DATA/EVAL</span>
+    <span><b>3</b>HUMANOID/TACTILE</span>
   </div>
 </div>
 
@@ -47,6 +47,165 @@ pageClass: paper-radar-page
     <button type="button" class="paper-filter-chip" data-paper-filter="tactile">TACTILE</button>
     <button type="button" class="paper-filter-chip" data-paper-filter="p0">P0 优先</button>
     <button type="button" class="paper-filter-chip" data-paper-filter="done">已细读</button>
+  </div>
+</div>
+
+<div class="paper-day-heading">2026-07-03</div>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读三条线:第一是 VLA 部署可靠性,Neuro-Symbolic Safety、VLA-Corrector、DiG、VLAFlow 都在补安全、闭环自纠错和动作分布漂移检测;第二是 WAM 从“预测视频”继续靠近动态 3D 操作和视频-触觉联合预测,PhysMani、Bridge-WA、VT-WAM 值得优先跟;第三是真实数据/评测侧很强,AutoSERL 用单条示教跑实机 RL,ManipArena 和 VLA-Arena 继续把 VLA/WAM 评测做成更可复现的基准。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>SAFETY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.01378" target="_blank" rel="noreferrer">Neuro-Symbolic Safety Guidance for VLAs</a></h3>
+      <p>把符号安全约束插入 flow-matching VLA 的去噪过程,对预测动作轨迹做 minimum-norm correction,从单步避障转向预测性碰撞规避。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.01378" target="_blank" rel="noreferrer">arXiv</a><a href="https://willenglish.tech" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>SIM2REAL</span><span>POLICY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.01410" target="_blank" rel="noreferrer">BIFROST</a></h3>
+      <p>用 paired cross-domain data 学共享 history encoder,让视觉导航、接触操作和 visual servoing policy 通过跨域 bisimulation 表征做 zero-shot sim2real。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.01410" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>RL</span><span>ONE DEMO</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.01651" target="_blank" rel="noreferrer">AutoSERL</a></h3>
+      <p>用单条示教自动化实机 RL 的滑窗干预、安全恢复和干预终止,在插入、悬挂、铰链等接触密集 manipulation 任务上减少人工介入。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.01651" target="_blank" rel="noreferrer">arXiv</a><a href="https://autoserl.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>TACTILE</span><span>IMAGINATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.01684" target="_blank" rel="noreferrer">TacImag</a></h3>
+      <p>从视觉和本体感觉预测触觉表征,让部署时没有触觉硬件的机器人仍能利用接触先验;真实任务中 imagined force field 与 tactile image 分别提升接触/纹理任务。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.01684" target="_blank" rel="noreferrer">arXiv</a><a href="https://tacimag.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>REWARD</span><span>VLM FEEDBACK</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.01721" target="_blank" rel="noreferrer">CoRe</a></h3>
+      <p>把 VLM 反馈拆成 formal reward 的迭代设计和 residual reward 的视频偏好学习,用于十个仿真和五个真实 manipulation 任务的偏好对齐 RL。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.01721" target="_blank" rel="noreferrer">arXiv</a><a href="https://core-2026.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>ACTION CHUNK</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.01804" target="_blank" rel="noreferrer">VLA-Corrector</a></h3>
+      <p>不改 VLA backbone,用 latent-space vision monitor 检测预测视觉演化与实际观测的偏差,触发 chunk 截断和在线梯度引导重规划。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.01804" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>3D DYNAMICS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.01938" target="_blank" rel="noreferrer">PhysMani</a></h3>
+      <p>把 divergence-free Gaussian velocity field 作为 physics-principled 3D world model,再把预测的未来 3D 动态接入 action policy,面向快速运动目标操作。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.01938" target="_blank" rel="noreferrer">arXiv</a><a href="https://github.com/gaoyuezhou/PhysMani" target="_blank" rel="noreferrer">Code/Data</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>FLOW POLICY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02092" target="_blank" rel="noreferrer">Guided Action Flow</a></h3>
+      <p>给 flow-matching action policy 加 Guiding Window 和 confidence-aware guidance,在相同数据预算下提升复杂灵巧操作的收敛和轨迹质量。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02092" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>3D BRIDGE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02195" target="_blank" rel="noreferrer">Bridge-WA</a></h3>
+      <p>用结构化 3D Gaussian 场景和 object-centric action token 把 video/3D world model 接到动作生成,目标是补齐 WAM 里状态预测到控制的接口。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02195" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>ACTUATOR</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02205" target="_blank" rel="noreferrer">Actuator Reality Shaping</a></h3>
+      <p>把系统辨识从“复刻硬件”改成“重塑仿真 actuator reality”,减少人形 sim-to-real 中电机/传动误差对全身控制策略的破坏。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02205" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>NAVIGATION</span><span>FLOW FIELD</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02222" target="_blank" rel="noreferrer">CoFL-S</a></h3>
+      <p>把低层视觉语言动作表示成局部可查询 sector flow field,用帧级子指令、动作、轨迹和稠密 flow supervision 训练连续时间导航接口。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02222" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>ACTIVE VISION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02322" target="_blank" rel="noreferrer">Moving Eye</a></h3>
+      <p>把可移动相机/视角选择纳入 VLA 决策,让 policy 在长程操作中主动获取更有用的视觉证据,而不是固定视角被动执行。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02322" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>TELEOP</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02332" target="_blank" rel="noreferrer">HEFT</a></h3>
+      <p>面向 175cm 全尺寸人形的重载遥操作,用 privileged motion guidance 和 windowed payload curriculum 学习带噪 VR 参考下的稳健全身跟踪。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02332" target="_blank" rel="noreferrer">arXiv</a><a href="https://heft.axell.top" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>DATA EFFICIENCY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02403" target="_blank" rel="noreferrer">ACID</a></h3>
+      <p>从 action-conditioned interaction data 中做更高效的 world/action model 学习,关注少数据下预测-控制耦合的样本效率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02403" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>ACTIVE VISION</span><span>CAMERA MOTION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02417" target="_blank" rel="noreferrer">LIME</a></h3>
+      <p>从 egocentric video 挖掘多意图相机运动监督,给自由语言意图预测下一视角的相对 SE(3) 目标位姿,把主动观察变成可学习动作。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02417" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>GENERATIVE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02431" target="_blank" rel="noreferrer">WorldSample</a></h3>
+      <p>用真实 rollout 后训练 world model 生成高保真 synthetic transitions,再通过 Policy-Paced Learning 控制样本选择,降低实机 RL 的交互成本。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02431" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>PRETRAIN</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02466" target="_blank" rel="noreferrer">TAP</a></h3>
+      <p>先用廉价无语言交互数据和 inverse dynamics 学可迁移 motor priors,再用少量专家数据做语言 grounding,把 VLA 的“会动”和“会听指令”拆开训练。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02466" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>RUNTIME</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02501" target="_blank" rel="noreferrer">Embodied.cpp</a></h3>
+      <p>面向具身 VLA/robot policy 的轻量运行时与系统实现信号,关注从模型到本地机器人执行栈的部署效率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02501" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>TACTILE</span><span>WAM</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02503" target="_blank" rel="noreferrer">VT-WAM</a></h3>
+      <p>把视频-触觉联合预测纳入 world-action model,用视觉和触觉未来状态帮助接触密集任务中的动作选择和失败预判。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02503" target="_blank" rel="noreferrer">arXiv</a><a href="https://vt-wam.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>FLOW</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.01586" target="_blank" rel="noreferrer">VLAFlow</a></h3>
+      <p>cross-list 新文,围绕连续动作 VLA 的 flow matching/action generation 建模,适合作为 VLA-Corrector、DiG 等动作流可靠性工作的横向对照。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.01586" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EVAL</span><span>MANIP BENCH</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2603.28545" target="_blank" rel="noreferrer">ManipArena</a></h3>
+      <p>replacement 重要更新:标准化真实机器人 manipulation generalization 评测,覆盖 20 个任务、10,812 条专家轨迹、13.5M frames 和 VLA/WAM policy 对比。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2603.28545" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>RELIABILITY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2512.01715" target="_blank" rel="noreferrer">DiG</a></h3>
+      <p>用 observation feature 到 action representation 的 sliced-Wasserstein transport cost 作为 VLA action chunk 可靠性信号,在分布漂移和长程任务下做 gate/refinement。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2512.01715" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>SAFETY BENCH</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2512.11891" target="_blank" rel="noreferrer">AEGIS / VLSA</a></h3>
+      <p>replacement 更新:给 VLA 插入 control-barrier-function 安全约束层,并用 SafeLIBERO 评估 obstacle avoidance 和 task success 的共同提升。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2512.11891" target="_blank" rel="noreferrer">arXiv</a><a href="https://vlsa-aegis.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>SKILL</span><span>IMITATION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2512.18368" target="_blank" rel="noreferrer">AtomSkill</a></h3>
+      <p>从多任务示教里学习语义对齐 atomic skill space,再用 keypose imagination 做长程 skill chaining,适合作为技能抽象/行为分段路线参考。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2512.18368" target="_blank" rel="noreferrer">arXiv</a><a href="https://atom-skill.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EVAL</span><span>VLA BENCH</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2512.22539" target="_blank" rel="noreferrer">VLA-Arena</a></h3>
+      <p>replacement 更新:开源 VLA benchmark 框架,从任务结构、语言命令和视觉观察三个轴拆解难度,适合和 ManipArena 共同跟踪。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2512.22539" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
