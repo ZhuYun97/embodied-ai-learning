@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { withBase } from 'vitepress'
 import { data as roadmapData } from '../../data/roadmap.data.mjs'
 
 // ===== 视图模式 =====
@@ -92,7 +93,7 @@ function isInHighlightPath(nodeId) {
             <a
               v-for="node in nodesByStage[stage]"
               :key="node.id"
-              :href="node.link"
+              :href="withBase(node.link)"
               :class="['node-card', `node-${node.track}`, { highlighted: isInHighlightPath(node.id) }]"
               :title="node.description"
               @mouseenter="onNodeHover(node.id)"
@@ -143,7 +144,7 @@ function isInHighlightPath(nodeId) {
           <a
             v-for="node in nodesByStage[stage]"
             :key="node.id"
-            :href="node.link"
+            :href="withBase(node.link)"
             class="list-node-card"
           >
             <div class="list-node-header">
