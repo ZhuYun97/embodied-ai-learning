@@ -13,15 +13,15 @@ pageClass: paper-radar-page
   <div>
     <span class="latest-paper-hero__eyebrow">PAPER RADAR · 2026-07-03</span>
     <p class="latest-paper-hero__title">7 月 3 日 · VLA / WAM / DATA-EVAL / HUMANOID-TACTILE</p>
-    <p class="latest-paper-hero__text">今日 arXiv cs.RO new 38 篇 + cross-list/replacement 43 篇中筛出 25 篇强相关候选;VLA 主线转向安全约束、动作 chunk 自纠错和推理时可靠性信号,WAM 出现面向动态 3D 操作、视频-触觉预测和 sample-efficient 学习的新工作,触觉想象、单示教实机 RL 与真实机器人评测继续升温。</p>
+    <p class="latest-paper-hero__text">今日 arXiv cs.RO new 38 篇 + cs.CV/cs.AI cross-list/replacement 中筛出 30 篇强相关候选;VLA 主线转向安全约束、动作 chunk 自纠错和推理时可靠性信号,WAM 出现面向动态 3D 操作、视频-触觉预测、可控世界模拟器和 sample-efficient 学习的新工作,具身主动探索、触觉想象、单示教实机 RL 与真实机器人评测继续升温。</p>
   </div>
   <div class="latest-paper-stats" aria-label="论文队列统计">
-    <span><b>25</b>今日新增</span>
+    <span><b>30</b>今日新增</span>
     <span><b>0</b>已细读</span>
     <span><b>9</b>VLA</span>
-    <span><b>6</b>WAM</span>
-    <span><b>7</b>DATA/EVAL</span>
-    <span><b>3</b>HUMANOID/TACTILE</span>
+    <span><b>9</b>WAM</span>
+    <span><b>8</b>DATA/EVAL</span>
+    <span><b>4</b>HUMANOID/TACTILE</span>
   </div>
 </div>
 
@@ -53,7 +53,7 @@ pageClass: paper-radar-page
 <div class="paper-day-heading">2026-07-03</div>
 
 <div class="daily-paper-section">
-  <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读三条线:第一是 VLA 部署可靠性,Neuro-Symbolic Safety、VLA-Corrector、DiG、VLAFlow 都在补安全、闭环自纠错和动作分布漂移检测;第二是 WAM 从“预测视频”继续靠近动态 3D 操作和视频-触觉联合预测,PhysMani、Bridge-WA、VT-WAM 值得优先跟;第三是真实数据/评测侧很强,AutoSERL 用单条示教跑实机 RL,ManipArena 和 VLA-Arena 继续把 VLA/WAM 评测做成更可复现的基准。</p>
+  <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读三条线:第一是 VLA 部署可靠性,Neuro-Symbolic Safety、VLA-Corrector、DiG、VLAFlow 都在补安全、闭环自纠错和动作分布漂移检测;第二是 WAM 从“预测视频”继续靠近动态 3D 操作、视频-触觉联合预测和可控长程世界模拟,PhysMani、Bridge-WA、VT-WAM、WorldDirector 值得优先跟;第三是真实数据/评测侧很强,AutoSERL 用单条示教跑实机 RL,ManipArena 和 VLA-Arena 继续把 VLA/WAM 评测做成更可复现的基准,同时 EAGLE-360 和 ComplexMimic 补上具身主动探索与人-场景交互模仿。</p>
 
   <div class="paper-queue-grid">
     <article class="paper-ticket paper-ticket--vla">
@@ -169,6 +169,36 @@ pageClass: paper-radar-page
       <h3><a href="https://arxiv.org/abs/2607.02503" target="_blank" rel="noreferrer">VT-WAM</a></h3>
       <p>把视频-触觉联合预测纳入 world-action model,用视觉和触觉未来状态帮助接触密集任务中的动作选择和失败预判。</p>
       <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02503" target="_blank" rel="noreferrer">arXiv</a><a href="https://vt-wam.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>WORLD SIM</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02517" target="_blank" rel="noreferrer">WorldDirector</a></h3>
+      <p>把 LLM 编排的 3D 轨迹和相机运动作为视频生成控制信号,强调长程事件中的动态对象持久记忆、身份保持和可控视角探索。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02517" target="_blank" rel="noreferrer">arXiv</a><a href="https://worlddirector.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EMBODIED</span><span>ACTIVE SEARCH</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02479" target="_blank" rel="noreferrer">EAGLE-360</a></h3>
+      <p>面向 360 度全景环境的具身主动视觉搜索,用全局到局部探索、RoPE Rolling 和 70K+ 轮 VQA 数据提升目标定位与错误恢复。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02479" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>EGOCENTRIC</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02075" target="_blank" rel="noreferrer">HandsOnWorld</a></h3>
+      <p>从野外单目第一视角视频重建 3D 手部轨迹,构建 EgoVid-Pro 并用 Plucker Hand Map 解耦相机和手部运动,适合作为手控具身视频世界模型的数据路线参考。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02075" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>ARTICULATED</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02045" target="_blank" rel="noreferrer">PWM-ArtGen</a></h3>
+      <p>把关节物体建模为动态系统,联合学习视觉动态与运动学参数,用 Part World Model 生成/恢复可操作物体的结构先验。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02045" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>HSI IMITATION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.02034" target="_blank" rel="noreferrer">ComplexMimic</a></h3>
+      <p>面向复杂 3D 场景中的物理人-场景交互模仿,用 imitation/interaction 双专家和难度感知蒸馏处理 Mocap 不完美与碰撞适应。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.02034" target="_blank" rel="noreferrer">arXiv</a><a href="https://github.com/LuPan23/ComplexMimic" target="_blank" rel="noreferrer">Code</a></div>
     </article>
     <article class="paper-ticket paper-ticket--vla">
       <div class="paper-ticket__meta"><span>VLA</span><span>FLOW</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
