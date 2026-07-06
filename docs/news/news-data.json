@@ -1,5 +1,49 @@
 [
   {
+    "id": "hyundai-atlas-fifa-world-cup-live-match-20260706",
+    "title": "现代汽车将 Atlas 带入世界杯比赛现场:人形机器人完成中场表演与递球",
+    "date": "2026-07-06",
+    "fetched_at": "2026-07-06",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "人形机器人",
+      "产业落地"
+    ],
+    "summary": "**Hyundai Motor** 宣布将 Boston Dynamics 的 **Atlas** 人形机器人集成到 2026 FIFA 世界杯纽约/新泽西体育场 16 强赛现场,称这是人形机器人首次进入世界杯实时比赛环境。Atlas 在中场环节执行足球动作展示,随后把比赛用球递交给裁判,展示在高噪声、强动态、全球直播场景下的协调运动与可靠执行能力。该事件不是单纯营销短片,而是把 Atlas 从受控演示推向大型公共现场,也延续现代汽车集团围绕 robotics、autonomous systems 与 physical AI 的战略展示。",
+    "sources": [
+      {
+        "name": "Hyundai Motor / PR Newswire",
+        "url": "https://www.prnewswire.com/in/news-releases/hyundai-motor-brings-atlas-humanoid-robot-to-fifa-world-cup-2026-in-first-ever-live-match-environment-robotics-integration-302818082.html"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "cau-gonggeng-agricultural-robot-vla-model-20260706",
+    "title": "中国农大发布“工耕”农业机器人大模型:面向田间作业的视觉-语言-动作闭环",
+    "date": "2026-07-06",
+    "fetched_at": "2026-07-06",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "模型发布",
+      "通用机器人基础模型",
+      "产业落地"
+    ],
+    "summary": "**中国农业大学农业具身智能机器人团队**在 2026 全球数字经济大会物联网与智慧城市专题论坛发布 **“工耕”农业机器人大模型**。该模型面向作物生产场景,以边缘计算一体机为底座,融合多模态感知、异构推理、云边协同和实时执行,形成从感知、决策到控制的端到端具身智能闭环。官方报道称其已在华北、华东、西北等地区累计示范应用面积超过万亩,具备表型分析、病害诊断、逆境胁迫判断、产量预测、育种潜力评估和农情报告生成能力,是农业垂直 VLA/具身模型落地的重要信号。",
+    "sources": [
+      {
+        "name": "中国农业大学 / 中国科技网",
+        "url": "https://news.cau.edu.cn/mtndnew/4e71ff0f58be48b589d98dd55a0e55a6.htm"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "x-square-wall-wm-open-source-event-world-action-model-20260529",
     "title": "自变量开源 WALL-WM:把机器人世界模型从定长动作块转向事件级预测",
     "date": "2026-05-29",
