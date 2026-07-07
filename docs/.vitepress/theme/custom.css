@@ -7166,6 +7166,149 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
   background: transparent;
 }
 
+/* —— 每日论文卡片:精修层(2026-07-07)——
+   在克制卡片上补足精致度:细顶线、内层高光、稳定标题行数和更清晰的操作区。 */
+.paper-ticket {
+  isolation: isolate;
+  padding: 17px 17px 15px;
+  border-left-width: 1px;
+  border-color: rgba(203, 213, 225, 0.72);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.86)),
+    #ffffff;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.92) inset,
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 10px 26px rgba(15, 23, 42, 0.04);
+}
+
+.paper-ticket::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 12px;
+  left: 12px;
+  z-index: 1;
+  width: auto;
+  height: 2px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--paper-ticket-accent) 68%, transparent),
+    transparent
+  );
+  opacity: 0.78;
+  pointer-events: none;
+  text-shadow: none;
+}
+
+.dark .paper-ticket {
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.76), rgba(15, 23, 42, 0.82)),
+    rgba(15, 23, 42, 0.92);
+  border-color: rgba(71, 85, 105, 0.62);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 1px 2px rgba(0, 0, 0, 0.22),
+    0 14px 34px rgba(0, 0, 0, 0.18);
+}
+
+.paper-ticket:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.94) inset,
+    0 14px 30px rgba(15, 23, 42, 0.1);
+}
+
+.dark .paper-ticket:hover {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 18px 38px rgba(0, 0, 0, 0.3);
+}
+
+.paper-ticket__meta {
+  min-height: 24px;
+  gap: 6px;
+}
+
+.paper-ticket .paper-status {
+  margin-left: auto;
+}
+
+.paper-ticket__meta > span:not(.paper-status),
+.paper-ticket .paper-status {
+  min-height: 22px;
+  padding: 4px 7px;
+  background: rgba(248, 250, 252, 0.92);
+  box-shadow: 0 0 0 1px rgba(203, 213, 225, 0.62) inset;
+}
+
+.paper-ticket__meta > span:first-child:not(.paper-status) {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper-ticket-accent) 20%, transparent) inset;
+}
+
+.dark .paper-ticket__meta > span:not(.paper-status),
+.dark .paper-ticket .paper-status {
+  background: rgba(15, 23, 42, 0.5);
+  box-shadow: 0 0 0 1px rgba(71, 85, 105, 0.5) inset;
+}
+
+.dark .paper-ticket__meta > span:first-child:not(.paper-status) {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper-ticket-accent) 24%, transparent) inset;
+}
+
+.paper-ticket h3 {
+  display: -webkit-box;
+  min-height: 2.72em;
+  margin-bottom: 9px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.paper-ticket h3 a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.paper-ticket p {
+  min-height: 4.75em;
+  margin-bottom: 14px;
+}
+
+.paper-ticket__links {
+  margin-top: auto;
+  gap: 7px;
+}
+
+.paper-ticket__links a {
+  min-height: 26px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: rgba(248, 250, 252, 0.88);
+  box-shadow: 0 0 0 1px rgba(203, 213, 225, 0.66) inset;
+  text-decoration: none;
+}
+
+.paper-ticket__links a:hover {
+  background: color-mix(in srgb, var(--paper-ticket-accent) 9%, white);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper-ticket-accent) 25%, rgba(203, 213, 225, 0.9)) inset;
+  text-decoration: none;
+}
+
+.dark .paper-ticket__links a {
+  background: rgba(15, 23, 42, 0.5);
+  box-shadow: 0 0 0 1px rgba(71, 85, 105, 0.5) inset;
+}
+
+.dark .paper-ticket__links a:hover {
+  background: color-mix(in srgb, var(--paper-ticket-accent) 12%, rgba(15, 23, 42, 0.82));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper-ticket-accent) 30%, rgba(71, 85, 105, 0.62)) inset;
+}
+
 .paper-data-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
@@ -7391,5 +7534,21 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
 
   .paper-data-item {
     gap: 7px;
+  }
+}
+
+@media (max-width: 520px) {
+  .paper-ticket {
+    padding: 16px 15px 14px;
+  }
+
+  .paper-ticket::before {
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+
+  .paper-ticket::after {
+    left: 0;
   }
 }
