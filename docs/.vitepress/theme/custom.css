@@ -7004,6 +7004,168 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
   border-bottom-color: color-mix(in srgb, var(--paper-ticket-accent) 30%, rgba(148, 163, 184, 0.22));
 }
 
+/* —— 每日论文卡片:降噪版(2026-07-07)——
+   去掉票据纹理、大编号和重发光,改成更克制的研究索引卡。 */
+.paper-queue-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 12px;
+}
+
+.paper-ticket {
+  --paper-ticket-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC",
+    "Source Han Sans SC", sans-serif;
+  min-height: 0;
+  padding: 15px 16px 14px;
+  border: 1px solid rgba(203, 213, 225, 0.78);
+  border-left: 2px solid var(--paper-ticket-accent);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.76)),
+    #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  transition:
+    border-color var(--ar-dur-fast, 0.16s) ease,
+    box-shadow var(--ar-dur-fast, 0.16s) ease,
+    transform var(--ar-dur-fast, 0.16s) ease;
+}
+
+.dark .paper-ticket {
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.62), rgba(15, 23, 42, 0.72)),
+    rgba(15, 23, 42, 0.86);
+  border-color: rgba(71, 85, 105, 0.72);
+  border-left-color: var(--paper-ticket-accent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+}
+
+.paper-ticket::before {
+  content: none;
+}
+
+.paper-ticket::after {
+  background: radial-gradient(
+    280px circle at var(--spot-x, 50%) var(--spot-y, 0%),
+    color-mix(in srgb, var(--paper-ticket-accent) 12%, transparent),
+    transparent 64%
+  );
+  opacity: 0;
+}
+
+.paper-ticket:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--paper-ticket-accent) 28%, rgba(203, 213, 225, 0.9));
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+.dark .paper-ticket:hover {
+  border-color: color-mix(in srgb, var(--paper-ticket-accent) 38%, rgba(71, 85, 105, 0.82));
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.26);
+}
+
+.paper-ticket:hover::after {
+  opacity: 1;
+}
+
+.paper-ticket__meta {
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.paper-ticket__meta > span:not(.paper-status),
+.paper-ticket .paper-status {
+  min-height: 20px;
+  padding: 3px 6px;
+  border-radius: 999px;
+  border-color: transparent;
+  background: rgba(241, 245, 249, 0.9);
+  color: #64748b;
+  font: 750 0.66rem/1 var(--paper-ticket-font);
+  letter-spacing: 0;
+}
+
+.paper-ticket__meta > span:first-child:not(.paper-status) {
+  background: color-mix(in srgb, var(--paper-ticket-accent) 12%, white);
+  color: color-mix(in srgb, var(--paper-ticket-accent) 76%, #0f172a);
+}
+
+.dark .paper-ticket__meta > span:not(.paper-status),
+.dark .paper-ticket .paper-status {
+  background: rgba(30, 41, 59, 0.82);
+  border-color: transparent;
+  color: #94a3b8;
+}
+
+.dark .paper-ticket__meta > span:first-child:not(.paper-status) {
+  background: color-mix(in srgb, var(--paper-ticket-accent) 18%, rgba(15, 23, 42, 0.9));
+  color: var(--paper-ticket-accent);
+}
+
+.paper-ticket h3 {
+  max-width: none;
+  margin: 0 0 8px;
+  font-family: var(--paper-ticket-font);
+  font-size: 1.02rem;
+  font-weight: 760;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.paper-ticket h3 a:hover {
+  color: color-mix(in srgb, var(--paper-ticket-accent) 72%, var(--vp-c-text-1));
+}
+
+.paper-ticket p {
+  margin: 0 0 12px;
+  padding-top: 0;
+  border-top: 0;
+  color: #64748b;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  line-height: 1.58;
+  text-align: left;
+  -webkit-line-clamp: 3;
+}
+
+.dark .paper-ticket p {
+  border-top: 0;
+  color: #a9b4c4;
+}
+
+.paper-ticket p::before {
+  content: none;
+}
+
+.paper-ticket__links {
+  justify-content: flex-start;
+  gap: 8px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.paper-ticket__links a {
+  min-height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--paper-ticket-accent) 78%, #334155);
+  font: 760 0.74rem/1.2 var(--paper-ticket-font);
+}
+
+.dark .paper-ticket__links a {
+  background: transparent;
+  border: 0;
+  color: var(--paper-ticket-accent);
+}
+
+.paper-ticket__links a:hover,
+.dark .paper-ticket__links a:hover {
+  background: transparent;
+}
+
 .paper-data-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
