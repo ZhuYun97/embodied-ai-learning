@@ -1,5 +1,93 @@
 [
   {
+    "id": "x-square-quanxta-zero-umi-data-production-20260707",
+    "title": "自变量发布 QUANXTA Zero 系列:用 UMI 硬件重构具身数据生产链路",
+    "date": "2026-07-07",
+    "fetched_at": "2026-07-07",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "具身数据",
+      "平台/开源发布"
+    ],
+    "summary": "**X Square Robot 自变量机器人**发布 **QUANXTA Zero** 系列,把具身数据采集从单一遥操作工具扩展为软硬一体的数据生产系统。该系列围绕 Universal Manipulation Interfaces 设计,覆盖 Zero-G1、Zero-G0、Zero-E0 等形态,面向移动操作、第一视角采集、多视角同步、自动化下游标注和高质量示教数据沉淀。对通用机器人基础模型而言,这类产品的价值不在单台机器人演示,而在降低真实世界交互数据的规模化生产成本,补齐 VLA / world model 训练中最稀缺的高质量动作数据闭环。",
+    "sources": [
+      {
+        "name": "X Square Robot / PR Newswire",
+        "url": "https://en.prnasia.com/releases/global/x-square-robot-launches-quanxta-zero-series-reframing-embodied-data-production-through-universal-manipulation-interfaces-539842.shtml"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "robbyant-lingbot-depth-vision-spatial-perception-20260707",
+    "title": "蚂蚁 Robbyant 发布 LingBot-Depth 2.0 与 LingBot-Vision:强化机器人空间感知",
+    "date": "2026-07-07",
+    "fetched_at": "2026-07-07",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "模型发布",
+      "平台/开源发布",
+      "通用机器人基础模型"
+    ],
+    "summary": "**蚂蚁集团旗下具身智能公司 Robbyant**发布 **LingBot-Depth 2.0** 空间感知模型和视觉基础模型 **LingBot-Vision**。官方称 LingBot-Depth 2.0 使用 1.5 亿样本训练,在 16 个深度补全基准中的 12 项排名领先,并显著改善玻璃、镜面、透明物体等传统深度相机场景中的失效问题。Robbyant 同时开放 LingBot-Vision 权重,并与奥比中光在 Gemini 330 系列、Robot-Free Data Collection Hardware Platform、SDK 和一体化相机上推进商业集成,显示具身智能感知底座正从研究模型走向硬件生态落地。",
+    "sources": [
+      {
+        "name": "Robbyant / Business Wire",
+        "url": "https://www.businesswire.com/news/home/20260706806935/en/Robbyant-Unveils-LingBot-Depth-2.0-and-LingBot-Vision-to-Redefine-Robotic-Spatial-Perception"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "china-humanoid-output-100k-waic-miit-20260707",
+    "title": "工信部口径称中国人形机器人年产量有望突破 10 万台:WAIC 将集中展示",
+    "date": "2026-07-07",
+    "fetched_at": "2026-07-07",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "行业动态",
+      "人形机器人",
+      "政策标准"
+    ],
+    "summary": "**新华社**报道,工信部科技司副司长甘小斌在 2026 世界人工智能大会新闻发布会上表示,中国人形机器人今年产量预计将超过 **10 万台**。同一口径还提到,规模以上工业企业 AI 应用渗透率已超过 30%,国家人工智能产业投资基金正在加快运作。该消息不是单家公司发布,而是来自主管部门在 WAIC 前的产业口径,反映中国人形机器人从样机展示进入批量生产、政策资金和应用场景协同推进的新阶段。",
+    "sources": [
+      {
+        "name": "新华社",
+        "url": "https://english.news.cn/20260707/fce25fd63e5a4060afd0e60d8a9e18fc/c.html"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "machina-summit-europe-physical-ai-paris-20260707",
+    "title": "MACHINA Summit 在巴黎开幕:欧洲首个 Physical AI 专项峰会聚焦具身落地",
+    "date": "2026-07-07",
+    "fetched_at": "2026-07-07",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "活动竞赛",
+      "行业动态",
+      "产业落地"
+    ],
+    "summary": "**MACHINA Summit 2026** 于 7 月 7 日在巴黎 Station F 举行,主办方将其定位为欧洲面向 Physical AI 的专业峰会,议题覆盖人形机器人、工业自治、机器人仿真与数据训练、下一代人机接口以及企业规模化部署。该活动的意义在于把 embodied AI 从通用 AI 大会议程中独立出来,形成面向投资人、产业买方、研究机构和机器人公司的垂直交流场,有助于欧洲 Physical AI 生态建立更明确的产业协作网络。",
+    "sources": [
+      {
+        "name": "MACHINA Summit",
+        "url": "https://www.machinasummit.com/"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "hyundai-atlas-fifa-world-cup-live-match-20260706",
     "title": "现代汽车将 Atlas 带入世界杯比赛现场:人形机器人完成中场表演与递球",
     "date": "2026-07-06",
