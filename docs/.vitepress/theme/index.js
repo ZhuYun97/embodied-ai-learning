@@ -163,10 +163,9 @@ function setupCardSpotlight() {
 // 后续每日新增卡片只要沿用 VLA/WAM/DATA/HUMANOID/TACTILE/P0/已细读 等标签,
 // 筛选按钮和数量会自动更新;hash 支持分享 /papers/latest#vla。
 // =====================================================================
-let paperFilterBound = false
+let paperFilterObserverBound = false
 function setupPaperFilters() {
-  if (paperFilterBound || typeof window === 'undefined') return
-  paperFilterBound = true
+  if (typeof window === 'undefined') return
 
   const FILTER_LABELS = {
     all: '全部',
@@ -207,10 +206,8 @@ function setupPaperFilters() {
     if (panel.dataset.paperFilterReady) return
     const buttons = Array.from(panel.querySelectorAll('[data-paper-filter]'))
     const counter = panel.querySelector('[data-paper-filter-count]')
-    const tickets = Array.from(document.querySelectorAll('.paper-ticket'))
-    if (!buttons.length || !tickets.length) return
+    if (!buttons.length || !document.querySelector('.paper-ticket')) return
     panel.dataset.paperFilterReady = '1'
-    tickets.forEach(inferCategories)
 
     let empty = document.querySelector('[data-paper-filter-empty]')
     if (!empty) {
@@ -223,6 +220,8 @@ function setupPaperFilters() {
       lastSection?.parentNode?.insertBefore(empty, lastSection)
     }
 
+    const getTickets = () => Array.from(document.querySelectorAll('.paper-ticket'))
+
     const getFilterFromHash = () => {
       const key = decodeURIComponent(window.location.hash.replace(/^#/, '')).toLowerCase()
       return buttons.some((button) => button.dataset.paperFilter === key) ? key : 'all'
@@ -231,10 +230,13 @@ function setupPaperFilters() {
     const apply = (filter, updateHash = true) => {
       const active = filter || 'all'
       let visible = 0
+      const tickets = getTickets()
+      tickets.forEach(inferCategories)
       tickets.forEach((ticket) => {
         const cats = ticket.dataset.paperCategories || ''
         const show = active === 'all' || cats.split(/\s+/).includes(active)
         ticket.hidden = !show
+        ticket.style.display = show ? '' : 'none'
         ticket.classList.toggle('is-filtered-out', !show)
         if (show) visible += 1
       })
@@ -278,7 +280,8 @@ function setupPaperFilters() {
   }
 
   bind()
-  if ('MutationObserver' in window) {
+  if (!paperFilterObserverBound && 'MutationObserver' in window) {
+    paperFilterObserverBound = true
     let t
     new MutationObserver(() => {
       clearTimeout(t)
@@ -2092,22 +2095,46 @@ function setupDelight() {
 
 export default {
   extends: DefaultTheme,
-  Layout() {
-    return h(DefaultTheme.Layout, null, {
-      'layout-top': () => h(LoadingScreen),
-      'home-hero-before': () => [
-        h(HomeDots),
-        // 首屏背景:GridDistortion 蓝紫流体扭曲层(替代原 HeroFX 深空星场,应用户指定)
-        // (HUD 瞄准光标 TargetCursor 应用户「太卡」诉求已移除)
-        h(HeroBG),
-        h(TechHero),
-        h(HomeRail),
-      ],
-      'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle), h(ThemeToggle)],
-      'layout-bottom': () => h(FirstVisitGuide),
-      'doc-before': () => [h(DocReadBar), h(PaperDossier), h(LensBanner)],
-      'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
-    })
+  Layout: {
+    setup() {
+      const route = useRoute()
+      const setupClientEnhancements = () => {
+        nextTick(() => {
+          setupLightbox()
+          setupDelight()
+          setupFeatureHub()
+          setupReveal()
+          setupCardTilt()
+          setupBorderGlow()
+          setupElectricBorder()
+          setupRouteCounts()
+          setupHeroCollapse()
+          setupNavScroll()
+          setupCardSpotlight()
+          setupPaperFilters()
+        })
+      }
+
+      onMounted(setupClientEnhancements)
+      watch(() => route.path, setupClientEnhancements)
+
+      return () =>
+        h(DefaultTheme.Layout, null, {
+          'layout-top': () => h(LoadingScreen),
+          'home-hero-before': () => [
+            h(HomeDots),
+            // 首屏背景:GridDistortion 蓝紫流体扭曲层(替代原 HeroFX 深空星场,应用户指定)
+            // (HUD 瞄准光标 TargetCursor 应用户「太卡」诉求已移除)
+            h(HeroBG),
+            h(TechHero),
+            h(HomeRail),
+          ],
+          'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle), h(ThemeToggle)],
+          'layout-bottom': () => h(FirstVisitGuide),
+          'doc-before': () => [h(DocReadBar), h(PaperDossier), h(LensBanner)],
+          'doc-after': () => [h(RelatedReads), h(ProgressControl), h(SeriesFooter)],
+        })
+    },
   },
   // 全局注册谱系图:SRC 同步的 markdown(VLA 报告 / WAM 总览)可直接写 <LineageMap track="vla|wam"/>,
   // 无需在同步内容里维护相对 import 路径(extends 链上 DefaultTheme 的 enhanceApp 由 VitePress 自动先行调用)。
@@ -2120,19 +2147,5 @@ export default {
     app.component('BenchmarkBoard', BenchmarkBoard)
     app.component('DatasetCatalog', DatasetCatalog)
     app.component('RoadmapGraph', RoadmapGraph)
-  },
-  setup() {
-    onMounted(setupLightbox)
-    onMounted(setupDelight)
-    onMounted(setupFeatureHub)
-    onMounted(setupReveal)
-    onMounted(setupCardTilt)
-    onMounted(setupBorderGlow)
-    onMounted(setupElectricBorder)
-    onMounted(setupRouteCounts)
-    onMounted(setupHeroCollapse)
-    onMounted(setupNavScroll)
-    onMounted(setupCardSpotlight)
-    onMounted(setupPaperFilters)
   },
 }
