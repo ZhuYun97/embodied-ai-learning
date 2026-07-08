@@ -9109,3 +9109,90 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
     padding: 9px 10px;
   }
 }
+
+/* —— 每日论文页面:主推卡节奏(2026-07-08)——
+   给每个日期块第一篇论文更强的编辑焦点,避免全页均质卡片导致视觉平。 */
+@media (min-width: 1060px) {
+  .paper-queue-grid > .paper-ticket:first-child {
+    grid-column: span 2;
+    grid-template-columns: minmax(0, 0.9fr) minmax(260px, 1.1fr);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "meta meta"
+      "title abstract"
+      "links abstract";
+    min-height: 236px;
+    padding: 18px;
+    border-color: color-mix(in srgb, var(--paper-ticket-accent) 22%, var(--paper-pro-hairline));
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--paper-ticket-accent) 13%, transparent), transparent 42%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.9)),
+      var(--paper-pro-surface-raised);
+  }
+
+  .dark .paper-queue-grid > .paper-ticket:first-child {
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--paper-ticket-accent) 16%, transparent), transparent 42%),
+      linear-gradient(180deg, rgba(30, 41, 59, 0.4), rgba(9, 15, 27, 0.9)),
+      var(--paper-pro-surface-raised);
+  }
+
+  .paper-queue-grid > .paper-ticket:first-child::before {
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--paper-ticket-accent) 96%, white),
+      color-mix(in srgb, var(--paper-ticket-accent) 58%, transparent) 48%,
+      transparent 86%
+    );
+  }
+
+  .paper-queue-grid > .paper-ticket:first-child .paper-ticket__meta {
+    grid-area: meta;
+    margin-bottom: 12px;
+  }
+
+  .paper-queue-grid > .paper-ticket:first-child h3 {
+    grid-area: title;
+    align-self: start;
+    max-width: 92%;
+    min-height: 0;
+    margin: 4px 0 0;
+    font-size: 1.28rem;
+    line-height: 1.18;
+  }
+
+  .paper-queue-grid > .paper-ticket:first-child p {
+    grid-area: abstract;
+    align-self: stretch;
+    min-height: 0;
+    margin: 0;
+    padding: 14px 15px;
+    font-size: 0.86rem;
+    line-height: 1.62;
+    -webkit-line-clamp: 5;
+  }
+
+  .paper-queue-grid > .paper-ticket:first-child .paper-ticket__links {
+    grid-area: links;
+    align-self: end;
+    margin-top: 16px;
+  }
+
+  .paper-queue-grid > .paper-ticket:first-child .paper-ticket__links a {
+    min-height: 31px;
+    padding-inline: 12px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .paper-queue-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1059px) {
+  .paper-queue-grid > .paper-ticket:first-child {
+    grid-column: auto;
+  }
+}
