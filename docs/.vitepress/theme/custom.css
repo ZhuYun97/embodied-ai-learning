@@ -9372,3 +9372,40 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
     padding-left: 12px;
   }
 }
+
+/* —— 每日论文页面:文本完整显示修复(2026-07-08)——
+   卡片可以变高,但标题、摘要和本期判断不能被 line-clamp 折叠。 */
+.paper-radar-page .latest-paper-hero__text,
+.paper-radar-page .paper-day-note,
+.paper-radar-page .paper-ticket h3,
+.paper-radar-page .paper-ticket h3 a,
+.paper-radar-page .paper-ticket p {
+  display: block;
+  max-height: none;
+  overflow: visible;
+  -webkit-box-orient: initial;
+  -webkit-line-clamp: unset !important;
+}
+
+.paper-radar-page .paper-ticket {
+  grid-template-rows: auto auto auto auto;
+}
+
+.paper-radar-page .paper-ticket h3,
+.paper-radar-page .paper-ticket p {
+  min-height: 0;
+}
+
+@media (min-width: 1060px) {
+  .paper-radar-page .paper-queue-grid > .paper-ticket:first-child {
+    grid-template-rows: auto auto auto;
+  }
+
+  .paper-radar-page .paper-queue-grid > .paper-ticket:first-child h3,
+  .paper-radar-page .paper-queue-grid > .paper-ticket:first-child p {
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    -webkit-line-clamp: unset !important;
+  }
+}
