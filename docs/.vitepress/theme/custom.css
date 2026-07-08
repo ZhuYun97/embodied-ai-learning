@@ -9196,3 +9196,179 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
     grid-column: auto;
   }
 }
+
+/* —— 每日论文页面:编辑部质感层(2026-07-08)——
+   增强页面的视觉记忆点:细网格背景、主推卡光感、摘要侧栏和更有触感的来源按钮。 */
+.paper-radar-page .VPDoc {
+  background:
+    linear-gradient(180deg, rgba(37, 99, 235, 0.04), transparent 260px),
+    linear-gradient(90deg, rgba(15, 118, 110, 0.028), transparent 46%, rgba(180, 83, 9, 0.026)),
+    repeating-linear-gradient(90deg, rgba(148, 163, 184, 0.075) 0 1px, transparent 1px 72px),
+    repeating-linear-gradient(180deg, rgba(148, 163, 184, 0.052) 0 1px, transparent 1px 72px),
+    var(--paper-pro-canvas);
+}
+
+.dark .paper-radar-page .VPDoc {
+  background:
+    linear-gradient(180deg, rgba(96, 165, 250, 0.09), transparent 280px),
+    linear-gradient(90deg, rgba(45, 212, 191, 0.04), transparent 46%, rgba(251, 191, 36, 0.032)),
+    repeating-linear-gradient(90deg, rgba(148, 163, 184, 0.055) 0 1px, transparent 1px 76px),
+    repeating-linear-gradient(180deg, rgba(148, 163, 184, 0.04) 0 1px, transparent 1px 76px),
+    var(--paper-pro-canvas);
+}
+
+.latest-paper-hero {
+  border-color: color-mix(in srgb, var(--paper-pro-blue) 18%, var(--paper-pro-hairline));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--paper-pro-blue) 8%, transparent), transparent 38%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.88)),
+    var(--paper-pro-surface);
+}
+
+.dark .latest-paper-hero {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--paper-pro-blue) 13%, transparent), transparent 38%),
+    linear-gradient(180deg, rgba(30, 41, 59, 0.52), rgba(7, 16, 29, 0.86)),
+    var(--paper-pro-surface);
+}
+
+.latest-paper-hero__title,
+.dark .latest-paper-hero__title {
+  font-weight: 800;
+}
+
+.latest-paper-stats span {
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.latest-paper-stats span:hover {
+  background: color-mix(in srgb, var(--paper-pro-blue) 7%, transparent);
+  color: var(--paper-pro-ink);
+}
+
+.paper-track {
+  position: relative;
+  overflow: hidden;
+}
+
+.paper-track::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.paper-filter-panel {
+  border-color: color-mix(in srgb, var(--paper-pro-blue) 12%, var(--paper-pro-hairline));
+}
+
+.paper-filter-chip.is-active {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55) inset,
+    0 8px 18px color-mix(in srgb, var(--paper-pro-blue) 12%, transparent);
+}
+
+.dark .paper-filter-chip.is-active {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 10px 22px color-mix(in srgb, var(--paper-pro-blue) 14%, transparent);
+}
+
+.paper-day-note {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper-pro-blue) 8%, transparent), transparent 38%),
+    color-mix(in srgb, var(--paper-pro-surface-raised) 92%, transparent);
+}
+
+.paper-ticket {
+  border-color: color-mix(in srgb, var(--paper-ticket-accent) 16%, var(--paper-pro-hairline));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.62) inset,
+    var(--paper-pro-card-shadow);
+}
+
+.dark .paper-ticket {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    var(--paper-pro-card-shadow);
+}
+
+.paper-ticket__meta > span:not(.paper-status),
+.paper-ticket .paper-status {
+  text-transform: uppercase;
+}
+
+.paper-ticket h3 {
+  letter-spacing: 0;
+}
+
+.paper-ticket p {
+  position: relative;
+  padding-left: 14px;
+  border-color: transparent;
+  border-left: 2px solid color-mix(in srgb, var(--paper-ticket-accent) 42%, var(--paper-pro-hairline));
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper-ticket-accent) 7%, transparent), transparent 55%);
+}
+
+.dark .paper-ticket p {
+  border-color: transparent;
+  border-left-color: color-mix(in srgb, var(--paper-ticket-accent) 48%, var(--paper-pro-hairline));
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper-ticket-accent) 10%, transparent), transparent 58%);
+}
+
+.paper-ticket__links a {
+  position: relative;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.paper-ticket__links a::after {
+  content: '↗';
+  margin-left: 3px;
+  color: currentColor;
+  font-size: 0.72rem;
+  opacity: 0.72;
+}
+
+.paper-ticket__links a:hover {
+  transform: translateY(-1px);
+}
+
+@media (min-width: 1060px) {
+  .paper-queue-grid > .paper-ticket:first-child {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.68) inset,
+      0 18px 42px rgba(15, 23, 42, 0.1);
+  }
+
+  .dark .paper-queue-grid > .paper-ticket:first-child {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 22px 50px rgba(0, 0, 0, 0.34);
+  }
+
+  .paper-queue-grid > .paper-ticket:first-child h3 a {
+    -webkit-line-clamp: 3;
+  }
+
+  .paper-queue-grid > .paper-ticket:first-child p {
+    border-left-width: 3px;
+  }
+}
+
+@media (max-width: 560px) {
+  .paper-radar-page .VPDoc,
+  .dark .paper-radar-page .VPDoc {
+    background-size: auto;
+  }
+
+  .paper-ticket p {
+    padding-left: 12px;
+  }
+}
