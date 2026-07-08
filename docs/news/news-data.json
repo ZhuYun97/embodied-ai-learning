@@ -1,5 +1,93 @@
 [
   {
+    "id": "robbyant-lingbot-vla-2-0-open-source-universal-brain-20260708",
+    "title": "Robbyant 开源 LingBot-VLA 2.0:升级通用机器人“大脑”",
+    "date": "2026-07-08",
+    "fetched_at": "2026-07-08",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "模型发布",
+      "平台/开源发布",
+      "通用机器人基础模型"
+    ],
+    "summary": "**蚂蚁集团旗下 Robbyant**宣布升级并开源 **LingBot-VLA 2.0**。官方称该视觉-语言-动作模型在 1.0 基础上强化跨形态泛化、自由度支持和部署效率,面向真实机器人规模化落地提供更通用的控制“大脑”。这条属于模型/开源发布事件,不是单纯论文条目:发布主体是公司官方新闻稿,并明确指向开源与机器人部署能力,可补充本站对 VLA 与通用机器人基础模型生态的跟踪。",
+    "sources": [
+      {
+        "name": "Robbyant / Business Wire",
+        "url": "https://www.businesswire.com/news/home/20260707394646/en/Robbyant-Upgrades-and-Open-Sources-LingBot-VLA-2.0-as-a-Next-Generation-Universal-Brain-for-Embodied-AI"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "peridio-avocado-os-1-0-production-operating-system-physical-ai-20260708",
+    "title": "Peridio 发布 Avocado OS 1.0:面向 Physical AI 的生产级操作系统",
+    "date": "2026-07-08",
+    "fetched_at": "2026-07-08",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "平台/开源发布",
+      "产业落地"
+    ],
+    "summary": "**Peridio**宣布 **Avocado OS 1.0** 正式可用,将其定位为面向 **Physical AI** 的生产级操作系统。该平台用声明式配置把原型硬件推进到可签名、不可变、可 OTA 更新的嵌入式 Linux 镜像,覆盖 20 多类芯片目标,服务机器人、医疗设备、自治系统等硬件团队。它的意义在于补齐 physical AI 从 demo 到 fleet 的工程基础设施,把安全启动、镜像构建、漏洞管理和远程更新等部署环节产品化。",
+    "sources": [
+      {
+        "name": "Peridio / Business Wire",
+        "url": "https://www.businesswire.com/news/home/20260708598346/en/Peridio-Launches-Avocado-OS-1.0-the-Production-Operating-System-for-Physical-AI"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "venti-autonomous-container-trucks-north-american-railroad-production-20260708",
+    "title": "Venti 获北美铁路长期合同:无人集装箱车进入生产运营",
+    "date": "2026-07-08",
+    "fetched_at": "2026-07-08",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "合作协议",
+      "产业落地",
+      "行业动态"
+    ],
+    "summary": "**Venti Technologies**宣布与一家北美一级铁路公司达成长期商业合作,将在多个多式联运场站部署 AI 驱动的自动驾驶集装箱搬运车辆。官方称这将是美国大型铁路联运设施中首次全生产状态的无人集装箱卡车应用,初期落地两个繁忙场站,到 2027 年计划在 8 个场站部署 100 多台车辆,十年末扩展到 600 多台。该事件体现具身/物理 AI 在重物流封闭场景从试点转向规模化运营。",
+    "sources": [
+      {
+        "name": "Venti Technologies / Business Wire",
+        "url": "https://www.businesswire.com/news/home/20260708566735/en/Venti-Enters-Long-Term-Commercial-Agreement-to-Introduce-AI-Powered-Autonomous-Vehicles-at-Major-North-American-Railroads-Intermodal-Terminals"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "keenon-general-purpose-specialized-robot-ecosystem-leap-east-20260708",
+    "title": "KEENON 在 LEAP East 展示通用+专用机器人生态:强化商用服务落地",
+    "date": "2026-07-08",
+    "fetched_at": "2026-07-08",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "活动竞赛",
+      "产品发布",
+      "人形机器人"
+    ],
+    "summary": "**KEENON Robotics**在 **LEAP East 2026** 展示人形机器人与专用服务机器人组合,延续其“General-Purpose + Specialized”商用机器人生态路线。公开信息显示,展示覆盖人形交互平台与清洁、配送等专用机器人,强调多机器人协作和商业场景部署。该条不是论文或 benchmark,而是服务机器人公司在区域科技展上的产品生态展示,用于记录商用具身机器人从单品到组合方案的产业化推进。",
+    "sources": [
+      {
+        "name": "KEENON Robotics / PR Newswire",
+        "url": "https://www.prnewswire.com/apac/news-releases/keenon-showcased-its-general-purpose--specialized-robot-ecosystem-at-leap-east-2026-302821410.html"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "x-square-quanxta-zero-umi-data-production-20260707",
     "title": "自变量发布 QUANXTA Zero 系列:用 UMI 硬件重构具身数据生产链路",
     "date": "2026-07-07",
