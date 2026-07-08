@@ -11,14 +11,14 @@ pageClass: paper-radar-page
 
 <div class="latest-paper-hero">
   <div>
-    <span class="latest-paper-hero__eyebrow">PAPER RADAR · 2026-07-07</span>
-    <p class="latest-paper-hero__title">7 月 7 日 · VLA / WAM / DATA-EVAL / HUMANOID-TACTILE</p>
-    <p class="latest-paper-hero__text">今日从 arXiv robotics announced-date 检索中筛出 22 篇强相关候选;VLA 主线集中在自由相机、组合泛化、语言条件优化、action chunk 平滑与推理忠实性,WAM/数据侧出现 Deform360、DSWAM、KAM-WM、Mask2Real-WM、RoboDojo 等值得优先细读的新工作,触觉、人形全身控制和线缆/灵巧手 sim2real 继续补齐接触密集操作。</p>
+    <span class="latest-paper-hero__eyebrow">PAPER RADAR · 2026-07-08</span>
+    <p class="latest-paper-hero__title">7 月 8 日 · VLA / WAM / DATA-EVAL / HUMANOID-TACTILE</p>
+    <p class="latest-paper-hero__text">今日从 arXiv robotics announced-date 与相关公开论文页中筛出 18 篇强相关候选;VLA 主线集中在 3D 几何、实践级数据规模、结构化数据选择、推理加速和长程 skill handoff,WAM 侧出现 RynnWorld-4D、RynnWorld-Teleop、MECo-WAM、RoboTALES 等把视频/4D 想象推向可控操作的新工作,数据评测与人形触觉侧则补上 Image2Sim、ThorArena、WristMimic、LAMP 等接触密集任务信号。</p>
   </div>
   <div class="latest-paper-stats" aria-label="论文队列统计">
-    <span><b>22</b>今日新增</span>
+    <span><b>18</b>今日新增</span>
     <span><b>0</b>已细读</span>
-    <span><b>10</b>VLA</span>
+    <span><b>6</b>VLA</span>
     <span><b>5</b>WAM</span>
     <span><b>4</b>DATA/EVAL</span>
     <span><b>3</b>HUMANOID/TACTILE</span>
@@ -47,6 +47,123 @@ pageClass: paper-radar-page
     <button type="button" class="paper-filter-chip" data-paper-filter="tactile">TACTILE</button>
     <button type="button" class="paper-filter-chip" data-paper-filter="p0">P0 优先</button>
     <button type="button" class="paper-filter-chip" data-paper-filter="done">已细读</button>
+  </div>
+</div>
+
+<div class="paper-day-heading">2026-07-08</div>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读四条线:第一是 VLA 从二维视觉动作模型继续补 3D 几何、部署数据和推理效率,Lift3D-VLA、LingBot-VLA 2.0、SIEVE、ActionCache 都值得优先跟;第二是 WAM/4D 世界模型明显升温,RynnWorld-4D、RynnWorld-Teleop、MECo-WAM、RoboTALES 分别覆盖 RGB-D-flow 预测、数字遥操作、机械直觉和任务对齐想象;第三是数据和评测侧开始更重视可生成数据、抓取 SE(3) 质量、人形交互力和 embodied occupancy;第四是人形与灵巧手继续向接触密集操作推进,WristMimic、LAMP、DexTele 都有真实或物理仿真约束。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>3D GEOMETRY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06564" target="_blank" rel="noreferrer">Lift3D-VLA</a></h3>
+      <p>把 VLA 显式抬升到点云几何和时序动作空间,通过 2D 模型 lifting 与 temporal action token 建模补现有 3D 编码的信息损失和动态操作不足。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06564" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>4D WORLD MODEL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06559" target="_blank" rel="noreferrer">RynnWorld-4D</a></h3>
+      <p>从单张 RGB-D 图像和语言指令联合生成未来 RGB、depth 与 optical flow,用 RGB-DF 表征把世界预测向低层末端动作需要的 4D 动态靠拢。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06559" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>DIGITAL TELEOP</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06558" target="_blank" rel="noreferrer">RynnWorld-Teleop</a></h3>
+      <p>提出 digital teleoperation,让操作者手部 pose 驱动机器人中心的生成式世界模型合成第一视角视频,再把 pose stream 作为可重定向动作标签扩展模仿学习数据。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06558" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>DATA SELECTION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06442" target="_blank" rel="noreferrer">SIEVE</a></h3>
+      <p>把示教轨迹拆成可复用 primitive 与 transition interface,按结构覆盖度选择 medoid 轨迹,针对 VLA imitation learning 中的冗余、噪声和长程组成覆盖不足。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06442" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>WHOLE-BODY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06438" target="_blank" rel="noreferrer">WristMimic</a></h3>
+      <p>用 wrist 作为全身运动和接触丰富手部操作之间的分界,身体与手腕跟踪人体运动,手指则通过物体轨迹和接触结果学习抓取与操作。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06438" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>PRACTICAL SCALE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06403" target="_blank" rel="noreferrer">LingBot-VLA 2.0</a></h3>
+      <p>把 LingBot-VLA 扩展到约 60,000 小时预训练数据、20 种机器人配置、双臂/头腰底盘/灵巧手动作空间与预测式动态建模,更偏真实部署工程化。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06403" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>INFERENCE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06370" target="_blank" rel="noreferrer">ActionCache</a></h3>
+      <p>给 flow-matching VLA 加外部动作缓存,用相似上下文检索历史中间动作 warm-start 去噪过程,目标是在不训练的情况下减少实时部署延迟。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06370" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DEXTEROUS</span><span>REAL-WORLD RL</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06323" target="_blank" rel="noreferrer">LAMP</a></h3>
+      <p>为灵巧手学习 history-conditioned latent motion prior,让在线 residual RL 在低维手部 latent action 空间探索,降低真实硬件上接触断裂和高维动作误差。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06323" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>SKILL COMPOSITION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06256" target="_blank" rel="noreferrer">Semantic Handoff Failures</a></h3>
+      <p>在 BEHAVIOR-1K 中诊断长程 household task 的 skill handoff 问题:单个 VLA skill 达成 postcondition 后,终态可能仍不适合作为下一个 skill 起点。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06256" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DATA</span><span>SYNTHETIC NAV</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06165" target="_blank" rel="noreferrer">Image2Sim</a></h3>
+      <p>把单张全景图自动转换成可交互 3D 场景并生成 embodied navigation 训练数据,用 VLM、深度、GSplat 和 asset retrieval 串起低成本仿真数据引擎。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06165" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>FORCE EVAL</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06052" target="_blank" rel="noreferrer">ThorArena</a></h3>
+      <p>面向人形物理交互评测,采集带双手交互力的真人全身动作示范,用于衡量 motion-force 条件下的 tracking、稳定性和控制鲁棒性。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06052" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>SIM FUTURES</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.06018" target="_blank" rel="noreferrer">RoboTALES</a></h3>
+      <p>用层级 LLM planner 和 VLM critic 约束视频生成模型的 imagined futures,让世界模型想象更贴合任务子目标,再从内部表征训练机器人策略。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.06018" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>DIAGNOSIS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.05966" target="_blank" rel="noreferrer">Imagined Rollouts are Kinematic, Not Dynamic</a></h3>
+      <p>提出 imagined Kinematic-Consistency Error 诊断长程 world model failure,指出模型常在运动学外观上想象,但没有随物理参数跨 regime 变化出动态响应。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.05966" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DEXTEROUS</span><span>TELEOP</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.05883" target="_blank" rel="noreferrer">DexTele</a></h3>
+      <p>双臂灵巧遥操作系统,结合视觉 motion retargeting、motion-graph encoder、latent optimization 与 VLM+MPC 自适应抓取,处理跨平台和合规接触。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.05883" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DATASET</span><span>GRASP SE(3)</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.05869" target="_blank" rel="noreferrer">GraspIT</a></h3>
+      <p>连接仿真和真实抓取 SE(3) 姿态生成的数据集,用 Isaac Sim slip-test 给候选抓取打连续质量分,并把标签回投到真实 RGB-D 场景。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.05869" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EMBODIED AI</span><span>3D SCENE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.05780" target="_blank" rel="noreferrer">GEM-Occ</a></h3>
+      <p>为 embodied AI 引入 generative 3D occupancy prediction,从 ego-centric observation 推断语义占据,补齐导航和操作任务中对不可见空间结构的场景理解。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.05780" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>VISUAL PROMPT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.05765" target="_blank" rel="noreferrer">FORGE</a></h3>
+      <p>通过 VLM 从视觉提示中推断 object states、目标状态和 functional keypoints,把工具使用与 manipulation generalization 组织成更可解释的 prompt-conditioned 流程。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.05765" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>PHYSICAL INTUITION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.05468" target="_blank" rel="noreferrer">MECo-WAM</a></h3>
+      <p>从机械直觉角度改造 world-action model,把 mass、elasticity、collision 等物理属性作为可解释信号,尝试提升长期操作预测与动作生成的一致性。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.05468" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
