@@ -735,9 +735,9 @@ const DocReadBar = {
 }
 
 // Hero 规模读出条(home-hero-actions-after):本站规模一览。
-// 数字与 feature 卡口径完全一致(71 篇=VLA43+WAM28 · 50+ 基准 · 57 公司 · 2 主线),不引入任何新主张。
+// 数字与首页路线卡口径完全一致(88 篇=VLA55+WAM33 · 50+ 基准 · 57 公司 · 2 主线)。
 const HERO_STATS = [
-  { n: '71', unit: '篇', label: '论文细读' },
+  { n: '88', unit: '篇', label: '论文细读' },
   { n: '50+', unit: '', label: '评测基准' },
   { n: '57', unit: '家', label: '生态公司' },
   { n: '2', unit: '条', label: '研究主线' },
@@ -1148,7 +1148,7 @@ const HomeRail = {
       const hero = document.querySelector('.VPHome .thero')
       if (hero) list.push({ label: 'HERO', el: hero })
       document.querySelectorAll('.VPHome .vp-doc h2').forEach((h2) => {
-        const label = ((h2.textContent || '').split(/[::]/)[0] || 'SEC').trim().toUpperCase().slice(0, 6)
+        const label = ((h2.textContent || '').split(/[:：]/)[0] || 'SEC').trim().toUpperCase().slice(0, 6)
         list.push({ label, el: h2 })
       })
       const coda = document.querySelector('.VPHome .home-coda')
@@ -2049,6 +2049,61 @@ function setupRouteCounts() {
   }
 }
 
+// =====================================================================
+// 首页路线卡渐进披露：保留全部论文入口，但长列表默认只展示前 6 篇，
+// 避免首页出现嵌套滚动条与“链接墙”。按钮原生可键盘操作，并同步 aria-expanded。
+// =====================================================================
+let routeDisclosureBound = false
+function setupRouteDisclosure() {
+  if (routeDisclosureBound || typeof document === 'undefined') return
+  routeDisclosureBound = true
+  const visibleCount = 6
+
+  const inject = () => {
+    document.querySelectorAll('.VPHome .route-card').forEach((card, cardIndex) => {
+      const box = card.querySelector('.route-links')
+      if (!box || card.querySelector('.route-more')) return
+      const links = Array.from(box.querySelectorAll(':scope > a'))
+      const total = links.length
+      if (total <= visibleCount) return
+
+      const id = `home-route-links-${cardIndex + 1}`
+      box.id = box.id || id
+      box.classList.add('route-links--collapsible', 'is-collapsed')
+
+      const button = document.createElement('button')
+      button.className = 'route-more'
+      button.type = 'button'
+      button.setAttribute('aria-controls', box.id)
+      button.setAttribute('aria-expanded', 'false')
+
+      const update = (expanded) => {
+        box.classList.toggle('is-collapsed', !expanded)
+        links.forEach((link, index) => {
+          if (index >= visibleCount) link.hidden = !expanded
+        })
+        button.setAttribute('aria-expanded', String(expanded))
+        button.textContent = expanded ? '收起论文列表 ↑' : `展开其余 ${total - visibleCount} 篇 ↓`
+      }
+
+      button.addEventListener('click', () => {
+        update(button.getAttribute('aria-expanded') !== 'true')
+      })
+      update(false)
+      card.appendChild(button)
+    })
+  }
+
+  inject()
+  if ('MutationObserver' in window) {
+    let t
+    new MutationObserver(() => {
+      clearTimeout(t)
+      t = setTimeout(inject, 200)
+    }).observe(document.body, { childList: true, subtree: true })
+  }
+}
+
 let delightBound = false
 function celebrateRobot() {
   delightToast('🤖 你发现了彩蛋 — ⊕ keep researching')
@@ -2108,6 +2163,7 @@ export default {
           setupBorderGlow()
           setupElectricBorder()
           setupRouteCounts()
+          setupRouteDisclosure()
           setupHeroCollapse()
           setupNavScroll()
           setupCardSpotlight()

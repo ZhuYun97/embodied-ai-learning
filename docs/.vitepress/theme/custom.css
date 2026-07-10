@@ -7256,3 +7256,289 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
     transform: none;
   }
 }
+
+/* ============================================================
+   首页内容层级精修（2026-07）
+   目标：首屏之后先解释两条研究主线，再渐进披露论文入口；
+   保留现有星图 / HUD 视觉语言，同时消除窄卡、链接墙和嵌套滚动。
+   ============================================================ */
+
+/* 研究主线导览：正文、研究维度和专题入口组成一张可扫读的任务卡。 */
+.home-track-intro {
+  --track-accent: var(--ar-cyan);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+  gap: 16px 28px;
+  margin: 18px 0 24px;
+  padding: 24px 26px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--track-accent) 28%, var(--vp-c-divider));
+  border-radius: 16px;
+  background:
+    linear-gradient(115deg, color-mix(in srgb, var(--track-accent) 8%, transparent), transparent 46%),
+    var(--tech-card-bg, var(--vp-c-bg-soft));
+  backdrop-filter: blur(12px) saturate(1.12);
+  -webkit-backdrop-filter: blur(12px) saturate(1.12);
+}
+.home-track-intro--wam { --track-accent: var(--ar-violet); }
+.home-track-intro::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--track-accent), color-mix(in srgb, var(--track-accent) 12%, transparent));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--track-accent) 45%, transparent);
+}
+.home-track-intro__copy { min-width: 0; }
+.home-track-intro__eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--track-accent);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.11em;
+}
+.VPHome .vp-doc .home-track-intro p {
+  max-width: 70ch;
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-base);
+  font-size: 0.94rem;
+  line-height: 1.78;
+}
+.home-track-intro__meta {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+}
+.home-track-intro__meta span {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--track-accent) 18%, var(--vp-c-divider));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--track-accent) 5%, transparent);
+  color: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.74rem;
+}
+.home-track-intro__meta b { color: var(--vp-c-text-1); font-weight: 700; }
+.home-track-intro__cta {
+  width: fit-content;
+  color: var(--vp-c-text-1) !important;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.78rem;
+  font-weight: 650;
+  text-decoration: none !important;
+}
+.home-track-intro__cta span {
+  display: inline-block;
+  margin-left: 4px;
+  color: var(--track-accent);
+  transition: transform var(--ar-dur-fast) var(--ar-ease-out);
+}
+.home-track-intro__cta:hover span { transform: translate(2px, -2px); }
+
+/* 路线卡改为宽版研究面板：VLA 2 列 + 收束全宽，WAM 3×2。 */
+.VPHome .route-grid,
+.VPHome .route-grid--wam {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 18px;
+  margin: 24px 0 14px;
+}
+.VPHome .route-grid .route-card {
+  grid-column: span 6;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  min-height: 236px;
+  padding: 24px;
+}
+.VPHome .route-grid:not(.route-grid--wam) .route-card:last-child { grid-column: 1 / -1; }
+.VPHome .route-grid--wam .route-card { grid-column: span 4; }
+.VPHome .route-card__title {
+  margin: 13px 0 7px;
+  padding: 0;
+  border: 0;
+  color: var(--vp-c-text-1);
+  font-size: 1.08rem;
+  line-height: 1.42;
+}
+.VPHome .route-card > .route-tag { align-self: flex-start; }
+.VPHome .route-card p {
+  margin-bottom: 18px;
+  color: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-base);
+  font-size: 0.86rem;
+  line-height: 1.72;
+}
+.VPHome .route-links {
+  max-height: none;
+  margin-top: auto;
+  padding-right: 0;
+  overflow: visible;
+}
+.VPHome .route-links.is-collapsed > a:nth-of-type(n + 7) { display: none; }
+.VPHome .route-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 32px;
+  margin-top: 14px;
+  padding: 6px 11px;
+  border: 1px dashed color-mix(in srgb, var(--vp-c-brand-1) 36%, var(--vp-c-divider));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 5%, transparent);
+  color: var(--vp-c-brand-1);
+  cursor: pointer;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  transition: border-color var(--ar-dur-fast) ease, background-color var(--ar-dur-fast) ease, transform var(--ar-dur-fast) ease;
+}
+.VPHome .route-more:hover {
+  border-color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  transform: translateY(-1px);
+}
+.VPHome .route-more:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 3px;
+}
+
+/* 每条研究线的收束入口：在论文密集区之后给出明确下一步。 */
+.home-track-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 16px 0 22px;
+  padding: 15px 18px;
+  border: 1px dashed color-mix(in srgb, var(--vp-c-brand-1) 24%, var(--vp-c-divider));
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 4%, transparent);
+}
+.VPHome .vp-doc .home-track-footer p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-base);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+.home-track-footer strong { color: var(--vp-c-text-1); }
+.home-track-footer a {
+  flex: 0 0 auto;
+  color: var(--vp-c-brand-1) !important;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.78rem;
+  font-weight: 650;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+/* 关于本站：把方法论长段拆成三枚可扫描的证据卡。 */
+.home-coda__title { font-size: 1.28rem; line-height: 1.45; }
+.home-coda__proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 18px;
+}
+.home-coda__proof > div {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 9px;
+  padding: 11px 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--vp-c-bg-soft) 76%, transparent);
+}
+.home-coda__proof b {
+  color: var(--vp-c-brand-1);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+.home-coda__proof span {
+  color: var(--vp-c-text-2);
+  font-size: 0.75rem;
+  line-height: 1.55;
+}
+.home-coda__proof strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--vp-c-text-1);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 1020px) {
+  .VPHome .route-grid--wam .route-card { grid-column: span 6; }
+  .home-coda__proof { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .home-track-intro {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 20px;
+  }
+  .home-track-intro__meta {
+    grid-column: 1;
+    grid-row: auto;
+    grid-template-columns: 1fr;
+  }
+  .VPHome .route-grid .route-card,
+  .VPHome .route-grid--wam .route-card,
+  .VPHome .route-grid:not(.route-grid--wam) .route-card:last-child {
+    grid-column: 1 / -1;
+    min-height: 0;
+    padding: 20px;
+  }
+  .home-track-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
+}
+
+@media (max-width: 640px) {
+  /* 移动端先呈现价值主张和 CTA，再呈现装饰性机器人。 */
+  .thero__visual { order: 1; }
+  .thero__unit { max-width: 230px; }
+  .thero__bar { max-width: 100%; overflow: hidden; }
+  .thero__bar-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .thero__bar-clock { display: none; }
+  .thero__cta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .thero__btn { display: inline-flex; align-items: center; justify-content: center; padding-inline: 14px; text-align: center; }
+  .thero__btn:first-child { grid-column: 1 / -1; }
+  .home-coda__proof { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 420px) {
+  .thero__cta { grid-template-columns: 1fr; }
+  .thero__btn:first-child { grid-column: auto; }
+}
+
+@supports (height: 100svh) {
+  .hero-bg-layer { height: 100svh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-track-intro__cta span,
+  .VPHome .route-more { transition: none; }
+  .VPHome .route-more:hover { transform: none; }
+}

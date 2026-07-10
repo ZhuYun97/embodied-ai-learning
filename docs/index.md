@@ -4,60 +4,71 @@ layout: home
 hero:
   name: "具身星图"
   text: "Embodied AI Atlas"
-  tagline: 在 VLA × WAM 的论文谱系、知识图谱、新闻与产业生态之间导航
+  tagline: 从经典 VLA 到前沿 WAM，把论文谱系、硬数据与产业生态连成一张可检索的研究地图
   actions:
     - theme: brand
-      text: VLA 调研总览 →
+      text: 从 VLA 开始 →
       link: /vla/
-    - theme: brand
-      text: WAM 调研总览 →
+    - theme: alt
+      text: 探索 WAM 前沿
       link: /wam/
     - theme: alt
-      text: 每日最新论文
+      text: 查看今日论文
       link: /papers/latest
 
 features:
   - icon: { src: /icons/route.svg, width: 28, height: 28 }
-    title: 两条主线 · VLA × WAM
-    details: VLA(RT-1 → π0.7)× WAM(未来状态 + 动作),双轨并进。
+    title: 双主线研究地图
+    details: 从 VLA 的动作生成，到 WAM 的世界预测，沿两条主线理解技术演进。
     link: /vla/
-    linkText: 看调研总览
+    linkText: 打开研究总览
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
-    title: 逐篇论文细读
-    details: VLA 55 + WAM 33 篇,逐模块拆架构 / 数据 / 实验。
+    title: 88 篇论文细读
+    details: 按架构、数据、训练与实验拆解关键论文，不止停留在摘要层面。
     link: /vla/#-论文细读导航
-    linkText: 进入细读导航
+    linkText: 进入论文导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
-    title: 对抗式事实核查
-    details: 多源检索 + 3 票核查;⚠️ 自评 / ✅ 已核 / 待核 三级标注。
+    title: 可追溯事实核查
+    details: 多源检索与 3 票复核，明确区分作者自评、交叉验证与待核信息。
     link: /vla/guide
-    linkText: 看可信度体例
+    linkText: 查看核查体例
   - icon: { src: /icons/newspaper.svg, width: 28, height: 28 }
-    title: 最新论文与新闻
-    details: 每日论文队列 + 公司 / 融资 / 数据集动态,每条标一手来源。
+    title: 每日前沿雷达
+    details: 汇总最新论文、公司、融资与数据集动态，每条信息尽量回到一手来源。
     link: /papers/latest
-    linkText: 看论文队列
+    linkText: 查看今日更新
   - icon: { src: /icons/chart.svg, width: 28, height: 28 }
-    title: 基准硬数据 + 速查
-    details: 50+ 评测基准成绩表,附「读表铁律」与术语速查。
+    title: 50+ 基准硬数据
+    details: 统一整理评测成绩、适用边界与术语口径，帮助你更可靠地读表。
     link: /vla/papers/benchmarks
-    linkText: 看数据与速查
+    linkText: 打开基准速查
   - icon: { src: /icons/globe.svg, width: 28, height: 28 }
-    title: 知识图谱
-    details: 同页切换论文策展图谱与 Graphify 离线全站图谱,旁路公司图谱与就业地图。
+    title: 可交互知识图谱
+    details: 在论文关系、全站知识、公司生态与就业地图之间切换观察尺度。
     link: /ecosystem/paper-graph
-    linkText: 看知识图谱
+    linkText: 进入知识图谱
 ---
 
-## VLA:按技术路线浏览
+## VLA：按动作生成路线浏览
 
-VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文细读;按时间轴的谱系图已嵌入 [VLA 调研总览](vla/) 与 [WAM 调研总览](wam/):
+<div class="home-track-intro home-track-intro--vla">
+  <div class="home-track-intro__copy">
+    <span class="home-track-intro__eyebrow">RESEARCH TRACK 01 · VISION → LANGUAGE → ACTION</span>
+    <p>VLA 的核心问题是：模型如何把视觉观察与语言指令，转化为可执行、可泛化的机器人动作。下面按“动作如何生成”拆成五条路线。</p>
+  </div>
+  <div class="home-track-intro__meta" aria-label="VLA 研究维度">
+    <span><b>输入</b> 视觉 + 语言</span>
+    <span><b>输出</b> 动作序列</span>
+    <span><b>关注</b> 泛化 + 控制</span>
+  </div>
+  <a class="home-track-intro__cta" href="vla/">打开 VLA 完整总览 <span aria-hidden="true">↗</span></a>
+</div>
 
-<div class="route-grid">
+<div class="route-grid" aria-label="VLA 技术路线">
   <div class="route-card">
     <span class="route-tag">离散 token</span>
-    <div class="route-card__title">动作即文本 token</div>
-    <p>动作离散为词表 token,自回归生成。</p>
+    <h3 class="route-card__title">动作即文本 token</h3>
+    <p>把动作编码进离散词表，沿语言模型接口自回归预测。</p>
     <div class="route-links">
       <a href="vla/papers/rt1">RT-1</a>
       <a href="vla/papers/rt2">RT-2</a>
@@ -68,8 +79,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">连续 · 扩散/流匹配</span>
-    <div class="route-card__title">连续动作生成</div>
-    <p>扩散 / 流匹配生成连续动作块,高频灵巧。</p>
+    <h3 class="route-card__title">连续动作生成</h3>
+    <p>用扩散或流匹配直接生成动作块，面向高频、灵巧控制。</p>
     <div class="route-links">
       <a href="vla/papers/diffusion-policy">Diffusion Policy</a>
       <a href="vla/papers/octo">Octo</a>
@@ -89,8 +100,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">混合 · 连续回归</span>
-    <div class="route-card__title">两条路融合</div>
-    <p>离散高层 + 连续底层,兼顾语义与精度。</p>
+    <h3 class="route-card__title">语义规划与精细控制融合</h3>
+    <p>离散高层规划配合连续低层控制，在语义泛化与动作精度间取平衡。</p>
     <div class="route-links">
       <a href="vla/papers/openvla-oft">OpenVLA-OFT</a>
       <a href="vla/papers/pi05">π0.5</a>
@@ -102,8 +113,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">分层 · 双系统/推理</span>
-    <div class="route-card__title">快慢分层,推理可控</div>
-    <p>System-2 规划 + System-1 执行;具身推理链与可操控。</p>
+    <h3 class="route-card__title">快慢分层，推理可控</h3>
+    <p>System 2 负责规划与推理，System 1 承担快速执行与闭环控制。</p>
     <div class="route-links">
       <a href="vla/papers/ecot">ECoT</a>
       <a href="vla/papers/helix">Helix</a>
@@ -120,8 +131,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">新范式探索</span>
-    <div class="route-card__title">统一基座 / 第三条路 / 从经验学习</div>
-    <p>统一基座 / 视频预训练 / 真机 RL / 记忆增强。</p>
+    <h3 class="route-card__title">统一基座与经验学习</h3>
+    <p>沿视频预训练、真机强化学习、长期记忆与可反思策略探索下一代范式。</p>
     <div class="route-links">
       <a href="vla/papers/robovlms">RoboVLMs</a>
       <a href="vla/papers/simplevla-rl">SimpleVLA-RL</a>
@@ -146,15 +157,31 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
 </div>
 
-## WAM:按范式浏览
+<div class="home-track-footer">
+  <p><strong>想先建立全局坐标？</strong> 时间轴、模型谱系与完整论文导航都已整理在专题总览中。</p>
+  <a href="vla/">进入 VLA 调研总览 <span aria-hidden="true">→</span></a>
+</div>
 
-世界-行动模型(WAM)按综述 taxonomy 分「级联」与「联合」两支,联合再分自回归 / 扩散;此外另有跨范式的**基座 / 平台 / 仿真器**(作通用底座与数据·评测引擎,而非单一动作范式)。点击进入对应细读(范式总览见 [WAM 调研总览](wam/)):
+## WAM：按世界—动作建模范式浏览
 
-<div class="route-grid route-grid--wam">
+<div class="home-track-intro home-track-intro--wam">
+  <div class="home-track-intro__copy">
+    <span class="home-track-intro__eyebrow">RESEARCH TRACK 02 · WORLD ↔ ACTION MODELING</span>
+    <p>WAM 不只回答“下一步做什么”，还显式或隐式预测“做了之后世界会怎样”。下面按级联、联合与跨范式底座组织。</p>
+  </div>
+  <div class="home-track-intro__meta" aria-label="WAM 研究维度">
+    <span><b>条件</b> 状态 + 指令</span>
+    <span><b>预测</b> 未来 + 动作</span>
+    <span><b>关注</b> 闭环 + 长时程</span>
+  </div>
+  <a class="home-track-intro__cta" href="wam/">打开 WAM 完整总览 <span aria-hidden="true">↗</span></a>
+</div>
+
+<div class="route-grid route-grid--wam" aria-label="WAM 建模范式">
   <div class="route-card">
     <span class="route-tag">级联 · 显式</span>
-    <div class="route-card__title">先生成像素未来,再抽动作</div>
-    <p>显式合成未来像素,再抽取动作。</p>
+    <h3 class="route-card__title">先生成像素未来，再抽动作</h3>
+    <p>显式合成未来视觉结果，再从预测帧中恢复可执行动作。</p>
     <div class="route-links">
       <a href="wam/papers/unipi">UniPi</a>
       <a href="wam/papers/gen2act">Gen2Act</a>
@@ -163,8 +190,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">级联 · 隐式</span>
-    <div class="route-card__title">潜空间预测 → 隐式逆动力学</div>
-    <p>潜表征预测未来,不解码回像素,换实时性。</p>
+    <h3 class="route-card__title">潜空间预测 → 隐式逆动力学</h3>
+    <p>直接在潜表征中预测未来，不解码回像素，以换取更高实时性。</p>
     <div class="route-links">
       <a href="wam/papers/vpp">VPP</a>
       <a href="wam/papers/lapa">LAPA</a>
@@ -173,8 +200,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">联合 · 自回归</span>
-    <div class="route-card__title">token 化,因果联合生成</div>
-    <p>未来帧 + 动作 token 化,因果联合生成。</p>
+    <h3 class="route-card__title">Token 化，因果联合生成</h3>
+    <p>把未来状态与动作统一为 token，在同一因果序列中联合预测。</p>
     <div class="route-links">
       <a href="wam/papers/gr-1">GR-1</a>
       <a href="wam/papers/worldvla">WorldVLA</a>
@@ -183,8 +210,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">联合 · 扩散</span>
-    <div class="route-card__title">并行去噪,未来+动作同生</div>
-    <p>并行去噪,未来 + 动作同生,利于高频闭环。</p>
+    <h3 class="route-card__title">并行去噪，未来与动作同生</h3>
+    <p>通过并行去噪联合生成未来与动作，更适合高频闭环控制。</p>
     <div class="route-links">
       <a href="wam/papers/uwm">UWM</a>
       <a href="wam/papers/dreamzero">DreamZero</a>
@@ -202,8 +229,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">联合 · 混合</span>
-    <div class="route-card__title">自回归 + 扩散混合</div>
-    <p>自回归 + 扩散混合,兼顾规划与控制。</p>
+    <h3 class="route-card__title">自回归 + 扩散混合</h3>
+    <p>用自回归承担长时程规划，以扩散生成连续动作，兼顾两种优势。</p>
     <div class="route-links">
       <a href="wam/papers/uva">UVA</a>
       <a href="wam/papers/flare">FLARE</a>
@@ -215,8 +242,8 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
   <div class="route-card">
     <span class="route-tag">跨范式 · 基座/平台/仿真</span>
-    <div class="route-card__title">世界模型基座 · 平台 · 仿真器</div>
-    <p>全模态基座 / 世界平台 / 闭环模拟器,作通用底座与数据·评测引擎,非单一动作范式。</p>
+    <h3 class="route-card__title">世界模型基座 · 平台 · 仿真器</h3>
+    <p>作为通用基座、数据引擎与闭环模拟器，为多种动作范式提供底层能力。</p>
     <div class="route-links">
       <a href="wam/papers/cosmos3">Cosmos 3</a>
       <a href="wam/papers/qwen-robotworld">Qwen-RobotWorld</a>
@@ -228,12 +255,22 @@ VLA 沿"动作如何生成"分化为几条技术路线,点击进入对应论文�
   </div>
 </div>
 
+<div class="home-track-footer">
+  <p><strong>想看范式如何演进？</strong> 从级联预测到联合生成，完整时间轴与论文谱系都在 WAM 专题页。</p>
+  <a href="wam/">进入 WAM 调研总览 <span aria-hidden="true">→</span></a>
+</div>
+
 <div class="home-coda" id="about">
   <div class="home-coda__main">
-    <span class="home-coda__eyebrow">// ABOUT · 关于本站 × 持续探索</span>
-    <p class="home-coda__title">两条主线 · 逐篇细读 · 持续更新</p>
-    <p class="home-coda__sub">一张<strong>持续生长的具身智能研究星图</strong>:沿 <strong>VLA(视觉-语言-动作)</strong> 发展深度调研 × <strong>WAM(世界-行动模型)</strong> 前沿两条主线展开,串联逐篇论文细读、知识图谱、新闻与产业生态。所有结论经 <code>deep-research</code> 多源检索 + 3 票对抗式事实核查整理;⚠️ 自评(多为厂商/作者数据、非独立第三方复现)/ ✅ 已核 / 待核 三级标注,绝不把厂商自评洗成裸事实。</p>
-    <p class="home-coda__hint">📌 VLA 线先读 <a href="vla/">VLA 调研总览</a> 把握全局,再按 <a href="vla/#-论文细读导航">论文细读导航</a> 逐篇深入;WAM 线从 <a href="wam/">WAM 调研总览</a> 进入。第一次来?看 <a href="vla/guide">如何阅读本站</a> 与 <a href="vla/changelog">更新日志</a>。</p>
+    <span class="home-coda__eyebrow">// ABOUT · 一张持续生长的研究星图</span>
+    <p class="home-coda__title">把复杂前沿，整理成一张可验证、可导航的研究地图</p>
+    <p class="home-coda__sub">沿 <strong>VLA（视觉—语言—动作）</strong> 与 <strong>WAM（世界—动作模型）</strong> 两条主线，串联论文细读、知识图谱、硬数据与产业生态。</p>
+    <div class="home-coda__proof" aria-label="本站研究方法">
+      <div><b>01</b><span><strong>多源检索</strong>回到论文、项目页与一手资料交叉比对</span></div>
+      <div><b>02</b><span><strong>对抗核查</strong>3 票复核，作者自评不会被当作独立结论</span></div>
+      <div><b>03</b><span><strong>持续维护</strong>跟进论文、模型、数据集与公司动态</span></div>
+    </div>
+    <p class="home-coda__hint">第一次来？先看 <a href="vla/guide">如何阅读本站</a>；想建立全局坐标，从 <a href="vla/">VLA 总览</a> 或 <a href="wam/">WAM 总览</a> 开始。</p>
     <p class="home-coda__term" aria-hidden="true">$ keep_researching <span class="home-coda__flag">--forever</span><span class="home-coda__caret"></span></p>
   </div>
   <nav class="home-coda__links" aria-label="更多入口">
