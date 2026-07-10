@@ -14,6 +14,7 @@ const GRAPH_REPORT = path.join(GRAPHIFY_OUT, 'GRAPH_REPORT.md')
 
 const INTERNAL_DOC_DIRS = new Set(['ecosystem', 'vla', 'wam'])
 const SKIP_DIRS = new Set(['.vitepress', 'public', 'node_modules', 'dist'])
+const EXCLUDED_DOCS = new Set(['vla/changelog.md'])
 const MAX_RELATED_PER_DOC = 8
 const MIN_SHARED_ENTITIES = 3
 
@@ -148,7 +149,7 @@ function walkMarkdown(dir, out = []) {
     } else if (ent.isFile() && ent.name.endsWith('.md') && ent.name !== '404.md') {
       const rel = path.relative(DOCS, path.join(dir, ent.name)).split(path.sep).join('/')
       const first = rel.split('/')[0]
-      if (INTERNAL_DOC_DIRS.has(first) || rel === 'index.md') out.push(rel)
+      if (!EXCLUDED_DOCS.has(rel) && (INTERNAL_DOC_DIRS.has(first) || rel === 'index.md')) out.push(rel)
     }
   }
   return out
