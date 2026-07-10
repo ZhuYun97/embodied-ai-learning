@@ -52,11 +52,50 @@ const statusMeta = {
   unverified: { label: '待核', tone: 'pending', description: '来源或口径仍需补充确认' }
 }
 
+const catalogCategories = [
+  { value: 'all', label: '全部基准' },
+  { value: 'manipulation', label: '经典操作' },
+  { value: 'robustness', label: '鲁棒 / 泛化' },
+  { value: 'whole_body', label: '双臂 / 全身' },
+  { value: 'real_world', label: '真机 / 竞技场' },
+  { value: 'reasoning_nav', label: '推理 / 导航' }
+]
+
+const readinessMeta = {
+  candidate: {
+    label: '可扩榜',
+    tone: 'candidate',
+    description: '已有相对清晰的同口径成绩，可继续结构化为独立子榜'
+  },
+  fragmented: {
+    label: '分口径读',
+    tone: 'fragmented',
+    description: '版本、任务集或评测协议分裂，必须锁定子口径'
+  },
+  different_axis: {
+    label: '异构指标',
+    tone: 'different',
+    description: '衡量的能力或量纲与操作成功率不同，不能混排'
+  },
+  foundation: {
+    label: '数据 / 底座',
+    tone: 'foundation',
+    description: '更接近数据集、平台或框架，不适合生成单一名次'
+  },
+  narrow: {
+    label: '样本过窄',
+    tone: 'narrow',
+    description: '任务或公开结果数量不足，只作为能力域入口'
+  }
+}
+
 const selectedBenchmark = ref('SimplerEnv')
 const selectedSplit = ref(benchmarkMeta.SimplerEnv.defaultSplit)
 const selectedStatus = ref('all')
 const searchQuery = ref('')
 const sortBy = ref('score')
+const catalogCategory = ref('manipulation')
+const catalogQuery = ref('')
 
 const scoreBounds = (entry) => {
   if (typeof entry.score === 'number') return [entry.score, entry.score]
@@ -94,6 +133,27 @@ const benchmarkRows = computed(() => benchmarkOrder.map(name => {
 const allSlices = computed(() =>
   new Set(leaderboardData.entries.map(entry => entry.benchmark + '|' + entry.split)).size
 )
+
+const visibleCatalog = computed(() => {
+  const query = catalogQuery.value.trim().toLowerCase()
+  return leaderboardData.catalog.filter(item => {
+    if (!query && catalogCategory.value !== 'all' && item.category !== catalogCategory.value) return false
+    if (!query) return true
+    return [item.name, item.scope, item.metric, item.year]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase()
+      .includes(query)
+  })
+})
+
+const catalogCategoryCount = (category) =>
+  category === 'all'
+    ? leaderboardData.catalog.length
+    : leaderboardData.catalog.filter(item => item.category === category).length
+
+const catalogCategoryLabel = (category) =>
+  catalogCategories.find(item => item.value === category)?.label || category
 
 const activeMeta = computed(() => benchmarkMeta[selectedBenchmark.value])
 
@@ -237,6 +297,9 @@ const modelHref = (entry) => {
 const sourceHref = (entry) =>
   withBase('/vla/papers/benchmarks' + (entry.sourceSection || ''))
 
+const catalogHref = (item) =>
+  item.url || withBase('/vla/papers/benchmarks' + (item.section || ''))
+
 const formatSnapshot = (date) => date.replaceAll('-', '.')
 const formatSpan = (summary) =>
   summary.low.toFixed(summary.unit === 'avg-len' ? 2 : 1) +
@@ -252,16 +315,16 @@ const formatSpan = (summary) =>
           <span>EVALUATION INDEX</span>
           <time :datetime="SNAPSHOT_DATE">SNAPSHOT {{ formatSnapshot(SNAPSHOT_DATE) }}</time>
         </div>
-        <h1>VLA 统一基准榜</h1>
+        <h1>VLA 基准索引与成绩榜</h1>
         <p class="lb-hero__dek">
-          把分散在论文与基准报告里的成绩收拢为可核对的证据账本。这里只做同口径排序，不制造跨基准“总冠军”。
+          一页看清经典评测版图，再进入严格同口径成绩账本。可查不等于可混排，这里不制造跨任务、跨本体的“总冠军”。
         </p>
 
         <dl class="lb-hero__stats" aria-label="排行榜数据概览">
+          <div><dt>可排名基准</dt><dd>{{ leaderboardData.stats.benchmarks }}</dd></div>
+          <div><dt>经典索引</dt><dd>{{ leaderboardData.catalog.length }}</dd></div>
           <div><dt>成绩记录</dt><dd>{{ leaderboardData.stats.total }}</dd></div>
-          <div><dt>模型 / 变体</dt><dd>{{ leaderboardData.stats.models }}</dd></div>
           <div><dt>口径组</dt><dd>{{ allSlices }}</dd></div>
-          <div><dt>已核对</dt><dd>{{ leaderboardData.stats.credibilityCount.verified }}</dd></div>
         </dl>
 
         <nav class="lb-hero__links" aria-label="排行榜相关入口">
@@ -273,8 +336,8 @@ const formatSpan = (summary) =>
 
       <section class="coverage-map" aria-labelledby="coverage-map-title">
         <div class="coverage-map__head">
-          <h2 id="coverage-map-title">覆盖地图</h2>
-          <span>04 BENCHMARKS</span>
+          <h2 id="coverage-map-title">可排名基准</h2>
+          <span>04 STRICT</span>
         </div>
         <ol>
           <li v-for="row in benchmarkRows" :key="row.name">
@@ -291,6 +354,111 @@ const formatSpan = (summary) =>
           </li>
         </ol>
       </section>
+    </header>
+
+    <section class="catalog-section" aria-labelledby="catalog-title">
+      <header class="catalog-section__head">
+        <div>
+          <span>BENCHMARK ATLAS</span>
+          <h2 id="catalog-title">经典与扩展基准索引</h2>
+          <p>覆盖操作、鲁棒泛化、双臂全身、真机竞技场、具身推理与导航；先读能力与口径，再决定数字能否比较。</p>
+        </div>
+        <strong>{{ leaderboardData.catalog.length }} INDEXED</strong>
+      </header>
+
+      <div class="catalog-controls">
+        <label class="catalog-search">
+          <span class="sr-only">搜索经典基准</span>
+          <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="m16 16 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <input
+            v-model="catalogQuery"
+            type="search"
+            placeholder="搜索 RLBench、R2R…"
+            autocomplete="off"
+            @input="catalogCategory = 'all'"
+          />
+        </label>
+
+        <div class="catalog-tabs" role="group" aria-label="按能力域筛选经典基准">
+          <button
+            v-for="category in catalogCategories"
+            :key="category.value"
+            type="button"
+            :class="{ active: catalogCategory === category.value }"
+            :aria-pressed="catalogCategory === category.value"
+            @click="catalogCategory = category.value; catalogQuery = ''"
+          >
+            {{ category.label }}
+            <small>{{ catalogCategoryCount(category.value) }}</small>
+          </button>
+        </div>
+
+        <label class="catalog-select">
+          <span>能力域</span>
+          <select v-model="catalogCategory" @change="catalogQuery = ''">
+            <option
+              v-for="category in catalogCategories"
+              :key="category.value"
+              :value="category.value"
+            >
+              {{ category.label }} · {{ catalogCategoryCount(category.value) }}
+            </option>
+          </select>
+        </label>
+
+        <output class="catalog-count" aria-live="polite">{{ visibleCatalog.length }} 项</output>
+      </div>
+
+      <div v-if="visibleCatalog.length" class="catalog-grid">
+        <article v-for="item in visibleCatalog" :key="item.id" class="catalog-card">
+          <header>
+            <span>{{ item.year }}</span>
+            <span
+              class="catalog-readiness"
+              :data-tone="readinessMeta[item.readiness]?.tone"
+              :title="readinessMeta[item.readiness]?.description"
+            >
+              {{ readinessMeta[item.readiness]?.label }}
+            </span>
+          </header>
+          <div class="catalog-card__family">{{ catalogCategoryLabel(item.category) }}</div>
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.scope }}</p>
+          <footer>
+            <div>
+              <span>PRIMARY METRIC</span>
+              <strong>{{ item.metric }}</strong>
+            </div>
+            <a
+              :href="catalogHref(item)"
+              :target="item.url ? '_blank' : undefined"
+              :rel="item.url ? 'noopener' : undefined"
+            >
+              {{ item.url ? '官方入口' : '查看档案' }}
+              <span aria-hidden="true">{{ item.url ? '↗' : '→' }}</span>
+            </a>
+          </footer>
+        </article>
+      </div>
+      <p v-else class="catalog-empty">没有匹配的基准，试试缩短关键词。</p>
+
+      <footer class="catalog-legend">
+        <strong>状态只表示“进入统一榜的准备度”</strong>
+        <span v-for="(meta, key) in readinessMeta" :key="key">
+          <i :data-tone="meta.tone"></i>{{ meta.label }}
+        </span>
+      </footer>
+    </section>
+
+    <header class="strict-ranking-head">
+      <div>
+        <span>STRICT LEADERBOARD</span>
+        <h2>同口径成绩榜</h2>
+      </div>
+      <p>下方只呈现已经结构化、且能锁定 split 与 protocol 的记录。</p>
     </header>
 
     <aside class="comparison-rule" aria-label="读榜规则">
@@ -554,10 +722,10 @@ const formatSpan = (summary) =>
       <details id="未纳入清单" class="exclusion-notes">
         <summary>
           <span>
-            <small>EXCLUSIONS · 收录边界</small>
-            <strong>查看暂未纳入的口径与基准</strong>
+            <small>RANKING BOUNDARY · 排名边界</small>
+            <strong>为什么索引中的基准不全部进入统一排序</strong>
           </span>
-          <span>{{ benchmarkOrder.length }} 组说明</span>
+          <span>4 类边界</span>
           <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
             <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -818,6 +986,318 @@ const formatSpan = (summary) =>
   margin: 0;
   color: var(--lb-muted);
   font: 680 0.72rem/1 var(--vp-font-family-mono);
+}
+
+.catalog-section {
+  margin: 0 0 30px;
+  padding: clamp(18px, 2.4vw, 26px);
+  border: 1px solid var(--lb-border);
+  border-radius: 17px;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--lb-blue) 4%, transparent), transparent 42%),
+    color-mix(in srgb, var(--lb-surface-strong) 90%, transparent);
+  box-shadow: var(--lb-shadow);
+}
+.catalog-section__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 36px;
+  align-items: flex-start;
+  padding-bottom: 19px;
+}
+.catalog-section__head > div { min-width: 0; }
+.catalog-section__head > div > span,
+.strict-ranking-head > div > span {
+  color: var(--lb-blue);
+  font: 700 0.64rem/1 var(--vp-font-family-mono);
+  letter-spacing: 0.08em;
+}
+.leaderboard-shell .catalog-section__head h2,
+.leaderboard-shell .strict-ranking-head h2 {
+  margin: 8px 0 6px;
+  padding: 0;
+  border: 0;
+  color: var(--lb-ink);
+  font-size: 1.28rem;
+  font-weight: 760;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+.catalog-section__head p {
+  max-width: 66ch;
+  margin: 0;
+  color: var(--lb-muted);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+.catalog-section__head > strong {
+  flex: 0 0 auto;
+  padding-top: 3px;
+  color: var(--lb-faint);
+  font: 690 0.66rem/1 var(--vp-font-family-mono);
+  letter-spacing: 0.04em;
+}
+.catalog-controls {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.7fr) minmax(0, 1.7fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--lb-border);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+}
+.catalog-search {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+  min-height: 38px;
+  padding: 0 11px;
+  border: 1px solid var(--lb-border);
+  border-radius: 8px;
+  background: var(--lb-surface-strong);
+  color: var(--lb-faint);
+}
+.catalog-search:focus-within {
+  border-color: color-mix(in srgb, var(--lb-blue) 46%, var(--lb-border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--lb-blue) 10%, transparent);
+}
+.catalog-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--lb-ink);
+  font: inherit;
+  font-size: 0.72rem;
+}
+.catalog-search input::placeholder { color: var(--lb-faint); }
+.catalog-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+}
+.catalog-tabs button {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 9px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--lb-muted);
+  font-size: 0.68rem;
+  font-weight: 650;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.catalog-tabs button small {
+  color: var(--lb-faint);
+  font: 650 0.58rem/1 var(--vp-font-family-mono);
+}
+.catalog-tabs button:hover { background: var(--vp-c-default-soft); color: var(--lb-ink); }
+.catalog-tabs button.active {
+  border-color: color-mix(in srgb, var(--lb-blue) 24%, var(--lb-border));
+  background: color-mix(in srgb, var(--lb-blue) 9%, var(--lb-surface-strong));
+  color: var(--lb-blue);
+}
+.catalog-tabs button.active small { color: var(--lb-blue); }
+.catalog-select { display: none; }
+.catalog-count {
+  color: var(--lb-faint);
+  font: 680 0.62rem/1 var(--vp-font-family-mono);
+  white-space: nowrap;
+}
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 12px;
+}
+.catalog-card {
+  display: flex;
+  min-width: 0;
+  min-height: 178px;
+  flex-direction: column;
+  padding: 14px 15px;
+  border: 1px solid var(--lb-border);
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--lb-surface-strong) 95%, var(--lb-blue));
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+.catalog-card:hover,
+.catalog-card:focus-within {
+  border-color: color-mix(in srgb, var(--lb-blue) 30%, var(--lb-border));
+  box-shadow: 0 12px 26px rgba(10, 15, 25, 0.07);
+  transform: translateY(-2px);
+}
+.catalog-card > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+.catalog-card > header > span:first-child {
+  color: var(--lb-faint);
+  font: 670 0.61rem/1 var(--vp-font-family-mono);
+}
+.catalog-readiness {
+  display: inline-flex;
+  min-height: 22px;
+  align-items: center;
+  padding: 0 7px;
+  border: 1px solid var(--lb-border);
+  border-radius: 999px;
+  background: var(--vp-c-bg-soft);
+  color: var(--lb-muted);
+  font-size: 0.59rem;
+  font-weight: 680;
+  white-space: nowrap;
+}
+.catalog-readiness[data-tone='candidate'] {
+  border-color: color-mix(in srgb, var(--lb-green) 25%, var(--lb-border));
+  background: color-mix(in srgb, var(--lb-green) 8%, var(--lb-surface-strong));
+  color: var(--lb-green);
+}
+.catalog-readiness[data-tone='fragmented'] {
+  border-color: color-mix(in srgb, var(--lb-amber) 27%, var(--lb-border));
+  background: color-mix(in srgb, var(--lb-amber) 8%, var(--lb-surface-strong));
+  color: var(--lb-amber);
+}
+.catalog-readiness[data-tone='different'] {
+  border-color: color-mix(in srgb, var(--lb-blue) 25%, var(--lb-border));
+  background: color-mix(in srgb, var(--lb-blue) 8%, var(--lb-surface-strong));
+  color: var(--lb-blue);
+}
+.catalog-readiness[data-tone='foundation'],
+.catalog-readiness[data-tone='narrow'] {
+  background: var(--vp-c-bg-soft);
+  color: var(--lb-muted);
+}
+.catalog-card__family {
+  margin-top: 12px;
+  color: var(--lb-blue);
+  font: 680 0.58rem/1 var(--vp-font-family-mono);
+  letter-spacing: 0.04em;
+}
+.leaderboard-shell .catalog-card h3 {
+  margin: 6px 0 5px;
+  padding: 0;
+  border: 0;
+  color: var(--lb-ink);
+  font-size: 0.98rem;
+  font-weight: 740;
+  letter-spacing: -0.018em;
+  line-height: 1.25;
+}
+.catalog-card > p {
+  margin: 0;
+  color: var(--lb-muted);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+.catalog-card > footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-end;
+  margin-top: auto;
+  padding-top: 15px;
+}
+.catalog-card > footer > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+}
+.catalog-card > footer > div span {
+  color: var(--lb-faint);
+  font: 650 0.53rem/1 var(--vp-font-family-mono);
+  letter-spacing: 0.04em;
+}
+.catalog-card > footer > div strong {
+  overflow: hidden;
+  color: var(--lb-muted);
+  font-size: 0.66rem;
+  font-weight: 650;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.catalog-card > footer a {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 4px;
+  align-items: center;
+  min-height: 30px;
+  color: var(--lb-blue);
+  font-size: 0.64rem;
+  font-weight: 680;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.catalog-card > footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.catalog-empty {
+  margin: 12px 0 0;
+  padding: 34px 16px;
+  border: 1px dashed var(--lb-border);
+  border-radius: 11px;
+  color: var(--lb-faint);
+  font-size: 0.75rem;
+  text-align: center;
+}
+.catalog-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 14px;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid var(--lb-border);
+  color: var(--lb-faint);
+  font-size: 0.61rem;
+}
+.catalog-legend strong {
+  margin-right: 4px;
+  color: var(--lb-muted);
+  font-size: 0.63rem;
+}
+.catalog-legend span {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  white-space: nowrap;
+}
+.catalog-legend i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lb-faint);
+}
+.catalog-legend i[data-tone='candidate'] { background: var(--lb-green); }
+.catalog-legend i[data-tone='fragmented'] { background: var(--lb-amber); }
+.catalog-legend i[data-tone='different'] { background: var(--lb-blue); }
+
+.strict-ranking-head {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+  gap: 28px;
+  align-items: end;
+  margin: 0 0 12px;
+}
+.leaderboard-shell .strict-ranking-head h2 { margin-bottom: 0; }
+.strict-ranking-head > p {
+  justify-self: end;
+  max-width: 56ch;
+  margin: 0;
+  color: var(--lb-muted);
+  font-size: 0.74rem;
+  line-height: 1.55;
+  text-align: right;
 }
 
 .comparison-rule {
@@ -1596,6 +2076,8 @@ input:focus-visible {
   .lb-hero { grid-template-columns: 1fr; gap: 26px; }
   .lb-hero__dek { max-width: 62ch; }
   .coverage-map li { grid-template-columns: 32px minmax(130px, 1fr) minmax(220px, 0.9fr); }
+  .catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .catalog-controls { grid-template-columns: minmax(185px, 0.62fr) minmax(0, 1.38fr) auto; }
   .comparison-rule { grid-template-columns: 70px minmax(220px, 0.8fr) minmax(0, 1fr); }
   .comparison-rule a { grid-column: 2 / -1; }
   .benchmark-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1609,6 +2091,9 @@ input:focus-visible {
 }
 
 @media (max-width: 760px) {
+  .catalog-controls { grid-template-columns: minmax(0, 1fr) auto; }
+  .catalog-search { grid-column: 1 / -1; }
+  .catalog-tabs { grid-column: 1; }
   .lb-explorer { padding: 10px; border-radius: 14px; }
   .benchmark-tabs {
     display: flex;
@@ -1657,6 +2142,36 @@ input:focus-visible {
   .coverage-map li { grid-template-columns: 28px minmax(0, 1fr); padding-block: 10px; }
   .coverage-map dl { grid-column: 2; text-align: left; }
   .coverage-map dl > div { text-align: left; }
+  .catalog-section { margin-bottom: 25px; padding: 15px 13px; border-radius: 14px; }
+  .catalog-section__head { display: block; padding-bottom: 15px; }
+  .catalog-section__head > strong { display: block; margin-top: 12px; }
+  .catalog-controls { padding: 9px; }
+  .catalog-tabs { display: none; }
+  .catalog-select {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    min-height: 38px;
+    padding: 0 10px;
+    border: 1px solid var(--lb-border);
+    border-radius: 8px;
+    background: var(--lb-surface-strong);
+    color: var(--lb-faint);
+    font-size: 0.65rem;
+  }
+  .catalog-select select {
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--lb-ink);
+    font: inherit;
+  }
+  .catalog-grid { grid-template-columns: 1fr; }
+  .catalog-card { min-height: 164px; }
+  .catalog-legend strong { flex-basis: 100%; }
+  .strict-ranking-head { grid-template-columns: 1fr; gap: 7px; align-items: start; }
+  .strict-ranking-head > p { justify-self: start; text-align: left; }
   .comparison-rule { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
   .comparison-rule a { margin-top: 2px; }
   .active-benchmark__facts { gap: 12px 4px; }
