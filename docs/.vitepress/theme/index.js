@@ -479,6 +479,11 @@ function setupPaperFilters() {
       search?.focus()
     })
     apply(false)
+    if (linkedDay) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => linkedDay.heading.scrollIntoView({ block: 'start' }))
+      })
+    }
   }
 
   const bind = () => {

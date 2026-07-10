@@ -7616,6 +7616,7 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
   border: 0;
   font-size: 1.08rem;
   letter-spacing: -0.01em;
+  scroll-margin-top: calc(var(--vp-nav-height, 64px) + 22px);
 }
 .paper-radar-page .VPDoc .vp-doc h2.paper-day-heading::before { content: none; display: none; }
 .paper-radar-page .VPDoc .vp-doc h2.paper-day-heading::after {
@@ -7751,6 +7752,17 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
 .VPDoc .vp-doc .paper-ticket--featured > p { -webkit-line-clamp: 4 !important; line-clamp: 4; }
 .paper-data-item[hidden] { display: none !important; }
 
+@media (min-width: 1120px) {
+  .paper-radar-page .VPDoc .vp-doc .paper-ticket--featured h3 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .paper-radar-page .VPDoc .vp-doc .paper-ticket--featured > p {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+
 /* 队列状态与口径说明 */
 .paper-pipeline > div {
   position: relative;
@@ -7799,18 +7811,31 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
 }
 
 @media (max-width: 680px) {
+  .paper-radar-page .VPDoc { overflow-x: clip; }
   .paper-radar-page .vp-doc h1 { margin-top: 14px; font-size: 1.85rem; }
   .paper-radar-topline { align-items: flex-start; flex-direction: column; gap: 10px; }
   .paper-radar-links { flex-wrap: nowrap; max-width: 100%; overflow-x: auto; padding-bottom: 2px; }
   .paper-radar-links a { flex: 0 0 auto; }
   .latest-paper-hero { padding: 20px; border-radius: 16px; }
-  .paper-signal-grid { grid-template-columns: 1fr; }
-  .latest-paper-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .paper-signal-grid {
+    display: flex;
+    gap: 9px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .paper-signal-grid::-webkit-scrollbar { display: none; }
+  .paper-signal {
+    flex: 0 0 min(84%, 270px);
+    scroll-snap-align: start;
+  }
+  .latest-paper-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .latest-paper-stats span,
   .latest-paper-stats span:nth-child(2n),
   .latest-paper-stats span:nth-child(3n) { border-right: 1px solid var(--paper-border); border-bottom: 1px solid var(--paper-border); }
-  .latest-paper-stats span:nth-child(2n) { border-right: 0; }
-  .latest-paper-stats span:nth-last-of-type(-n + 2) { border-bottom: 0; }
+  .latest-paper-stats span:nth-child(3n) { border-right: 0; }
+  .latest-paper-stats span:nth-last-of-type(-n + 3) { border-bottom: 0; }
 
   .paper-filter-panel {
     position: sticky;
