@@ -272,7 +272,7 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
 
 </HomePagePanel>
 
-<HomePagePanel page="resources">
+<HomePagePanel page="about">
 
 <div class="home-coda" id="about">
   <div class="home-coda__main">

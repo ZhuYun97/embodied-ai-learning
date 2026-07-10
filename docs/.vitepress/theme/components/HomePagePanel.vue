@@ -52,7 +52,10 @@ onMounted(() => {
         <span aria-hidden="true">←</span>
         <span><small>上一页</small><strong>{{ previousPage.label }}</strong></span>
       </button>
-      <span>{{ String(pageIndex + 1).padStart(2, '0') }} / 04</span>
+      <span>
+        {{ String(pageIndex + 1).padStart(2, '0') }} /
+        {{ String(HOME_PAGES.length).padStart(2, '0') }}
+      </span>
       <button
         type="button"
         :disabled="pageIndex === HOME_PAGES.length - 1"
@@ -70,7 +73,7 @@ onMounted(() => {
   min-height: calc(100vh - 72px);
   outline: none;
 }
-.home-page-panel[data-page='resources'] { min-height: 0; }
+.home-page-panel[data-page='about'] { min-height: 0; }
 .home-page-panel[hidden] { display: none !important; }
 .home-page-panel:focus-visible {
   outline: 2px solid var(--vp-c-brand-1);

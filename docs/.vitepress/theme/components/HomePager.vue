@@ -34,13 +34,39 @@ let wheelUnlockTimer = null
 let touchOrigin = null
 let pagerActive = false
 
-const WHEEL_THRESHOLD = 64
-const WHEEL_IDLE_MS = 180
-const WHEEL_UNLOCK_MS = 440
+const WHEEL_THRESHOLD = 36
+const WHEEL_IDLE_MS = 240
+const WHEEL_UNLOCK_MS = 180
+const KEYBOARD_IGNORE_SELECTOR = [
+  'input',
+  'textarea',
+  'select',
+  'button',
+  'a',
+  '[contenteditable="true"]',
+  'dialog',
+  '[role="dialog"]',
+  '[aria-modal="true"]',
+  '[data-home-pager-ignore]',
+].join(', ')
+const WHEEL_IGNORE_SELECTOR = [
+  '[data-home-pager-ignore]',
+  'input',
+  'textarea',
+  'select',
+  '[contenteditable="true"]',
+  'dialog',
+  '[role="dialog"]',
+  '[aria-modal="true"]',
+  '.first-guide-shell',
+  '.feature-tip',
+  '.VPNavScreen',
+  '.VPFlyout',
+].join(', ')
 
 const explicitPageFromHash = () => {
   if (typeof window === 'undefined') return null
-  const match = window.location.hash.match(/^#page-(overview|vla|wam|resources)$/)
+  const match = window.location.hash.match(/^#page-(overview|explore|vla|wam|about)$/)
   return match?.[1] || null
 }
 
@@ -69,7 +95,7 @@ const syncDocument = (page, { updateUrl = true, scroll = true } = {}) => {
   const hero = document.querySelector('.VPHome .thero')
   const features = document.querySelector('.VPHome .VPFeatures')
   hero?.setAttribute('aria-hidden', String(page !== 'overview'))
-  features?.setAttribute('aria-hidden', String(page !== 'resources'))
+  features?.setAttribute('aria-hidden', String(page !== 'explore'))
 
   if (updateUrl) {
     const url = new URL(window.location.href)
@@ -142,9 +168,9 @@ const setupPager = () => {
   home?.setAttribute('tabindex', '-1')
   home?.setAttribute('aria-label', '主页整页切换区域，可使用滚轮、上下翻页键或上下滑动切换')
   if (features) {
-    features.id = 'home-page-resources-features'
+    features.id = 'home-page-explore'
     features.setAttribute('role', 'tabpanel')
-    features.setAttribute('aria-labelledby', 'home-tab-resources')
+    features.setAttribute('aria-labelledby', 'home-tab-explore')
   }
   ready.value = true
 
@@ -180,13 +206,18 @@ const setupPager = () => {
     const isPrevious = event.key === 'PageUp' || (event.key === ' ' && event.shiftKey)
     if (!isNext && !isPrevious) return
     if (event.repeat || event.isComposing || event.ctrlKey || event.metaKey || event.altKey) return
-    if (event.target?.closest?.('input, textarea, select, button, a, [contenteditable="true"], dialog, [role="dialog"], [aria-modal="true"], [data-home-pager-ignore]')) return
+    if (event.target?.closest?.(KEYBOARD_IGNORE_SELECTOR)) return
     if (selectRelative(isNext ? 1 : -1, { focusPanel: true })) event.preventDefault()
   }
   onPageWheel = (event) => {
+    if (
+      !pagerActive ||
+      !document.documentElement.classList.contains('home-pager-ready') ||
+      !document.querySelector('.VPHome')
+    ) return
     if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey || event.deltaY === 0) return
     if (Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return
-    if (event.target?.closest?.('[data-home-pager-ignore], input, textarea, select, [contenteditable="true"], dialog, [role="dialog"], [aria-modal="true"]')) return
+    if (event.target?.closest?.(WHEEL_IGNORE_SELECTOR)) return
 
     if (event.cancelable) event.preventDefault()
     const now = window.performance.now()
@@ -208,8 +239,9 @@ const setupPager = () => {
     wheelDelta += normalizedDelta
     if (Math.abs(wheelDelta) < WHEEL_THRESHOLD) return
 
-    selectRelative(wheelDelta > 0 ? 1 : -1)
+    const changed = selectRelative(wheelDelta > 0 ? 1 : -1)
     wheelDelta = 0
+    if (!changed) return
     wheelLocked = true
     unlockWheelAfterGesture()
   }
@@ -255,7 +287,7 @@ const setupPager = () => {
   }
   window.addEventListener('popstate', onLocationChange)
   window.addEventListener('hashchange', onLocationChange)
-  home?.addEventListener('wheel', onPageWheel, { passive: false })
+  window.addEventListener('wheel', onPageWheel, { passive: false, capture: true })
   home?.addEventListener('touchstart', onTouchStart, { passive: true })
   home?.addEventListener('touchmove', onTouchMove, { passive: false })
   home?.addEventListener('touchend', onTouchEnd, { passive: true })
@@ -279,7 +311,7 @@ const teardownPager = () => {
     document.removeEventListener('keydown', onPageKeydown)
     onPageKeydown = null
   }
-  if (homeElement && onPageWheel) homeElement.removeEventListener('wheel', onPageWheel)
+  if (onPageWheel) window.removeEventListener('wheel', onPageWheel, { capture: true })
   if (homeElement && onTouchStart) homeElement.removeEventListener('touchstart', onTouchStart)
   if (homeElement && onTouchMove) homeElement.removeEventListener('touchmove', onTouchMove)
   if (homeElement && onTouchEnd) homeElement.removeEventListener('touchend', onTouchEnd)
@@ -333,10 +365,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <nav v-show="ready" class="home-pager" aria-label="主页四页切换">
+  <nav v-show="ready" class="home-pager" aria-label="主页五页切换">
     <div class="home-pager__label" aria-hidden="true">
       <span>ATLAS VIEW</span>
-      <strong>{{ activeMeta.index }} / 04</strong>
+      <strong>{{ activeMeta.index }} / {{ String(HOME_PAGES.length).padStart(2, '0') }}</strong>
     </div>
 
     <div class="home-pager__tabs" role="tablist" aria-label="选择主页内容">
@@ -354,8 +386,8 @@ onUnmounted(() => {
         role="tab"
         :class="{ 'is-active': activeHomePage === page.id }"
         :aria-selected="activeHomePage === page.id"
-        :aria-controls="page.id === 'resources'
-          ? 'home-page-resources-features home-page-resources'
+        :aria-controls="page.id === 'explore'
+          ? 'home-page-explore'
           : `home-page-${page.id}`"
         :tabindex="activeHomePage === page.id ? 0 : -1"
         @click="activate(page.id)"
@@ -386,7 +418,7 @@ onUnmounted(() => {
   left: 50%;
   z-index: 180;
   display: grid;
-  width: min(760px, calc(100vw - 40px));
+  width: min(880px, calc(100vw - 40px));
   grid-template-columns: 108px minmax(0, 1fr);
   gap: 6px;
   padding: 6px;
@@ -432,7 +464,7 @@ onUnmounted(() => {
   position: relative;
   display: grid;
   min-width: 0;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 3px;
 }
 .home-pager__indicator {
@@ -440,7 +472,7 @@ onUnmounted(() => {
   top: 0;
   bottom: 0;
   left: 0;
-  width: 25%;
+  width: 20%;
   border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 28%, var(--vp-c-divider));
   border-radius: 9px;
   background:

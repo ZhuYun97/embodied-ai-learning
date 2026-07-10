@@ -3348,14 +3348,14 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .VPHome .VPFeatures .feat-orbit-dot,
 .VPHome .VPFeatures .feat-orbit-pulse { display: none; }
 
-@media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 760px) and (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .items {
     position: relative; width: 100%; height: 300px; margin: 6px auto 6px; padding: 0;
     perspective: 1450px; perspective-origin: 50% 42%;   /* 略俯视的 3D 观察点 */
     transform-style: preserve-3d;
     /* 关键:容器自身 z=0 平面会挡住「后排卡(z<0)」的点击 → 容器穿透,卡片可点 */
     pointer-events: none;
-    --rx: 365px;   /* 横向半径(左右更宽)*/
+    --rx: min(365px, calc(50vw - 115px));   /* 横向半径(左右更宽,平板随视口收缩)*/
     --yt: 62px;    /* 纵向倾斜抬升(后高前低)——再调小,整体更扁 */
     --rz: 210px;   /* 深度半径(前近后远,透视自动近大远小)*/
   }
@@ -9209,4 +9209,261 @@ html.home-pager-ready .first-guide-launcher > span:last-child { display: none; }
     right: max(14px, env(safe-area-inset-right));
     bottom: max(82px, calc(env(safe-area-inset-bottom) + 76px));
   }
+}
+
+/* ============================================================
+   Full-page 内容顺序修正（2026-07）
+   01 Hero 总览 → 02 原椭圆旋转菜单 → 03 VLA → 04 WAM → 05 About。
+   Explore 直接复用 VitePress 的 VPFeatures 与既有公转轨道，不再压成资源网格。
+   ============================================================ */
+
+/* 02 Explore：只显示原生功能卡旋转菜单。 */
+html.home-pager-ready[data-home-page='explore'] .VPHome .vp-doc {
+  display: none !important;
+}
+html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
+  box-sizing: border-box;
+  display: block !important;
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+  padding: 92px 0 0 !important;
+  overflow: hidden;
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before {
+  top: 84px;
+  opacity: 0.8;
+}
+html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures > .container {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  max-width: 1280px;
+  align-items: center;
+  padding: 0 24px;
+}
+html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items {
+  flex: 1 1 auto;
+  margin: 0 auto !important;
+}
+
+/* 03/04/05 的正文屏不混入功能菜单。 */
+html.home-pager-ready[data-home-page='about'] .VPHome .VPFeatures {
+  display: none !important;
+}
+
+/* 05 About：研究方法与更多入口独占整屏。 */
+html.home-pager-ready[data-home-page='about'] .VPHome > .vp-doc {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  max-width: 1180px;
+  padding: 84px 24px 12px !important;
+}
+html.home-pager-ready .home-page-panel[data-page='about'] {
+  box-sizing: border-box;
+  height: calc(100vh - var(--vp-nav-height, 64px) - 96px);
+  height: calc(100dvh - var(--vp-nav-height, 64px) - 96px);
+  min-height: 0 !important;
+}
+html.home-pager-ready [data-page='about'] .home-coda {
+  box-sizing: border-box;
+  display: grid;
+  height: 100%;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  align-items: center;
+  gap: 30px;
+  margin: 0;
+  padding: 24px 26px;
+  overflow: hidden;
+}
+html.home-pager-ready [data-page='about'] .home-coda__main {
+  min-width: 0;
+}
+html.home-pager-ready [data-page='about'] .home-coda__title {
+  margin: 8px 0 5px !important;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+html.home-pager-ready [data-page='about'] .home-coda__sub {
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+html.home-pager-ready [data-page='about'] .home-coda__proof {
+  gap: 7px;
+  margin-top: 14px;
+}
+html.home-pager-ready [data-page='about'] .home-coda__proof > div {
+  padding: 9px 10px;
+}
+html.home-pager-ready [data-page='about'] .home-coda__hint {
+  margin-top: 10px !important;
+  padding-top: 9px;
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+html.home-pager-ready [data-page='about'] .home-coda__term {
+  margin-top: 8px !important;
+  font-size: 0.68rem;
+}
+html.home-pager-ready [data-page='about'] .home-coda__links {
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+html.home-pager-ready [data-page='about'] .home-coda__links a {
+  min-width: 0;
+  min-height: 34px;
+  padding: 7px 9px;
+  overflow: hidden;
+  font-size: 0.7rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
+    animation: homeViewEnter 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+/* 760px 以下保留同一批入口，但回退为一屏内的静态网格。 */
+@media (max-width: 759px) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
+    padding: 84px 12px 10px !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before {
+    top: 76px;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures > .container {
+    display: block;
+    max-width: none;
+    padding: 0;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items {
+    position: relative !important;
+    display: grid !important;
+    width: 100% !important;
+    height: 100% !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    perspective: none !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item {
+    position: relative !important;
+    inset: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    transform: none !important;
+    animation: none !important;
+    pointer-events: auto !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item .VPFeature {
+    box-sizing: border-box;
+    height: 100% !important;
+    min-height: 0;
+    padding: 12px !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .box {
+    height: 100%;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .details,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .link-text,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .feat-hub,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .feat-orbit-dot,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .feat-orbit-pulse {
+    display: none !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .title {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.3;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .VPImage {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 700px) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
+    padding: 10px 10px 6px !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before {
+    display: none;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 6px !important;
+  }
+
+  html.home-pager-ready[data-home-page='about'] .VPHome > .vp-doc {
+    padding: 10px 10px 8px !important;
+  }
+  html.home-pager-ready .home-page-panel[data-page='about'] {
+    height: 100%;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 8px;
+    padding: 13px;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__eyebrow { font-size: 0.58rem; }
+  html.home-pager-ready [data-page='about'] .home-coda__title { font-size: 0.95rem; }
+  html.home-pager-ready [data-page='about'] .home-coda__sub { font-size: 0.7rem; }
+  html.home-pager-ready [data-page='about'] .home-coda__proof {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    margin-top: 9px;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__proof > div { padding: 6px 8px; }
+  html.home-pager-ready [data-page='about'] .home-coda__proof span { font-size: 0.65rem; }
+  html.home-pager-ready [data-page='about'] .home-coda__hint { font-size: 0.66rem; }
+  html.home-pager-ready [data-page='about'] .home-coda__term { display: none; }
+  html.home-pager-ready [data-page='about'] .home-coda__links {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__links a {
+    min-height: 30px;
+    justify-content: center;
+    padding: 4px;
+    font-size: 0.56rem;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__links a::before { display: none; }
+}
+
+@media (max-height: 620px) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
+    padding-top: 72px !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before { top: 66px; }
+  html.home-pager-ready[data-home-page='about'] .VPHome > .vp-doc {
+    padding-top: 72px !important;
+    padding-bottom: 6px !important;
+  }
+  html.home-pager-ready .home-page-panel[data-page='about'] {
+    height: calc(100vh - var(--vp-nav-height, 64px) - 78px);
+    height: calc(100dvh - var(--vp-nav-height, 64px) - 78px);
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__hint,
+  html.home-pager-ready [data-page='about'] .home-coda__term { display: none; }
 }
