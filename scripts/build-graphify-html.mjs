@@ -128,26 +128,30 @@ function enhanceGraphifyHtml() {
   <div id="graph"></div>
   <section id="atlas-hud" aria-label="Knowledge graph overview">
     <div>
-      <span class="atlas-kicker">LOCAL KG / GRAPHIFY VIEW</span>
-      <strong>Embodied-AI Knowledge Graph</strong>
-      <em>offline graphify render · internal notes only</em>
+      <span class="atlas-kicker">EMBODIED AI ATLAS / LOCAL KG</span>
+      <strong>具身智能语义星图</strong>
+      <em>papers · concepts · datasets · benchmarks · embodiments</em>
     </div>
     <div class="atlas-metrics">
       <span data-atlas-nodes>1368 nodes</span>
       <span data-atlas-edges>9159 edges</span>
       <span data-atlas-communities>40 sectors</span>
-      <span>LOCAL / 0 API</span>
+      <span>OFFLINE / 0 API</span>
     </div>
   </section>
   <section id="atlas-telemetry" aria-label="Graph telemetry">
-    <div><b>CORE</b><span data-atlas-hotspot>VLA</span></div>
-    <div><b>LINKS</b><span data-atlas-trace>semantic links</span></div>
-    <div><b>SCOPE</b><span data-atlas-runtime>offline canvas</span></div>
+    <div><b>核心</b><span data-atlas-hotspot>VLA</span></div>
+    <div><b>关系</b><span data-atlas-trace>semantic links</span></div>
+    <div><b>社区</b><span data-atlas-runtime>offline canvas</span></div>
   </section>
   <section id="atlas-readouts" aria-label="Build readouts">
-    <span>MODE // OFFLINE KNOWLEDGE GRAPH</span>
+    <span>MODE // LOCAL SEMANTIC TOPOLOGY</span>
     <span>SOURCE // MARKDOWN + TAXONOMY + LOCAL DICT</span>
-    <span>FILTER // INTERNAL NODES ONLY</span>
+  </section>
+  <section id="atlas-guide" aria-label="Graph controls">
+    <span><b>滚轮</b> 缩放</span>
+    <span><b>拖拽</b> 平移</span>
+    <span><b>点击</b> 聚焦节点</span>
   </section>
 </main>`
     )
@@ -167,28 +171,28 @@ function graphifyAtlasStyles() {
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     color-scheme: dark;
-    --atlas-bg: #040806;
-    --atlas-panel: rgba(4, 8, 6, 0.94);
-    --atlas-line: rgba(34, 197, 94, 0.18);
-    --atlas-text: rgba(220, 255, 220, 0.9);
-    --atlas-muted: rgba(220, 255, 220, 0.42);
-    --atlas-green: #22c55e;
-    --atlas-green2: #4ade80;
-    --atlas-amber: #f59e0b;
-    --atlas-amber2: #fbbf24;
+    --atlas-bg: #040817;
+    --atlas-panel: rgba(4, 8, 23, 0.94);
+    --atlas-line: rgba(83, 215, 255, 0.18);
+    --atlas-text: rgba(228, 242, 255, 0.9);
+    --atlas-muted: rgba(228, 242, 255, 0.42);
+    --atlas-green: #53d7ff;
+    --atlas-green2: #8be9ff;
+    --atlas-amber: #8b7cff;
+    --atlas-amber2: #b7a8ff;
   }
   body {
     height: 100vh;
     overflow: hidden;
     display: flex;
     background:
-      radial-gradient(circle at 48% 46%, rgba(34, 197, 94, 0.08), transparent 34%),
-      radial-gradient(circle at 66% 55%, rgba(245, 158, 11, 0.045), transparent 28%),
-      linear-gradient(90deg, rgba(34, 197, 94, 0.055), transparent 18%, transparent 82%, rgba(245, 158, 11, 0.035)),
-      linear-gradient(180deg, rgba(34, 197, 94, 0.035), transparent 38%),
+      radial-gradient(circle at 48% 46%, rgba(83, 215, 255, 0.08), transparent 34%),
+      radial-gradient(circle at 66% 55%, rgba(139, 124, 255, 0.045), transparent 28%),
+      linear-gradient(90deg, rgba(83, 215, 255, 0.055), transparent 18%, transparent 82%, rgba(139, 124, 255, 0.035)),
+      linear-gradient(180deg, rgba(83, 215, 255, 0.035), transparent 38%),
       var(--atlas-bg);
     color: var(--atlas-text);
-    font-family: "SF Mono", "Cascadia Mono", "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     letter-spacing: 0;
   }
   body::before {
@@ -197,8 +201,8 @@ function graphifyAtlasStyles() {
     inset: 0;
     pointer-events: none;
     background-image:
-      linear-gradient(rgba(34, 197, 94, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(34, 197, 94, 0.04) 1px, transparent 1px);
+      linear-gradient(rgba(83, 215, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(83, 215, 255, 0.04) 1px, transparent 1px);
     background-size: 48px 48px;
     mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.38), #000 26%, #000 74%, rgba(0, 0, 0, 0.22));
   }
@@ -210,7 +214,7 @@ function graphifyAtlasStyles() {
     pointer-events: none;
     background:
       repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 4px),
-      linear-gradient(90deg, rgba(34, 197, 94, 0.035), transparent 24%, transparent 76%, rgba(245, 158, 11, 0.03));
+      linear-gradient(90deg, rgba(83, 215, 255, 0.035), transparent 24%, transparent 76%, rgba(139, 124, 255, 0.03));
     mix-blend-mode: overlay;
     opacity: 0.18;
   }
@@ -221,9 +225,9 @@ function graphifyAtlasStyles() {
     overflow: hidden;
     isolation: isolate;
     background:
-      radial-gradient(circle at 50% 48%, rgba(34, 197, 94, 0.06), transparent 34%),
-      linear-gradient(180deg, rgba(34, 197, 94, 0.035), transparent 24%),
-      #040806;
+      radial-gradient(circle at 50% 48%, rgba(83, 215, 255, 0.06), transparent 34%),
+      linear-gradient(180deg, rgba(83, 215, 255, 0.035), transparent 24%),
+      #040817;
   }
   #graph-stage::before {
     content: "";
@@ -231,9 +235,9 @@ function graphifyAtlasStyles() {
     inset: 16px;
     z-index: 5;
     pointer-events: none;
-    border: 1px solid rgba(34, 197, 94, 0.18);
+    border: 1px solid rgba(83, 215, 255, 0.18);
     clip-path: polygon(0 0, 160px 0, 160px 1px, 1px 1px, 1px 120px, 0 120px, 0 0, 100% 0, 100% 120px, calc(100% - 1px) 120px, calc(100% - 1px) 1px, calc(100% - 160px) 1px, calc(100% - 160px) 0, 100% 0, 100% 100%, calc(100% - 160px) 100%, calc(100% - 160px) calc(100% - 1px), calc(100% - 1px) calc(100% - 1px), calc(100% - 1px) calc(100% - 120px), 100% calc(100% - 120px), 100% 100%, 0 100%, 0 calc(100% - 120px), 1px calc(100% - 120px), 1px calc(100% - 1px), 160px calc(100% - 1px), 160px 100%, 0 100%);
-    box-shadow: 0 0 34px rgba(34, 197, 94, 0.08), inset 0 0 52px rgba(34, 197, 94, 0.025);
+    box-shadow: 0 0 34px rgba(83, 215, 255, 0.08), inset 0 0 52px rgba(83, 215, 255, 0.025);
   }
   #graph-stage::after {
     content: "";
@@ -244,7 +248,7 @@ function graphifyAtlasStyles() {
     height: 18%;
     z-index: 6;
     pointer-events: none;
-    background: linear-gradient(180deg, transparent, rgba(34, 197, 94, 0.08), transparent);
+    background: linear-gradient(180deg, transparent, rgba(83, 215, 255, 0.08), transparent);
     mix-blend-mode: screen;
   }
   #atlas-grid {
@@ -253,8 +257,8 @@ function graphifyAtlasStyles() {
     z-index: 0;
     pointer-events: none;
     background:
-      linear-gradient(rgba(34, 197, 94, 0.055) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(34, 197, 94, 0.055) 1px, transparent 1px);
+      linear-gradient(rgba(83, 215, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(83, 215, 255, 0.055) 1px, transparent 1px);
     background-size: 48px 48px, 48px 48px;
     opacity: 0.58;
   }
@@ -267,13 +271,13 @@ function graphifyAtlasStyles() {
   }
   #atlas-grid::before {
     background:
-      linear-gradient(90deg, transparent 0 49.8%, rgba(34, 197, 94, 0.105) 50%, transparent 50.2% 100%),
-      linear-gradient(180deg, transparent 0 49.8%, rgba(34, 197, 94, 0.085) 50%, transparent 50.2% 100%);
+      linear-gradient(90deg, transparent 0 49.8%, rgba(83, 215, 255, 0.105) 50%, transparent 50.2% 100%),
+      linear-gradient(180deg, transparent 0 49.8%, rgba(83, 215, 255, 0.085) 50%, transparent 50.2% 100%);
     opacity: 0.34;
   }
   #atlas-grid::after {
     background:
-      linear-gradient(135deg, transparent 0 48%, rgba(245, 158, 11, 0.032) 49%, transparent 50% 100%);
+      linear-gradient(135deg, transparent 0 48%, rgba(139, 124, 255, 0.032) 49%, transparent 50% 100%);
     mix-blend-mode: screen;
     opacity: 0.32;
   }
@@ -308,22 +312,21 @@ function graphifyAtlasStyles() {
     gap: 4px;
     min-width: 330px;
     padding: 11px 16px 12px;
-    border: 1px solid rgba(34, 197, 94, 0.3);
+    border: 1px solid rgba(83, 215, 255, 0.3);
     border-left: 3px solid var(--atlas-green);
-    border-radius: 2px;
+    border-radius: 14px;
     background:
-      linear-gradient(90deg, rgba(34, 197, 94, 0.09), rgba(4, 8, 6, 0.88) 36%, rgba(4, 8, 6, 0.76)),
-      rgba(4, 8, 6, 0.86);
-    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.44), 0 0 34px rgba(34, 197, 94, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      linear-gradient(90deg, rgba(83, 215, 255, 0.09), rgba(4, 8, 23, 0.88) 36%, rgba(4, 8, 23, 0.76)),
+      rgba(4, 8, 23, 0.86);
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.44), 0 0 34px rgba(83, 215, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(12px);
-    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
   }
   #atlas-hud strong {
     font-size: 15px;
     line-height: 1.1;
-    color: rgba(220, 255, 220, 0.92);
-    text-shadow: 0 0 16px rgba(34, 197, 94, 0.28);
-    text-transform: uppercase;
+    color: rgba(228, 242, 255, 0.92);
+    text-shadow: 0 0 16px rgba(83, 215, 255, 0.28);
+    letter-spacing: -0.02em;
   }
   #atlas-hud em {
     color: var(--atlas-muted);
@@ -350,16 +353,16 @@ function graphifyAtlasStyles() {
     align-items: center;
     min-height: 30px;
     padding: 7px 10px;
-    border: 1px solid rgba(34, 197, 94, 0.26);
-    border-radius: 2px;
+    border: 1px solid rgba(83, 215, 255, 0.26);
+    border-radius: 9px;
     background:
-      linear-gradient(180deg, rgba(34, 197, 94, 0.065), transparent),
-      rgba(4, 8, 6, 0.76);
-    color: rgba(220, 255, 220, 0.88);
+      linear-gradient(180deg, rgba(83, 215, 255, 0.065), transparent),
+      rgba(4, 8, 23, 0.76);
+    color: rgba(228, 242, 255, 0.88);
     font-size: 11px;
     font-weight: 760;
     text-transform: uppercase;
-    box-shadow: 0 0 22px rgba(34, 197, 94, 0.055), inset 0 1px 0 rgba(255, 255, 255, 0.055);
+    box-shadow: 0 0 22px rgba(83, 215, 255, 0.055), inset 0 1px 0 rgba(255, 255, 255, 0.055);
     backdrop-filter: blur(12px);
   }
   #atlas-telemetry {
@@ -379,11 +382,11 @@ function graphifyAtlasStyles() {
     align-items: center;
     min-height: 34px;
     padding: 7px 10px;
-    border: 1px solid rgba(34, 197, 94, 0.22);
-    border-right: 3px solid rgba(74, 222, 128, 0.56);
-    background: rgba(4, 8, 6, 0.68);
-    box-shadow: 0 0 22px rgba(34, 197, 94, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.045);
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+    border: 1px solid rgba(83, 215, 255, 0.22);
+    border-right: 3px solid rgba(139, 233, 255, 0.56);
+    border-radius: 9px;
+    background: rgba(4, 8, 23, 0.68);
+    box-shadow: 0 0 22px rgba(83, 215, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.045);
     backdrop-filter: blur(10px);
   }
   #atlas-telemetry b {
@@ -394,7 +397,7 @@ function graphifyAtlasStyles() {
   }
   #atlas-telemetry span {
     overflow: hidden;
-    color: rgba(220, 255, 220, 0.86);
+    color: rgba(228, 242, 255, 0.86);
     font-size: 11px;
     font-weight: 760;
     text-overflow: ellipsis;
@@ -415,44 +418,71 @@ function graphifyAtlasStyles() {
     max-width: 360px;
     padding: 6px 9px;
     border-left: 2px solid var(--atlas-green);
-    background: rgba(2, 6, 12, 0.7);
-    color: #bfffd3;
+    border-radius: 0 7px 7px 0;
+    background: rgba(4, 8, 23, 0.74);
+    color: #bdeeff;
     font-size: 10px;
     font-weight: 780;
     letter-spacing: 0.08em;
-    box-shadow: 0 0 18px rgba(116, 255, 176, 0.1);
+    box-shadow: 0 0 18px rgba(83, 215, 255, 0.1);
+  }
+  #atlas-guide {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    z-index: 8;
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+    border: 1px solid rgba(83, 215, 255, 0.16);
+    border-radius: 12px;
+    background: rgba(4, 8, 23, 0.76);
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(14px);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  #atlas-guide span {
+    padding: 5px 8px;
+    color: rgba(205, 223, 245, 0.54);
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  #atlas-guide b {
+    color: #9beaff;
+    font-weight: 850;
   }
   #sidebar {
-    width: 354px;
+    width: 340px;
     background: var(--atlas-panel);
-    border-left: 1px solid rgba(34, 197, 94, 0.22);
-    box-shadow: -28px 0 72px rgba(0, 0, 0, 0.48), -1px 0 34px rgba(34, 197, 94, 0.05);
+    border-left: 1px solid rgba(83, 215, 255, 0.16);
+    box-shadow: -28px 0 72px rgba(0, 0, 0, 0.48), -1px 0 34px rgba(83, 215, 255, 0.05);
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(22px);
     z-index: 9;
   }
   #search-wrap {
     padding: 14px;
     border-bottom: 1px solid var(--atlas-line);
-    background: linear-gradient(180deg, rgba(65, 230, 255, 0.05), transparent);
+    background: linear-gradient(180deg, rgba(83, 215, 255, 0.06), transparent);
   }
   #search {
     width: 100%;
     height: 42px;
-    background: rgba(4, 5, 12, 0.78);
-    border: 1px solid rgba(132, 178, 255, 0.24);
+    background: rgba(7, 13, 31, 0.86);
+    border: 1px solid rgba(117, 209, 255, 0.2);
     color: #f7fbff;
     padding: 0 12px;
-    border-radius: 2px;
+    border-radius: 10px;
     font-size: 13px;
     outline: none;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 0 28px rgba(93, 228, 255, 0.08);
   }
   #search:focus {
-    border-color: rgba(65, 230, 255, 0.78);
-    box-shadow: 0 0 0 2px rgba(65, 230, 255, 0.14), 0 0 42px rgba(65, 230, 255, 0.13);
+    border-color: rgba(101, 221, 255, 0.72);
+    box-shadow: 0 0 0 3px rgba(83, 215, 255, 0.1), 0 0 42px rgba(83, 215, 255, 0.11);
   }
   #search-results {
     max-height: 164px;
@@ -460,20 +490,20 @@ function graphifyAtlasStyles() {
     padding: 8px 14px;
     border-bottom: 1px solid var(--atlas-line);
     display: none;
-    background: rgba(4, 8, 6, 0.86);
+    background: rgba(4, 8, 23, 0.86);
   }
   .search-item {
     padding: 7px 8px;
     cursor: pointer;
     border-radius: 6px;
-    color: rgba(220, 255, 220, 0.82);
+    color: rgba(228, 242, 255, 0.82);
     font-size: 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .search-item:hover {
-    background: rgba(34, 197, 94, 0.08);
+    background: rgba(83, 215, 255, 0.08);
   }
   #info-panel {
     padding: 16px;
@@ -491,7 +521,7 @@ function graphifyAtlasStyles() {
     text-transform: uppercase;
   }
   #info-content {
-    color: rgba(220, 255, 220, 0.72);
+    color: rgba(228, 242, 255, 0.72);
     font-size: 13px;
     line-height: 1.58;
   }
@@ -499,7 +529,7 @@ function graphifyAtlasStyles() {
     margin-bottom: 6px;
   }
   #info-content .field b {
-    color: rgba(220, 255, 220, 0.92);
+    color: rgba(228, 242, 255, 0.92);
   }
   .node-actions {
     display: flex;
@@ -513,32 +543,32 @@ function graphifyAtlasStyles() {
     align-items: center;
     min-height: 28px;
     padding: 0 10px;
-    border: 1px solid rgba(116, 255, 176, 0.46);
-    border-radius: 3px;
-    background: linear-gradient(180deg, rgba(34, 197, 94, 0.16), rgba(34, 197, 94, 0.05));
-    color: rgba(232, 255, 237, 0.92);
+    border: 1px solid rgba(101, 221, 255, 0.42);
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(83, 215, 255, 0.16), rgba(83, 215, 255, 0.05));
+    color: rgba(232, 247, 255, 0.92);
     font-size: 12px;
     font-weight: 850;
     text-decoration: none;
     text-transform: uppercase;
   }
   .node-open-link:hover {
-    border-color: rgba(246, 210, 94, 0.74);
-    background: rgba(246, 210, 94, 0.12);
-    color: #fff7d6;
+    border-color: rgba(183, 168, 255, 0.7);
+    background: rgba(139, 124, 255, 0.14);
+    color: #f2efff;
     text-decoration: none;
   }
   .node-url {
     min-width: 0;
     overflow: hidden;
-    color: rgba(220, 255, 220, 0.36);
+    color: rgba(228, 242, 255, 0.36);
     font-size: 10px;
     font-weight: 700;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   #info-content .empty {
-    color: rgba(220, 255, 220, 0.28);
+    color: rgba(228, 242, 255, 0.28);
     font-style: italic;
   }
   .neighbor-link {
@@ -549,11 +579,11 @@ function graphifyAtlasStyles() {
     margin: 3px 0;
     border-radius: 5px;
     cursor: pointer;
-    color: rgba(220, 255, 220, 0.72);
+    color: rgba(228, 242, 255, 0.72);
     font-size: 12px;
     overflow: hidden;
-    border-left: 3px solid rgba(34, 197, 94, 0.32);
-    background: rgba(34, 197, 94, 0.035);
+    border-left: 3px solid rgba(83, 215, 255, 0.32);
+    background: rgba(83, 215, 255, 0.035);
   }
   .neighbor-label {
     overflow: hidden;
@@ -562,7 +592,7 @@ function graphifyAtlasStyles() {
   }
   .neighbor-relation {
     overflow: hidden;
-    color: rgba(220, 255, 220, 0.34);
+    color: rgba(228, 242, 255, 0.34);
     font-size: 10px;
     font-weight: 700;
     text-overflow: ellipsis;
@@ -570,11 +600,11 @@ function graphifyAtlasStyles() {
     white-space: nowrap;
   }
   .neighbor-note {
-    color: rgba(220, 255, 220, 0.34);
+    color: rgba(228, 242, 255, 0.34);
     font-size: 10px;
   }
   .neighbor-link:hover {
-    background: rgba(34, 197, 94, 0.075);
+    background: rgba(83, 215, 255, 0.075);
   }
   #neighbors-list {
     max-height: 168px;
@@ -598,7 +628,7 @@ function graphifyAtlasStyles() {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    color: rgba(220, 255, 220, 0.72);
+    color: rgba(228, 242, 255, 0.72);
     font-size: 12px;
     user-select: none;
   }
@@ -610,11 +640,11 @@ function graphifyAtlasStyles() {
     padding: 4px 4px;
     cursor: pointer;
     border-radius: 2px;
-    color: rgba(220, 255, 220, 0.82);
+    color: rgba(228, 242, 255, 0.82);
     font-size: 12px;
   }
   .legend-item:hover {
-    background: rgba(34, 197, 94, 0.055);
+    background: rgba(83, 215, 255, 0.055);
   }
   .legend-item.dimmed {
     opacity: 0.33;
@@ -633,7 +663,7 @@ function graphifyAtlasStyles() {
     white-space: nowrap;
   }
   .legend-count {
-    color: rgba(220, 255, 220, 0.36);
+    color: rgba(228, 242, 255, 0.36);
     font-size: 11px;
     font-variant-numeric: tabular-nums;
   }
@@ -643,9 +673,9 @@ function graphifyAtlasStyles() {
     -webkit-appearance: none;
     width: 15px;
     height: 15px;
-    border: 1.5px solid rgba(34, 197, 94, 0.32);
+    border: 1.5px solid rgba(83, 215, 255, 0.32);
     border-radius: 4px;
-    background: rgba(4, 8, 6, 0.92);
+    background: rgba(4, 8, 23, 0.92);
     cursor: pointer;
     position: relative;
     flex-shrink: 0;
@@ -664,7 +694,7 @@ function graphifyAtlasStyles() {
     top: 1.5px;
     width: 4px;
     height: 8px;
-    border: solid #040806;
+    border: solid #040817;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
@@ -679,15 +709,15 @@ function graphifyAtlasStyles() {
     top: 6px;
     width: 8px;
     height: 2px;
-    background: #06101d;
+    background: #061025;
   }
   #stats {
     padding: 12px 14px;
     border-top: 1px solid var(--atlas-line);
-    color: #9ca9c0;
+    color: rgba(196, 214, 238, 0.54);
     font-size: 11px;
     font-variant-numeric: tabular-nums;
-    background: rgba(255, 255, 255, 0.035);
+    background: rgba(83, 215, 255, 0.035);
   }
   @media (max-width: 1100px) {
     .atlas-metrics {
@@ -710,7 +740,7 @@ function graphifyAtlasStyles() {
       width: 100%;
       min-height: 360px;
       border-left: 0;
-      border-top: 1px solid rgba(132, 178, 255, 0.22);
+      border-top: 1px solid rgba(117, 209, 255, 0.18);
     }
     #atlas-hud {
       left: 12px;
@@ -726,6 +756,9 @@ function graphifyAtlasStyles() {
     }
     #atlas-readouts span {
       max-width: calc(100vw - 32px);
+    }
+    #atlas-guide {
+      display: none;
     }
   }
 </style>`
@@ -746,12 +779,12 @@ function graphifyAtlasScript(nodeLinks) {
   }
 
   const graphifyPalette = {
-    bg: '#040806',
-    green: '#22c55e',
-    green2: '#4ade80',
-    amber: '#f59e0b',
-    amber2: '#fbbf24',
-    dim: '#203026',
+    bg: '#040817',
+    green: '#53d7ff',
+    green2: '#8be9ff',
+    amber: '#8b7cff',
+    amber2: '#b7a8ff',
+    dim: '#20283a',
   };
   const overviewNodeLimit = Number.POSITIVE_INFINITY;
   const overviewSkeletonLimit = 140;
@@ -822,7 +855,7 @@ function graphifyAtlasScript(nodeLinks) {
         ...(node.font || {}),
         color: Number(node.degree || 0) >= 220 || nodeKind(node) === 'paper' ? graphifyPalette.amber2 : graphifyPalette.green2,
         strokeWidth: isHub ? 5 : 4,
-        strokeColor: 'rgba(4, 8, 6, 0.92)',
+        strokeColor: 'rgba(4, 8, 23, 0.92)',
         size: 0,
       },
     };
@@ -1075,7 +1108,7 @@ function graphifyAtlasScript(nodeLinks) {
           ...(node.font || {}),
           color: labelColor,
           strokeWidth: level >= 3 ? 6 : 5,
-          strokeColor: 'rgba(4, 8, 6, 0.96)',
+          strokeColor: 'rgba(4, 8, 23, 0.96)',
           size: fontSize,
         },
       });
@@ -1094,7 +1127,7 @@ function graphifyAtlasScript(nodeLinks) {
         ...(node.font || {}),
         color: Number(node.degree || 0) >= 220 || nodeKind(node) === 'paper' ? graphifyPalette.amber2 : graphifyPalette.green2,
         strokeWidth: 6,
-        strokeColor: 'rgba(4, 8, 6, 0.98)',
+        strokeColor: 'rgba(4, 8, 23, 0.98)',
         size: 15,
       },
     });
@@ -1250,7 +1283,7 @@ function graphifyAtlasScript(nodeLinks) {
         const rawNeighbor = rawById.get(item.id);
         const dsNeighbor = nodesDS.get(item.id);
         const label = rawNeighbor?.label || dsNeighbor?.label || item.id;
-        const color = dsNeighbor?.color?.background || rawNeighbor?.color?.background || '#4ade80';
+        const color = dsNeighbor?.color?.background || rawNeighbor?.color?.background || '#8be9ff';
         const relation = item.labels.slice(0, 2).join(' / ') || 'related';
         return '<span class="neighbor-link" style="border-left-color:' + atlasEsc(color) + '" onclick="focusNode(' + atlasEsc(JSON.stringify(item.id)) + ')" title="' + atlasEsc(label + ' · ' + relation) + '">'
           + '<span class="neighbor-label">' + atlasEsc(label) + '</span>'

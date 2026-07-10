@@ -1,13 +1,13 @@
 {
   "meta": {
     "title": "Embodied AI Offline Knowledge Graph",
-    "generatedAt": "2026-06-25T05:25:26.635Z",
+    "generatedAt": "2026-07-10T06:15:47.248Z",
     "mode": "offline-local",
     "apiCalls": 0,
     "source": {
-      "markdownDocs": 118,
+      "markdownDocs": 123,
       "entityDefinitions": 77,
-      "paperCatalog": 87
+      "paperCatalog": 88
     },
     "extraction": [
       "Markdown frontmatter and page body text",
@@ -22,8 +22,8 @@
       "id": "bench:calvin",
       "label": "CALVIN",
       "type": "benchmark",
-      "degree": 23,
-      "size": 60.090815370097204
+      "degree": 25,
+      "size": 61.89117562233506
     },
     {
       "id": "bench:ebench",
@@ -36,7 +36,7 @@
       "id": "bench:libero",
       "label": "LIBERO",
       "type": "benchmark",
-      "degree": 43,
+      "degree": 45,
       "size": 72
     },
     {
@@ -57,36 +57,36 @@
       "id": "bench:roboarena",
       "label": "RoboArena",
       "type": "benchmark",
-      "degree": 7,
-      "size": 41.45584412271572
+      "degree": 9,
+      "size": 44.46049894151541
     },
     {
       "id": "bench:robocasa",
       "label": "RoboCasa",
       "type": "benchmark",
-      "degree": 25,
-      "size": 61.89117562233506
+      "degree": 28,
+      "size": 64.46648326421052
     },
     {
       "id": "bench:robochallenge",
       "label": "RoboChallenge",
       "type": "benchmark",
-      "degree": 8,
-      "size": 43
+      "degree": 9,
+      "size": 44.46049894151541
     },
     {
       "id": "bench:robotwin",
       "label": "RoboTwin",
       "type": "benchmark",
-      "degree": 18,
-      "size": 55.230090491866065
+      "degree": 22,
+      "size": 59.162483709814474
     },
     {
       "id": "bench:simpler",
       "label": "SimplerEnv",
       "type": "benchmark",
-      "degree": 30,
-      "size": 66.1098792654702
+      "degree": 32,
+      "size": 67.70106381884226
     },
     {
       "id": "bench:worldarena",
@@ -106,7 +106,7 @@
       "id": "concept:action-token",
       "label": "动作 token",
       "type": "concept",
-      "degree": 72,
+      "degree": 74,
       "size": 72
     },
     {
@@ -120,22 +120,22 @@
       "id": "concept:co-training",
       "label": "Co-training",
       "type": "concept",
-      "degree": 31,
-      "size": 66.91168824543144
+      "degree": 32,
+      "size": 67.70106381884226
     },
     {
       "id": "concept:cross-embodiment",
       "label": "跨本体",
       "type": "concept",
-      "degree": 50,
+      "degree": 52,
       "size": 72
     },
     {
       "id": "concept:diffusion-policy",
       "label": "扩散策略",
       "type": "concept",
-      "degree": 31,
-      "size": 66.91168824543144
+      "degree": 32,
+      "size": 67.70106381884226
     },
     {
       "id": "concept:dit-action",
@@ -148,43 +148,43 @@
       "id": "concept:dual-system",
       "label": "双系统",
       "type": "concept",
-      "degree": 46,
+      "degree": 47,
       "size": 72
     },
     {
       "id": "concept:flow-matching",
       "label": "流匹配",
       "type": "concept",
-      "degree": 70,
+      "degree": 72,
       "size": 72
     },
     {
       "id": "concept:h2r-retarget",
       "label": "H2R 重定向",
       "type": "concept",
-      "degree": 11,
-      "size": 47.17691453623979
+      "degree": 12,
+      "size": 48.449961479175904
     },
     {
       "id": "concept:inference-deploy",
       "label": "推理部署",
       "type": "concept",
-      "degree": 63,
+      "degree": 64,
       "size": 72
     },
     {
       "id": "concept:knowledge-insulation",
       "label": "知识隔离",
       "type": "concept",
-      "degree": 17,
-      "size": 54.18376618407356
+      "degree": 18,
+      "size": 55.230090491866065
     },
     {
       "id": "concept:latent-action",
       "label": "潜动作",
       "type": "concept",
-      "degree": 24,
-      "size": 61
+      "degree": 25,
+      "size": 61.89117562233506
     },
     {
       "id": "concept:memory-imagination",
@@ -197,22 +197,22 @@
       "id": "concept:motion-control",
       "label": "运控层",
       "type": "concept",
-      "degree": 15,
-      "size": 52
+      "degree": 17,
+      "size": 54.18376618407356
     },
     {
       "id": "concept:online-rl",
       "label": "在线 RL",
       "type": "concept",
-      "degree": 21,
-      "size": 58.21374183841087
+      "degree": 20,
+      "size": 57.24318125460256
     },
     {
       "id": "concept:predictive-policy",
       "label": "预测式策略",
       "type": "concept",
-      "degree": 12,
-      "size": 48.449961479175904
+      "degree": 13,
+      "size": 49.67491648096547
     },
     {
       "id": "concept:sim2real",
@@ -225,8 +225,8 @@
       "id": "concept:spatial-3d",
       "label": "3D 空间表征",
       "type": "concept",
-      "degree": 26,
-      "size": 62.76537180435969
+      "degree": 25,
+      "size": 61.89117562233506
     },
     {
       "id": "concept:state-action-align",
@@ -239,29 +239,29 @@
       "id": "concept:vla",
       "label": "VLA",
       "type": "concept",
-      "degree": 108,
+      "degree": 112,
       "size": 72
     },
     {
       "id": "concept:wam",
       "label": "WAM",
       "type": "concept",
-      "degree": 55,
+      "degree": 57,
       "size": 72
     },
     {
       "id": "concept:world-model",
       "label": "世界模型",
       "type": "concept",
-      "degree": 56,
+      "degree": 59,
       "size": 72
     },
     {
       "id": "data:agibot-world",
       "label": "AgiBot World",
       "type": "data",
-      "degree": 16,
-      "size": 53.107950630558946
+      "degree": 18,
+      "size": 55.230090491866065
     },
     {
       "id": "data:aloha",
@@ -274,50 +274,50 @@
       "id": "data:bridge",
       "label": "BridgeData",
       "type": "data",
-      "degree": 14,
-      "size": 50.856850115866756
+      "degree": 16,
+      "size": 53.107950630558946
     },
     {
       "id": "data:cosmos",
       "label": "Cosmos",
       "type": "data",
-      "degree": 23,
-      "size": 60.090815370097204
+      "degree": 25,
+      "size": 61.89117562233506
     },
     {
       "id": "data:droid",
       "label": "DROID",
       "type": "data",
-      "degree": 26,
-      "size": 62.76537180435969
+      "degree": 28,
+      "size": 64.46648326421052
     },
     {
       "id": "data:ego-video",
       "label": "第一视角视频",
       "type": "data",
-      "degree": 36,
-      "size": 70.74486277268397
+      "degree": 38,
+      "size": 72
     },
     {
       "id": "data:ewk",
       "label": "EWK",
       "type": "data",
-      "degree": 5,
-      "size": 38.0454076850486
+      "degree": 6,
+      "size": 39.81176179958132
     },
     {
       "id": "data:language-table",
       "label": "Language-Table",
       "type": "data",
-      "degree": 7,
-      "size": 41.45584412271572
+      "degree": 8,
+      "size": 43
     },
     {
       "id": "data:oxe",
       "label": "Open X-Embodiment",
       "type": "data",
-      "degree": 30,
-      "size": 66.1098792654702
+      "degree": 32,
+      "size": 67.70106381884226
     },
     {
       "id": "data:qwen-38100h",
@@ -330,15 +330,15 @@
       "id": "data:rh20t",
       "label": "RH20T",
       "type": "data",
-      "degree": 8,
-      "size": 43
+      "degree": 9,
+      "size": 44.46049894151541
     },
     {
       "id": "data:robomind",
       "label": "RoboMIND",
       "type": "data",
-      "degree": 14,
-      "size": 50.856850115866756
+      "degree": 16,
+      "size": 53.107950630558946
     },
     {
       "id": "doc:ecosystem/brain-ranking",
@@ -346,8 +346,8 @@
       "type": "ecosystem",
       "url": "/ecosystem/brain-ranking",
       "rel": "ecosystem/brain-ranking.md",
-      "description": "全球「具身大脑」（VLA / 机器人基础模型 / 世界模型 / 泛化操作策略）研发公司分档榜。多维记分卡 + T0/T1/T2 分档，每条数据附一手来源与 ✅一手 / ⚠️自报 / 待核 标注，经多源检索与对抗式事实核验。",
-      "degree": 54,
+      "description": "全球「具身大脑」（VLA / 机器人基础模型 / 世界模型 / 泛化操作策略）研发公司分档榜。多维记分卡 + T0/T1/T2 分档，每条数据附一手来源与 ✅一手 / ⚠️自报 / 待核 标注，经多源检索、对抗式事实核验与小红书社区弱信号校准。",
+      "degree": 56,
       "size": 72
     },
     {
@@ -377,8 +377,8 @@
       "url": "/ecosystem/paper-graph",
       "rel": "ecosystem/paper-graph.md",
       "description": "合并论文策展图谱与 Graphify 离线全站图谱,一页切换浏览 VLA / WAM 论文网络和全站 Markdown 语义拓扑。",
-      "degree": 15,
-      "size": 52
+      "degree": 14,
+      "size": 50.856850115866756
     },
     {
       "id": "doc:index",
@@ -387,7 +387,7 @@
       "url": "/",
       "rel": "index.md",
       "description": "",
-      "degree": 119,
+      "degree": 117,
       "size": 72
     },
     {
@@ -407,7 +407,7 @@
       "url": "/vla/guide",
       "rel": "vla/guide.md",
       "description": "如何阅读具身星图——内容地图、推荐阅读路径、可信度标注约定(⚠️/✅/待核)与贡献反馈方式,帮助新读者快速上手 VLA 视觉-语言-动作模型深度调研。",
-      "degree": 77,
+      "degree": 79,
       "size": 72
     },
     {
@@ -417,7 +417,7 @@
       "url": "/vla/",
       "rel": "vla/index.md",
       "description": "VLA 视觉-语言-动作模型发展深度调研报告,梳理从 RT-2 离散动作 token 到 Octo、π0、GR00T 连续扩散与流匹配的两条路线,涵盖 Open X-Embodiment 数据底座、双系统分层架构,以及 SimplerEnv、LIBERO、CALVIN 基准上的 OpenVLA-OFT 等 SOTA 演进。",
-      "degree": 238,
+      "degree": 245,
       "size": 72
     },
     {
@@ -456,8 +456,8 @@
       "track": "VLA",
       "route": "新范式探索",
       "date": "2026-03",
-      "degree": 18,
-      "size": 55.230090491866065
+      "degree": 19,
+      "size": 56.24922359499622
     },
     {
       "id": "doc:vla/papers/benchmarks",
@@ -466,7 +466,7 @@
       "url": "/vla/papers/benchmarks",
       "rel": "vla/papers/benchmarks.md",
       "description": "VLA 评测深度版,系统梳理 SimplerEnv/LIBERO/CALVIN/RoboCasa 四大主流仿真操作基准的逐模型成绩表,并新增仿真操作扩展基准、双臂/人形/移动操作基准、真机评测与竞技场、具身推理与 VQA、视觉语言导航五大维度,以及评测方法论与陷阱(读表铁律)。讲清各基准口径为何不可直接横比、自评为何普遍高估、benchmark 饱和为何失真。",
-      "degree": 80,
+      "degree": 84,
       "size": 72
     },
     {
@@ -499,8 +499,18 @@
       "url": "/vla/papers/data-processing",
       "rel": "vla/papers/data-processing.md",
       "description": "VLA 具身数据处理深度调研:从原始遥操作/视频流到可训练样本的全流程工程——数据清洗与质检、语言/子目标/奖励标注、动作处理(归一化/分词/分块/跨本体对齐)、观测处理、伪标签生成(IDM/潜动作/手部关键点/合成真值)、数据配比采样与格式工具链(RLDS/LeRobot/HDF5/Zarr)。",
-      "degree": 66,
+      "degree": 69,
       "size": 72
+    },
+    {
+      "id": "doc:vla/papers/datasets-catalog",
+      "label": "数据集与仿真环境图鉴",
+      "type": "topic",
+      "url": "/vla/papers/datasets-catalog",
+      "rel": "vla/papers/datasets-catalog.md",
+      "description": "具身数据集与仿真环境图鉴 · 真机遥操作/人类视频/仿真环境/合成工具的可筛选目录,带规模/许可/可信度/来源一站式查询。覆盖 Open X-Embodiment/BridgeData/DROID/RoboMIND/AgiBot World 等真机数据,Ego4D 等人类视频,RoboCasa/ManiSkill/Isaac Sim 等仿真环境。",
+      "degree": 24,
+      "size": 61
     },
     {
       "id": "doc:vla/papers/diffusion-policy",
@@ -545,7 +555,17 @@
       "url": "/vla/papers/embodied-data",
       "rel": "vla/papers/embodied-data.md",
       "description": "VLA 与具身智能的数据专题:从真机遥操作轨迹、互联网视觉-语言数据到人类视频与仿真合成数据,梳理潜动作、逆动力学、跨本体归一化与 co-training,以及 NVIDIA GR00T 数据金字塔与 π0.5 异构协同训练范式。",
-      "degree": 86,
+      "degree": 90,
+      "size": 72
+    },
+    {
+      "id": "doc:vla/papers/embodied-data-papers",
+      "label": "具身数据论文索引",
+      "type": "topic",
+      "url": "/vla/papers/embodied-data-papers",
+      "rel": "vla/papers/embodied-data-papers.md",
+      "description": "具身智能与 VLA/WAM 数据相关论文索引,按真机数据集、人类视频、仿真合成数据、数据处理、数据筛选与评测基准聚合本站已收录论文和一手信源。",
+      "degree": 65,
       "size": 72
     },
     {
@@ -578,8 +598,8 @@
       "track": "VLA",
       "route": "新范式探索",
       "date": "2026-06",
-      "degree": 18,
-      "size": 55.230090491866065
+      "degree": 17,
+      "size": 54.18376618407356
     },
     {
       "id": "doc:vla/papers/g3vla",
@@ -591,8 +611,8 @@
       "track": "VLA",
       "route": "新范式探索",
       "date": "2026-06",
-      "degree": 20,
-      "size": 57.24318125460256
+      "degree": 22,
+      "size": 59.162483709814474
     },
     {
       "id": "doc:vla/papers/galaxea-g0",
@@ -627,7 +647,7 @@
       "url": "/vla/papers/getting-started",
       "rel": "vla/papers/getting-started.md",
       "description": "给初学者的具身智能入门:用大白话讲清楚什么是具身智能 / VLA / WAM,核心概念速记,再给一条「从这里开始」的推荐学习路径,逐步带入本站的总报告、奠基论文细读、数据与训练、评测基准与前沿 WAM。",
-      "degree": 39,
+      "degree": 41,
       "size": 72
     },
     {
@@ -650,7 +670,7 @@
       "url": "/vla/papers/glossary",
       "rel": "vla/papers/glossary.md",
       "description": "具身智能与 VLA 视觉-语言-动作模型高频术语速查表,按主题分组,涵盖 VLM、离散动作 token、流匹配与扩散策略等概念,每条给出中英术语、一句话定义与代表工作出处。",
-      "degree": 67,
+      "degree": 68,
       "size": 72
     },
     {
@@ -663,7 +683,7 @@
       "track": "VLA",
       "route": "分层 · 双系统/推理",
       "date": "2025-03",
-      "degree": 42,
+      "degree": 43,
       "size": 72
     },
     {
@@ -748,8 +768,18 @@
       "url": "/vla/papers/knowledge-insulation",
       "rel": "vla/papers/knowledge-insulation.md",
       "description": "Knowledge Insulation(知识隔离)是 Physical Intelligence / DeepMind 提出的 VLA 训练配方:用 stop-gradient 把连续动作专家的梯度挡在预训练 VLM 主干之外,同时让主干用 FAST 离散动作 token + 网络数据 co-train,做到\"训练快、运行快、泛化更好\"。它是 π0.6 / π0.7 背后的核心训练技法。",
-      "degree": 40,
+      "degree": 41,
       "size": 72
+    },
+    {
+      "id": "doc:vla/papers/leaderboard",
+      "label": "统一基准榜",
+      "type": "topic",
+      "url": "/vla/papers/leaderboard",
+      "rel": "vla/papers/leaderboard.md",
+      "description": "VLA 基准统一榜 · SimplerEnv / LIBERO / CALVIN / RoboCasa 四大仿真基准逐模型成绩可筛选排序,带口径/可信度/来源一站式查表。补齐分散在 benchmarks.md 与各模型页的成绩,按 split/protocol/credibility 筛选,避免跨口径横比陷阱。",
+      "degree": 25,
+      "size": 61.89117562233506
     },
     {
       "id": "doc:vla/papers/learning-action-priors",
@@ -796,8 +826,8 @@
       "type": "topic",
       "url": "/vla/papers/models-spec",
       "rel": "vla/papers/models-spec.md",
-      "description": "一页看全 26 个 VLA / 具身智能代表模型的横切规格大表——主干 VLM、视觉编码器、参数量、动作表示、控制频率、训练语料、单体/双系统、开源许可,按时间排序并交叉链接各细读。",
-      "degree": 74,
+      "description": "一页看全 27 项 VLA / 具身智能代表模型与动作接口的横切规格大表——主干 VLM、视觉编码器、参数量、动作表示、控制频率、训练语料、单体/双系统、开源许可,按时间排序并交叉链接各细读。",
+      "degree": 76,
       "size": 72
     },
     {
@@ -820,7 +850,7 @@
       "track": "VLA",
       "route": "连续 · 扩散/流匹配",
       "date": "2024-05",
-      "degree": 43,
+      "degree": 44,
       "size": 72
     },
     {
@@ -846,7 +876,7 @@
       "track": "VLA",
       "route": "离散 token",
       "date": "2024-06",
-      "degree": 54,
+      "degree": 55,
       "size": 72
     },
     {
@@ -885,7 +915,7 @@
       "track": "VLA",
       "route": "离散 token",
       "date": "2025-01",
-      "degree": 40,
+      "degree": 41,
       "size": 72
     },
     {
@@ -1009,7 +1039,7 @@
       "url": "/vla/papers/references",
       "rel": "vla/papers/references.md",
       "description": "VLA 与具身智能深度调研报告的参考文献聚合页,汇总全站一手信源即论文原文与官方页面,去重后按奠基模型、前沿模型等主题整理为可检索的参考文献表,并标注关联细读与自评数据。",
-      "degree": 75,
+      "degree": 77,
       "size": 72
     },
     {
@@ -1032,7 +1062,7 @@
       "url": "/vla/papers/resources",
       "rel": "vla/papers/resources.md",
       "description": "具身智能 / VLA 领域公开高质量外部资源导航——精选社区 Awesome 论文合集、关键综述、基准与仿真平台官方站、大规模数据集、开源框架与机构研究博客,每条均经核实存在,与本站「参考文献」(已覆盖论文的一手信源)互补。",
-      "degree": 48,
+      "degree": 49,
       "size": 72
     },
     {
@@ -1059,13 +1089,23 @@
       "size": 55.230090491866065
     },
     {
+      "id": "doc:vla/papers/roadmap",
+      "label": "学习路线图",
+      "type": "topic",
+      "url": "/vla/papers/roadmap",
+      "rel": "vla/papers/roadmap.md",
+      "description": "具身智能学习路线图 · 可视化多轨学习地图,从入门到前沿,按阶段(基础→核心→进阶→前沿)分列,按轨道(VLA/WAM/数据/训练评测/工程)着色,带前置依赖连线。全部节点指向站内已有页面,是 getting-started 线性路径的图形化补充。",
+      "degree": 23,
+      "size": 60.090815370097204
+    },
+    {
       "id": "doc:vla/papers/robots",
       "label": "实验机器人本体梳理",
       "type": "topic",
       "url": "/vla/papers/robots",
       "rel": "vla/papers/robots.md",
       "description": "梳理 VLA 实验所用机器人本体,从单臂 WidowX、Franka/DROID 到双臂 ALOHA 与人形 GR-1、Unitree G1、Apollo,讲清各平台形态、自由度与跨本体迁移,涵盖 RT-1、Octo、OpenVLA、π0、GR00T 等模型的本体绑定。",
-      "degree": 59,
+      "degree": 60,
       "size": 72
     },
     {
@@ -1091,8 +1131,8 @@
       "track": "VLA",
       "route": "离散 token",
       "date": "2022-12",
-      "degree": 19,
-      "size": 56.24922359499622
+      "degree": 20,
+      "size": 57.24318125460256
     },
     {
       "id": "doc:vla/papers/rt2",
@@ -1104,7 +1144,7 @@
       "track": "VLA",
       "route": "离散 token",
       "date": "2023-07",
-      "degree": 39,
+      "degree": 40,
       "size": 72
     },
     {
@@ -1117,8 +1157,8 @@
       "track": "VLA",
       "route": "分层 · 双系统/推理",
       "date": "2026-02",
-      "degree": 24,
-      "size": 61
+      "degree": 25,
+      "size": 61.89117562233506
     },
     {
       "id": "doc:vla/papers/rynnvla",
@@ -1234,8 +1274,8 @@
       "track": "VLA",
       "route": "新范式探索",
       "date": "2026-06",
-      "degree": 11,
-      "size": 47.17691453623979
+      "degree": 12,
+      "size": 48.449961479175904
     },
     {
       "id": "doc:vla/papers/svp-il",
@@ -1257,7 +1297,7 @@
       "url": "/vla/papers/timeline",
       "rel": "vla/papers/timeline.md",
       "description": "VLA × WAM 具身智能 2022 至 2026 年双主线发展时间线:VLA 五阶段三条动作路线 + WAM 级联/联合/跨范式演进,按 首发排序的里程碑大表与双谱系图,每个里程碑可点链进对应细读。",
-      "degree": 90,
+      "degree": 91,
       "size": 72
     },
     {
@@ -1280,7 +1320,7 @@
       "url": "/vla/papers/training-pipeline",
       "rel": "vla/papers/training-pipeline.md",
       "description": "一个具身/VLA 模型从 VLM 初始化到上机要走完的多阶段流水线:阶段0 VLM 预训练→1 机器人数据预训练→2 协同训练(网络+跨本体)→3 后训练对齐→4 真机 RL 经验→5 蒸馏部署,串联本站 13 篇训练相关已核事实,只讲训练一侧的数据、目标函数与配方取舍。",
-      "degree": 55,
+      "degree": 56,
       "size": 72
     },
     {
@@ -1293,7 +1333,7 @@
       "track": "VLA",
       "route": "混合 · 连续回归",
       "date": "2025-09",
-      "degree": 42,
+      "degree": 43,
       "size": 72
     },
     {
@@ -1306,7 +1346,7 @@
       "track": "VLA",
       "route": "混合 · 连续回归",
       "date": null,
-      "degree": 42,
+      "degree": 44,
       "size": 72
     },
     {
@@ -1321,6 +1361,19 @@
       "date": "2026-06",
       "degree": 19,
       "size": 56.24922359499622
+    },
+    {
+      "id": "doc:vla/papers/x-tokenizer",
+      "label": "X-Tokenizer 细读",
+      "type": "paper",
+      "url": "/vla/papers/x-tokenizer",
+      "rel": "vla/papers/x-tokenizer.md",
+      "description": "X-Tokenizer(自变量 X Square Robot / CityU / Tsinghua,)把动作分词从低失真压缩改写为 VLA 预训练的语义接口学习:Encoder-SRQ-Decoder 架构用 q0 表达粗粒度动作意图,q1-q3 保留运动残差,并通过冻结 VLM 表征对齐和下一帧 VL 特征预测让离散动作 token 可塑造 VLA 主干。",
+      "track": "VLA",
+      "route": "混合 · 连续回归",
+      "date": "2026-06",
+      "degree": 31,
+      "size": 66.91168824543144
     },
     {
       "id": "doc:vla/papers/xiaohongshu",
@@ -1339,7 +1392,7 @@
       "url": "/wam/",
       "rel": "wam/index.md",
       "description": "世界-行动模型(WAM)是 2025–2026 兴起的具身基础模型范式,联合预测未来状态与动作、而非仅生成动作;本页梳理其定义、taxonomy、代表模型、数据与评测,及其与 VLA 的边界。",
-      "degree": 128,
+      "degree": 129,
       "size": 72
     },
     {
@@ -1352,7 +1405,7 @@
       "track": "WAM",
       "route": "跨范式 · 基座/平台/仿真",
       "date": "2026-06",
-      "degree": 41,
+      "degree": 42,
       "size": 72
     },
     {
@@ -1404,8 +1457,8 @@
       "track": "WAM",
       "route": "跨范式 · 基座/平台/仿真",
       "date": "2026-05",
-      "degree": 29,
-      "size": 65.29503017546494
+      "degree": 30,
+      "size": 66.1098792654702
     },
     {
       "id": "doc:wam/papers/gen2act",
@@ -1417,8 +1470,8 @@
       "track": "WAM",
       "route": "级联 · 显式",
       "date": "2024-09",
-      "degree": 30,
-      "size": 66.1098792654702
+      "degree": 31,
+      "size": 66.91168824543144
     },
     {
       "id": "doc:wam/papers/genie-envisioner",
@@ -1508,8 +1561,8 @@
       "track": "WAM",
       "route": "级联 · 隐式",
       "date": "2024-10",
-      "degree": 33,
-      "size": 68.4785670536077
+      "degree": 34,
+      "size": 69.24471804789655
     },
     {
       "id": "doc:wam/papers/lingbot-va",
@@ -1609,8 +1662,8 @@
       "track": "WAM",
       "route": "跨范式 · 基座/平台/仿真",
       "date": "2026-06",
-      "degree": 34,
-      "size": 69.24471804789655
+      "degree": 35,
+      "size": 70
     },
     {
       "id": "doc:wam/papers/robodream",
@@ -1622,8 +1675,8 @@
       "track": "WAM",
       "route": "跨范式 · 基座/平台/仿真",
       "date": "2026-06",
-      "degree": 35,
-      "size": 70
+      "degree": 36,
+      "size": 70.74486277268397
     },
     {
       "id": "doc:wam/papers/rynnvla-002",
@@ -1785,15 +1838,15 @@
       "id": "org:agibot",
       "label": "AgiBot",
       "type": "org",
-      "degree": 24,
-      "size": 61
+      "degree": 26,
+      "size": 62.76537180435969
     },
     {
       "id": "org:berkeley",
       "label": "UC Berkeley",
       "type": "org",
-      "degree": 15,
-      "size": 52
+      "degree": 16,
+      "size": 53.107950630558946
     },
     {
       "id": "org:damo",
@@ -1841,29 +1894,29 @@
       "id": "org:mit",
       "label": "MIT",
       "type": "org",
-      "degree": 16,
-      "size": 53.107950630558946
+      "degree": 17,
+      "size": 54.18376618407356
     },
     {
       "id": "org:nvidia",
       "label": "NVIDIA",
       "type": "org",
-      "degree": 67,
+      "degree": 71,
       "size": 72
     },
     {
       "id": "org:pi",
       "label": "Physical Intelligence",
       "type": "org",
-      "degree": 85,
+      "degree": 89,
       "size": 72
     },
     {
       "id": "org:qwen",
       "label": "Qwen",
       "type": "org",
-      "degree": 28,
-      "size": 64.46648326421052
+      "degree": 30,
+      "size": 66.1098792654702
     },
     {
       "id": "org:seed",
@@ -1883,8 +1936,8 @@
       "id": "org:stanford",
       "label": "Stanford",
       "type": "org",
-      "degree": 19,
-      "size": 56.24922359499622
+      "degree": 20,
+      "size": 57.24318125460256
     },
     {
       "id": "org:tri",
@@ -1897,8 +1950,8 @@
       "id": "org:tsinghua",
       "label": "Tsinghua",
       "type": "org",
-      "degree": 21,
-      "size": 58.21374183841087
+      "degree": 23,
+      "size": 60.090815370097204
     },
     {
       "id": "org:westlake",
@@ -1911,8 +1964,8 @@
       "id": "org:xsquare",
       "label": "X Square",
       "type": "org",
-      "degree": 11,
-      "size": 47.17691453623979
+      "degree": 12,
+      "size": 48.449961479175904
     },
     {
       "id": "robot:agilex",
@@ -1960,15 +2013,15 @@
       "id": "robot:franka",
       "label": "Franka",
       "type": "robot",
-      "degree": 25,
-      "size": 61.89117562233506
+      "degree": 26,
+      "size": 62.76537180435969
     },
     {
       "id": "robot:google-robot",
       "label": "Google Robot",
       "type": "robot",
-      "degree": 18,
-      "size": 55.230090491866065
+      "degree": 19,
+      "size": 56.24922359499622
     },
     {
       "id": "robot:unitree-g1",
@@ -1988,8 +2041,8 @@
       "id": "robot:widowx",
       "label": "WidowX",
       "type": "robot",
-      "degree": 23,
-      "size": 60.090815370097204
+      "degree": 25,
+      "size": 61.89117562233506
     },
     {
       "id": "robot:xarm",
@@ -2019,8 +2072,8 @@
       "label": "混合 · 连续回归",
       "type": "route",
       "track": "VLA",
-      "degree": 6,
-      "size": 39.81176179958132
+      "degree": 7,
+      "size": 41.45584412271572
     },
     {
       "id": "route:离散 token",
@@ -2117,6 +2170,18 @@
       ]
     },
     {
+      "id": "links-to:doc:ecosystem/brain-ranking->doc:vla/papers/xiaohongshu",
+      "source": "doc:ecosystem/brain-ranking",
+      "target": "doc:vla/papers/xiaohongshu",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "ecosystem/brain-ranking.md"
+      ]
+    },
+    {
       "id": "links-to:doc:ecosystem/index->doc:ecosystem/brain-ranking",
       "source": "doc:ecosystem/index",
       "target": "doc:ecosystem/brain-ranking",
@@ -2192,18 +2257,6 @@
       "id": "links-to:doc:index->doc:ecosystem/index",
       "source": "doc:index",
       "target": "doc:ecosystem/index",
-      "type": "links-to",
-      "label": "站内链接",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": [
-        "index.md"
-      ]
-    },
-    {
-      "id": "links-to:doc:index->doc:vla/changelog",
-      "source": "doc:index",
-      "target": "doc:vla/changelog",
       "type": "links-to",
       "label": "站内链接",
       "weight": 1,
@@ -2900,6 +2953,18 @@
       "id": "links-to:doc:index->doc:vla/papers/wolf-vla",
       "source": "doc:index",
       "target": "doc:vla/papers/wolf-vla",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "index.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:index->doc:vla/papers/x-tokenizer",
+      "source": "doc:index",
+      "target": "doc:vla/papers/x-tokenizer",
       "type": "links-to",
       "label": "站内链接",
       "weight": 1,
@@ -3941,6 +4006,18 @@
       ]
     },
     {
+      "id": "links-to:doc:vla/changelog->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/changelog",
+      "target": "doc:vla/papers/x-tokenizer",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/changelog.md"
+      ]
+    },
+    {
       "id": "links-to:doc:vla/changelog->doc:vla/papers/xiaohongshu",
       "source": "doc:vla/changelog",
       "target": "doc:vla/papers/xiaohongshu",
@@ -4472,6 +4549,18 @@
       "id": "links-to:doc:vla/guide->doc:vla/papers/embodied-data",
       "source": "doc:vla/guide",
       "target": "doc:vla/papers/embodied-data",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/guide.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/guide->doc:vla/papers/embodied-data-papers",
+      "source": "doc:vla/guide",
+      "target": "doc:vla/papers/embodied-data-papers",
       "type": "links-to",
       "label": "站内链接",
       "weight": 1,
@@ -5036,6 +5125,18 @@
       "id": "links-to:doc:vla/index->doc:vla/papers/embodied-data",
       "source": "doc:vla/index",
       "target": "doc:vla/papers/embodied-data",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/index.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/index->doc:vla/papers/embodied-data-papers",
+      "source": "doc:vla/index",
+      "target": "doc:vla/papers/embodied-data-papers",
       "type": "links-to",
       "label": "站内链接",
       "weight": 1,
@@ -5681,6 +5782,18 @@
       ]
     },
     {
+      "id": "links-to:doc:vla/index->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/index",
+      "target": "doc:vla/papers/x-tokenizer",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/index.md"
+      ]
+    },
+    {
       "id": "links-to:doc:vla/index->doc:wam/index",
       "source": "doc:vla/index",
       "target": "doc:wam/index",
@@ -5957,6 +6070,18 @@
       ]
     },
     {
+      "id": "links-to:doc:vla/papers/benchmarks->doc:vla/papers/leaderboard",
+      "source": "doc:vla/papers/benchmarks",
+      "target": "doc:vla/papers/leaderboard",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/benchmarks.md"
+      ]
+    },
+    {
       "id": "links-to:doc:vla/papers/benchmarks->doc:vla/papers/qwen-vla",
       "source": "doc:vla/papers/benchmarks",
       "target": "doc:vla/papers/qwen-vla",
@@ -6137,6 +6262,18 @@
       ]
     },
     {
+      "id": "links-to:doc:vla/papers/data-processing->doc:vla/papers/embodied-data-papers",
+      "source": "doc:vla/papers/data-processing",
+      "target": "doc:vla/papers/embodied-data-papers",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/data-processing.md"
+      ]
+    },
+    {
       "id": "links-to:doc:vla/papers/data-processing->doc:vla/papers/groot-n1",
       "source": "doc:vla/papers/data-processing",
       "target": "doc:vla/papers/groot-n1",
@@ -6194,6 +6331,78 @@
       "confidence": "EXTRACTED",
       "evidence": [
         "vla/papers/data-processing.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/datasets-catalog->doc:vla/index",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "doc:vla/index",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/datasets-catalog.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/datasets-catalog->doc:vla/papers/benchmarks",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "doc:vla/papers/benchmarks",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/datasets-catalog.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/datasets-catalog->doc:vla/papers/data-processing",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "doc:vla/papers/data-processing",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/datasets-catalog.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/datasets-catalog->doc:vla/papers/embodied-data",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "doc:vla/papers/embodied-data",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/datasets-catalog.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/datasets-catalog->doc:vla/papers/embodied-data-papers",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "doc:vla/papers/embodied-data-papers",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/datasets-catalog.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/datasets-catalog->doc:vla/papers/leaderboard",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "doc:vla/papers/leaderboard",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/datasets-catalog.md"
       ]
     },
     {
@@ -6437,6 +6646,30 @@
       ]
     },
     {
+      "id": "links-to:doc:vla/papers/embodied-data->doc:vla/papers/datasets-catalog",
+      "source": "doc:vla/papers/embodied-data",
+      "target": "doc:vla/papers/datasets-catalog",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data->doc:vla/papers/embodied-data-papers",
+      "source": "doc:vla/papers/embodied-data",
+      "target": "doc:vla/papers/embodied-data-papers",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data.md"
+      ]
+    },
+    {
       "id": "links-to:doc:vla/papers/embodied-data->doc:vla/papers/glossary",
       "source": "doc:vla/papers/embodied-data",
       "target": "doc:vla/papers/glossary",
@@ -6470,6 +6703,222 @@
       "confidence": "EXTRACTED",
       "evidence": [
         "vla/papers/embodied-data.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/index",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/index",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/papers/benchmarks",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/benchmarks",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/papers/data-processing",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/data-processing",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/papers/embodied-data",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/embodied-data",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/papers/go-1",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/go-1",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/papers/knowledge-insulation",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/knowledge-insulation",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/papers/octo",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/octo",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/papers/openvla",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/openvla",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/papers/rt1",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/rt1",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/papers/rt2",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/rt2",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:vla/papers/supervise-what-survives",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/supervise-what-survives",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:wam/papers/cosmos3",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:wam/papers/cosmos3",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:wam/papers/ge-sim-2",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:wam/papers/ge-sim-2",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:wam/papers/gen2act",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:wam/papers/gen2act",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:wam/papers/lapa",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:wam/papers/lapa",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:wam/papers/qwen-robotworld",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:wam/papers/qwen-robotworld",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:wam/papers/robodream",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:wam/papers/robodream",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/embodied-data-papers->doc:wam/papers/world-value-models",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:wam/papers/world-value-models",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/embodied-data-papers.md"
       ]
     },
     {
@@ -6968,6 +7417,18 @@
       "id": "links-to:doc:vla/papers/getting-started->doc:vla/papers/pi0",
       "source": "doc:vla/papers/getting-started",
       "target": "doc:vla/papers/pi0",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/getting-started.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/getting-started->doc:vla/papers/roadmap",
+      "source": "doc:vla/papers/getting-started",
+      "target": "doc:vla/papers/roadmap",
       "type": "links-to",
       "label": "站内链接",
       "weight": 1,
@@ -7925,6 +8386,66 @@
       ]
     },
     {
+      "id": "links-to:doc:vla/papers/leaderboard->doc:vla/index",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "doc:vla/index",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/leaderboard.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/leaderboard->doc:vla/papers/benchmarks",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "doc:vla/papers/benchmarks",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/leaderboard.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/leaderboard->doc:vla/papers/models-spec",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "doc:vla/papers/models-spec",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/leaderboard.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/leaderboard->doc:vla/papers/robots",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "doc:vla/papers/robots",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/leaderboard.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/leaderboard->doc:vla/papers/training-pipeline",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "doc:vla/papers/training-pipeline",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/leaderboard.md"
+      ]
+    },
+    {
       "id": "links-to:doc:vla/papers/learning-action-priors->doc:vla/index",
       "source": "doc:vla/papers/learning-action-priors",
       "target": "doc:vla/index",
@@ -8444,6 +8965,18 @@
       "id": "links-to:doc:vla/papers/models-spec->doc:vla/papers/wall-oss-05",
       "source": "doc:vla/papers/models-spec",
       "target": "doc:vla/papers/wall-oss-05",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/models-spec.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/models-spec->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/models-spec",
+      "target": "doc:vla/papers/x-tokenizer",
       "type": "links-to",
       "label": "站内链接",
       "weight": 1,
@@ -9653,6 +10186,18 @@
       ]
     },
     {
+      "id": "links-to:doc:vla/papers/references->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/references",
+      "target": "doc:vla/papers/x-tokenizer",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/references.md"
+      ]
+    },
+    {
       "id": "links-to:doc:vla/papers/references->doc:wam/papers/qwen-robotworld",
       "source": "doc:vla/papers/references",
       "target": "doc:wam/papers/qwen-robotworld",
@@ -9788,6 +10333,18 @@
       "id": "links-to:doc:vla/papers/resources->doc:vla/papers/embodied-data",
       "source": "doc:vla/papers/resources",
       "target": "doc:vla/papers/embodied-data",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/resources.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/resources->doc:vla/papers/embodied-data-papers",
+      "source": "doc:vla/papers/resources",
+      "target": "doc:vla/papers/embodied-data-papers",
       "type": "links-to",
       "label": "站内链接",
       "weight": 1,
@@ -9986,6 +10543,66 @@
       "confidence": "EXTRACTED",
       "evidence": [
         "vla/papers/road-vla.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/roadmap->doc:vla/guide",
+      "source": "doc:vla/papers/roadmap",
+      "target": "doc:vla/guide",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/roadmap.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/roadmap->doc:vla/index",
+      "source": "doc:vla/papers/roadmap",
+      "target": "doc:vla/index",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/roadmap.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/roadmap->doc:vla/papers/getting-started",
+      "source": "doc:vla/papers/roadmap",
+      "target": "doc:vla/papers/getting-started",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/roadmap.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/roadmap->doc:vla/papers/glossary",
+      "source": "doc:vla/papers/roadmap",
+      "target": "doc:vla/papers/glossary",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/roadmap.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/roadmap->doc:wam/index",
+      "source": "doc:vla/papers/roadmap",
+      "target": "doc:wam/index",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/roadmap.md"
       ]
     },
     {
@@ -11045,6 +11662,18 @@
       ]
     },
     {
+      "id": "links-to:doc:vla/papers/timeline->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/timeline",
+      "target": "doc:vla/papers/x-tokenizer",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/timeline.md"
+      ]
+    },
+    {
       "id": "links-to:doc:vla/papers/timeline->doc:wam/index",
       "source": "doc:vla/papers/timeline",
       "target": "doc:wam/index",
@@ -11657,6 +12286,18 @@
       ]
     },
     {
+      "id": "links-to:doc:vla/papers/wall-oss->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/wall-oss",
+      "target": "doc:vla/papers/x-tokenizer",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/wall-oss.md"
+      ]
+    },
+    {
       "id": "links-to:doc:vla/papers/wall-oss-05->doc:vla/index",
       "source": "doc:vla/papers/wall-oss-05",
       "target": "doc:vla/index",
@@ -11765,6 +12406,18 @@
       ]
     },
     {
+      "id": "links-to:doc:vla/papers/wall-oss-05->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/wall-oss-05",
+      "target": "doc:vla/papers/x-tokenizer",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/wall-oss-05.md"
+      ]
+    },
+    {
       "id": "links-to:doc:vla/papers/wolf-vla->doc:vla/index",
       "source": "doc:vla/papers/wolf-vla",
       "target": "doc:vla/index",
@@ -11810,6 +12463,42 @@
       "confidence": "EXTRACTED",
       "evidence": [
         "vla/papers/wolf-vla.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/x-tokenizer->doc:vla/index",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "doc:vla/index",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/x-tokenizer.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/x-tokenizer->doc:vla/papers/pi0-fast",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "doc:vla/papers/pi0-fast",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/x-tokenizer.md"
+      ]
+    },
+    {
+      "id": "links-to:doc:vla/papers/x-tokenizer->doc:vla/papers/wall-oss-05",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "doc:vla/papers/wall-oss-05",
+      "type": "links-to",
+      "label": "站内链接",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": [
+        "vla/papers/x-tokenizer.md"
       ]
     },
     {
@@ -15189,6 +15878,16 @@
       "evidence": []
     },
     {
+      "id": "mentions:doc:ecosystem/brain-ranking->bench:robotwin",
+      "source": "doc:ecosystem/brain-ranking",
+      "target": "bench:robotwin",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
       "id": "mentions:doc:ecosystem/brain-ranking->bench:simpler",
       "source": "doc:ecosystem/brain-ranking",
       "target": "bench:simpler",
@@ -15204,7 +15903,7 @@
       "target": "concept:action-token",
       "type": "mentions",
       "label": "提及",
-      "weight": 2,
+      "weight": 5,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -15274,7 +15973,7 @@
       "target": "concept:memory-imagination",
       "type": "mentions",
       "label": "提及",
-      "weight": 2,
+      "weight": 3,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -15324,7 +16023,7 @@
       "target": "concept:wam",
       "type": "mentions",
       "label": "提及",
-      "weight": 2,
+      "weight": 3,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -15484,7 +16183,7 @@
       "target": "org:qwen",
       "type": "mentions",
       "label": "提及",
-      "weight": 7,
+      "weight": 10,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -15494,7 +16193,7 @@
       "target": "org:seed",
       "type": "mentions",
       "label": "提及",
-      "weight": 3,
+      "weight": 6,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -15524,7 +16223,7 @@
       "target": "org:tsinghua",
       "type": "mentions",
       "label": "提及",
-      "weight": 2,
+      "weight": 3,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -15534,7 +16233,7 @@
       "target": "org:xsquare",
       "type": "mentions",
       "label": "提及",
-      "weight": 9,
+      "weight": 10,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -15804,7 +16503,7 @@
       "target": "concept:action-token",
       "type": "mentions",
       "label": "提及",
-      "weight": 3,
+      "weight": 2,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -15849,26 +16548,6 @@
       "evidence": []
     },
     {
-      "id": "mentions:doc:index->concept:online-rl",
-      "source": "doc:index",
-      "target": "concept:online-rl",
-      "type": "mentions",
-      "label": "提及",
-      "weight": 1,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
-      "id": "mentions:doc:index->concept:spatial-3d",
-      "source": "doc:index",
-      "target": "concept:spatial-3d",
-      "type": "mentions",
-      "label": "提及",
-      "weight": 2,
-      "confidence": "EXTRACTED",
-      "evidence": []
-    },
-    {
       "id": "mentions:doc:index->concept:vla",
       "source": "doc:index",
       "target": "concept:vla",
@@ -15894,7 +16573,7 @@
       "target": "concept:world-model",
       "type": "mentions",
       "label": "提及",
-      "weight": 1,
+      "weight": 2,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -16024,7 +16703,7 @@
       "target": "bench:robochallenge",
       "type": "mentions",
       "label": "提及",
-      "weight": 4,
+      "weight": 5,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -16074,7 +16753,7 @@
       "target": "concept:action-token",
       "type": "mentions",
       "label": "提及",
-      "weight": 7,
+      "weight": 8,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -16554,7 +17233,7 @@
       "target": "org:xsquare",
       "type": "mentions",
       "label": "提及",
-      "weight": 8,
+      "weight": 10,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -16694,7 +17373,7 @@
       "target": "concept:motion-control",
       "type": "mentions",
       "label": "提及",
-      "weight": 1,
+      "weight": 2,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -17104,7 +17783,7 @@
       "target": "data:ego-video",
       "type": "mentions",
       "label": "提及",
-      "weight": 6,
+      "weight": 7,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -17294,7 +17973,7 @@
       "target": "org:tsinghua",
       "type": "mentions",
       "label": "提及",
-      "weight": 3,
+      "weight": 4,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -17304,7 +17983,7 @@
       "target": "org:xsquare",
       "type": "mentions",
       "label": "提及",
-      "weight": 8,
+      "weight": 10,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -18859,6 +19538,136 @@
       "evidence": []
     },
     {
+      "id": "mentions:doc:vla/papers/datasets-catalog->bench:robocasa",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "bench:robocasa",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->concept:flow-matching",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "concept:flow-matching",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->concept:world-model",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "concept:world-model",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->data:agibot-world",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "data:agibot-world",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->data:bridge",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "data:bridge",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->data:cosmos",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "data:cosmos",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->data:droid",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "data:droid",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->data:ego-video",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "data:ego-video",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 8,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->data:oxe",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "data:oxe",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->data:robomind",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "data:robomind",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->org:agibot",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "org:agibot",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->org:mit",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "org:mit",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/datasets-catalog->org:nvidia",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "org:nvidia",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
       "id": "mentions:doc:vla/papers/diffusion-policy->concept:action-chunk",
       "source": "doc:vla/papers/diffusion-policy",
       "target": "concept:action-chunk",
@@ -19691,6 +20500,336 @@
     {
       "id": "mentions:doc:vla/papers/embodied-data->robot:widowx",
       "source": "doc:vla/papers/embodied-data",
+      "target": "robot:widowx",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->bench:calvin",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "bench:calvin",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->bench:libero",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "bench:libero",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->bench:roboarena",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "bench:roboarena",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->bench:robocasa",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "bench:robocasa",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->bench:robotwin",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "bench:robotwin",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->bench:simpler",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "bench:simpler",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->concept:action-token",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "concept:action-token",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->concept:cross-embodiment",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "concept:cross-embodiment",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 5,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->concept:h2r-retarget",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "concept:h2r-retarget",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->concept:knowledge-insulation",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "concept:knowledge-insulation",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->concept:latent-action",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "concept:latent-action",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->concept:motion-control",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "concept:motion-control",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->concept:vla",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "concept:vla",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->concept:wam",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "concept:wam",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->concept:world-model",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "concept:world-model",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 8,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->data:agibot-world",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "data:agibot-world",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->data:bridge",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "data:bridge",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 5,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->data:cosmos",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "data:cosmos",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->data:droid",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "data:droid",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->data:ego-video",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "data:ego-video",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 10,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->data:ewk",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "data:ewk",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->data:language-table",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "data:language-table",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->data:oxe",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "data:oxe",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 6,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->data:rh20t",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "data:rh20t",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->data:robomind",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "data:robomind",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->org:agibot",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "org:agibot",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->org:berkeley",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "org:berkeley",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->org:nvidia",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "org:nvidia",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->org:pi",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "org:pi",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->org:qwen",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "org:qwen",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 5,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->org:stanford",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "org:stanford",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->robot:franka",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "robot:franka",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/embodied-data-papers->robot:widowx",
+      "source": "doc:vla/papers/embodied-data-papers",
       "target": "robot:widowx",
       "type": "mentions",
       "label": "提及",
@@ -21995,6 +23134,126 @@
       "type": "mentions",
       "label": "提及",
       "weight": 10,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->bench:calvin",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "bench:calvin",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 5,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->bench:libero",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "bench:libero",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->bench:roboarena",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "bench:roboarena",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->bench:robocasa",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "bench:robocasa",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 5,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->bench:robochallenge",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "bench:robochallenge",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->bench:robotwin",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "bench:robotwin",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->bench:simpler",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "bench:simpler",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 5,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->concept:vla",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "concept:vla",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->org:nvidia",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "org:nvidia",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->org:pi",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "org:pi",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->robot:google-robot",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "robot:google-robot",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/leaderboard->robot:widowx",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "robot:widowx",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -25084,7 +26343,7 @@
       "target": "concept:action-token",
       "type": "mentions",
       "label": "提及",
-      "weight": 8,
+      "weight": 9,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -25429,12 +26688,22 @@
       "evidence": []
     },
     {
+      "id": "mentions:doc:vla/papers/references->org:tsinghua",
+      "source": "doc:vla/papers/references",
+      "target": "org:tsinghua",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
       "id": "mentions:doc:vla/papers/references->org:xsquare",
       "source": "doc:vla/papers/references",
       "target": "org:xsquare",
       "type": "mentions",
       "label": "提及",
-      "weight": 3,
+      "weight": 7,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -25785,6 +27054,96 @@
       "type": "mentions",
       "label": "提及",
       "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/roadmap->concept:diffusion-policy",
+      "source": "doc:vla/papers/roadmap",
+      "target": "concept:diffusion-policy",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/roadmap->concept:motion-control",
+      "source": "doc:vla/papers/roadmap",
+      "target": "concept:motion-control",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/roadmap->concept:predictive-policy",
+      "source": "doc:vla/papers/roadmap",
+      "target": "concept:predictive-policy",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/roadmap->concept:vla",
+      "source": "doc:vla/papers/roadmap",
+      "target": "concept:vla",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 10,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/roadmap->concept:wam",
+      "source": "doc:vla/papers/roadmap",
+      "target": "concept:wam",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 8,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/roadmap->concept:world-model",
+      "source": "doc:vla/papers/roadmap",
+      "target": "concept:world-model",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/roadmap->org:nvidia",
+      "source": "doc:vla/papers/roadmap",
+      "target": "org:nvidia",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/roadmap->org:pi",
+      "source": "doc:vla/papers/roadmap",
+      "target": "org:pi",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/roadmap->org:qwen",
+      "source": "doc:vla/papers/roadmap",
+      "target": "org:qwen",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -28314,7 +29673,7 @@
       "target": "org:pi",
       "type": "mentions",
       "label": "提及",
-      "weight": 10,
+      "weight": 9,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -28575,6 +29934,116 @@
       "type": "mentions",
       "label": "提及",
       "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->bench:robotwin",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "bench:robotwin",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->concept:action-token",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "concept:action-token",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 10,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->concept:co-training",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "concept:co-training",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->concept:cross-embodiment",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "concept:cross-embodiment",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->concept:dual-system",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "concept:dual-system",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->concept:flow-matching",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "concept:flow-matching",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 1,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->concept:inference-deploy",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "concept:inference-deploy",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 3,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->concept:vla",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "concept:vla",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 10,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->org:pi",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "org:pi",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 4,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->org:tsinghua",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "org:tsinghua",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 2,
+      "confidence": "EXTRACTED",
+      "evidence": []
+    },
+    {
+      "id": "mentions:doc:vla/papers/x-tokenizer->org:xsquare",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "org:xsquare",
+      "type": "mentions",
+      "label": "提及",
+      "weight": 7,
       "confidence": "EXTRACTED",
       "evidence": []
     },
@@ -32593,7 +34062,7 @@
       "source": "doc:ecosystem/brain-ranking",
       "target": "doc:vla/changelog",
       "type": "related",
-      "label": "共现 39",
+      "label": "共现 40",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -32610,7 +34079,7 @@
       "source": "doc:ecosystem/brain-ranking",
       "target": "doc:vla/index",
       "type": "related",
-      "label": "共现 37",
+      "label": "共现 38",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -32627,7 +34096,7 @@
       "source": "doc:ecosystem/brain-ranking",
       "target": "doc:vla/papers/benchmarks",
       "type": "related",
-      "label": "共现 29",
+      "label": "共现 30",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -32678,7 +34147,7 @@
       "source": "doc:ecosystem/brain-ranking",
       "target": "doc:vla/papers/references",
       "type": "related",
-      "label": "共现 30",
+      "label": "共现 31",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -32712,7 +34181,7 @@
       "source": "doc:ecosystem/brain-ranking",
       "target": "doc:wam/papers/models-spec",
       "type": "related",
-      "label": "共现 26",
+      "label": "共现 27",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -32722,6 +34191,22 @@
         "concept:flow-matching",
         "concept:dual-system",
         "concept:world-model"
+      ]
+    },
+    {
+      "id": "related:doc:ecosystem/index->doc:vla/papers/datasets-catalog",
+      "source": "doc:ecosystem/index",
+      "target": "doc:vla/papers/datasets-catalog",
+      "type": "related",
+      "label": "共现 5",
+      "weight": 5,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:world-model",
+        "data:agibot-world",
+        "org:nvidia",
+        "org:agibot",
+        "org:mit"
       ]
     },
     {
@@ -32776,6 +34261,23 @@
       ]
     },
     {
+      "id": "related:doc:ecosystem/index->doc:vla/papers/roadmap",
+      "source": "doc:ecosystem/index",
+      "target": "doc:vla/papers/roadmap",
+      "type": "related",
+      "label": "共现 6",
+      "weight": 6,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:world-model",
+        "concept:motion-control",
+        "org:pi",
+        "org:nvidia"
+      ]
+    },
+    {
       "id": "related:doc:ecosystem/index->doc:vla/papers/steervla",
       "source": "doc:ecosystem/index",
       "target": "doc:vla/papers/steervla",
@@ -32789,22 +34291,6 @@
         "org:deepmind",
         "org:berkeley",
         "org:stanford"
-      ]
-    },
-    {
-      "id": "related:doc:ecosystem/index->doc:vla/papers/wolf-vla",
-      "source": "doc:ecosystem/index",
-      "target": "doc:vla/papers/wolf-vla",
-      "type": "related",
-      "label": "共现 5",
-      "weight": 5,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:wam",
-        "concept:world-model",
-        "concept:motion-control",
-        "org:nvidia"
       ]
     },
     {
@@ -32825,22 +34311,6 @@
       ]
     },
     {
-      "id": "related:doc:ecosystem/index->doc:wam/papers/gen2act",
-      "source": "doc:ecosystem/index",
-      "target": "doc:wam/papers/gen2act",
-      "type": "related",
-      "label": "共现 5",
-      "weight": 5,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:wam",
-        "org:pi",
-        "org:deepmind",
-        "org:stanford"
-      ]
-    },
-    {
       "id": "related:doc:ecosystem/index->doc:wam/papers/genie-envisioner",
       "source": "doc:ecosystem/index",
       "target": "doc:wam/papers/genie-envisioner",
@@ -32855,20 +34325,6 @@
         "data:agibot-world",
         "org:nvidia",
         "org:agibot"
-      ]
-    },
-    {
-      "id": "related:doc:ecosystem/paper-graph->doc:vla/papers/faster",
-      "source": "doc:ecosystem/paper-graph",
-      "target": "doc:vla/papers/faster",
-      "type": "related",
-      "label": "共现 3",
-      "weight": 3,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:action-token",
-        "concept:flow-matching"
       ]
     },
     {
@@ -32918,7 +34374,7 @@
       "source": "doc:index",
       "target": "doc:vla/guide",
       "type": "related",
-      "label": "共现 12",
+      "label": "共现 11",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -32931,29 +34387,12 @@
       ]
     },
     {
-      "id": "related:doc:index->doc:vla/papers/getting-started",
-      "source": "doc:index",
-      "target": "doc:vla/papers/getting-started",
-      "type": "related",
-      "label": "共现 10",
-      "weight": 10,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:wam",
-        "concept:action-token",
-        "concept:flow-matching",
-        "concept:diffusion-policy",
-        "concept:online-rl"
-      ]
-    },
-    {
       "id": "related:doc:index->doc:vla/papers/gigabrain-05m",
       "source": "doc:index",
       "target": "doc:vla/papers/gigabrain-05m",
       "type": "related",
-      "label": "共现 9",
-      "weight": 9,
+      "label": "共现 8",
+      "weight": 8,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
@@ -32961,7 +34400,7 @@
         "concept:flow-matching",
         "concept:diffusion-policy",
         "concept:dual-system",
-        "concept:online-rl"
+        "concept:world-model"
       ]
     },
     {
@@ -32982,37 +34421,37 @@
       ]
     },
     {
-      "id": "related:doc:index->doc:vla/papers/omnivla-rl",
-      "source": "doc:index",
-      "target": "doc:vla/papers/omnivla-rl",
-      "type": "related",
-      "label": "共现 9",
-      "weight": 9,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:wam",
-        "concept:action-token",
-        "concept:flow-matching",
-        "concept:online-rl",
-        "concept:spatial-3d"
-      ]
-    },
-    {
       "id": "related:doc:index->doc:vla/papers/predictive-vla",
       "source": "doc:index",
       "target": "doc:vla/papers/predictive-vla",
       "type": "related",
-      "label": "共现 9",
-      "weight": 9,
+      "label": "共现 8",
+      "weight": 8,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
         "concept:wam",
         "concept:dual-system",
         "concept:world-model",
-        "concept:spatial-3d",
-        "concept:memory-imagination"
+        "concept:memory-imagination",
+        "data:cosmos"
+      ]
+    },
+    {
+      "id": "related:doc:index->doc:wam/papers/flare",
+      "source": "doc:index",
+      "target": "doc:wam/papers/flare",
+      "type": "related",
+      "label": "共现 8",
+      "weight": 8,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:action-token",
+        "concept:flow-matching",
+        "concept:diffusion-policy",
+        "concept:world-model"
       ]
     },
     {
@@ -33020,8 +34459,8 @@
       "source": "doc:index",
       "target": "doc:wam/papers/himem-wam",
       "type": "related",
-      "label": "共现 9",
-      "weight": 9,
+      "label": "共现 8",
+      "weight": 8,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
@@ -33030,6 +34469,23 @@
         "concept:flow-matching",
         "concept:dual-system",
         "concept:world-model"
+      ]
+    },
+    {
+      "id": "related:doc:index->doc:wam/papers/qwen-robotworld",
+      "source": "doc:index",
+      "target": "doc:wam/papers/qwen-robotworld",
+      "type": "related",
+      "label": "共现 8",
+      "weight": 8,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:action-token",
+        "concept:world-model",
+        "data:cosmos",
+        "org:qwen"
       ]
     },
     {
@@ -33122,7 +34578,7 @@
       "source": "doc:vla/changelog",
       "target": "doc:vla/papers/references",
       "type": "related",
-      "label": "共现 39",
+      "label": "共现 40",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -33254,20 +34710,20 @@
       ]
     },
     {
-      "id": "related:doc:vla/guide->doc:vla/papers/predictive-vla",
+      "id": "related:doc:vla/guide->doc:vla/papers/qwen-vla",
       "source": "doc:vla/guide",
-      "target": "doc:vla/papers/predictive-vla",
+      "target": "doc:vla/papers/qwen-vla",
       "type": "related",
-      "label": "共现 9",
-      "weight": 9,
+      "label": "共现 11",
+      "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
         "concept:wam",
+        "concept:action-chunk",
+        "concept:flow-matching",
         "concept:dual-system",
-        "concept:world-model",
-        "concept:predictive-policy",
-        "concept:spatial-3d"
+        "concept:world-model"
       ]
     },
     {
@@ -33343,7 +34799,7 @@
       "source": "doc:vla/index",
       "target": "doc:vla/papers/references",
       "type": "related",
-      "label": "共现 39",
+      "label": "共现 40",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -33415,22 +34871,6 @@
         "concept:vla",
         "concept:dual-system",
         "org:pi"
-      ]
-    },
-    {
-      "id": "related:doc:vla/papers/action-controlnet->doc:vla/papers/gr-dexter",
-      "source": "doc:vla/papers/action-controlnet",
-      "target": "doc:vla/papers/gr-dexter",
-      "type": "related",
-      "label": "共现 5",
-      "weight": 6,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:dual-system",
-        "concept:inference-deploy",
-        "org:pi",
-        "org:nvidia"
       ]
     },
     {
@@ -33508,6 +34948,22 @@
         "concept:vla",
         "org:pi",
         "org:nvidia"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/action-controlnet->doc:vla/papers/steervla",
+      "source": "doc:vla/papers/action-controlnet",
+      "target": "doc:vla/papers/steervla",
+      "type": "related",
+      "label": "共现 5",
+      "weight": 6,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:action-chunk",
+        "concept:dual-system",
+        "concept:inference-deploy",
+        "org:pi"
       ]
     },
     {
@@ -33662,6 +35118,21 @@
       ]
     },
     {
+      "id": "related:doc:vla/papers/atomicvla->doc:vla/papers/leaderboard",
+      "source": "doc:vla/papers/atomicvla",
+      "target": "doc:vla/papers/leaderboard",
+      "type": "related",
+      "label": "共现 4",
+      "weight": 4,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "bench:libero",
+        "bench:calvin",
+        "org:pi"
+      ]
+    },
+    {
       "id": "related:doc:vla/papers/atomicvla->doc:vla/papers/memoryvla-plusplus",
       "source": "doc:vla/papers/atomicvla",
       "target": "doc:vla/papers/memoryvla-plusplus",
@@ -33743,7 +35214,7 @@
       "source": "doc:vla/papers/benchmarks",
       "target": "doc:vla/papers/references",
       "type": "related",
-      "label": "共现 26",
+      "label": "共现 27",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -34062,6 +35533,23 @@
       ]
     },
     {
+      "id": "related:doc:vla/papers/data-processing->doc:vla/papers/embodied-data-papers",
+      "source": "doc:vla/papers/data-processing",
+      "target": "doc:vla/papers/embodied-data-papers",
+      "type": "related",
+      "label": "共现 20",
+      "weight": 10,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:action-token",
+        "concept:knowledge-insulation",
+        "concept:world-model",
+        "concept:latent-action",
+        "concept:h2r-retarget"
+      ]
+    },
+    {
       "id": "related:doc:vla/papers/data-processing->doc:vla/papers/glossary",
       "source": "doc:vla/papers/data-processing",
       "target": "doc:vla/papers/glossary",
@@ -34147,20 +35635,50 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/data-processing->doc:wam/index",
-      "source": "doc:vla/papers/data-processing",
-      "target": "doc:wam/index",
+      "id": "related:doc:vla/papers/datasets-catalog->doc:vla/papers/resources",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "doc:vla/papers/resources",
       "type": "related",
-      "label": "共现 18",
-      "weight": 10,
+      "label": "共现 9",
+      "weight": 9,
       "confidence": "DERIVED",
       "evidence": [
-        "concept:vla",
-        "concept:action-token",
+        "concept:world-model",
+        "data:droid",
+        "data:bridge",
+        "data:agibot-world",
+        "data:ego-video",
+        "data:cosmos"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/datasets-catalog->doc:wam/papers/ge-sim-2",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "doc:wam/papers/ge-sim-2",
+      "type": "related",
+      "label": "共现 5",
+      "weight": 5,
+      "confidence": "DERIVED",
+      "evidence": [
         "concept:flow-matching",
         "concept:world-model",
-        "concept:spatial-3d",
-        "concept:h2r-retarget"
+        "data:cosmos",
+        "org:nvidia",
+        "org:agibot"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/datasets-catalog->doc:wam/papers/groot-n2",
+      "source": "doc:vla/papers/datasets-catalog",
+      "target": "doc:wam/papers/groot-n2",
+      "type": "related",
+      "label": "共现 3",
+      "weight": 3,
+      "confidence": "DERIVED",
+      "evidence": [
+        "data:ego-video",
+        "data:cosmos",
+        "org:nvidia"
       ]
     },
     {
@@ -34334,20 +35852,20 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/dual-system-architecture->doc:vla/papers/pi05",
+      "id": "related:doc:vla/papers/dual-system-architecture->doc:vla/papers/pi06",
       "source": "doc:vla/papers/dual-system-architecture",
-      "target": "doc:vla/papers/pi05",
+      "target": "doc:vla/papers/pi06",
       "type": "related",
-      "label": "共现 9",
-      "weight": 9,
+      "label": "共现 8",
+      "weight": 8,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
         "concept:action-token",
-        "concept:action-chunk",
         "concept:flow-matching",
         "concept:dit-action",
-        "concept:dual-system"
+        "concept:dual-system",
+        "concept:knowledge-insulation"
       ]
     },
     {
@@ -34368,20 +35886,20 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/dual-system-architecture->doc:vla/papers/wall-oss",
+      "id": "related:doc:vla/papers/dual-system-architecture->doc:vla/papers/rt2",
       "source": "doc:vla/papers/dual-system-architecture",
-      "target": "doc:vla/papers/wall-oss",
+      "target": "doc:vla/papers/rt2",
       "type": "related",
-      "label": "共现 10",
-      "weight": 10,
+      "label": "共现 8",
+      "weight": 8,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
         "concept:action-token",
         "concept:flow-matching",
         "concept:dit-action",
-        "concept:dual-system",
-        "concept:knowledge-insulation"
+        "concept:co-training",
+        "concept:inference-deploy"
       ]
     },
     {
@@ -34540,7 +36058,7 @@
       "source": "doc:vla/papers/embodied-data",
       "target": "doc:vla/papers/references",
       "type": "related",
-      "label": "共现 34",
+      "label": "共现 35",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -34566,6 +36084,125 @@
         "concept:dual-system",
         "concept:knowledge-insulation",
         "concept:spatial-3d",
+        "concept:cross-embodiment"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/embodied-data-papers->doc:vla/papers/failure-modes",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/failure-modes",
+      "type": "related",
+      "label": "共现 14",
+      "weight": 10,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:world-model",
+        "concept:latent-action",
+        "concept:cross-embodiment",
+        "data:oxe",
+        "data:robomind"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/embodied-data-papers->doc:vla/papers/qwen-robotmanip",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/qwen-robotmanip",
+      "type": "related",
+      "label": "共现 14",
+      "weight": 10,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:action-token",
+        "concept:h2r-retarget",
+        "concept:cross-embodiment",
+        "data:oxe",
+        "data:droid"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/embodied-data-papers->doc:vla/papers/resources",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/resources",
+      "type": "related",
+      "label": "共现 19",
+      "weight": 10,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:action-token",
+        "concept:knowledge-insulation",
+        "concept:world-model",
+        "concept:cross-embodiment",
+        "data:droid"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/embodied-data-papers->doc:vla/papers/robots",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/robots",
+      "type": "related",
+      "label": "共现 22",
+      "weight": 10,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:action-token",
+        "concept:knowledge-insulation",
+        "concept:cross-embodiment",
+        "data:oxe",
+        "data:droid"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/embodied-data-papers->doc:vla/papers/training-pipeline",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:vla/papers/training-pipeline",
+      "type": "related",
+      "label": "共现 14",
+      "weight": 10,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:action-token",
+        "concept:knowledge-insulation",
+        "concept:world-model",
+        "concept:latent-action",
+        "concept:cross-embodiment"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/embodied-data-papers->doc:wam/index",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:wam/index",
+      "type": "related",
+      "label": "共现 24",
+      "weight": 10,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:action-token",
+        "concept:world-model",
+        "concept:h2r-retarget",
+        "concept:cross-embodiment"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/embodied-data-papers->doc:wam/papers/models-spec",
+      "source": "doc:vla/papers/embodied-data-papers",
+      "target": "doc:wam/papers/models-spec",
+      "type": "related",
+      "label": "共现 25",
+      "weight": 10,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:action-token",
+        "concept:world-model",
+        "concept:latent-action",
         "concept:cross-embodiment"
       ]
     },
@@ -34618,23 +36255,6 @@
         "concept:dual-system",
         "concept:world-model",
         "concept:cross-embodiment"
-      ]
-    },
-    {
-      "id": "related:doc:vla/papers/failure-modes->doc:vla/papers/spatialvla",
-      "source": "doc:vla/papers/failure-modes",
-      "target": "doc:vla/papers/spatialvla",
-      "type": "related",
-      "label": "共现 12",
-      "weight": 10,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:flow-matching",
-        "concept:world-model",
-        "concept:cross-embodiment",
-        "data:oxe",
-        "bench:libero"
       ]
     },
     {
@@ -34703,6 +36323,21 @@
         "concept:flow-matching",
         "concept:inference-deploy",
         "bench:libero"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/faster->doc:vla/papers/leaderboard",
+      "source": "doc:vla/papers/faster",
+      "target": "doc:vla/papers/leaderboard",
+      "type": "related",
+      "label": "共现 4",
+      "weight": 4,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "bench:libero",
+        "bench:calvin",
+        "org:pi"
       ]
     },
     {
@@ -34798,20 +36433,6 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/force-vla->doc:vla/papers/pi06",
-      "source": "doc:vla/papers/force-vla",
-      "target": "doc:vla/papers/pi06",
-      "type": "related",
-      "label": "共现 3",
-      "weight": 6,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:online-rl",
-        "org:pi"
-      ]
-    },
-    {
       "id": "related:doc:vla/papers/force-vla->doc:vla/papers/rl-token",
       "source": "doc:vla/papers/force-vla",
       "target": "doc:vla/papers/rl-token",
@@ -34868,6 +36489,20 @@
       ]
     },
     {
+      "id": "related:doc:vla/papers/g3vla->doc:vla/papers/leaderboard",
+      "source": "doc:vla/papers/g3vla",
+      "target": "doc:vla/papers/leaderboard",
+      "type": "related",
+      "label": "共现 3",
+      "weight": 3,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "org:pi",
+        "org:nvidia"
+      ]
+    },
+    {
       "id": "related:doc:vla/papers/g3vla->doc:vla/papers/learning-action-priors",
       "source": "doc:vla/papers/g3vla",
       "target": "doc:vla/papers/learning-action-priors",
@@ -34879,6 +36514,20 @@
         "concept:vla",
         "concept:cross-embodiment",
         "org:pi"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/g3vla->doc:vla/papers/roadmap",
+      "source": "doc:vla/papers/g3vla",
+      "target": "doc:vla/papers/roadmap",
+      "type": "related",
+      "label": "共现 3",
+      "weight": 3,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "org:pi",
+        "org:nvidia"
       ]
     },
     {
@@ -35209,6 +36858,23 @@
       ]
     },
     {
+      "id": "related:doc:vla/papers/getting-started->doc:wam/papers/wall-wm",
+      "source": "doc:vla/papers/getting-started",
+      "target": "doc:wam/papers/wall-wm",
+      "type": "related",
+      "label": "共现 9",
+      "weight": 9,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:action-token",
+        "concept:flow-matching",
+        "concept:spatial-3d",
+        "concept:co-training"
+      ]
+    },
+    {
       "id": "related:doc:vla/papers/gigabrain-05m->doc:vla/papers/memoryvla-plusplus",
       "source": "doc:vla/papers/gigabrain-05m",
       "target": "doc:vla/papers/memoryvla-plusplus",
@@ -35488,20 +37154,19 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/gr-3->doc:vla/papers/motion-control",
+      "id": "related:doc:vla/papers/gr-3->doc:vla/papers/omnivla-rl",
       "source": "doc:vla/papers/gr-3",
-      "target": "doc:vla/papers/motion-control",
+      "target": "doc:vla/papers/omnivla-rl",
       "type": "related",
-      "label": "共现 6",
-      "weight": 6,
+      "label": "共现 5",
+      "weight": 8,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
         "concept:flow-matching",
-        "concept:dual-system",
+        "concept:dit-action",
         "org:qwen",
-        "org:pi",
-        "org:nvidia"
+        "org:pi"
       ]
     },
     {
@@ -35633,6 +37298,23 @@
         "robot:franka",
         "org:pi",
         "org:nvidia"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/gr-dexter->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/gr-dexter",
+      "target": "doc:vla/papers/x-tokenizer",
+      "type": "related",
+      "label": "共现 6",
+      "weight": 7,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:flow-matching",
+        "concept:dual-system",
+        "concept:cross-embodiment",
+        "concept:inference-deploy",
+        "org:pi"
       ]
     },
     {
@@ -35942,6 +37624,52 @@
       ]
     },
     {
+      "id": "related:doc:vla/papers/leaderboard->doc:vla/papers/memoryvla-plusplus",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "doc:vla/papers/memoryvla-plusplus",
+      "type": "related",
+      "label": "共现 7",
+      "weight": 7,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "bench:libero",
+        "bench:simpler",
+        "bench:calvin",
+        "robot:widowx",
+        "robot:google-robot"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/leaderboard->doc:vla/papers/roadmap",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "doc:vla/papers/roadmap",
+      "type": "related",
+      "label": "共现 3",
+      "weight": 3,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "org:pi",
+        "org:nvidia"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/leaderboard->doc:vla/papers/steerable-policies",
+      "source": "doc:vla/papers/leaderboard",
+      "target": "doc:vla/papers/steerable-policies",
+      "type": "related",
+      "label": "共现 4",
+      "weight": 4,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "bench:libero",
+        "robot:widowx",
+        "org:pi"
+      ]
+    },
+    {
       "id": "related:doc:vla/papers/learning-action-priors->doc:vla/papers/rdt-1b",
       "source": "doc:vla/papers/learning-action-priors",
       "target": "doc:vla/papers/rdt-1b",
@@ -35958,19 +37686,17 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/learning-action-priors->doc:vla/papers/rt2",
+      "id": "related:doc:vla/papers/learning-action-priors->doc:vla/papers/rt1",
       "source": "doc:vla/papers/learning-action-priors",
-      "target": "doc:vla/papers/rt2",
+      "target": "doc:vla/papers/rt1",
       "type": "related",
-      "label": "共现 5",
-      "weight": 6,
+      "label": "共现 3",
+      "weight": 4,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
         "concept:action-token",
-        "concept:flow-matching",
-        "concept:cross-embodiment",
-        "org:pi"
+        "concept:flow-matching"
       ]
     },
     {
@@ -36122,6 +37848,23 @@
       ]
     },
     {
+      "id": "related:doc:vla/papers/memoryvla-plusplus->doc:vla/papers/predictive-vla",
+      "source": "doc:vla/papers/memoryvla-plusplus",
+      "target": "doc:vla/papers/predictive-vla",
+      "type": "related",
+      "label": "共现 7",
+      "weight": 7,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:dit-action",
+        "concept:world-model",
+        "concept:predictive-policy",
+        "concept:memory-imagination",
+        "bench:calvin"
+      ]
+    },
+    {
       "id": "related:doc:vla/papers/memoryvla-plusplus->doc:vla/papers/robovlms",
       "source": "doc:vla/papers/memoryvla-plusplus",
       "target": "doc:vla/papers/robovlms",
@@ -36139,20 +37882,6 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/memoryvla-plusplus->doc:vla/papers/seetraceact",
-      "source": "doc:vla/papers/memoryvla-plusplus",
-      "target": "doc:vla/papers/seetraceact",
-      "type": "related",
-      "label": "共现 3",
-      "weight": 6,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:dit-action",
-        "concept:memory-imagination"
-      ]
-    },
-    {
       "id": "related:doc:vla/papers/memoryvla-plusplus->doc:vla/papers/simplevla-rl",
       "source": "doc:vla/papers/memoryvla-plusplus",
       "target": "doc:vla/papers/simplevla-rl",
@@ -36165,21 +37894,6 @@
         "bench:libero",
         "org:pi",
         "org:tsinghua"
-      ]
-    },
-    {
-      "id": "related:doc:vla/papers/memoryvla-plusplus->doc:vla/papers/steerable-policies",
-      "source": "doc:vla/papers/memoryvla-plusplus",
-      "target": "doc:vla/papers/steerable-policies",
-      "type": "related",
-      "label": "共现 4",
-      "weight": 5,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "bench:libero",
-        "robot:widowx",
-        "org:pi"
       ]
     },
     {
@@ -36200,19 +37914,19 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/models-spec->doc:vla/papers/robots",
+      "id": "related:doc:vla/papers/models-spec->doc:vla/papers/spatialvla",
       "source": "doc:vla/papers/models-spec",
-      "target": "doc:vla/papers/robots",
+      "target": "doc:vla/papers/spatialvla",
       "type": "related",
-      "label": "共现 19",
+      "label": "共现 16",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
         "concept:action-token",
-        "concept:action-chunk",
+        "concept:flow-matching",
         "concept:diffusion-policy",
-        "concept:dual-system",
+        "concept:dit-action",
         "concept:spatial-3d"
       ]
     },
@@ -36248,6 +37962,23 @@
         "concept:flow-matching",
         "concept:diffusion-policy",
         "concept:dit-action"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/motion-control->doc:vla/papers/roadmap",
+      "source": "doc:vla/papers/motion-control",
+      "target": "doc:vla/papers/roadmap",
+      "type": "related",
+      "label": "共现 7",
+      "weight": 7,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:world-model",
+        "concept:motion-control",
+        "org:qwen",
+        "org:pi"
       ]
     },
     {
@@ -36540,20 +38271,20 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/openvla-oft->doc:vla/papers/steervla",
+      "id": "related:doc:vla/papers/openvla-oft->doc:vla/papers/x-tokenizer",
       "source": "doc:vla/papers/openvla-oft",
-      "target": "doc:vla/papers/steervla",
+      "target": "doc:vla/papers/x-tokenizer",
       "type": "related",
       "label": "共现 6",
-      "weight": 7,
+      "weight": 9,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
         "concept:action-token",
-        "concept:action-chunk",
+        "concept:flow-matching",
+        "concept:cross-embodiment",
         "concept:inference-deploy",
-        "org:pi",
-        "org:stanford"
+        "org:pi"
       ]
     },
     {
@@ -36693,6 +38424,23 @@
       ]
     },
     {
+      "id": "related:doc:vla/papers/pi05->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/pi05",
+      "target": "doc:vla/papers/x-tokenizer",
+      "type": "related",
+      "label": "共现 7",
+      "weight": 10,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:action-token",
+        "concept:flow-matching",
+        "concept:dual-system",
+        "concept:co-training",
+        "concept:cross-embodiment"
+      ]
+    },
+    {
       "id": "related:doc:vla/papers/pi06->doc:vla/papers/pi07",
       "source": "doc:vla/papers/pi06",
       "target": "doc:vla/papers/pi07",
@@ -36707,23 +38455,6 @@
         "concept:dit-action",
         "concept:dual-system",
         "concept:knowledge-insulation"
-      ]
-    },
-    {
-      "id": "related:doc:vla/papers/pi06->doc:vla/papers/rt2",
-      "source": "doc:vla/papers/pi06",
-      "target": "doc:vla/papers/rt2",
-      "type": "related",
-      "label": "共现 6",
-      "weight": 7,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:action-token",
-        "concept:flow-matching",
-        "concept:dit-action",
-        "concept:co-training",
-        "org:pi"
       ]
     },
     {
@@ -36757,6 +38488,23 @@
         "concept:dit-action",
         "concept:dual-system",
         "concept:knowledge-insulation"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/pi06->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/pi06",
+      "target": "doc:vla/papers/x-tokenizer",
+      "type": "related",
+      "label": "共现 6",
+      "weight": 7,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:action-token",
+        "concept:flow-matching",
+        "concept:dual-system",
+        "concept:co-training",
+        "org:pi"
       ]
     },
     {
@@ -36910,23 +38658,6 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/qwen-robotmanip->doc:vla/papers/qwen-vla",
-      "source": "doc:vla/papers/qwen-robotmanip",
-      "target": "doc:vla/papers/qwen-vla",
-      "type": "related",
-      "label": "共现 13",
-      "weight": 10,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:action-chunk",
-        "concept:flow-matching",
-        "concept:dit-action",
-        "concept:cross-embodiment",
-        "data:aloha"
-      ]
-    },
-    {
       "id": "related:doc:vla/papers/qwen-robotmanip->doc:vla/papers/training-pipeline",
       "source": "doc:vla/papers/qwen-robotmanip",
       "target": "doc:vla/papers/training-pipeline",
@@ -36961,6 +38692,20 @@
       ]
     },
     {
+      "id": "related:doc:vla/papers/qwen-robotnav->doc:vla/papers/roadmap",
+      "source": "doc:vla/papers/qwen-robotnav",
+      "target": "doc:vla/papers/roadmap",
+      "type": "related",
+      "label": "共现 3",
+      "weight": 3,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:motion-control",
+        "org:qwen"
+      ]
+    },
+    {
       "id": "related:doc:vla/papers/qwen-robotnav->doc:vla/papers/rynnbrain",
       "source": "doc:vla/papers/qwen-robotnav",
       "target": "doc:vla/papers/rynnbrain",
@@ -36972,21 +38717,6 @@
         "concept:vla",
         "concept:dual-system",
         "concept:memory-imagination"
-      ]
-    },
-    {
-      "id": "related:doc:vla/papers/qwen-robotnav->doc:wam/papers/navwm",
-      "source": "doc:vla/papers/qwen-robotnav",
-      "target": "doc:wam/papers/navwm",
-      "type": "related",
-      "label": "共现 4",
-      "weight": 4,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:memory-imagination",
-        "concept:motion-control",
-        "org:qwen"
       ]
     },
     {
@@ -37112,7 +38842,7 @@
       "source": "doc:vla/papers/references",
       "target": "doc:vla/papers/timeline",
       "type": "related",
-      "label": "共现 30",
+      "label": "共现 31",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
@@ -37122,40 +38852,6 @@
         "concept:flow-matching",
         "concept:diffusion-policy",
         "concept:dit-action"
-      ]
-    },
-    {
-      "id": "related:doc:vla/papers/resources->doc:vla/papers/robovlms",
-      "source": "doc:vla/papers/resources",
-      "target": "doc:vla/papers/robovlms",
-      "type": "related",
-      "label": "共现 9",
-      "weight": 9,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:action-token",
-        "concept:cross-embodiment",
-        "bench:simpler",
-        "bench:calvin",
-        "robot:widowx"
-      ]
-    },
-    {
-      "id": "related:doc:vla/papers/resources->doc:vla/papers/wall-oss-05",
-      "source": "doc:vla/papers/resources",
-      "target": "doc:vla/papers/wall-oss-05",
-      "type": "related",
-      "label": "共现 9",
-      "weight": 9,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:action-token",
-        "concept:knowledge-insulation",
-        "data:droid",
-        "data:bridge",
-        "data:agibot-world"
       ]
     },
     {
@@ -37238,6 +38934,53 @@
       ]
     },
     {
+      "id": "related:doc:vla/papers/roadmap->doc:vla/papers/wolf-vla",
+      "source": "doc:vla/papers/roadmap",
+      "target": "doc:vla/papers/wolf-vla",
+      "type": "related",
+      "label": "共现 5",
+      "weight": 5,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:world-model",
+        "concept:motion-control",
+        "org:nvidia"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/roadmap->doc:wam/papers/motionwam",
+      "source": "doc:vla/papers/roadmap",
+      "target": "doc:wam/papers/motionwam",
+      "type": "related",
+      "label": "共现 4",
+      "weight": 4,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:world-model",
+        "org:nvidia"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/roadmap->doc:wam/papers/navwm",
+      "source": "doc:vla/papers/roadmap",
+      "target": "doc:wam/papers/navwm",
+      "type": "related",
+      "label": "共现 5",
+      "weight": 5,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:world-model",
+        "concept:motion-control",
+        "org:qwen"
+      ]
+    },
+    {
       "id": "related:doc:vla/papers/robots->doc:wam/papers/models-spec",
       "source": "doc:vla/papers/robots",
       "target": "doc:wam/papers/models-spec",
@@ -37252,6 +38995,23 @@
         "concept:dual-system",
         "concept:cross-embodiment",
         "data:oxe"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/robovlms->doc:vla/papers/rt2",
+      "source": "doc:vla/papers/robovlms",
+      "target": "doc:vla/papers/rt2",
+      "type": "related",
+      "label": "共现 7",
+      "weight": 8,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:action-token",
+        "concept:cross-embodiment",
+        "concept:inference-deploy",
+        "bench:simpler",
+        "robot:google-robot"
       ]
     },
     {
@@ -37272,17 +39032,19 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/rt1->doc:vla/papers/rt2",
-      "source": "doc:vla/papers/rt1",
-      "target": "doc:vla/papers/rt2",
+      "id": "related:doc:vla/papers/rt2->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/rt2",
+      "target": "doc:vla/papers/x-tokenizer",
       "type": "related",
-      "label": "共现 4",
-      "weight": 7,
+      "label": "共现 7",
+      "weight": 8,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
         "concept:action-token",
         "concept:flow-matching",
+        "concept:co-training",
+        "concept:cross-embodiment",
         "concept:inference-deploy"
       ]
     },
@@ -37301,6 +39063,21 @@
         "concept:dit-action",
         "concept:co-training",
         "concept:cross-embodiment"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/rynnbrain->doc:vla/papers/seetraceact",
+      "source": "doc:vla/papers/rynnbrain",
+      "target": "doc:vla/papers/seetraceact",
+      "type": "related",
+      "label": "共现 4",
+      "weight": 5,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:flow-matching",
+        "concept:memory-imagination",
+        "data:ego-video"
       ]
     },
     {
@@ -37516,20 +39293,20 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/training-pipeline->doc:wam/papers/models-spec",
-      "source": "doc:vla/papers/training-pipeline",
-      "target": "doc:wam/papers/models-spec",
+      "id": "related:doc:vla/papers/wall-oss->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/wall-oss",
+      "target": "doc:vla/papers/x-tokenizer",
       "type": "related",
-      "label": "共现 16",
+      "label": "共现 8",
       "weight": 10,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
         "concept:action-token",
         "concept:flow-matching",
-        "concept:diffusion-policy",
         "concept:dual-system",
-        "concept:world-model"
+        "concept:co-training",
+        "concept:inference-deploy"
       ]
     },
     {
@@ -37547,6 +39324,23 @@
         "concept:dit-action",
         "concept:dual-system",
         "concept:knowledge-insulation"
+      ]
+    },
+    {
+      "id": "related:doc:vla/papers/wall-oss-05->doc:vla/papers/x-tokenizer",
+      "source": "doc:vla/papers/wall-oss-05",
+      "target": "doc:vla/papers/x-tokenizer",
+      "type": "related",
+      "label": "共现 8",
+      "weight": 10,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:action-token",
+        "concept:flow-matching",
+        "concept:dual-system",
+        "concept:co-training",
+        "concept:inference-deploy"
       ]
     },
     {
@@ -37596,17 +39390,20 @@
       ]
     },
     {
-      "id": "related:doc:vla/papers/xiaohongshu->doc:wam/papers/motionwam",
-      "source": "doc:vla/papers/xiaohongshu",
-      "target": "doc:wam/papers/motionwam",
+      "id": "related:doc:vla/papers/x-tokenizer->doc:wam/papers/wall-wm",
+      "source": "doc:vla/papers/x-tokenizer",
+      "target": "doc:wam/papers/wall-wm",
       "type": "related",
-      "label": "共现 3",
-      "weight": 3,
+      "label": "共现 8",
+      "weight": 8,
       "confidence": "DERIVED",
       "evidence": [
         "concept:vla",
-        "concept:wam",
-        "concept:world-model"
+        "concept:action-token",
+        "concept:flow-matching",
+        "concept:co-training",
+        "concept:cross-embodiment",
+        "concept:inference-deploy"
       ]
     },
     {
@@ -37897,23 +39694,6 @@
       ]
     },
     {
-      "id": "related:doc:wam/papers/dreamzero->doc:wam/papers/flare",
-      "source": "doc:wam/papers/dreamzero",
-      "target": "doc:wam/papers/flare",
-      "type": "related",
-      "label": "共现 7",
-      "weight": 8,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:wam",
-        "concept:world-model",
-        "concept:memory-imagination",
-        "concept:co-training",
-        "concept:cross-embodiment"
-      ]
-    },
-    {
       "id": "related:doc:wam/papers/dreamzero->doc:wam/papers/genie-envisioner",
       "source": "doc:wam/papers/dreamzero",
       "target": "doc:wam/papers/genie-envisioner",
@@ -37959,6 +39739,23 @@
         "concept:world-model",
         "concept:predictive-policy",
         "concept:memory-imagination",
+        "concept:inference-deploy"
+      ]
+    },
+    {
+      "id": "related:doc:wam/papers/dreamzero->doc:wam/papers/lapa",
+      "source": "doc:wam/papers/dreamzero",
+      "target": "doc:wam/papers/lapa",
+      "type": "related",
+      "label": "共现 6",
+      "weight": 7,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:vla",
+        "concept:wam",
+        "concept:world-model",
+        "concept:memory-imagination",
+        "concept:cross-embodiment",
         "concept:inference-deploy"
       ]
     },
@@ -38170,20 +39967,6 @@
       ]
     },
     {
-      "id": "related:doc:wam/papers/ge-sim-2->doc:wam/papers/uva",
-      "source": "doc:wam/papers/ge-sim-2",
-      "target": "doc:wam/papers/uva",
-      "type": "related",
-      "label": "共现 3",
-      "weight": 4,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:wam",
-        "concept:world-model",
-        "concept:memory-imagination"
-      ]
-    },
-    {
       "id": "related:doc:wam/papers/ge-sim-2->doc:wam/papers/x-wam",
       "source": "doc:wam/papers/ge-sim-2",
       "target": "doc:wam/papers/x-wam",
@@ -38225,6 +40008,20 @@
         "concept:vla",
         "concept:wam",
         "concept:memory-imagination"
+      ]
+    },
+    {
+      "id": "related:doc:wam/papers/gen2act->doc:wam/papers/uva",
+      "source": "doc:wam/papers/gen2act",
+      "target": "doc:wam/papers/uva",
+      "type": "related",
+      "label": "共现 3",
+      "weight": 4,
+      "confidence": "DERIVED",
+      "evidence": [
+        "concept:wam",
+        "concept:memory-imagination",
+        "org:stanford"
       ]
     },
     {
@@ -38400,20 +40197,6 @@
         "concept:vla",
         "concept:wam",
         "concept:memory-imagination"
-      ]
-    },
-    {
-      "id": "related:doc:wam/papers/groot-n2->doc:wam/papers/wall-wm",
-      "source": "doc:wam/papers/groot-n2",
-      "target": "doc:wam/papers/wall-wm",
-      "type": "related",
-      "label": "共现 3",
-      "weight": 6,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:wam",
-        "concept:cross-embodiment"
       ]
     },
     {
@@ -38654,22 +40437,6 @@
         "concept:wam",
         "concept:world-model",
         "concept:memory-imagination",
-        "concept:inference-deploy"
-      ]
-    },
-    {
-      "id": "related:doc:wam/papers/lapa->doc:wam/papers/wall-wm",
-      "source": "doc:wam/papers/lapa",
-      "target": "doc:wam/papers/wall-wm",
-      "type": "related",
-      "label": "共现 5",
-      "weight": 6,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:vla",
-        "concept:wam",
-        "concept:action-token",
-        "concept:cross-embodiment",
         "concept:inference-deploy"
       ]
     },
@@ -39068,20 +40835,6 @@
         "concept:action-token",
         "concept:world-model",
         "concept:co-training"
-      ]
-    },
-    {
-      "id": "related:doc:wam/papers/qwen-robotworld->doc:wam/papers/world-value-models",
-      "source": "doc:wam/papers/qwen-robotworld",
-      "target": "doc:wam/papers/world-value-models",
-      "type": "related",
-      "label": "共现 3",
-      "weight": 6,
-      "confidence": "DERIVED",
-      "evidence": [
-        "concept:wam",
-        "concept:world-model",
-        "org:gigaai"
       ]
     },
     {
@@ -39682,6 +41435,16 @@
       "id": "taxonomy:route:混合_·_连续回归->doc:vla/papers/wall-oss-05",
       "source": "route:混合 · 连续回归",
       "target": "doc:vla/papers/wall-oss-05",
+      "type": "taxonomy",
+      "label": "收录",
+      "weight": 1,
+      "confidence": "CURATED",
+      "evidence": []
+    },
+    {
+      "id": "taxonomy:route:混合_·_连续回归->doc:vla/papers/x-tokenizer",
+      "source": "route:混合 · 连续回归",
+      "target": "doc:vla/papers/x-tokenizer",
       "type": "taxonomy",
       "label": "收录",
       "weight": 1,

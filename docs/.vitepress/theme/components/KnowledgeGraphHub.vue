@@ -18,7 +18,7 @@ const VIEWS = [
     eyebrow: 'GRAPHIFY VIEW',
     title: '离线全站图谱',
     subtitle: '从全站 Markdown、站内链接、论文目录与本地实体词典离线抽取,不调用模型 API。',
-    stats: ['193 个节点', '3043 条 Graphify 边', '12 个 community'],
+    stats: ['213 个节点', '3407 条 Graphify 边', '10 个 community'],
   },
 ]
 
@@ -104,27 +104,44 @@ onUnmounted(() => {
 
 <style scoped>
 .kg-hub {
+  position: relative;
+  overflow: hidden;
   display: grid;
   grid-template-columns: minmax(240px, 1fr) auto;
   gap: 14px 18px;
   align-items: end;
   margin: 22px 0 18px;
-  padding: 15px;
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid rgba(98, 204, 255, 0.18);
+  border-radius: 18px;
   background:
-    radial-gradient(circle at 0 0, rgba(34, 211, 238, 0.12), transparent 32%),
-    linear-gradient(135deg, rgba(8, 13, 28, 0.96), rgba(5, 10, 18, 0.98));
+    radial-gradient(circle at 0 0, rgba(61, 186, 255, 0.16), transparent 34%),
+    radial-gradient(circle at 100% 0, rgba(139, 124, 255, 0.12), transparent 30%),
+    linear-gradient(135deg, rgba(8, 15, 31, 0.97), rgba(4, 9, 22, 0.99));
+  box-shadow: 0 24px 70px rgba(2, 6, 18, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+}
+
+.kg-hub::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(123, 213, 255, 0.18) 0.7px, transparent 0.7px);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(90deg, #000, transparent 42%);
+  opacity: 0.25;
 }
 
 .kg-hub__copy {
+  position: relative;
+  z-index: 1;
   min-width: 0;
 }
 
 .kg-hub__copy span,
 .kg-tabs span {
   display: block;
-  color: #67e8f9;
+  color: #78ddff;
   font: 800 11px var(--vp-font-family-mono, monospace);
   letter-spacing: 0.08em;
 }
@@ -133,7 +150,8 @@ onUnmounted(() => {
   display: block;
   margin-top: 3px;
   color: #f8fafc;
-  font-size: 22px;
+  font-size: 24px;
+  letter-spacing: -0.025em;
   line-height: 1.2;
 }
 
@@ -146,19 +164,22 @@ onUnmounted(() => {
 }
 
 .kg-tabs {
+  position: relative;
+  z-index: 1;
   display: inline-grid;
   grid-template-columns: repeat(2, minmax(142px, 1fr));
   gap: 5px;
   padding: 5px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 8px;
-  background: rgba(2, 6, 14, 0.62);
+  border: 1px solid rgba(134, 196, 232, 0.14);
+  border-radius: 13px;
+  background: rgba(3, 8, 20, 0.58);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
 }
 
 .kg-tabs button {
   min-height: 56px;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: 9px;
   padding: 8px 11px;
   background: transparent;
   color: #cbd5e1;
@@ -168,13 +189,15 @@ onUnmounted(() => {
 }
 
 .kg-tabs button.on {
-  border-color: rgba(103, 232, 249, 0.52);
-  background: linear-gradient(180deg, rgba(34, 211, 238, 0.22), rgba(14, 165, 233, 0.08));
+  border-color: rgba(111, 220, 255, 0.42);
+  background: linear-gradient(135deg, rgba(52, 176, 255, 0.2), rgba(139, 124, 255, 0.12));
   color: #f8fafc;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  box-shadow: 0 10px 28px rgba(28, 119, 196, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.035);
 }
 
 .kg-hub__stats {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   grid-column: 1 / -1;
@@ -182,11 +205,11 @@ onUnmounted(() => {
 }
 
 .kg-hub__stats span {
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 4px;
-  padding: 5px 8px;
-  background: rgba(15, 23, 42, 0.58);
-  color: #dbeafe;
+  border: 1px solid rgba(117, 205, 248, 0.12);
+  border-radius: 8px;
+  padding: 6px 9px;
+  background: rgba(10, 20, 42, 0.62);
+  color: #dcecff;
   font: 750 12px var(--vp-font-family-mono, monospace);
 }
 
