@@ -147,7 +147,6 @@ onMounted(() => {
 }
 
 @media (max-width: 700px) {
-  .home-page-panel { padding-bottom: 76px; }
   .home-page-panel__footer { margin-top: 28px; }
   .home-page-panel__footer button { padding-inline: 9px; }
 }

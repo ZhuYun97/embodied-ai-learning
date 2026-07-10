@@ -69,8 +69,20 @@ function setupHeroCollapse() {
   }
   const apply = () => {
     ticking = false
+    const root = document.documentElement
     const hero = document.querySelector('.VPHome .thero')
     if (!hero) return
+    // 四页 full-page 模式由 .VPHome 承担页内滚动，Hero 不再随 window 折叠。
+    if (root.classList.contains('home-pager-ready')) {
+      root.style.setProperty('--hero-collapse', '0')
+      root.style.setProperty('--home-next-opacity', '1')
+      root.style.setProperty('--home-next-y', '0px')
+      root.style.setProperty('--home-bridge-opacity', '0.2')
+      root.style.setProperty('--home-bridge-y', '0px')
+      root.classList.add('home-next-ready')
+      hero.classList.remove('is-collapsed')
+      return
+    }
     const collapseDistance =
       hero.offsetHeight > window.innerHeight
         ? Math.max(hero.offsetHeight * 0.92, window.innerHeight * 0.82)
@@ -79,12 +91,12 @@ function setupHeroCollapse() {
     const p = smoothstep(raw)
     const next = smoothstep(raw / 0.72)
     const bridge = Math.sin(raw * Math.PI)
-    document.documentElement.style.setProperty('--hero-collapse', p.toFixed(3))
-    document.documentElement.style.setProperty('--home-next-opacity', next.toFixed(3))
-    document.documentElement.style.setProperty('--home-next-y', ((1 - next) * 16).toFixed(1) + 'px')
-    document.documentElement.style.setProperty('--home-bridge-opacity', (0.2 + bridge * 0.64).toFixed(3))
-    document.documentElement.style.setProperty('--home-bridge-y', ((0.5 - raw) * 44).toFixed(1) + 'px')
-    document.documentElement.classList.toggle('home-next-ready', next >= 0.62)
+    root.style.setProperty('--hero-collapse', p.toFixed(3))
+    root.style.setProperty('--home-next-opacity', next.toFixed(3))
+    root.style.setProperty('--home-next-y', ((1 - next) * 16).toFixed(1) + 'px')
+    root.style.setProperty('--home-bridge-opacity', (0.2 + bridge * 0.64).toFixed(3))
+    root.style.setProperty('--home-bridge-y', ((0.5 - raw) * 44).toFixed(1) + 'px')
+    root.classList.toggle('home-next-ready', next >= 0.62)
     hero.classList.toggle('is-collapsed', raw >= 0.98)
   }
   window.addEventListener(
@@ -112,18 +124,21 @@ function setupNavScroll() {
   let ticking = false
   const apply = () => {
     ticking = false
-    root.classList.toggle('nav-scrolled', window.scrollY > 8)
+    const home = root.classList.contains('home-pager-ready')
+      ? document.querySelector('.VPHome')
+      : null
+    const offset = home ? home.scrollTop : window.scrollY
+    root.classList.toggle('nav-scrolled', offset > 8)
   }
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (!ticking) {
-        ticking = true
-        requestAnimationFrame(apply)
-      }
-    },
-    { passive: true }
-  )
+  const schedule = () => {
+    if (!ticking) {
+      ticking = true
+      requestAnimationFrame(apply)
+    }
+  }
+  window.addEventListener('scroll', schedule, { passive: true })
+  // scroll 不冒泡，但捕获阶段可同时覆盖 full-page 的 .VPHome 内滚动与普通文档滚动。
+  document.addEventListener('scroll', schedule, { passive: true, capture: true })
   apply()
 }
 

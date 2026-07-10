@@ -3889,14 +3889,44 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
 }
 
 /* —— 首页四视图:同一路由切页,每页保留自然纵向滚动 —— */
+html.home-pager-ready,
+html.home-pager-ready body {
+  height: 100%;
+  overflow: hidden;
+}
+html.home-pager-ready .VPContent.is-home {
+  box-sizing: border-box;
+  height: 100vh;
+  height: 100dvh;
+  padding-top: var(--vp-nav-height, 64px);
+  overflow: hidden;
+}
 html.home-pager-ready[data-home-page] .VPHome {
-  min-height: calc(100vh - var(--vp-nav-height, 64px));
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* 01 总览:只保留沉浸式 TechHero。功能入口与 About 统一归入 04 资源。 */
 html.home-pager-ready[data-home-page='overview'] .VPHome .VPFeatures,
 html.home-pager-ready[data-home-page='overview'] .VPHome .vp-doc {
   display: none !important;
+}
+html.home-pager-ready[data-home-page='overview'] .VPHome {
+  overflow-y: hidden;
+}
+html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  opacity: 1;
+  transform: none;
 }
 @media (min-width: 701px) {
   html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
@@ -4000,7 +4030,15 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .vp-doc {
 
 @media (max-width: 700px) {
   html.home-pager-ready[data-home-page] .VPHome { padding-bottom: 76px; }
-  html.home-pager-ready[data-home-page='overview'] .VPHome .thero { padding-top: 50px; }
+  html.home-pager-ready[data-home-page='overview'] .VPHome {
+    overflow-y: auto;
+  }
+  html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
+    height: auto;
+    padding-top: 50px;
+    padding-bottom: 86px;
+    overflow: visible;
+  }
   html.home-pager-ready[data-home-page='vla'] .VPHome .vp-doc,
   html.home-pager-ready[data-home-page='wam'] .VPHome .vp-doc {
     padding-top: 30px;
@@ -4021,7 +4059,23 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .vp-doc {
     padding-top: 18px;
   }
 }
+@media (min-width: 701px) and (max-height: 680px) {
+  html.home-pager-ready[data-home-page='overview'] .VPHome {
+    overflow-y: auto;
+  }
+  html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
+    height: auto;
+    overflow: visible;
+  }
+}
 @media (min-width: 701px) and (max-width: 980px) {
+  html.home-pager-ready[data-home-page='overview'] .VPHome {
+    overflow-y: auto;
+  }
+  html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
+    height: auto;
+    overflow: visible;
+  }
   html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

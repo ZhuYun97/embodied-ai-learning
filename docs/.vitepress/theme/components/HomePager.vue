@@ -15,12 +15,35 @@ const activeMeta = computed(() => HOME_PAGES[activeIndex.value])
 
 let stopWatch = null
 let onLocationChange = null
+let onPageKeydown = null
 let suppressNextHistory = false
+let suppressNextScroll = false
+
+const explicitPageFromHash = () => {
+  if (typeof window === 'undefined') return null
+  const match = window.location.hash.match(/^#page-(overview|vla|wam|resources)$/)
+  return match?.[1] || null
+}
+
+const hashTarget = () => {
+  if (typeof document === 'undefined' || !window.location.hash) return null
+  try {
+    return document.getElementById(decodeURIComponent(window.location.hash.slice(1)))
+  } catch {
+    return null
+  }
+}
 
 const pageFromHash = () => {
-  if (typeof window === 'undefined') return 'overview'
-  const match = window.location.hash.match(/^#page-(overview|vla|wam|resources)$/)
-  return match?.[1] || 'overview'
+  const explicit = explicitPageFromHash()
+  if (explicit) return explicit
+  const target = hashTarget()
+  return target?.closest('.home-page-panel')?.dataset.page || null
+}
+
+const scrollToHashTarget = () => {
+  const target = hashTarget()
+  target?.scrollIntoView({ block: 'start' })
 }
 
 const syncDocument = (page, { updateUrl = true, scroll = true } = {}) => {
@@ -28,6 +51,11 @@ const syncDocument = (page, { updateUrl = true, scroll = true } = {}) => {
 
   document.documentElement.dataset.homePage = page
   document.documentElement.classList.add('home-pager-ready')
+  const home = document.querySelector('.VPHome')
+  const hero = document.querySelector('.VPHome .thero')
+  const features = document.querySelector('.VPHome .VPFeatures')
+  hero?.setAttribute('aria-hidden', String(page !== 'overview'))
+  features?.setAttribute('aria-hidden', String(page !== 'resources'))
 
   if (updateUrl) {
     const url = new URL(window.location.href)
@@ -38,8 +66,8 @@ const syncDocument = (page, { updateUrl = true, scroll = true } = {}) => {
   }
 
   if (scroll) {
-    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })
+    if (home) home.scrollTop = 0
+    window.scrollTo({ top: 0, behavior: 'auto' })
   }
 }
 
@@ -68,26 +96,62 @@ const onTabKeydown = async (event, index) => {
 }
 
 onMounted(() => {
-  const initialPage = pageFromHash()
+  const explicitPage = explicitPageFromHash()
+  const initialPage = pageFromHash() || 'overview'
   setActiveHomePage(initialPage)
-  syncDocument(initialPage, { updateUrl: false, scroll: initialPage !== 'overview' })
+  syncDocument(initialPage, { updateUrl: false, scroll: !!explicitPage && initialPage !== 'overview' })
+  const home = document.querySelector('.VPHome')
+  const features = document.querySelector('.VPHome .VPFeatures')
+  home?.setAttribute('tabindex', '-1')
+  home?.setAttribute('aria-label', '主页当前视图滚动区域')
+  if (features) {
+    features.id = 'home-page-resources-features'
+    features.setAttribute('role', 'tabpanel')
+    features.setAttribute('aria-labelledby', 'home-tab-resources')
+  }
+  if (!explicitPage && window.location.hash) nextTick(scrollToHashTarget)
   ready.value = true
 
   stopWatch = watch(activeHomePage, (page) => {
-    syncDocument(page, { updateUrl: !suppressNextHistory })
+    syncDocument(page, {
+      updateUrl: !suppressNextHistory,
+      scroll: !suppressNextScroll,
+    })
     suppressNextHistory = false
+    suppressNextScroll = false
   })
   onLocationChange = () => {
+    const explicitPage = explicitPageFromHash()
     const page = pageFromHash()
+    if (!page) return
     if (page !== activeHomePage.value) {
       suppressNextHistory = true
+      suppressNextScroll = !explicitPage
       setActiveHomePage(page)
-    } else {
+      if (!explicitPage) nextTick(scrollToHashTarget)
+    } else if (explicitPage) {
       syncDocument(page, { updateUrl: false })
+    } else {
+      syncDocument(page, { updateUrl: false, scroll: false })
+      nextTick(scrollToHashTarget)
     }
+  }
+  onPageKeydown = (event) => {
+    if (event.key !== 'PageDown' && event.key !== 'PageUp') return
+    if (event.target?.closest?.('input, textarea, select, button, a, [contenteditable="true"]')) return
+    const scrollArea = document.querySelector('.VPHome')
+    if (!scrollArea || scrollArea.scrollHeight <= scrollArea.clientHeight) return
+    event.preventDefault()
+    const direction = event.key === 'PageDown' ? 1 : -1
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    scrollArea.scrollBy({
+      top: direction * scrollArea.clientHeight * 0.82,
+      behavior: reduce ? 'auto' : 'smooth',
+    })
   }
   window.addEventListener('popstate', onLocationChange)
   window.addEventListener('hashchange', onLocationChange)
+  document.addEventListener('keydown', onPageKeydown)
 })
 
 onUnmounted(() => {
@@ -95,6 +159,19 @@ onUnmounted(() => {
   if (onLocationChange) {
     window.removeEventListener('popstate', onLocationChange)
     window.removeEventListener('hashchange', onLocationChange)
+  }
+  if (onPageKeydown) document.removeEventListener('keydown', onPageKeydown)
+  const home = document.querySelector('.VPHome')
+  const hero = document.querySelector('.VPHome .thero')
+  const features = document.querySelector('.VPHome .VPFeatures')
+  home?.removeAttribute('tabindex')
+  home?.removeAttribute('aria-label')
+  hero?.removeAttribute('aria-hidden')
+  if (features) {
+    features.removeAttribute('id')
+    features.removeAttribute('role')
+    features.removeAttribute('aria-labelledby')
+    features.removeAttribute('aria-hidden')
   }
   document.documentElement.classList.remove('home-pager-ready')
   delete document.documentElement.dataset.homePage
@@ -124,7 +201,9 @@ onUnmounted(() => {
         role="tab"
         :class="{ 'is-active': activeHomePage === page.id }"
         :aria-selected="activeHomePage === page.id"
-        :aria-controls="`home-page-${page.id}`"
+        :aria-controls="page.id === 'resources'
+          ? 'home-page-resources-features home-page-resources'
+          : `home-page-${page.id}`"
         :tabindex="activeHomePage === page.id ? 0 : -1"
         @click="activate(page.id)"
         @keydown="onTabKeydown($event, index)"
