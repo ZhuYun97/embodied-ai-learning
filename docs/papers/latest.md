@@ -6,39 +6,33 @@ sidebar: false
 pageClass: paper-radar-page
 ---
 
-# 每日论文雷达
-
-<div class="paper-radar-topline">
-  <p class="paper-radar-intro"><strong>DAILY RESEARCH BRIEF</strong><span>候选 → 研判 → 细读</span></p>
-  <nav class="paper-radar-links" aria-label="相关研究入口">
-    <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
-    <a href="/embodied-ai-learning/news/">具身新闻</a>
-    <a href="/embodied-ai-learning/vla/papers/timeline">发展时间线</a>
-  </nav>
-</div>
-
-<div class="latest-paper-hero">
-  <div class="latest-paper-hero__main">
-    <span class="latest-paper-hero__eyebrow">ISSUE 2026-07-10 · EMBODIED AI</span>
-    <p class="latest-paper-hero__title">今天值得跟进的 4 条研究信号</p>
-    <p class="latest-paper-hero__text">从 arXiv cs.RO 最新提交与交叉投稿中筛出 11 篇强相关候选，重点覆盖原生视频—动作预训练、具身世界表征、潜在推理、接触控制与跨本体灵巧操作评测。</p>
-    <div class="paper-signal-grid" aria-label="今日研究信号">
-      <article class="paper-signal paper-signal--vla"><span>01 · VLA</span><strong>预训练走向原生物理接口</strong><p>LingBot-VA 2.0 从 tokenizer、因果预训练到异步闭环重做视频—动作模型。</p></article>
-      <article class="paper-signal paper-signal--wam"><span>02 · WAM</span><strong>世界目标不再等于像素</strong><p>EgoWAM 用 DINO 与 3D flow 分离外观、相机运动和可迁移物理变化。</p></article>
-      <article class="paper-signal paper-signal--data"><span>03 · DATA / EVAL</span><strong>灵巧操作评测扩到跨本体</strong><p>DexVerse 统一百项任务、九种手臂/灵巧手组合与多模态示范。</p></article>
-      <article class="paper-signal paper-signal--embodied"><span>04 · HUMANOID</span><strong>接触成为显式控制变量</strong><p>ContactMimic 将接触命令与关键点轨迹解耦，并完成真实部署验证。</p></article>
-    </div>
+<header class="paper-brief">
+  <div class="paper-brief__lead">
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-10">2026.07.10</time></div>
+    <h1>每日论文雷达</h1>
+    <p class="paper-brief__dek">今日筛出 11 篇强相关候选，聚焦视频—动作预训练、世界表征、潜在推理与接触控制。</p>
+    <dl class="paper-brief__stats" aria-label="论文队列统计">
+      <div><dt>候选</dt><dd data-paper-stat="latest">11</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
+      <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.10</dd></div>
+    </dl>
+    <nav class="paper-brief__links" aria-label="相关研究入口">
+      <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
+      <a href="/embodied-ai-learning/news/">具身新闻</a>
+      <a href="/embodied-ai-learning/vla/papers/timeline">发展时间线</a>
+    </nav>
   </div>
-  <div class="latest-paper-stats" aria-label="论文队列统计">
-    <span><b data-paper-stat="latest">11</b>本期候选</span>
-    <span><b data-paper-stat="p0">6</b>P0 优先</span>
-    <span><b data-paper-stat="vla">5</b>VLA 主线</span>
-    <span><b data-paper-stat="wam">2</b>WAM 主线</span>
-    <span><b data-paper-stat="done">0</b>已细读</span>
-    <span><b data-paper-stat="date">07.10</b>最近更新</span>
-    <small>方向与主题标签可交叉</small>
-  </div>
-</div>
+  <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
+    <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
+    <ol>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA</span><strong>原生视频—动作预训练</strong><span class="paper-brief__paper">LingBot-VA 2.0</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">WAM</span><strong>非像素世界表征</strong><span class="paper-brief__paper">EgoWAM</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>跨本体灵巧评测</strong><span class="paper-brief__paper">DexVerse</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">HUMANOID</span><strong>显式接触控制</strong><span class="paper-brief__paper">ContactMimic</span></li>
+    </ol>
+  </section>
+</header>
 
 <div class="paper-filter-panel" data-paper-filter-panel>
   <div class="paper-filter-panel__top">
