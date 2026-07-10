@@ -3888,7 +3888,7 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
   .home-coda__caret { animation: bpBlink 1.2s steps(1, end) infinite; }
 }
 
-/* —— 首页四视图:同一路由切页,每页保留自然纵向滚动 —— */
+/* —— 首页四视图:同一路由整页切换,滚轮 / 键盘 / 触摸一次前进一屏 —— */
 html.home-pager-ready,
 html.home-pager-ready body {
   height: 100%;
@@ -3902,14 +3902,14 @@ html.home-pager-ready .VPContent.is-home {
   overflow: hidden;
 }
 html.home-pager-ready[data-home-page] .VPHome {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   min-height: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
-  scrollbar-gutter: stable;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
+  overscroll-behavior: none;
+  scrollbar-gutter: auto;
+  touch-action: pan-x pinch-zoom;
 }
 
 /* 01 总览:只保留沉浸式 TechHero。功能入口与 About 统一归入 04 资源。 */
@@ -4030,14 +4030,11 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .vp-doc {
 
 @media (max-width: 700px) {
   html.home-pager-ready[data-home-page] .VPHome { padding-bottom: 76px; }
-  html.home-pager-ready[data-home-page='overview'] .VPHome {
-    overflow-y: auto;
-  }
   html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
-    height: auto;
+    height: 100%;
     padding-top: 50px;
     padding-bottom: 86px;
-    overflow: visible;
+    overflow: hidden;
   }
   html.home-pager-ready[data-home-page='vla'] .VPHome .vp-doc,
   html.home-pager-ready[data-home-page='wam'] .VPHome .vp-doc {
@@ -4060,21 +4057,15 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .vp-doc {
   }
 }
 @media (min-width: 701px) and (max-height: 680px) {
-  html.home-pager-ready[data-home-page='overview'] .VPHome {
-    overflow-y: auto;
-  }
   html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
-    height: auto;
-    overflow: visible;
+    height: 100%;
+    overflow: hidden;
   }
 }
 @media (min-width: 701px) and (max-width: 980px) {
-  html.home-pager-ready[data-home-page='overview'] .VPHome {
-    overflow-y: auto;
-  }
   html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
-    height: auto;
-    overflow: visible;
+    height: 100%;
+    overflow: hidden;
   }
   html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -8499,4 +8490,723 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
   .home-track-intro__cta span,
   .VPHome .route-more { transition: none; }
   .VPHome .route-more:hover { transform: none; }
+}
+
+/* ============================================================
+   首页严格 Full-page 模式（2026-07）
+   每个研究区块只占一个视口；纵向滚轮 / 翻页键 / 上下滑动负责切页，
+   页面内部不再产生纵向滚动。论文卡只展示代表入口，×N 保留完整数量。
+   ============================================================ */
+html.home-pager-ready[data-home-page] .VPHome {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+  scrollbar-gutter: auto;
+}
+html.home-pager-ready .home-page-panel > .home-page-panel__footer,
+html.home-pager-ready .home-page-panel > .home-track-footer,
+html.home-pager-ready .VPHome .route-more {
+  display: none !important;
+}
+html.home-pager-ready .home-page-panel {
+  box-sizing: border-box;
+  min-height: 0 !important;
+  overflow: hidden;
+}
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .box {
+  padding: 0 !important;
+}
+
+/* 向前 / 向后切换使用相反的轻位移，降低“内容突然替换”的跳变感。 */
+@media (prefers-reduced-motion: no-preference) {
+  html.home-pager-ready[data-home-direction='next'] .home-page-panel.is-active {
+    animation: homeFullpageEnterNext 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  html.home-pager-ready[data-home-direction='previous'] .home-page-panel.is-active {
+    animation: homeFullpageEnterPrevious 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+@keyframes homeFullpageEnterNext {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes homeFullpageEnterPrevious {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 桌面 / 平板：顶部页签下方是一块固定高度的内容画布。 */
+@media (min-width: 701px) {
+  html.home-pager-ready[data-home-page='vla'] .VPHome .vp-doc,
+  html.home-pager-ready[data-home-page='wam'] .VPHome .vp-doc {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    max-width: 1248px;
+    padding: 84px 24px 10px;
+  }
+  html.home-pager-ready .home-page-panel[data-page='vla'],
+  html.home-pager-ready .home-page-panel[data-page='wam'] {
+    display: grid;
+    height: calc(100vh - var(--vp-nav-height, 64px) - 94px);
+    height: calc(100dvh - var(--vp-nav-height, 64px) - 94px);
+    grid-template-rows: 28px 76px minmax(0, 1fr);
+    gap: 8px;
+  }
+  html.home-pager-ready .home-page-panel[data-page] > h2:first-child {
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 0 0 14px !important;
+    border: 0;
+    font-size: 1.18rem;
+    line-height: 28px;
+  }
+  html.home-pager-ready .home-page-panel[data-page] > h2:first-child::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: inline;
+    margin: 0;
+    font-size: 0;
+    transform: translateY(-50%);
+  }
+  html.home-pager-ready .home-page-panel[data-page] > h2:first-child::after {
+    top: 50%;
+  }
+  html.home-pager-ready .home-track-intro {
+    box-sizing: border-box;
+    height: 76px;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-rows: minmax(0, 1fr);
+    gap: 3px 14px;
+    margin: 0;
+    padding: 9px 13px;
+    border-radius: 11px;
+  }
+  html.home-pager-ready .home-track-intro__eyebrow {
+    margin: 0 0 3px;
+    font-size: 0.58rem;
+  }
+  html.home-pager-ready .VPHome .vp-doc .home-track-intro p {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  html.home-pager-ready .home-track-intro__meta {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  html.home-pager-ready .home-track-intro__meta span {
+    display: flex;
+    grid-template-columns: none;
+    gap: 4px;
+    padding: 5px 7px;
+    font-size: 0.62rem;
+    white-space: nowrap;
+  }
+  html.home-pager-ready .home-track-intro__cta {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: center;
+    justify-self: end;
+    font-size: 0.68rem;
+  }
+  html.home-pager-ready .VPHome .route-grid,
+  html.home-pager-ready .VPHome .route-grid--wam {
+    display: grid !important;
+    height: 100%;
+    min-height: 0;
+    align-items: stretch;
+    gap: 10px !important;
+    margin: 0 !important;
+    overflow: hidden;
+  }
+  html.home-pager-ready [data-page='vla'] .route-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+  html.home-pager-ready [data-page='vla'] .route-grid .route-card {
+    grid-column: span 2 !important;
+  }
+  html.home-pager-ready [data-page='vla'] .route-grid .route-card:nth-child(n + 4) {
+    grid-column: span 3 !important;
+  }
+  html.home-pager-ready [data-page='wam'] .route-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+  html.home-pager-ready [data-page='wam'] .route-grid .route-card {
+    grid-column: auto !important;
+  }
+  html.home-pager-ready .VPHome .route-grid .route-card {
+    box-sizing: border-box;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    min-height: 0 !important;
+    height: 100%;
+    padding: 11px 12px !important;
+  }
+  html.home-pager-ready .VPHome .route-card__title {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 7px 0 4px;
+    font-size: 0.84rem;
+    line-height: 1.28;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  html.home-pager-ready .VPHome .route-card p {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0 0 7px;
+    font-size: 0.69rem;
+    line-height: 1.38;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  html.home-pager-ready .VPHome .route-card > .route-tag {
+    max-width: calc(100% - 28px);
+    overflow: hidden;
+    padding: 2px 6px;
+    font-size: 0.61rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  html.home-pager-ready .VPHome .route-links {
+    gap: 4px;
+    max-height: none;
+    margin-top: auto;
+    overflow: hidden;
+  }
+  html.home-pager-ready .VPHome .route-links > a,
+  html.home-pager-ready .VPHome .route-links > .route-count {
+    max-width: 100%;
+    min-height: 0;
+    padding: 4px 6px;
+    overflow: hidden;
+    font-size: 0.64rem;
+    line-height: 1.15;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  html.home-pager-ready .VPHome .route-links > a:nth-of-type(n + 4) {
+    display: none !important;
+  }
+
+  /* 资源页：左侧 2×3 核心入口，右侧 About / 方法与快速链接。 */
+  html.home-pager-ready[data-home-page='resources'] .VPHome {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(270px, 0.95fr);
+    grid-template-rows: minmax(0, 1fr);
+    gap: 12px;
+    padding: 84px 24px 10px;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures {
+    grid-column: 1;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0 !important;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures::before {
+    display: none;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures > .container {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    padding: 0;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items {
+    height: 100% !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 8px !important;
+    margin: 0 !important;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items > .item .VPFeature {
+    min-height: 0 !important;
+    padding: 12px !important;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .box {
+    gap: 5px !important;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .VPImage {
+    box-sizing: border-box;
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 2px;
+    object-fit: contain;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .details {
+    display: -webkit-box !important;
+    flex: 0 0 32px;
+    min-height: 32px;
+    padding-top: 0;
+    overflow: hidden;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .link-text {
+    margin-top: auto;
+    padding-top: 0;
+    font-size: 0.68rem;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome > .vp-doc {
+    grid-column: 2;
+    min-width: 0;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 !important;
+  }
+  html.home-pager-ready .home-page-panel[data-page='resources'] {
+    height: calc(100vh - var(--vp-nav-height, 64px) - 94px);
+    height: calc(100dvh - var(--vp-nav-height, 64px) - 94px);
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda {
+    box-sizing: border-box;
+    display: grid;
+    height: 100%;
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-content: start;
+    gap: 10px;
+    margin: 0;
+    padding: 15px;
+    overflow: hidden;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__title {
+    margin: 7px 0 4px !important;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__sub {
+    font-size: 0.73rem;
+    line-height: 1.45;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__proof {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__proof > div {
+    padding: 6px 8px;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__proof span {
+    font-size: 0.66rem;
+    line-height: 1.35;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__hint,
+  html.home-pager-ready [data-page='resources'] .home-coda__term {
+    display: none;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__links {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__links a {
+    min-width: 0;
+    padding: 6px 8px;
+    overflow: hidden;
+    font-size: 0.66rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 900px) {
+  html.home-pager-ready .home-track-intro__meta { display: none; }
+  html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
+    padding-top: 96px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.68fr);
+    gap: 14px;
+    margin-top: 18px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__visual { order: initial; }
+  html.home-pager-ready[data-home-page='overview'] .thero__unit {
+    max-width: 300px;
+    padding: 22px 14px 26px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__title-zh { font-size: clamp(2rem, 5.2vw, 3rem); }
+  html.home-pager-ready[data-home-page='overview'] .thero__title-shuffle .shuffle-parent { font-size: clamp(1.15rem, 3vw, 1.75rem); }
+  html.home-pager-ready[data-home-page='overview'] .thero__lede { margin-top: 14px; font-size: 0.78rem; }
+  html.home-pager-ready[data-home-page='overview'] .thero__cta { gap: 7px; margin-top: 16px; }
+  html.home-pager-ready[data-home-page='overview'] .thero__btn { padding: 9px 12px; font-size: 0.72rem; }
+  html.home-pager-ready[data-home-page='overview'] .thero__readout { margin-top: 18px; padding-top: 14px; }
+  html.home-pager-ready[data-home-page='overview'] .thero__stat { padding-inline: 10px; }
+  html.home-pager-ready[data-home-page='overview'] .thero__stat-n { font-size: 1.45rem; }
+}
+
+/* 移动端：纵滑仍切页；研究卡改为横向卡带，避免把正文压成小字。 */
+@media (max-width: 700px) {
+  html.home-pager-ready[data-home-page] .VPHome {
+    box-sizing: border-box;
+    padding: 0 0 76px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 12px 14px 6px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__bar {
+    max-width: 100%;
+    padding: 6px 9px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__grid {
+    height: calc(100% - 40px);
+    grid-template-rows: minmax(120px, 0.72fr) minmax(0, 1.28fr);
+    gap: 8px;
+    margin-top: 8px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__visual {
+    order: -1;
+    min-height: 0;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__unit {
+    width: min(52vw, 190px);
+    max-height: 100%;
+    padding: 16px 10px 20px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__robot-wrap {
+    max-height: 100%;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__main {
+    min-height: 0;
+    overflow: hidden;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__title-zh {
+    font-size: clamp(1.75rem, 9vw, 2.25rem);
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__title-shuffle {
+    margin-top: 4px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__title-shuffle .shuffle-parent {
+    font-size: clamp(1rem, 5.8vw, 1.35rem);
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__lede {
+    display: -webkit-box;
+    overflow: hidden;
+    margin-top: 8px;
+    font-size: 0.7rem;
+    line-height: 1.45;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__cta {
+    gap: 6px;
+    margin-top: 10px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__btn {
+    min-height: 34px;
+    padding: 7px 9px;
+    font-size: 0.66rem;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__readout {
+    gap: 8px 0;
+    margin-top: 10px;
+    padding-top: 9px;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__stat { padding-inline: 8px; }
+  html.home-pager-ready[data-home-page='overview'] .thero__stat-n { font-size: 1.15rem; }
+  html.home-pager-ready[data-home-page='overview'] .thero__stat-label { margin-top: 3px; font-size: 0.56rem; }
+
+  html.home-pager-ready[data-home-page='vla'] .VPHome .vp-doc,
+  html.home-pager-ready[data-home-page='wam'] .VPHome .vp-doc {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 10px 12px 8px;
+  }
+  html.home-pager-ready .home-page-panel[data-page='vla'],
+  html.home-pager-ready .home-page-panel[data-page='wam'] {
+    display: grid;
+    height: calc(100vh - var(--vp-nav-height, 64px) - 94px);
+    height: calc(100dvh - var(--vp-nav-height, 64px) - 94px);
+    grid-template-rows: 26px 68px minmax(0, 1fr);
+    gap: 7px;
+  }
+  html.home-pager-ready .home-page-panel[data-page] > h2:first-child {
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    border: 0;
+    font-size: 1rem;
+    line-height: 26px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  html.home-pager-ready .home-page-panel[data-page] > h2:first-child::before,
+  html.home-pager-ready .home-page-panel[data-page] > h2:first-child::after {
+    display: none;
+  }
+  html.home-pager-ready .home-track-intro {
+    display: grid;
+    box-sizing: border-box;
+    height: 68px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: minmax(0, 1fr);
+    gap: 5px 8px;
+    margin: 0;
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
+  html.home-pager-ready .home-track-intro__eyebrow { margin-bottom: 3px; font-size: 0.5rem; }
+  html.home-pager-ready .VPHome .vp-doc .home-track-intro p {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.66rem;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  html.home-pager-ready .home-track-intro__meta { display: none; }
+  html.home-pager-ready .home-track-intro__cta {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    justify-self: end;
+    font-size: 0.58rem;
+    white-space: nowrap;
+  }
+  html.home-pager-ready .VPHome .route-grid,
+  html.home-pager-ready .VPHome .route-grid--wam {
+    display: flex !important;
+    height: 100%;
+    min-height: 0;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 9px !important;
+    margin: 0 !important;
+    padding: 0 1px 2px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+    scrollbar-width: none;
+  }
+  html.home-pager-ready .VPHome .route-grid::-webkit-scrollbar { display: none; }
+  html.home-pager-ready .VPHome .route-grid .route-card,
+  html.home-pager-ready .VPHome .route-grid:not(.route-grid--wam) .route-card:last-child {
+    box-sizing: border-box;
+    flex: 0 0 min(84vw, 340px) !important;
+    width: min(84vw, 340px);
+    max-width: none;
+    min-height: 0 !important;
+    height: 100%;
+    padding: 14px !important;
+    scroll-snap-align: start;
+  }
+  html.home-pager-ready .VPHome .route-card__title {
+    margin: 8px 0 5px;
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+  html.home-pager-ready .VPHome .route-card p {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0 0 9px;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  html.home-pager-ready .VPHome .route-links {
+    gap: 5px;
+    max-height: none;
+    margin-top: auto;
+    overflow: hidden;
+  }
+  html.home-pager-ready .VPHome .route-links > a,
+  html.home-pager-ready .VPHome .route-links > .route-count {
+    min-height: 0;
+    padding: 5px 7px;
+    font-size: 0.68rem;
+  }
+  html.home-pager-ready .VPHome .route-links > a:nth-of-type(n + 5) {
+    display: none !important;
+  }
+
+  html.home-pager-ready[data-home-page='resources'] .VPHome {
+    display: grid;
+    grid-template-rows: minmax(0, 0.56fr) minmax(0, 0.44fr);
+    gap: 8px;
+    padding: 10px 10px 76px;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures {
+    min-height: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0 !important;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures::before { display: none; }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures > .container {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items {
+    height: 100% !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 5px !important;
+    margin: 0 !important;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items > .item .VPFeature {
+    min-height: 0 !important;
+    padding: 7px 8px !important;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .box { gap: 3px !important; }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .VPImage {
+    box-sizing: border-box;
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 1px;
+    object-fit: contain;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .title {
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .details,
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .link-text {
+    display: none !important;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome > .vp-doc {
+    min-height: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0 !important;
+  }
+  html.home-pager-ready .home-page-panel[data-page='resources'] { height: 100%; }
+  html.home-pager-ready [data-page='resources'] .home-coda {
+    box-sizing: border-box;
+    display: grid;
+    height: 100%;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 6px;
+    margin: 0;
+    padding: 9px 10px;
+    overflow: hidden;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__eyebrow { font-size: 0.54rem; }
+  html.home-pager-ready [data-page='resources'] .home-coda__title {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 4px 0 2px !important;
+    font-size: 0.82rem;
+    line-height: 1.3;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__sub {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.64rem;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__proof,
+  html.home-pager-ready [data-page='resources'] .home-coda__hint,
+  html.home-pager-ready [data-page='resources'] .home-coda__term { display: none; }
+  html.home-pager-ready [data-page='resources'] .home-coda__links {
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__links a {
+    min-width: 0;
+    min-height: 28px;
+    justify-content: center;
+    padding: 4px 3px;
+    overflow: hidden;
+    font-size: 0.56rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  html.home-pager-ready [data-page='resources'] .home-coda__links a::before { display: none; }
+}
+
+/* 短屏再减掉次级说明，保证 600px 左右高度仍无裁切、无纵向滚动。 */
+@media (min-width: 701px) and (max-height: 620px) {
+  html.home-pager-ready[data-home-page='vla'] .VPHome .vp-doc,
+  html.home-pager-ready[data-home-page='wam'] .VPHome .vp-doc {
+    padding-top: 72px;
+    padding-bottom: 6px;
+  }
+  html.home-pager-ready .home-page-panel[data-page='vla'],
+  html.home-pager-ready .home-page-panel[data-page='wam'] {
+    grid-template-rows: 24px 58px minmax(0, 1fr);
+    gap: 6px;
+  }
+  html.home-pager-ready .home-track-intro { height: 58px; padding-block: 6px; }
+  html.home-pager-ready .home-track-intro__meta { display: none; }
+  html.home-pager-ready .VPHome .route-card p { display: none; }
+  html.home-pager-ready .VPHome .route-links > a:nth-of-type(n + 3) { display: none !important; }
+  html.home-pager-ready[data-home-page='resources'] .VPHome { padding-top: 72px; padding-bottom: 6px; }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .details { display: none !important; }
+  html.home-pager-ready [data-page='resources'] .home-coda__sub,
+  html.home-pager-ready [data-page='resources'] .home-coda__proof { display: none; }
+  html.home-pager-ready[data-home-page='overview'] .VPHome .thero { padding-top: 90px; }
+  html.home-pager-ready[data-home-page='overview'] .thero__grid { margin-top: 12px; }
+  html.home-pager-ready[data-home-page='overview'] .thero__lede { margin-top: 10px; }
+  html.home-pager-ready[data-home-page='overview'] .thero__cta { margin-top: 12px; }
+  html.home-pager-ready[data-home-page='overview'] .thero__readout { margin-top: 14px; padding-top: 10px; }
+}
+
+@media (max-width: 700px) and (max-height: 700px) {
+  html.home-pager-ready[data-home-page='overview'] .thero__grid {
+    display: block;
+    height: auto;
+  }
+  html.home-pager-ready[data-home-page='overview'] .thero__visual { display: none; }
+  html.home-pager-ready[data-home-page='overview'] .thero__lede { -webkit-line-clamp: 1; }
+  html.home-pager-ready[data-home-page='overview'] .thero__readout { display: none; }
+  html.home-pager-ready .home-page-panel[data-page='vla'],
+  html.home-pager-ready .home-page-panel[data-page='wam'] {
+    grid-template-rows: 24px 48px minmax(0, 1fr);
+    gap: 5px;
+  }
+  html.home-pager-ready .home-track-intro { height: 48px; padding-block: 6px; }
+  html.home-pager-ready .home-track-intro__eyebrow { display: none; }
+  html.home-pager-ready .VPHome .vp-doc .home-track-intro p { -webkit-line-clamp: 1; }
+  html.home-pager-ready .VPHome .route-card p { display: none; }
+  html.home-pager-ready [data-page='resources'] .home-coda__sub { display: none; }
+}
+
+/* Full-page 内容铺到屏幕底部后，将导览收成轻量圆形入口，避免遮住卡片链接。 */
+html.home-pager-ready .first-guide-launcher {
+  width: 40px;
+  min-width: 40px;
+  padding: 0 !important;
+  justify-content: center;
+}
+html.home-pager-ready .first-guide-launcher > span:last-child { display: none; }
+@media (min-width: 960px) {
+  html.home-pager-ready .first-guide-launcher {
+    top: 90px;
+    right: max(18px, env(safe-area-inset-right));
+    bottom: auto;
+  }
+}
+@media (max-width: 700px) {
+  html.home-pager-ready .first-guide-launcher {
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(82px, calc(env(safe-area-inset-bottom) + 76px));
+  }
 }
