@@ -159,33 +159,37 @@ function setupCardSpotlight() {
 }
 
 // =====================================================================
-// 每日论文页分类筛选:从每张 paper-ticket 的 meta 标签自动推断类目。
-// 后续每日新增卡片只要沿用 VLA/WAM/DATA/HUMANOID/TACTILE/P0/已细读 等标签,
-// 筛选按钮和数量会自动更新;hash 支持分享 /papers/latest#vla。
+// 每日论文页研究收件箱：方向 × 优先级/状态 × 关键词组合筛选。
+// 同时负责筛选计数、最新一期统计、历史日期折叠和底部队列状态回填。
+// 保留旧版 #vla 等链接兼容，新的组合状态写入 ?track=&status=&q=。
 // =====================================================================
 let paperFilterObserverBound = false
+let paperFilterKeyboardBound = false
 function setupPaperFilters() {
   if (typeof window === 'undefined') return
 
-  const FILTER_LABELS = {
-    all: '全部',
+  const TRACK_LABELS = {
+    all: '全部方向',
     vla: 'VLA',
     wam: 'WAM',
     data: 'DATA/EVAL',
     humanoid: 'HUMANOID',
     tactile: 'TACTILE',
-    p0: 'P0 优先',
-    done: '已细读',
   }
-
+  const STATUS_LABELS = {
+    any: '全部状态',
+    p0: 'P0 优先',
+    todo: '待细读',
+    done: '已细读',
+    watch: '观察',
+  }
   const normalize = (value) => String(value || '').trim().toUpperCase()
 
   const inferCategories = (ticket) => {
-    const tags = Array.from(ticket.querySelectorAll('.paper-ticket__meta span')).map((span) =>
-      normalize(span.textContent)
-    )
+    const tagNodes = Array.from(ticket.querySelectorAll('.paper-ticket__meta span'))
+    const tags = tagNodes.map((span) => normalize(span.textContent))
     const tagText = tags.join(' ')
-    const categories = new Set(['all'])
+    const categories = new Set(['all', 'any'])
 
     if (ticket.classList.contains('paper-ticket--vla') || /\bVLA\b/.test(tagText)) categories.add('vla')
     if (ticket.classList.contains('paper-ticket--wam') || /\bWAM\b/.test(tagText)) categories.add('wam')
@@ -195,10 +199,30 @@ function setupPaperFilters() {
     }
     if (/\bHUMANOID\b/.test(tagText)) categories.add('humanoid')
     if (/\b(TACTILE|FORCE|TOUCH)\b/.test(tagText)) categories.add('tactile')
-    if (/\bP0\b/.test(tagText)) categories.add('p0')
-    if (/已细读|DONE/.test(tagText)) categories.add('done')
+
+    ;['P0', 'P1', 'P2'].forEach((priority) => {
+      if (new RegExp(`\\b${priority}\\b`).test(tagText)) categories.add(priority.toLowerCase())
+    })
+    if (ticket.querySelector('.paper-status--todo') || /待细读|TODO/.test(tagText)) categories.add('todo')
+    if (ticket.querySelector('.paper-status--done') || /已细读|DONE/.test(tagText)) categories.add('done')
+    if (ticket.querySelector('.paper-status--watch') || /观察|WATCH/.test(tagText)) categories.add('watch')
+    if (ticket.querySelector('.paper-status--hold') || /暂缓|HOLD/.test(tagText)) categories.add('hold')
+    if (ticket.querySelector('.paper-status--drop') || /排除|DROP/.test(tagText)) categories.add('drop')
+
+    tagNodes.forEach((span) => {
+      const value = normalize(span.textContent)
+      const priority = value.match(/^P([0-2])$/)
+      if (priority) {
+        span.classList.add('paper-priority', `paper-priority--p${priority[1]}`)
+      }
+    })
 
     ticket.dataset.paperCategories = Array.from(categories).join(' ')
+    ticket.dataset.paperSearch = normalize([
+      ticket.querySelector('h3')?.textContent,
+      ticket.querySelector('p')?.textContent,
+      tagText,
+    ].join(' '))
     return categories
   }
 
@@ -206,73 +230,255 @@ function setupPaperFilters() {
     if (panel.dataset.paperFilterReady) return
     const buttons = Array.from(panel.querySelectorAll('[data-paper-filter]'))
     const counter = panel.querySelector('[data-paper-filter-count]')
-    if (!buttons.length || !document.querySelector('.paper-ticket')) return
+    const search = panel.querySelector('[data-paper-search]')
+    const clearButton = panel.querySelector('[data-paper-filter-clear]')
+    const tickets = Array.from(document.querySelectorAll('.paper-ticket'))
+    if (!buttons.length || !tickets.length) return
     panel.dataset.paperFilterReady = '1'
+
+    tickets.forEach(inferCategories)
 
     let empty = document.querySelector('[data-paper-filter-empty]')
     if (!empty) {
-      empty = document.createElement('p')
+      empty = document.createElement('div')
       empty.className = 'paper-filter-empty'
       empty.dataset.paperFilterEmpty = '1'
       empty.hidden = true
-      empty.textContent = '当前分类暂无论文。'
-      const lastSection = document.querySelector('.daily-paper-section')
-      lastSection?.parentNode?.insertBefore(empty, lastSection)
+      empty.innerHTML = '<strong>没有找到匹配论文</strong><span>试试缩短关键词，或清除部分筛选条件。</span>'
+      panel.insertAdjacentElement('afterend', empty)
     }
 
-    const getTickets = () => Array.from(document.querySelectorAll('.paper-ticket'))
+    const dayGroups = Array.from(document.querySelectorAll('.paper-day-heading'))
+      .map((heading, index) => {
+        const section = heading.nextElementSibling
+        if (!section?.classList?.contains('daily-paper-section')) return null
+        const cards = Array.from(section.querySelectorAll('.paper-ticket'))
+        if (!cards.length) return null
+        const date = heading.textContent.trim()
+        heading.dataset.paperDate = date
 
-    const getFilterFromHash = () => {
-      const key = decodeURIComponent(window.location.hash.replace(/^#/, '')).toLowerCase()
-      return buttons.some((button) => button.dataset.paperFilter === key) ? key : 'all'
+        const count = document.createElement('span')
+        count.className = 'paper-day-heading__count'
+        count.textContent = `${cards.length} 篇`
+        heading.appendChild(count)
+
+        const toggle = document.createElement('button')
+        toggle.className = 'paper-day-toggle'
+        toggle.type = 'button'
+        if (!section.id) section.id = `paper-section-${date}`
+        toggle.setAttribute('aria-controls', section.id)
+        toggle.setAttribute('aria-label', `${date} 论文列表`)
+        toggle.setAttribute('aria-expanded', String(index === 0))
+        toggle.textContent = index === 0 ? '当前期' : '展开'
+        if (index === 0) toggle.hidden = true
+        heading.appendChild(toggle)
+
+        return { heading, section, cards, count, toggle, date, open: index === 0 }
+      })
+      .filter(Boolean)
+
+    let archiveOpen = false
+    let archiveGate = null
+    let archiveButton = null
+    if (dayGroups.length > 1) {
+      archiveGate = document.createElement('div')
+      archiveGate.className = 'paper-archive-gate'
+      archiveButton = document.createElement('button')
+      archiveButton.className = 'paper-archive-gate__button'
+      archiveButton.type = 'button'
+      archiveButton.setAttribute('aria-expanded', 'false')
+      archiveGate.appendChild(archiveButton)
+      dayGroups[0].section.insertAdjacentElement('afterend', archiveGate)
     }
 
-    const apply = (filter, updateHash = true) => {
-      const active = filter || 'all'
+    const params = new URLSearchParams(window.location.search)
+    const legacyHash = decodeURIComponent(window.location.hash.replace(/^#/, '')).toLowerCase()
+    const validTracks = Object.keys(TRACK_LABELS)
+    const validStatuses = Object.keys(STATUS_LABELS)
+    const state = {
+      track: validTracks.includes(params.get('track'))
+        ? params.get('track')
+        : validTracks.includes(legacyHash) ? legacyHash : 'all',
+      status: validStatuses.includes(params.get('status')) ? params.get('status') : 'any',
+      query: params.get('q') || '',
+    }
+    const linkedDay = dayGroups.find((group) => group.heading.id.toLowerCase() === legacyHash)
+    if (linkedDay) {
+      archiveOpen = true
+      linkedDay.open = true
+    }
+    if (search) search.value = state.query
+
+    const categoriesOf = (ticket) => (ticket.dataset.paperCategories || '').split(/\s+/)
+    const countFor = (group, value) => {
+      if ((group === 'track' && value === 'all') || (group === 'status' && value === 'any')) return tickets.length
+      return tickets.filter((ticket) => categoriesOf(ticket).includes(value)).length
+    }
+
+    buttons.forEach((button) => {
+      const badge = document.createElement('span')
+      badge.className = 'paper-filter-chip__count'
+      badge.textContent = countFor(button.dataset.paperFilterGroup || 'track', button.dataset.paperFilter)
+      button.appendChild(badge)
+    })
+
+    if (dayGroups[0]) {
+      const latest = dayGroups[0]
+      const latestCounts = {
+        latest: latest.cards.length,
+        p0: latest.cards.filter((ticket) => categoriesOf(ticket).includes('p0')).length,
+        vla: latest.cards.filter((ticket) => categoriesOf(ticket).includes('vla')).length,
+        wam: latest.cards.filter((ticket) => categoriesOf(ticket).includes('wam')).length,
+        done: latest.cards.filter((ticket) => categoriesOf(ticket).includes('done')).length,
+        date: latest.date.slice(5).replace('-', '.'),
+      }
+      Object.entries(latestCounts).forEach(([key, value]) => {
+        document.querySelectorAll(`[data-paper-stat="${key}"]`).forEach((node) => {
+          node.textContent = value
+        })
+      })
+    }
+
+    ;['todo', 'done', 'watch'].forEach((status) => {
+      const total = tickets.filter((ticket) => categoriesOf(ticket).includes(status)).length
+      document.querySelectorAll(`[data-paper-status-count="${status}"]`).forEach((node) => {
+        node.textContent = total
+      })
+    })
+
+    const syncUrl = () => {
+      const next = new URL(window.location.href)
+      ;['track', 'status', 'q'].forEach((key) => next.searchParams.delete(key))
+      if (state.track !== 'all') next.searchParams.set('track', state.track)
+      if (state.status !== 'any') next.searchParams.set('status', state.status)
+      if (state.query.trim()) next.searchParams.set('q', state.query.trim())
+      next.hash = ''
+      window.history.replaceState(null, '', next.pathname + next.search)
+    }
+
+    const matchesDataItem = (item, query) => {
+      const text = normalize(item.textContent)
+      const trackMatch =
+        state.track === 'all' ||
+        state.track === 'data' ||
+        (state.track === 'vla' && /\bVLA\b/.test(text)) ||
+        (state.track === 'wam' && /\bWAM\b/.test(text))
+      const statusMatch = state.status === 'any' || (state.status === 'p0' && /\bP0\b/.test(text))
+      return trackMatch && statusMatch && (!query || text.includes(query))
+    }
+
+    const apply = (updateUrl = true) => {
+      const query = normalize(state.query)
+      const focused = state.track !== 'all' || state.status !== 'any' || Boolean(query)
       let visible = 0
-      const tickets = getTickets()
-      tickets.forEach(inferCategories)
+
       tickets.forEach((ticket) => {
-        const cats = ticket.dataset.paperCategories || ''
-        const show = active === 'all' || cats.split(/\s+/).includes(active)
+        const categories = categoriesOf(ticket)
+        const trackMatch = state.track === 'all' || categories.includes(state.track)
+        const statusMatch = state.status === 'any' || categories.includes(state.status)
+        const queryMatch = !query || (ticket.dataset.paperSearch || '').includes(query)
+        const show = trackMatch && statusMatch && queryMatch
         ticket.hidden = !show
-        ticket.style.display = show ? '' : 'none'
         ticket.classList.toggle('is-filtered-out', !show)
         if (show) visible += 1
       })
 
-      document.querySelectorAll('.daily-paper-section').forEach((section) => {
-        const cards = Array.from(section.querySelectorAll('.paper-ticket'))
-        const hasVisible = cards.some((card) => !card.hidden)
-        section.hidden = !hasVisible
-        const heading = section.previousElementSibling
-        if (heading?.classList?.contains('paper-day-heading')) heading.hidden = !hasVisible
+      dayGroups.forEach((group, index) => {
+        const visibleCards = group.cards.filter((card) => !card.hidden).length
+        const hasVisible = visibleCards > 0
+        const archived = index > 0 && !focused && !archiveOpen
+        const headingVisible = hasVisible && !archived
+        const sectionVisible = headingVisible && (index === 0 || focused || group.open)
+        group.heading.hidden = !headingVisible
+        group.section.hidden = !sectionVisible
+        group.count.textContent = focused ? `${visibleCards} / ${group.cards.length} 篇` : `${group.cards.length} 篇`
+        group.toggle.hidden = index === 0 || focused
+        group.toggle.setAttribute('aria-expanded', String(group.open))
+        group.toggle.setAttribute('aria-label', `${group.date} 论文列表${group.open ? '，收起' : '，展开'}`)
+        group.toggle.textContent = group.open ? '收起' : '展开'
+      })
+
+      let supplementalVisible = 0
+      document.querySelectorAll('.daily-paper-section--data').forEach((section) => {
+        const items = Array.from(section.querySelectorAll('.paper-data-item'))
+        items.forEach((item) => {
+          const show = matchesDataItem(item, query)
+          item.hidden = !show
+          if (show) supplementalVisible += 1
+        })
+        section.hidden = !items.some((item) => !item.hidden)
       })
 
       buttons.forEach((button) => {
-        const on = button.dataset.paperFilter === active
+        const group = button.dataset.paperFilterGroup || 'track'
+        const on = group === 'status'
+          ? button.dataset.paperFilter === state.status
+          : button.dataset.paperFilter === state.track
         button.classList.toggle('is-active', on)
         button.setAttribute('aria-pressed', String(on))
       })
 
+      const scopes = []
+      if (state.track !== 'all') scopes.push(TRACK_LABELS[state.track])
+      if (state.status !== 'any') scopes.push(STATUS_LABELS[state.status])
+      if (state.query.trim()) scopes.push(`“${state.query.trim()}”`)
       if (counter) {
-        const label = FILTER_LABELS[active] || active.toUpperCase()
-        counter.textContent = active === 'all' ? `显示 ${visible} 篇` : `${label} · ${visible} 篇`
+        const label = scopes.length ? scopes.join(' × ') : '全部论文'
+        counter.textContent = `${label} · ${visible} 篇${supplementalVisible ? ` + ${supplementalVisible} 个专题入口` : ''}`
       }
-      empty.hidden = visible !== 0
+      empty.hidden = visible !== 0 || supplementalVisible !== 0
+      if (clearButton) clearButton.hidden = !focused
 
-      if (updateHash) {
-        const next = active === 'all' ? window.location.pathname + window.location.search : `#${active}`
-        if (active === 'all') window.history.replaceState(null, '', next)
-        else window.history.replaceState(null, '', next)
+      if (archiveGate && archiveButton) {
+        const olderCount = dayGroups.slice(1).reduce((sum, group) => sum + group.cards.length, 0)
+        archiveGate.hidden = focused
+        archiveButton.setAttribute('aria-expanded', String(archiveOpen))
+        archiveButton.textContent = archiveOpen
+          ? '收起历史日期 ↑'
+          : `查看更早 ${dayGroups.length - 1} 期 · ${olderCount} 篇 ↓`
       }
+
+      if (updateUrl) syncUrl()
     }
 
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => apply(button.dataset.paperFilter || 'all'))
+    dayGroups.forEach((group) => {
+      group.toggle.addEventListener('click', () => {
+        group.open = !group.open
+        apply(false)
+      })
     })
-    window.addEventListener('hashchange', () => apply(getFilterFromHash(), false))
-    apply(getFilterFromHash(), false)
+    archiveButton?.addEventListener('click', () => {
+      archiveOpen = !archiveOpen
+      apply(false)
+    })
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const group = button.dataset.paperFilterGroup || 'track'
+        if (group === 'status') state.status = button.dataset.paperFilter || 'any'
+        else state.track = button.dataset.paperFilter || 'all'
+        apply()
+      })
+    })
+
+    let searchTimer
+    search?.addEventListener('input', () => {
+      clearTimeout(searchTimer)
+      searchTimer = setTimeout(() => {
+        state.query = search.value
+        apply()
+      }, 120)
+    })
+    clearButton?.addEventListener('click', () => {
+      state.track = 'all'
+      state.status = 'any'
+      state.query = ''
+      archiveOpen = false
+      dayGroups.forEach((group, index) => { group.open = index === 0 })
+      if (search) search.value = ''
+      apply()
+      search?.focus()
+    })
+    apply(false)
   }
 
   const bind = () => {
@@ -280,6 +486,23 @@ function setupPaperFilters() {
   }
 
   bind()
+  if (!paperFilterKeyboardBound) {
+    paperFilterKeyboardBound = true
+    document.addEventListener('keydown', (event) => {
+      const search = document.querySelector('[data-paper-filter-ready] [data-paper-search]')
+      if (!search) return
+      const target = event.target
+      const typing = target?.matches?.('input, textarea, select, [contenteditable="true"]')
+      if (event.key === '/' && !typing) {
+        event.preventDefault()
+        search.focus()
+      }
+      if (event.key === 'Escape' && document.activeElement === search && search.value) {
+        search.value = ''
+        search.dispatchEvent(new Event('input', { bubbles: true }))
+      }
+    })
+  }
   if (!paperFilterObserverBound && 'MutationObserver' in window) {
     paperFilterObserverBound = true
     let t

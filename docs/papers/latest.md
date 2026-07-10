@@ -2,62 +2,164 @@
 title: 每日最新论文
 description: VLA / WAM / 具身数据每日新论文候选池,按日期记录最新 arXiv 与公开论文,标注已细读、待细读、观察、暂缓和排除状态,作为新闻与正式论文细读之间的收录队列。
 aside: false
+sidebar: false
 pageClass: paper-radar-page
 ---
 
-# 每日最新论文
+# 每日论文雷达
 
-<p class="paper-radar-intro"><strong>每日论文队列</strong> · 候选 → 细读。产业新闻见 <a href="/embodied-ai-learning/news/">具身新闻</a>。</p>
-
-<div class="latest-paper-hero">
-  <div>
-    <span class="latest-paper-hero__eyebrow">PAPER RADAR · 2026-07-09</span>
-    <p class="latest-paper-hero__title">7 月 9 日 · VLA / WAM / DATA-EVAL / HUMANOID-TACTILE</p>
-    <p class="latest-paper-hero__text">今日从 arXiv cs.RO / cs.CV / cs.AI 最新提交与论文项目页中筛出 20 篇强相关候选;VLA 主线集中在 latent memory、proprioception-vision grounding、test-time primitive guidance 和离散 token 导航,WAM 侧出现 LingBot-Video、LingBot-World 2.0、WAM-TTT 与 world-model admissibility,数据评测侧补上 EmbodiedGen V2、ABot-C0、teleop retargeting 与 robot safety,触觉/人形/接触密集操作侧则由 TouchWorld、VR+LLM humanoid teleop、deformable tool force estimation 等推进。</p>
-  </div>
-  <div class="latest-paper-stats" aria-label="论文队列统计">
-    <span><b>20</b>今日新增</span>
-    <span><b>0</b>已细读</span>
-    <span><b>6</b>VLA</span>
-    <span><b>4</b>WAM</span>
-    <span><b>5</b>DATA/EVAL</span>
-    <span><b>5</b>HUMANOID/TACTILE</span>
-  </div>
+<div class="paper-radar-topline">
+  <p class="paper-radar-intro"><strong>DAILY RESEARCH BRIEF</strong><span>候选 → 研判 → 细读</span></p>
+  <nav class="paper-radar-links" aria-label="相关研究入口">
+    <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
+    <a href="/embodied-ai-learning/news/">具身新闻</a>
+    <a href="/embodied-ai-learning/vla/papers/timeline">发展时间线</a>
+  </nav>
 </div>
 
-<div class="paper-track-strip" aria-label="方向说明">
-  <span class="paper-track paper-track--vla">VLA · 模型策略</span>
-  <span class="paper-track paper-track--wam">WAM · 世界模型</span>
-  <span class="paper-track paper-track--data">DATA · 数据侧</span>
-  <span class="paper-track paper-track--vla">HUMANOID · 全身操作</span>
-  <span class="paper-track paper-track--wam">TACTILE · 接触感知</span>
+<div class="latest-paper-hero">
+  <div class="latest-paper-hero__main">
+    <span class="latest-paper-hero__eyebrow">ISSUE 2026-07-10 · EMBODIED AI</span>
+    <p class="latest-paper-hero__title">今天值得跟进的 4 条研究信号</p>
+    <p class="latest-paper-hero__text">从 arXiv cs.RO 最新提交与交叉投稿中筛出 11 篇强相关候选，重点覆盖原生视频—动作预训练、具身世界表征、潜在推理、接触控制与跨本体灵巧操作评测。</p>
+    <div class="paper-signal-grid" aria-label="今日研究信号">
+      <article class="paper-signal paper-signal--vla"><span>01 · VLA</span><strong>预训练走向原生物理接口</strong><p>LingBot-VA 2.0 从 tokenizer、因果预训练到异步闭环重做视频—动作模型。</p></article>
+      <article class="paper-signal paper-signal--wam"><span>02 · WAM</span><strong>世界目标不再等于像素</strong><p>EgoWAM 用 DINO 与 3D flow 分离外观、相机运动和可迁移物理变化。</p></article>
+      <article class="paper-signal paper-signal--data"><span>03 · DATA / EVAL</span><strong>灵巧操作评测扩到跨本体</strong><p>DexVerse 统一百项任务、九种手臂/灵巧手组合与多模态示范。</p></article>
+      <article class="paper-signal paper-signal--embodied"><span>04 · HUMANOID</span><strong>接触成为显式控制变量</strong><p>ContactMimic 将接触命令与关键点轨迹解耦，并完成真实部署验证。</p></article>
+    </div>
+  </div>
+  <div class="latest-paper-stats" aria-label="论文队列统计">
+    <span><b data-paper-stat="latest">11</b>本期候选</span>
+    <span><b data-paper-stat="p0">6</b>P0 优先</span>
+    <span><b data-paper-stat="vla">5</b>VLA 主线</span>
+    <span><b data-paper-stat="wam">2</b>WAM 主线</span>
+    <span><b data-paper-stat="done">0</b>已细读</span>
+    <span><b data-paper-stat="date">07.10</b>最近更新</span>
+    <small>方向与主题标签可交叉</small>
+  </div>
 </div>
 
 <div class="paper-filter-panel" data-paper-filter-panel>
-  <div class="paper-filter-panel__head">
-    <span>分类筛选</span>
-    <output data-paper-filter-count>全部论文</output>
+  <div class="paper-filter-panel__top">
+    <label class="paper-filter-search">
+      <span class="visually-hidden">搜索论文</span>
+      <i aria-hidden="true"></i>
+      <input type="search" data-paper-search placeholder="搜索标题、摘要或标签…" autocomplete="off" />
+      <kbd>/</kbd>
+    </label>
+    <div class="paper-filter-panel__head">
+      <span>RESEARCH INBOX</span>
+      <output data-paper-filter-count aria-live="polite">显示 230 篇</output>
+    </div>
+    <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
-  <div class="paper-filter-panel__controls" role="group" aria-label="按论文分类筛选">
-    <button type="button" class="paper-filter-chip is-active" data-paper-filter="all">全部</button>
-    <button type="button" class="paper-filter-chip" data-paper-filter="vla">VLA</button>
-    <button type="button" class="paper-filter-chip" data-paper-filter="wam">WAM</button>
-    <button type="button" class="paper-filter-chip" data-paper-filter="data">DATA/EVAL</button>
-    <button type="button" class="paper-filter-chip" data-paper-filter="humanoid">HUMANOID</button>
-    <button type="button" class="paper-filter-chip" data-paper-filter="tactile">TACTILE</button>
-    <button type="button" class="paper-filter-chip" data-paper-filter="p0">P0 优先</button>
-    <button type="button" class="paper-filter-chip" data-paper-filter="done">已细读</button>
+  <div class="paper-filter-row">
+    <span class="paper-filter-row__label">方向</span>
+    <div class="paper-filter-panel__controls" role="group" aria-label="按研究方向筛选">
+      <button type="button" class="paper-filter-chip is-active" data-paper-filter-group="track" data-paper-filter="all">全部方向</button>
+      <button type="button" class="paper-filter-chip" data-paper-filter-group="track" data-paper-filter="vla">VLA</button>
+      <button type="button" class="paper-filter-chip" data-paper-filter-group="track" data-paper-filter="wam">WAM</button>
+      <button type="button" class="paper-filter-chip" data-paper-filter-group="track" data-paper-filter="data">DATA/EVAL</button>
+      <button type="button" class="paper-filter-chip" data-paper-filter-group="track" data-paper-filter="humanoid">HUMANOID</button>
+      <button type="button" class="paper-filter-chip" data-paper-filter-group="track" data-paper-filter="tactile">TACTILE</button>
+    </div>
+  </div>
+  <div class="paper-filter-row">
+    <span class="paper-filter-row__label">优先级 / 状态</span>
+    <div class="paper-filter-panel__controls" role="group" aria-label="按优先级和状态筛选">
+      <button type="button" class="paper-filter-chip is-active" data-paper-filter-group="status" data-paper-filter="any">全部状态</button>
+      <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="p0">P0 优先</button>
+      <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="todo">待细读</button>
+      <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
+      <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
+    </div>
   </div>
 </div>
 
-<div class="paper-day-heading">2026-07-09</div>
+<h2 id="papers-2026-07-10" class="paper-day-heading">2026-07-10</h2>
 
 <div class="daily-paper-section">
-  <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读四条线:第一是 VLA 的长程记忆和状态接地,LaMem-VLA、GeoProp、PriGo、GemNav 都在补从当前观测到可执行动作之间的时间和几何归因;第二是 WAM 从视频生成进一步走向可控、可适配和可验证,LingBot-Video、LingBot-World 2.0、WAM-TTT、world-model admissibility 值得连读;第三是数据与评测基础设施继续前移,EmbodiedGen V2、ABot-C0、Smooth Operator 把仿真、运动语料和遥操作质量做成训练入口;第四是触觉和人形交互明显升温,TouchWorld、VR+LLM humanoid teleop、deformable tool force estimation 都指向接触闭环。</p>
+  <p class="paper-day-note"><strong>编辑建议</strong>优先细读 LingBot-VA 2.0 × EgoWAM，比较“原生视频—动作预训练”与“非像素世界目标”两条 WAM 路线；再读 Latent Memory Palace × TFP，区分自适应潜在推理与事件敏感记忆；具身侧重点跟进 ContactMimic 与 DexVerse。</p>
 
   <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>WAM</span><span>VIDEO-ACTION PRETRAINING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08639" target="_blank" rel="noreferrer">Native Video-Action Pretraining for Generalizable Robot Control</a></h3>
+      <p>提出 LingBot-VA 2.0：不再改造面向数字内容的视频生成器，而是从语义视觉—动作 tokenizer、因果预训练、稀疏 MoE 到异步闭环推理原生构建具身视频—动作基础模型。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08639" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
     <article class="paper-ticket paper-ticket--wam">
-      <div class="paper-ticket__meta"><span>WAM</span><span>VIDEO PRETRAINING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <div class="paper-ticket__meta"><span>WAM</span><span>HUMAN-ROBOT TRANSFER</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08436" target="_blank" rel="noreferrer">EgoWAM</a></h3>
+      <p>固定策略骨干、动作头与数据配比，只比较 Pixel、DINO 和 3D motion flow 世界预测目标；结果显示抽象外观并分离相机运动的表征更适合把野外第一视角人类视频迁移到双臂机器人。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08436" target="_blank" rel="noreferrer">arXiv</a><a href="https://gatech-rl2.github.io/egowam.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>LATENT REASONING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08724" target="_blank" rel="noreferrer">Latent Memory Palace</a></h3>
+      <p>把连续控制中的推理写成自回归潜变量上的变分推断，并用潜空间强化学习优化；同一框架既形成可自适应分配测试时算力的策略，也产生可变长度动作 tokenizer。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08724" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>AGENT HARNESS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08448" target="_blank" rel="noreferrer">Harness VLA</a></h3>
+      <p>把 frozen VLA 暴露为可重试的接触丰富 primitive，由带执行记忆的 agent 负责语义重接地、非接触动作与重新 staging，在不微调 VLA 的情况下扩大其部署工作域。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08448" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>CONTACT CONTROL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08742" target="_blank" rel="noreferrer">ContactMimic</a></h3>
+      <p>在关键点轨迹之外显式跟踪身体部位二值接触命令，用轨迹增强打破姿态与接触标签的伪相关，使人形机器人能按需产生或抑制接触，并在 5 种动作上完成 sim-to-real。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08742" target="_blank" rel="noreferrer">arXiv</a><a href="https://lixinyao11.github.io/contactmimic-page/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DEXTEROUS</span><span>BENCHMARK</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08751" target="_blank" rel="noreferrer">DexVerse</a></h3>
+      <p>提供 100 项灵巧操作任务、3 种机械臂、6 种灵巧手、可控视觉变化和 3,180 条多模态 VR 示范，并用 Diffusion Policy、DP3、OpenVLA 与 π0.5 暴露跨任务和跨本体泛化缺口。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08751" target="_blank" rel="noreferrer">arXiv</a><a href="https://ycyao216.github.io/DexVerse.site/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>EVENT-SENSITIVE MEMORY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08283" target="_blank" rel="noreferrer">TFP</a></h3>
+      <p>用 Liquid Time-Constant 动力学维护 episode-local 任务进度信念，并调制 flow-matching 动作解码器，让记忆在接触、释放和子目标转换附近主动更新，而非仅作为被动历史上下文。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08283" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DEXTEROUS</span><span>RETARGETING</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08341" target="_blank" rel="noreferrer">AnyDexRT</a></h3>
+      <p>以自监督指尖对应、少量人类引导与接触分类器替代手工目标和精确标定，面向不同仿人灵巧手提供 calibration-free 的遥操作重定向与示范采集接口。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08341" target="_blank" rel="noreferrer">arXiv</a><a href="https://chenxi-wang.github.io/projects/anydexrt/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>LIGHTWEIGHT</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08575" target="_blank" rel="noreferrer">FabriVLA</a></h3>
+      <p>将 1B 级 InternVL3.5 骨干与带门控动作 token 自注意力、浅层 VLM 特征融合的 flow-matching action head 单阶段联合训练，探索紧凑 VLA 的精细多任务操作上限。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08575" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>SURGICAL TELEOP</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.07972" target="_blank" rel="noreferrer">In vivo feasibility study of humanoid robots in surgery</a></h3>
+      <p>用通用器械建立人形机器人腹腔镜遥操作框架，从台架、干实验用户研究到活体猪实验系统评估精度、控制、安全与临床准备度，是通用人形进入高风险精细操作的少见实证。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.07972" target="_blank" rel="noreferrer">arXiv</a><a href="https://doi.org/10.1038/s41586-026-10796-x" target="_blank" rel="noreferrer">Nature</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>LOCOMOTION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.07830" target="_blank" rel="noreferrer">HumoSlope</a></h3>
+      <p>以斜坡局部支撑面上的 ZMP 正则和生物力学步态适配器抑制蹲伏退化，部署时只用本体感知，在真实户外草坡实现最高 32.1° 的盲走连续穿越。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.07830" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-09" class="paper-day-heading">2026-07-09</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 LaMem-VLA × GeoProp × PriGo 理解“记忆—状态—动作”链路；WAM 侧把 LingBot-Video、WAM-TTT 与 world-model admissibility 放在一起看；TouchWorld 则是本期最值得跟踪的接触闭环样本。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>WAM</span><span>VIDEO PRETRAINING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
       <h3><a href="https://arxiv.org/abs/2607.07675" target="_blank" rel="noreferrer">LingBot-Video</a></h3>
       <p>面向 embodied intelligence 重新设计 MoE DiT 视频预训练,把机器人、导航和 egocentric 视频纳入数据画像,并用物理合理性和任务完成奖励对齐视频世界模型。</p>
       <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.07675" target="_blank" rel="noreferrer">arXiv</a><a href="https://technology.robbyant.com/lingbot-video" target="_blank" rel="noreferrer">Project</a></div>
@@ -179,7 +281,7 @@ pageClass: paper-radar-page
   </div>
 </div>
 
-<div class="paper-day-heading">2026-07-08</div>
+<h2 id="papers-2026-07-08" class="paper-day-heading">2026-07-08</h2>
 
 <div class="daily-paper-section">
   <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读四条线:第一是 VLA 从二维视觉动作模型继续补 3D 几何、部署数据和推理效率,Lift3D-VLA、LingBot-VLA 2.0、SIEVE、ActionCache 都值得优先跟;第二是 WAM/4D 世界模型明显升温,RynnWorld-4D、RynnWorld-Teleop、MECo-WAM、RoboTALES 分别覆盖 RGB-D-flow 预测、数字遥操作、机械直觉和任务对齐想象;第三是数据和评测侧开始更重视可生成数据、抓取 SE(3) 质量、人形交互力和 embodied occupancy;第四是人形与灵巧手继续向接触密集操作推进,WristMimic、LAMP、DexTele 都有真实或物理仿真约束。</p>
@@ -296,7 +398,7 @@ pageClass: paper-radar-page
   </div>
 </div>
 
-<div class="paper-day-heading">2026-07-07</div>
+<h2 id="papers-2026-07-07" class="paper-day-heading">2026-07-07</h2>
 
 <div class="daily-paper-section">
   <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读四条线:第一是 VLA 部署鲁棒性和组合泛化,CamVLA、InternVLA-A1.5、Cortex、SEAM 分别补自由相机、潜在前瞻、长程规划对齐和 action chunk 平滑;第二是 WAM 继续从视频预测靠近可控操作,DSWAM、KAM-WM、Mask2Real-WM、GeoMoLa 都在把世界模型信号转成动作接口;第三是数据和评测侧出现 Deform360 与 RoboDojo,一个补真实多视角视触觉可变形物体数据,一个补 sim+real 通用操作评测;第四是接触密集操作继续升温,线缆、灵巧手、触觉芯片和人形 WBC 都有新信号。</p>
@@ -437,7 +539,7 @@ pageClass: paper-radar-page
   </div>
 </div>
 
-<div class="paper-day-heading">2026-07-03</div>
+<h2 id="papers-2026-07-03" class="paper-day-heading">2026-07-03</h2>
 
 <div class="daily-paper-section">
   <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读三条线:第一是 VLA 部署可靠性,Neuro-Symbolic Safety、VLA-Corrector、DiG、VLAFlow 都在补安全、闭环自纠错和动作分布漂移检测;第二是 WAM 从“预测视频”继续靠近动态 3D 操作、视频-触觉联合预测和可控长程世界模拟,PhysMani、Bridge-WA、VT-WAM、WorldDirector 值得优先跟;第三是真实数据/评测侧很强,AutoSERL 用单条示教跑实机 RL,ManipArena 和 VLA-Arena 继续把 VLA/WAM 评测做成更可复现的基准,同时 EAGLE-360 和 ComplexMimic 补上具身主动探索与人-场景交互模仿。</p>
@@ -626,7 +728,7 @@ pageClass: paper-radar-page
   </div>
 </div>
 
-<div class="paper-day-heading">2026-07-02</div>
+<h2 id="papers-2026-07-02" class="paper-day-heading">2026-07-02</h2>
 
 <div class="daily-paper-section">
   <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读三条线:第一是 VLA 的可组合泛化和少样本部署适配,EmbodimentSemantic、ACT-VLA、DART、FurnitureVLA 分别从空间关系、动作组合、域迁移和长程装配补短板;第二是 WAM 从视频预测转向 3D/4D 结构化世界状态和可用于评测的神经模拟器;第三是触觉/接触数据继续变大,CHORD 和 H-Tac 都把人类示教或人类触觉数据转成机器人可用的接触先验。</p>
@@ -767,7 +869,7 @@ pageClass: paper-radar-page
   </div>
 </div>
 
-<div class="paper-day-heading">2026-07-01</div>
+<h2 id="papers-2026-07-01" class="paper-day-heading">2026-07-01</h2>
 
 <div class="daily-paper-section">
   <p class="paper-day-note"><strong>本期判断</strong>:今天最值得优先细读三条线:第一是 VLA 后训练和推理时扩展,Z-1、SARL、ELASTIC 都把“部署后怎么变强”具体化;第二是触觉/力觉从附加输入变成可迁移表征、未来接触预测和数据基准;第三是人形/具身数据开始围绕 human-present、ego-exo human video、Unitree G1 触觉操作和实验室精密操作扩张。</p>
@@ -932,7 +1034,7 @@ pageClass: paper-radar-page
   </div>
 </div>
 
-<div class="paper-day-heading">2026-06-30</div>
+<h2 id="papers-2026-06-30" class="paper-day-heading">2026-06-30</h2>
 
 <div class="daily-paper-section">
   <p class="paper-day-note"><strong>本期判断</strong>:今天最值得盯三条线:VLA 不再只是堆大模型,而是在 action tokenizer、ECoT supervision、test-time RL、事件相机和触觉提示上补闭环短板;WAM 从“生成好看视频”推进到物理诊断、动作一致性、导航规划和可替代 rollout 的模拟器;数据侧则继续围绕人类视频、action-free demo、单次示教和全身 retargeting 扩张。</p>
@@ -1097,7 +1199,7 @@ pageClass: paper-radar-page
   </div>
 </div>
 
-<div class="paper-day-heading">2026-06-29</div>
+<h2 id="papers-2026-06-29" class="paper-day-heading">2026-06-29</h2>
 
 <div class="daily-paper-section">
   <p class="paper-day-note"><strong>本期判断</strong>:今天最值得盯三条线:VLA 的状态/空间 grounding 与冗余压缩;WAM/视频世界模拟器的物理一致性与长时记忆;数据侧从 teleop 清洗、real-to-sim 场景生成扩展到云原生仿真基础设施。</p>
@@ -1226,7 +1328,7 @@ pageClass: paper-radar-page
   </div>
 </div>
 
-<div class="paper-day-heading">2026-06-26</div>
+<h2 id="papers-2026-06-26" class="paper-day-heading">2026-06-26</h2>
 
 <div class="daily-paper-section">
   <p class="paper-day-note"><strong>本期判断</strong>:今日新增明显偏“大系统”:ABC 把开放数据/训练/评测打通;WAM 进入 continual IL、触觉和幻觉诊断;VLA 侧集中在路由、test-time scaling、安全、阶段监督与物理反思。</p>
@@ -1355,7 +1457,7 @@ pageClass: paper-radar-page
   </div>
 </div>
 
-<div class="paper-day-heading">2026-06-25</div>
+<h2 id="papers-2026-06-25" class="paper-day-heading">2026-06-25</h2>
 
 <div class="daily-paper-section">
   <p class="paper-day-note"><strong>本期判断</strong>:VLA 聚焦后训练/跨本体/几何/部署;WAM 扩到导航、人形和价值评估;DATA 标出合成、筛选、动作标签和数据引擎。</p>
@@ -1487,27 +1589,33 @@ pageClass: paper-radar-page
   </div>
 </div>
 
-## 候选池
+## 队列状态
 
-<div class="paper-pipeline">
-  <div>
+<div class="paper-pipeline" data-paper-pipeline>
+  <div data-paper-pipeline-status="todo">
     <span class="paper-pipeline__label">待细读</span>
-    <p>暂无。下一轮每日采收时,强相关但尚未写细读的论文先进入这里。</p>
+    <b data-paper-status-count="todo">—</b>
+    <p>已经完成相关性判断、尚未形成站内细读的研究条目。</p>
   </div>
-  <div>
+  <div data-paper-pipeline-status="done">
+    <span class="paper-pipeline__label">已细读</span>
+    <b data-paper-status-count="done">—</b>
+    <p>已有站内页面，可继续沿引用、复现与上下游模型深入。</p>
+  </div>
+  <div data-paper-pipeline-status="watch">
     <span class="paper-pipeline__label">观察</span>
-    <p>用于记录“可能重要,但还缺代码/项目页/足够信息”的论文。</p>
-  </div>
-  <div>
-    <span class="paper-pipeline__label">暂缓 / 排除</span>
-    <p>暂缓保留原因;排除用于记录泛 AI、弱相关或重复投稿,避免反复采收。</p>
+    <b data-paper-status-count="watch">—</b>
+    <p>方向可能重要，但仍缺项目页、代码或足够证据。</p>
   </div>
 </div>
 
-## 更新口径
-
-- **P0**:强相关且会改变本站主线判断,优先细读。
-- **P1**:值得收录,但可以短细读或观察级进入。
-- **P2**:相关方向样本,用于补齐谱系边界。
-- **已细读**:已有站内页面,但不代表全部结论已独立复现;定量仍按各页 ⚠️ / 待核 标注。
-- **待细读**:已经确认值得看,但尚未成稿。
+<details class="paper-methodology">
+  <summary>更新口径与可信度说明</summary>
+  <ul>
+    <li><strong>P0</strong>：强相关且可能改变本站主线判断，优先细读。</li>
+    <li><strong>P1</strong>：值得收录，可作为短细读或观察级条目。</li>
+    <li><strong>P2</strong>：相关方向样本，用于补齐谱系边界。</li>
+    <li><strong>已细读</strong>：已有站内页面，但不代表全部结论已独立复现；定量信息仍以各页核查标注为准。</li>
+    <li><strong>待细读</strong>：已确认值得跟进，但尚未形成完整研究笔记。</li>
+  </ul>
+</details>
