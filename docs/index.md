@@ -25,7 +25,7 @@ features:
   - icon: { src: /icons/book.svg, width: 28, height: 28 }
     title: 88 篇论文细读
     details: 按架构、数据、训练与实验拆解关键论文，不止停留在摘要层面。
-    link: /vla/#-论文细读导航
+    link: /vla/#📄-论文细读导航
     linkText: 进入论文导航
   - icon: { src: /icons/shield-check.svg, width: 28, height: 28 }
     title: 可追溯事实核查
@@ -48,6 +48,12 @@ features:
     link: /ecosystem/paper-graph
     linkText: 进入知识图谱
 ---
+
+<script setup>
+import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
+</script>
+
+<HomePagePanel page="vla">
 
 ## VLA：按动作生成路线浏览
 
@@ -162,6 +168,10 @@ features:
   <a href="vla/">进入 VLA 调研总览 <span aria-hidden="true">→</span></a>
 </div>
 
+</HomePagePanel>
+
+<HomePagePanel page="wam">
+
 ## WAM：按世界—动作建模范式浏览
 
 <div class="home-track-intro home-track-intro--wam">
@@ -260,6 +270,10 @@ features:
   <a href="wam/">进入 WAM 调研总览 <span aria-hidden="true">→</span></a>
 </div>
 
+</HomePagePanel>
+
+<HomePagePanel page="resources">
+
 <div class="home-coda" id="about">
   <div class="home-coda__main">
     <span class="home-coda__eyebrow">// ABOUT · 一张持续生长的研究星图</span>
@@ -284,3 +298,5 @@ features:
     <a href="https://github.com/ZhuYun97/embodied-ai-learning" target="_blank" rel="noreferrer">GitHub 开源 ↗</a>
   </nav>
 </div>
+
+</HomePagePanel>

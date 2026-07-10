@@ -493,7 +493,7 @@ export default withMermaid(defineConfig({
         })
       }
 
-      const header = `# 具身星图 · Embodied AI Atlas\n\n> VLA × WAM 前沿谱系 + 87 篇论文细读 + 知识图谱与产业生态。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
+      const header = `# 具身星图 · Embodied AI Atlas\n\n> VLA × WAM 前沿谱系 + 88 篇论文细读 + 知识图谱与产业生态。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
       fs.writeFileSync(path.join(outDir, 'llms.txt'), header + index.join('\n') + '\n', 'utf-8')
       fs.writeFileSync(path.join(outDir, 'llms-full.txt'), header + fullParts.join('\n\n---\n\n') + '\n', 'utf-8')
       fs.writeFileSync(path.join(outDir, 'autoresearch-corpus.json'), JSON.stringify({
@@ -571,13 +571,13 @@ export default withMermaid(defineConfig({
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { property: 'og:url', content: 'https://zhuyun97.github.io/embodied-ai-learning/' }],
     ['meta', { property: 'og:title', content: '具身星图 · Embodied AI Atlas' }],
-    ['meta', { property: 'og:description', content: 'VLA × WAM 前沿谱系、87 篇论文细读、知识图谱、新闻与产业生态,经多源检索与对抗式事实核查整理。' }],
+    ['meta', { property: 'og:description', content: 'VLA × WAM 前沿谱系、88 篇论文细读、知识图谱、新闻与产业生态,经多源检索与对抗式事实核查整理。' }],
     ['meta', { property: 'og:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: '具身星图 · Embodied AI Atlas' }],
-    ['meta', { name: 'twitter:description', content: 'VLA × WAM 前沿谱系、87 篇论文细读、知识图谱与产业生态,经对抗式事实核查整理。' }],
+    ['meta', { name: 'twitter:description', content: 'VLA × WAM 前沿谱系、88 篇论文细读、知识图谱与产业生态,经对抗式事实核查整理。' }],
     ['meta', { name: 'twitter:image', content: 'https://zhuyun97.github.io/embodied-ai-learning/og.png' }],
   ],
 

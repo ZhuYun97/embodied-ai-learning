@@ -1,5 +1,5 @@
 import DefaultTheme from 'vitepress/theme'
-import { h, ref, reactive, computed, watch, onMounted, onUnmounted, nextTick, Teleport } from 'vue'
+import { h, ref, reactive, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute, useData, withBase } from 'vitepress'
 import { data as modelData } from '../data/models.data.mjs'
 import { data as paperData } from '../data/papers.data.mjs'
@@ -17,6 +17,7 @@ import DatasetCatalog from './components/DatasetCatalog.vue'
 import RoadmapGraph from './components/RoadmapGraph.vue'
 import LoadingScreen from './components/LoadingScreen.vue'
 import FirstVisitGuide from './components/FirstVisitGuide.vue'
+import HomePager from './components/HomePager.vue'
 import './custom.css'
 
 // =====================================================================
@@ -1279,7 +1280,12 @@ const TechHero = {
     return () => {
       const hero = (frontmatter.value && frontmatter.value.hero) || {}
       const actions = Array.isArray(hero.actions) ? hero.actions : []
-      return h('section', { class: 'thero' }, [
+      return h('section', {
+        id: 'home-page-overview',
+        class: 'thero',
+        role: 'tabpanel',
+        'aria-labelledby': 'home-tab-overview',
+      }, [
         h('div', { class: 'thero__bar' }, [
           h('span', { class: 'thero__bar-dot' }),
           h('span', { class: 'thero__bar-text' }, 'SYSTEM ONLINE · EMBODIED-AI ARCHIVE · VLA × WAM · 2022—2026'),
@@ -1379,68 +1385,6 @@ const TechHero = {
         ]),
       ])
     }
-  },
-}
-
-// =====================================================================
-// 右缘章节定位轨(HomeRail):HERO / VLA / WAM / ABOUT 四节点,滚动高亮、点击平滑跳转。
-// 真导航非装饰:分区从 DOM 实测(h2 / coda),标签取 h2 冒号前缀;仅 ≥1280px 显示。
-// 随 home-hero-before 槽只在首页挂载;SSR 首帧渲染 null(分区列表 mounted 后才有)。
-// =====================================================================
-const HomeRail = {
-  setup() {
-    const items = ref([])
-    const active = ref(0)
-    let onScroll = null
-    onMounted(() => {
-      if (typeof document === 'undefined') return
-      const list = []
-      const hero = document.querySelector('.VPHome .thero')
-      if (hero) list.push({ label: 'HERO', el: hero })
-      document.querySelectorAll('.VPHome .vp-doc h2').forEach((h2) => {
-        const label = ((h2.textContent || '').split(/[:：]/)[0] || 'SEC').trim().toUpperCase().slice(0, 6)
-        list.push({ label, el: h2 })
-      })
-      const coda = document.querySelector('.VPHome .home-coda')
-      if (coda) list.push({ label: 'ABOUT', el: coda })
-      if (list.length < 2) return
-      items.value = list
-      onScroll = () => {
-        const mid = window.scrollY + window.innerHeight * 0.38
-        let idx = 0
-        list.forEach((it, i) => {
-          if (it.el.getBoundingClientRect().top + window.scrollY <= mid) idx = i
-        })
-        active.value = idx
-      }
-      onScroll()
-      window.addEventListener('scroll', onScroll, { passive: true })
-    })
-    onUnmounted(() => {
-      if (onScroll) window.removeEventListener('scroll', onScroll)
-    })
-    const go = (it) => {
-      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      it.el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
-    }
-    const renderRail = () =>
-      h(
-        'nav',
-        { class: 'home-rail', 'aria-label': '页面分区导航' },
-        items.value.map((it, i) =>
-          h(
-            'button',
-            {
-              class: ['home-rail__item', { 'is-active': i === active.value }],
-              type: 'button',
-              onClick: () => go(it),
-              'aria-current': i === active.value ? 'true' : undefined,
-            },
-            [h('i', { class: 'home-rail__dot' }), h('span', { class: 'home-rail__label' }, it.label)]
-          )
-        )
-      )
-    return () => (!items.value.length ? null : h(Teleport, { to: 'body' }, [renderRail()]))
   },
 }
 
@@ -1899,16 +1843,23 @@ function setupReveal() {
   const scan = () => {
     const doc = document.querySelector('.VPHome .vp-doc')
     if (!doc) return
-    // 正文被两层匿名 wrapper 包着(.vp-doc > div > div > 区块);以 route-grid 的父级为准定位真正的区块容器,避免写死层级
+    // 四页模式下逐个扫描常驻 panel；无 JS / 旧结构仍回落到原来的真实内容容器。
+    const panels = Array.from(doc.querySelectorAll('.home-page-panel'))
     const anyGrid = doc.querySelector('.route-grid')
-    const container = anyGrid
-      ? anyGrid.parentElement
-      : doc.querySelector(':scope > div > div') || doc.querySelector(':scope > div') || doc
-    container
-      .querySelectorAll(':scope > h2, :scope > p, :scope > blockquote, :scope > .home-coda')
-      .forEach((el) => add(el, 0.04))
-    container.querySelectorAll(':scope > .route-grid').forEach((grid) => {
-      Array.from(grid.children).forEach((card, i) => add(card, 0.06 * (i + 1)))
+    const containers = panels.length
+      ? panels
+      : [
+          anyGrid
+            ? anyGrid.parentElement
+            : doc.querySelector(':scope > div > div') || doc.querySelector(':scope > div') || doc,
+        ]
+    containers.forEach((container) => {
+      container
+        .querySelectorAll(':scope > h2, :scope > p, :scope > blockquote, :scope > .home-coda')
+        .forEach((el) => add(el, 0.04))
+      container.querySelectorAll(':scope > .route-grid').forEach((grid) => {
+        Array.from(grid.children).forEach((card, i) => add(card, 0.06 * (i + 1)))
+      })
     })
   }
   scan()
@@ -2433,7 +2384,7 @@ export default {
             // (HUD 瞄准光标 TargetCursor 应用户「太卡」诉求已移除)
             h(HeroBG),
             h(TechHero),
-            h(HomeRail),
+            h(HomePager),
           ],
           'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle), h(ThemeToggle)],
           'layout-bottom': () => h(FirstVisitGuide),

@@ -3888,84 +3888,144 @@ html:not(.dark) .vp-doc:has(.brain-pyramid) h2::before{ color: #0e7490; border-c
   .home-coda__caret { animation: bpBlink 1.2s steps(1, end) infinite; }
 }
 
-/* —— B2 右缘章节定位轨(≥1280px;真导航:滚动高亮 + 点击跳转)—— */
-.home-rail {
-  position: fixed;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  /* Teleported to body: keep above home orbit/cards while below lightbox utilities. */
-  z-index: 180;
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  padding: 8px 6px;
-}
-@media (min-width: 1280px) {
-  .home-rail { display: flex; }
-}
-.home-rail::before {
-  content: '';
-  position: absolute;
-  top: 14px; bottom: 14px;
-  right: 13px;
-  width: 1px;
-  background: linear-gradient(transparent, var(--vp-c-divider) 22%, var(--vp-c-divider) 78%, transparent);
-  pointer-events: none;
-}
-.home-rail__item {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  gap: 8px;
-  background: none;
-  border: 0;
-  padding: 4px;
-  cursor: pointer;
-  font-family: var(--vp-font-family-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--vp-c-text-3);
-  transition: color 0.2s ease;
-}
-.home-rail__item:hover { color: var(--vp-c-brand-1); }
-.home-rail__item:focus-visible {
-  outline: 2px solid var(--vp-c-brand-1);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-.home-rail__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex: none;
-  border: 1.5px solid currentColor;
-  background: transparent;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
-}
-.home-rail__item.is-active { color: var(--vp-c-brand-1); }
-.home-rail__item.is-active .home-rail__dot { background: currentColor; }
-.dark .home-rail__item.is-active .home-rail__dot { box-shadow: 0 0 10px rgba(56, 189, 248, 0.7); }
-.home-rail__label {
-  opacity: 0;
-  transform: translateX(4px);
-  transition: opacity 0.18s ease, transform 0.18s ease;
-}
-.home-rail:hover .home-rail__label,
-.home-rail__item.is-active .home-rail__label,
-.home-rail__item:focus-visible .home-rail__label {
-  opacity: 1;
-  transform: translateX(0);
-}
-@media (prefers-reduced-motion: reduce) {
-  .home-rail__label { transition: none; transform: none; }
-  .home-rail__item, .home-rail__dot { transition: none; }
+/* —— 首页四视图:同一路由切页,每页保留自然纵向滚动 —— */
+html.home-pager-ready[data-home-page] .VPHome {
+  min-height: calc(100vh - var(--vp-nav-height, 64px));
 }
 
-/* 定位轨跳转落点:给 sticky 顶栏留出余量 */
-.VPHome .vp-doc h2,
-.VPHome .home-coda { scroll-margin-top: 84px; }
+/* 01 总览:只保留沉浸式 TechHero。功能入口与 About 统一归入 04 资源。 */
+html.home-pager-ready[data-home-page='overview'] .VPHome .VPFeatures,
+html.home-pager-ready[data-home-page='overview'] .VPHome .vp-doc {
+  display: none !important;
+}
+@media (min-width: 701px) {
+  html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
+    padding-top: 118px;
+  }
+}
+
+/* 02/03/04 隐藏 Hero；VLA/WAM 不显示资源卡，资源页才显示 VPFeatures。 */
+html.home-pager-ready[data-home-page]:not([data-home-page='overview']) .VPHome .thero,
+html.home-pager-ready[data-home-page]:not([data-home-page='overview']) .hero-bg-layer {
+  display: none !important;
+}
+html.home-pager-ready[data-home-page='vla'] .VPHome .VPFeatures,
+html.home-pager-ready[data-home-page='wam'] .VPHome .VPFeatures {
+  display: none !important;
+}
+html.home-pager-ready[data-home-page='vla'] .VPHome .vp-doc,
+html.home-pager-ready[data-home-page='wam'] .VPHome .vp-doc {
+  padding-top: 126px;
+}
+
+/* 04 资源:六个核心入口 + About/研究方法；覆盖 Hero 滚动折叠写入的变量。 */
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures {
+  margin-top: 0;
+  padding-top: 122px;
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures::before {
+  top: 112px;
+  opacity: 0.8;
+}
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items {
+  position: relative !important;
+  display: grid !important;
+  width: 100% !important;
+  height: auto !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px !important;
+  margin: 18px auto 0 !important;
+  padding: 0 !important;
+  perspective: none !important;
+  pointer-events: auto !important;
+  transform: none !important;
+}
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items > .item {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: auto !important;
+  width: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  animation: none !important;
+  pointer-events: auto !important;
+}
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items > .item .VPFeature {
+  min-height: 188px;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 20px !important;
+  overflow: hidden;
+}
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items > .item .VPFeature .box {
+  height: 100%;
+  justify-content: flex-start;
+  gap: 8px;
+}
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items > .item .VPFeature .details,
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items > .item .VPFeature .link-text {
+  display: block !important;
+}
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items > .item .VPFeature .title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .feat-hub,
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .feat-orbit-dot,
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .feat-orbit-pulse,
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items::before,
+html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items > .item::after {
+  display: none !important;
+}
+html.home-pager-ready[data-home-page='resources'] .VPHome .vp-doc {
+  padding-top: 28px;
+}
+
+/* 切换回来时给当前页一次轻量入场；非活动 panel 由 hidden/inert 完全移出交互树。 */
+@media (prefers-reduced-motion: no-preference) {
+  html.home-pager-ready[data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures {
+    animation: homeViewEnter 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+@keyframes homeViewEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 700px) {
+  html.home-pager-ready[data-home-page] .VPHome { padding-bottom: 76px; }
+  html.home-pager-ready[data-home-page='overview'] .VPHome .thero { padding-top: 50px; }
+  html.home-pager-ready[data-home-page='vla'] .VPHome .vp-doc,
+  html.home-pager-ready[data-home-page='wam'] .VPHome .vp-doc {
+    padding-top: 30px;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures {
+    padding-top: 34px;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items {
+    grid-template-columns: 1fr;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items > .item .VPFeature {
+    min-height: 0;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures::before {
+    top: 24px;
+  }
+  html.home-pager-ready[data-home-page='resources'] .VPHome .vp-doc {
+    padding-top: 18px;
+  }
+}
+@media (min-width: 701px) and (max-width: 980px) {
+  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures .items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 
 /* ============================================================
    论文细读「档案化」(2026-06-10):档案头 + 顶缘阅读进度条 +
