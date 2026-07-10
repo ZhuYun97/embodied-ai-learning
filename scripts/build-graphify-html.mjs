@@ -787,10 +787,8 @@ function graphifyAtlasScript(nodeLinks) {
     dim: '#20283a',
   };
   const overviewNodeLimit = Number.POSITIVE_INFINITY;
-  const overviewSkeletonLimit = 140;
   const rawById = new Map(RAW_NODES.map((node) => [node.id, node]));
   const nodeLinksById = new Map(Object.entries(${JSON.stringify(nodeLinks)}));
-  const highDegree = Math.max(1, ...RAW_NODES.map((node) => Number(node.degree || 0)));
   const topNode = [...RAW_NODES].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0))[0];
   const overviewNodeIds = buildOverviewNodeIds();
   const edgeRecords = RAW_EDGES.map((edge, index) => {
@@ -810,6 +808,7 @@ function graphifyAtlasScript(nodeLinks) {
     document.querySelector('[data-atlas-hotspot]').textContent = topNode.label + ' · ' + Number(topNode.degree || 0);
   }
   const layout = buildAtlasLayout();
+  const communityHubIds = new Set(layout.hubIds || []);
   const labelState = new Map();
   const visibilityState = new Map();
   const edgeVisibilityState = new Map();
@@ -1022,14 +1021,23 @@ function graphifyAtlasScript(nodeLinks) {
     const minDegree = Math.min(fromDegree, toDegree);
     const type = String(record.edge.type || record.edge.label || record.edge.title || '');
     const bothOverview = overviewNodeIds.has(record.fromId) && overviewNodeIds.has(record.toId);
-    const hasCore = record.fromId === topNode?.id || record.toId === topNode?.id;
+    const sameCommunity = Number(record.from?.community) === Number(record.to?.community);
+    const bothCommunityHubs = communityHubIds.has(record.fromId) && communityHubIds.has(record.toId);
     const structural = /taxonomy|related|links-to|站内|共现|路线/.test(type);
 
     if (scale < 0.58) {
-      return bothOverview && (hasCore || (maxDegree >= 250 && minDegree >= 145) || (structural && minDegree >= 170));
+      return bothOverview && (
+        bothCommunityHubs
+        || (sameCommunity && maxDegree >= 150 && minDegree >= 82)
+        || (!sameCommunity && structural && maxDegree >= 190 && minDegree >= 115)
+      );
     }
     if (scale < 0.9) {
-      return bothOverview && (hasCore || structural || maxDegree >= 180 || minDegree >= 120);
+      return bothOverview && (
+        bothCommunityHubs
+        || (sameCommunity && maxDegree >= 105 && minDegree >= 48)
+        || (!sameCommunity && structural && maxDegree >= 145 && minDegree >= 76)
+      );
     }
     if (scale < 1.25) {
       return bothOverview || (maxDegree >= 150 && minDegree >= 60) || (structural && maxDegree >= 95 && minDegree >= 42);
@@ -1075,10 +1083,11 @@ function graphifyAtlasScript(nodeLinks) {
     const isRoute = node.id.startsWith('track:') || node.id.startsWith('route:');
     if (selectedIds.has(node.id)) return 4;
     if (localLabelIds.has(node.id)) return scale < 1.15 ? 2 : scale < 1.8 ? 3 : 4;
+    if (communityHubIds.has(node.id)) return scale < 0.52 ? 1 : scale < 1.25 ? 2 : 3;
     if (node.id === topNode?.id) return scale < 0.62 ? 1 : 2;
     if (scale < 0.38) return degree >= 190 ? 1 : 0;
-    if (scale < 0.62) return degree >= 145 || isRoute ? 1 : 0;
-    if (scale < 0.86) return degree >= 90 || isRoute ? 2 : 0;
+    if (scale < 0.62) return degree >= 175 || (isRoute && degree >= 16) ? 1 : 0;
+    if (scale < 0.86) return degree >= 112 || (isRoute && degree >= 12) ? 2 : 0;
     if (scale < 1.16) return degree >= 82 || (kind === 'paper' && degree >= 72) || isRoute ? 3 : 0;
     if (scale < 1.55) return degree >= 64 || (kind === 'paper' && degree >= 56) || isRoute ? 3 : 0;
     if (scale < 2.15) return degree >= 45 || (kind === 'paper' && degree >= 36) || isRoute ? 3 : 0;
@@ -1396,31 +1405,55 @@ function graphifyAtlasScript(nodeLinks) {
 
   function drawGraphifySkeleton(ctx, scale) {
     if (!topNode || scale > 1.08) return;
-    const positions = network.getPositions([...overviewNodeIds]);
-    const center = positions[topNode.id];
-    if (!center) return;
-    const ids = [...overviewNodeIds]
-      .filter((id) => id !== topNode.id && visibilityState.get(id) !== true && positions[id])
-      .sort((a, b) => Number(rawById.get(b)?.degree || 0) - Number(rawById.get(a)?.degree || 0))
-      .slice(0, scale < 0.58 ? overviewSkeletonLimit : Math.min(overviewSkeletonLimit + 18, overviewNodeLimit));
-    if (!ids.length) return;
+    const hubIds = (layout.hubIds || []).filter((id) => visibilityState.get(id) !== true);
+    const positions = network.getPositions(hubIds);
+    if (hubIds.length < 2) return;
 
     ctx.save();
     ctx.lineCap = 'round';
-    ids.forEach((id, index) => {
-      const node = rawById.get(id);
-      const target = positions[id];
-      if (!node || !target) return;
-      const degree = Number(node.degree || 0);
-      const color = degree >= 220 ? graphifyPalette.amber : graphifyPalette.green;
-      ctx.setLineDash([]);
-      ctx.lineWidth = (degree >= 250 ? 0.9 : 0.58) / Math.max(scale, 0.2);
-      ctx.strokeStyle = rgbaFromHex(color, index < 8 ? 0.16 : 0.09);
+    for (const [cid, center] of layout.centers || []) {
+      const radius = layout.communityRadii?.get(cid) || 100;
+      const hubId = layout.hubByCommunity?.get(cid);
+      const hub = rawById.get(hubId);
+      const color = communityColorFor(hub);
+      ctx.setLineDash([4 / Math.max(scale, 0.25), 10 / Math.max(scale, 0.25)]);
+      ctx.lineWidth = 0.48 / Math.max(scale, 0.24);
+      ctx.strokeStyle = rgbaFromHex(color, 0.085);
+      ctx.fillStyle = rgbaFromHex(color, 0.012);
       ctx.beginPath();
-      ctx.moveTo(center.x, center.y);
-      ctx.lineTo(target.x, target.y);
+      ctx.ellipse(center.x, center.y, radius + 14, (radius + 14) * 0.84, 0, 0, Math.PI * 2);
+      ctx.fill();
       ctx.stroke();
-    });
+    }
+    const drawn = new Set();
+    for (const id of hubIds) {
+      const source = positions[id];
+      if (!source) continue;
+      const nearest = hubIds
+        .filter((otherId) => otherId !== id && positions[otherId])
+        .map((otherId) => ({
+          id: otherId,
+          distance: Math.hypot(source.x - positions[otherId].x, source.y - positions[otherId].y),
+        }))
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, 2);
+      for (const targetRecord of nearest) {
+        const key = [id, targetRecord.id].sort().join('|');
+        if (drawn.has(key)) continue;
+        drawn.add(key);
+        const target = positions[targetRecord.id];
+        const color = id === topNode.id || targetRecord.id === topNode.id
+          ? graphifyPalette.amber
+          : graphifyPalette.green;
+        ctx.setLineDash([5 / Math.max(scale, 0.25), 9 / Math.max(scale, 0.25)]);
+        ctx.lineWidth = 0.52 / Math.max(scale, 0.24);
+        ctx.strokeStyle = rgbaFromHex(color, 0.11);
+        ctx.beginPath();
+        ctx.moveTo(source.x, source.y);
+        ctx.lineTo(target.x, target.y);
+        ctx.stroke();
+      }
+    }
     ctx.restore();
   }
 
@@ -1578,42 +1611,70 @@ function graphifyAtlasScript(nodeLinks) {
       if (!groups.has(cid)) groups.set(cid, []);
       groups.get(cid).push(node);
     }
-    const topCid = Number.isFinite(Number(topNode?.community)) ? Number(topNode.community) : null;
-    const rankedGroups = Array.from(groups.entries()).sort((a, b) => {
-      if (topCid !== null && a[0] === topCid) return -1;
-      if (topCid !== null && b[0] === topCid) return 1;
-      return b[1].length - a[1].length || a[0] - b[0];
-    });
-    const ringCounts = [1, 10, 15, 14];
-    const ringRadii = [0, 430, 760, 1040];
-    const ringSeen = [0, 0, 0, 0];
+    const rankedGroups = Array.from(groups.entries()).sort((a, b) => (
+      b[1].length - a[1].length
+      || Math.max(...b[1].map((node) => Number(node.degree || 0))) - Math.max(...a[1].map((node) => Number(node.degree || 0)))
+      || a[0] - b[0]
+    ));
+    const anchorSlots = [
+      { x: -255, y: -40 },
+      { x: 255, y: -40 },
+      { x: 0, y: -390 },
+      { x: 0, y: 345 },
+      { x: -700, y: 15 },
+      { x: 700, y: 15 },
+      { x: -535, y: -375 },
+      { x: 535, y: 365 },
+      { x: -535, y: 365 },
+      { x: 770, y: 380 },
+    ];
     const nodesOut = new Map();
+    const hubIds = [];
+    const centers = new Map();
+    const communityRadii = new Map();
+    const hubByCommunity = new Map();
 
     rankedGroups.forEach(([cid, nodes], groupIndex) => {
-      const ring = groupIndex === 0 ? 0 : groupIndex <= 10 ? 1 : groupIndex <= 25 ? 2 : 3;
-      const positionInRing = ringSeen[ring]++;
-      const countInRing = ringCounts[ring] || Math.max(1, ringSeen[ring]);
-      const angle = ring === 0
-        ? 0
-        : (Math.PI * 2 * positionInRing) / countInRing + ring * 0.19 + (cid % 5) * 0.025;
-      const center = {
-        x: Math.cos(angle) * ringRadii[ring],
-        y: Math.sin(angle) * ringRadii[ring] * 0.74,
+      const center = anchorSlots[groupIndex] || {
+        x: ((groupIndex % 4) - 1.5) * 440,
+        y: (Math.floor(groupIndex / 4) - 1) * 360,
       };
-      const sortedNodes = [...nodes].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0));
-      const spread = Math.max(72, Math.min(170, 18 * Math.sqrt(sortedNodes.length)));
-      const normalizer = Math.max(1, Math.sqrt(sortedNodes.length));
+      centers.set(cid, center);
+      const sortedNodes = [...nodes].sort((a, b) => (
+        Number(b.degree || 0) - Number(a.degree || 0)
+        || String(a.label).localeCompare(String(b.label), 'zh-Hans-CN')
+      ));
+      if (sortedNodes[0]) {
+        hubIds.push(sortedNodes[0].id);
+        hubByCommunity.set(cid, sortedNodes[0].id);
+      }
+      const clusterRadius = Math.max(88, Math.min(210, 66 + Math.sqrt(sortedNodes.length) * 21));
+      communityRadii.set(cid, clusterRadius);
+      const ringCapacities = [1, 7, 12, 18, 24, 30];
+      let ringStart = 0;
+      let ringIndex = 0;
+      let ringCapacity = ringCapacities[0];
       sortedNodes.forEach((node, nodeIndex) => {
-        const localAngle = nodeIndex * 2.399963229728653 + cid * 0.41;
-        const localRadius = nodeIndex === 0 ? 0 : (Math.sqrt(nodeIndex) / normalizer) * spread;
-        const degreePull = Math.max(0.55, 1 - Math.min(0.42, Number(node.degree || 0) / highDegree));
+        while (nodeIndex >= ringStart + ringCapacity && ringIndex < ringCapacities.length - 1) {
+          ringStart += ringCapacity;
+          ringIndex += 1;
+          ringCapacity = ringCapacities[ringIndex];
+        }
+        const positionInRing = nodeIndex - ringStart;
+        const nodesInRing = Math.min(ringCapacity, Math.max(1, sortedNodes.length - ringStart));
+        const baseAngle = (Math.PI * 2 * positionInRing) / nodesInRing + cid * 0.37 + ringIndex * 0.23;
+        const angleJitter = ((stableHash(node.id + ':angle') % 1000) / 1000 - 0.5) * 0.16;
+        const radiusJitter = ((stableHash(node.id + ':radius') % 1000) / 1000 - 0.5) * 12;
+        const localRadius = nodeIndex === 0
+          ? 0
+          : Math.min(clusterRadius, 28 + ringIndex * 44 + radiusJitter);
         nodesOut.set(node.id, {
-          x: Math.round(center.x + Math.cos(localAngle) * localRadius * degreePull),
-          y: Math.round(center.y + Math.sin(localAngle) * localRadius * degreePull),
+          x: Math.round(center.x + Math.cos(baseAngle + angleJitter) * localRadius),
+          y: Math.round(center.y + Math.sin(baseAngle + angleJitter) * localRadius * 0.84),
         });
       });
     });
-    return { nodes: nodesOut };
+    return { nodes: nodesOut, hubIds, centers, communityRadii, hubByCommunity };
   }
 })();
 </script>`

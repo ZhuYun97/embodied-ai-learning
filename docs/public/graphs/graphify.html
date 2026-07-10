@@ -910,10 +910,8 @@ network.on('afterDrawing', function(ctx) {
     dim: '#20283a',
   };
   const overviewNodeLimit = Number.POSITIVE_INFINITY;
-  const overviewSkeletonLimit = 140;
   const rawById = new Map(RAW_NODES.map((node) => [node.id, node]));
   const nodeLinksById = new Map(Object.entries({"doc:ecosystem/brain-ranking":"/ecosystem/brain-ranking","doc:ecosystem/index":"/ecosystem/","doc:ecosystem/offline-knowledge-graph":"/ecosystem/offline-knowledge-graph","doc:ecosystem/paper-graph":"/ecosystem/paper-graph","doc:index":"/","doc:vla/changelog":"/vla/changelog","doc:vla/guide":"/vla/guide","doc:vla/index":"/vla/","doc:vla/papers/action-controlnet":"/vla/papers/action-controlnet","doc:vla/papers/affordancevla":"/vla/papers/affordancevla","doc:vla/papers/atomicvla":"/vla/papers/atomicvla","doc:vla/papers/benchmarks":"/vla/papers/benchmarks","doc:vla/papers/codebases":"/vla/papers/codebases","doc:vla/papers/cogact":"/vla/papers/cogact","doc:vla/papers/data-processing":"/vla/papers/data-processing","doc:vla/papers/datasets-catalog":"/vla/papers/datasets-catalog","doc:vla/papers/diffusion-policy":"/vla/papers/diffusion-policy","doc:vla/papers/dual-system-architecture":"/vla/papers/dual-system-architecture","doc:vla/papers/ecot":"/vla/papers/ecot","doc:vla/papers/embodied-data":"/vla/papers/embodied-data","doc:vla/papers/embodied-data-papers":"/vla/papers/embodied-data-papers","doc:vla/papers/failure-modes":"/vla/papers/failure-modes","doc:vla/papers/faster":"/vla/papers/faster","doc:vla/papers/force-vla":"/vla/papers/force-vla","doc:vla/papers/g3vla":"/vla/papers/g3vla","doc:vla/papers/galaxea-g0":"/vla/papers/galaxea-g0","doc:vla/papers/gemini-robotics":"/vla/papers/gemini-robotics","doc:vla/papers/getting-started":"/vla/papers/getting-started","doc:vla/papers/gigabrain-05m":"/vla/papers/gigabrain-05m","doc:vla/papers/glossary":"/vla/papers/glossary","doc:vla/papers/go-1":"/vla/papers/go-1","doc:vla/papers/gr-3":"/vla/papers/gr-3","doc:vla/papers/gr-dexter":"/vla/papers/gr-dexter","doc:vla/papers/groot-n1":"/vla/papers/groot-n1","doc:vla/papers/helix":"/vla/papers/helix","doc:vla/papers/inference-deployment":"/vla/papers/inference-deployment","doc:vla/papers/insight":"/vla/papers/insight","doc:vla/papers/knowledge-insulation":"/vla/papers/knowledge-insulation","doc:vla/papers/leaderboard":"/vla/papers/leaderboard","doc:vla/papers/learning-action-priors":"/vla/papers/learning-action-priors","doc:vla/papers/memoryvla":"/vla/papers/memoryvla","doc:vla/papers/memoryvla-plusplus":"/vla/papers/memoryvla-plusplus","doc:vla/papers/models-spec":"/vla/papers/models-spec","doc:vla/papers/motion-control":"/vla/papers/motion-control","doc:vla/papers/octo":"/vla/papers/octo","doc:vla/papers/omnivla-rl":"/vla/papers/omnivla-rl","doc:vla/papers/openvla":"/vla/papers/openvla","doc:vla/papers/openvla-oft":"/vla/papers/openvla-oft","doc:vla/papers/pi0":"/vla/papers/pi0","doc:vla/papers/pi0-fast":"/vla/papers/pi0-fast","doc:vla/papers/pi05":"/vla/papers/pi05","doc:vla/papers/pi06":"/vla/papers/pi06","doc:vla/papers/pi07":"/vla/papers/pi07","doc:vla/papers/pointact":"/vla/papers/pointact","doc:vla/papers/predictive-vla":"/vla/papers/predictive-vla","doc:vla/papers/qwen-robotmanip":"/vla/papers/qwen-robotmanip","doc:vla/papers/qwen-robotnav":"/vla/papers/qwen-robotnav","doc:vla/papers/qwen-vla":"/vla/papers/qwen-vla","doc:vla/papers/rdt-1b":"/vla/papers/rdt-1b","doc:vla/papers/references":"/vla/papers/references","doc:vla/papers/reflective-vla":"/vla/papers/reflective-vla","doc:vla/papers/resources":"/vla/papers/resources","doc:vla/papers/rl-token":"/vla/papers/rl-token","doc:vla/papers/road-vla":"/vla/papers/road-vla","doc:vla/papers/roadmap":"/vla/papers/roadmap","doc:vla/papers/robots":"/vla/papers/robots","doc:vla/papers/robovlms":"/vla/papers/robovlms","doc:vla/papers/rt1":"/vla/papers/rt1","doc:vla/papers/rt2":"/vla/papers/rt2","doc:vla/papers/rynnbrain":"/vla/papers/rynnbrain","doc:vla/papers/rynnvla":"/vla/papers/rynnvla","doc:vla/papers/seetraceact":"/vla/papers/seetraceact","doc:vla/papers/simplevla-rl":"/vla/papers/simplevla-rl","doc:vla/papers/smolvla":"/vla/papers/smolvla","doc:vla/papers/space":"/vla/papers/space","doc:vla/papers/spatialvla":"/vla/papers/spatialvla","doc:vla/papers/steerable-policies":"/vla/papers/steerable-policies","doc:vla/papers/steervla":"/vla/papers/steervla","doc:vla/papers/supervise-what-survives":"/vla/papers/supervise-what-survives","doc:vla/papers/svp-il":"/vla/papers/svp-il","doc:vla/papers/timeline":"/vla/papers/timeline","doc:vla/papers/tinyvla":"/vla/papers/tinyvla","doc:vla/papers/training-pipeline":"/vla/papers/training-pipeline","doc:vla/papers/wall-oss":"/vla/papers/wall-oss","doc:vla/papers/wall-oss-05":"/vla/papers/wall-oss-05","doc:vla/papers/wolf-vla":"/vla/papers/wolf-vla","doc:vla/papers/x-tokenizer":"/vla/papers/x-tokenizer","doc:vla/papers/xiaohongshu":"/vla/papers/xiaohongshu","doc:wam/index":"/wam/","doc:wam/papers/cosmos3":"/wam/papers/cosmos3","doc:wam/papers/dexworldmodel":"/wam/papers/dexworldmodel","doc:wam/papers/dreamzero":"/wam/papers/dreamzero","doc:wam/papers/flare":"/wam/papers/flare","doc:wam/papers/ge-sim-2":"/wam/papers/ge-sim-2","doc:wam/papers/gen2act":"/wam/papers/gen2act","doc:wam/papers/genie-envisioner":"/wam/papers/genie-envisioner","doc:wam/papers/gigaworld-policy":"/wam/papers/gigaworld-policy","doc:wam/papers/gr-1":"/wam/papers/gr-1","doc:wam/papers/groot-n2":"/wam/papers/groot-n2","doc:wam/papers/himem-wam":"/wam/papers/himem-wam","doc:wam/papers/ladi-wm":"/wam/papers/ladi-wm","doc:wam/papers/lapa":"/wam/papers/lapa","doc:wam/papers/lingbot-va":"/wam/papers/lingbot-va","doc:wam/papers/models-spec":"/wam/papers/models-spec","doc:wam/papers/motionwam":"/wam/papers/motionwam","doc:wam/papers/motubrain":"/wam/papers/motubrain","doc:wam/papers/navwm":"/wam/papers/navwm","doc:wam/papers/oa-wam":"/wam/papers/oa-wam","doc:wam/papers/omega-eva":"/wam/papers/omega-eva","doc:wam/papers/qwen-robotworld":"/wam/papers/qwen-robotworld","doc:wam/papers/robodream":"/wam/papers/robodream","doc:wam/papers/rynnvla-002":"/wam/papers/rynnvla-002","doc:wam/papers/tau0-wm":"/wam/papers/tau0-wm","doc:wam/papers/unipi":"/wam/papers/unipi","doc:wam/papers/uva":"/wam/papers/uva","doc:wam/papers/uwm":"/wam/papers/uwm","doc:wam/papers/veo-act":"/wam/papers/veo-act","doc:wam/papers/vpp":"/wam/papers/vpp","doc:wam/papers/wall-wm":"/wam/papers/wall-wm","doc:wam/papers/wav":"/wam/papers/wav","doc:wam/papers/world-value-models":"/wam/papers/world-value-models","doc:wam/papers/worldvla":"/wam/papers/worldvla","doc:wam/papers/x-wam":"/wam/papers/x-wam","track:VLA":"/vla/","track:WAM":"/wam/"}));
-  const highDegree = Math.max(1, ...RAW_NODES.map((node) => Number(node.degree || 0)));
   const topNode = [...RAW_NODES].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0))[0];
   const overviewNodeIds = buildOverviewNodeIds();
   const edgeRecords = RAW_EDGES.map((edge, index) => {
@@ -933,6 +931,7 @@ network.on('afterDrawing', function(ctx) {
     document.querySelector('[data-atlas-hotspot]').textContent = topNode.label + ' · ' + Number(topNode.degree || 0);
   }
   const layout = buildAtlasLayout();
+  const communityHubIds = new Set(layout.hubIds || []);
   const labelState = new Map();
   const visibilityState = new Map();
   const edgeVisibilityState = new Map();
@@ -1145,14 +1144,23 @@ network.on('afterDrawing', function(ctx) {
     const minDegree = Math.min(fromDegree, toDegree);
     const type = String(record.edge.type || record.edge.label || record.edge.title || '');
     const bothOverview = overviewNodeIds.has(record.fromId) && overviewNodeIds.has(record.toId);
-    const hasCore = record.fromId === topNode?.id || record.toId === topNode?.id;
+    const sameCommunity = Number(record.from?.community) === Number(record.to?.community);
+    const bothCommunityHubs = communityHubIds.has(record.fromId) && communityHubIds.has(record.toId);
     const structural = /taxonomy|related|links-to|站内|共现|路线/.test(type);
 
     if (scale < 0.58) {
-      return bothOverview && (hasCore || (maxDegree >= 250 && minDegree >= 145) || (structural && minDegree >= 170));
+      return bothOverview && (
+        bothCommunityHubs
+        || (sameCommunity && maxDegree >= 150 && minDegree >= 82)
+        || (!sameCommunity && structural && maxDegree >= 190 && minDegree >= 115)
+      );
     }
     if (scale < 0.9) {
-      return bothOverview && (hasCore || structural || maxDegree >= 180 || minDegree >= 120);
+      return bothOverview && (
+        bothCommunityHubs
+        || (sameCommunity && maxDegree >= 105 && minDegree >= 48)
+        || (!sameCommunity && structural && maxDegree >= 145 && minDegree >= 76)
+      );
     }
     if (scale < 1.25) {
       return bothOverview || (maxDegree >= 150 && minDegree >= 60) || (structural && maxDegree >= 95 && minDegree >= 42);
@@ -1198,10 +1206,11 @@ network.on('afterDrawing', function(ctx) {
     const isRoute = node.id.startsWith('track:') || node.id.startsWith('route:');
     if (selectedIds.has(node.id)) return 4;
     if (localLabelIds.has(node.id)) return scale < 1.15 ? 2 : scale < 1.8 ? 3 : 4;
+    if (communityHubIds.has(node.id)) return scale < 0.52 ? 1 : scale < 1.25 ? 2 : 3;
     if (node.id === topNode?.id) return scale < 0.62 ? 1 : 2;
     if (scale < 0.38) return degree >= 190 ? 1 : 0;
-    if (scale < 0.62) return degree >= 145 || isRoute ? 1 : 0;
-    if (scale < 0.86) return degree >= 90 || isRoute ? 2 : 0;
+    if (scale < 0.62) return degree >= 175 || (isRoute && degree >= 16) ? 1 : 0;
+    if (scale < 0.86) return degree >= 112 || (isRoute && degree >= 12) ? 2 : 0;
     if (scale < 1.16) return degree >= 82 || (kind === 'paper' && degree >= 72) || isRoute ? 3 : 0;
     if (scale < 1.55) return degree >= 64 || (kind === 'paper' && degree >= 56) || isRoute ? 3 : 0;
     if (scale < 2.15) return degree >= 45 || (kind === 'paper' && degree >= 36) || isRoute ? 3 : 0;
@@ -1519,31 +1528,55 @@ network.on('afterDrawing', function(ctx) {
 
   function drawGraphifySkeleton(ctx, scale) {
     if (!topNode || scale > 1.08) return;
-    const positions = network.getPositions([...overviewNodeIds]);
-    const center = positions[topNode.id];
-    if (!center) return;
-    const ids = [...overviewNodeIds]
-      .filter((id) => id !== topNode.id && visibilityState.get(id) !== true && positions[id])
-      .sort((a, b) => Number(rawById.get(b)?.degree || 0) - Number(rawById.get(a)?.degree || 0))
-      .slice(0, scale < 0.58 ? overviewSkeletonLimit : Math.min(overviewSkeletonLimit + 18, overviewNodeLimit));
-    if (!ids.length) return;
+    const hubIds = (layout.hubIds || []).filter((id) => visibilityState.get(id) !== true);
+    const positions = network.getPositions(hubIds);
+    if (hubIds.length < 2) return;
 
     ctx.save();
     ctx.lineCap = 'round';
-    ids.forEach((id, index) => {
-      const node = rawById.get(id);
-      const target = positions[id];
-      if (!node || !target) return;
-      const degree = Number(node.degree || 0);
-      const color = degree >= 220 ? graphifyPalette.amber : graphifyPalette.green;
-      ctx.setLineDash([]);
-      ctx.lineWidth = (degree >= 250 ? 0.9 : 0.58) / Math.max(scale, 0.2);
-      ctx.strokeStyle = rgbaFromHex(color, index < 8 ? 0.16 : 0.09);
+    for (const [cid, center] of layout.centers || []) {
+      const radius = layout.communityRadii?.get(cid) || 100;
+      const hubId = layout.hubByCommunity?.get(cid);
+      const hub = rawById.get(hubId);
+      const color = communityColorFor(hub);
+      ctx.setLineDash([4 / Math.max(scale, 0.25), 10 / Math.max(scale, 0.25)]);
+      ctx.lineWidth = 0.48 / Math.max(scale, 0.24);
+      ctx.strokeStyle = rgbaFromHex(color, 0.085);
+      ctx.fillStyle = rgbaFromHex(color, 0.012);
       ctx.beginPath();
-      ctx.moveTo(center.x, center.y);
-      ctx.lineTo(target.x, target.y);
+      ctx.ellipse(center.x, center.y, radius + 14, (radius + 14) * 0.84, 0, 0, Math.PI * 2);
+      ctx.fill();
       ctx.stroke();
-    });
+    }
+    const drawn = new Set();
+    for (const id of hubIds) {
+      const source = positions[id];
+      if (!source) continue;
+      const nearest = hubIds
+        .filter((otherId) => otherId !== id && positions[otherId])
+        .map((otherId) => ({
+          id: otherId,
+          distance: Math.hypot(source.x - positions[otherId].x, source.y - positions[otherId].y),
+        }))
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, 2);
+      for (const targetRecord of nearest) {
+        const key = [id, targetRecord.id].sort().join('|');
+        if (drawn.has(key)) continue;
+        drawn.add(key);
+        const target = positions[targetRecord.id];
+        const color = id === topNode.id || targetRecord.id === topNode.id
+          ? graphifyPalette.amber
+          : graphifyPalette.green;
+        ctx.setLineDash([5 / Math.max(scale, 0.25), 9 / Math.max(scale, 0.25)]);
+        ctx.lineWidth = 0.52 / Math.max(scale, 0.24);
+        ctx.strokeStyle = rgbaFromHex(color, 0.11);
+        ctx.beginPath();
+        ctx.moveTo(source.x, source.y);
+        ctx.lineTo(target.x, target.y);
+        ctx.stroke();
+      }
+    }
     ctx.restore();
   }
 
@@ -1701,42 +1734,70 @@ network.on('afterDrawing', function(ctx) {
       if (!groups.has(cid)) groups.set(cid, []);
       groups.get(cid).push(node);
     }
-    const topCid = Number.isFinite(Number(topNode?.community)) ? Number(topNode.community) : null;
-    const rankedGroups = Array.from(groups.entries()).sort((a, b) => {
-      if (topCid !== null && a[0] === topCid) return -1;
-      if (topCid !== null && b[0] === topCid) return 1;
-      return b[1].length - a[1].length || a[0] - b[0];
-    });
-    const ringCounts = [1, 10, 15, 14];
-    const ringRadii = [0, 430, 760, 1040];
-    const ringSeen = [0, 0, 0, 0];
+    const rankedGroups = Array.from(groups.entries()).sort((a, b) => (
+      b[1].length - a[1].length
+      || Math.max(...b[1].map((node) => Number(node.degree || 0))) - Math.max(...a[1].map((node) => Number(node.degree || 0)))
+      || a[0] - b[0]
+    ));
+    const anchorSlots = [
+      { x: -255, y: -40 },
+      { x: 255, y: -40 },
+      { x: 0, y: -390 },
+      { x: 0, y: 345 },
+      { x: -700, y: 15 },
+      { x: 700, y: 15 },
+      { x: -535, y: -375 },
+      { x: 535, y: 365 },
+      { x: -535, y: 365 },
+      { x: 770, y: 380 },
+    ];
     const nodesOut = new Map();
+    const hubIds = [];
+    const centers = new Map();
+    const communityRadii = new Map();
+    const hubByCommunity = new Map();
 
     rankedGroups.forEach(([cid, nodes], groupIndex) => {
-      const ring = groupIndex === 0 ? 0 : groupIndex <= 10 ? 1 : groupIndex <= 25 ? 2 : 3;
-      const positionInRing = ringSeen[ring]++;
-      const countInRing = ringCounts[ring] || Math.max(1, ringSeen[ring]);
-      const angle = ring === 0
-        ? 0
-        : (Math.PI * 2 * positionInRing) / countInRing + ring * 0.19 + (cid % 5) * 0.025;
-      const center = {
-        x: Math.cos(angle) * ringRadii[ring],
-        y: Math.sin(angle) * ringRadii[ring] * 0.74,
+      const center = anchorSlots[groupIndex] || {
+        x: ((groupIndex % 4) - 1.5) * 440,
+        y: (Math.floor(groupIndex / 4) - 1) * 360,
       };
-      const sortedNodes = [...nodes].sort((a, b) => Number(b.degree || 0) - Number(a.degree || 0));
-      const spread = Math.max(72, Math.min(170, 18 * Math.sqrt(sortedNodes.length)));
-      const normalizer = Math.max(1, Math.sqrt(sortedNodes.length));
+      centers.set(cid, center);
+      const sortedNodes = [...nodes].sort((a, b) => (
+        Number(b.degree || 0) - Number(a.degree || 0)
+        || String(a.label).localeCompare(String(b.label), 'zh-Hans-CN')
+      ));
+      if (sortedNodes[0]) {
+        hubIds.push(sortedNodes[0].id);
+        hubByCommunity.set(cid, sortedNodes[0].id);
+      }
+      const clusterRadius = Math.max(88, Math.min(210, 66 + Math.sqrt(sortedNodes.length) * 21));
+      communityRadii.set(cid, clusterRadius);
+      const ringCapacities = [1, 7, 12, 18, 24, 30];
+      let ringStart = 0;
+      let ringIndex = 0;
+      let ringCapacity = ringCapacities[0];
       sortedNodes.forEach((node, nodeIndex) => {
-        const localAngle = nodeIndex * 2.399963229728653 + cid * 0.41;
-        const localRadius = nodeIndex === 0 ? 0 : (Math.sqrt(nodeIndex) / normalizer) * spread;
-        const degreePull = Math.max(0.55, 1 - Math.min(0.42, Number(node.degree || 0) / highDegree));
+        while (nodeIndex >= ringStart + ringCapacity && ringIndex < ringCapacities.length - 1) {
+          ringStart += ringCapacity;
+          ringIndex += 1;
+          ringCapacity = ringCapacities[ringIndex];
+        }
+        const positionInRing = nodeIndex - ringStart;
+        const nodesInRing = Math.min(ringCapacity, Math.max(1, sortedNodes.length - ringStart));
+        const baseAngle = (Math.PI * 2 * positionInRing) / nodesInRing + cid * 0.37 + ringIndex * 0.23;
+        const angleJitter = ((stableHash(node.id + ':angle') % 1000) / 1000 - 0.5) * 0.16;
+        const radiusJitter = ((stableHash(node.id + ':radius') % 1000) / 1000 - 0.5) * 12;
+        const localRadius = nodeIndex === 0
+          ? 0
+          : Math.min(clusterRadius, 28 + ringIndex * 44 + radiusJitter);
         nodesOut.set(node.id, {
-          x: Math.round(center.x + Math.cos(localAngle) * localRadius * degreePull),
-          y: Math.round(center.y + Math.sin(localAngle) * localRadius * degreePull),
+          x: Math.round(center.x + Math.cos(baseAngle + angleJitter) * localRadius),
+          y: Math.round(center.y + Math.sin(baseAngle + angleJitter) * localRadius * 0.84),
         });
       });
     });
-    return { nodes: nodesOut };
+    return { nodes: nodesOut, hubIds, centers, communityRadii, hubByCommunity };
   }
 })();
 </script>
