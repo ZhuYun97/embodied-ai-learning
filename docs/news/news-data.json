@@ -1,5 +1,49 @@
 [
   {
+    "id": "mistral-robostral-navigate-single-camera-robot-navigation-20260708",
+    "title": "Mistral 发布 Robostral Navigate：单 RGB 相机驱动通用机器人自主导航",
+    "date": "2026-07-08",
+    "fetched_at": "2026-07-10",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "模型发布",
+      "通用机器人基础模型",
+      "产业落地"
+    ],
+    "summary": "**Mistral AI** 正式发布首个具身导航模型 **Robostral Navigate**。该 8B 模型仅依赖单个普通 RGB 相机与自然语言指令，不需要 LiDAR 或深度传感器，可适配轮式、足式和飞行机器人。官方披露模型完全使用仿真数据训练，数据规模约 40 万条轨迹、6000 个场景，并在 R2R-CE 未见环境验证集取得 76.6% 成功率。此次发布标志着 Mistral 从通用生成式 AI 正式扩展到机器人基础能力，并将导航定位为统一具身智能体的第一步。",
+    "sources": [
+      {
+        "name": "Mistral AI",
+        "url": "https://mistral.ai/news/robostral-navigate/"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "rokae-robotics-hkex-main-board-listing-3752-20260709",
+    "title": "珞石机器人登陆港交所主板：募资逾 8.75 亿港元",
+    "date": "2026-07-09",
+    "fetched_at": "2026-07-10",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "公司战略",
+      "产业落地"
+    ],
+    "summary": "**珞石（山东）机器人集团**在香港交易所主板挂牌，股份代码 **03752**，成为机器人产业资本化进程中的新上市标的。全球发售 2303.19 万股 H 股，发行价每股 38 港元，募资逾 8.75 亿港元。公司产品覆盖工业机器人、柔性协作机器人和具身智能机器人；港交所已将 7 月 9 日列为其正式新上市日期。上市为珞石扩大研发、产能与海外市场提供资本支持，也反映工业机器人企业正把具身智能产品纳入长期增长战略。",
+    "sources": [
+      {
+        "name": "香港交易所",
+        "url": "https://www.hkex.com.hk/Services/Trading/Securities/Trading-News/Newly-Listed-Securities?sc_lang=en"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "robbyant-lingbot-vla-2-0-open-source-universal-brain-20260708",
     "title": "Robbyant 开源 LingBot-VLA 2.0:升级通用机器人“大脑”",
     "date": "2026-07-08",
