@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import { withBase } from 'vitepress'
 import { data as datasetsData } from '../../data/datasets.data.mjs'
 
 // ===== 筛选状态(Vue refs) =====
@@ -298,7 +299,7 @@ function getTypeTone(type) {
             <td class="year-cell">{{ entry.year || '—' }}</td>
             <td class="source-cell">
               <a
-                :href="`/vla/papers/embodied-data${entry.sourceSection}`"
+                :href="withBase(`/vla/papers/embodied-data${entry.sourceSection}`)"
                 class="source-link"
                 title="查看 embodied-data.md 对应章节"
               >
