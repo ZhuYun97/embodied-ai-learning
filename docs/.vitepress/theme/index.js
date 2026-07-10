@@ -217,6 +217,28 @@ function setupPaperFilters() {
       }
     })
 
+    const semanticTags = tagNodes.filter(
+      (span) => !span.matches('.paper-status, .paper-editor-pick, .paper-priority')
+    )
+    semanticTags[0]?.classList.add('paper-domain')
+    semanticTags[1]?.classList.add('paper-topic')
+    if (categories.has('humanoid')) ticket.classList.add('paper-ticket--humanoid')
+    if (categories.has('tactile')) ticket.classList.add('paper-ticket--tactile')
+
+    const paperTitle = ticket.querySelector('h3')?.textContent.trim()
+    ticket.querySelectorAll('.paper-ticket__links a').forEach((link, index) => {
+      const visibleLabel = link.textContent.trim()
+      const label = normalize(visibleLabel)
+      const type = label.includes('ARXIV')
+        ? 'paper-link--paper'
+        : label.includes('CODE') || label.includes('GITHUB')
+          ? 'paper-link--code'
+          : 'paper-link--resource'
+      link.classList.add(type)
+      if (index === 0) link.classList.add('paper-link--primary')
+      if (paperTitle) link.setAttribute('aria-label', `${visibleLabel} · ${paperTitle}`)
+    })
+
     ticket.dataset.paperCategories = Array.from(categories).join(' ')
     ticket.dataset.paperSearch = normalize([
       ticket.querySelector('h3')?.textContent,
