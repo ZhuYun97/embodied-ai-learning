@@ -1,5 +1,28 @@
 [
   {
+    "id": "mitsubishi-highlanders-humanoid-development-mass-production-20260709",
+    "title": "三菱汽车与 Highlanders 联合开发并筹备量产人形机器人",
+    "date": "2026-07-09",
+    "fetched_at": "2026-07-11",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "合作协议",
+      "人形机器人",
+      "产能里程碑",
+      "产业落地"
+    ],
+    "summary": "**三菱汽车**与东京大学系机器人初创公司 **Highlanders** 签署合作备忘录，计划共同开发用于三菱生产设施的人形机器人，并评估利用三菱京都工厂闲置厂房量产 Highlanders 产品。双方拟在 **2027 年初**启动生产可行性方案；三菱还将把整车量产工程、质量保证、耐久与安全设计、机电一体化控制经验导入机器人制造，并已投资 Highlanders、计划继续追加投资。首阶段机器人将在三菱工厂实际运行以积累数据和运维经验，体现汽车制造能力向人形机器人量产与内部部署的双向延伸。",
+    "sources": [
+      {
+        "name": "三菱汽车",
+        "url": "https://www.mitsubishi-motors.com/en/newsroom/newsrelease/2026/20260709_1.html"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "mistral-robostral-navigate-single-camera-robot-navigation-20260708",
     "title": "Mistral 发布 Robostral Navigate：单 RGB 相机驱动通用机器人自主导航",
     "date": "2026-07-08",
