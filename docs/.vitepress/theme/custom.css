@@ -8324,7 +8324,7 @@ html:not(.dark) .thero__robot-wrap--laser .thero__robot { border-radius: 0; }
   padding-right: 0;
   overflow: visible;
 }
-.VPHome .route-links.is-collapsed > a:nth-of-type(n + 7) { display: none; }
+.VPHome .route-links.is-collapsed > a:nth-of-type(n + 9) { display: none; }
 .VPHome .route-more {
   display: inline-flex;
   align-items: center;
@@ -8598,11 +8598,15 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .box {
   }
   html.home-pager-ready [data-page='vla'] .route-grid {
     /* 平板、浏览器缩放与桌面端统一保持五列，不再回退成 3+2。 */
+    height: auto;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    grid-template-rows: minmax(0, 1fr);
+    grid-template-rows: auto;
+    align-self: start;
   }
-  html.home-pager-ready [data-page='vla'] .route-grid .route-card {
+  html.home-pager-ready .VPHome [data-page='vla'] .route-grid .route-card {
     grid-column: auto !important;
+    height: auto !important;
+    min-height: 300px !important;
   }
   html.home-pager-ready [data-page='wam'] .route-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -8663,7 +8667,7 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .box {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  html.home-pager-ready .VPHome .route-links > a:nth-of-type(n + 4) {
+  html.home-pager-ready .VPHome .route-links > a:nth-of-type(n + 9) {
     display: none !important;
   }
 

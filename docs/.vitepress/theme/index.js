@@ -2266,14 +2266,14 @@ function setupRouteCounts() {
 }
 
 // =====================================================================
-// 首页路线卡渐进披露：保留全部论文入口，但长列表默认只展示前 6 篇，
+// 首页路线卡渐进披露：保留全部论文入口，但长列表默认只展示前 8 篇，
 // 避免首页出现嵌套滚动条与“链接墙”。按钮原生可键盘操作，并同步 aria-expanded。
 // =====================================================================
 let routeDisclosureBound = false
 function setupRouteDisclosure() {
   if (routeDisclosureBound || typeof document === 'undefined') return
   routeDisclosureBound = true
-  const visibleCount = 6
+  const visibleCount = 8
 
   const inject = () => {
     document.querySelectorAll('.VPHome .route-card').forEach((card, cardIndex) => {
