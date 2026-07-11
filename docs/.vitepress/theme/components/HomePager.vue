@@ -387,16 +387,15 @@ onUnmounted(() => {
 
 <template>
   <nav v-show="ready" class="home-pager" aria-label="主页五页切换">
-    <div class="home-pager__label" aria-hidden="true">
-      <span>ATLAS VIEW</span>
-      <strong>{{ activeMeta.index }} / {{ String(HOME_PAGES.length).padStart(2, '0') }}</strong>
-    </div>
-
-    <div class="home-pager__tabs" role="tablist" aria-label="选择主页内容">
+    <div
+      class="home-pager__tabs"
+      role="tablist"
+      aria-label="选择主页内容"
+      :style="{ '--home-page-offset': `${activeIndex * 100}%` }"
+    >
       <i
         class="home-pager__indicator"
         aria-hidden="true"
-        :style="{ transform: `translateX(${activeIndex * 100}%)` }"
       />
       <button
         v-for="(page, index) in HOME_PAGES"
@@ -406,6 +405,7 @@ onUnmounted(() => {
         type="button"
         role="tab"
         :class="{ 'is-active': activeHomePage === page.id }"
+        :aria-label="`${page.index} ${page.label}，${page.shortLabel}`"
         :aria-selected="activeHomePage === page.id"
         :aria-controls="page.id === 'explore'
           ? 'home-page-explore'
@@ -425,10 +425,6 @@ onUnmounted(() => {
     <span class="home-pager__live" aria-live="polite">
       当前页面：{{ activeMeta.label }}，{{ activeMeta.description }}
     </span>
-
-    <span class="home-pager__gesture" aria-hidden="true">
-      <i /> 滚轮切换
-    </span>
   </nav>
 
   <div
@@ -446,58 +442,35 @@ onUnmounted(() => {
 <style scoped>
 .home-pager {
   position: fixed;
-  top: 76px;
+  top: 72px;
   left: 50%;
-  z-index: 180;
-  display: grid;
-  width: min(880px, calc(100vw - 40px));
-  grid-template-columns: 108px minmax(0, 1fr);
-  gap: 6px;
-  padding: 6px;
-  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 26%, var(--vp-c-divider));
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--vp-c-bg) 88%, transparent);
+  z-index: 25;
+  display: block;
+  width: min(520px, calc(100vw - 32px));
+  padding: 4px;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 22%, var(--vp-c-divider));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--vp-c-bg) 84%, transparent);
   box-shadow:
-    0 15px 44px rgba(15, 23, 42, 0.14),
+    0 10px 28px rgba(15, 23, 42, 0.11),
     inset 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 5%, transparent);
-  -webkit-backdrop-filter: blur(16px) saturate(1.12);
-  backdrop-filter: blur(16px) saturate(1.12);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  backdrop-filter: blur(14px) saturate(1.1);
   transform: translateX(-50%);
 }
 .dark .home-pager {
-  background: color-mix(in srgb, #07111f 88%, transparent);
+  background: color-mix(in srgb, #07111f 84%, transparent);
   box-shadow:
-    0 18px 54px rgba(0, 0, 0, 0.44),
-    0 0 30px rgba(34, 211, 238, 0.07),
+    0 12px 34px rgba(0, 0, 0, 0.34),
+    0 0 22px rgba(34, 211, 238, 0.06),
     inset 0 0 0 1px rgba(56, 189, 248, 0.05);
-}
-.home-pager__label {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  padding: 0 11px;
-  border-right: 1px solid var(--vp-c-divider);
-  font-family: var(--vp-font-family-mono);
-}
-.home-pager__label span {
-  color: var(--vp-c-text-3);
-  font-size: 0.55rem;
-  font-weight: 650;
-  letter-spacing: 0.09em;
-}
-.home-pager__label strong {
-  color: var(--vp-c-brand-1);
-  font-size: 0.68rem;
-  letter-spacing: 0.05em;
 }
 .home-pager__tabs {
   position: relative;
   display: grid;
   min-width: 0;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 3px;
+  gap: 0;
 }
 .home-pager__indicator {
   position: absolute;
@@ -506,11 +479,12 @@ onUnmounted(() => {
   left: 0;
   width: 20%;
   border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 28%, var(--vp-c-divider));
-  border-radius: 9px;
+  border-radius: 999px;
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent), transparent),
     color-mix(in srgb, var(--vp-c-bg) 72%, transparent);
   box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
+  transform: translateX(var(--home-page-offset));
   transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 }
@@ -523,43 +497,36 @@ onUnmounted(() => {
 .home-pager button {
   position: relative;
   z-index: 1;
-  display: grid;
+  display: flex;
   min-width: 0;
-  min-height: 48px;
-  grid-template-columns: 23px minmax(0, 1fr);
-  gap: 6px;
+  min-height: 36px;
+  gap: 5px;
   align-items: center;
-  padding: 0 8px;
+  justify-content: center;
+  padding: 0 7px;
   border: 0;
-  border-radius: 9px;
+  border-radius: 999px;
   background: transparent;
   color: var(--vp-c-text-2);
-  text-align: left;
+  text-align: center;
   cursor: pointer;
 }
 .home-pager button > span:first-child {
   color: var(--vp-c-text-3);
-  font: 650 0.56rem/1 var(--vp-font-family-mono);
+  font: 650 0.52rem/1 var(--vp-font-family-mono);
 }
 .home-pager button > span:last-child {
-  display: flex;
+  display: block;
   min-width: 0;
-  flex-direction: column;
-  gap: 3px;
 }
 .home-pager button strong {
   color: inherit;
-  font-size: 0.71rem;
+  font-size: 0.68rem;
   font-weight: 700;
   line-height: 1;
 }
 .home-pager button small {
-  overflow: hidden;
-  color: var(--vp-c-text-3);
-  font-size: 0.56rem;
-  line-height: 1;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: none;
 }
 .home-pager button:hover,
 .home-pager button.is-active { color: var(--vp-c-brand-1); }
@@ -580,54 +547,13 @@ onUnmounted(() => {
   white-space: nowrap;
   border: 0;
 }
-.home-pager__gesture {
-  position: absolute;
-  top: 50%;
-  left: calc(100% + 14px);
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--vp-c-text-3);
-  font: 600 0.58rem/1 var(--vp-font-family-mono);
-  letter-spacing: 0.07em;
-  white-space: nowrap;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-.home-pager__gesture i {
-  position: relative;
-  display: block;
-  width: 15px;
-  height: 22px;
-  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 42%, var(--vp-c-divider));
-  border-radius: 9px;
-}
-.home-pager__gesture i::before {
-  content: '';
-  position: absolute;
-  top: 4px;
-  left: 50%;
-  width: 2px;
-  height: 5px;
-  border-radius: 999px;
-  background: var(--vp-c-brand-1);
-  transform: translateX(-50%);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .home-pager__gesture i::before { animation: homePagerWheel 1.8s ease-in-out infinite; }
-}
-@keyframes homePagerWheel {
-  0%, 100% { opacity: 0.35; transform: translate(-50%, 0); }
-  45% { opacity: 1; transform: translate(-50%, 6px); }
-}
-
 .home-page-transition {
   position: fixed;
   top: var(--vp-nav-height, 64px);
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 172;
+  z-index: 18;
   overflow: hidden;
   background: color-mix(in srgb, var(--vp-c-bg) 4%, transparent);
   isolation: isolate;
@@ -713,8 +639,77 @@ onUnmounted(() => {
   100% { opacity: 0; }
 }
 
-@media (max-width: 1080px) {
-  .home-pager__gesture { display: none; }
+@media (min-width: 960px) {
+  .home-pager {
+    top: 50%;
+    right: max(4px, env(safe-area-inset-right));
+    left: auto;
+    width: 40px;
+    padding: 3px;
+    border-radius: 14px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .home-pager__tabs {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 38px);
+    pointer-events: none;
+  }
+  .home-pager__indicator {
+    top: 0;
+    right: 0;
+    bottom: auto;
+    width: 100%;
+    height: 20%;
+    border-radius: 11px;
+    transform: translateY(var(--home-page-offset));
+  }
+  .home-pager button {
+    width: 100%;
+    min-height: 38px;
+    padding: 0;
+    pointer-events: auto;
+  }
+  .home-pager button > span:first-child {
+    font-size: 0.56rem;
+  }
+  .home-pager button > span:last-child {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 9px);
+    display: flex;
+    min-width: 88px;
+    flex-direction: column;
+    gap: 3px;
+    padding: 7px 9px;
+    border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 24%, var(--vp-c-divider));
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--vp-c-bg) 90%, transparent);
+    box-shadow: 0 9px 24px rgba(15, 23, 42, 0.16);
+    opacity: 0;
+    text-align: left;
+    white-space: nowrap;
+    transform: translate(5px, -50%);
+    transition:
+      opacity 0.16s ease,
+      transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .dark .home-pager button > span:last-child {
+    background: color-mix(in srgb, #07111f 92%, transparent);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  }
+  .home-pager button > span:last-child small {
+    display: block;
+    color: var(--vp-c-text-3);
+    font-size: 0.54rem;
+    line-height: 1;
+  }
+  .home-pager button:hover > span:last-child,
+  .home-pager button:focus-visible > span:last-child {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
 }
 
 @media (max-width: 700px) {
@@ -722,13 +717,12 @@ onUnmounted(() => {
     top: auto;
     bottom: max(12px, env(safe-area-inset-bottom));
     width: min(460px, calc(100vw - 20px));
-    grid-template-columns: 1fr;
     padding: 5px;
     border-radius: 15px;
   }
-  .home-pager__label { display: none; }
   .home-pager button {
     min-height: 50px;
+    display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
     gap: 2px;
@@ -736,14 +730,18 @@ onUnmounted(() => {
     text-align: center;
   }
   .home-pager button > span:first-child { display: none; }
-  .home-pager button > span:last-child { align-items: center; }
   .home-pager button strong { font-size: 0.72rem; }
-  .home-pager button small { font-size: 0.54rem; }
+  .home-pager button small {
+    display: block;
+    margin-top: 3px;
+    color: var(--vp-c-text-3);
+    font-size: 0.54rem;
+    line-height: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .home-pager__indicator { transition: none; }
-  .home-pager__gesture i::before { animation: none; }
   .home-page-transition { display: none; }
 }
 </style>
