@@ -8597,6 +8597,7 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .box {
     overflow: hidden;
   }
   html.home-pager-ready [data-page='vla'] .route-grid {
+    /* 平板、浏览器缩放与桌面端统一保持五列，不再回退成 3+2。 */
     grid-template-columns: repeat(5, minmax(0, 1fr));
     grid-template-rows: minmax(0, 1fr);
   }
@@ -8792,16 +8793,6 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .box {
 }
 
 @media (min-width: 701px) and (max-width: 900px) {
-  html.home-pager-ready [data-page='vla'] .route-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-  }
-  html.home-pager-ready [data-page='vla'] .route-grid .route-card {
-    grid-column: span 2 !important;
-  }
-  html.home-pager-ready [data-page='vla'] .route-grid .route-card:nth-child(n + 4) {
-    grid-column: span 3 !important;
-  }
   html.home-pager-ready .home-track-intro__meta { display: none; }
   html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
     padding-top: 96px;
