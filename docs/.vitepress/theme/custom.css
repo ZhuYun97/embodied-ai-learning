@@ -9242,14 +9242,18 @@ html.home-pager-ready [data-page='about'] .home-coda {
   box-sizing: border-box;
   display: grid;
   height: 100%;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  align-items: center;
-  gap: 30px;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 320px);
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 16px 26px;
   margin: 0;
-  padding: 24px 26px;
+  padding: 20px 20px 20px 24px;
   overflow: hidden;
 }
 html.home-pager-ready [data-page='about'] .home-coda__main {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
   min-width: 0;
 }
 html.home-pager-ready [data-page='about'] .home-coda__title {
@@ -9262,6 +9266,7 @@ html.home-pager-ready [data-page='about'] .home-coda__sub {
   line-height: 1.55;
 }
 html.home-pager-ready [data-page='about'] .home-coda__proof {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 7px;
   margin-top: 14px;
 }
@@ -9279,8 +9284,10 @@ html.home-pager-ready [data-page='about'] .home-coda__term {
   font-size: 0.68rem;
 }
 html.home-pager-ready [data-page='about'] .home-coda__links {
+  grid-column: 1;
+  grid-row: 2;
   width: 100%;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 7px;
 }
 html.home-pager-ready [data-page='about'] .home-coda__links a {
@@ -9291,6 +9298,102 @@ html.home-pager-ready [data-page='about'] .home-coda__links a {
   font-size: 0.7rem;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+html.home-pager-ready [data-page='about'] .home-coda__visual {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1 / -1;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 24%, var(--vp-c-divider));
+  border-radius: 13px;
+  background: #020307;
+  box-shadow:
+    0 18px 42px rgba(3, 7, 18, 0.24),
+    0 0 30px color-mix(in srgb, var(--vp-c-brand-1) 9%, transparent);
+  isolation: isolate;
+}
+html.home-pager-ready [data-page='about'] .home-coda__visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 44%;
+  filter: saturate(0.92) contrast(1.05);
+  transform: scale(1.01);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.home-pager-ready [data-page='about'] .home-coda__visual::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(2, 3, 7, 0.3), transparent 28%),
+    linear-gradient(180deg, transparent 52%, rgba(2, 3, 7, 0.88) 100%);
+  box-shadow: inset 0 0 34px rgba(2, 3, 7, 0.5);
+  pointer-events: none;
+}
+html.home-pager-ready [data-page='about'] .home-coda__visual::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  right: 12px;
+  bottom: 12px;
+  width: 34px;
+  height: 34px;
+  border-right: 1px solid rgba(103, 232, 249, 0.58);
+  border-bottom: 1px solid rgba(103, 232, 249, 0.58);
+  pointer-events: none;
+}
+html.home-pager-ready [data-page='about'] .home-coda__visual figcaption {
+  position: absolute;
+  z-index: 3;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #e8edf5;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.72);
+}
+html.home-pager-ready [data-page='about'] .home-coda__visual figcaption span {
+  color: #67e8f9;
+  font: 650 0.56rem/1 var(--vp-font-family-mono);
+  letter-spacing: 0.13em;
+}
+html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.home-pager-ready [data-page='about'] .home-coda__visual:hover img {
+    transform: scale(1.035);
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1050px) {
+  html.home-pager-ready [data-page='about'] .home-coda {
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: 13px 18px;
+    padding: 17px;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__proof > div {
+    display: block;
+    padding: 8px;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__proof b {
+    display: block;
+    margin-bottom: 3px;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__proof span {
+    font-size: 0.68rem;
+    line-height: 1.4;
+  }
 }
 
 /* 760px 以下保留同一批入口，但回退为一屏内的静态网格。 */
@@ -9380,6 +9483,7 @@ html.home-pager-ready [data-page='about'] .home-coda__links a {
     height: 100%;
   }
   html.home-pager-ready [data-page='about'] .home-coda {
+    position: relative;
     display: grid;
     height: 100%;
     grid-template-columns: 1fr;
@@ -9387,6 +9491,34 @@ html.home-pager-ready [data-page='about'] .home-coda__links a {
     align-items: start;
     gap: 8px;
     padding: 13px;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__main,
+  html.home-pager-ready [data-page='about'] .home-coda__links {
+    position: relative;
+    z-index: 2;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__visual {
+    position: absolute;
+    z-index: 0;
+    inset: 0 0 0 auto;
+    display: block;
+    width: 58%;
+    height: 100%;
+    grid-column: auto;
+    grid-row: auto;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    opacity: 0.15;
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__visual::before {
+    background:
+      linear-gradient(90deg, var(--tech-card-bg, var(--vp-c-bg-soft)) 0%, transparent 72%),
+      linear-gradient(180deg, transparent 48%, var(--tech-card-bg, var(--vp-c-bg-soft)) 100%);
+  }
+  html.home-pager-ready [data-page='about'] .home-coda__visual::after,
+  html.home-pager-ready [data-page='about'] .home-coda__visual figcaption {
+    display: none;
   }
   html.home-pager-ready [data-page='about'] .home-coda__eyebrow { font-size: 0.58rem; }
   html.home-pager-ready [data-page='about'] .home-coda__title { font-size: 0.95rem; }
@@ -9521,5 +9653,16 @@ html.home-pager-ready [data-page='about'] .home-coda__links a {
   html.home-pager-ready .home-page-panel[data-page='about'] {
     height: calc(100vh - var(--vp-nav-height, 64px) - 28px);
     height: calc(100dvh - var(--vp-nav-height, 64px) - 28px);
+  }
+}
+
+/* 中等宽度下 VitePress 内容区会额外预留一层顶栏高度，压缩 About 画布以保持图片与入口完整可见。 */
+@media (min-width: 701px) and (max-width: 959px) {
+  html.home-pager-ready[data-home-page='about'] .VPHome > .vp-doc {
+    padding: 8px 24px 10px !important;
+  }
+  html.home-pager-ready .home-page-panel[data-page='about'] {
+    height: calc(100vh - var(--vp-nav-height, 64px) - var(--vp-nav-height, 64px) - 18px);
+    height: calc(100dvh - var(--vp-nav-height, 64px) - var(--vp-nav-height, 64px) - 18px);
   }
 }

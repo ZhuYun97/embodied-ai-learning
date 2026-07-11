@@ -287,6 +287,20 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
     <p class="home-coda__hint">第一次来？先看 <a href="vla/guide">如何阅读本站</a>；想建立全局坐标，从 <a href="vla/">VLA 总览</a> 或 <a href="wam/">WAM 总览</a> 开始。</p>
     <p class="home-coda__term" aria-hidden="true">$ keep_researching <span class="home-coda__flag">--forever</span><span class="home-coda__caret"></span></p>
   </div>
+  <figure class="home-coda__visual">
+    <img
+      src="/images/home-about-embodied-intelligence.jpg"
+      width="1080"
+      height="1920"
+      alt="佩戴霓虹光带视觉装置的未来机器人侧脸"
+      decoding="async"
+      fetchpriority="low"
+    >
+    <figcaption>
+      <span>EMBODIED FUTURES</span>
+      <strong>感知 · 推理 · 行动</strong>
+    </figcaption>
+  </figure>
   <nav class="home-coda__links" aria-label="更多入口">
     <a href="autoresearch/">论文 Ideas</a>
     <a href="vla/papers/getting-started">新手入门</a>
