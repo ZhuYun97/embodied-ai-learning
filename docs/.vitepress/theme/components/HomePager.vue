@@ -33,14 +33,19 @@ let focusPanelOnChange = false
 let wheelDelta = 0
 let wheelLastAt = 0
 let wheelLocked = false
+let wheelLockDirection = 0
+let wheelReverseDelta = 0
 let wheelUnlockTimer = null
 let transitionTimer = null
 let touchOrigin = null
 let pagerActive = false
 
-const WHEEL_THRESHOLD = 36
+const WHEEL_PIXEL_THRESHOLD = 28
+const WHEEL_LINE_THRESHOLD = 16
+const WHEEL_REVERSE_THRESHOLD = 10
 const WHEEL_IDLE_MS = 240
 const WHEEL_UNLOCK_MS = 180
+const TOUCH_THRESHOLD = 44
 const TRANSITION_DURATION_MS = 700
 const KEYBOARD_IGNORE_SELECTOR = [
   'input',
@@ -148,7 +153,10 @@ const unlockWheelAfterGesture = () => {
   if (wheelUnlockTimer) window.clearTimeout(wheelUnlockTimer)
   wheelUnlockTimer = window.setTimeout(() => {
     wheelLocked = false
+    wheelLockDirection = 0
+    wheelReverseDelta = 0
     wheelDelta = 0
+    wheelUnlockTimer = null
   }, WHEEL_UNLOCK_MS)
 }
 
@@ -239,13 +247,11 @@ const setupPager = () => {
 
     if (event.cancelable) event.preventDefault()
     const now = window.performance.now()
-    if (now - wheelLastAt > WHEEL_IDLE_MS) wheelDelta = 0
-    wheelLastAt = now
-
-    if (wheelLocked) {
-      unlockWheelAfterGesture()
-      return
+    if (now - wheelLastAt > WHEEL_IDLE_MS) {
+      wheelDelta = 0
+      wheelReverseDelta = 0
     }
+    wheelLastAt = now
 
     const multiplier = event.deltaMode === 1
       ? 16
@@ -253,14 +259,44 @@ const setupPager = () => {
         ? window.innerHeight
         : 1
     const normalizedDelta = event.deltaY * multiplier
-    if (wheelDelta && Math.sign(normalizedDelta) !== Math.sign(wheelDelta)) wheelDelta = 0
-    wheelDelta += normalizedDelta
-    if (Math.abs(wheelDelta) < WHEEL_THRESHOLD) return
+    const direction = Math.sign(normalizedDelta)
 
-    const changed = selectRelative(wheelDelta > 0 ? 1 : -1)
+    if (wheelLocked) {
+      if (direction === wheelLockDirection) {
+        wheelReverseDelta = 0
+        unlockWheelAfterGesture()
+        return
+      }
+
+      wheelReverseDelta += normalizedDelta
+      if (Math.abs(wheelReverseDelta) < WHEEL_REVERSE_THRESHOLD) {
+        unlockWheelAfterGesture()
+        return
+      }
+
+      if (wheelUnlockTimer) window.clearTimeout(wheelUnlockTimer)
+      wheelUnlockTimer = null
+      wheelLocked = false
+      wheelLockDirection = 0
+      wheelDelta = wheelReverseDelta
+      wheelReverseDelta = 0
+    } else {
+      if (wheelDelta && direction !== Math.sign(wheelDelta)) wheelDelta = 0
+      wheelDelta += normalizedDelta
+    }
+
+    const threshold = event.deltaMode === 0
+      ? WHEEL_PIXEL_THRESHOLD
+      : WHEEL_LINE_THRESHOLD
+    if (Math.abs(wheelDelta) < threshold) return
+
+    const triggerDirection = Math.sign(wheelDelta)
+    const changed = selectRelative(triggerDirection > 0 ? 1 : -1)
     wheelDelta = 0
     if (!changed) return
     wheelLocked = true
+    wheelLockDirection = triggerDirection
+    wheelReverseDelta = 0
     unlockWheelAfterGesture()
   }
   onTouchStart = (event) => {
@@ -297,7 +333,7 @@ const setupPager = () => {
     const elapsed = window.performance.now() - touchOrigin.startedAt
     const wasVertical = touchOrigin.vertical
     touchOrigin = null
-    if (!wasVertical || elapsed > 850 || Math.abs(deltaY) < 56 || Math.abs(deltaY) <= Math.abs(deltaX) * 1.15) return
+    if (!wasVertical || elapsed > 850 || Math.abs(deltaY) < TOUCH_THRESHOLD || Math.abs(deltaY) <= Math.abs(deltaX) * 1.15) return
     selectRelative(deltaY > 0 ? 1 : -1)
   }
   onTouchCancel = () => {
@@ -340,6 +376,8 @@ const teardownPager = () => {
   transitionTimer = null
   wheelDelta = 0
   wheelLocked = false
+  wheelLockDirection = 0
+  wheelReverseDelta = 0
   transitioning.value = false
   touchOrigin = null
   const home = homeElement
