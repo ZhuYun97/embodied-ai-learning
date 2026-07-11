@@ -4016,18 +4016,6 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .vp-doc {
   padding-top: 28px;
 }
 
-/* 切换回来时给当前页一次轻量入场；非活动 panel 由 hidden/inert 完全移出交互树。 */
-@media (prefers-reduced-motion: no-preference) {
-  html.home-pager-ready[data-home-page='overview'] .VPHome .thero,
-  html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeatures {
-    animation: homeViewEnter 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-}
-@keyframes homeViewEnter {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 @media (max-width: 700px) {
   html.home-pager-ready[data-home-page] .VPHome { padding-bottom: 76px; }
   html.home-pager-ready[data-home-page='overview'] .VPHome .thero {
@@ -8516,24 +8504,6 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .VPFeature .box {
   padding: 0 !important;
 }
 
-/* 向前 / 向后切换使用相反的轻位移，降低“内容突然替换”的跳变感。 */
-@media (prefers-reduced-motion: no-preference) {
-  html.home-pager-ready[data-home-direction='next'] .home-page-panel.is-active {
-    animation: homeFullpageEnterNext 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  html.home-pager-ready[data-home-direction='previous'] .home-page-panel.is-active {
-    animation: homeFullpageEnterPrevious 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-}
-@keyframes homeFullpageEnterNext {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes homeFullpageEnterPrevious {
-  from { opacity: 0; transform: translateY(-16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 /* 桌面 / 平板：顶部页签下方是一块固定高度的内容画布。 */
 @media (min-width: 701px) {
   html.home-pager-ready[data-home-page='vla'] .VPHome .vp-doc,
@@ -9332,12 +9302,6 @@ html.home-pager-ready [data-page='about'] .home-coda__links a {
   white-space: nowrap;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
-    animation: homeViewEnter 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-}
-
 /* 760px 以下保留同一批入口，但回退为一屏内的静态网格。 */
 @media (max-width: 759px) {
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
@@ -9473,4 +9437,64 @@ html.home-pager-ready [data-page='about'] .home-coda__links a {
   }
   html.home-pager-ready [data-page='about'] .home-coda__hint,
   html.home-pager-ready [data-page='about'] .home-coda__term { display: none; }
+}
+
+/* ============================================================
+   五屏统一换页动效
+   Hero、旋转菜单与内容 panel 共用同一方向语言；旋转菜单只移动外层
+   container，避免覆盖其内部 3D 公转 transform。
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  html.home-pager-ready[data-home-direction='next'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-direction='next'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-direction='next'] .home-page-panel.is-active {
+    animation: homeFullpageEnterNext 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  html.home-pager-ready[data-home-direction='previous'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-direction='previous'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-direction='previous'] .home-page-panel.is-active {
+    animation: homeFullpageEnterPrevious 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+@keyframes homeFullpageEnterNext {
+  0% {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translate3d(0, 28px, 0) scale(0.988);
+  }
+  58% {
+    opacity: 1;
+    filter: blur(0.35px);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+@keyframes homeFullpageEnterPrevious {
+  0% {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translate3d(0, -28px, 0) scale(0.988);
+  }
+  58% {
+    opacity: 1;
+    filter: blur(0.35px);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.home-pager-ready[data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready .home-page-panel.is-active {
+    animation: none !important;
+    filter: none !important;
+    transform: none !important;
+  }
 }

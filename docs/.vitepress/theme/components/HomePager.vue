@@ -9,6 +9,9 @@ import {
 
 const tabButtons = ref([])
 const ready = ref(false)
+const transitioning = ref(false)
+const transitionDirection = ref('next')
+const transitionToken = ref(0)
 const route = useRoute()
 const activeIndex = computed(() =>
   Math.max(0, HOME_PAGES.findIndex((page) => page.id === activeHomePage.value))
@@ -31,12 +34,14 @@ let wheelDelta = 0
 let wheelLastAt = 0
 let wheelLocked = false
 let wheelUnlockTimer = null
+let transitionTimer = null
 let touchOrigin = null
 let pagerActive = false
 
 const WHEEL_THRESHOLD = 36
 const WHEEL_IDLE_MS = 240
 const WHEEL_UNLOCK_MS = 180
+const TRANSITION_DURATION_MS = 700
 const KEYBOARD_IGNORE_SELECTOR = [
   'input',
   'textarea',
@@ -111,10 +116,23 @@ const syncDocument = (page, { updateUrl = true, scroll = true } = {}) => {
   }
 }
 
+const runPageTransition = (direction) => {
+  transitionDirection.value = direction
+  transitionToken.value += 1
+  transitioning.value = true
+  if (transitionTimer) window.clearTimeout(transitionTimer)
+  transitionTimer = window.setTimeout(() => {
+    transitioning.value = false
+    transitionTimer = null
+  }, TRANSITION_DURATION_MS)
+}
+
 const activate = (page, { focusPanel = false } = {}) => {
   const nextIndex = HOME_PAGES.findIndex((item) => item.id === page)
   if (nextIndex < 0 || nextIndex === activeIndex.value) return false
-  document.documentElement.dataset.homeDirection = nextIndex > activeIndex.value ? 'next' : 'previous'
+  const direction = nextIndex > activeIndex.value ? 'next' : 'previous'
+  document.documentElement.dataset.homeDirection = direction
+  runPageTransition(direction)
   focusPanelOnChange = focusPanel
   setActiveHomePage(page)
   return true
@@ -317,9 +335,12 @@ const teardownPager = () => {
   if (homeElement && onTouchEnd) homeElement.removeEventListener('touchend', onTouchEnd)
   if (homeElement && onTouchCancel) homeElement.removeEventListener('touchcancel', onTouchCancel)
   if (wheelUnlockTimer) window.clearTimeout(wheelUnlockTimer)
+  if (transitionTimer) window.clearTimeout(transitionTimer)
   wheelUnlockTimer = null
+  transitionTimer = null
   wheelDelta = 0
   wheelLocked = false
+  transitioning.value = false
   touchOrigin = null
   const home = homeElement
   const hero = home?.querySelector('.thero')
@@ -409,6 +430,17 @@ onUnmounted(() => {
       <i /> 滚轮切换
     </span>
   </nav>
+
+  <div
+    v-if="transitioning"
+    :key="transitionToken"
+    class="home-page-transition"
+    :class="`is-${transitionDirection}`"
+    aria-hidden="true"
+  >
+    <i class="home-page-transition__glow" />
+    <i class="home-page-transition__beam" />
+  </div>
 </template>
 
 <style scoped>
@@ -589,6 +621,98 @@ onUnmounted(() => {
   45% { opacity: 1; transform: translate(-50%, 6px); }
 }
 
+.home-page-transition {
+  position: fixed;
+  top: var(--vp-nav-height, 64px);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 172;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--vp-c-bg) 4%, transparent);
+  isolation: isolate;
+  animation: homeTransitionVeil 0.7s ease-out both;
+  pointer-events: none;
+}
+.home-page-transition::before,
+.home-page-transition__glow,
+.home-page-transition__beam {
+  position: absolute;
+  right: -8%;
+  left: -8%;
+  display: block;
+  pointer-events: none;
+}
+.home-page-transition::before {
+  content: '';
+  z-index: -1;
+  height: 42%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--vp-c-brand-1) 7%, transparent) 44%,
+    color-mix(in srgb, #8b5cf6 5%, transparent) 58%,
+    transparent
+  );
+  filter: blur(24px);
+}
+.home-page-transition__glow {
+  height: 18%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent),
+    transparent
+  );
+  filter: blur(18px);
+}
+.home-page-transition__beam {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 4%,
+    color-mix(in srgb, var(--vp-c-brand-1) 48%, transparent) 25%,
+    color-mix(in srgb, #8b5cf6 42%, transparent) 50%,
+    color-mix(in srgb, #22d3ee 52%, transparent) 75%,
+    transparent 96%
+  );
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--vp-c-brand-1) 25%, transparent),
+    0 0 32px color-mix(in srgb, #22d3ee 12%, transparent);
+}
+.home-page-transition.is-next::before,
+.home-page-transition.is-next .home-page-transition__glow,
+.home-page-transition.is-next .home-page-transition__beam {
+  animation: homeTransitionSweepNext 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.home-page-transition.is-previous::before,
+.home-page-transition.is-previous .home-page-transition__glow,
+.home-page-transition.is-previous .home-page-transition__beam {
+  animation: homeTransitionSweepPrevious 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.home-page-transition.is-next .home-page-transition__glow,
+.home-page-transition.is-previous .home-page-transition__glow { animation-delay: 0.025s; }
+.home-page-transition.is-next .home-page-transition__beam,
+.home-page-transition.is-previous .home-page-transition__beam { animation-delay: 0.055s; }
+@keyframes homeTransitionSweepNext {
+  0% { top: -42%; opacity: 0; }
+  18% { opacity: 0.82; }
+  72% { opacity: 0.48; }
+  100% { top: 108%; opacity: 0; }
+}
+@keyframes homeTransitionSweepPrevious {
+  0% { bottom: -42%; opacity: 0; }
+  18% { opacity: 0.82; }
+  72% { opacity: 0.48; }
+  100% { bottom: 108%; opacity: 0; }
+}
+@keyframes homeTransitionVeil {
+  0% { opacity: 0; }
+  16% { opacity: 1; }
+  72% { opacity: 0.72; }
+  100% { opacity: 0; }
+}
+
 @media (max-width: 1080px) {
   .home-pager__gesture { display: none; }
 }
@@ -620,5 +744,6 @@ onUnmounted(() => {
 @media (prefers-reduced-motion: reduce) {
   .home-pager__indicator { transition: none; }
   .home-pager__gesture i::before { animation: none; }
+  .home-page-transition { display: none; }
 }
 </style>

@@ -139,16 +139,6 @@ onMounted(() => {
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .home-page-panel.is-active {
-    animation: homePanelEnter 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-}
-@keyframes homePanelEnter {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 @media (max-width: 700px) {
   .home-page-panel__footer { margin-top: 28px; }
   .home-page-panel__footer button { padding-inline: 9px; }
