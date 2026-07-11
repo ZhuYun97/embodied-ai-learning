@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import {
   HOME_PAGES,
   activeHomePage,
-  setActiveHomePage,
+  requestHomePage,
 } from '../home-pager-state.mjs'
 
 const props = defineProps({
@@ -20,7 +20,7 @@ const previousPage = computed(() => HOME_PAGES[Math.max(0, pageIndex.value - 1)]
 const nextPage = computed(() => HOME_PAGES[Math.min(HOME_PAGES.length - 1, pageIndex.value + 1)])
 
 const go = (page) => {
-  if (page) setActiveHomePage(page.id)
+  if (page) requestHomePage(page.id, { focusPanel: true, source: 'footer' })
 }
 
 onMounted(() => {

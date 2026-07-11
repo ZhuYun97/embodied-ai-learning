@@ -5,18 +5,28 @@ import {
   HOME_PAGES,
   activeHomePage,
   setActiveHomePage,
+  setHomePageNavigator,
 } from '../home-pager-state.mjs'
 
 const tabButtons = ref([])
 const ready = ref(false)
 const transitioning = ref(false)
 const transitionDirection = ref('next')
-const transitionToken = ref(0)
+const transitionTarget = ref('')
+const boundaryMessage = ref('')
+const tabOrientation = ref('horizontal')
 const route = useRoute()
 const activeIndex = computed(() =>
   Math.max(0, HOME_PAGES.findIndex((page) => page.id === activeHomePage.value))
 )
 const activeMeta = computed(() => HOME_PAGES[activeIndex.value])
+const targetIndex = computed(() => {
+  const index = HOME_PAGES.findIndex((page) => page.id === transitionTarget.value)
+  return index >= 0 ? index : activeIndex.value
+})
+const visualIndex = computed(() => transitioning.value ? targetIndex.value : activeIndex.value)
+const liveMessage = computed(() => boundaryMessage.value ||
+  `当前页面：${activeMeta.value.label}，${activeMeta.value.description}`)
 
 let stopWatch = null
 let stopRouteWatch = null
@@ -28,7 +38,7 @@ let onTouchMove = null
 let onTouchEnd = null
 let onTouchCancel = null
 let homeElement = null
-let suppressNextHistory = false
+let nextSyncUpdateUrl = true
 let focusPanelOnChange = false
 let wheelDelta = 0
 let wheelLastAt = 0
@@ -37,16 +47,31 @@ let wheelLockDirection = 0
 let wheelReverseDelta = 0
 let wheelUnlockTimer = null
 let transitionTimer = null
+let transitionCommitTimer = null
+let pagerIntentTimer = null
+let boundaryTimer = null
+let boundaryMessageTimer = null
+let boundaryFrame = null
 let touchOrigin = null
 let pagerActive = false
+let pendingTransition = null
+let queuedTransition = null
+let returningTransition = false
+let reduceMotionQuery = null
+let onMotionPreferenceChange = null
+let orientationQuery = null
+let onOrientationChange = null
 
 const WHEEL_PIXEL_THRESHOLD = 28
 const WHEEL_LINE_THRESHOLD = 16
 const WHEEL_REVERSE_THRESHOLD = 10
 const WHEEL_IDLE_MS = 240
-const WHEEL_UNLOCK_MS = 180
+const WHEEL_UNLOCK_MS = 260
 const TOUCH_THRESHOLD = 44
-const TRANSITION_DURATION_MS = 700
+const TRANSITION_EXIT_MS = 130
+const TRANSITION_ENTER_MS = 280
+const TRANSITION_SETTLE_MS = 20
+const PAGER_INTENT_MAX_PX = 6
 const KEYBOARD_IGNORE_SELECTOR = [
   'input',
   'textarea',
@@ -121,32 +146,230 @@ const syncDocument = (page, { updateUrl = true, scroll = true } = {}) => {
   }
 }
 
-const runPageTransition = (direction) => {
-  transitionDirection.value = direction
-  transitionToken.value += 1
-  transitioning.value = true
-  if (transitionTimer) window.clearTimeout(transitionTimer)
-  transitionTimer = window.setTimeout(() => {
-    transitioning.value = false
-    transitionTimer = null
-  }, TRANSITION_DURATION_MS)
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  (reduceMotionQuery?.matches ?? window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)
+
+const activeStageElement = () => {
+  const page = activeHomePage.value
+  if (page === 'overview') return document.querySelector('.VPHome .thero')
+  if (page === 'explore') return document.querySelector('.VPHome .VPFeatures > .container')
+  return document.querySelector('.home-page-panel.is-active')
 }
 
-const activate = (page, { focusPanel = false } = {}) => {
+const clearPagerIntent = () => {
+  if (pagerIntentTimer) window.clearTimeout(pagerIntentTimer)
+  pagerIntentTimer = null
+  document.documentElement.style.removeProperty('--home-pager-intent')
+}
+
+const setPagerIntent = (delta, threshold) => {
+  if (prefersReducedMotion()) {
+    clearPagerIntent()
+    return
+  }
+  const progress = Math.max(-1, Math.min(1, delta / threshold))
+  document.documentElement.style.setProperty(
+    '--home-pager-intent',
+    `${(progress * PAGER_INTENT_MAX_PX).toFixed(2)}px`
+  )
+  if (pagerIntentTimer) window.clearTimeout(pagerIntentTimer)
+  pagerIntentTimer = window.setTimeout(clearPagerIntent, 150)
+}
+
+const finishPageTransition = () => {
+  const queued = queuedTransition
+  const wasReturning = returningTransition
+  if (transitionTimer) window.clearTimeout(transitionTimer)
+  transitionTimer = null
+  pendingTransition = null
+  queuedTransition = null
+  returningTransition = false
+  transitioning.value = false
+  transitionTarget.value = ''
+  const root = document.documentElement
+  delete root.dataset.homeTransitionPhase
+  delete root.dataset.homeExitDirection
+  delete root.dataset.homeInput
+
+  if (!queued || !pagerActive || queued.page === activeHomePage.value) return
+  // A reversed CSS exit keeps its animation-name until the phase attribute is
+  // removed. Flush once before reusing the same exit animation so a quick retry
+  // always starts from the fully restored panel instead of a finished timeline.
+  if (wasReturning) void activeStageElement()?.offsetHeight
+  runPageTransition(queued.page, queued.direction, queued.options)
+}
+
+const commitPageTransition = () => {
+  const request = pendingTransition
+  transitionCommitTimer = null
+  if (!request) {
+    finishPageTransition()
+    return
+  }
+
+  pendingTransition = null
+  focusPanelOnChange = request.focusPanel
+  nextSyncUpdateUrl = request.updateUrl
+  const root = document.documentElement
+  root.dataset.homeTransitionPhase = 'swapping'
+  setActiveHomePage(request.page)
+  nextTick(() => {
+    if (!pagerActive) return
+    root.dataset.homeTransitionPhase = 'entering'
+    if (transitionTimer) window.clearTimeout(transitionTimer)
+    // CSS animation attaches on the next frame; keep a one-frame safety margin
+    // before consuming a queued request so its exit always starts from opacity 1.
+    transitionTimer = window.setTimeout(
+      finishPageTransition,
+      TRANSITION_ENTER_MS + TRANSITION_SETTLE_MS
+    )
+  })
+}
+
+const cancelPageTransition = () => {
+  if (transitionCommitTimer) window.clearTimeout(transitionCommitTimer)
+  if (transitionTimer) window.clearTimeout(transitionTimer)
+  transitionCommitTimer = null
+  transitionTimer = null
+  pendingTransition = null
+  transitionTarget.value = activeHomePage.value
+  transitioning.value = true
+  returningTransition = true
+  const exitAnimation = activeStageElement()?.getAnimations?.()
+    .find((animation) => animation.animationName?.startsWith('homeFullpageExit'))
+  if (exitAnimation) exitAnimation.reverse()
+  else document.documentElement.dataset.homeTransitionPhase = 'returning'
+  transitionTimer = window.setTimeout(finishPageTransition, 180)
+}
+
+const runPageTransition = (
+  page,
+  direction,
+  { focusPanel = false, source = 'direct', updateUrl = true } = {}
+) => {
+  const root = document.documentElement
+  if (root.dataset.homeTransitionPhase === 'entering' || returningTransition) {
+    queuedTransition = {
+      page,
+      direction,
+      options: { focusPanel, source, updateUrl },
+    }
+    transitionDirection.value = direction
+    transitionTarget.value = page
+    return
+  }
+
+  transitionDirection.value = direction
+  transitionTarget.value = page
+  transitioning.value = true
+  pendingTransition = {
+    page,
+    focusPanel,
+    updateUrl,
+  }
+
+  if (boundaryFrame) window.cancelAnimationFrame(boundaryFrame)
+  boundaryFrame = null
+  if (boundaryTimer) window.clearTimeout(boundaryTimer)
+  boundaryTimer = null
+  root.classList.remove('home-boundary-hit')
+  delete root.dataset.homeBoundary
+  root.dataset.homeDirection = direction
+  root.dataset.homeInput = source
+
+  if (transitionTimer) {
+    window.clearTimeout(transitionTimer)
+    transitionTimer = null
+  }
+  if (transitionCommitTimer) return
+
+  root.dataset.homeExitDirection = direction
+  root.dataset.homeTransitionPhase = 'leaving'
+  transitionCommitTimer = window.setTimeout(commitPageTransition, TRANSITION_EXIT_MS)
+}
+
+const activate = (
+  page,
+  {
+    focusPanel = false,
+    direction: requestedDirection,
+    source = 'direct',
+    updateUrl = true,
+  } = {}
+) => {
   const nextIndex = HOME_PAGES.findIndex((item) => item.id === page)
-  if (nextIndex < 0 || nextIndex === activeIndex.value) return false
-  const direction = nextIndex > activeIndex.value ? 'next' : 'previous'
-  document.documentElement.dataset.homeDirection = direction
-  runPageTransition(direction)
-  focusPanelOnChange = focusPanel
-  setActiveHomePage(page)
+  if (nextIndex < 0) return false
+  if (nextIndex === activeIndex.value) {
+    if (queuedTransition && transitionTarget.value !== page) {
+      queuedTransition = null
+      transitionTarget.value = activeHomePage.value
+      transitionDirection.value = document.documentElement.dataset.homeDirection || 'next'
+      if (updateUrl) {
+        syncDocument(activeHomePage.value, { updateUrl: true, scroll: false })
+      }
+      return true
+    }
+    if (transitioning.value && transitionTarget.value && transitionTarget.value !== page) {
+      cancelPageTransition()
+      if (updateUrl) {
+        syncDocument(activeHomePage.value, { updateUrl: true, scroll: false })
+      }
+      return true
+    }
+    return false
+  }
+
+  const direction = requestedDirection || (nextIndex > activeIndex.value ? 'next' : 'previous')
+  if (prefersReducedMotion()) {
+    document.documentElement.dataset.homeDirection = direction
+    focusPanelOnChange = focusPanel
+    nextSyncUpdateUrl = updateUrl
+    setActiveHomePage(page)
+    return true
+  }
+
+  runPageTransition(page, direction, { focusPanel, source, updateUrl })
   return true
 }
 
 const selectRelative = (offset, options) => {
-  const nextIndex = Math.min(HOME_PAGES.length - 1, Math.max(0, activeIndex.value + offset))
-  if (nextIndex === activeIndex.value) return false
-  return activate(HOME_PAGES[nextIndex].id, options)
+  const baseIndex = transitioning.value ? targetIndex.value : activeIndex.value
+  const nextIndex = Math.min(HOME_PAGES.length - 1, Math.max(0, baseIndex + offset))
+  if (nextIndex === baseIndex) {
+    const root = document.documentElement
+    const boundary = offset > 0 ? 'end' : 'start'
+    root.dataset.homeBoundary = boundary
+    root.classList.remove('home-boundary-hit')
+    if (boundaryFrame) window.cancelAnimationFrame(boundaryFrame)
+    boundaryFrame = null
+    if (!transitioning.value && !prefersReducedMotion()) {
+      boundaryFrame = window.requestAnimationFrame(() => {
+        boundaryFrame = null
+        if (pagerActive) root.classList.add('home-boundary-hit')
+      })
+    }
+    if (boundaryTimer) window.clearTimeout(boundaryTimer)
+    boundaryTimer = window.setTimeout(() => {
+      root.classList.remove('home-boundary-hit')
+      delete root.dataset.homeBoundary
+      boundaryTimer = null
+    }, 260)
+    const boundaryMeta = HOME_PAGES[baseIndex]
+    boundaryMessage.value = boundary === 'end'
+      ? `已到最后一页：${boundaryMeta.label}`
+      : `已到第一页：${boundaryMeta.label}`
+    if (boundaryMessageTimer) window.clearTimeout(boundaryMessageTimer)
+    boundaryMessageTimer = window.setTimeout(() => {
+      boundaryMessage.value = ''
+      boundaryMessageTimer = null
+    }, 1200)
+    return false
+  }
+  return activate(HOME_PAGES[nextIndex].id, {
+    ...options,
+    direction: offset > 0 ? 'next' : 'previous',
+  })
 }
 
 const unlockWheelAfterGesture = () => {
@@ -157,25 +380,31 @@ const unlockWheelAfterGesture = () => {
     wheelReverseDelta = 0
     wheelDelta = 0
     wheelUnlockTimer = null
+    clearPagerIntent()
   }, WHEEL_UNLOCK_MS)
 }
 
 const onTabKeydown = async (event, index) => {
   let nextIndex = index
+  let direction = null
   if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
     nextIndex = (index + 1) % HOME_PAGES.length
+    direction = 'next'
   } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
     nextIndex = (index - 1 + HOME_PAGES.length) % HOME_PAGES.length
+    direction = 'previous'
   } else if (event.key === 'Home') {
     nextIndex = 0
+    direction = nextIndex < index ? 'previous' : 'next'
   } else if (event.key === 'End') {
     nextIndex = HOME_PAGES.length - 1
+    direction = nextIndex > index ? 'next' : 'previous'
   } else {
     return
   }
 
   event.preventDefault()
-  activate(HOME_PAGES[nextIndex].id)
+  activate(HOME_PAGES[nextIndex].id, { direction, source: 'tab-keyboard' })
   await nextTick()
   tabButtons.value[nextIndex]?.focus()
 }
@@ -185,6 +414,46 @@ const setupPager = () => {
   const home = document.querySelector('.VPHome')
   if (!home) return
   pagerActive = true
+  setHomePageNavigator(activate)
+  reduceMotionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)') || null
+  orientationQuery = window.matchMedia?.('(min-width: 960px)') || null
+  onOrientationChange = (event) => {
+    tabOrientation.value = event.matches ? 'vertical' : 'horizontal'
+  }
+  onOrientationChange(orientationQuery || { matches: false })
+  orientationQuery?.addEventListener?.('change', onOrientationChange)
+  onMotionPreferenceChange = (event) => {
+    if (!event.matches) return
+    clearPagerIntent()
+    if (boundaryFrame) window.cancelAnimationFrame(boundaryFrame)
+    boundaryFrame = null
+    if (transitionCommitTimer) window.clearTimeout(transitionCommitTimer)
+    if (transitionTimer) window.clearTimeout(transitionTimer)
+    transitionCommitTimer = null
+    transitionTimer = null
+
+    const request = queuedTransition
+      ? { page: queuedTransition.page, ...queuedTransition.options }
+      : pendingTransition
+    pendingTransition = null
+    queuedTransition = null
+    returningTransition = false
+    transitioning.value = false
+    transitionTarget.value = ''
+    const root = document.documentElement
+    root.classList.remove('home-boundary-hit')
+    delete root.dataset.homeTransitionPhase
+    delete root.dataset.homeExitDirection
+    delete root.dataset.homeBoundary
+    delete root.dataset.homeInput
+
+    if (request && request.page !== activeHomePage.value) {
+      focusPanelOnChange = request.focusPanel
+      nextSyncUpdateUrl = request.updateUrl
+      setActiveHomePage(request.page)
+    }
+  }
+  reduceMotionQuery?.addEventListener?.('change', onMotionPreferenceChange)
 
   const initialPage = pageFromHash() || 'overview'
   setActiveHomePage(initialPage)
@@ -197,16 +466,19 @@ const setupPager = () => {
     features.id = 'home-page-explore'
     features.setAttribute('role', 'tabpanel')
     features.setAttribute('aria-labelledby', 'home-tab-explore')
+    features.setAttribute('tabindex', '-1')
   }
   ready.value = true
 
   stopWatch = watch(activeHomePage, (page) => {
+    const updateUrl = nextSyncUpdateUrl
+    nextSyncUpdateUrl = true
     syncDocument(page, {
-      updateUrl: !suppressNextHistory,
+      updateUrl,
       scroll: true,
     })
-    suppressNextHistory = false
     nextTick(() => {
+      if (!pagerActive) return
       const focusedInHiddenView = document.activeElement?.closest?.('[hidden], [aria-hidden="true"]')
       if (focusPanelOnChange || focusedInHiddenView) {
         document.getElementById(`home-page-${page}`)?.focus({ preventScroll: true })
@@ -216,11 +488,17 @@ const setupPager = () => {
   })
   onLocationChange = () => {
     const explicitPage = explicitPageFromHash()
-    const page = pageFromHash()
+    const page = pageFromHash() || (!window.location.hash ? 'overview' : null)
     if (!page) return
-    if (page !== activeHomePage.value) {
-      suppressNextHistory = true
-      activate(page)
+    if (
+      page !== activeHomePage.value ||
+      (transitioning.value && transitionTarget.value && transitionTarget.value !== page)
+    ) {
+      const alreadyCurrent = page === activeHomePage.value
+      activate(page, { source: 'history', updateUrl: false })
+      if (alreadyCurrent) {
+        syncDocument(page, { updateUrl: false, scroll: true })
+      }
     } else if (explicitPage) {
       syncDocument(page, { updateUrl: false })
     } else {
@@ -233,7 +511,9 @@ const setupPager = () => {
     if (!isNext && !isPrevious) return
     if (event.repeat || event.isComposing || event.ctrlKey || event.metaKey || event.altKey) return
     if (event.target?.closest?.(KEYBOARD_IGNORE_SELECTOR)) return
-    if (selectRelative(isNext ? 1 : -1, { focusPanel: true })) event.preventDefault()
+    if (selectRelative(isNext ? 1 : -1, { focusPanel: true, source: 'page-key' })) {
+      event.preventDefault()
+    }
   }
   onPageWheel = (event) => {
     if (
@@ -260,15 +540,20 @@ const setupPager = () => {
         : 1
     const normalizedDelta = event.deltaY * multiplier
     const direction = Math.sign(normalizedDelta)
+    const threshold = event.deltaMode === 0
+      ? WHEEL_PIXEL_THRESHOLD
+      : WHEEL_LINE_THRESHOLD
 
     if (wheelLocked) {
       if (direction === wheelLockDirection) {
         wheelReverseDelta = 0
+        clearPagerIntent()
         unlockWheelAfterGesture()
         return
       }
 
       wheelReverseDelta += normalizedDelta
+      setPagerIntent(wheelReverseDelta, threshold)
       if (Math.abs(wheelReverseDelta) < WHEEL_REVERSE_THRESHOLD) {
         unlockWheelAfterGesture()
         return
@@ -283,25 +568,25 @@ const setupPager = () => {
     } else {
       if (wheelDelta && direction !== Math.sign(wheelDelta)) wheelDelta = 0
       wheelDelta += normalizedDelta
+      setPagerIntent(wheelDelta, threshold)
     }
 
-    const threshold = event.deltaMode === 0
-      ? WHEEL_PIXEL_THRESHOLD
-      : WHEEL_LINE_THRESHOLD
     if (Math.abs(wheelDelta) < threshold) return
 
     const triggerDirection = Math.sign(wheelDelta)
-    const changed = selectRelative(triggerDirection > 0 ? 1 : -1)
+    const changed = selectRelative(triggerDirection > 0 ? 1 : -1, { source: 'wheel' })
     wheelDelta = 0
-    if (!changed) return
+    clearPagerIntent()
     wheelLocked = true
     wheelLockDirection = triggerDirection
     wheelReverseDelta = 0
     unlockWheelAfterGesture()
+    if (!changed) return
   }
   onTouchStart = (event) => {
     if (event.touches.length !== 1) {
       touchOrigin = null
+      clearPagerIntent()
       return
     }
     const touch = event.touches[0]
@@ -319,6 +604,7 @@ const setupPager = () => {
     const deltaY = touchOrigin.y - touch.clientY
     if (Math.abs(deltaY) >= 12 && Math.abs(deltaY) > Math.abs(deltaX) * 1.15) {
       touchOrigin.vertical = true
+      setPagerIntent(deltaY, TOUCH_THRESHOLD)
       if (event.cancelable) event.preventDefault()
     }
   }
@@ -333,11 +619,13 @@ const setupPager = () => {
     const elapsed = window.performance.now() - touchOrigin.startedAt
     const wasVertical = touchOrigin.vertical
     touchOrigin = null
+    clearPagerIntent()
     if (!wasVertical || elapsed > 850 || Math.abs(deltaY) < TOUCH_THRESHOLD || Math.abs(deltaY) <= Math.abs(deltaX) * 1.15) return
-    selectRelative(deltaY > 0 ? 1 : -1)
+    selectRelative(deltaY > 0 ? 1 : -1, { source: 'touch' })
   }
   onTouchCancel = () => {
     touchOrigin = null
+    clearPagerIntent()
   }
   window.addEventListener('popstate', onLocationChange)
   window.addEventListener('hashchange', onLocationChange)
@@ -352,6 +640,16 @@ const setupPager = () => {
 const teardownPager = () => {
   pagerActive = false
   ready.value = false
+  setHomePageNavigator(null)
+  nextSyncUpdateUrl = true
+  focusPanelOnChange = false
+  reduceMotionQuery?.removeEventListener?.('change', onMotionPreferenceChange)
+  reduceMotionQuery = null
+  onMotionPreferenceChange = null
+  orientationQuery?.removeEventListener?.('change', onOrientationChange)
+  orientationQuery = null
+  onOrientationChange = null
+  tabOrientation.value = 'horizontal'
   if (stopWatch) {
     stopWatch()
     stopWatch = null
@@ -372,13 +670,29 @@ const teardownPager = () => {
   if (homeElement && onTouchCancel) homeElement.removeEventListener('touchcancel', onTouchCancel)
   if (wheelUnlockTimer) window.clearTimeout(wheelUnlockTimer)
   if (transitionTimer) window.clearTimeout(transitionTimer)
+  if (transitionCommitTimer) window.clearTimeout(transitionCommitTimer)
+  if (pagerIntentTimer) window.clearTimeout(pagerIntentTimer)
+  if (boundaryTimer) window.clearTimeout(boundaryTimer)
+  if (boundaryMessageTimer) window.clearTimeout(boundaryMessageTimer)
+  if (boundaryFrame) window.cancelAnimationFrame(boundaryFrame)
   wheelUnlockTimer = null
   transitionTimer = null
+  transitionCommitTimer = null
+  pagerIntentTimer = null
+  boundaryTimer = null
+  boundaryMessageTimer = null
+  boundaryFrame = null
   wheelDelta = 0
+  wheelLastAt = 0
   wheelLocked = false
   wheelLockDirection = 0
   wheelReverseDelta = 0
   transitioning.value = false
+  transitionTarget.value = ''
+  boundaryMessage.value = ''
+  pendingTransition = null
+  queuedTransition = null
+  returningTransition = false
   touchOrigin = null
   const home = homeElement
   const hero = home?.querySelector('.thero')
@@ -391,6 +705,7 @@ const teardownPager = () => {
     features.removeAttribute('role')
     features.removeAttribute('aria-labelledby')
     features.removeAttribute('aria-hidden')
+    features.removeAttribute('tabindex')
   }
   homeElement = null
   onPageWheel = null
@@ -398,9 +713,15 @@ const teardownPager = () => {
   onTouchMove = null
   onTouchEnd = null
   onTouchCancel = null
-  document.documentElement.classList.remove('home-pager-ready')
-  delete document.documentElement.dataset.homePage
-  delete document.documentElement.dataset.homeDirection
+  const root = document.documentElement
+  root.classList.remove('home-pager-ready', 'home-boundary-hit')
+  root.style.removeProperty('--home-pager-intent')
+  delete root.dataset.homePage
+  delete root.dataset.homeDirection
+  delete root.dataset.homeTransitionPhase
+  delete root.dataset.homeExitDirection
+  delete root.dataset.homeBoundary
+  delete root.dataset.homeInput
   setActiveHomePage('overview')
 }
 
@@ -424,12 +745,24 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <nav v-show="ready" class="home-pager" aria-label="主页五页切换">
+  <nav
+    v-show="ready"
+    class="home-pager"
+    :class="[
+      { 'is-transitioning': transitioning },
+      transitioning ? `is-${transitionDirection}` : '',
+    ]"
+    aria-label="主页五页切换"
+  >
     <div
       class="home-pager__tabs"
       role="tablist"
       aria-label="选择主页内容"
-      :style="{ '--home-page-offset': `${activeIndex * 100}%` }"
+      :aria-orientation="tabOrientation"
+      :style="{
+        '--home-page-offset': `${visualIndex * 100}%`,
+        '--home-page-progress-y': `${visualIndex * 38}px`,
+      }"
     >
       <i
         class="home-pager__indicator"
@@ -442,14 +775,17 @@ onUnmounted(() => {
         :ref="(element) => { if (element) tabButtons[index] = element }"
         type="button"
         role="tab"
-        :class="{ 'is-active': activeHomePage === page.id }"
+        :class="{
+          'is-active': activeHomePage === page.id,
+          'is-target': transitioning && transitionTarget === page.id,
+        }"
         :aria-label="`${page.index} ${page.label}，${page.shortLabel}`"
         :aria-selected="activeHomePage === page.id"
         :aria-controls="page.id === 'explore'
           ? 'home-page-explore'
           : `home-page-${page.id}`"
         :tabindex="activeHomePage === page.id ? 0 : -1"
-        @click="activate(page.id)"
+        @click="activate(page.id, { source: 'tab-click' })"
         @keydown="onTabKeydown($event, index)"
       >
         <span>{{ page.index }}</span>
@@ -461,20 +797,9 @@ onUnmounted(() => {
     </div>
 
     <span class="home-pager__live" aria-live="polite">
-      当前页面：{{ activeMeta.label }}，{{ activeMeta.description }}
+      {{ liveMessage }}
     </span>
   </nav>
-
-  <div
-    v-if="transitioning"
-    :key="transitionToken"
-    class="home-page-transition"
-    :class="`is-${transitionDirection}`"
-    aria-hidden="true"
-  >
-    <i class="home-page-transition__glow" />
-    <i class="home-page-transition__beam" />
-  </div>
 </template>
 
 <style scoped>
@@ -512,6 +837,7 @@ onUnmounted(() => {
 }
 .home-pager__indicator {
   position: absolute;
+  z-index: 1;
   top: 0;
   bottom: 0;
   left: 0;
@@ -522,9 +848,18 @@ onUnmounted(() => {
     linear-gradient(135deg, color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent), transparent),
     color-mix(in srgb, var(--vp-c-bg) 72%, transparent);
   box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
-  transform: translateX(var(--home-page-offset));
-  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateX(calc(var(--home-page-offset) + var(--home-pager-intent, 0px)));
+  transition:
+    transform 0.32s cubic-bezier(0.2, 0, 0.38, 0.9),
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   pointer-events: none;
+}
+.home-pager.is-transitioning .home-pager__indicator {
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 58%, var(--vp-c-divider));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 14%, transparent),
+    0 0 20px color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent);
 }
 .dark .home-pager__indicator {
   background:
@@ -534,7 +869,7 @@ onUnmounted(() => {
 }
 .home-pager button {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   min-width: 0;
   min-height: 36px;
@@ -567,9 +902,19 @@ onUnmounted(() => {
   display: none;
 }
 .home-pager button:hover,
-.home-pager button.is-active { color: var(--vp-c-brand-1); }
+.home-pager button.is-active,
+.home-pager button.is-target { color: var(--vp-c-brand-1); }
 .home-pager button.is-active > span:first-child,
+.home-pager button.is-target > span:first-child,
 .home-pager button.is-active small { color: var(--vp-c-brand-1); }
+.home-pager button.is-target > span:first-child {
+  animation: homePagerTargetTick 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes homePagerTargetTick {
+  0% { opacity: 0.45; transform: scale(0.78); }
+  70% { opacity: 1; transform: scale(1.12); }
+  100% { opacity: 1; transform: scale(1); }
+}
 .home-pager button:focus-visible {
   outline: 2px solid var(--vp-c-brand-1);
   outline-offset: 1px;
@@ -584,97 +929,6 @@ onUnmounted(() => {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-.home-page-transition {
-  position: fixed;
-  top: var(--vp-nav-height, 64px);
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 18;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--vp-c-bg) 4%, transparent);
-  isolation: isolate;
-  animation: homeTransitionVeil 0.7s ease-out both;
-  pointer-events: none;
-}
-.home-page-transition::before,
-.home-page-transition__glow,
-.home-page-transition__beam {
-  position: absolute;
-  right: -8%;
-  left: -8%;
-  display: block;
-  pointer-events: none;
-}
-.home-page-transition::before {
-  content: '';
-  z-index: -1;
-  height: 42%;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    color-mix(in srgb, var(--vp-c-brand-1) 7%, transparent) 44%,
-    color-mix(in srgb, #8b5cf6 5%, transparent) 58%,
-    transparent
-  );
-  filter: blur(24px);
-}
-.home-page-transition__glow {
-  height: 18%;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent),
-    transparent
-  );
-  filter: blur(18px);
-}
-.home-page-transition__beam {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 4%,
-    color-mix(in srgb, var(--vp-c-brand-1) 48%, transparent) 25%,
-    color-mix(in srgb, #8b5cf6 42%, transparent) 50%,
-    color-mix(in srgb, #22d3ee 52%, transparent) 75%,
-    transparent 96%
-  );
-  box-shadow:
-    0 0 12px color-mix(in srgb, var(--vp-c-brand-1) 25%, transparent),
-    0 0 32px color-mix(in srgb, #22d3ee 12%, transparent);
-}
-.home-page-transition.is-next::before,
-.home-page-transition.is-next .home-page-transition__glow,
-.home-page-transition.is-next .home-page-transition__beam {
-  animation: homeTransitionSweepNext 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.home-page-transition.is-previous::before,
-.home-page-transition.is-previous .home-page-transition__glow,
-.home-page-transition.is-previous .home-page-transition__beam {
-  animation: homeTransitionSweepPrevious 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.home-page-transition.is-next .home-page-transition__glow,
-.home-page-transition.is-previous .home-page-transition__glow { animation-delay: 0.025s; }
-.home-page-transition.is-next .home-page-transition__beam,
-.home-page-transition.is-previous .home-page-transition__beam { animation-delay: 0.055s; }
-@keyframes homeTransitionSweepNext {
-  0% { top: -42%; opacity: 0; }
-  18% { opacity: 0.82; }
-  72% { opacity: 0.48; }
-  100% { top: 108%; opacity: 0; }
-}
-@keyframes homeTransitionSweepPrevious {
-  0% { bottom: -42%; opacity: 0; }
-  18% { opacity: 0.82; }
-  72% { opacity: 0.48; }
-  100% { bottom: 108%; opacity: 0; }
-}
-@keyframes homeTransitionVeil {
-  0% { opacity: 0; }
-  16% { opacity: 1; }
-  72% { opacity: 0.72; }
-  100% { opacity: 0; }
 }
 
 @media (min-width: 960px) {
@@ -693,6 +947,28 @@ onUnmounted(() => {
     grid-template-rows: repeat(5, 38px);
     pointer-events: none;
   }
+  .home-pager__tabs::before,
+  .home-pager__tabs::after {
+    content: '';
+    position: absolute;
+    top: 19px;
+    left: 50%;
+    z-index: 0;
+    width: 1px;
+    border-radius: 999px;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .home-pager__tabs::before {
+    height: calc(100% - 38px);
+    background: color-mix(in srgb, var(--vp-c-brand-1) 16%, var(--vp-c-divider));
+  }
+  .home-pager__tabs::after {
+    height: var(--home-page-progress-y);
+    background: linear-gradient(180deg, #2563eb, #22d3ee);
+    box-shadow: 0 0 8px rgba(34, 211, 238, 0.3);
+    transition: height 0.32s cubic-bezier(0.2, 0, 0.38, 0.9);
+  }
   .home-pager__indicator {
     top: 0;
     right: 0;
@@ -700,7 +976,7 @@ onUnmounted(() => {
     width: 100%;
     height: 20%;
     border-radius: 11px;
-    transform: translateY(var(--home-page-offset));
+    transform: translateY(calc(var(--home-page-offset) + var(--home-pager-intent, 0px)));
   }
   .home-pager button {
     width: 100%;
@@ -744,9 +1020,14 @@ onUnmounted(() => {
     line-height: 1;
   }
   .home-pager button:hover > span:last-child,
-  .home-pager button:focus-visible > span:last-child {
+  .home-pager button:focus-visible > span:last-child,
+  .home-pager.is-transitioning button.is-target > span:last-child {
     opacity: 1;
     transform: translate(0, -50%);
+  }
+  .home-pager.is-transitioning button:not(.is-target) > span:last-child {
+    opacity: 0;
+    transform: translate(5px, -50%);
   }
 }
 
@@ -779,7 +1060,8 @@ onUnmounted(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-pager__indicator { transition: none; }
-  .home-page-transition { display: none; }
+  .home-pager__indicator,
+  .home-pager__tabs::after { transition: none; }
+  .home-pager button.is-target > span:first-child { animation: none; }
 }
 </style>

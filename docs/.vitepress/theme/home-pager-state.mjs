@@ -40,8 +40,21 @@ export const HOME_PAGES = [
 
 export const activeHomePage = ref('overview')
 
+let homePageNavigator = null
+
 export function setActiveHomePage(page) {
   if (HOME_PAGES.some((item) => item.id === page)) {
     activeHomePage.value = page
+    return true
   }
+  return false
+}
+
+export function setHomePageNavigator(navigator) {
+  homePageNavigator = typeof navigator === 'function' ? navigator : null
+}
+
+export function requestHomePage(page, options = {}) {
+  if (homePageNavigator) return homePageNavigator(page, options)
+  return setActiveHomePage(page)
 }

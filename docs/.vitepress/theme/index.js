@@ -1300,6 +1300,7 @@ const TechHero = {
         class: 'thero',
         role: 'tabpanel',
         'aria-labelledby': 'home-tab-overview',
+        tabindex: '-1',
       }, [
         h('div', { class: 'thero__bar' }, [
           h('span', { class: 'thero__bar-dot' }),

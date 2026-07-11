@@ -9568,52 +9568,109 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
 
 /* ============================================================
    五屏统一换页动效
-   Hero、旋转菜单与内容 panel 共用同一方向语言；旋转菜单只移动外层
-   container，避免覆盖其内部 3D 公转 transform。
+   130ms 旧页轻退 + 280ms 新页接入；背景、顶栏和右侧页轨保持固定，
+   让用户始终有空间参照。只动画 opacity / transform，避免整屏 blur 和
+   扫描遮罩造成的文字发虚与重绘抖动。
    ============================================================ */
 @media (prefers-reduced-motion: no-preference) {
-  html.home-pager-ready[data-home-direction='next'][data-home-page='overview'] .VPHome .thero,
-  html.home-pager-ready[data-home-direction='next'][data-home-page='explore'] .VPHome .VPFeatures > .container,
-  html.home-pager-ready[data-home-direction='next'] .home-page-panel.is-active {
-    animation: homeFullpageEnterNext 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
+  /* Full-page 已有统一时间轴，不再叠加卡片的首屏 reveal / rise。 */
+  html.home-pager-ready .VPHome .reveal-up,
+  html.home-pager-ready .VPHome .reveal-up.is-in {
+    opacity: 1;
+    translate: 0 0;
+    animation: none !important;
   }
-  html.home-pager-ready[data-home-direction='previous'][data-home-page='overview'] .VPHome .thero,
-  html.home-pager-ready[data-home-direction='previous'][data-home-page='explore'] .VPHome .VPFeatures > .container,
-  html.home-pager-ready[data-home-direction='previous'] .home-page-panel.is-active {
-    animation: homeFullpageEnterPrevious 0.52s cubic-bezier(0.16, 1, 0.3, 1) both;
+  html.home-pager-ready .VPHome .VPFeature {
+    animation: none !important;
   }
+
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='leaving'] .home-page-panel.is-active,
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='entering'] .home-page-panel.is-active,
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='returning'] .home-page-panel.is-active {
+    will-change: opacity, transform;
+    pointer-events: none;
+  }
+
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='next'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='next'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='next'] .home-page-panel.is-active {
+    animation: homeFullpageExitNext 0.13s cubic-bezier(0.2, 0, 1, 0.9) both;
+  }
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='previous'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='previous'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='previous'] .home-page-panel.is-active {
+    animation: homeFullpageExitPrevious 0.13s cubic-bezier(0.2, 0, 1, 0.9) both;
+  }
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='next'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='next'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='next'] .home-page-panel.is-active {
+    animation: homeFullpageEnterNext 0.28s cubic-bezier(0, 0, 0.38, 0.9) both;
+  }
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='previous'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='previous'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='previous'] .home-page-panel.is-active {
+    animation: homeFullpageEnterPrevious 0.28s cubic-bezier(0, 0, 0.38, 0.9) both;
+  }
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='next'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='next'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='next'] .home-page-panel.is-active {
+    animation: homeFullpageReturnNext 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='previous'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='previous'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='previous'] .home-page-panel.is-active {
+    animation: homeFullpageReturnPrevious 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* 首尾继续滚动时给出轻阻尼，不吞掉用户意图。 */
+  html.home-pager-ready.home-boundary-hit:not([data-home-transition-phase])[data-home-boundary='end'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready.home-boundary-hit:not([data-home-transition-phase])[data-home-boundary='end'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready.home-boundary-hit:not([data-home-transition-phase])[data-home-boundary='end'] .home-page-panel.is-active {
+    animation: homeFullpageBoundaryEnd 0.26s cubic-bezier(0.2, 0, 0.38, 0.9);
+  }
+  html.home-pager-ready.home-boundary-hit:not([data-home-transition-phase])[data-home-boundary='start'][data-home-page='overview'] .VPHome .thero,
+  html.home-pager-ready.home-boundary-hit:not([data-home-transition-phase])[data-home-boundary='start'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready.home-boundary-hit:not([data-home-transition-phase])[data-home-boundary='start'] .home-page-panel.is-active {
+    animation: homeFullpageBoundaryStart 0.26s cubic-bezier(0.2, 0, 0.38, 0.9);
+  }
+}
+@keyframes homeFullpageExitNext {
+  from { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  to { opacity: 0; transform: translate3d(0, -10px, 0) scale(0.997); }
+}
+@keyframes homeFullpageExitPrevious {
+  from { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  to { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.997); }
 }
 @keyframes homeFullpageEnterNext {
-  0% {
-    opacity: 0;
-    filter: blur(3px);
-    transform: translate3d(0, 28px, 0) scale(0.988);
-  }
-  58% {
-    opacity: 1;
-    filter: blur(0.35px);
-  }
-  100% {
-    opacity: 1;
-    filter: none;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
+  from { opacity: 0; transform: translate3d(0, 18px, 0) scale(0.994); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 }
 @keyframes homeFullpageEnterPrevious {
-  0% {
-    opacity: 0;
-    filter: blur(3px);
-    transform: translate3d(0, -28px, 0) scale(0.988);
-  }
-  58% {
-    opacity: 1;
-    filter: blur(0.35px);
-  }
-  100% {
-    opacity: 1;
-    filter: none;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
+  from { opacity: 0; transform: translate3d(0, -18px, 0) scale(0.994); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes homeFullpageReturnNext {
+  from { opacity: 0.58; transform: translate3d(0, -7px, 0) scale(0.997); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes homeFullpageReturnPrevious {
+  from { opacity: 0.58; transform: translate3d(0, 7px, 0) scale(0.997); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes homeFullpageBoundaryEnd {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  45% { transform: translate3d(0, -3px, 0); }
+}
+@keyframes homeFullpageBoundaryStart {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  45% { transform: translate3d(0, 3px, 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
