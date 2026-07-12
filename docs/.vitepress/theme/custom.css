@@ -3336,8 +3336,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   pointer-events: none; z-index: 5;   /* 纯装饰,点击穿透到背后卡片 */
 }
 .VPHome .VPFeatures .feat-hub__robot {
-  height: 150px; width: auto; pointer-events: none;
-  filter: drop-shadow(0 0 26px rgba(56, 189, 248, 0.45));
+  height: 132px; width: auto; pointer-events: none;
+  filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.38));
 }
 .VPHome .VPFeatures .feat-hub__status {
   display: grid;
@@ -3356,7 +3356,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   letter-spacing: 0.06em;
 }
 .dark .VPHome .VPFeatures .feat-hub__robot {
-  filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.55));
+  filter: drop-shadow(0 0 24px rgba(56, 189, 248, 0.46));
 }
 @media (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .feat-hub__robot { animation: heroFloat 6s ease-in-out infinite; }
@@ -3367,15 +3367,15 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
 @media (min-width: 960px) and (min-height: 681px) and (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .items {
-    position: relative; width: 100%; height: 380px; margin: 0 auto; padding: 0;
+    position: relative; width: 100%; height: 350px; margin: 0 auto; padding: 0;
     perspective: 1450px; perspective-origin: 50% 42%;   /* 略俯视的 3D 观察点 */
     transform-style: preserve-3d;
     /* 关键:容器自身 z=0 平面会挡住「后排卡(z<0)」的点击 → 容器穿透,卡片可点 */
     pointer-events: none;
-    translate: 0 -10px;
+    translate: 0 -4px;
     --rx: min(365px, calc(50vw - 115px));   /* 横向半径(左右更宽,平板随视口收缩)*/
-    --yt: 132px;   /* 拉开同 x 的前后排,让卡片在完整公转周期内都不互相盖住 */
-    --rz: 180px;   /* 收敛近大远小,降低前排卡对相邻节点的视觉侵占 */
+    --yt: 118px;   /* 收紧垂直轨道，为上下 HUD 留出更稳定的呼吸区 */
+    --rz: 165px;   /* 收敛近大远小,降低前排卡对相邻节点的视觉侵占 */
   }
   /* 前移到所有卡(z≤--rz=210)之前 → 永不被遮挡、可点;perspective 下略放大,作为中心焦点 */
   .VPHome .VPFeatures .feat-hub { display: flex; transform: translate(-50%, -50%) translateZ(255px); }
@@ -3387,27 +3387,27 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     animation-play-state: paused;
   }
 
-  /* 轨道线:60 个圆点沿与卡片相同的 3D 公式分布(各自 --a 角度)→ 精确勾出卡片公转轨迹,
-     带透视深度(前大后小);静止(轨道不动,卡片在其上公转)。密+亮 → 更像实线。 */
+  /* 轨道线:48 个圆点沿与卡片相同的 3D 公式分布(各自 --a 角度)→ 勾出卡片公转轨迹,
+     带透视深度(前大后小);静止轨道保持低对比度，不与节点争夺注意力。 */
   .VPHome .VPFeatures .feat-orbit-dot {
     display: block; position: absolute; top: 50%; left: 50%;
     width: 2px; height: 2px; margin: -1px 0 0 -1px;
     border-radius: 50%; pointer-events: none; z-index: 0;
-    background: rgba(130, 215, 250, 0.65);
-    box-shadow: 0 0 3px rgba(56, 189, 248, 0.55);
+    background: rgba(130, 215, 250, 0.28);
+    box-shadow: 0 0 2px rgba(56, 189, 248, 0.24);
     transform: translate3d(calc(var(--rx) * sin(var(--a))), calc(var(--yt) * cos(var(--a)) * -1), calc(var(--rz) * cos(var(--a)) * -1));
   }
-  /* 流动能量脉冲:4 个亮点,--a 动画 0→360 沿同一轨道跑(能量在轨道上流动);
-     带透视深度(到前面变大变亮);错峰 90° 铺开。 */
+  /* 流动能量脉冲:2 个亮点,--a 动画 0→360 沿同一轨道跑(能量在轨道上流动);
+     带透视深度(到前面变大变亮);错峰 180° 铺开。 */
   .VPHome .VPFeatures .feat-orbit-pulse {
     display: block; position: absolute; top: 50%; left: 50%;
-    width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px;
+    width: 4px; height: 4px; margin: -2px 0 0 -2px;
     border-radius: 50%; pointer-events: none; z-index: 1;
-    background: #e6fcff;
-    box-shadow: 0 0 9px 2px rgba(125, 235, 255, 0.95), 0 0 20px rgba(56, 189, 248, 0.6);
+    background: rgba(230, 252, 255, 0.82);
+    box-shadow: 0 0 7px 1px rgba(125, 235, 255, 0.68), 0 0 14px rgba(56, 189, 248, 0.34);
     transform: translate3d(calc(var(--rx) * sin(var(--a))), calc(var(--yt) * cos(var(--a)) * -1), calc(var(--rz) * cos(var(--a)) * -1));
-    animation: orbitFlow 9s linear infinite;
-    animation-delay: calc(var(--p, 0) * -2.25s);
+    animation: orbitFlow 12s linear infinite;
+    animation-delay: calc(var(--p, 0) * -6s);
   }
   @keyframes orbitFlow { from { --a: 0deg; } to { --a: 360deg; } }
 
@@ -3415,8 +3415,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
      θ=0 在「后上远」(透视缩小)、θ=180 在「前下近」(透视放大),恒 60° 等角对称。
      卡片只平移不旋转 → 始终正面朝观者、文字清晰;近大远小由 perspective 自动完成。 */
   .VPHome .VPFeatures .items > .item {
-    position: absolute; top: 50%; left: 50%; width: 208px;
-    margin: -58px 0 0 -104px;
+    position: absolute; top: 50%; left: 50%; width: 192px;
+    margin: -52px 0 0 -96px;
     padding: 0;
     transform-style: preserve-3d;
     transform: translate3d(
@@ -3424,8 +3424,8 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
       calc(var(--yt) * cos(var(--ang)) * -1),
       calc(var(--rz) * cos(var(--ang)) * -1)
     );
-    animation: featSpin 72s linear infinite;
-    animation-delay: calc(var(--i, 0) * -12s);
+    animation: featSpin 90s linear infinite;
+    animation-delay: calc(var(--i, 0) * -15s);
     will-change: transform;
   }
   @keyframes featSpin { from { --ang: 0deg; } to { --ang: 360deg; } }
@@ -3438,7 +3438,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
   /* 环上卡:图标+标题+序号,等高;悬停 scale 抬升(不动公转布局)。隐藏描述/链接文案。 */
   .VPHome .VPFeatures .items > .item .VPFeature {
-    height: 116px; margin: 0; padding: 12px 14px; overflow: hidden;
+    height: 104px; margin: 0; padding: 10px 12px; overflow: hidden;
     backface-visibility: hidden;
     transform: translateZ(0);
     transform-origin: center;
@@ -3468,14 +3468,14 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     border: 0;
   }
   .VPHome .VPFeatures .items > .item .VPFeature .VPImage {
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
     margin-bottom: 0;
     object-fit: contain;
   }
   .VPHome .VPFeatures .items > .item .VPFeature .title {
     margin: 0;
-    font-size: 0.88rem;
+    font-size: 0.82rem;
     line-height: 1.3;
     white-space: nowrap;
   }
@@ -3504,7 +3504,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   /* 缓慢扫描线(.item::after),每卡错峰,holo 感(克制) */
   .VPHome .VPFeatures .items > .item::after {
     content: ''; position: absolute; inset: 1px; z-index: 3; pointer-events: none;
-    border-radius: 12px; overflow: hidden; opacity: 0.6;
+    border-radius: 12px; overflow: hidden; opacity: 0;
     background: linear-gradient(180deg, transparent, rgba(103, 232, 249, 0.12), transparent);
     background-size: 100% 52%; background-repeat: no-repeat;
     animation: cardScan 5s ease-in-out infinite;
@@ -3513,7 +3513,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   }
   .VPHome .VPFeatures .items > .item:hover::after,
   .VPHome .VPFeatures .items > .item:focus-within::after {
-    opacity: 0.82;
+    opacity: 0.5;
     transform: translate3d(0, -6px, 25px) scale(1.055);
   }
   @keyframes cardScan { 0%, 100% { background-position: 0 -65%; } 50% { background-position: 0 165%; } }
@@ -3521,11 +3521,11 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   /* 中央能量核(脉动反应堆,落于机器人之后)*/
   .VPHome .VPFeatures .items::before {
     content: ''; position: absolute; left: 50%; top: 50%;
-    width: 230px; height: 230px; margin: -115px 0 0 -115px;
+    width: 190px; height: 190px; margin: -95px 0 0 -95px;
     border-radius: 50%; pointer-events: none; z-index: 0;
     /* 辉光收敛(2026-06-10):中央能量核降一档,不再压过卡片内容 */
-    background: radial-gradient(circle, rgba(125, 235, 255, 0.32) 0%, rgba(34, 211, 238, 0.16) 32%, rgba(37, 99, 235, 0.08) 54%, transparent 72%);
-    box-shadow: 0 0 54px rgba(34, 211, 238, 0.22), inset 0 0 50px rgba(56, 189, 248, 0.12);
+    background: radial-gradient(circle, rgba(125, 235, 255, 0.2) 0%, rgba(34, 211, 238, 0.1) 32%, rgba(37, 99, 235, 0.05) 54%, transparent 72%);
+    box-shadow: 0 0 38px rgba(34, 211, 238, 0.14), inset 0 0 38px rgba(56, 189, 248, 0.08);
     animation: featCore 5s ease-in-out infinite;
   }
   @keyframes featCore { 0%, 100% { opacity: 0.66; transform: scale(0.92); } 50% { opacity: 1; transform: scale(1.1); } }
@@ -3536,7 +3536,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     width: calc(var(--rx) * 1.6); height: calc(var(--rx) * 0.8);
     margin: calc(var(--rx) * -0.4) 0 0 calc(var(--rx) * -0.8);
     border-radius: 50%; pointer-events: none; z-index: 0;
-    background: radial-gradient(ellipse closest-side at 50% 50%, rgba(34, 211, 238, 0.07) 0%, transparent 70%);
+    background: radial-gradient(ellipse closest-side at 50% 50%, rgba(34, 211, 238, 0.035) 0%, transparent 70%);
     animation: featRingBreath 7s ease-in-out infinite;
   }
   @keyframes featRingBreath { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.8; } }
@@ -9305,6 +9305,13 @@ html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items {
   margin: 0 auto !important;
 }
 
+@media (min-width: 960px) and (min-height: 681px) and (prefers-reduced-motion: no-preference) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .feat-hub__status small,
+  html.home-pager-ready[data-home-page='explore'] .first-guide-launcher {
+    display: none !important;
+  }
+}
+
 html.home-pager-ready.explore-orbit-paused[data-home-page='explore'] .VPHome .VPFeatures .items > .item,
 html.home-pager-ready.explore-orbit-paused[data-home-page='explore'] .VPHome .VPFeatures .feat-orbit-pulse,
 html.home-pager-ready.explore-orbit-paused[data-home-page='explore'] .VPHome .VPFeatures .feat-hub__robot,
@@ -9928,6 +9935,17 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   html.home-pager-ready .home-page-panel[data-page='about'] {
     height: calc(100vh - var(--vp-nav-height, 64px) - 28px);
     height: calc(100dvh - var(--vp-nav-height, 64px) - 28px);
+  }
+}
+
+/* 完整桌面轨道态覆盖旧横向导航留下的上下预留；短屏与 reduced-motion 仍走原回退。 */
+@media (min-width: 960px) and (min-height: 681px) and (prefers-reduced-motion: no-preference) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
+    padding: 108px 0 52px !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before {
+    top: 100px;
+    opacity: 0.42;
   }
 }
 

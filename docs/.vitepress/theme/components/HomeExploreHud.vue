@@ -318,6 +318,145 @@ onUnmounted(() => {
     0 12px 30px rgba(0, 0, 0, 0.16);
 }
 
+/* 桌面轨道态：让机器人与六个入口成为唯一主视觉。
+   顶部双卡合成单条 HUD，底部路径降级为一行文字快捷入口。 */
+@media (min-width: 960px) and (min-height: 681px) and (prefers-reduced-motion: no-preference) {
+  .explore-hud {
+    inset: 16px 64px 12px 24px;
+  }
+  .explore-hud__header {
+    width: min(100%, 1320px);
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 430px);
+    gap: 0;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 20%, var(--vp-c-divider));
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--vp-c-bg) 76%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vp-c-brand-1) 4%, transparent);
+    -webkit-backdrop-filter: blur(12px) saturate(1.06);
+    backdrop-filter: blur(12px) saturate(1.06);
+  }
+  .explore-hud__intro,
+  .explore-hud__node {
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .explore-hud__intro {
+    padding: 10px 18px 9px;
+  }
+  .explore-hud__intro > p,
+  .explore-hud__node-body p {
+    display: none;
+  }
+  .explore-hud__intro h2 {
+    margin: 4px 0 0;
+    font-size: clamp(1.04rem, 1.45vw, 1.28rem);
+  }
+  .explore-hud__metrics {
+    gap: 0;
+    margin-top: 6px;
+  }
+  .explore-hud__metrics span {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    font-size: 0.57rem;
+  }
+  .explore-hud__metrics span + span::before {
+    content: '/';
+    margin: 0 9px;
+    color: color-mix(in srgb, var(--vp-c-brand-1) 38%, var(--vp-c-divider));
+  }
+  .explore-hud__node {
+    padding: 9px 14px 8px 18px;
+    border-left: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 15%, var(--vp-c-divider));
+  }
+  .explore-hud__pause {
+    min-height: 23px;
+    padding: 3px 7px;
+    border-color: color-mix(in srgb, var(--vp-c-brand-1) 22%, var(--vp-c-divider));
+    background: transparent;
+    font-size: 0.56rem;
+  }
+  .explore-hud__node-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+  }
+  .explore-hud__node-body h3 {
+    margin: 5px 0 0;
+    overflow: hidden;
+    font-size: 0.79rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .explore-hud__node-body a {
+    margin-top: 5px;
+    font-size: 0.59rem;
+    white-space: nowrap;
+  }
+  .explore-hud__paths {
+    width: max-content;
+    max-width: min(100%, 760px);
+    grid-template-columns: repeat(4, auto);
+    gap: 0;
+    justify-self: center;
+    padding: 3px 5px;
+    border-color: color-mix(in srgb, var(--vp-c-brand-1) 13%, var(--vp-c-divider));
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--vp-c-bg) 62%, transparent);
+    box-shadow: none;
+    -webkit-backdrop-filter: blur(9px);
+    backdrop-filter: blur(9px);
+  }
+  .explore-hud__paths-label,
+  .explore-hud__paths > a > span,
+  .explore-hud__paths > a small {
+    display: none;
+  }
+  .explore-hud__paths > a {
+    display: flex;
+    align-items: center;
+    padding: 5px 14px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+  .explore-hud__paths > a + a {
+    border-left: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 13%, var(--vp-c-divider));
+  }
+  .explore-hud__paths > a strong {
+    font-size: 0.64rem;
+  }
+  .explore-hud__paths > a:hover,
+  .explore-hud__paths > a:focus-visible {
+    background: color-mix(in srgb, var(--vp-c-brand-1) 8%, transparent);
+    transform: none;
+  }
+  .dark .explore-hud__header {
+    background: color-mix(in srgb, #07111f 78%, transparent);
+    box-shadow:
+      inset 0 0 0 1px rgba(56, 189, 248, 0.035),
+      0 10px 26px rgba(0, 0, 0, 0.12);
+  }
+  .dark .explore-hud__intro,
+  .dark .explore-hud__node {
+    background: transparent;
+    box-shadow: none;
+  }
+  .dark .explore-hud__paths {
+    background: color-mix(in srgb, #07111f 66%, transparent);
+    box-shadow: none;
+  }
+}
+
 @media (max-width: 959px) {
   .explore-hud {
     inset: 64px 12px 10px;

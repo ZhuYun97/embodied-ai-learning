@@ -1820,9 +1820,9 @@ function setupFeatureHub() {
         item.dataset.exploreIntentBound = 'true'
       })
     // 轨道线:沿卡片同一 3D 公式 (rx·sinθ, -yt·cosθ, -rz·cosθ) 撒点 → 精确勾出卡片轨迹。
-    // 60 个静止点(密=更像实线)+ 4 个沿轨道流动的能量脉冲(--a 动画,能量在轨道上跑)。
+    // 保持低密度点阵 + 双脉冲，避免轨道光效与六个入口争夺注意力。
     if (!items.querySelector('.feat-orbit-dot')) {
-      const N = 90
+      const N = 48
       for (let i = 0; i < N; i++) {
         const d = document.createElement('i')
         d.className = 'feat-orbit-dot'
@@ -1830,7 +1830,7 @@ function setupFeatureHub() {
         d.setAttribute('aria-hidden', 'true')
         items.appendChild(d)
       }
-      const P = 4
+      const P = 2
       for (let i = 0; i < P; i++) {
         const p = document.createElement('i')
         p.className = 'feat-orbit-pulse'
