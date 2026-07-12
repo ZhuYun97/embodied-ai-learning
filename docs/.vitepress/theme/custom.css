@@ -3417,6 +3417,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     position: absolute; top: 50%; left: 50%; width: 208px;
     margin: -58px 0 0 -104px;
     padding: 0;
+    transform-style: preserve-3d;
     transform: translate3d(
       calc(var(--rx) * sin(var(--ang))),
       calc(var(--yt) * cos(var(--ang)) * -1),
@@ -3437,7 +3438,15 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   /* 环上卡:图标+标题+序号,等高;悬停 scale 抬升(不动公转布局)。隐藏描述/链接文案。 */
   .VPHome .VPFeatures .items > .item .VPFeature {
     height: 116px; margin: 0; padding: 12px 14px; overflow: hidden;
-    transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transform-origin: center;
+    transition:
+      transform 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.24s ease,
+      border-color 0.2s ease,
+      background-color 0.3s ease !important;
+    will-change: transform;
   }
   .VPHome .VPFeatures .items > .item .VPFeature .box {
     height: 100%;
@@ -3473,11 +3482,21 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   .VPHome .VPFeatures .items > .item:focus-within { z-index: auto; }
   .VPHome .VPFeatures .items > .item:hover .VPFeature,
   .VPHome .VPFeatures .items > .item:focus-within .VPFeature {
-    border-color: var(--vp-c-brand-1);
-    transform: scale(1.025);
+    border-color: color-mix(in srgb, var(--vp-c-brand-1) 76%, white);
+    transform: translate3d(0, -6px, 24px) scale(1.055);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      0 12px 22px rgba(2, 8, 23, 0.22),
+      0 22px 46px rgba(37, 99, 235, 0.22),
+      0 0 28px rgba(34, 211, 238, 0.22);
   }
-  .dark .VPHome .VPFeatures .items > .item:hover .VPFeature {
-    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7), 0 0 30px rgba(56, 189, 248, 0.3), 0 18px 50px rgba(37, 99, 235, 0.3);
+  .dark .VPHome .VPFeatures .items > .item:hover .VPFeature,
+  .dark .VPHome .VPFeatures .items > .item:focus-within .VPFeature {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 14px 26px rgba(2, 8, 23, 0.48),
+      0 24px 52px rgba(37, 99, 235, 0.3),
+      0 0 34px rgba(34, 211, 238, 0.3);
   }
 
   /* 注:卡片「四角取景框」(.item::before)已按用户反馈「太突兀」去掉。 */
@@ -3489,6 +3508,12 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     background-size: 100% 52%; background-repeat: no-repeat;
     animation: cardScan 5s ease-in-out infinite;
     animation-delay: calc(var(--i, 0) * -0.8s);
+    transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  }
+  .VPHome .VPFeatures .items > .item:hover::after,
+  .VPHome .VPFeatures .items > .item:focus-within::after {
+    opacity: 0.82;
+    transform: translate3d(0, -6px, 25px) scale(1.055);
   }
   @keyframes cardScan { 0%, 100% { background-position: 0 -65%; } 50% { background-position: 0 165%; } }
 
@@ -9505,6 +9530,12 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
     height: 100% !important;
     min-height: 0;
     padding: 10px 11px !important;
+    transform-origin: center;
+    transition:
+      transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.22s ease,
+      border-color 0.18s ease,
+      background-color 0.3s ease !important;
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .box {
     height: 100%;
@@ -9546,6 +9577,46 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
     height: 28px;
     margin-bottom: 0;
     object-fit: contain;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item {
+    z-index: 1;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:hover,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:focus-within {
+    z-index: 2;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:hover .VPFeature,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:focus-within .VPFeature {
+    border-color: color-mix(in srgb, var(--vp-c-brand-1) 66%, var(--vp-c-divider));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 12px 26px rgba(15, 23, 42, 0.16),
+      0 0 20px rgba(34, 211, 238, 0.14);
+  }
+  html.dark.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:hover .VPFeature,
+  html.dark.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:focus-within .VPFeature {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 14px 30px rgba(2, 8, 23, 0.38),
+      0 0 24px rgba(34, 211, 238, 0.2);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (max-width: 959px),
+       (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (max-height: 680px) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:hover .VPFeature,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:focus-within .VPFeature {
+    transform: translateY(-5px) scale(1.015);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item .VPFeature {
+    transition: none !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:hover .VPFeature,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:focus-within .VPFeature {
+    transform: none !important;
   }
 }
 
@@ -9689,6 +9760,12 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
     line-height: 1.2;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+  }
+}
+@media (max-width: 700px) and (max-height: 620px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:hover .VPFeature,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item:focus-within .VPFeature {
+    transform: translateY(-2px) scale(1.008);
   }
 }
 
