@@ -10014,3 +10014,62 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
       scale(1.012);
   }
 }
+
+/* P4 两排卡悬浮安全区：开放网格外发光、提升活动卡层级；
+   首排从顶边旋转，避免旧版大幅倾斜把标签和编号推出网格后裁切。 */
+@media (min-width: 701px) {
+  html.home-pager-ready [data-page='wam'] .home-track-intro {
+    z-index: 2;
+  }
+  html.home-pager-ready [data-page='wam'] .route-grid {
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+  }
+  html.home-pager-ready [data-page='wam'] .route-card {
+    position: relative;
+    z-index: 1;
+    transform-origin: center;
+  }
+  html.home-pager-ready [data-page='wam'] .route-card:nth-child(-n + 3) {
+    transform-origin: center top;
+  }
+  html.home-pager-ready [data-page='wam'] .route-card > .route-tag,
+  html.home-pager-ready [data-page='wam'] .route-card > .route-card__title,
+  html.home-pager-ready [data-page='wam'] .route-card > p,
+  html.home-pager-ready [data-page='wam'] .route-card > .route-links {
+    position: relative;
+    z-index: 5;
+  }
+  html.home-pager-ready [data-page='wam'] .route-card::after {
+    z-index: 5;
+  }
+  html.home-pager-ready [data-page='wam'] .route-card:hover,
+  html.home-pager-ready [data-page='wam'] .route-card:focus-within {
+    z-index: 6;
+    border-color: rgba(56, 189, 248, 0.74);
+    box-shadow:
+      0 0 0 1px rgba(56, 189, 248, 0.48),
+      0 10px 26px rgba(15, 23, 42, 0.22),
+      0 0 22px rgba(56, 189, 248, 0.2);
+  }
+  html.dark.home-pager-ready [data-page='wam'] .route-card:hover,
+  html.dark.home-pager-ready [data-page='wam'] .route-card:focus-within {
+    box-shadow:
+      0 0 0 1px rgba(56, 189, 248, 0.72),
+      0 12px 28px rgba(2, 8, 23, 0.5),
+      0 0 24px rgba(56, 189, 248, 0.28);
+  }
+}
+
+@media (min-width: 701px) and (prefers-reduced-motion: no-preference) and (pointer: fine) {
+  html.home-pager-ready [data-page='wam'] .route-card:hover,
+  html.home-pager-ready [data-page='wam'] .route-card:focus-within {
+    transform:
+      perspective(900px)
+      rotateX(var(--rx, 0deg))
+      rotateY(var(--ry, 0deg))
+      translateY(-4px)
+      scale(1.012);
+  }
+}
