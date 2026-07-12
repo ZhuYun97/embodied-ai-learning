@@ -150,12 +150,19 @@ const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
   (reduceMotionQuery?.matches ?? window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)
 
-const activeStageElement = () => {
+const activeStageElements = () => {
   const page = activeHomePage.value
-  if (page === 'overview') return document.querySelector('.VPHome .thero')
-  if (page === 'explore') return document.querySelector('.VPHome .VPFeatures > .container')
-  return document.querySelector('.home-page-panel.is-active')
+  if (page === 'overview') return [document.querySelector('.VPHome .thero')].filter(Boolean)
+  if (page === 'explore') {
+    return [
+      document.querySelector('.VPHome .VPFeatures > .container'),
+      document.querySelector('.VPHome .explore-hud'),
+    ].filter(Boolean)
+  }
+  return [document.querySelector('.home-page-panel.is-active')].filter(Boolean)
 }
+
+const activeStageElement = () => activeStageElements()[0] || null
 
 const clearPagerIntent = () => {
   if (pagerIntentTimer) window.clearTimeout(pagerIntentTimer)
@@ -236,9 +243,10 @@ const cancelPageTransition = () => {
   transitionTarget.value = activeHomePage.value
   transitioning.value = true
   returningTransition = true
-  const exitAnimation = activeStageElement()?.getAnimations?.()
-    .find((animation) => animation.animationName?.startsWith('homeFullpageExit'))
-  if (exitAnimation) exitAnimation.reverse()
+  const exitAnimations = activeStageElements()
+    .flatMap((element) => element.getAnimations?.() || [])
+    .filter((animation) => animation.animationName?.startsWith('homeFullpageExit'))
+  if (exitAnimations.length) exitAnimations.forEach((animation) => animation.reverse())
   else document.documentElement.dataset.homeTransitionPhase = 'returning'
   transitionTimer = window.setTimeout(finishPageTransition, 180)
 }
@@ -481,7 +489,8 @@ const setupPager = () => {
       if (!pagerActive) return
       const focusedInHiddenView = document.activeElement?.closest?.('[hidden], [aria-hidden="true"]')
       if (focusPanelOnChange || focusedInHiddenView) {
-        document.getElementById(`home-page-${page}`)?.focus({ preventScroll: true })
+        const panelId = page === 'explore' ? 'home-explore-hud' : `home-page-${page}`
+        document.getElementById(panelId)?.focus({ preventScroll: true })
       }
       focusPanelOnChange = false
     })
@@ -782,7 +791,7 @@ onUnmounted(() => {
         :aria-label="`${page.index} ${page.label}，${page.shortLabel}`"
         :aria-selected="activeHomePage === page.id"
         :aria-controls="page.id === 'explore'
-          ? 'home-page-explore'
+          ? 'home-explore-hud home-page-explore'
           : `home-page-${page.id}`"
         :tabindex="activeHomePage === page.id ? 0 : -1"
         @click="activate(page.id, { source: 'tab-click' })"

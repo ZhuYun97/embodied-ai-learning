@@ -18,6 +18,8 @@ import RoadmapGraph from './components/RoadmapGraph.vue'
 import LoadingScreen from './components/LoadingScreen.vue'
 import FirstVisitGuide from './components/FirstVisitGuide.vue'
 import HomePager from './components/HomePager.vue'
+import HomeExploreHud from './components/HomeExploreHud.vue'
+import { setActiveExploreNode } from './home-pager-state.mjs'
 import './custom.css'
 
 // =====================================================================
@@ -1779,14 +1781,17 @@ function bindHeroUnit(reduce) {
 // .VPFeatures .items 是 SPA 重建节点 → 注入一次后用 MutationObserver 兜底重注;
 // 标签默认 display:none,仅 ≥1080px 环形 media 内显形(见 custom.css)。
 // =====================================================================
+let featureHubObserver = null
+let featureHubTimer = null
 function setupFeatureHub() {
   if (typeof document === 'undefined') return
   const inject = () => {
     const items = document.querySelector('.VPHome .VPFeatures .items')
     if (!items) return
     // 中央机器人
-    if (!items.querySelector('.feat-hub')) {
-      const hub = document.createElement('div')
+    let hub = items.querySelector('.feat-hub')
+    if (!hub) {
+      hub = document.createElement('div')
       hub.className = 'feat-hub'
       hub.setAttribute('aria-hidden', 'true')
       const img = document.createElement('img')
@@ -1796,6 +1801,24 @@ function setupFeatureHub() {
       hub.appendChild(img)
       items.appendChild(hub)
     }
+    if (!hub.querySelector('.feat-hub__status')) {
+      const status = document.createElement('span')
+      status.className = 'feat-hub__status'
+      status.textContent = 'ATLAS CORE'
+      const count = document.createElement('small')
+      count.textContent = `${items.querySelectorAll(':scope > .item').length} RESEARCH ENTRY NODES`
+      status.appendChild(count)
+      hub.appendChild(status)
+    }
+    Array.from(items.children)
+      .filter((child) => child.classList.contains('item'))
+      .forEach((item, index) => {
+        if (item.dataset.exploreIntentBound === 'true') return
+        const select = () => setActiveExploreNode(index)
+        item.addEventListener('pointerenter', select, { passive: true })
+        item.addEventListener('focusin', select)
+        item.dataset.exploreIntentBound = 'true'
+      })
     // 轨道线:沿卡片同一 3D 公式 (rx·sinθ, -yt·cosθ, -rz·cosθ) 撒点 → 精确勾出卡片轨迹。
     // 60 个静止点(密=更像实线)+ 4 个沿轨道流动的能量脉冲(--a 动画,能量在轨道上跑)。
     if (!items.querySelector('.feat-orbit-dot')) {
@@ -1818,12 +1841,12 @@ function setupFeatureHub() {
     }
   }
   inject()
-  if ('MutationObserver' in window) {
-    let t
-    new MutationObserver(() => {
-      clearTimeout(t)
-      t = setTimeout(inject, 150)
-    }).observe(document.body, { childList: true, subtree: true })
+  if ('MutationObserver' in window && !featureHubObserver) {
+    featureHubObserver = new MutationObserver(() => {
+      clearTimeout(featureHubTimer)
+      featureHubTimer = setTimeout(inject, 150)
+    })
+    featureHubObserver.observe(document.body, { childList: true, subtree: true })
   }
 }
 
@@ -2402,6 +2425,7 @@ export default {
             h(TechHero),
             h(HomePager),
           ],
+          'home-features-before': () => h(HomeExploreHud),
           'nav-bar-content-after': () => [h(ConfidenceLens), h(ZenToggle), h(ThemeToggle)],
           'layout-bottom': () => h(FirstVisitGuide),
           'doc-before': () => [h(DocReadBar), h(PaperDossier), h(LensBanner)],

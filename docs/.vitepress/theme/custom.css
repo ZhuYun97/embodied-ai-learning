@@ -3338,6 +3338,22 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   height: 150px; width: auto; pointer-events: none;
   filter: drop-shadow(0 0 26px rgba(56, 189, 248, 0.45));
 }
+.VPHome .VPFeatures .feat-hub__status {
+  display: grid;
+  gap: 3px;
+  margin-top: -20px;
+  color: var(--vp-c-brand-1);
+  font: 720 0.58rem/1.15 var(--vp-font-family-mono);
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-shadow: 0 0 12px color-mix(in srgb, var(--vp-c-brand-1) 48%, transparent);
+}
+.VPHome .VPFeatures .feat-hub__status small {
+  color: var(--vp-c-text-3);
+  font-size: 0.46rem;
+  font-weight: 620;
+  letter-spacing: 0.06em;
+}
 .dark .VPHome .VPFeatures .feat-hub__robot {
   filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.55));
 }
@@ -3348,23 +3364,27 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .VPHome .VPFeatures .feat-orbit-dot,
 .VPHome .VPFeatures .feat-orbit-pulse { display: none; }
 
-@media (min-width: 760px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 960px) and (min-height: 681px) and (prefers-reduced-motion: no-preference) {
   .VPHome .VPFeatures .items {
-    position: relative; width: 100%; height: 300px; margin: 6px auto 6px; padding: 0;
+    position: relative; width: 100%; height: 380px; margin: 0 auto; padding: 0;
     perspective: 1450px; perspective-origin: 50% 42%;   /* 略俯视的 3D 观察点 */
     transform-style: preserve-3d;
     /* 关键:容器自身 z=0 平面会挡住「后排卡(z<0)」的点击 → 容器穿透,卡片可点 */
     pointer-events: none;
+    translate: 0 -10px;
     --rx: min(365px, calc(50vw - 115px));   /* 横向半径(左右更宽,平板随视口收缩)*/
-    --yt: 62px;    /* 纵向倾斜抬升(后高前低)——再调小,整体更扁 */
-    --rz: 210px;   /* 深度半径(前近后远,透视自动近大远小)*/
+    --yt: 132px;   /* 拉开同 x 的前后排,让卡片在完整公转周期内都不互相盖住 */
+    --rz: 180px;   /* 收敛近大远小,降低前排卡对相邻节点的视觉侵占 */
   }
   /* 前移到所有卡(z≤--rz=210)之前 → 永不被遮挡、可点;perspective 下略放大,作为中心焦点 */
   .VPHome .VPFeatures .feat-hub { display: flex; transform: translate(-50%, -50%) translateZ(255px); }
   /* 卡片恢复可点(父级穿透后,前后排卡在各自可见区域都能点到);
      用 :has 触发整环暂停(不依赖 .items:hover,兼容父级 pointer-events:none)*/
   .VPHome .VPFeatures .items > .item { pointer-events: auto; }
-  .VPHome .VPFeatures .items:has(> .item:hover) > .item { animation-play-state: paused; }
+  .VPHome .VPFeatures .items:has(> .item:hover) > .item,
+  .VPHome .VPFeatures .items:has(> .item:focus-within) > .item {
+    animation-play-state: paused;
+  }
 
   /* 轨道线:60 个圆点沿与卡片相同的 3D 公式分布(各自 --a 角度)→ 精确勾出卡片公转轨迹,
      带透视深度(前大后小);静止(轨道不动,卡片在其上公转)。密+亮 → 更像实线。 */
@@ -3394,8 +3414,9 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
      θ=0 在「后上远」(透视缩小)、θ=180 在「前下近」(透视放大),恒 60° 等角对称。
      卡片只平移不旋转 → 始终正面朝观者、文字清晰;近大远小由 perspective 自动完成。 */
   .VPHome .VPFeatures .items > .item {
-    position: absolute; top: 50%; left: 50%; width: 198px;
-    margin: -54px 0 0 -99px;
+    position: absolute; top: 50%; left: 50%; width: 208px;
+    margin: -58px 0 0 -104px;
+    padding: 0;
     transform: translate3d(
       calc(var(--rx) * sin(var(--ang))),
       calc(var(--yt) * cos(var(--ang)) * -1),
@@ -3415,16 +3436,46 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
   /* 环上卡:图标+标题+序号,等高;悬停 scale 抬升(不动公转布局)。隐藏描述/链接文案。 */
   .VPHome .VPFeatures .items > .item .VPFeature {
-    height: 108px; margin: 0; padding: 12px 16px; overflow: hidden;
+    height: 116px; margin: 0; padding: 12px 14px; overflow: hidden;
     transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
   }
-  .VPHome .VPFeatures .items > .item .VPFeature .box { height: 100%; justify-content: center; gap: 6px; }
+  .VPHome .VPFeatures .items > .item .VPFeature .box {
+    height: 100%;
+    justify-content: center;
+    gap: 8px;
+    padding: 0;
+  }
   .VPHome .VPFeatures .items > .item .VPFeature .details,
-  .VPHome .VPFeatures .items > .item .VPFeature .link-text { display: none; }
-  .VPHome .VPFeatures .items > .item .VPFeature .VPImage { width: 34px; height: 34px; object-fit: contain; }
-  .VPHome .VPFeatures .items > .item .VPFeature .title { font-size: 1rem; line-height: 1.3; margin: 0; }
-  .VPHome .VPFeatures .items > .item:hover { z-index: 10; }
-  .VPHome .VPFeatures .items > .item:hover .VPFeature { transform: scale(1.07); border-color: var(--vp-c-brand-1); }
+  .VPHome .VPFeatures .items > .item .VPFeature .link-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .VPHome .VPFeatures .items > .item .VPFeature .VPImage {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    object-fit: contain;
+  }
+  .VPHome .VPFeatures .items > .item .VPFeature .title {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+  .VPHome .VPFeatures .items > .item:hover,
+  .VPHome .VPFeatures .items > .item:focus-within { z-index: auto; }
+  .VPHome .VPFeatures .items > .item:hover .VPFeature,
+  .VPHome .VPFeatures .items > .item:focus-within .VPFeature {
+    border-color: var(--vp-c-brand-1);
+    transform: scale(1.025);
+  }
   .dark .VPHome .VPFeatures .items > .item:hover .VPFeature {
     box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7), 0 0 30px rgba(56, 189, 248, 0.3), 0 18px 50px rgba(37, 99, 235, 0.3);
   }
@@ -3467,10 +3518,10 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 
 /* 3D 环按断点加宽:Rx 横向半径 + Rz 深度。卡会扫到 ±Rx,故 Rx+卡半宽99 ≤ 容器半宽。 */
 @media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
-  .VPHome .VPFeatures .items { --rx: 480px; --rz: 230px; }
+  .VPHome .VPFeatures .items { --rx: 480px; --rz: 195px; }
 }
 @media (min-width: 1536px) and (prefers-reduced-motion: no-preference) {
-  .VPHome .VPFeatures .items { --rx: 510px; --rz: 240px; }
+  .VPHome .VPFeatures .items { --rx: 510px; --rz: 210px; }
 }
 
 
@@ -9182,6 +9233,11 @@ html.home-pager-ready .first-guide-launcher > span:last-child { display: none; }
     bottom: max(82px, calc(env(safe-area-inset-bottom) + 76px));
   }
 }
+@media (max-width: 959px) {
+  html.home-pager-ready[data-home-page='explore'] .first-guide-launcher {
+    display: none !important;
+  }
+}
 
 /* ============================================================
    Full-page 内容顺序修正（2026-07）
@@ -9189,7 +9245,7 @@ html.home-pager-ready .first-guide-launcher > span:last-child { display: none; }
    Explore 直接复用 VitePress 的 VPFeatures 与既有公转轨道，不再压成资源网格。
    ============================================================ */
 
-/* 02 Explore：只显示原生功能卡旋转菜单。 */
+/* 02 Explore：信息头 / 轨道 / 快捷路径三层研究导航仪。 */
 html.home-pager-ready[data-home-page='explore'] .VPHome .vp-doc {
   display: none !important;
 }
@@ -9199,14 +9255,14 @@ html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
   width: 100%;
   height: 100%;
   margin: 0 !important;
-  padding: 92px 0 0 !important;
+  padding: 142px 0 94px !important;
   overflow: hidden;
   opacity: 1 !important;
   transform: none !important;
   pointer-events: auto !important;
 }
 html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before {
-  top: 84px;
+  top: 134px;
   opacity: 0.8;
 }
 html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures > .container {
@@ -9221,6 +9277,13 @@ html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures > .container
 html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items {
   flex: 1 1 auto;
   margin: 0 auto !important;
+}
+
+html.home-pager-ready.explore-orbit-paused[data-home-page='explore'] .VPHome .VPFeatures .items > .item,
+html.home-pager-ready.explore-orbit-paused[data-home-page='explore'] .VPHome .VPFeatures .feat-orbit-pulse,
+html.home-pager-ready.explore-orbit-paused[data-home-page='explore'] .VPHome .VPFeatures .feat-hub__robot,
+html.home-pager-ready.explore-orbit-paused[data-home-page='explore'] .VPHome .VPFeatures .items::before {
+  animation-play-state: paused !important;
 }
 
 /* 03/04/05 的正文屏不混入功能菜单。 */
@@ -9400,13 +9463,13 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   }
 }
 
-/* 760px 以下保留同一批入口，但回退为一屏内的静态网格。 */
-@media (max-width: 759px) {
+/* 横向页签、短屏与 reduced-motion 下回退静态网格，避免导航和轨道争抢空间。 */
+@media (max-width: 959px), (max-height: 680px), (prefers-reduced-motion: reduce) {
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
-    padding: 84px 12px 10px !important;
+    padding: 174px 12px 92px !important;
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before {
-    top: 76px;
+    top: 166px;
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures > .container {
     display: block;
@@ -9426,6 +9489,7 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
     perspective: none !important;
     pointer-events: auto !important;
     transform: none !important;
+    translate: 0 !important;
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item {
     position: relative !important;
@@ -9440,15 +9504,31 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
     box-sizing: border-box;
     height: 100% !important;
     min-height: 0;
-    padding: 12px !important;
+    padding: 10px 11px !important;
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .box {
     height: 100%;
-    justify-content: center;
-    gap: 6px;
+    justify-content: flex-start;
+    gap: 5px;
     padding: 0 !important;
   }
-  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .details,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .details {
+    position: static;
+    display: -webkit-box !important;
+    width: auto;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: auto;
+    color: var(--vp-c-text-2);
+    font-size: 0.66rem;
+    line-height: 1.38;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .link-text,
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .feat-hub,
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .feat-orbit-dot,
@@ -9457,19 +9537,21 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .title {
     margin: 0;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     line-height: 1.3;
+    white-space: normal;
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .VPImage {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 0;
     object-fit: contain;
   }
 }
 
 @media (max-width: 700px) {
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
-    padding: 10px 10px 6px !important;
+    padding: 174px 10px 170px !important;
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before {
     display: none;
@@ -9478,6 +9560,10 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(3, minmax(0, 1fr));
     gap: 6px !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .details {
+    font-size: 0.61rem;
+    -webkit-line-clamp: 2;
   }
 
   html.home-pager-ready[data-home-page='about'] .VPHome > .vp-doc {
@@ -9551,9 +9637,10 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
 
 @media (max-height: 620px) {
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
-    padding-top: 72px !important;
+    padding: 112px 10px 64px !important;
   }
-  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before { top: 66px; }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before { display: none; }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .details { display: none !important; }
   html.home-pager-ready[data-home-page='about'] .VPHome > .vp-doc {
     padding-top: 72px !important;
     padding-bottom: 6px !important;
@@ -9564,6 +9651,45 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   }
   html.home-pager-ready [data-page='about'] .home-coda__hint,
   html.home-pager-ready [data-page='about'] .home-coda__term { display: none; }
+}
+
+@media (min-width: 701px) and (max-width: 959px) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
+    height: calc(100% - var(--vp-nav-height, 64px));
+  }
+}
+@media (min-width: 701px) and (max-width: 959px) and (max-height: 620px) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
+    padding-bottom: 70px !important;
+  }
+}
+@media (max-width: 700px) and (max-height: 620px) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
+    padding-bottom: 168px !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 4px !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures .items > .item .VPFeature {
+    padding: 6px 7px !important;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .box {
+    gap: 3px;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .VPImage {
+    width: 24px;
+    height: 24px;
+  }
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeature .title {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.66rem;
+    line-height: 1.2;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
 }
 
 /* ============================================================
@@ -9586,12 +9712,15 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
 
   html.home-pager-ready[data-home-transition-phase='leaving'][data-home-page='overview'] .VPHome .thero,
   html.home-pager-ready[data-home-transition-phase='leaving'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-page='explore'] .VPHome .explore-hud,
   html.home-pager-ready[data-home-transition-phase='leaving'] .home-page-panel.is-active,
   html.home-pager-ready[data-home-transition-phase='entering'][data-home-page='overview'] .VPHome .thero,
   html.home-pager-ready[data-home-transition-phase='entering'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-page='explore'] .VPHome .explore-hud,
   html.home-pager-ready[data-home-transition-phase='entering'] .home-page-panel.is-active,
   html.home-pager-ready[data-home-transition-phase='returning'][data-home-page='overview'] .VPHome .thero,
   html.home-pager-ready[data-home-transition-phase='returning'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-page='explore'] .VPHome .explore-hud,
   html.home-pager-ready[data-home-transition-phase='returning'] .home-page-panel.is-active {
     will-change: opacity, transform;
     pointer-events: none;
@@ -9599,31 +9728,37 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
 
   html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='next'][data-home-page='overview'] .VPHome .thero,
   html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='next'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='next'][data-home-page='explore'] .VPHome .explore-hud,
   html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='next'] .home-page-panel.is-active {
     animation: homeFullpageExitNext 0.13s cubic-bezier(0.2, 0, 1, 0.9) both;
   }
   html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='previous'][data-home-page='overview'] .VPHome .thero,
   html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='previous'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='previous'][data-home-page='explore'] .VPHome .explore-hud,
   html.home-pager-ready[data-home-transition-phase='leaving'][data-home-exit-direction='previous'] .home-page-panel.is-active {
     animation: homeFullpageExitPrevious 0.13s cubic-bezier(0.2, 0, 1, 0.9) both;
   }
   html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='next'][data-home-page='overview'] .VPHome .thero,
   html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='next'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='next'][data-home-page='explore'] .VPHome .explore-hud,
   html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='next'] .home-page-panel.is-active {
     animation: homeFullpageEnterNext 0.28s cubic-bezier(0, 0, 0.38, 0.9) both;
   }
   html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='previous'][data-home-page='overview'] .VPHome .thero,
   html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='previous'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='previous'][data-home-page='explore'] .VPHome .explore-hud,
   html.home-pager-ready[data-home-transition-phase='entering'][data-home-direction='previous'] .home-page-panel.is-active {
     animation: homeFullpageEnterPrevious 0.28s cubic-bezier(0, 0, 0.38, 0.9) both;
   }
   html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='next'][data-home-page='overview'] .VPHome .thero,
   html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='next'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='next'][data-home-page='explore'] .VPHome .explore-hud,
   html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='next'] .home-page-panel.is-active {
     animation: homeFullpageReturnNext 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='previous'][data-home-page='overview'] .VPHome .thero,
   html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='previous'][data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='previous'][data-home-page='explore'] .VPHome .explore-hud,
   html.home-pager-ready[data-home-transition-phase='returning'][data-home-exit-direction='previous'] .home-page-panel.is-active {
     animation: homeFullpageReturnPrevious 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
@@ -9676,6 +9811,7 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
 @media (prefers-reduced-motion: reduce) {
   html.home-pager-ready[data-home-page='overview'] .VPHome .thero,
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures > .container,
+  html.home-pager-ready[data-home-page='explore'] .VPHome .explore-hud,
   html.home-pager-ready .home-page-panel.is-active {
     animation: none !important;
     filter: none !important;
@@ -9699,10 +9835,10 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
     height: calc(100dvh - var(--vp-nav-height, 64px) - 28px);
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
-    padding: 18px 0 0 !important;
+    padding: 142px 0 94px !important;
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures::before {
-    top: 12px;
+    top: 134px;
   }
   html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures > .container {
     padding-right: 64px;
@@ -9714,6 +9850,12 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   html.home-pager-ready .home-page-panel[data-page='about'] {
     height: calc(100vh - var(--vp-nav-height, 64px) - 28px);
     height: calc(100dvh - var(--vp-nav-height, 64px) - 28px);
+  }
+}
+
+@media (min-width: 960px) and (max-height: 680px) {
+  html.home-pager-ready[data-home-page='explore'] .VPHome .VPFeatures {
+    padding-top: 190px !important;
   }
 }
 

@@ -39,6 +39,7 @@ export const HOME_PAGES = [
 ]
 
 export const activeHomePage = ref('overview')
+export const activeExploreNode = ref(0)
 
 let homePageNavigator = null
 
@@ -48,6 +49,13 @@ export function setActiveHomePage(page) {
     return true
   }
   return false
+}
+
+export function setActiveExploreNode(index) {
+  const next = Number(index)
+  if (!Number.isInteger(next) || next < 0) return false
+  activeExploreNode.value = next
+  return true
 }
 
 export function setHomePageNavigator(navigator) {
