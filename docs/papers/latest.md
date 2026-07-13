@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-10">2026.07.10</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-13">2026.07.13</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 11 篇强相关候选，聚焦视频—动作预训练、世界表征、潜在推理与接触控制。</p>
+    <p class="paper-brief__dek">今日筛出 14 篇强相关候选，聚焦可控世界模型、少样本策略适配、触觉闭环与人形数据合成。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">11</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">14</dd></div>
       <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.10</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.13</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA</span><strong>原生视频—动作预训练</strong><span class="paper-brief__paper">LingBot-VA 2.0</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">WAM</span><strong>非像素世界表征</strong><span class="paper-brief__paper">EgoWAM</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>跨本体灵巧评测</strong><span class="paper-brief__paper">DexVerse</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">HUMANOID</span><strong>显式接触控制</strong><span class="paper-brief__paper">ContactMimic</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>因果去偏潜在动作</strong><span class="paper-brief__paper">CD-LAM</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>人类介入少样本适配</strong><span class="paper-brief__paper">FlowDAgger</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">TACTILE</span><strong>全臂多接触预测控制</strong><span class="paper-brief__paper">TACTIC</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">HUMANOID</span><strong>混合现实示范合成</strong><span class="paper-brief__paper">AgenticFocus</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 230 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 244 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,99 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-13" class="paper-day-heading">2026-07-13</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 CD-LAM × FlowDAgger：前者修正无动作视频中的潜在动作偏差，后者用少量人类介入适配冻结的 VLA/WAM；触觉线重点看 TACTIC × TactiDex，分别覆盖多接触预测控制与接触级评测；再以 CLAP 和 AgenticFocus 观察轻量 VLA 与人形数据路线。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>WAM</span><span>LATENT ACTION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.09185" target="_blank" rel="noreferrer">Causally Debiased Latent Action Model for Embodied Action Conditioned World Models</a></h3>
+      <p>识别重建式 latent action model 会把背景与未触碰物体混入动作表征的问题，以本体中心重建、动作对比学习和潜空间校准组成 CD-LAM；在 2B/14B 世界模型上提升动作可控性，并将机器人动作适配更新量压低 12 倍以上。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.09185" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>HUMAN-IN-THE-LOOP</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08877" target="_blank" rel="noreferrer">FlowDAgger: Human-in-the-Loop Adaptation of Generative Robot Policies in Latent Space</a></h3>
+      <p>把人类纠正动作反演成冻结 flow/diffusion 策略中本应生成该动作的噪声，仅训练轻量 latent policy 即可用少量介入适配 action-head VLA 与 WAM，同时保留未参与适配的原有技能。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08877" target="_blank" rel="noreferrer">arXiv</a><a href="https://microsoft.github.io/FlowDAgger" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>TACTILE</span><span>CONTACT MPC</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.09218" target="_blank" rel="noreferrer">Tactile and Vision Conditioned Contact-Centric Control for Whole-Arm Manipulation</a></h3>
+      <p>TACTIC 将 RGB-D、分布式触觉与 proximity 表征送入动作条件潜在动力学，并以接触 Jacobian 注入解析运动学；预测接触配置和作用力后，用接触感知 MPC 完成真实机器人的全臂多接触操作。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.09218" target="_blank" rel="noreferrer">arXiv</a><a href="https://emprise.cs.cornell.edu/tactic/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>TACTILE</span><span>DEXTEROUS BENCHMARK</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.09190" target="_blank" rel="noreferrer">TactiDex: A Real-World Tactile-Guided Benchmark for Human-Like Dexterous Manipulation</a></h3>
+      <p>建立对齐全手触觉、多粒度运动学与物体状态的真实灵巧操作数据和标准指标，并用三分量触觉奖励统一引导、类人接触对齐与约束，把 human-to-robot transfer 从运动模仿推进到接触级物理一致性。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.09190" target="_blank" rel="noreferrer">arXiv</a><a href="https://tactidex.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>LANGUAGE-ACTION GROUNDING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08974" target="_blank" rel="noreferrer">CLAP: Direct VLM-to-VLA Adaptation via Language-Action Grounding</a></h3>
+      <p>不改 VLM 骨干结构，而是在数值动作 token 前先生成自然语言动作描述，以缩小语言预训练分布与连续控制输出的落差；单轮微调的 2B 模型在 LIBERO 达 90.8%，并提供 0.8B/2B/4B 同源模型族用于尺度对照。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08974" target="_blank" rel="noreferrer">arXiv</a><a href="https://omron-sinicx.github.io/clap/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>DATA SYNTHESIS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08857" target="_blank" rel="noreferrer">AgenticFocus: Object-Preserving Mixed Reality Synthesis from Human FPV Video for Dexterous Humanoid Learning</a></h3>
+      <p>把普通第一视角人类视频转成可训练人形策略的混合现实示范：恢复手部遮挡的物体几何、重建完整手部运动，再经相机相对对齐与分层合成完成跨本体重定向，输出视觉、机器人动作与状态同步的数据。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08857" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>MANIPULATION</span><span>ACTION REPRESENTATION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.09648" target="_blank" rel="noreferrer">B-spline Policy: Accelerating Manipulation Policies via B-spline Action Representations</a></h3>
+      <p>用结点和控制点定义的连续 B-spline 曲线替代离散 action chunk，使动作可平滑缩放并由低层控制器以更高频率执行；可直接接入现有策略学习管线，在保持成功率的同时缩短仿真与真实任务完成时间。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.09648" target="_blank" rel="noreferrer">arXiv</a><a href="https://b-spline-policy.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>MANIPULATION</span><span>RL POST-TRAINING</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.09590" target="_blank" rel="noreferrer">PAC-ACT: Post-training Actor-Critic for Action Chunking Transformers</a></h3>
+      <p>把 ACT 的在线强化学习后训练改写为 chunk 级 actor-critic，并用混合行为先验约束保持预训练动作分布；在工业精密接触任务中兼顾低延迟、成功率与力安全，Contour 任务中将超过 60 N 的读数比例降低 46 倍。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.09590" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DATA</span><span>HUMAN RETARGETING</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.09519" target="_blank" rel="noreferrer">DemoBridge: A Simulation-in-the-Loop Toolkit for Single-View Human Demonstration Retargeting</a></h3>
+      <p>把单视角 RGB stereo 手部示范转成物理验证的机械臂轨迹；统一优化整段关节轨迹、候选抓取与碰撞约束，并由仿真逐阶段验证、失败回溯重规划，产物还能直接作为策略学习 rollout。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.09519" target="_blank" rel="noreferrer">arXiv</a><a href="https://gitlab.kuleuven.be/u0123974/demo-bridge/" target="_blank" rel="noreferrer">Code</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VIDEO-TO-ACTION</span><span>GEOMETRIC VALIDATION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.09191" target="_blank" rel="noreferrer">GenVid2Robot: From Video Generation to Robot Manipulation via Rigid-Geometric Consistency</a></h3>
+      <p>不把生成视频当作可直接回放的示范，而以真实首帧 RGB-D 锚点和稀疏相对 SE(3) 检验候选运动；仅将几何一致、抓取约束和运动学可行的轨迹迁移到真机，并用有界深度补偿减小执行偏差。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.09191" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VIDEO-TO-ACTION</span><span>FEASIBILITY COMPLETION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.09365" target="_blank" rel="noreferrer">PhysV2A: Reachability-Gated and Semantic-Mask-Constrained Feasibility Completion for Video-to-Robot Manipulation</a></h3>
+      <p>把视频恢复的 6D 物体运动与每个候选抓取刚性耦合成整段 TCP 假设，以可达性门控筛掉不可执行轨迹；再由 VLM 辅助的语义掩码区分关键与可放松维度，在有限语义偏差内改善可操作性。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.09365" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>CONTACT</span><span>ONE-SHOT LFD</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.09515" target="_blank" rel="noreferrer">One-Shot Multimodal Learning from Demonstration with Force-Constrained Elastic Maps</a></h3>
+      <p>从单次示范联合分割空间轨迹与力信号，并把外力约束写入 elastic map 的凸优化编码；在 UR5e 腕力传感和 Kinova 指力传感两套平台、五项真实任务上复现运动与接触特性。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.09515" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>LONG-HORIZON</span><span>IMPLICIT SKILLS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.09234" target="_blank" rel="noreferrer">Implicit-Behavior Coordination from Unlabeled Sub-Task Demonstrations for Rearrangement Tasks</a></h3>
+      <p>不预定义技能、边界或切换逻辑，而从混合的无标签子任务示范中学习多模态行为，再由 critic 对候选动作做价值引导选择；在 Habitat 长程整理任务中接近带行为克隆技能的 oracle planner。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.09234" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>PERCEPTION-ACTION</span><span>3D GAUSSIANS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.08948" target="_blank" rel="noreferrer">SplatCtrl: Perception-Action Coupling via Gaussian Scene Representations and Reactive Robot Control</a></h3>
+      <p>从动态 3D Gaussian 场导出连续可微的碰撞距离，再纳入 control barrier function，把 RGB-D 实时场景重建与反应式机械臂控制闭合为一条链；在仿真、真机和共享人机空间中验证动态避碰。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.08948" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
