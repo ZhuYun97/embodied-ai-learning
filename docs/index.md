@@ -74,7 +74,13 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">离散 token</span>
     <h3 class="route-card__title">动作即文本 token</h3>
-    <p>把动作编码进离散词表，沿语言模型接口自回归预测。</p>
+    <p class="route-card__question">如何让语言模型直接预测机器人动作？</p>
+    <div class="route-facts route-facts--vla" aria-label="离散 token 路线关键维度">
+      <span><small>输出</small><b>离散动作</b></span>
+      <span><small>生成</small><b>自回归</b></span>
+      <span><small>接口</small><b>LLM 原生</b></span>
+      <span><small>权衡</small><b>复用 / 误差</b></span>
+    </div>
     <div class="route-links">
       <a href="vla/papers/rt1">RT-1</a>
       <a href="vla/papers/rt2">RT-2</a>
@@ -86,7 +92,13 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">连续 · 扩散/流匹配</span>
     <h3 class="route-card__title">连续动作生成</h3>
-    <p>用扩散或流匹配直接生成动作块，面向高频、灵巧控制。</p>
+    <p class="route-card__question">如何稳定生成高频、多峰连续动作？</p>
+    <div class="route-facts route-facts--vla" aria-label="连续动作路线关键维度">
+      <span><small>输出</small><b>连续动作块</b></span>
+      <span><small>生成</small><b>扩散 / 流</b></span>
+      <span><small>控制</small><b>高频灵巧</b></span>
+      <span><small>侧重</small><b>多峰分布</b></span>
+    </div>
     <div class="route-links">
       <a href="vla/papers/diffusion-policy">Diffusion Policy</a>
       <a href="vla/papers/octo">Octo</a>
@@ -107,7 +119,13 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">混合 · 连续回归</span>
     <h3 class="route-card__title">语义规划与精细控制融合</h3>
-    <p>离散高层规划配合连续低层控制，在语义泛化与动作精度间取平衡。</p>
+    <p class="route-card__question">如何兼顾语义规划与低层控制精度？</p>
+    <div class="route-facts route-facts--vla" aria-label="混合回归路线关键维度">
+      <span><small>输出</small><b>混合动作</b></span>
+      <span><small>规划</small><b>高层语义</b></span>
+      <span><small>控制</small><b>连续回归</b></span>
+      <span><small>权衡</small><b>泛化 / 精度</b></span>
+    </div>
     <div class="route-links">
       <a href="vla/papers/openvla-oft">OpenVLA-OFT</a>
       <a href="vla/papers/pi05">π0.5</a>
@@ -120,7 +138,13 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">分层 · 双系统/推理</span>
     <h3 class="route-card__title">快慢分层，推理可控</h3>
-    <p>System 2 负责规划与推理，System 1 承担快速执行与闭环控制。</p>
+    <p class="route-card__question">如何让慢推理与快速闭环协作？</p>
+    <div class="route-facts route-facts--vla" aria-label="双系统路线关键维度">
+      <span><small>架构</small><b>双系统</b></span>
+      <span><small>策略</small><b>快慢分层</b></span>
+      <span><small>控制</small><b>快速闭环</b></span>
+      <span><small>权衡</small><b>深度 / 时延</b></span>
+    </div>
     <div class="route-links">
       <a href="vla/papers/ecot">ECoT</a>
       <a href="vla/papers/helix">Helix</a>
@@ -138,7 +162,13 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">新范式探索</span>
     <h3 class="route-card__title">统一基座与经验学习</h3>
-    <p>沿视频预训练、真机强化学习、长期记忆与可反思策略探索下一代范式。</p>
+    <p class="route-card__question">如何从视频、真机反馈与记忆持续进化？</p>
+    <div class="route-facts route-facts--vla" aria-label="新范式路线关键维度">
+      <span><small>预训</small><b>视频基座</b></span>
+      <span><small>优化</small><b>真机 RL</b></span>
+      <span><small>记忆</small><b>长期反思</b></span>
+      <span><small>目标</small><b>持续进化</b></span>
+    </div>
     <div class="route-links">
       <a href="vla/papers/robovlms">RoboVLMs</a>
       <a href="vla/papers/simplevla-rl">SimpleVLA-RL</a>
@@ -191,7 +221,15 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">级联 · 显式</span>
     <h3 class="route-card__title">先生成像素未来，再抽动作</h3>
-    <p>显式合成未来视觉结果，再从预测帧中恢复可执行动作。</p>
+    <p class="route-card__question">显式未来能否改善可解释规划？</p>
+    <div class="route-pipeline" aria-label="显式级联建模流程">
+      <span>观测</span><i>→</i><span>像素未来</span><i>→</i><span>IDM</span><i>→</i><span>动作</span>
+    </div>
+    <div class="route-facts route-facts--wam" aria-label="显式级联路线坐标">
+      <span><small>世界表示</small><b>像素</b></span>
+      <span><small>动作耦合</small><b>级联</b></span>
+      <span><small>核心侧重</small><b>可解释</b></span>
+    </div>
     <div class="route-links">
       <a href="wam/papers/unipi">UniPi</a>
       <a href="wam/papers/gen2act">Gen2Act</a>
@@ -201,7 +239,15 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">级联 · 隐式</span>
     <h3 class="route-card__title">潜空间预测 → 隐式逆动力学</h3>
-    <p>直接在潜表征中预测未来，不解码回像素，以换取更高实时性。</p>
+    <p class="route-card__question">不解码像素能否保留可控未来？</p>
+    <div class="route-pipeline" aria-label="隐式级联建模流程">
+      <span>观测</span><i>→</i><span>潜未来</span><i>→</i><span>隐式 IDM</span><i>→</i><span>动作</span>
+    </div>
+    <div class="route-facts route-facts--wam" aria-label="隐式级联路线坐标">
+      <span><small>世界表示</small><b>潜空间</b></span>
+      <span><small>动作耦合</small><b>级联</b></span>
+      <span><small>核心侧重</small><b>实时</b></span>
+    </div>
     <div class="route-links">
       <a href="wam/papers/vpp">VPP</a>
       <a href="wam/papers/lapa">LAPA</a>
@@ -211,7 +257,15 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">联合 · 自回归</span>
     <h3 class="route-card__title">Token 化，因果联合生成</h3>
-    <p>把未来状态与动作统一为 token，在同一因果序列中联合预测。</p>
+    <p class="route-card__question">如何用统一因果序列建模未来与动作？</p>
+    <div class="route-pipeline" aria-label="联合自回归建模流程">
+      <span>状态 token</span><i>→</i><span>未来 token</span><i>↔</i><span>动作 token</span>
+    </div>
+    <div class="route-facts route-facts--wam" aria-label="联合自回归路线坐标">
+      <span><small>世界表示</small><b>Token</b></span>
+      <span><small>动作耦合</small><b>联合</b></span>
+      <span><small>核心侧重</small><b>长时程</b></span>
+    </div>
     <div class="route-links">
       <a href="wam/papers/gr-1">GR-1</a>
       <a href="wam/papers/worldvla">WorldVLA</a>
@@ -221,7 +275,15 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">联合 · 扩散</span>
     <h3 class="route-card__title">并行去噪，未来与动作同生</h3>
-    <p>通过并行去噪联合生成未来与动作，更适合高频闭环控制。</p>
+    <p class="route-card__question">如何并行生成多模态未来与连续动作？</p>
+    <div class="route-pipeline" aria-label="联合扩散建模流程">
+      <span>噪声</span><i>→</i><span>未来 + 动作</span><i>→</i><span>并行去噪</span>
+    </div>
+    <div class="route-facts route-facts--wam" aria-label="联合扩散路线坐标">
+      <span><small>世界表示</small><b>多模态</b></span>
+      <span><small>动作耦合</small><b>联合</b></span>
+      <span><small>核心侧重</small><b>高频闭环</b></span>
+    </div>
     <div class="route-links">
       <a href="wam/papers/uwm">UWM</a>
       <a href="wam/papers/dreamzero">DreamZero</a>
@@ -240,7 +302,15 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">联合 · 混合</span>
     <h3 class="route-card__title">自回归 + 扩散混合</h3>
-    <p>用自回归承担长时程规划，以扩散生成连续动作，兼顾两种优势。</p>
+    <p class="route-card__question">如何让规划与连续控制各取所长？</p>
+    <div class="route-pipeline" aria-label="联合混合建模流程">
+      <span>AR 长程规划</span><i>→</i><span>Diffusion</span><i>→</i><span>连续控制</span>
+    </div>
+    <div class="route-facts route-facts--wam" aria-label="联合混合路线坐标">
+      <span><small>世界表示</small><b>混合</b></span>
+      <span><small>动作耦合</small><b>联合</b></span>
+      <span><small>核心侧重</small><b>长时程</b></span>
+    </div>
     <div class="route-links">
       <a href="wam/papers/uva">UVA</a>
       <a href="wam/papers/flare">FLARE</a>
@@ -253,7 +323,15 @@ import HomePagePanel from './.vitepress/theme/components/HomePagePanel.vue'
   <div class="route-card">
     <span class="route-tag">跨范式 · 基座/平台/仿真</span>
     <h3 class="route-card__title">世界模型基座 · 平台 · 仿真器</h3>
-    <p>作为通用基座、数据引擎与闭环模拟器，为多种动作范式提供底层能力。</p>
+    <p class="route-card__question">如何把世界建模变成可复用基础设施？</p>
+    <div class="route-pipeline" aria-label="世界模型基座建模流程">
+      <span>视频 / 仿真</span><i>→</i><span>世界底座</span><i>→</i><span>规划 · 控制 · 评测</span>
+    </div>
+    <div class="route-facts route-facts--wam" aria-label="世界模型基座路线坐标">
+      <span><small>世界表示</small><b>多源</b></span>
+      <span><small>动作耦合</small><b>平台</b></span>
+      <span><small>核心侧重</small><b>跨任务复用</b></span>
+    </div>
     <div class="route-links">
       <a href="wam/papers/cosmos3">Cosmos 3</a>
       <a href="wam/papers/qwen-robotworld">Qwen-RobotWorld</a>
