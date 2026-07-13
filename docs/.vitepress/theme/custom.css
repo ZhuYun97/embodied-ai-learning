@@ -10075,10 +10075,10 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
 }
 
 /* ============================================================
-   P2 → P3 卡片形态接力
-   六张轨道入口冻结后复制到 fixed 舞台：最远的一张收束进 VLA 说明栏，
-   其余五张按屏幕横向顺序变形成 P3 五列路线卡。真实目标卡在末段交接，
-   因此动画跨越 `[hidden]` 页面切换时仍保持连续。
+   P2 → P3 共享卡片过渡
+   五张轨道卡先以 transform-only FLIP 停靠到 P3 的卡片头部，再由真实
+   路线卡从头部向下展开；未配对的第六张随 P2 环境原位淡出。这样避免把
+   104px 的菜单卡直接纵向拉成整张路线卡，也让 P2/P3 处于同一运动坐标系。
    ============================================================ */
 .home-card-bridge {
   position: fixed;
@@ -10090,42 +10090,30 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
 }
 .home-card-bridge__card {
   --bridge-delay: 0ms;
-  --bridge-fade-delay: 0ms;
+  --bridge-content-delay: 0ms;
+  --bridge-x: 0px;
+  --bridge-y: 0px;
+  --bridge-scale-x: 1;
+  --bridge-scale-y: 1;
+  --bridge-inverse-x: 1;
+  --bridge-inverse-y: 1;
   position: fixed;
   box-sizing: border-box;
   margin: 0;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 42%, var(--vp-c-divider));
-  border-radius: 12px;
-  background:
-    linear-gradient(145deg, color-mix(in srgb, var(--vp-c-brand-1) 10%, transparent), transparent 56%),
-    color-mix(in srgb, var(--vp-c-bg-soft) 92%, transparent);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 14px 34px rgba(15, 23, 42, 0.18),
-    0 0 22px color-mix(in srgb, var(--vp-c-brand-1) 14%, transparent);
+  border: 1px solid var(--bridge-source-border-color, color-mix(in srgb, var(--vp-c-brand-1) 42%, var(--vp-c-divider)));
+  border-radius: var(--bridge-source-radius, 12px);
+  background: var(--bridge-source-background, var(--vp-c-bg-soft));
+  box-shadow: var(--bridge-source-shadow, 0 14px 34px rgba(15, 23, 42, 0.18));
   opacity: 1;
-  transform: translateZ(0) scale(1);
+  transform: translate3d(0, 0, 0) scale(1);
+  transform-origin: 0 0;
   transition:
-    left 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
-    top 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
-    width 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
-    height 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
-    border-radius 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
-    box-shadow 0.3s ease var(--bridge-delay),
-    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
-    filter 0.16s ease var(--bridge-fade-delay),
-    opacity 0.16s ease var(--bridge-fade-delay);
-  will-change: left, top, width, height, opacity, transform;
-}
-.dark .home-card-bridge__card {
-  background:
-    linear-gradient(145deg, rgba(37, 99, 235, 0.17), rgba(8, 20, 37, 0.88) 58%),
-    rgba(7, 17, 31, 0.94);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 18px 40px rgba(2, 8, 23, 0.42),
-    0 0 28px rgba(34, 211, 238, 0.16);
+    transform 0.38s cubic-bezier(0.4, 0, 0.2, 1) var(--bridge-delay),
+    border-color 0.18s ease calc(0.18s + var(--bridge-delay)),
+    border-radius 0.22s ease calc(0.18s + var(--bridge-delay)),
+    opacity 0.13s ease;
+  will-change: opacity, transform;
 }
 .home-card-bridge__card::before {
   content: '';
@@ -10137,6 +10125,15 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   height: 2px;
   background: linear-gradient(90deg, #3b82f6, #22d3ee 56%, #8b5cf6);
   box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+}
+.home-card-bridge__target-surface {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--bridge-target-background, var(--vp-c-bg-soft));
+  opacity: 0;
+  transition: opacity 0.18s ease calc(0.2s + var(--bridge-delay));
 }
 .home-card-bridge__source,
 .home-card-bridge__target {
@@ -10151,7 +10148,7 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   gap: 7px;
   padding: 10px 12px;
   opacity: 1;
-  transition: opacity 0.15s ease 0.08s, transform 0.18s ease 0.08s;
+  transition: opacity 0.075s ease, transform 0.1s ease;
 }
 .home-card-bridge__source img {
   width: 30px;
@@ -10175,16 +10172,17 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   letter-spacing: 0.06em;
 }
 .home-card-bridge__target {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 13px 12px;
+  padding: 0;
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.18s ease 0.16s, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1) 0.16s;
+  transform: scale(var(--bridge-inverse-x), var(--bridge-inverse-y)) translateY(5px);
+  transform-origin: 0 0;
+  transition:
+    opacity 0.15s ease calc(0.24s + var(--bridge-content-delay)),
+    transform 0.17s cubic-bezier(0.2, 0, 0, 1) calc(0.24s + var(--bridge-content-delay));
 }
 .home-card-bridge__target-tag {
+  position: absolute;
+  box-sizing: border-box;
   padding: 3px 7px;
   border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 40%, var(--vp-c-divider));
   border-radius: 6px;
@@ -10193,35 +10191,64 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   letter-spacing: 0.04em;
 }
 .home-card-bridge__target-title {
+  position: absolute;
+  box-sizing: border-box;
   max-width: 100%;
   color: var(--vp-c-text-1);
   font-size: 0.82rem;
   line-height: 1.34;
 }
 .home-card-bridge__card.is-targeting {
-  border-radius: 11px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 16px 36px rgba(15, 23, 42, 0.2),
-    0 0 24px color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent);
+  border-color: var(--bridge-target-border-color, var(--vp-c-divider));
+  border-radius: var(--bridge-target-radius, 11px);
+  transform: translate3d(var(--bridge-x), var(--bridge-y), 0) scale(var(--bridge-scale-x), var(--bridge-scale-y));
+}
+.home-card-bridge__card.is-targeting .home-card-bridge__target-surface {
+  opacity: 1;
 }
 .home-card-bridge__card.is-targeting .home-card-bridge__source {
   opacity: 0;
-  transform: translateY(-8px) scale(0.96);
+  transform: translateY(-4px) scale(0.98);
 }
 .home-card-bridge__card.is-targeting .home-card-bridge__target {
   opacity: 1;
-  transform: translateY(0);
+  transform: scale(var(--bridge-inverse-x), var(--bridge-inverse-y)) translateY(0);
+}
+.home-card-bridge__card.is-auxiliary::before,
+.home-card-bridge__card.is-auxiliary .home-card-bridge__target-surface,
+.home-card-bridge__card.is-auxiliary .home-card-bridge__target {
+  display: none;
 }
 .home-card-bridge__card.is-auxiliary.is-targeting {
-  border-radius: 999px;
   opacity: 0;
-  filter: blur(3px);
-  transform: scale(0.28) rotate(-5deg);
+  transition: opacity 0.11s ease;
 }
-.home-card-bridge.is-revealing .home-card-bridge__card:not(.is-auxiliary) {
+.home-card-bridge.is-handing-off .home-card-bridge__card {
   opacity: 0;
-  transform: translateY(-2px) scale(0.995);
+}
+
+/* Bridge 模式压缩旧页退场，并取消 P3 整页位移；背景语境和共享卡片并行进入。 */
+html.home-card-bridge-active[data-home-transition-from='explore'][data-home-transition-to='vla'][data-home-transition-phase='leaving'] .VPHome .VPFeatures > .container,
+html.home-card-bridge-active[data-home-transition-from='explore'][data-home-transition-to='vla'][data-home-transition-phase='leaving'] .VPHome .explore-hud {
+  animation-duration: 0.04s !important;
+}
+html.home-card-bridge-active[data-home-transition-from='explore'][data-home-transition-to='vla'][data-home-transition-phase='entering'] .home-page-panel.is-active {
+  animation: none !important;
+}
+html.home-card-bridge-active[data-home-transition-from='explore'][data-home-transition-to='vla'][data-home-transition-phase='entering'] [data-page='vla'] > h2:first-child,
+html.home-card-bridge-active[data-home-transition-from='explore'][data-home-transition-to='vla'][data-home-transition-phase='entering'] [data-page='vla'] .home-track-intro {
+  animation: homeBridgeContextReveal 0.24s cubic-bezier(0.2, 0, 0, 1) both;
+}
+html.home-card-bridge-active[data-home-transition-from='explore'][data-home-transition-to='vla'][data-home-transition-phase='entering'] [data-page='vla'] .home-track-intro {
+  animation-delay: 0.035s;
+}
+@keyframes homeBridgeContextReveal {
+  from { opacity: 0; transform: translate3d(0, 6px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+html.home-card-bridge-active .home-pager__indicator {
+  transition-duration: 0.42s;
 }
 
 html.home-card-bridge-preparing .VPHome .VPFeatures .items > .item .VPFeature {
@@ -10234,23 +10261,52 @@ html.home-card-bridge-active[data-home-page='explore'] .VPHome .VPFeatures .item
 html.home-card-bridge-active[data-home-page='vla'] [data-page='vla'] .route-card {
   visibility: hidden;
   opacity: 0;
-  transform: translateY(9px) scale(0.985);
-  transition: none;
+  clip-path: inset(0 0 calc(100% - var(--bridge-header-height, 78px)) 0 round 11px);
+  transform: none;
+  transition: none !important;
+}
+html.home-card-bridge-active[data-home-page='vla'] [data-page='vla'] .route-card > .route-tag,
+html.home-card-bridge-active[data-home-page='vla'] [data-page='vla'] .route-card > .route-card__title,
+html.home-card-bridge-active[data-home-page='vla'] [data-page='vla'] .route-card::after {
+  opacity: 0;
+  transition: none !important;
 }
 html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card {
   visibility: visible;
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  animation: homeRouteCardBridgeReveal 0.2s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+  animation: homeRouteCardBridgeReveal 0.18s cubic-bezier(0.2, 0, 0, 1) both !important;
 }
-html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(2) { animation-delay: 0.02s !important; }
-html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(3) { animation-delay: 0.04s !important; }
-html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(4) { animation-delay: 0.06s !important; }
-html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(5) { animation-delay: 0.08s !important; }
+html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(2) { animation-delay: 0.008s !important; }
+html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(3) { animation-delay: 0.016s !important; }
+html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(4) { animation-delay: 0.024s !important; }
+html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(5) { animation-delay: 0.032s !important; }
+
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card > .route-tag,
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card > .route-card__title,
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card::after {
+  animation: homeRouteCardHeaderHandoff 0.13s ease both !important;
+}
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(2) > .route-tag,
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(2) > .route-card__title { animation-delay: 0.008s !important; }
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(3) > .route-tag,
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(3) > .route-card__title { animation-delay: 0.016s !important; }
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(4) > .route-tag,
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(4) > .route-card__title { animation-delay: 0.024s !important; }
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(5) > .route-tag,
+html.home-card-bridge-handoff[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(5) > .route-card__title { animation-delay: 0.032s !important; }
 
 @keyframes homeRouteCardBridgeReveal {
-  from { opacity: 0; transform: translateY(9px) scale(0.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 calc(100% - var(--bridge-header-height, 78px)) 0 round 11px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 11px);
+  }
+}
+@keyframes homeRouteCardHeaderHandoff {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -8,6 +8,7 @@ import {
   setHomePageNavigator,
 } from '../home-pager-state.mjs'
 import {
+  HOME_CARD_BRIDGE_EXIT_MS,
   HOME_CARD_BRIDGE_ENTER_MS,
   canUseHomeCardBridge,
   cleanupHomeCardBridge,
@@ -18,6 +19,7 @@ import {
 const tabButtons = ref([])
 const ready = ref(false)
 const transitioning = ref(false)
+const bridgeTransitioning = ref(false)
 const transitionDirection = ref('next')
 const transitionTarget = ref('')
 const boundaryMessage = ref('')
@@ -31,7 +33,13 @@ const targetIndex = computed(() => {
   const index = HOME_PAGES.findIndex((page) => page.id === transitionTarget.value)
   return index >= 0 ? index : activeIndex.value
 })
-const visualIndex = computed(() => transitioning.value ? targetIndex.value : activeIndex.value)
+const visualIndex = computed(() => {
+  if (!transitioning.value) return activeIndex.value
+  if (bridgeTransitioning.value && activeHomePage.value !== transitionTarget.value) {
+    return activeIndex.value
+  }
+  return targetIndex.value
+})
 const liveMessage = computed(() => boundaryMessage.value ||
   `当前页面：${activeMeta.value.label}，${activeMeta.value.description}`)
 
@@ -201,6 +209,7 @@ const finishPageTransition = () => {
   queuedTransition = null
   returningTransition = false
   transitioning.value = false
+  bridgeTransitioning.value = false
   transitionTarget.value = ''
   const root = document.documentElement
   cleanupHomeCardBridge(activeCardBridge)
@@ -241,6 +250,7 @@ const commitPageTransition = () => {
       if (!bridgePlaying) {
         cleanupHomeCardBridge(activeCardBridge)
         activeCardBridge = null
+        bridgeTransitioning.value = false
       }
     }
     root.dataset.homeTransitionPhase = 'entering'
@@ -255,13 +265,23 @@ const commitPageTransition = () => {
 }
 
 const cancelPageTransition = () => {
+  const root = document.documentElement
+  const restoreBridgeImmediately = Boolean(
+    activeCardBridge && root.dataset.homeTransitionPhase === 'leaving'
+  )
   if (transitionCommitTimer) window.clearTimeout(transitionCommitTimer)
   if (transitionTimer) window.clearTimeout(transitionTimer)
   transitionCommitTimer = null
   transitionTimer = null
+  if (restoreBridgeImmediately) {
+    queuedTransition = null
+    finishPageTransition()
+    return
+  }
   pendingTransition = null
   cleanupHomeCardBridge(activeCardBridge)
   activeCardBridge = null
+  bridgeTransitioning.value = false
   transitionTarget.value = activeHomePage.value
   transitioning.value = true
   returningTransition = true
@@ -307,9 +327,11 @@ const runPageTransition = (
   const fromPage = activeHomePage.value
   root.dataset.homeTransitionFrom = fromPage
   root.dataset.homeTransitionTo = page
+  bridgeTransitioning.value = false
   if (canUseHomeCardBridge(fromPage, page)) {
     cleanupHomeCardBridge(activeCardBridge)
     activeCardBridge = prepareHomeCardBridge()
+    bridgeTransitioning.value = Boolean(activeCardBridge)
   }
 
   if (boundaryFrame) window.cancelAnimationFrame(boundaryFrame)
@@ -329,7 +351,10 @@ const runPageTransition = (
 
   root.dataset.homeExitDirection = direction
   root.dataset.homeTransitionPhase = 'leaving'
-  transitionCommitTimer = window.setTimeout(commitPageTransition, TRANSITION_EXIT_MS)
+  transitionCommitTimer = window.setTimeout(
+    commitPageTransition,
+    activeCardBridge ? HOME_CARD_BRIDGE_EXIT_MS : TRANSITION_EXIT_MS
+  )
 }
 
 const activate = (
@@ -346,6 +371,13 @@ const activate = (
   if (nextIndex === activeIndex.value) {
     if (queuedTransition && transitionTarget.value !== page) {
       queuedTransition = null
+      if (pendingTransition && document.documentElement.dataset.homeTransitionPhase === 'leaving') {
+        cancelPageTransition()
+        if (updateUrl) {
+          syncDocument(activeHomePage.value, { updateUrl: true, scroll: false })
+        }
+        return true
+      }
       transitionTarget.value = activeHomePage.value
       transitionDirection.value = document.documentElement.dataset.homeDirection || 'next'
       if (updateUrl) {
@@ -482,6 +514,7 @@ const setupPager = () => {
     queuedTransition = null
     returningTransition = false
     transitioning.value = false
+    bridgeTransitioning.value = false
     transitionTarget.value = ''
     const root = document.documentElement
     cleanupHomeCardBridge(activeCardBridge)
@@ -736,6 +769,7 @@ const teardownPager = () => {
   wheelLockDirection = 0
   wheelReverseDelta = 0
   transitioning.value = false
+  bridgeTransitioning.value = false
   transitionTarget.value = ''
   boundaryMessage.value = ''
   pendingTransition = null
