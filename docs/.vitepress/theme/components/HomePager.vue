@@ -7,6 +7,13 @@ import {
   setActiveHomePage,
   setHomePageNavigator,
 } from '../home-pager-state.mjs'
+import {
+  HOME_CARD_BRIDGE_ENTER_MS,
+  canUseHomeCardBridge,
+  cleanupHomeCardBridge,
+  playHomeCardBridge,
+  prepareHomeCardBridge,
+} from '../home-card-bridge.mjs'
 
 const tabButtons = ref([])
 const ready = ref(false)
@@ -61,6 +68,7 @@ let reduceMotionQuery = null
 let onMotionPreferenceChange = null
 let orientationQuery = null
 let onOrientationChange = null
+let activeCardBridge = null
 
 const WHEEL_PIXEL_THRESHOLD = 28
 const WHEEL_LINE_THRESHOLD = 16
@@ -195,9 +203,13 @@ const finishPageTransition = () => {
   transitioning.value = false
   transitionTarget.value = ''
   const root = document.documentElement
+  cleanupHomeCardBridge(activeCardBridge)
+  activeCardBridge = null
   delete root.dataset.homeTransitionPhase
   delete root.dataset.homeExitDirection
   delete root.dataset.homeInput
+  delete root.dataset.homeTransitionFrom
+  delete root.dataset.homeTransitionTo
 
   if (!queued || !pagerActive || queued.page === activeHomePage.value) return
   // A reversed CSS exit keeps its animation-name until the phase attribute is
@@ -223,13 +235,21 @@ const commitPageTransition = () => {
   setActiveHomePage(request.page)
   nextTick(() => {
     if (!pagerActive) return
+    let bridgePlaying = false
+    if (activeCardBridge) {
+      bridgePlaying = playHomeCardBridge(activeCardBridge)
+      if (!bridgePlaying) {
+        cleanupHomeCardBridge(activeCardBridge)
+        activeCardBridge = null
+      }
+    }
     root.dataset.homeTransitionPhase = 'entering'
     if (transitionTimer) window.clearTimeout(transitionTimer)
     // CSS animation attaches on the next frame; keep a one-frame safety margin
     // before consuming a queued request so its exit always starts from opacity 1.
     transitionTimer = window.setTimeout(
       finishPageTransition,
-      TRANSITION_ENTER_MS + TRANSITION_SETTLE_MS
+      (bridgePlaying ? HOME_CARD_BRIDGE_ENTER_MS : TRANSITION_ENTER_MS) + TRANSITION_SETTLE_MS
     )
   })
 }
@@ -240,6 +260,8 @@ const cancelPageTransition = () => {
   transitionCommitTimer = null
   transitionTimer = null
   pendingTransition = null
+  cleanupHomeCardBridge(activeCardBridge)
+  activeCardBridge = null
   transitionTarget.value = activeHomePage.value
   transitioning.value = true
   returningTransition = true
@@ -257,7 +279,13 @@ const runPageTransition = (
   { focusPanel = false, source = 'direct', updateUrl = true } = {}
 ) => {
   const root = document.documentElement
-  if (root.dataset.homeTransitionPhase === 'entering' || returningTransition) {
+  if (
+    root.dataset.homeTransitionPhase === 'entering' ||
+    root.dataset.homeTransitionPhase === 'leaving' ||
+    transitionCommitTimer ||
+    returningTransition
+  ) {
+    if (page === transitionTarget.value) return
     queuedTransition = {
       page,
       direction,
@@ -275,6 +303,13 @@ const runPageTransition = (
     page,
     focusPanel,
     updateUrl,
+  }
+  const fromPage = activeHomePage.value
+  root.dataset.homeTransitionFrom = fromPage
+  root.dataset.homeTransitionTo = page
+  if (canUseHomeCardBridge(fromPage, page)) {
+    cleanupHomeCardBridge(activeCardBridge)
+    activeCardBridge = prepareHomeCardBridge()
   }
 
   if (boundaryFrame) window.cancelAnimationFrame(boundaryFrame)
@@ -449,11 +484,15 @@ const setupPager = () => {
     transitioning.value = false
     transitionTarget.value = ''
     const root = document.documentElement
+    cleanupHomeCardBridge(activeCardBridge)
+    activeCardBridge = null
     root.classList.remove('home-boundary-hit')
     delete root.dataset.homeTransitionPhase
     delete root.dataset.homeExitDirection
     delete root.dataset.homeBoundary
     delete root.dataset.homeInput
+    delete root.dataset.homeTransitionFrom
+    delete root.dataset.homeTransitionTo
 
     if (request && request.page !== activeHomePage.value) {
       focusPanelOnChange = request.focusPanel
@@ -702,6 +741,8 @@ const teardownPager = () => {
   pendingTransition = null
   queuedTransition = null
   returningTransition = false
+  cleanupHomeCardBridge(activeCardBridge)
+  activeCardBridge = null
   touchOrigin = null
   const home = homeElement
   const hero = home?.querySelector('.thero')
@@ -731,6 +772,8 @@ const teardownPager = () => {
   delete root.dataset.homeExitDirection
   delete root.dataset.homeBoundary
   delete root.dataset.homeInput
+  delete root.dataset.homeTransitionFrom
+  delete root.dataset.homeTransitionTo
   setActiveHomePage('overview')
 }
 

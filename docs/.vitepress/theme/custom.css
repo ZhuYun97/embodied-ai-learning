@@ -10073,3 +10073,186 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
       scale(1.012);
   }
 }
+
+/* ============================================================
+   P2 → P3 卡片形态接力
+   六张轨道入口冻结后复制到 fixed 舞台：最远的一张收束进 VLA 说明栏，
+   其余五张按屏幕横向顺序变形成 P3 五列路线卡。真实目标卡在末段交接，
+   因此动画跨越 `[hidden]` 页面切换时仍保持连续。
+   ============================================================ */
+.home-card-bridge {
+  position: fixed;
+  z-index: 24;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+  contain: layout style paint;
+}
+.home-card-bridge__card {
+  --bridge-delay: 0ms;
+  --bridge-fade-delay: 0ms;
+  position: fixed;
+  box-sizing: border-box;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 42%, var(--vp-c-divider));
+  border-radius: 12px;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--vp-c-brand-1) 10%, transparent), transparent 56%),
+    color-mix(in srgb, var(--vp-c-bg-soft) 92%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 14px 34px rgba(15, 23, 42, 0.18),
+    0 0 22px color-mix(in srgb, var(--vp-c-brand-1) 14%, transparent);
+  opacity: 1;
+  transform: translateZ(0) scale(1);
+  transition:
+    left 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
+    top 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
+    width 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
+    height 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
+    border-radius 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
+    box-shadow 0.3s ease var(--bridge-delay),
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1) var(--bridge-delay),
+    filter 0.16s ease var(--bridge-fade-delay),
+    opacity 0.16s ease var(--bridge-fade-delay);
+  will-change: left, top, width, height, opacity, transform;
+}
+.dark .home-card-bridge__card {
+  background:
+    linear-gradient(145deg, rgba(37, 99, 235, 0.17), rgba(8, 20, 37, 0.88) 58%),
+    rgba(7, 17, 31, 0.94);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 40px rgba(2, 8, 23, 0.42),
+    0 0 28px rgba(34, 211, 238, 0.16);
+}
+.home-card-bridge__card::before {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #22d3ee 56%, #8b5cf6);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+}
+.home-card-bridge__source,
+.home-card-bridge__target {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+}
+.home-card-bridge__source {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 7px;
+  padding: 10px 12px;
+  opacity: 1;
+  transition: opacity 0.15s ease 0.08s, transform 0.18s ease 0.08s;
+}
+.home-card-bridge__source img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.24));
+}
+.home-card-bridge__source-title {
+  color: var(--vp-c-text-1);
+  font-size: 0.8rem;
+  line-height: 1.3;
+  text-align: center;
+  white-space: nowrap;
+}
+.home-card-bridge__source-index {
+  position: absolute;
+  top: 10px;
+  right: 11px;
+  color: var(--vp-c-brand-1);
+  font: 660 0.58rem/1 var(--vp-font-family-mono);
+  letter-spacing: 0.06em;
+}
+.home-card-bridge__target {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 13px 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.18s ease 0.16s, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1) 0.16s;
+}
+.home-card-bridge__target-tag {
+  padding: 3px 7px;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 40%, var(--vp-c-divider));
+  border-radius: 6px;
+  color: var(--vp-c-brand-1);
+  font: 650 0.58rem/1.2 var(--vp-font-family-mono);
+  letter-spacing: 0.04em;
+}
+.home-card-bridge__target-title {
+  max-width: 100%;
+  color: var(--vp-c-text-1);
+  font-size: 0.82rem;
+  line-height: 1.34;
+}
+.home-card-bridge__card.is-targeting {
+  border-radius: 11px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 16px 36px rgba(15, 23, 42, 0.2),
+    0 0 24px color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent);
+}
+.home-card-bridge__card.is-targeting .home-card-bridge__source {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+}
+.home-card-bridge__card.is-targeting .home-card-bridge__target {
+  opacity: 1;
+  transform: translateY(0);
+}
+.home-card-bridge__card.is-auxiliary.is-targeting {
+  border-radius: 999px;
+  opacity: 0;
+  filter: blur(3px);
+  transform: scale(0.28) rotate(-5deg);
+}
+.home-card-bridge.is-revealing .home-card-bridge__card:not(.is-auxiliary) {
+  opacity: 0;
+  transform: translateY(-2px) scale(0.995);
+}
+
+html.home-card-bridge-preparing .VPHome .VPFeatures .items > .item .VPFeature {
+  transform: none !important;
+  transition: none !important;
+}
+html.home-card-bridge-active[data-home-page='explore'] .VPHome .VPFeatures .items > .item {
+  visibility: hidden !important;
+}
+html.home-card-bridge-active[data-home-page='vla'] [data-page='vla'] .route-card {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(9px) scale(0.985);
+  transition: none;
+}
+html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: homeRouteCardBridgeReveal 0.2s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(2) { animation-delay: 0.02s !important; }
+html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(3) { animation-delay: 0.04s !important; }
+html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(4) { animation-delay: 0.06s !important; }
+html.home-card-bridge-revealing[data-home-page='vla'] [data-page='vla'] .route-card:nth-child(5) { animation-delay: 0.08s !important; }
+
+@keyframes homeRouteCardBridgeReveal {
+  from { opacity: 0; transform: translateY(9px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-card-bridge { display: none !important; }
+}
