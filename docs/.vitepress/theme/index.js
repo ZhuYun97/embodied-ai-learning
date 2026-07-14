@@ -147,8 +147,8 @@ function setupNavScroll() {
 // =====================================================================
 // 卡片光标光斑(setupCardSpotlight):pointermove 写入 --spot-x/y。
 // · 论文票据用自身 ::after 承载光斑;
-// · 新闻卡的伪元素已被占用,故懒注入一个 <span class="fx-spot"> 叠加层。
-// 路线卡保留静态材质与 3D 倾斜,不再叠加跟手光斑。
+// · 路线卡 / 新闻卡的伪元素已被占用,故懒注入一个 <span class="fx-spot">
+//   叠加层(screen 混合、只增亮不挡字,subtle 以尊重路线卡「不突兀」原意)。
 // 事件委托在 document,只在指针位于卡片上时生效,全站轻量。
 // =====================================================================
 let cardSpotlightBound = false
@@ -159,7 +159,7 @@ function setupCardSpotlight() {
     'pointermove',
     (e) => {
       const card =
-        e.target && e.target.closest && e.target.closest('.paper-ticket, .news-card')
+        e.target && e.target.closest && e.target.closest('.paper-ticket, .route-card, .news-card')
       if (!card) return
       const r = card.getBoundingClientRect()
       card.style.setProperty('--spot-x', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%')
@@ -1913,8 +1913,8 @@ function setupReveal() {
 }
 
 // =====================================================================
-// VLA/WAM 路线卡悬停:仅保留随光标 3D 倾斜(--rx/--ry 倾角)。
-// 仅 pointer:fine + 允许动效时绑定;SPA 重建 → MutationObserver 兜底重绑。
+// VLA/WAM 路线卡 强化悬停:注入光斑层 + 随光标 3D 倾斜(--rx/--ry 倾角、--mx/--my 光斑位置)。
+// 仅 pointer:fine + 允许动效时绑定倾斜;光斑层始终注入(CSS 控制悬停显隐)。SPA 重建 → MutationObserver 兜底重绑。
 // =====================================================================
 let cardTiltBound = false
 function setupCardTilt() {
@@ -1926,11 +1926,19 @@ function setupCardTilt() {
     document.querySelectorAll('.VPHome .route-card').forEach((card) => {
       if (card.dataset.tilt) return
       card.dataset.tilt = '1'
+      if (!card.querySelector('.route-card__spot')) {
+        const spot = document.createElement('i')
+        spot.className = 'route-card__spot'
+        spot.setAttribute('aria-hidden', 'true')
+        card.insertBefore(spot, card.firstChild)
+      }
       if (!fine || reduce) return
       card.addEventListener('pointermove', (e) => {
         const r = card.getBoundingClientRect()
         const px = (e.clientX - r.left) / r.width
         const py = (e.clientY - r.top) / r.height
+        card.style.setProperty('--mx', (px * 100).toFixed(1) + '%')
+        card.style.setProperty('--my', (py * 100).toFixed(1) + '%')
         card.style.setProperty('--ry', ((px - 0.5) * 10).toFixed(2) + 'deg')
         card.style.setProperty('--rx', (-(py - 0.5) * 8).toFixed(2) + 'deg')
       })
@@ -2005,13 +2013,13 @@ function setupBorderGlow() {
 }
 
 // =====================================================================
-// 首页 Feature 卡 ElectricBorder(React Bits ElectricBorder 适配版):不包裹组件树,
-// 而是向 Feature 卡注入一层 canvas。hover/focus 时才启动 rAF,
+// 首页卡片 ElectricBorder(React Bits ElectricBorder 适配版):不包裹组件树,
+// 而是向 Feature 卡 / 路线卡注入一层 canvas。hover/focus 时才启动 rAF,
 // 使用原组件的 rounded-rect 采样 + 分形噪声位移生成电流描边;离开后保留
 // 最后一帧配合 CSS 淡出,再清空画布。避免给常驻环形 Feature 动画继续加负担。
 // =====================================================================
 let electricBorderBound = false
-const ELECTRIC_CARD_SELECTOR = '.VPHome .VPFeature'
+const ELECTRIC_CARD_SELECTOR = '.VPHome .VPFeature, .VPHome .route-card'
 const ELECTRIC_COLORS = ['#7df9ff', '#67e8f9', '#60a5fa', '#a78bfa']
 
 function electricRandom(x) {
@@ -2223,7 +2231,10 @@ function setupElectricBorder() {
       if (card.dataset.electricBorder) return
       card.dataset.electricBorder = '1'
       card.classList.add('electric-card')
-      card.style.setProperty('--electric-border-color', ELECTRIC_COLORS[index % ELECTRIC_COLORS.length])
+      const routeAccent = card.classList.contains('route-card')
+        ? window.getComputedStyle(card).getPropertyValue('--route-accent').trim()
+        : ''
+      card.style.setProperty('--electric-border-color', routeAccent || ELECTRIC_COLORS[index % ELECTRIC_COLORS.length])
       const canvas = document.createElement('canvas')
       canvas.className = 'electric-border-canvas'
       canvas.setAttribute('aria-hidden', 'true')
@@ -2392,6 +2403,7 @@ export default {
           setupFeatureHub()
           setupReveal()
           setupCardTilt()
+          setupBorderGlow()
           setupElectricBorder()
           setupRouteCounts()
           setupRouteDisclosure()
