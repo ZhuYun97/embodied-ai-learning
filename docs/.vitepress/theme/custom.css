@@ -1512,7 +1512,7 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
     14px 1.5px, 1.5px 14px,
     14px 1.5px, 1.5px 14px,
     14px 1.5px, 1.5px 14px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-size 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .VPHome .route-card::after {
   content: counter(rcard, decimal-leading-zero);
@@ -1524,14 +1524,6 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   letter-spacing: 0.06em;
   color: var(--bp-ink);
 }
-.VPHome .route-card:hover {
-  background-size:
-    22px 1.5px, 1.5px 22px,
-    22px 1.5px, 1.5px 22px,
-    22px 1.5px, 1.5px 22px,
-    22px 1.5px, 1.5px 22px;   /* 悬停时角标"张开" */
-}
-
 /* —— 路线标签 → 等宽规格芯片(▸ 前缀 · 方角)—— */
 .VPHome .route-tag {
   border-radius: 4px;
@@ -10078,43 +10070,37 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
    P3 / P4 路线卡信息层：把大块留白变成可比较的研究坐标。
    P3 用 2×2 关键维度；P4 额外展示建模 pipeline 与统一三维坐标。
    ============================================================ */
-.VPHome [data-page='vla'] .route-card:nth-child(1) { --route-accent: #60a5fa; --route-accent-2: #22d3ee; }
-.VPHome [data-page='vla'] .route-card:nth-child(2) { --route-accent: #22d3ee; --route-accent-2: #3b82f6; }
-.VPHome [data-page='vla'] .route-card:nth-child(3) { --route-accent: #a78bfa; --route-accent-2: #f472b6; }
-.VPHome [data-page='vla'] .route-card:nth-child(4) { --route-accent: #2dd4bf; --route-accent-2: #22d3ee; }
-.VPHome [data-page='vla'] .route-card:nth-child(5) { --route-accent: #f472b6; --route-accent-2: #a78bfa; }
-.VPHome [data-page='wam'] .route-card:nth-child(1) { --route-accent: #38bdf8; --route-accent-2: #60a5fa; }
-.VPHome [data-page='wam'] .route-card:nth-child(2) { --route-accent: #2dd4bf; --route-accent-2: #22d3ee; }
-.VPHome [data-page='wam'] .route-card:nth-child(3) { --route-accent: #818cf8; --route-accent-2: #60a5fa; }
-.VPHome [data-page='wam'] .route-card:nth-child(4) { --route-accent: #a78bfa; --route-accent-2: #f472b6; }
-.VPHome [data-page='wam'] .route-card:nth-child(5) { --route-accent: #f472b6; --route-accent-2: #818cf8; }
-.VPHome [data-page='wam'] .route-card:nth-child(6) { --route-accent: #f59e0b; --route-accent-2: #f472b6; }
+.VPHome [data-page='vla'] .route-card {
+  --route-accent: #38bdf8;
+  --route-accent-2: #60a5fa;
+}
+.VPHome [data-page='wam'] .route-card {
+  --route-accent: #818cf8;
+  --route-accent-2: #60a5fa;
+}
 
 .VPHome [data-page='vla'] .route-card,
 .VPHome [data-page='wam'] .route-card {
-  --route-accent: var(--vp-c-brand-1);
-  --route-accent-2: var(--ar-violet);
-  --bp-tick: color-mix(in srgb, var(--route-accent) 58%, transparent);
-  --electric-border-color: var(--route-accent);
-  border-color: color-mix(in srgb, var(--route-accent) 20%, var(--vp-c-divider));
-  background-color: color-mix(in srgb, var(--route-accent) 3%, var(--tech-card-bg));
-  backdrop-filter: blur(14px) saturate(1.18);
-  -webkit-backdrop-filter: blur(14px) saturate(1.18);
+  --bp-tick: color-mix(in srgb, var(--route-accent) 36%, transparent);
+  border-color: color-mix(in srgb, var(--route-accent) 13%, var(--vp-c-divider));
+  background-color: var(--tech-card-bg);
+  backdrop-filter: blur(10px) saturate(1.08);
+  -webkit-backdrop-filter: blur(10px) saturate(1.08);
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--route-accent) 16%, transparent),
-    inset 0 -34px 48px rgba(2, 8, 23, 0.07),
-    inset 0 0 32px color-mix(in srgb, var(--route-accent) 3%, transparent),
-    0 7px 20px rgba(2, 8, 23, 0.07);
+    inset 0 1px 0 color-mix(in srgb, var(--route-accent) 8%, transparent),
+    0 6px 18px rgba(2, 8, 23, 0.06);
 }
 .VPHome [data-page='vla'] .route-card::before,
 .VPHome [data-page='wam'] .route-card::before {
   background-image: linear-gradient(90deg, var(--route-accent), var(--route-accent-2) 58%, transparent 94%);
-  opacity: 0.6;
+  background-position: 0 0;
+  opacity: 0.46;
+  animation: none;
 }
 .VPHome [data-page='vla'] .route-card::after,
 .VPHome [data-page='wam'] .route-card::after {
-  color: color-mix(in srgb, var(--route-accent) 68%, var(--vp-c-text-3));
-  text-shadow: 0 0 10px color-mix(in srgb, var(--route-accent) 34%, transparent);
+  color: color-mix(in srgb, var(--route-accent) 44%, var(--vp-c-text-3));
+  text-shadow: none;
 }
 .VPHome [data-page='vla'] .route-card > .route-tag,
 .VPHome [data-page='wam'] .route-card > .route-tag {
@@ -10133,57 +10119,33 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   margin-right: 7px;
   border-radius: 50%;
   background: var(--route-accent);
-  box-shadow:
-    0 0 0 2px color-mix(in srgb, var(--route-accent) 10%, transparent),
-    0 0 9px color-mix(in srgb, var(--route-accent) 62%, transparent);
+  box-shadow: 0 0 5px color-mix(in srgb, var(--route-accent) 30%, transparent);
   vertical-align: 0.08em;
 }
 .VPHome [data-page='vla'] .route-card .fx-spot,
-.VPHome [data-page='wam'] .route-card .fx-spot {
-  background: radial-gradient(
-    220px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-    color-mix(in srgb, var(--route-accent) calc(18% * var(--fx-glow, 1)), transparent),
-    color-mix(in srgb, var(--route-accent-2) calc(5% * var(--fx-glow, 1)), transparent) 34%,
-    transparent 64%
-  );
-}
+.VPHome [data-page='wam'] .route-card .fx-spot,
 .VPHome [data-page='vla'] .route-card__spot,
-.VPHome [data-page='wam'] .route-card__spot {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 4%, var(--route-accent), var(--route-accent-2), transparent 96%);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--route-accent) 58%, transparent);
-}
-.VPHome [data-page='vla'] .route-card .bgw-border::before,
-.VPHome [data-page='wam'] .route-card .bgw-border::before {
-  background:
-    radial-gradient(at 12% 8%, var(--route-accent) 0, transparent 48%),
-    radial-gradient(at 82% 16%, var(--route-accent-2) 0, transparent 48%),
-    radial-gradient(at 88% 86%, var(--route-accent) 0, transparent 52%),
-    radial-gradient(at 38% 72%, var(--route-accent-2) 0, transparent 54%),
-    linear-gradient(var(--route-accent) 0 100%);
-}
-.VPHome [data-page='vla'] .route-card .bgw-light::before,
-.VPHome [data-page='wam'] .route-card .bgw-light::before {
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--route-accent) 86%, transparent),
-    inset 0 0 3px color-mix(in srgb, var(--route-accent) 48%, transparent),
-    inset 0 0 7px color-mix(in srgb, var(--route-accent-2) 38%, transparent),
-    inset 0 0 16px color-mix(in srgb, var(--route-accent) 27%, transparent),
-    inset 0 0 28px 2px color-mix(in srgb, var(--route-accent-2) 16%, transparent),
-    inset 0 0 52px 2px color-mix(in srgb, var(--route-accent) 8%, transparent);
+.VPHome [data-page='wam'] .route-card__spot,
+.VPHome [data-page='vla'] .route-card .bgw-border,
+.VPHome [data-page='vla'] .route-card .bgw-light,
+.VPHome [data-page='wam'] .route-card .bgw-border,
+.VPHome [data-page='wam'] .route-card .bgw-light,
+.VPHome [data-page='vla'] .route-card > .electric-border-canvas,
+.VPHome [data-page='wam'] .route-card > .electric-border-canvas {
+  display: none !important;
 }
 .VPHome [data-page='vla'] .route-card__title,
 .VPHome [data-page='wam'] .route-card__title {
-  text-shadow: 0 0 14px color-mix(in srgb, var(--route-accent) 9%, transparent);
+  text-shadow: none;
 }
 
 .VPHome .route-card > .route-card__question {
   position: relative;
   box-sizing: border-box;
   padding: 2px 0 2px 10px;
-  border-left: 2px solid color-mix(in srgb, var(--route-accent) 76%, transparent);
-  border-radius: 0 5px 5px 0;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--route-accent) 7%, transparent), transparent 76%);
+  border-left: 2px solid color-mix(in srgb, var(--route-accent) 46%, transparent);
+  border-radius: 0;
+  background: transparent;
 }
 .VPHome .route-card > .route-card__question::before {
   display: none;
@@ -10195,40 +10157,26 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   margin: 0 0 14px;
   padding: 5px 0;
   overflow: hidden;
-  border-top: 1px solid color-mix(in srgb, var(--route-accent) 16%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--route-accent) 16%, transparent);
-  background: linear-gradient(90deg, color-mix(in srgb, var(--route-accent) 4%, transparent), transparent 88%);
+  border-top: 1px solid color-mix(in srgb, var(--route-accent) 10%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--route-accent) 10%, transparent);
+  background: transparent;
 }
 .VPHome .route-facts > span {
   position: relative;
   display: grid;
   min-width: 0;
   gap: 2px;
-  padding: 4px 8px 4px 11px;
+  padding: 4px 8px;
   border: 0;
   border-radius: 3px;
   background: transparent;
 }
 .VPHome .route-facts > span::before {
-  content: '';
-  position: absolute;
-  top: 5px;
-  bottom: 5px;
-  left: 3px;
-  width: 1px;
-  background: linear-gradient(180deg, var(--route-accent), color-mix(in srgb, var(--route-accent) 12%, transparent));
-  box-shadow: 0 0 7px color-mix(in srgb, var(--route-accent) 40%, transparent);
-  opacity: 0.62;
-  transform: scaleY(0.78);
-  transform-origin: center;
-  transition:
-    opacity var(--ar-dur-fast) ease,
-    transform var(--ar-dur-fast) ease,
-    box-shadow var(--ar-dur-fast) ease;
+  display: none;
 }
 .VPHome .route-facts small {
   overflow: hidden;
-  color: color-mix(in srgb, var(--route-accent) 62%, var(--vp-c-text-3));
+  color: var(--vp-c-text-3);
   font-family: var(--vp-font-family-mono);
   font-size: 0.62rem;
   font-weight: 650;
@@ -10287,8 +10235,8 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--route-accent) 58%, var(--vp-c-text-3));
-  box-shadow: 0 0 6px color-mix(in srgb, var(--route-accent) 32%, transparent);
+  background: var(--vp-c-text-3);
+  box-shadow: none;
 }
 .VPHome .route-pipeline span:last-of-type {
   color: var(--vp-c-text-1);
@@ -10298,7 +10246,7 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   width: 6px;
   height: 6px;
   background: var(--route-accent);
-  box-shadow: 0 0 9px color-mix(in srgb, var(--route-accent) 72%, transparent);
+  box-shadow: none;
 }
 .VPHome .route-pipeline i {
   position: relative;
@@ -10309,7 +10257,7 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   color: transparent;
   font-size: 0;
   font-style: normal;
-  opacity: 0.72;
+  opacity: 0.5;
   transition: opacity var(--ar-dur-fast) ease, filter var(--ar-dur-fast) ease;
 }
 .VPHome .route-pipeline i::after {
@@ -10324,8 +10272,8 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   transform: rotate(45deg);
 }
 .VPHome .route-card:hover .route-pipeline i {
-  opacity: 1;
-  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--route-accent) 62%, transparent));
+  opacity: 0.88;
+  filter: none;
 }
 .VPHome [data-page='vla'] .route-links,
 .VPHome [data-page='wam'] .route-links {
@@ -10338,87 +10286,55 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
 .VPHome [data-page='vla'] .route-links > a,
 .VPHome [data-page='wam'] .route-links > a {
   border-color: transparent;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--route-accent) 6%, transparent);
-  color: color-mix(in srgb, var(--vp-c-text-1) 88%, var(--route-accent));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--route-accent) 9%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--vp-c-bg-soft) 60%, transparent);
+  color: var(--vp-c-text-2);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vp-c-divider) 62%, transparent);
   transition:
-    transform var(--ar-dur-fast) ease,
     border-color var(--ar-dur-fast) ease,
     background-color var(--ar-dur-fast) ease,
+    color var(--ar-dur-fast) ease,
     box-shadow var(--ar-dur-fast) ease;
 }
 .VPHome [data-page='vla'] .route-links > a::before,
 .VPHome [data-page='wam'] .route-links > a::before {
-  content: '';
-  width: 4px;
-  height: 4px;
-  margin-right: 5px;
-  border-radius: 50%;
-  background: var(--route-accent);
-  box-shadow: 0 0 7px color-mix(in srgb, var(--route-accent) 54%, transparent);
-  opacity: 0.68;
-  transition:
-    opacity var(--ar-dur-fast) ease,
-    transform var(--ar-dur-fast) ease,
-    box-shadow var(--ar-dur-fast) ease;
+  display: none;
 }
 .VPHome [data-page='vla'] .route-links > a:hover,
 .VPHome [data-page='wam'] .route-links > a:hover {
-  border-color: color-mix(in srgb, var(--route-accent) 34%, transparent);
-  background: color-mix(in srgb, var(--route-accent) 14%, transparent);
+  border-color: color-mix(in srgb, var(--route-accent) 18%, transparent);
+  background: color-mix(in srgb, var(--route-accent) 8%, var(--vp-c-bg-soft));
   color: var(--vp-c-text-1);
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--route-accent) 20%, transparent),
-    0 0 11px color-mix(in srgb, var(--route-accent) 18%, transparent);
-  transform: translateY(-1px);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--route-accent) 16%, transparent);
 }
 .VPHome [data-page='vla'] .route-links > .route-count,
 .VPHome [data-page='wam'] .route-links > .route-count {
   padding-inline: 3px;
   border: 0;
   background: transparent;
-  color: color-mix(in srgb, var(--route-accent) 50%, var(--vp-c-text-3));
+  color: var(--vp-c-text-3);
 }
 
 html.home-pager-ready .VPHome [data-page='vla'] .route-card:hover,
 html.home-pager-ready .VPHome [data-page='vla'] .route-card:focus-within,
 html.home-pager-ready .VPHome [data-page='wam'] .route-card:hover,
 html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within {
-  border-color: color-mix(in srgb, var(--route-accent) 72%, transparent);
+  border-color: color-mix(in srgb, var(--route-accent) 36%, var(--vp-c-divider));
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--route-accent) 18%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--route-accent) 44%, transparent),
-    0 12px 28px rgba(2, 8, 23, 0.34),
-    0 0 24px color-mix(in srgb, var(--route-accent) 22%, transparent);
-}
-html.home-pager-ready .VPHome [data-page='vla'] .route-card:hover .route-facts > span::before,
-html.home-pager-ready .VPHome [data-page='vla'] .route-card:focus-within .route-facts > span::before,
-html.home-pager-ready .VPHome [data-page='wam'] .route-card:hover .route-facts > span::before,
-html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within .route-facts > span::before {
-  opacity: 1;
-  transform: scaleY(1);
-  box-shadow: 0 0 9px color-mix(in srgb, var(--route-accent) 66%, transparent);
-}
-html.home-pager-ready .VPHome [data-page='vla'] .route-card:hover .route-links > a::before,
-html.home-pager-ready .VPHome [data-page='vla'] .route-card:focus-within .route-links > a::before,
-html.home-pager-ready .VPHome [data-page='wam'] .route-card:hover .route-links > a::before,
-html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within .route-links > a::before {
-  opacity: 1;
-  transform: scale(1.16);
-  box-shadow: 0 0 9px color-mix(in srgb, var(--route-accent) 76%, transparent);
+    inset 0 1px 0 color-mix(in srgb, var(--route-accent) 10%, transparent),
+    0 10px 24px rgba(2, 8, 23, 0.24);
 }
 html.home-pager-ready .VPHome [data-page='vla'] .route-card:focus-within .route-pipeline i,
 html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within .route-pipeline i {
-  opacity: 1;
-  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--route-accent) 62%, transparent));
+  opacity: 0.88;
+  filter: none;
 }
 html.home-pager-ready .VPHome [data-page='vla'] .route-card:hover::before,
 html.home-pager-ready .VPHome [data-page='vla'] .route-card:focus-within::before,
 html.home-pager-ready .VPHome [data-page='wam'] .route-card:hover::before,
 html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within::before {
-  opacity: 1;
-  box-shadow: 0 0 12px color-mix(in srgb, var(--route-accent) 72%, transparent);
+  opacity: 0.76;
+  box-shadow: none;
 }
 
 @media (min-width: 701px) {
@@ -10442,7 +10358,7 @@ html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within::before
     min-height: 34px;
     align-content: center;
     gap: 1px;
-    padding: 4px 5px 4px 9px;
+    padding: 4px 6px;
     border-radius: 3px;
   }
   html.home-pager-ready .VPHome .route-facts small {
