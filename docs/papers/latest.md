@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-13">2026.07.13</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-14">2026.07.14</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 14 篇强相关候选，聚焦可控世界模型、少样本策略适配、触觉闭环与人形数据合成。</p>
+    <p class="paper-brief__dek">今日筛出 12 篇强相关候选，聚焦潜在世界—动作推理、可执行潜在动作、具身数据合成与跨视角 VLA。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">14</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">12</dd></div>
       <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.13</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.14</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>因果去偏潜在动作</strong><span class="paper-brief__paper">CD-LAM</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>人类介入少样本适配</strong><span class="paper-brief__paper">FlowDAgger</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">TACTILE</span><strong>全臂多接触预测控制</strong><span class="paper-brief__paper">TACTIC</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">HUMANOID</span><strong>混合现实示范合成</strong><span class="paper-brief__paper">AgenticFocus</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>潜在世界—动作推理</strong><span class="paper-brief__paper">Lumo-2</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>视频学习可执行潜在动作</strong><span class="paper-brief__paper">WALA</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>38B 具身生成数据引擎</strong><span class="paper-brief__paper">Xiaomi-Robotics-U0</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">VLA</span><strong>机器人坐标系 3D 视觉</strong><span class="paper-brief__paper">Robot-Centric Pointmaps</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 244 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 256 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,87 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-14" class="paper-day-heading">2026-07-14</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 Lumo-2 × WALA：前者研究潜在世界动力学、动作与多模态对齐如何形成预测推理，后者把无动作视频的语义—几何变化转成可执行潜在动作；再以 Xiaomi-Robotics-U0 观察世界基础模型作为具身数据引擎的规模路线，以 Robot-Centric Pointmaps 检验低改造成本的跨视角 VLA 泛化。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>WAM</span><span>LATENT WORLD-ACTION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11270" target="_blank" rel="noreferrer">Towards Predictive, Aligned, and Scalable Robot Learning</a></h3>
+      <p>Lumo-2 在潜空间学习物理视觉转移并据此生成动作，以分阶段模态预对齐把动作表征依次对齐世界动力学、视觉和语言；系统分析 latent world modelling、对齐、规模律与 OOD 泛化，在长程和灵巧真机任务上超过 VLA/WAM 基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11270" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>LATENT ACTION</span><span>ACTION-FREE VIDEO</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11397" target="_blank" rel="noreferrer">WALA: Learning Executable Latent Actions from Action-Labeled Demonstrations and Action-Free Videos</a></h3>
+      <p>先从视频的 DINOv3 特征差分与稠密深度差分学习语义—几何潜在动作，再用有动作示范把它对齐可执行控制并训练 latent world model；RoboCasa 平均成功率达 75.2%，也提升真实操作的性能与泛化。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11397" target="_blank" rel="noreferrer">arXiv</a><a href="https://liujiahao2077.github.io/WALA.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>WAM</span><span>DATA SYNTHESIS</span><span>MULTI-VIEW</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11643" target="_blank" rel="noreferrer">Xiaomi-Robotics-U0: Unified Embodied Synthesis with World Foundation Model</a></h3>
+      <p>以 38B 多模态自回归模型统一图像、编辑、具身场景、跨本体 transfer 与视频生成，保留基础生成模型泛化并强化多视角几何一致性；合成数据把 π0.5 的困难 OOD 真机成功率从 36.9% 提至 63.2%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11643" target="_blank" rel="noreferrer">arXiv</a><a href="https://robotics.xiaomi.com/xiaomi-robotics-u0.html" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>3D REPRESENTATION</span><span>VIEWPOINT GENERALIZATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11498" target="_blank" rel="noreferrer">See like a Robot: Robot-Centric Pointmaps for Vision-Language-Action Models</a></h3>
+      <p>把每个像素改写为机器人坐标系中的 3D 点，在保持预训练 2D VLA 所需稠密网格接口的同时消除相机观察坐标与动作坐标错配；对 π0.5、SmolVLA 均有增益，真机相机移到未见位置时优势进一步扩大。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11498" target="_blank" rel="noreferrer">arXiv</a><a href="https://davian-robotics.github.io/pointmap/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>MANIPULATION</span><span>MULTI-FRAME POLICY</span><span>BIMANUAL MOBILE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11884" target="_blank" rel="noreferrer">Mixture of Frames Policy: Multi-Frame Action Denoising for Bimanual Mobile Manipulation</a></h3>
+      <p>不再固定单一动作坐标系，而让 frame-specialized denoiser 在末端、基座等多个坐标系同步去噪并融合回规范状态；新的 SE(3) 参数化支持对中间噪声状态做精确可微变换，在九项仿真和两项真机双臂移动操作中胜过单坐标系基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11884" target="_blank" rel="noreferrer">arXiv</a><a href="https://mofpo.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>DEXTEROUS</span><span>ONE DEMONSTRATION</span><span>SIM-TO-REAL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11874" target="_blank" rel="noreferrer">A Minimalist Retargeting-Guided Reinforcement Learning Recipe for Dexterous Manipulation</a></h3>
+      <p>REGRIND 从单条人类示范保留手—物空间与接触关系地重定向，再以物体中心关键点残差 RL 跟踪，并通过系统辨识零样本迁移到两种多指手；剪刀和螺丝刀等接触丰富工具任务同时给出实用 sim-to-real 因素分析。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11874" target="_blank" rel="noreferrer">arXiv</a><a href="https://yunhaifeng.com/REGRIND" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>DEXTEROUS</span><span>TELEOPERATION</span><span>CONTACT TRANSITION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11481" target="_blank" rel="noreferrer">Towards Human-level Dexterous Teleoperation</a></h3>
+      <p>TeleDexter 用手—物协同跟踪把操作员意图映射为学习到的低层接触执行，以连续子目标和混合奖励覆盖重抓、物内重定位及指步；两种灵巧手、七项长程工具任务真机平均成功率 75%，采集示范还能训练自主策略。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11481" target="_blank" rel="noreferrer">arXiv</a><a href="https://bigai-dex.github.io/blog/teledexter/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>MANIPULATION</span><span>ACTION REPRESENTATION</span><span>VISUAL CONSEQUENCE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11427" target="_blank" rel="noreferrer">EDAR: Learning Environment-Dependent Action Representations for Robotic Manipulation</a></h3>
+      <p>把动作 token 同时锚定可执行控制结构与场景条件下的预期视觉后果，使同一控制片段在不同环境中的不同语义显式进入表征；在仿真和真机操作上改善策略学习，长程任务收益尤其明显。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11427" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>TACTILE</span><span>HUMANOID</span><span>SENSOR DESIGN</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11690" target="_blank" rel="noreferrer">Requirement-Driven Design of Whole-Body Social Tactile Sensing via Virtual Human-Robot Interaction</a></h3>
+      <p>从 VR 触觉交互数据反推人形机器人全身皮肤的覆盖位置与空间分辨率，而非先定硬件；18 名参与者、5,520 次试验形成开放数据，并为九类重复出现的社交触摸手势给出传感器密度基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11690" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>LOCOMOTION</span><span>GRANULAR TERRAIN</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11855" target="_blank" rel="noreferrer">Robust bipedal locomotion on flowable slopes via foot-driven terrain manipulation</a></h3>
+      <p>从足端主动调节颗粒地形响应，而非只靠身体控制抵消扰动：实验揭示中等 cleat 间距可让基质应力保持在屈服阈值附近，并据此设计可调深度足，在 1.4 kg 与 15 kg 双足平台验证最高 30° 流动斜坡行走。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11855" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EVAL</span><span>HRI</span><span>ERROR ANTICIPATION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11570" target="_blank" rel="noreferrer">ERR@HRI 3.0 Challenge: Multimodal Detection of Errors and Anticipation in Human-Robot Interactions</a></h3>
+      <p>发布 BAD 与 Bad Idea 两套自然场景原始视频数据，分别评测旁观者对机器人/人类失败的自发反应识别，以及失败发生前的结果预判；还设置跨数据集泛化轨道，并报告挑战赛参赛方法与基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11570" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>ROADMAP</span><span>SYSTEM STACK</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.11689" target="_blank" rel="noreferrer">From World Action Models to Embodied Brains: A Roadmap for Open-World Physical Intelligence</a></h3>
+      <p>把 WAM 进展整理为模型角色与表征、目标与标准化、系统组合三组缺口，并提出 embodied brain、physical harness、共享契约和闭环后训练组成的模块化栈；适合作为路线图观察，但当前标注为 ongoing work。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.11689" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
