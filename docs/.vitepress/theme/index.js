@@ -2231,7 +2231,10 @@ function setupElectricBorder() {
       if (card.dataset.electricBorder) return
       card.dataset.electricBorder = '1'
       card.classList.add('electric-card')
-      card.style.setProperty('--electric-border-color', ELECTRIC_COLORS[index % ELECTRIC_COLORS.length])
+      const routeAccent = card.classList.contains('route-card')
+        ? window.getComputedStyle(card).getPropertyValue('--route-accent').trim()
+        : ''
+      card.style.setProperty('--electric-border-color', routeAccent || ELECTRIC_COLORS[index % ELECTRIC_COLORS.length])
       const canvas = document.createElement('canvas')
       canvas.className = 'electric-border-canvas'
       canvas.setAttribute('aria-hidden', 'true')

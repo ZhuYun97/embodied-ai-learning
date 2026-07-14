@@ -10095,15 +10095,21 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   --route-accent: var(--vp-c-brand-1);
   --route-accent-2: var(--ar-violet);
   --bp-tick: color-mix(in srgb, var(--route-accent) 58%, transparent);
+  --electric-border-color: var(--route-accent);
   border-color: color-mix(in srgb, var(--route-accent) 20%, var(--vp-c-divider));
+  background-color: color-mix(in srgb, var(--route-accent) 3%, var(--tech-card-bg));
+  backdrop-filter: blur(14px) saturate(1.18);
+  -webkit-backdrop-filter: blur(14px) saturate(1.18);
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--route-accent) 10%, transparent),
-    inset 0 0 32px color-mix(in srgb, var(--route-accent) 2%, transparent);
+    inset 0 1px 0 color-mix(in srgb, var(--route-accent) 16%, transparent),
+    inset 0 -34px 48px rgba(2, 8, 23, 0.07),
+    inset 0 0 32px color-mix(in srgb, var(--route-accent) 3%, transparent),
+    0 7px 20px rgba(2, 8, 23, 0.07);
 }
 .VPHome [data-page='vla'] .route-card::before,
 .VPHome [data-page='wam'] .route-card::before {
   background-image: linear-gradient(90deg, var(--route-accent), var(--route-accent-2) 58%, transparent 94%);
-  opacity: 0.88;
+  opacity: 0.6;
 }
 .VPHome [data-page='vla'] .route-card::after,
 .VPHome [data-page='wam'] .route-card::after {
@@ -10127,8 +10133,44 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   margin-right: 7px;
   border-radius: 50%;
   background: var(--route-accent);
-  box-shadow: 0 0 9px color-mix(in srgb, var(--route-accent) 72%, transparent);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--route-accent) 10%, transparent),
+    0 0 9px color-mix(in srgb, var(--route-accent) 62%, transparent);
   vertical-align: 0.08em;
+}
+.VPHome [data-page='vla'] .route-card .fx-spot,
+.VPHome [data-page='wam'] .route-card .fx-spot {
+  background: radial-gradient(
+    220px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    color-mix(in srgb, var(--route-accent) calc(18% * var(--fx-glow, 1)), transparent),
+    color-mix(in srgb, var(--route-accent-2) calc(5% * var(--fx-glow, 1)), transparent) 34%,
+    transparent 64%
+  );
+}
+.VPHome [data-page='vla'] .route-card__spot,
+.VPHome [data-page='wam'] .route-card__spot {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 4%, var(--route-accent), var(--route-accent-2), transparent 96%);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--route-accent) 58%, transparent);
+}
+.VPHome [data-page='vla'] .route-card .bgw-border::before,
+.VPHome [data-page='wam'] .route-card .bgw-border::before {
+  background:
+    radial-gradient(at 12% 8%, var(--route-accent) 0, transparent 48%),
+    radial-gradient(at 82% 16%, var(--route-accent-2) 0, transparent 48%),
+    radial-gradient(at 88% 86%, var(--route-accent) 0, transparent 52%),
+    radial-gradient(at 38% 72%, var(--route-accent-2) 0, transparent 54%),
+    linear-gradient(var(--route-accent) 0 100%);
+}
+.VPHome [data-page='vla'] .route-card .bgw-light::before,
+.VPHome [data-page='wam'] .route-card .bgw-light::before {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--route-accent) 86%, transparent),
+    inset 0 0 3px color-mix(in srgb, var(--route-accent) 48%, transparent),
+    inset 0 0 7px color-mix(in srgb, var(--route-accent-2) 38%, transparent),
+    inset 0 0 16px color-mix(in srgb, var(--route-accent) 27%, transparent),
+    inset 0 0 28px 2px color-mix(in srgb, var(--route-accent-2) 16%, transparent),
+    inset 0 0 52px 2px color-mix(in srgb, var(--route-accent) 8%, transparent);
 }
 .VPHome [data-page='vla'] .route-card__title,
 .VPHome [data-page='wam'] .route-card__title {
@@ -10166,7 +10208,6 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   border: 0;
   border-radius: 3px;
   background: transparent;
-  transition: background-color var(--ar-dur-fast) ease;
 }
 .VPHome .route-facts > span::before {
   content: '';
@@ -10177,9 +10218,13 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   width: 1px;
   background: linear-gradient(180deg, var(--route-accent), color-mix(in srgb, var(--route-accent) 12%, transparent));
   box-shadow: 0 0 7px color-mix(in srgb, var(--route-accent) 40%, transparent);
-}
-.VPHome .route-facts > span:hover {
-  background: color-mix(in srgb, var(--route-accent) 7%, transparent);
+  opacity: 0.62;
+  transform: scaleY(0.78);
+  transform-origin: center;
+  transition:
+    opacity var(--ar-dur-fast) ease,
+    transform var(--ar-dur-fast) ease,
+    box-shadow var(--ar-dur-fast) ease;
 }
 .VPHome .route-facts small {
   overflow: hidden;
@@ -10288,11 +10333,7 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
 }
 .VPHome [data-page='vla'] .route-links::before,
 .VPHome [data-page='wam'] .route-links::before {
-  content: '';
-  flex: 0 0 100%;
-  height: 1px;
-  margin-bottom: 1px;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--route-accent) 26%, transparent), transparent 86%);
+  display: none;
 }
 .VPHome [data-page='vla'] .route-links > a,
 .VPHome [data-page='wam'] .route-links > a {
@@ -10316,6 +10357,11 @@ html.home-pager-ready [data-page='about'] .home-coda__visual figcaption strong {
   border-radius: 50%;
   background: var(--route-accent);
   box-shadow: 0 0 7px color-mix(in srgb, var(--route-accent) 54%, transparent);
+  opacity: 0.68;
+  transition:
+    opacity var(--ar-dur-fast) ease,
+    transform var(--ar-dur-fast) ease,
+    box-shadow var(--ar-dur-fast) ease;
 }
 .VPHome [data-page='vla'] .route-links > a:hover,
 .VPHome [data-page='wam'] .route-links > a:hover {
@@ -10345,6 +10391,27 @@ html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within {
     0 0 0 1px color-mix(in srgb, var(--route-accent) 44%, transparent),
     0 12px 28px rgba(2, 8, 23, 0.34),
     0 0 24px color-mix(in srgb, var(--route-accent) 22%, transparent);
+}
+html.home-pager-ready .VPHome [data-page='vla'] .route-card:hover .route-facts > span::before,
+html.home-pager-ready .VPHome [data-page='vla'] .route-card:focus-within .route-facts > span::before,
+html.home-pager-ready .VPHome [data-page='wam'] .route-card:hover .route-facts > span::before,
+html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within .route-facts > span::before {
+  opacity: 1;
+  transform: scaleY(1);
+  box-shadow: 0 0 9px color-mix(in srgb, var(--route-accent) 66%, transparent);
+}
+html.home-pager-ready .VPHome [data-page='vla'] .route-card:hover .route-links > a::before,
+html.home-pager-ready .VPHome [data-page='vla'] .route-card:focus-within .route-links > a::before,
+html.home-pager-ready .VPHome [data-page='wam'] .route-card:hover .route-links > a::before,
+html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within .route-links > a::before {
+  opacity: 1;
+  transform: scale(1.16);
+  box-shadow: 0 0 9px color-mix(in srgb, var(--route-accent) 76%, transparent);
+}
+html.home-pager-ready .VPHome [data-page='vla'] .route-card:focus-within .route-pipeline i,
+html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within .route-pipeline i {
+  opacity: 1;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--route-accent) 62%, transparent));
 }
 html.home-pager-ready .VPHome [data-page='vla'] .route-card:hover::before,
 html.home-pager-ready .VPHome [data-page='vla'] .route-card:focus-within::before,
@@ -10379,7 +10446,7 @@ html.home-pager-ready .VPHome [data-page='wam'] .route-card:focus-within::before
     border-radius: 3px;
   }
   html.home-pager-ready .VPHome .route-facts small {
-    font-size: 0.52rem;
+    font-size: 0.55rem;
   }
   html.home-pager-ready .VPHome .route-facts b {
     font-size: 0.64rem;
