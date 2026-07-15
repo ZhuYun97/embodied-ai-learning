@@ -535,7 +535,9 @@ const renderMarkdown = (text) => {
 .news-brief h1::before,
 .news-brief h1::after,
 .news-brief h2::before,
-.news-brief h2::after {
+.news-brief h2::after,
+.news-brief h3::before,
+.news-brief h3::after {
   content: none !important;
   display: none !important;
 }
@@ -949,8 +951,9 @@ const renderMarkdown = (text) => {
 }
 
 .brief-card h3 {
+  position: static;
   margin: 0 0 12px;
-  padding: 0;
+  padding: 0 !important;
   border: 0;
   color: var(--news-ink);
   font-size: 1.04rem;
