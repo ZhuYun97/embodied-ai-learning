@@ -1,5 +1,33 @@
 [
   {
+    "id": "roboparty-near-500m-angel-plus-plus-pre-a-catl-20260715",
+    "title": "RoboParty 连续融资近 5 亿元：宁德时代独家投资 Pre-A 轮",
+    "date": "2026-07-15",
+    "fetched_at": "2026-07-15",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "人形机器人",
+      "平台/开源发布",
+      "公司战略"
+    ],
+    "summary": "开源具身全栈平台 **RoboParty 萝博派对**连续完成天使++轮和 Pre-A 轮融资，合计近 **5 亿元人民币**。天使++轮由顺为资本、经纬创投、小米战投、商汤国香等老股东追加，Pre-A 轮由 **宁德时代独家投资**，光源资本担任孵化方和独家财务顾问。公司表示资金将用于开源双足人形本体量产爬坡、提升可靠性与量产一致性，并继续投入 Party OS、具身基础模型 BFM 和人形基础模型 HFM；其技术路线还覆盖 VLA、世界模型、全身操作与 Agent + Skills 架构。",
+    "sources": [
+      {
+        "name": "投资界",
+        "url": "https://m.pedaily.cn/news/566307"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "mitsubishi-highlanders-humanoid-development-mass-production-20260709",
     "title": "三菱汽车与 Highlanders 联合开发并筹备量产人形机器人",
     "date": "2026-07-09",

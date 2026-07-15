@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-07-11",
+  "last_fetched_at": "2026-07-15",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -132,8 +132,9 @@
     "keenon-general-purpose-specialized-robot-ecosystem-leap-east|20260708",
     "mistral-robostral-navigate-single-camera-robot-navigation|20260708",
     "rokae-robotics-hkex-main-board-listing-3752|20260709",
-    "mitsubishi-highlanders-humanoid-development-mass-production|20260709"
+    "mitsubishi-highlanders-humanoid-development-mass-production|20260709",
+    "roboparty-near-500m-angel-plus-plus-pre-a-catl|20260715"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 132
+  "_count": 133
 }
