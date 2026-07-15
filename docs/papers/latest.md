@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-14">2026.07.14</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-15">2026.07.15</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 12 篇强相关候选，聚焦潜在世界—动作推理、可执行潜在动作、具身数据合成与跨视角 VLA。</p>
+    <p class="paper-brief__dek">今日筛出 11 篇强相关候选，聚焦视频原生 WAM 动作表征、3D 语义 VLA、强化微调探索与端侧实时控制。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">12</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">11</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">5</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.14</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.15</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>潜在世界—动作推理</strong><span class="paper-brief__paper">Lumo-2</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>视频学习可执行潜在动作</strong><span class="paper-brief__paper">WALA</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>38B 具身生成数据引擎</strong><span class="paper-brief__paper">Xiaomi-Robotics-U0</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">VLA</span><strong>机器人坐标系 3D 视觉</strong><span class="paper-brief__paper">Robot-Centric Pointmaps</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>光流统一动作与未来预测</strong><span class="paper-brief__paper">FlowWAM</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>3D 高斯语义认知地图</strong><span class="paper-brief__paper">VistaVLA</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">VLA</span><strong>行为 token 结构化探索</strong><span class="paper-brief__paper">ExToken</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">DATA</span><strong>合成失败学习稠密奖励</strong><span class="paper-brief__paper">DenseReward</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 256 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 267 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,81 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-15" class="paper-day-heading">2026-07-15</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 FlowWAM × VistaVLA：前者用光流统一 WAM 的动作预测与世界建模，后者把 3D 高斯中的几何—语义压缩为 VLA 控制 token；再以 ExToken 和 DenseReward 串起高效在线探索与失败感知奖励，以 Jetson-PI 检验 VLA 端侧实时部署。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>WAM</span><span>OPTICAL FLOW</span><span>VIDEO PRETRAINING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13017" target="_blank" rel="noreferrer">FlowWAM: Optical Flow as a Unified Action Representation for World Action Models</a></h3>
+      <p>把光流视频作为与 RGB 视频同构、同时携带像素运动的动作表征，在共享视频扩散骨干中统一策略模式与世界模型模式；还能直接利用无动作标签视频预训练，在 RoboTwin 与 WorldArena 均超过 VLA/WAM 基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13017" target="_blank" rel="noreferrer">arXiv</a><a href="https://flow-wam.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>3D GAUSSIANS</span><span>SEMANTIC GROUNDING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.12356" target="_blank" rel="noreferrer">VistaVLA: Geometry- and Semantic-Aware 3D Gaussian-Grounded VLA for Robotic Manipulation</a></h3>
+      <p>把多视角视觉—语言特征提升到 3D 高斯，形成兼具几何锚点与语义的视角一致表征，再以 Merge-then-Query 压缩 99% token；七项真机任务平均提升 22.8%，困难 OOD 相对 VLA-Adapter 提升 30.0%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.12356" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>RL FINE-TUNING</span><span>STRUCTURED EXPLORATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.12931" target="_blank" rel="noreferrer">ExToken: Structured Exploration for Efficient Vision-Language-Action Reinforcement Fine-tuning</a></h3>
+      <p>指出 VLA-RL 的关键瓶颈是轨迹多样性而非 rollout 数量，并用离线示范归纳的离散行为 token 条件化探索；部署时由状态条件选择器挑选行为模式，在受限交互预算下加快收敛并提升仿真与真机操作表现。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.12931" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>MANIPULATION</span><span>REWARD MODEL</span><span>FAILURE SYNTHESIS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13033" target="_blank" rel="noreferrer">DenseReward: Dense Reward Learning via Failure Synthesis for Robotic Manipulation</a></h3>
+      <p>在仿真中自动合成碰撞、漏抓、掉落与恢复等物理失败轨迹，无需人工标注即可训练视觉—语言稠密奖励模型；逐帧任务进度估计优于通用 VLM 和现有机器人奖励模型，并能为 MPC 与 RL 提供有效反馈。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13033" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>EDGE DEPLOYMENT</span><span>ASYNCHRONOUS CONTROL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.12659" target="_blank" rel="noreferrer">Jetson-PI: Towards Onboard Real-Time Robot Control via Foresight-Aligned Asynchronous Inference</a></h3>
+      <p>用未来校正模块处理异步推理的感知—执行错位，以置信度调度减少反应时间，并结合 CUDA 图复用等系统优化；Jetson Orin 控制频率较朴素 PyTorch 提升 8.66 倍，LIBERO 成功率也超过 VLASH。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.12659" target="_blank" rel="noreferrer">arXiv</a><a href="https://github.com/PKU-SEC-Lab/Jetson-PI" target="_blank" rel="noreferrer">Code</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>MANIPULATION</span><span>ACTION CHUNKING</span><span>CONTINUITY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.12992" target="_blank" rel="noreferrer">ChunkFlow: Towards Continuity-Consistent Chunked Policy Learning</a></h3>
+      <p>针对 action chunk 边界抖动，把每个 chunk 划为冻结、可编辑与未来区域，并在训练中加入接缝及一、二阶连续性损失；结合历史扰动、scheduled sampling 与 AWAC，在 CALVIN、LIBERO 和真机上改善成功率—稳定性权衡。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.12992" target="_blank" rel="noreferrer">arXiv</a><a href="https://cytoderm-ai.github.io/chunkflow" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EMBODIED VLM</span><span>PHYSICAL REASONING</span><span>EFFICIENT MOE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.12894" target="_blank" rel="noreferrer">Hy-Embodied-VLM-1.0: Efficient Physical-World Agents</a></h3>
+      <p>围绕动作相关状态理解、动作转移推理和顺序自适应推理构建数据与训练体系；仅激活 3B 参数的 MoE 模型在 38 项具身感知、物理理解与推理评测中有 19 项达到同规模最佳，并支持多轮长程具身任务。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.12894" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>MANIPULATION</span><span>VALUE CORRECTION</span><span>DEFORMABLE OBJECT</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.12892" target="_blank" rel="noreferrer">UR-VC: Unsupervised Robotic Value Correction for Time-Derived Progress Proxies</a></h3>
+      <p>利用跨示范中相似状态出现在不同时间点的规律，离线修正把归一化时间误当任务进度的标签偏差；无需人工奖励或额外价值模型，即可捕捉布料操作中的回退与非匀速进展，并用于 VLA 优势条件训练。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.12892" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA SAFETY</span><span>BACKDOOR DEFENSE</span><span>INFERENCE-TIME</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.12571" target="_blank" rel="noreferrer">TrustVLA: Mechanism-Guided Inference-Time Defense Against Vision-Language-Action Backdoors</a></h3>
+      <p>从 BadVLA 与 INFUSE 中归纳出注意力驱动、空间紧凑且具因果性的触发器内部足迹，据此在推理时检测异常证据演化、定位区域并局部修复；仅需少量干净校准集，无需重训即可降低攻击成功率并保持正常任务性能。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.12571" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WORLD MODEL</span><span>HIERARCHICAL PLANNING</span><span>LONG HORIZON</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.12547" target="_blank" rel="noreferrer">Mind the Gap: Promises and Pitfalls of Hierarchical Planning in LeWorldModel</a></h3>
+      <p>冻结 LeWorldModel 低层控制器并增加潜在子目标规划，发现层级化并不会自动改善长程控制，主要瓶颈是高层搜索分布与低层动作空间错配；把搜索约束到训练轨迹宏动作附近后，PushT 长距离成功率提升 14.7 个百分点。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.12547" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>LOCO-MANIPULATION</span><span>VISION RL</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.12702" target="_blank" rel="noreferrer">Vision-Based Dribbling for Humanoid Soccer via Privileged Representation Learning</a></h3>
+      <p>把时序深度编码器直接嵌入强化学习策略，使人形机器人无需显式状态估计即可兼顾平衡、控球与对手感知；仿真 Booster T1 在标称运球与静态障碍下表现强，但面对主动移动对手成功率仍为 46%，适合作为视觉闭环基线观察。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.12702" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
