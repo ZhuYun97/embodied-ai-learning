@@ -496,10 +496,72 @@ export default withMermaid(defineConfig({
       const header = `# 具身星图 · Embodied AI Atlas\n\n> VLA × WAM 前沿谱系 + 88 篇论文细读 + 知识图谱与产业生态。经多源检索与对抗式事实核查整理。\n> 可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。\n> 引用本站数据请连同上述标记一并保留。\n\n`
       fs.writeFileSync(path.join(outDir, 'llms.txt'), header + index.join('\n') + '\n', 'utf-8')
       fs.writeFileSync(path.join(outDir, 'llms-full.txt'), header + fullParts.join('\n\n---\n\n') + '\n', 'utf-8')
+
+      // 把每日论文雷达拆成按日期可消费的轻量语料。AutoResearch 只基于所选日期
+      // 的论文生成 Ideas，避免日期变化后继续套用上一轮固定模板。
+      const dailyPapers = []
+      const latestPapersPath = path.join(srcDir, 'papers/latest.md')
+      if (fs.existsSync(latestPapersPath)) {
+        const raw = fs.readFileSync(latestPapersPath, 'utf-8')
+        const dayHeading = /<h2\s+id="papers-(\d{4}-\d{2}-\d{2})"[^>]*>[\s\S]*?<\/h2>/g
+        const headings = [...raw.matchAll(dayHeading)]
+        const plain = (value = '') => value
+          .replace(/<[^>]+>/g, ' ')
+          .replace(/&amp;/g, '&')
+          .replace(/&quot;/g, '"')
+          .replace(/&#39;/g, "'")
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/\s+/g, ' ')
+          .trim()
+
+        for (let i = 0; i < headings.length; i += 1) {
+          const date = headings[i][1]
+          const start = headings[i].index + headings[i][0].length
+          const end = headings[i + 1]?.index ?? raw.length
+          const section = raw.slice(start, end)
+          const note = plain(section.match(/<p\s+class="paper-day-note"[^>]*>([\s\S]*?)<\/p>/)?.[1])
+          const papers = []
+          const articlePattern = /<article\s+class="([^"]*paper-ticket[^"]*)"[^>]*>([\s\S]*?)<\/article>/g
+
+          for (const article of section.matchAll(articlePattern)) {
+            const classes = article[1]
+            const body = article[2]
+            const titleMatch = body.match(/<h3[^>]*>[\s\S]*?<a\s+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>[\s\S]*?<\/h3>/)
+            if (!titleMatch) continue
+            const metaBlock = body.match(/<div\s+class="paper-ticket__meta"[^>]*>([\s\S]*?)<\/div>/)?.[1] || ''
+            const meta = [...metaBlock.matchAll(/<span[^>]*>([\s\S]*?)<\/span>/g)]
+              .map(match => plain(match[1]))
+              .filter(Boolean)
+            const summary = plain(body.match(/<p[^>]*>([\s\S]*?)<\/p>/)?.[1])
+            const track = classes.includes('paper-ticket--wam')
+              ? 'WAM'
+              : classes.includes('paper-ticket--data')
+                ? 'DATA'
+                : classes.includes('paper-ticket--vla')
+                  ? 'VLA'
+                  : classes.includes('paper-ticket--humanoid')
+                    ? 'HUMANOID'
+                    : 'EMBODIED'
+            papers.push({
+              title: plain(titleMatch[2]),
+              url: plain(titleMatch[1]),
+              summary,
+              track,
+              priority: meta.includes('P0') ? 'P0' : meta.includes('P1') ? 'P1' : 'WATCH',
+              meta,
+            })
+          }
+
+          if (papers.length) dailyPapers.push({ date, note, papers })
+        }
+      }
+
       fs.writeFileSync(path.join(outDir, 'autoresearch-corpus.json'), JSON.stringify({
         generated_at: new Date().toISOString(),
         source: 'docs markdown + generated news mirror',
         docs: researchDocs,
+        daily_papers: dailyPapers,
       }), 'utf-8')
       console.log(`[buildEnd] 已导出 llms.txt / llms-full.txt + ${files.length} 页原始 .md.txt`)
     } catch (e) {

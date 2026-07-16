@@ -1275,20 +1275,23 @@ const loadError = ref('')
 const result = ref(null)
 const lastRunAt = ref('')
 const corpusSource = ref('')
+const dailyPaperArchive = ref({})
 const selectedIdeaId = ref('')
 const selectedIdeaDate = ref(localDateKey(new Date()))
 let timer = 0
 
 const currentDateKey = computed(() => localDateKey(new Date(dailyClock.value)))
 
+const selectedDailyPapers = computed(() => dailyPaperArchive.value[selectedIdeaDate.value]?.papers || [])
+
 const ideaHistoryOptions = computed(() => {
-  const keys = new Set([currentDateKey.value, ...Object.keys(DAILY_IDEA_PACKS)])
+  const keys = new Set([...Object.keys(dailyPaperArchive.value), ...Object.keys(DAILY_IDEA_PACKS)])
   return [...keys]
     .sort((a, b) => b.localeCompare(a))
     .map((key) => ({
       key,
       label: formatIdeaDateLabel(key),
-      archived: Boolean(DAILY_IDEA_PACKS[key]),
+      archived: key !== currentDateKey.value,
     }))
 })
 
@@ -1301,6 +1304,16 @@ const todayKey = computed(() => today.value.toLocaleDateString('zh-CN', {
 }))
 
 const dailyDirection = computed(() => {
+  if (selectedDailyPapers.value.length) {
+    const tracks = [...new Set(selectedDailyPapers.value.map(paper => paper.track).filter(Boolean))]
+    return {
+      id: 'daily',
+      label: '当日论文交叉',
+      scope: 'latest',
+      focus: `基于该日 ${selectedDailyPapers.value.length} 篇论文，交叉 ${tracks.join(' / ')} 信号生成独立 Ideas。`,
+      seed: `结合 ${selectedIdeaDate.value} 论文雷达中的 ${tracks.join('、')} 证据生成当日专属 paper ideas。`,
+    }
+  }
   const date = today.value
   const dayIndex = Math.floor(new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() / 86400000)
   return DAILY_DIRECTIONS[Math.abs(dayIndex) % DAILY_DIRECTIONS.length]
@@ -1605,8 +1618,7 @@ function formatIdeaDateLabel(key) {
     weekday: 'short',
   })
   if (key === localDateKey(new Date())) return `${label} · 今日`
-  if (DAILY_IDEA_PACKS[key]) return `${label} · 已归档`
-  return `${label} · 自动生成`
+  return `${label} · 已生成`
 }
 
 function dailySource(id) {
@@ -1618,6 +1630,159 @@ function dailySource(id) {
     text: source.title,
     tokens: tokenize(source.title),
   }
+}
+
+const DAILY_META_LABELS = {
+  'ACTION-ONLY INFERENCE': '低延迟动作解码',
+  'MOBILE MANIPULATION': '开放世界移动操作',
+  'OPEN WORLD': '开放世界泛化',
+  'REPRESENTATION ANCHORING': '表征锚定',
+  'LANGUAGE-ACTION ALIGNMENT': '语言—动作对齐',
+  'SEMANTIC MANIFOLD': '语义流形保持',
+  'OOD GENERALIZATION': '分布外泛化',
+  'DATA SYNTHESIS': '合成数据引擎',
+  'DATA COLLECTION': '自主数据采集',
+  'ONE DEMO': '单示范扩展',
+  'LANGUAGE CORRECTION': '语言纠错',
+  'CORRECTIVE MEMORY': '纠错记忆',
+  'FAILURE RECOVERY': '失败恢复',
+  'AGENTIC RL': '智能体强化学习',
+  'INDUSTRIAL BENCHMARK': '工业灵巧评测',
+  'MULTIMODAL POLICY': '多模态控制',
+  'PROPRIOCEPTION': '本体感知',
+  'ACTIVE SENSING': '主动感知',
+  'LONG HORIZON': '长程任务',
+  'STAGE INTERFACE': '阶段信息接口',
+}
+
+function normalizeDailyPaperDays(days) {
+  const archive = {}
+  for (const day of Array.isArray(days) ? days : []) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(day?.date || '') || !Array.isArray(day.papers)) continue
+    const papers = day.papers
+      .filter(paper => paper?.title && paper?.url)
+      .map((paper, index) => ({
+        ...paper,
+        id: `daily-${day.date}-${index}`,
+        bucket: 'latest',
+        tags: [...new Set(['LATEST', paper.track, ...(paper.meta || [])
+          .filter(tag => !['P0', 'P1', 'WATCH', '待细读', '观察', '已细读', 'EDITOR PICK'].includes(tag))])].slice(0, 7),
+        text: paper.summary || paper.title,
+        tokens: tokenize(`${paper.title} ${paper.summary || ''} ${(paper.meta || []).join(' ')}`),
+      }))
+    if (papers.length) archive[day.date] = { date: day.date, note: day.note || '', papers }
+  }
+  return archive
+}
+
+function shortPaperName(paper) {
+  const value = String(paper?.title || '').trim()
+  const summaryName = String(paper?.summary || '').match(/^([A-Z][A-Za-z0-9²._-]{1,20})\s/)?.[1]
+  if (summaryName) return summaryName
+  const named = value.match(/^([^:：]{2,42})[:：]/)?.[1]
+  if (named) return named.trim()
+  return value.split(/\s+/).slice(0, 5).join(' ')
+}
+
+function paperAngle(paper) {
+  const ignored = new Set(['VLA', 'WAM', 'DATA', 'HUMANOID', 'EMBODIED', 'AUTORESEARCH', 'EDITOR PICK', 'P0', 'P1', 'WATCH'])
+  const tag = (paper.meta || []).find(item => item && !ignored.has(item) && !/待细读|观察|已细读/.test(item))
+  return DAILY_META_LABELS[tag] || (tag ? tag.toLowerCase().replaceAll('-', ' ') : `${paper.track || '具身'}机制`)
+}
+
+function dailyEvidenceIdeas(seed, tensions) {
+  const papers = selectedDailyPapers.value
+  if (!papers.length) return null
+  const ranked = [...papers].sort((a, b) => ({ P0: 0, P1: 1, WATCH: 2 }[a.priority] ?? 3) - ({ P0: 0, P1: 1, WATCH: 2 }[b.priority] ?? 3))
+  const pick = (index) => ranked[index % ranked.length]
+  const pairings = ranked.length === 1
+    ? [[pick(0), pick(0)], [pick(0), pick(0)], [pick(0), pick(0)]]
+    : [[pick(0), pick(1)], [pick(2), pick(3)], [pick(4), pick(5)]]
+  const anchor = `${selectedIdeaDate.value} 当日论文雷达 · ${papers.length} 篇独立证据`
+
+  return pairings.map(([left, right], index) => {
+    const leftName = shortPaperName(left)
+    const rightName = shortPaperName(right)
+    const leftAngle = paperAngle(left)
+    const rightAngle = paperAngle(right)
+    const extra = pick(index + 6)
+    const sources = [...new Map([left, right, extra].map(source => [source.url, source])).values()]
+    const common = {
+      id: `idea-${index}`,
+      anchor,
+      seed,
+      sources,
+      frontier: left,
+      tension: tensions[index % Math.max(tensions.length, 1)]?.title || `${left.track} × ${right.track} 的证据张力`,
+    }
+
+    if (index === 0) {
+      return attachAcademicReview({
+        ...common,
+        title: `${leftName} × ${rightName}: ${leftAngle}到${rightAngle}的闭环`,
+        thesis: `把「${leftName}」的${leftAngle}机制接入「${rightName}」的${rightAngle}任务，检验两者联合是否比独立模块更能提升真实执行。`,
+        motivation: `该日论文同时给出两条互补信号：${left.summary}；${right.summary}。值得研究的不是简单拼装，而是前一机制能否成为后一系统中可测、可消融的因果变量。`,
+        contributions: [
+          `提出 ${leftAngle} → ${rightAngle} 的显式接口与训练目标。`,
+          `在同一任务和数据预算下分离「仅 ${leftName}」「仅 ${rightName}」与联合方案的边际贡献。`,
+          '建立从离线代理指标到真实成功率、延迟和失败类型的闭环验证。',
+        ],
+        method: [
+          `复现「${leftName}」的核心表示或训练信号，并输出可插拔中间变量。`,
+          `把该变量接入「${rightName}」的策略、数据或评测链路，保持其余训练条件一致。`,
+          '加入接口移除、随机替换和错误置信度三组消融，确认增益来自有效机制而非额外参数。',
+        ],
+        evaluation: '报告 ID/OOD 成功率、真实执行增益、推理延迟、样本效率和按失败类型拆分的改善，并检验离线代理分数与真机结果的相关性。',
+        novelty: 88,
+        feasibility: 73,
+        whyNow: `${selectedIdeaDate.value} 的论文雷达首次把「${leftName}」与「${rightName}」放进同一证据窗口，适合立即验证二者之间的接口假设。`,
+      })
+    }
+
+    if (index === 1) {
+      return attachAcademicReview({
+        ...common,
+        title: `${leftName} Stress Test: 用 ${rightName} 检验${leftAngle}的迁移边界`,
+        thesis: `把「${leftName}」从原始设置迁移到「${rightName}」覆盖的${rightAngle}条件，寻找其真正有效、失效和需要重新标定的边界。`,
+        motivation: `「${leftName}」与「${rightName}」分别代表${leftAngle}和${rightAngle}。两者在同日出现，提供了一个比继续刷平均分更有价值的问题：前者的机制在后一类分布变化下是否仍成立。`,
+        contributions: [
+          `构建面向${rightAngle}的 ${leftName} 压力测试矩阵。`,
+          '把性能下降归因到感知、表示、动作接口、数据覆盖或恢复策略，而非只报告总成功率。',
+          '给出最小修复模块，并验证它不会损害原始任务表现。',
+        ],
+        method: [
+          `抽取「${rightName}」中的环境、任务或数据变化变量，逐级注入「${leftName}」基线。`,
+          '记录每一级扰动下的表征漂移、策略置信度、动作错误与恢复行为。',
+          '只针对最主要失效变量增加轻量适配器，再与全量微调和数据扩增对照。',
+        ],
+        evaluation: '绘制扰动强度—成功率曲线，报告最坏组表现、校准误差、失败恢复率、适配样本量及原始能力遗忘。',
+        novelty: 84,
+        feasibility: 80,
+        whyNow: `当日的「${rightName}」为「${leftName}」提供了新的可复现外部分布，能够把“泛化”从口号变成分层压力测试。`,
+      })
+    }
+
+    return attachAcademicReview({
+      ...common,
+      title: `${leftName} / ${rightName} Protocol: 统一${leftAngle}与${rightAngle}的证据口径`,
+      thesis: `围绕「${leftName}」和「${rightName}」建立统一评测协议，让${leftAngle}与${rightAngle}的改进能在同一变量、预算和失败分类下比较。`,
+      motivation: `两项工作使用不同系统边界和指标，直接比较容易把模型、数据、硬件或评测差异误当成方法增益。该日最稳妥的第三个 Idea 是先统一证据口径。`,
+      contributions: [
+        `提出覆盖${leftAngle}和${rightAngle}的 claim—variable—metric 表。`,
+        '固定数据、计算、示范和真机次数预算，区分模型增益与资源增益。',
+        '发布失败分类与最小复现实验清单，使后续每日候选可以持续接入。',
+      ],
+      method: [
+        `从「${leftName}」和「${rightName}」抽取核心 claim、输入输出与评测假设。`,
+        '将每个 claim 映射到一个可反证变量、一个主指标和至少一个负对照。',
+        '在共享任务子集上复现并做成统一报告模板，单独标记作者自评与第三方复核结果。',
+      ],
+      evaluation: '比较复现一致性、指标排序稳定性、资源归一化后的增益、失败覆盖率和跨评测者一致性。',
+      novelty: 79,
+      feasibility: 86,
+      whyNow: `「${leftName}」与「${rightName}」在同一天进入候选池，正适合在结论固化前建立共享评测口径。`,
+    })
+  })
 }
 
 function roundAcademicScore(value) {
@@ -1701,7 +1866,7 @@ function attachAcademicReview(idea) {
 function buildDailyPaperIdeas(seed, tensions) {
   const dateKey = localDateKey(today.value)
   const pack = DAILY_IDEA_PACKS[dateKey]
-  if (!pack?.length) return null
+  if (!pack?.length) return dailyEvidenceIdeas(seed, tensions)
   const anchor = DAILY_IDEA_ANCHORS[dateKey] || `${dateKey} 当日站内语料 × 最新研究信号`
   return pack.map((item, index) => {
     const sources = item.sourceIds.map(dailySource).filter(Boolean)
@@ -2237,7 +2402,11 @@ function runResearch() {
     .map((doc) => ({ doc, score: scoreDoc(doc, qTokens) }))
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score)
-  const ranked = (candidates.length ? candidates : corpus.value.filter(scopeMatch).map((doc) => ({ doc, score: 1 }))).slice(0, 12)
+  const dailyCandidates = selectedDailyPapers.value.map((doc, index) => ({ doc, score: 100 - index }))
+  const baseCandidates = candidates.length ? candidates : corpus.value.filter(scopeMatch).map((doc) => ({ doc, score: 1 }))
+  const ranked = [...dailyCandidates, ...baseCandidates]
+    .filter((item, index, all) => all.findIndex(candidate => candidate.doc.url === item.doc.url) === index)
+    .slice(0, 12)
   const evidence = ranked.map(({ doc, score }) => ({ ...doc, score, snippet: snippetFor(doc, qTokens) }))
   const focus = buildFocus(evidence)
   const frontiers = buildFrontierMatches(qTokens, focus)
@@ -2316,6 +2485,7 @@ async function loadCorpus() {
       } catch {
         continue
       }
+      dailyPaperArchive.value = normalizeDailyPaperDays(payload.daily_papers)
       docs = normalizeDocs(payload.docs || [])
       if (docs.length) {
         corpusSource.value = 'JSON'
@@ -2341,6 +2511,13 @@ async function loadCorpus() {
       if (docs.length) corpusSource.value = 'MARKDOWN'
     }
     if (!docs.length) throw new Error('empty corpus')
+    const availableDates = [...new Set([
+      ...Object.keys(dailyPaperArchive.value),
+      ...Object.keys(DAILY_IDEA_PACKS),
+    ])].sort((a, b) => b.localeCompare(a))
+    if (!availableDates.includes(selectedIdeaDate.value) && availableDates.length) {
+      selectedIdeaDate.value = availableDates[0]
+    }
     corpus.value = docs
     runResearch()
   } catch (err) {
