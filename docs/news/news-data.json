@@ -1,5 +1,140 @@
 [
   {
+    "id": "fujitsu-fanuc-yaskawa-kawasaki-nvidia-physical-ai-platform-20260716",
+    "title": "富士通联手 FANUC、安川与川崎重工推进 Physical AI 协同控制平台",
+    "date": "2026-07-16",
+    "fetched_at": "2026-07-16",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "合作协议",
+      "Physical AI",
+      "平台发布"
+    ],
+    "summary": "**富士通**宣布分别与 **FANUC、安川电机、川崎重工**启动 Physical AI 业务研究，并引入 NVIDIA 技术建设连接企业应用、AI 基础设施与机器人控制的协同控制平台。计划推动平台共通化与开放化，面向制造、物流、医疗等行业落地；合作将结合富士通的企业 AI 与算力平台、三家厂商的机器人控制和现场数据，以及 NVIDIA 的全栈 Physical AI 技术。该联盟显示日本工业机器人龙头正从单机智能转向跨厂商、跨业务系统的通用 Physical AI 基础设施。",
+    "sources": [
+      {
+        "name": "富士通",
+        "url": "https://global.fujitsu/ja-jp/pr/news/2026/07/16-01"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "kawasaki-nvidia-next-generation-digital-shipyard-physical-ai-20260716",
+    "title": "川崎重工与 NVIDIA 启动下一代数字船厂：Physical AI 进入造船全流程",
+    "date": "2026-07-16",
+    "fetched_at": "2026-07-16",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产业落地",
+      "Physical AI",
+      "工业机器人"
+    ],
+    "summary": "**川崎重工**与 **NVIDIA**启动下一代数字船厂合作，将川崎的造船现场数据、机器人技术与 NVIDIA Cosmos、Omniverse、Isaac、Metropolis、Jetson 等技术栈结合，在坂出工厂贯通船舶设计、建造和后续运维。双方将重点推进焊接、涂装、检查、搬运机器人的运动规划与仿真验证，利用现场与质检数据持续优化机器人作业，并用 Agentic AI 支持设计、采购、制造和质量管理。这是 Physical AI 在重工业复杂生产环境中的系统级落地项目。",
+    "sources": [
+      {
+        "name": "川崎重工",
+        "url": "https://global.kawasaki.com/en/corp/newsroom/news/detail/?f=20260716_9376"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "mimic-robotics-m1-hand-u1-wearable-full-stack-physical-ai-20260716",
+    "title": "mimic 发布 M1 灵巧手与 U1 穿戴设备：打通硬件、数据与模型全栈",
+    "date": "2026-07-16",
+    "fetched_at": "2026-07-16",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "灵巧操作",
+      "具身数据"
+    ],
+    "summary": "瑞士 Physical AI 公司 **mimic robotics**发布面向工业自动化的 **mimic hand M1** 和示教穿戴设备 **U1（umimic）**。M1 采用腱驱动、15 个主动自由度和 21 个关节，执行器同时可作为力传感器；U1 通过刚性连杆、触觉传感器、编码器和腕部相机，让人的手部动作与机器人手一一对应，在无需机器人本体的情况下采集高质量操作数据。两款硬件与自研软件、Video-Action Model 路线组成通用灵巧操作全栈平台。",
+    "sources": [
+      {
+        "name": "mimic robotics / Business Wire",
+        "url": "https://www.businesswire.com/news/home/20260716208859/en/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "tencent-cloud-roboscience-cloud-eaas-embodied-ai-service-20260715",
+    "title": "腾讯云与 RoboScience 共建云端 EaaS 具身智能服务",
+    "date": "2026-07-15",
+    "fetched_at": "2026-07-16",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "合作协议",
+      "具身数据",
+      "平台发布"
+    ],
+    "summary": "**腾讯云**与通用具身智能企业 **RoboScience 机器科学**签署战略合作，计划共同建设云端 **EaaS（Embodied-AI-as-a-Service）**服务。双方将利用腾讯云基础设施，打通机器人数据采集、多地协同标注、模型训练到商业化部署的规模化链路，为具身智能企业提供一体化云端底座。该合作聚焦当前行业最稀缺的数据生产与训练基础设施，体现云服务商开始把具身智能模型和数据闭环作为独立平台能力建设。",
+    "sources": [
+      {
+        "name": "36氪",
+        "url": "https://36kr.com/newsflashes/3897768944355204"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "hoperun-runmatic-embodied-ai-brain-solution-strategy-20260716",
+    "title": "润和软件发布 Runmatic 具身智能大脑与行业应用方案",
+    "date": "2026-07-16",
+    "fetched_at": "2026-07-16",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "公司战略",
+      "产品发布",
+      "机器人大脑"
+    ],
+    "summary": "**润和软件**首次公布具身智能战略，并发布 **Runmatic 具身智能大脑与应用解决方案**。方案以“国产化智算底座—自主进化大脑—行业智能体应用”为端到端架构，目标是把算力适配、机器人自主能力与垂直行业应用打通，推动具身智能本体从能力展示走向行业场景部署。此次发布发生在 2026 人工智能终端产业博览会，标志着润和软件正式将具身智能纳入公司产品与产业落地体系。",
+    "sources": [
+      {
+        "name": "证券时报",
+        "url": "https://stcn.com/article/detail/4023660.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "roboparty-near-500m-angel-plus-plus-pre-a-catl-20260715",
     "title": "RoboParty 连续融资近 5 亿元：宁德时代独家投资 Pre-A 轮",
     "date": "2026-07-15",
