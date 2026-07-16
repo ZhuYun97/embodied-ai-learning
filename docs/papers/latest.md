@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-15">2026.07.15</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-16">2026.07.16</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 11 篇强相关候选，聚焦视频原生 WAM 动作表征、3D 语义 VLA、强化微调探索与端侧实时控制。</p>
+    <p class="paper-brief__dek">今日筛出 13 篇强相关候选，聚焦高效 WAM、开放世界移动操作、VLA 表征保持与低成本具身数据闭环。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">11</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">5</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">13</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">7</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.15</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.16</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>光流统一动作与未来预测</strong><span class="paper-brief__paper">FlowWAM</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>3D 高斯语义认知地图</strong><span class="paper-brief__paper">VistaVLA</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">VLA</span><strong>行为 token 结构化探索</strong><span class="paper-brief__paper">ExToken</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">DATA</span><strong>合成失败学习稠密奖励</strong><span class="paper-brief__paper">DenseReward</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>训练看未来，推理只生成动作</strong><span class="paper-brief__paper">GigaWorld-Policy-0.5</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>开放世界移动操作闭环</strong><span class="paper-brief__paper">REAL</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">VLA</span><strong>冻结语义锚定动作泛化</strong><span class="paper-brief__paper">Anchor-Align</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">DATA</span><strong>单示范生成多世界轨迹</strong><span class="paper-brief__paper">WANDA</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 267 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 280 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,93 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-16" class="paper-day-heading">2026-07-16</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 GigaWorld-Policy-0.5 × REAL：前者把 WAM 的未来视觉监督留在训练期、把部署收敛为低延迟动作解码，后者给出无 oracle 感知的开放世界移动操作训练—评测—真机闭环；再以 Anchor-Align × Semantic Anchoring 对照两种 VLA 语义保持机制，以 WANDA 和 PhysClaw-0 观察单示范合成与可记忆语言纠错如何降低数据成本。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>WAM</span><span>ACTION-ONLY INFERENCE</span><span>AUTORESEARCH</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13960" target="_blank" rel="noreferrer">GigaWorld-Policy-0.5: A Faster and Stronger WAM Empowered by AutoResearch</a></h3>
+      <p>训练时混合动作条件世界建模与 WAM 目标，让未来视觉动力学继续提供稠密监督；推理时通过 Mixture-of-Transformers 只激活动作专家，在 RTX 4090 上达到 85 ms 延迟，并用 agent-based AutoResearch 搜索训练配置。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13960" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>MOBILE MANIPULATION</span><span>OPEN WORLD</span><span>INTERACTIVE AGENT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13653" target="_blank" rel="noreferrer">Exploratory, Communicative, and Deployable: Vision-Driven Embodied Agents for Open-World Mobile Manipulation</a></h3>
+      <p>REAL 在无特权状态的 sim-to-real 一致接口中统一主动探索、视觉 grounding 与意图澄清，并发布含 241 项任务的 REAL-Bench；经 SFT 与在线 RL 的 agent 在双臂移动机器人 60 次真机测试中达到 78.3% 端到端成功率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13653" target="_blank" rel="noreferrer">arXiv</a><a href="https://github.com/InternRobotics/REAL" target="_blank" rel="noreferrer">Code</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>REPRESENTATION ANCHORING</span><span>LANGUAGE-ACTION ALIGNMENT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13429" target="_blank" rel="noreferrer">Generalizable VLA Finetuning via Representation Anchoring and Language-Action Alignment</a></h3>
+      <p>Anchor-Align 用冻结 VLM 逐层蒸馏抑制行为克隆对预训练表征的覆盖，并把动作转为运动方向标签，在同一机器人观测上联合语言与动作预测；两种 VLA 的 xArm7 真机成功率分别由 28%/37% 提升到 54%/60%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13429" target="_blank" rel="noreferrer">arXiv</a><a href="https://anchoralignvla.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>SEMANTIC MANIFOLD</span><span>OOD GENERALIZATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13597" target="_blank" rel="noreferrer">Semantic Anchoring for Robotic Action Representations</a></h3>
+      <p>系统探测 VLA 微调中动作表征语义结构的退化，并把它与任务成功和 OOD 泛化同步关联；训练期将动作表征拆成共享语义与私有通道并锚定预训练语义流形，部署不增加模块，真机 OOD 最高提升 21.5%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13597" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DATA SYNTHESIS</span><span>MOBILE MANIPULATION</span><span>ONE DEMO</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13154" target="_blank" rel="noreferrer">Worlds in One Demo: A Synthetic Data Engine for Learning Open-World Mobile Manipulation</a></h3>
+      <p>WANDA 从一条 RGB-D 示范重建高斯场景与交互轨迹，重排接触片段、扩展纠错状态，并把轨迹合成到日常照片生成的不同 3D 世界；由此覆盖空间、长程与跨环境泛化，还支持跨本体零样本部署。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13154" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DATA COLLECTION</span><span>LANGUAGE CORRECTION</span><span>CORRECTIVE MEMORY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14047" target="_blank" rel="noreferrer">PhysClaw-0: A Symbiotic Agentic System for Robot Autonomy via Language Corrections</a></h3>
+      <p>让收集、验证和复位循环自主运行，仅在重试预算耗尽时请求远程语言纠正；LLM 将纠正写入可跨轮复用的 Corrective Memory，桌面清理中以 16% 的人工工作时间匹配遥操作数据训练出的策略表现。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14047" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DEXTEROUS</span><span>INDUSTRIAL BENCHMARK</span><span>MULTIMODAL POLICY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14021" target="_blank" rel="noreferrer">Industrial Dexterity Benchmark: A Hardware-Software Benchmarking Platform for Industrial Dexterous Manipulation</a></h3>
+      <p>发布面向数据中心线缆、汽车线束与齿轮箱装配的实体 benchmark 板，以及 DAG-ROS 模仿学习框架和融合 RGB、点云、关节、腕力的 AG-iDP3；多视角扩散策略在线缆抓插任务达到 78% 成功率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14021" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>MANIPULATION</span><span>AGENTIC RL</span><span>FAILURE RECOVERY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13818" target="_blank" rel="noreferrer">Learning Robust Execution in Robotic Manipulation with Agentic Reinforcement Learning</a></h3>
+      <p>用两项运行时指标判断执行是否退化，再让高层 agent 在少量执行模式间选择恢复策略、回到曾访问的正常状态，而非重学低层动作；LIBERO 标准设置最高提升 13.7%，扰动设置最高提升 39.2%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13818" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>MULTIMODAL ENCODER</span><span>PROPRIOCEPTION</span><span>FORCE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13522" target="_blank" rel="noreferrer">Kepler-Encoder-v0.1: Towards a Multimodal Embedding Model for Robots</a></h3>
+      <p>训练时以 masked cross-modal prediction 融合视觉、本体与力矩，评测时仅输入视觉，却能在 RH20T 多机器人上更好恢复末端与力状态；同一冻结潜空间还能作为无需训练的异常状态监测器。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13522" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>TACTILE</span><span>DEFORMABLE OBJECT</span><span>ACTIVE SENSING</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13479" target="_blank" rel="noreferrer">Topology-Agnostic Mesh Reconstruction of Deformable Objects from Sparse Touch</a></h3>
+      <p>用统一的 permutation-invariant cross-attention 从少量触点重建绳、布料与软体三类不同拓扑的完整网格；深度集成不确定性还能主动选择下一触点，在无视觉和强自遮挡条件下降低误差。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13479" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>MANIPULATION DATA</span><span>TEMPORAL REVERSAL</span><span>AUTONOMOUS COLLECTION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13455" target="_blank" rel="noreferrer">Reverse to Advance: Teleoperation-Cost Effective Hard Policy Learning from Reversed Easy Tasks</a></h3>
+      <p>利用困难任务与其逆向简单任务的难度不对称，自主交替收集并时间反转简单轨迹，再以运动学先验和 critic advantage 过滤噪声；仿真和真机高精度操作均减少困难任务遥操作需求。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13455" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>LONG HORIZON</span><span>STAGE INTERFACE</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13605" target="_blank" rel="noreferrer">An Empirical Study on Stage-Information Interfaces for VLA Fine-Tuning</a></h3>
+      <p>在 GR00T N1.6 与 LIBERO-10 上比较完整指令、当前阶段文本及归一化阶段序号，发现显式阶段信息并不天然有益；延续微调时序号状态在三组配对实验均胜出，为长程 VLA 接口设计提供负结果与基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13605" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>MANIPULATION</span><span>ONE DEMONSTRATION</span><span>FORWARD / REVERSE</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.13882" target="_blank" rel="noreferrer">Learning Forward &amp; Reverse Skills from a Single Unfinished Demonstration for Constrained Manipulation Tasks</a></h3>
+      <p>把单条甚至未完成示范拆成 DMP 非接触段与几何驱动分割的螺旋接触段，以导纳修正完成示范之外的轨迹并直接反向执行；在插销、电池、开锁和拧螺丝上优于 one-shot 基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.13882" target="_blank" rel="noreferrer">arXiv</a><a href="https://tuwien-asl.github.io/LfD-Screw/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
   </div>
 </div>
 
