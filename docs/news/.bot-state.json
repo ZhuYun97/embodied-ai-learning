@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-07-16",
+  "last_fetched_at": "2026-07-17",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -138,8 +138,9 @@
     "kawasaki-nvidia-next-generation-digital-shipyard-physical-ai|20260716",
     "mimic-robotics-m1-hand-u1-wearable-full-stack-physical-ai|20260716",
     "hoperun-runmatic-embodied-ai-brain-solution-strategy|20260716",
-    "tencent-cloud-roboscience-cloud-eaas-embodied-ai-service|20260715"
+    "tencent-cloud-roboscience-cloud-eaas-embodied-ai-service|20260715",
+    "sony-aibo-rd-prototype-university-physical-ai-platform|20260717"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 138
+  "_count": 139
 }

@@ -1,5 +1,32 @@
 [
   {
+    "id": "sony-aibo-rd-prototype-university-physical-ai-platform-20260717",
+    "title": "索尼开放研究用途 aibo 原型：携手东京大学与 UC Berkeley 探索 Physical AI",
+    "date": "2026-07-17",
+    "fetched_at": "2026-07-17",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "平台发布",
+      "Physical AI",
+      "开发者生态"
+    ],
+    "summary": "**索尼**宣布向东京大学与加州大学伯克利分校的研究团队提供研究开发用途的 **aibo 原型机**和测试版开发工具，用于社会交互、触觉机器人学习等真实世界 Physical AI 探索。原型机将在 7 月 21—23 日的 SIGGRAPH 2026 展示；索尼计划根据研究者与开发者反馈完善硬件和开发环境，推动 aibo 从封闭消费产品向应用研究与开发者生态平台扩展。",
+    "sources": [
+      {
+        "name": "Sony Group",
+        "url": "https://www.sony.com/en/SonyInfo/News/Press/202607/26-018E/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "fujitsu-fanuc-yaskawa-kawasaki-nvidia-physical-ai-platform-20260716",
     "title": "富士通联手 FANUC、安川与川崎重工推进 Physical AI 协同控制平台",
     "date": "2026-07-16",
