@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-16">2026.07.16</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-17">2026.07.17</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 13 篇强相关候选，聚焦高效 WAM、开放世界移动操作、VLA 表征保持与低成本具身数据闭环。</p>
+    <p class="paper-brief__dek">今日筛出 20 篇强相关候选，聚焦超长上下文机器人策略、高速世界模型、开放具身数据与 VLA/WAM 可靠性。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">13</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">7</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">20</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">12</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.16</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.17</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>训练看未来，推理只生成动作</strong><span class="paper-brief__paper">GigaWorld-Policy-0.5</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>开放世界移动操作闭环</strong><span class="paper-brief__paper">REAL</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">VLA</span><strong>冻结语义锚定动作泛化</strong><span class="paper-brief__paper">Anchor-Align</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">DATA</span><strong>单示范生成多世界轨迹</strong><span class="paper-brief__paper">WANDA</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA</span><strong>把 8K 步历史压进快速权重</strong><span class="paper-brief__paper">RoboTTT</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">WAM</span><strong>单次前向生成 30+ FPS 未来</strong><span class="paper-brief__paper">DriftWorld</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>手机众包两千小时操作视频</strong><span class="paper-brief__paper">Open-AoE</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">WAM</span><strong>想象正确也可能执行错误</strong><span class="paper-brief__paper">BadWAM</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 280 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 305 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,135 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-17" class="paper-day-heading">2026-07-17</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 RoboTTT × DriftWorld：前者把 8K 步交互历史压缩进推理期快速权重，打开机器人策略的上下文规模轴；后者用单次前向的 drifting 生成替代扩散迭代，让世界模型真正进入在线搜索。再以 Open-AoE 检查低成本人类视频到 VLA/WAM 的数据链，以 BadWAM × WA-LQR 对照 WAM 的新攻击面与训练外稳健控制。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>ROBOT FOUNDATION MODEL</span><span>LONG CONTEXT</span><span>TEST-TIME TRAINING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15275" target="_blank" rel="noreferrer">RoboTTT: Context Scaling for Robot Policies</a></h3>
+      <p>把测试时训练嵌入 VLA 等机器人基础模型，以推理期梯度更新形成快速权重，将最长 8K 步历史压进固定延迟的循环状态；真机总体性能较单步上下文提升 87%，并完成基线从未完成的五分钟十阶段装配。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15275" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WORLD MODEL</span><span>ONE-STEP GENERATION</span><span>PLANNING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15065" target="_blank" rel="noreferrer">DriftWorld: Fast World Modeling through Drifting</a></h3>
+      <p>训练 action-conditioned drift、推理仅单次前向生成未来帧，在五类机器人基准达到 30+ FPS、平均快于扩散世界模型 17 倍；除在线动作搜索外，rollout 分数与真实策略排名相关性最高达 0.99。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15065" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EGOCENTRIC DATA</span><span>HUMAN-TO-ROBOT</span><span>OPEN TOOLCHAIN</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14183" target="_blank" rel="noreferrer">Open-AoE: An Open Egocentric Manipulation Dataset and Toolchain for Embodied Learning</a></h3>
+      <p>首版由 500 余名贡献者用 400 余部手机采集约 2,000 小时自然场景操作视频，提供文本、MANO 手姿、相机轨迹与原子动作；配套处理、跨本体重定向及 VLA/WAM/世界模型训练工具链。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14183" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM SAFETY</span><span>ADVERSARIAL ATTACK</span><span>IMAGINATION-ACTION DRIFT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15207" target="_blank" rel="noreferrer">BadWAM: When World-Action Models Dream Right but Act Wrong</a></h3>
+      <p>定义 World-Action Drift Attack：微小视觉扰动可让 WAM 的未来想象保持合理、执行动作却发生有害偏移；统一评测显式 action-only 与更隐蔽的 imagination-preserving 攻击，前者将成功率由 96.5% 降至 43.1%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15207" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>VLA</span><span>FORCE FEEDBACK</span><span>ONLINE DAGGER</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14236" target="_blank" rel="noreferrer">Never Too Late for Force: Accelerating VLA Post-Training with Reactive Force Injection</a></h3>
+      <p>LIFT 在预训练 VLA 动作专家旁接入可刷新的反应式专家，以 6D 末端力记忆和零初始化交叉注意力处理接触状态；结合在线 DAgger 人工纠偏，在折毛巾、插书与汉诺塔放环上更快学成。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14236" target="_blank" rel="noreferrer">arXiv</a><a href="https://lift-policy.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>TACTILE VLA</span><span>FUTURE CONTACT</span><span>REPRESENTATION PROBING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14609" target="_blank" rel="noreferrer">Representation-Aligned Tactile Grounding for Contact-Rich Robotic Manipulation</a></h3>
+      <p>线性探测发现未来触觉最适合从动作专家中间层预测，而非视觉语言特征或最终动作；据此用轻量 LTP 预测紧凑触觉 embedding，把动作表征对齐未来接触后果，真机优于错位及多接口监督。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14609" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>STREAMING INFERENCE</span><span>KV CACHE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14695" target="_blank" rel="noreferrer">Reflex: Real-Time VLA Control through Streaming Inference</a></h3>
+      <p>利用感知编码对 flow timestep 不变的性质，把注意力上下文拆成静态、滑动与动态区，实现固定输入下与全批等价的 O(1) 增量缓存；配合异步流水与算子融合达到 50 Hz，推理加速 2.58 倍。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14695" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>MECHANISTIC INTERPRETABILITY</span><span>OPTIMAL CONTROL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14943" target="_blank" rel="noreferrer">Steering Robustness into World Action Models via Mechanistic Interpretability and Optimal Control</a></h3>
+      <p>先诊断不同 WAM 激活空间中稳健特征的低维线性可分性，再以模型最优控制构造 WA-LQR 反馈 steering；在 Cosmos-Policy 与 DiT4DiT 上跨任务提升相机、夹爪和视觉噪声扰动稳健性。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14943" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WAM</span><span>AERIAL ROBOT</span><span>ACTION-ONLY INFERENCE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14997" target="_blank" rel="noreferrer">AeroAct: Action-Centered World-Action Models for Language-Conditioned Quadrotor Flight</a></h3>
+      <p>把 action-centered WAM 首次落到真实四旋翼：训练用未来第一视角帧监督，部署直接解码局部轨迹动作块而不生成视频；结合双仿真渲染、低成本手持采集与 self-guidance，在真机完成语言条件飞行。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14997" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>BEHAVIOR FOUNDATION MODEL</span><span>SCALING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15163" target="_blank" rel="noreferrer">Scaling Behavior Foundation Model for Humanoid Robots</a></h3>
+      <p>联合研究全局帧运动跟踪范式、on-policy rollout 数量、参考动作多样性与 Humanoid Transformer 架构的规模配方；仿真和真机均改善全身控制，测试集全局模式 MPKPE 较既有控制器降低 82%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15163" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>POLICY EVALUATION</span><span>ACTIVE TESTING</span><span>REAL WORLD</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14439" target="_blank" rel="noreferrer">Active Real-World Factor-Based Evaluation for Generalist Robot Policies</a></h3>
+      <p>把真机策略评测重写为序贯实验设计，以概率代理模型在结构化任务因素空间主动选择最大信息增益配置；在三任务 2,331 次真机评测中，通常比随机测试节省至少 20–40% 试验。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14439" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>DEXTEROUS HAND</span><span>TACTILE HARDWARE</span><span>OPEN SOURCE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14487" target="_blank" rel="noreferrer">MIDAS Hand: Modular low-Impedance Direct-drive Anthropomorphic Sensing Hand</a></h3>
+      <p>开源人尺度低阻抗灵巧手集成 16 自由度、283 个三轴触觉 taxel，整机 700 g、物料成本低于 3,000 美元且三小时内可装配；同步开放设计、控制、触觉 API、仿真、重定向与遥操作栈。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14487" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>REPRESENTATION STEERING</span><span>FLOW MATCHING</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14280" target="_blank" rel="noreferrer">DiMaS: Distribution Matching for Steering Vision-Language-Action Models</a></h3>
+      <p>发现 VLA 行为特征虽可线性解码却不可线性 steering，提出在流匹配 VLA 内部表示分布间做 transport；在两类先进 VLA 上实现细粒度行为控制，并刻画跨任务迁移何时衰减。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14280" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>GRASPING BENCHMARK</span><span>SEMANTIC CONSTRAINTS</span><span>EXECUTION</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14341" target="_blank" rel="noreferrer">Beyond Visual Grasping: Benchmarking Complex Grasping from Detection to Execution</a></h3>
+      <p>GCA-Bench 把抓取评测从孤立姿态检测扩展到含场景推理、语义约束与多步执行的复杂动作；从传统检测管线到端到端基础模型的多类基线成功率均低于 70%，并给出失败模式与新指标。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14341" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EMBODIED SAFETY</span><span>SPATIAL RELATIONS</span><span>PROCESS EVALUATION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14543" target="_blank" rel="noreferrer">SafeRelBench: A Spatial-Relation-Aware Benchmark for Process-Level Safety in VLM-Driven Embodied Agents</a></h3>
+      <p>用 507 个可执行样本评测支撑、包含与邻近关系引发的过程级风险；七种 VLM 具身 agent 常能完成任务却在危险动作前违反安全条件，揭示终态成功与执行安全间的系统缺口。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14543" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>FORCE PROXY</span><span>ACT</span><span>CONTACT-RICH</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14578" target="_blank" rel="noreferrer">Beyond Implicit Force: Evaluating Explicit Force-Torque Proxies in Action Chunking with Transformers</a></h3>
+      <p>拆解 leader-follower 遥操作跟踪误差隐含的接触线索，发现移除此信号会让 ACT 在力关键阶段严重失败；仅用电流或关节 effort 构造的扭矩 proxy 即可恢复并进一步提升四类真机接触任务。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14578" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA ROBUSTNESS</span><span>PHYSICAL ATTACK</span><span>COLOR</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14698" target="_blank" rel="noreferrer">Lights, Camera, Malfunction: When Illumination Robustness Leaves VLA Models Blind to Color</a></h3>
+      <p>FLARE 聚光物理攻击可在黑盒下把 VLA 成功率降至零；论文进一步发现朴素增强会让模型错误忽略颜色，并提出保色对抗训练 ChromaGuard，真机良性与受攻击任务分别达到 97.5%/92.5%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14698" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>HAPTIC FUSION</span><span>IN-HAND TRACKING</span><span>OCCLUSION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14842" target="_blank" rel="noreferrer">KineFuse: Kinematic-Aware Haptic Fusion for In-Hand Occluded-Object Pose Tracking</a></h3>
+      <p>将本体、近端力矩与二值接触压成手指级 token，补足视觉在手内操作中的遮挡；序列评测会把编码器差异放大至 15 倍，4-token 结构优于扁平及关节级融合，并提升闭环重定向成功率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14842" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>LIFELONG LEARNING</span><span>REPLAY</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14852" target="_blank" rel="noreferrer">Towards Human-like Physical Intelligence: Lifelong Vision-Language-Action Learning for Robotic Manipulation</a></h3>
+      <p>LifelongVLA 用短期与长期 LoRA 路径及任务门控显式平衡可塑性和稳定性，再以缓存高效随机 replay 保存旧技能；在 xArm 真机顺序学习中改善新技能扩展与旧行为保持。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14852" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>ACTION SUPERVISION</span><span>REPRESENTATION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.14635" target="_blank" rel="noreferrer">Action QFormer: Structured Representation Shaping under Action Supervision in Vision-Language-Action Models</a></h3>
+      <p>指出动作监督既塑造可执行表示，也可能破坏语言与物体 grounding；以指令条件 query 在动作生成前重组多模态信息，零样本 sim-to-real 导航成功率由 18.8% 提至 56.3%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.14635" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
