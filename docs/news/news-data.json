@@ -1,5 +1,59 @@
 [
   {
+    "id": "joyson-telehand-embodied-ai-components-controller-mass-production-20260717",
+    "title": "均胜电子发布具身智能核心部件组合：机器人控制器已量产供货",
+    "date": "2026-07-17",
+    "fetched_at": "2026-07-18",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "机器人零部件",
+      "产业落地"
+    ],
+    "summary": "**均胜电子**在 WAIC 2026 发布首款自研 **TeleHand“灵犀”灵巧手**、固液混合电池、第三代 AI 头部总成、电子皮肤及具身智能大脑等核心部件方案。其中 TeleHand 专业版采用掌内集成的直驱、腱绳与连杆混合驱动，具备 20 个自由度；AI 头部总成整合视觉、听觉、语音与交互能力。公司同时披露，其车规级边缘 Physical AI 控制平台已商业化落地，机器人控制器正向头部客户量产供货，显示汽车电子供应链开始系统切入机器人核心部件量产。",
+    "sources": [
+      {
+        "name": "均胜电子",
+        "url": "https://www.joyson.com/index.php/news/info/1426.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "brainco-integrated-brain-to-robot-ai-rd-platform-20260717",
+    "title": "强脑科技发布脑控机器人一体化研发平台：EEG 意图直接驱动机械臂",
+    "date": "2026-07-17",
+    "fetched_at": "2026-07-18",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "平台发布",
+      "脑机接口",
+      "人机交互"
+    ],
+    "summary": "**强脑科技（BrainCo）**在 WAIC 2026 展示并发布脑机接口与机器人融合的一体化 AI 研发平台：轻量 EEG 头环采集脑电信号，AI 解码抓取意图后直接控制机械臂完成动作，形成从神经信号采集、意图识别到机器人执行的闭环。平台面向研究者和开发者整合脑电硬件、解码算法与机器人控制接口，目标是降低脑控机器人实验和应用开发门槛，并把非侵入式 BCI 从单一辅助设备扩展到通用人机协作研发基础设施。",
+    "sources": [
+      {
+        "name": "BrainCo / PR Newswire",
+        "url": "https://www.prnewswire.com/news-releases/brainco-debuts-worlds-first-integrated-brain-to-robot-ai-rd-platform-at-waic-2026-302828515.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "sony-aibo-rd-prototype-university-physical-ai-platform-20260717",
     "title": "索尼开放研究用途 aibo 原型：携手东京大学与 UC Berkeley 探索 Physical AI",
     "date": "2026-07-17",
