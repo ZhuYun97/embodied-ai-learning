@@ -1,5 +1,86 @@
 [
   {
+    "id": "geekplus-gravity-gravity4d-embodied-framework-waic-20260718",
+    "title": "极智嘉发布 Gravity 统一具身智能框架与 Gravity 4D 模型",
+    "date": "2026-07-18",
+    "fetched_at": "2026-07-19",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "平台发布",
+      "具身基础模型",
+      "产业落地"
+    ],
+    "summary": "**极智嘉（Geek+）**在 WAIC 2026 发布面向长程复杂任务的统一具身智能框架 **Gravity**，并推出首个核心模块 **Gravity 4D** 具身模型。框架以认知脑和行动脑协同，让机器人先理解任务、预测动作对物理世界的影响，再完成执行；Gravity 4D 联合学习未来画面、三维空间结构与三维运动。公司同时展示轮式人形机器人 Gino 1 等仓储作业方案，强调从通用模型能力走向可持续作业的物流生产力。",
+    "sources": [
+      {
+        "name": "极智嘉（Geek+）",
+        "url": "https://www.geekplus.com/zh-cn/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "benzhijuzi-smart-care-system-three-robots-waic-20260718",
+    "title": "本自具智发布智慧介护系统：三类机器人协同服务护理康养",
+    "date": "2026-07-18",
+    "fetched_at": "2026-07-19",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "产业落地",
+      "康养机器人"
+    ],
+    "summary": "复旦大学智能机器人研究院团队孵化的**本自具智**在 WAIC 2026 公布面向护理康养场景的智慧介护系统，以及轮式人形、双足人形和人机融合三类核心机器人。系统以统一技术底座连接不同机器人与周边智能设备，支持人—机—物信息交互、人机协同和持续进化，体现具身智能从单机演示转向多机器人协同的康养场景整体方案。",
+    "sources": [
+      {
+        "name": "中新网 / 东方财富网",
+        "url": "https://finance.eastmoney.com/a/202607183811708259.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "honor-robot-phone-reservation-agentic-os-waic-20260718",
+    "title": "荣耀 Robot Phone 启动预约：以 Agentic OS 连接多模态具身交互",
+    "date": "2026-07-18",
+    "fetched_at": "2026-07-19",
+    "importance": "normal",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "具身交互",
+      "消费机器人"
+    ],
+    "summary": "**荣耀**在 WAIC 2026 宣布 Robot Phone 启动预约，并展示其多模态具身交互能力。该产品把手机的感知、计算与可运动结构结合，配合公司提出的 **Agentic OS**，将系统调度对象从传统进程扩展到意图、任务、模型与智能体；这是消费电子厂商把端侧智能从屏幕交互延伸到物理世界的一次产品化尝试。",
+    "sources": [
+      {
+        "name": "荣耀",
+        "url": "https://www.honor.com/cn/news/honor-waic-2026/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "joyson-telehand-embodied-ai-components-controller-mass-production-20260717",
     "title": "均胜电子发布具身智能核心部件组合：机器人控制器已量产供货",
     "date": "2026-07-17",
