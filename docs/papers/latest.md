@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-17">2026.07.17</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-20">2026.07.20</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 20 篇强相关候选，聚焦超长上下文机器人策略、高速世界模型、开放具身数据与 VLA/WAM 可靠性。</p>
+    <p class="paper-brief__dek">今日筛出 10 篇强相关候选，聚焦十万小时 VLA 预训练、组合泛化、接触富集数据与视觉触觉评测。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">20</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">12</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">10</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.17</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.20</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA</span><strong>把 8K 步历史压进快速权重</strong><span class="paper-brief__paper">RoboTTT</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">WAM</span><strong>单次前向生成 30+ FPS 未来</strong><span class="paper-brief__paper">DriftWorld</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>手机众包两千小时操作视频</strong><span class="paper-brief__paper">Open-AoE</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">WAM</span><strong>想象正确也可能执行错误</strong><span class="paper-brief__paper">BadWAM</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA</span><strong>十万小时真机轨迹规模化预训练</strong><span class="paper-brief__paper">Xiaomi-Robotics-1</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>组合任务 OOD 提升约 28 个点</strong><span class="paper-brief__paper">AC-VLA</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>只在关键接触段密集采数</strong><span class="paper-brief__paper">Data Where it Matters</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">EVAL</span><strong>把物理推理和执行放进同一评测</strong><span class="paper-brief__paper">IMBench</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 305 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 315 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,75 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-20" class="paper-day-heading">2026-07-20</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 Xiaomi-Robotics-1 × AC-VLA：前者把 UMI 真机轨迹预训练推到十万小时，后者直指大规模 VLA 仍会出现的组合泛化短板；再以 Data and Learning Where it Matters 检查“关键接触段密集采数”的低成本路线，并用 IMBench 验证物理推理能否真正落到可执行动作。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>VLA</span><span>100K HOURS</span><span>SCALING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15330" target="_blank" rel="noreferrer">Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories</a></h3>
+      <p>以超过 10 万小时 UMI 真机操作轨迹预训练 VLA，并用自动标注流水线生成场景状态变化语言；模型在数据量和参数量上呈稳定 scaling，RoboCasa365 成功率达 57.6%，也能用少量数据适配灵巧新任务。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15330" target="_blank" rel="noreferrer">arXiv</a><a href="https://robotics.xiaomi.com" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA</span><span>COMPOSITIONAL OOD</span><span>MASKING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15714" target="_blank" rel="noreferrer">AC-VLA: Robust Out-of-Distribution Action Execution via Compositional Learning</a></h3>
+      <p>把 VLA 的组合失败归因于整段轨迹过拟合与腕部视觉捷径，以指令分解、轨迹对齐生成子任务监督，并按夹爪状态非对称遮蔽腕部视图；无需改架构即可接入 π0.5，LIBERO-OOD 组合任务提升约 28 个百分点。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15714" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>CONTACT-RICH</span><span>TARGETED DATA</span><span>OFFLINE RL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15982" target="_blank" rel="noreferrer">Data and Learning Where it Matters for Contact-Rich Manipulation</a></h3>
+      <p>不再端到端密集采集整条轨迹，而只在接触关键段自动采数并用离线深度强化学习训练，其余自由空间运动交给规划器；四项真机任务仅用 2–2.5 小时数据即达 96% 平均成功率，强基线为 55%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15982" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>MANIPULATION EVAL</span><span>PHYSICAL REASONING</span><span>14K TRAJECTORIES</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15641" target="_blank" rel="noreferrer">IMBench: A Benchmark for Intuitive Robotic Manipulation</a></h3>
+      <p>以 35 项任务和 1.4 万条筛选轨迹，把感知、物理推理、动作生成与迭代执行放进同一评测，覆盖接触富集操作、工具使用和多阶段依赖；结果显示 VLM 难产出可执行计划，先进 VLA 也难满足约束并跨场景泛化。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15641" target="_blank" rel="noreferrer">arXiv</a><a href="https://imbench.org" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>VISUO-TACTILE</span><span>ACTIVE PALM</span><span>DEXTEROUS GRIPPER</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15448" target="_blank" rel="noreferrer">VTAP Gripper: Synergizing Fingertip Sensing and a Visuo-Tactile Active Palm for Dexterous In-Hand Manipulation</a></h3>
+      <p>把视觉触觉主动掌面与带触觉阵列的可重构柔顺手指协同起来，并用分阶段手势条件重定向连接人手与三指结构；覆盖脆弱物抓取、针筒手内重定向、3 mm 物体分离及视觉触觉插孔。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15448" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>VISUO-TACTILE</span><span>POSE BELIEF</span><span>ACTIVE PROBING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.16123" target="_blank" rel="noreferrer">BayesContact: Uncertain Pose Estimation via Visuo-Tactile Proposals and Simulation-based Inference</a></h3>
+      <p>以粒子信念融合深度与力矩接触证据，用渲染器和物理仿真器近似观测似然，并以信息增益主动选择探测动作；在仿真几何与真机插孔中，相比纯视觉提高 30% 的位姿可观测性与插入成功率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.16123" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>DEXTEROUS HAND</span><span>RECONFIGURABLE ROBOT</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.16187" target="_blank" rel="noreferrer">Handroid: Bridging Dexterous Hand and Humanoid</a></h3>
+      <p>同一套 27 自由度机电本体可重构为 20 自由度灵巧手或桌面人形，统一支持遥操作、抓取、手内操作、行走与动作编辑；真机展示从本体重构、移动、对接到灵巧取放的长时序任务。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.16187" target="_blank" rel="noreferrer">arXiv</a><a href="https://handroid.org" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>TACTILE LOCALIZATION</span><span>3D ALIGNMENT</span><span>100 OBJECTS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.16146" target="_blank" rel="noreferrer">VTLoc: Learning-based Tactile Contact Localization in Visual Point Clouds</a></h3>
+      <p>从触觉读数在物体三维点云中定位接触点，以伪点云重建对齐视觉—触觉几何，再迭代细化位置；在新建的 100 个真实物体基准上降低单次触摸的局部—全局对应歧义。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.16146" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMAN MOTION DATA</span><span>EGO-EXO</span><span>SMART GLASSES</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15868" target="_blank" rel="noreferrer">EgoExoMoCap: Distributed Ego-Exo Human Motion Capture</a></h3>
+      <p>让两名或更多参与者各戴一副智能眼镜，联合第一视角和互拍视角、头腕追踪及 DINOv3 特征恢复全局人体运动；在两套野外数据上对噪声和遮挡保持稳健，为低门槛真实人类交互数据采集提供新路径。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15868" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>TACTILE SENSOR</span><span>OPTICAL FIBER</span><span>INTERPRETABLE</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.15746" target="_blank" rel="noreferrer">Towards Artificial Nerves: Biomimetic Optical-Fiber Tactile Sensing for Robots</a></h3>
+      <p>OptiTac 让软皮肤的每个机械针连接一根光纤，模仿机械感受器到神经的结构，把信号从触面引出同时保留高空间分辨率；将触觉当图像后即可用可解释解析方法估计接触位置、尺寸与形状。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.15746" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
