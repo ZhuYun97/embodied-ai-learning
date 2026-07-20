@@ -1,5 +1,89 @@
 [
   {
+    "id": "agibot-a3-ultra-x2-edu-g2-max-omnihand-waic-20260720",
+    "title": "智元机器人在 WAIC 2026 发布 A3 Ultra 等四款具身智能新品",
+    "date": "2026-07-20",
+    "fetched_at": "2026-07-20",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "人形机器人",
+      "灵巧操作",
+      "产业落地"
+    ],
+    "summary": "**智元机器人（AGIBOT）**在 WAIC 2026 发布 **A3 Ultra、X2 Edu、G2 Max 与 OmniHand 3 Ultra-M** 四款新品，覆盖全尺寸人形机器人、教育平台、重载工业作业机器人和直驱灵巧手。公司同时披露，G2 在真实产线完成集成仅用 36 小时，已支持每班约 3000 件生产，并累计连续运行超过 64 小时；此次发布把产品矩阵与可复制的产线部署能力放在同一场景展示。",
+    "sources": [
+      {
+        "name": "智元机器人 / PR Newswire",
+        "url": "https://www.prnewswire.com/apac/news-releases/agibot-unveils-four-new-products-at-waic-2026-showcasing-embodied-ai-in-real-world-operations-302829347.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "shanghai-embodied-ai-training-demo-pilot-scale-platform-20260719",
+    "title": "上海启动具身智能训练示范中心与人形机器人中试服务平台",
+    "date": "2026-07-19",
+    "fetched_at": "2026-07-20",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "平台发布",
+      "具身数据",
+      "产业基础设施",
+      "产业落地"
+    ],
+    "summary": "国家地方共建人形机器人创新中心与**华为**在 WAIC 2026 期间联合启动具身智能训练示范中心，覆盖真实场景数据采集、模型训练、性能评测和应用验证。同期启用的上海人形机器人中试服务平台占地约 **6800 平方米**，设置装配、专项测试和智能仓储区域，规划年中试能力 **2000 台**，旨在降低机器人从原型到批量交付过程中的测试与量产验证成本。",
+    "sources": [
+      {
+        "name": "中国日报",
+        "url": "https://www.chinadaily.com.cn/a/202607/20/WS6a5dbab0a310986e2b46632c.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "datasets",
+        "url": "/datasets"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "pudu-d7-offline-global-debut-waic-20260719",
+    "title": "普渡机器人 D7 半人形机器人在 WAIC 2026 完成线下全球首秀",
+    "date": "2026-07-19",
+    "fetched_at": "2026-07-20",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "人形机器人",
+      "服务机器人",
+      "产业落地"
+    ],
+    "summary": "**普渡机器人（PUDU Robotics）**在 WAIC 2026 展出完整机器人产品组合，并让下一代半人形机器人 **PUDU D7** 完成线下全球首秀。D7 采用轮式移动与双臂操作形态，面向复杂商业和工业任务；公司把它与配送、清洁及其他专用服务机器人同场展示，突出通用具身平台与已规模化专用机器人之间的协同部署路线。",
+    "sources": [
+      {
+        "name": "普渡机器人 / PR Newswire",
+        "url": "https://www.prnewswire.com/apac/news-releases/pudu-robotics-showcases-full-product-portfolio-at-waic-2026-winning-the-most-investor-attractive-enterprise-award-302829052.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "geekplus-gravity-gravity4d-embodied-framework-waic-20260718",
     "title": "极智嘉发布 Gravity 统一具身智能框架与 Gravity 4D 模型",
     "date": "2026-07-18",
