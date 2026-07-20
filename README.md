@@ -1,100 +1,88 @@
 # 具身星图 · Embodied AI Atlas
 
-> 🌐 **在线访问:<https://zhuyun97.github.io/embodied-ai-learning/>**
+> 从经典 VLA 到前沿 WAM，把论文谱系、模型规格、基准硬数据与产业生态连成一张可检索、可追溯的具身智能研究地图。
 
-一张持续生长的**具身智能(Embodied AI)研究星图**,沿两条主线展开:
+**[在线访问](https://zhuyun97.github.io/embodied-ai-learning/)** · [VLA 路线](https://zhuyun97.github.io/embodied-ai-learning/vla/) · [WAM 路线](https://zhuyun97.github.io/embodied-ai-learning/wam/) · [最新论文](https://zhuyun97.github.io/embodied-ai-learning/papers/latest) · [具身新闻](https://zhuyun97.github.io/embodied-ai-learning/news/) · [知识图谱](https://zhuyun97.github.io/embodied-ai-learning/ecosystem/paper-graph)
 
-- **VLA(视觉-语言-动作)模型发展深度调研** —— 从 RT-1/RT-2 奠基,到 2026 年最新前沿(WALL-OSS、Qwen-VLA、π0.6/π*0.6、π0.7、Gemini Robotics 等)。
-- **WAM(世界-行动模型)前沿梳理** —— 联合预测「未来状态 + 动作」的新范式,按综述 taxonomy(级联 vs 联合)组织。
+## 这是什么
 
-> 内容由 `deep-research` 工作流(多源检索 + 3 票对抗式事实核查)整理。可信度体例:⚠️=提出方/厂商自评;✅=经核查/基准维护方;待核=一手源未给出、不予编造。引用本站数据请连同标记一并保留。
+具身星图是一个持续更新的具身智能学习与研究站，围绕两条主线组织内容：
 
-## 内容
+- **VLA（Vision-Language-Action）**：追踪模型如何把视觉观察与语言指令转化为机器人动作，覆盖离散动作 token、连续动作生成、双系统架构、推理与持续学习等路线。
+- **WAM（World-Action Model）**：关注联合预测未来状态与动作的模型，梳理级联式、联合式、自回归与扩散等技术范式。
 
-**VLA 调研轨**(`docs/vla/`)
+这里不只汇总论文摘要。每篇细读尽量回到论文、项目页、代码仓库和官方公告，拆解架构、数据、训练、实验与局限；涉及实验成绩时明确区分作者自评、独立验证和待核信息。
 
-- **发展深度调研总报告**:`docs/vla/index.md` —— 发展主线(含 Mermaid 流程图)、技术路线之争、基准横评、最新前沿、核查与局限。
-- **43 篇 VLA 论文细读**:`docs/vla/papers/` —— 从 RT-1/RT-2、OpenVLA、π0 系列到 Qwen-VLA、Gemini Robotics、WALL-OSS 等,每篇含官方框架图、逐模块拆解(架构 / 数据 / 实验 / 局限)、关键数据表。
-- **专题综述 / 横切分析 / 速查**:具身数据全景、数据集与基准全景、实验机器人本体、全模型规格对比大表、双系统架构、预测式 VLA、推理部署、术语表、时间线、参考文献等。
+## 你可以在这里找到
 
-**WAM 调研轨**(`docs/wam/`)
+- **88 篇核心论文细读**：沿 VLA / WAM 技术谱系理解关键工作，而不是按发布日期堆叠链接。
+- **模型与基准对比**：统一整理模型规格、评测成绩、适用边界和指标口径。
+- **数据集图鉴与学习路线**：从数据来源、任务类型、机器人本体到训练评测，提供可执行的阅读路径。
+- **每日前沿雷达**：分别追踪最新论文，以及模型发布、机器人产品、融资、产业落地、政策标准等非论文新闻。
+- **产业生态地图**：整理国内外公司、科研机构、代表产品、融资信息与就业城市。
+- **双知识图谱**：人工策展图谱用于稳定学习导航，Graphify 离线图谱用于探索全站主题与引用关系。
 
-- **总览**:`docs/wam/index.md` —— 定义与损失、taxonomy(级联·显式/隐式 × 联合·自回归/扩散)、数据与评测生态。
-- **29 篇 WAM 论文细读**:`docs/wam/papers/` —— UniPi、Gen2Act、VPP、LAPA、GR-1、WorldVLA、UWM、DreamZero、X-WAM、τ0-WM、GR00T N2、Cosmos 3、GigaWorld Policy、HiMem-WAM 等。
+## 可信度约定
 
-**生态与知识图谱**(`docs/ecosystem/`)
+本站把“可追溯”放在“看起来完整”之前：
 
-- **生态总览**:`docs/ecosystem/index.md` —— 国际与国内具身智能公司、科研机构、就业城市、代表产品、融资与官网链接。
-- **知识图谱**:[`/ecosystem/paper-graph`](https://zhuyun97.github.io/embodied-ai-learning/ecosystem/paper-graph) —— 同页切换人工维护的 VLA / WAM 论文策展图谱与 Graphify 离线全站图谱;后者从全站 Markdown、站内链接、论文目录与本地实体词典离线抽取,不调用模型 API。
-- **Graphify 全屏控制台**:[`/graphs/graphify.html`](https://zhuyun97.github.io/embodied-ai-learning/graphs/graphify.html) —— 离线全站图谱的大屏渲染版本。
+- `⚠️`：作者、厂商或提出方自评，尚无独立复现。
+- `✅`：已由基准维护方、独立来源或多源信息核查。
+- `待核`：一手来源未提供或信息不足，不做推测性补全。
+- `🤖`：自动化流程新增的新闻条目，保留来源链接并接受后续人工抽审。
 
-**最新动态**(`docs/news/`)
+引用本站整理的数据时，请同时保留对应的可信度标记。
 
-- **具身智能新闻**:[`/news/`](https://zhuyun97.github.io/embodied-ai-learning/news/) —— 收录近期机器人、具身模型、产业生态与数据/基准动态。
-- **专题页**:`docs/news/qwen-robot.md` —— Qwen-RobotManip / Qwen-RobotNav / Qwen-RobotWorld 与 Qwen-VLA 的关系、技术分工和阅读顺序。
+## 站点能力
 
-## 站点特性
+- 科技蓝 / 实验室档案双配色主题
+- 可信度透镜、阅读进度和专注阅读模式
+- Mermaid 流程图、LaTeX 公式、框架图灯箱
+- 论文关系图、全站知识图谱、公司与就业地图
+- 构建期导出 `llms.txt`、`llms-full.txt` 和逐页 `.md.txt`，便于 LLM 摄取时保留来源与可信度语境
+- 响应式布局、深浅主题与 `prefers-reduced-motion` 支持
 
-- **双配色主题**:导航栏「配色」按钮一键切换「科技蓝」(默认)⇄「实验室档案」(暖纸衬线),状态本地记忆。
-- **可信度透镜**:一键暗化 / 仅显已核数据,数据表的 ⚠️ 自评与待核单元格带常驻边缘标记。
-- **阅读进度**:标记已读 + 全站进度条;**相关细读**按机构 / 主干 / 路线自动推荐兄弟模型。
-- **专注阅读**:收起左右侧栏,加宽正文。
-- **知识图谱双视图**:人工策展的论文图谱用于稳定学习导航;Graphify 离线全站图谱用于浏览全站 Markdown 之间的主题网络、邻居关系与 community。
-- **流程图 / 框架图点击放大**(灯箱)、LaTeX 公式、Mermaid 图(CJK 防裁切)。
-- 构建期导出 `llms.txt` / `llms-full.txt` + 每页原始 `.md.txt`,便于外部 LLM 摄取时保留可信度标记。
-- 全程尊重 `prefers-reduced-motion`,关键流程满足 WCAG AA 对比度。
+## 本地运行
 
-## 本地预览
+需要 Node.js 18 或更高版本。
 
 ```bash
 npm install
-npm run docs:dev      # 本地开发服务器
-npm run docs:build    # 构建静态站点到 docs/.vitepress/dist
-npm run docs:preview  # 预览构建产物
-npm run graph:build   # 仅重建 docs/public/graphs/offline-knowledge-graph.json
-npm run graph:html    # 重建离线知识图谱 JSON + Graphify graph.html
+npm run docs:dev
 ```
 
-`graph:html` 需要本机可用的 Graphify CLI;若不在默认路径,可用 `GRAPHIFY_BIN=/path/to/graphify npm run graph:html` 指定。图谱生成只读取本仓库 Markdown、站内结构与本地词典,不通过 API 请求模型服务。
+常用命令：
 
-## 部署
-
-推送到 `main` 分支后,GitHub Actions(`.github/workflows/deploy.yml`)会自动构建并发布到 GitHub Pages。
-
-> ⚠️ 若仓库名不是 `embodied-ai-learning`,请同步修改 `docs/.vitepress/config.mjs` 里的 `base` 字段为 `/<你的仓库名>/`。
-
-## news-bot 配置(可选,启用每日自动新闻)
-
-[`/news/`](https://zhuyun97.github.io/embodied-ai-learning/news/) 板块支持**每日自动检索 + 直接发布**(C 方案,LLM 直发,无人工审核——出错可 `git revert` 回滚)。**默认禁用**,启用步骤:
-
-1. **创建 Anthropic API key**:<https://console.anthropic.com/settings/keys>
-2. **加到 GitHub Secret**:仓库 Settings → Secrets and variables → Actions → New repository secret
-   - **Name**: `ANTHROPIC_API_KEY`
-   - **Value**: `sk-ant-...`
-3. **确认 workflow 写权限**:Settings → Actions → General → Workflow permissions = **Read and write permissions**(允许 bot push commit)
-4. **启用 cron**:打开 [`.github/workflows/news-bot.yml`](.github/workflows/news-bot.yml),确认 `schedule` 字段未被注释。默认每日 UTC 02:00 = 北京时间 10:00。
-5. **首次手动测试**:Actions → News Bot → Run workflow(可选 dry_run 模式只跑不 commit)
-
-**风险与维护**:
-- ⚠️ **LLM 可能编造或误读**(我们已观察到工作流误把"25 亿元"读成"25 billion"等先例);bot 写入的条目尾部带 🤖 标识,与人工整理区分。
-- 📅 建议每周末**人工抽审**最近 7 天 bot 提交,有问题直接 `git revert <commit>`。
-- 💰 API 成本估算:每次调用 ~$0.5-1.5,日更约 $15-45/月。
-- 🔧 想退到「PR 审核」更安全模式:把 `news-bot.yml` 末尾的 `git push` 改成 `gh pr create`,bot 改为开 PR 等人工 merge。
-- 🛑 完全停用:把 cron 那行注释掉,只保留 `workflow_dispatch` 用于手动触发。
-
-**本地手动跑**(供调试,需 `export ANTHROPIC_API_KEY=...`):
 ```bash
-npm install                # 装 @anthropic-ai/sdk
-npm run news:run           # = fetch + merge
-npm run docs:build         # 验证 markdown 不被破坏
+npm run docs:build    # 构建 VitePress 站点
+npm run docs:preview  # 预览构建结果
+npm run graph:build   # 重建离线知识图谱数据
+npm run graph:html    # 重建 Graphify 图谱页面
+npm run news:run      # 本地运行新闻抓取与合并流程
 ```
 
-详情:[`scripts/news-prompt.md`](scripts/news-prompt.md)(prompt 文本)、[`scripts/fetch-news.mjs`](scripts/fetch-news.mjs)、[`scripts/news-merge.mjs`](scripts/news-merge.mjs)。
+`graph:html` 需要本机可用的 Graphify CLI；也可通过 `GRAPHIFY_BIN=/path/to/graphify` 指定路径。新闻抓取依赖相应环境变量，日常内容维护无需配置付费 API。
 
-## 技术栈
+## 内容结构
 
-[VitePress](https://vitepress.dev/) + [vitepress-plugin-mermaid](https://github.com/emersonbottero/vitepress-plugin-mermaid)(Mermaid 流程图)+ [markdown-it-mathjax3](https://github.com/tani/markdown-it-mathjax3)(LaTeX 公式)+ Cytoscape(站内交互图谱)+ Graphify / vis-network(离线全站图谱静态渲染)。
+```text
+docs/
+├── vla/          # VLA 总览、论文细读与专题分析
+├── wam/          # WAM 总览、论文细读与专题分析
+├── papers/       # 每日论文雷达
+├── news/         # 具身智能产业新闻
+├── ecosystem/    # 公司、机构、就业与知识图谱
+├── datasets/     # 数据集图鉴
+├── models/       # 模型规格与对比
+└── roadmap/      # 学习路线图
+```
 
-## 许可
+## 部署与技术栈
 
-内容为学习整理用途;各论文版权归原作者,图片来自各论文/官方页面,仅作学术解读引用。
+站点使用 **VitePress** 构建，并结合 Mermaid、MathJax、Cytoscape、Three.js 与离线 Graphify 图谱。推送到 `main` 后，GitHub Actions 会自动构建并发布到 GitHub Pages。
+
+如果 fork 后修改了仓库名，请同步调整 `docs/.vitepress/config.mjs` 中的 `base`。
+
+## 许可与引用
+
+本项目用于学习、研究与信息整理。论文、图片和产品资料的版权归原作者或发布方所有，本站仅作解读与引用。使用具体数据或结论时，请优先回到条目提供的一手来源核验。

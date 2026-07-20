@@ -2,7 +2,7 @@
   "name": "embodied-ai-learning",
   "version": "1.0.0",
   "type": "module",
-  "description": "具身星图 · Embodied AI Atlas",
+  "description": "具身星图：聚焦 VLA / WAM 的具身智能研究地图，涵盖论文细读、模型与基准对比、数据集、产业新闻和交互知识图谱。",
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
