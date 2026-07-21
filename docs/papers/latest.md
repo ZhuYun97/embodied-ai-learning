@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-20">2026.07.20</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-21">2026.07.21</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 10 篇强相关候选，聚焦十万小时 VLA 预训练、组合泛化、接触富集数据与视觉触觉评测。</p>
+    <p class="paper-brief__dek">今日筛出 10 篇强相关候选，聚焦跨本体具身基础模型、人形 VLA 闭环、力觉记忆与轻量高频控制。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
       <div><dt>候选</dt><dd data-paper-stat="latest">10</dd></div>
       <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.20</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.21</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA</span><strong>十万小时真机轨迹规模化预训练</strong><span class="paper-brief__paper">Xiaomi-Robotics-1</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>组合任务 OOD 提升约 28 个点</strong><span class="paper-brief__paper">AC-VLA</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>只在关键接触段密集采数</strong><span class="paper-brief__paper">Data Where it Matters</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">EVAL</span><strong>把物理推理和执行放进同一评测</strong><span class="paper-brief__paper">IMBench</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA</span><strong>122B 具身模型统一跨本体动作空间</strong><span class="paper-brief__paper">RynnBrain 1.1</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">HUMANOID</span><strong>持久 3D 物体状态闭合人形执行环</strong><span class="paper-brief__paper">POT-VLA</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">TACTILE</span><strong>力觉历史成为非马尔可夫操作记忆</strong><span class="paper-brief__paper">FM-VLA</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">POLICY</span><strong>0.7% 参数量超越微调 OpenVLA</strong><span class="paper-brief__paper">Patch Policy</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 315 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 325 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,75 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-21" class="paper-day-heading">2026-07-21</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 RynnBrain 1.1 × POT-VLA：前者把统一跨本体动作空间、接触点预测和 3D grounding 纳入具身基础模型，后者用持久 3D 物体 token 把人形动作生成与结果验证闭环；再以 FM-VLA 检查力觉历史能否补足视觉记忆，以 Patch Policy 对照大 VLM 与轻量密集视觉策略的效率边界。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>EMBODIED FOUNDATION MODEL</span><span>CROSS-EMBODIMENT</span><span>3D GROUNDING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.17977" target="_blank" rel="noreferrer">RynnBrain 1.1: Towards More Capable and Generalizable Embodied Foundation Model</a></h3>
+      <p>发布 2B、9B 与 122B-A10B 具身基础模型，引入接触点预测和原生 3D grounding，并以统一跨本体动作空间训练 VLA；在 Unitree G1、Astribot-S1 和天机五季真机上，多任务多本体联合训练优于逐任务训练。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.17977" target="_blank" rel="noreferrer">arXiv</a><a href="https://alibaba-damo-academy.github.io/RynnBrain" target="_blank" rel="noreferrer">Project</a><a href="https://github.com/alibaba-damo-academy/RynnBrain" target="_blank" rel="noreferrer">Code</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>HUMANOID VLA</span><span>3D OBJECT TOKENS</span><span>CLOSED-LOOP VERIFICATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18016" target="_blank" rel="noreferrer">Closing the Loop in Humanoid VLA: Persistent 3D Object Tokens for Verifiable Loco-Manipulation</a></h3>
+      <p>POT 用 RGB-D 维护带角色的持久 3D 物体记录，让同一状态同时条件化全身动作并执行几何谓词验证；POT-VLA 在 Unitree G1 八类真机任务上把匹配的 GR00T-N1.7 基线由 39/80 提升至 71/80。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18016" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>VLA</span><span>FORCE MEMORY</span><span>CONTACT-RICH</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18231" target="_blank" rel="noreferrer">FM-VLA: Force-based Memory for Vision-Language-Action Models in Contact-Rich Manipulation</a></h3>
+      <p>用 VAE 把力时序压成紧凑记忆 token，补足视觉难以区分重复按压、擦拭次数等非马尔可夫接触事件；三项记忆依赖任务成功率超过 80%，且几乎不增加推理开销。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18231" target="_blank" rel="noreferrer">arXiv</a><a href="https://qft-333.github.io/FM-VLA-Page/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>ROBOT POLICY</span><span>DENSE VISUAL TOKENS</span><span>HIGH-FREQUENCY CONTROL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18236" target="_blank" rel="noreferrer">Patch Policy: Efficient Embodied Control via Dense Visual Representations</a></h3>
+      <p>以 block-causal mask 让轻量 Transformer 直接消费预训练 ViT 的密集 patch token；横跨四套仿真和三套真机环境，相对全局池化表征提升 40%，仅用约 0.7% 参数量即比微调 OpenVLA-OFT 高 18%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18236" target="_blank" rel="noreferrer">arXiv</a><a href="https://patch-policy.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>POLICY ORCHESTRATION</span><span>EXECUTION MEMORY</span><span>LONG HORIZON</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18060" target="_blank" rel="noreferrer">RoboHarness: Memory-Driven Orchestration of Heterogeneous Robot Policies for Long-Horizon Planning</a></h3>
+      <p>把 VLA、RL 与 TAMP 等异构控制系统封装为 agentic skills，用多模态执行记忆学习能力边界并路由，再以 Memory Bridge 把机器人引导到下一策略的分布内状态；覆盖 500 个定制任务和 135 次真机实验。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18060" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>SIM-TO-REAL</span><span>DYNAMICS MODEL</span><span>DOMAIN TRANSLATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18154" target="_blank" rel="noreferrer">World Translation: Minimizing Sim-to-Real Gap with Backward Dynamics Extraction and Unpaired Domain Translation</a></h3>
+      <p>不再从可能无信息的历史前向猜测隐变量，而从已观测转移反向提取不可观测动力学，再以无配对域翻译在仿真与现实间保留动力学内容；覆盖人形、四足与机械臂，并在 Go2 真机改善策略迁移。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18154" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EMBODIED PLANNING</span><span>UNIFIED BENCHMARK</span><span>FOUR SIMULATORS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18062" target="_blank" rel="noreferrer">UniETP: Unifying Environments for Generalizable Embodied Task Planning</a></h3>
+      <p>统一 AI2-THOR、VirtualHome、Habitat 与 BEHAVIOR 的观察和动作空间，并自动构造跨任务逻辑、实例 grounding 和指令理解难度的数据；以一致评测揭示当前具身任务规划模型的瓶颈。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18062" target="_blank" rel="noreferrer">arXiv</a><a href="https://github.com/woyut/UniETP" target="_blank" rel="noreferrer">Code</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>ROBOT DATA</span><span>DUAL-ARM</span><span>OPEN SOURCE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.17970" target="_blank" rel="noreferrer">MEVION: Low-Cost Open-Source Data Collection System for Powerful and High-Speed Dual-Arm Manipulation</a></h3>
+      <p>面向 ALOHA 难覆盖的高速重载采集，开放四条 6-DoF 手臂、最高 60 Nm 关节转矩的双臂 leader-follower 系统；整机约 1.4 万美元，并展示此前难采的强力、高速操作与模仿学习。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.17970" target="_blank" rel="noreferrer">arXiv</a><a href="https://haraduka.github.io/mevion-hardware/" target="_blank" rel="noreferrer">Project</a><a href="https://github.com/haraduka/mevion" target="_blank" rel="noreferrer">Code</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VLA ROBUSTNESS</span><span>REASONING</span><span>ADAPTIVE ATTACK</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.17786" target="_blank" rel="noreferrer">Reasoning as a Double-Edged Sword: Architecture and Cross-Stage Robustness in Vision-Language-Action Models</a></h3>
+      <p>在 LIBERO 与 SimplerEnv 跨视觉、推理和动作阶段扰动无推理、文本 CoT 与潜在迭代 VLA；潜在迭代模型最脆弱，且看似有效的计划—动作一致性监控在自适应攻击下跌至随机水平。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.17786" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>FLOW POLICY</span><span>CONTACT PROGRESS</span><span>ACTION SELECTION</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.17651" target="_blank" rel="noreferrer">HCPG-Flow: Hierarchical Contact-Progress Guidance for Flow-Policy Robot Manipulation</a></h3>
+      <p>用解析式、物体中心的接触进度指导替代依赖稀疏 replay 的 critic 候选排序：接触前关注末端接近，接触后切换任务进度；十项仿真任务提升成功率，四项真机任务将成功完成步数减少 17.4%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.17651" target="_blank" rel="noreferrer">arXiv</a><a href="https://hitxraz.github.io/HCPG-Flow/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
   </div>
 </div>
 
