@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-07-20",
+  "last_fetched_at": "2026-07-21T17:00:00+08:00",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -147,8 +147,9 @@
     "honor-robot-phone-reservation-agentic-os-waic|20260718",
     "agibot-a3-ultra-x2-edu-g2-max-omnihand-waic|20260720",
     "pudu-d7-offline-global-debut-waic|20260719",
-    "shanghai-embodied-ai-training-demo-pilot-scale-platform|20260719"
+    "shanghai-embodied-ai-training-demo-pilot-scale-platform|20260719",
+    "generative-bionics-gene01-smart-skin-open-robot-model-20260720"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 147
+  "_count": 148
 }

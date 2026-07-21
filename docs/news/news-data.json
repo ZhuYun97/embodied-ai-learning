@@ -1,5 +1,33 @@
 [
   {
+    "id": "generative-bionics-gene01-smart-skin-open-robot-model-20260720",
+    "title": "Generative Bionics 发布具全身触觉皮肤的 Gene.01 人形机器人平台",
+    "date": "2026-07-20",
+    "fetched_at": "2026-07-21",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "人形机器人",
+      "开源发布",
+      "产业落地"
+    ],
+    "summary": "意大利 **Generative Bionics** 发布面向工业人机协作的 **Gene.01** 人形机器人平台。其分布式多模态皮肤可感知触碰、接近、力与温度，公司同时开放数字孪生机器人模型，并通过 PyPI、conda-forge 和 ROS 官方构建渠道维护。首个行业适配项目与造船企业 **Fincantieri** 合作，目标是在复杂船厂环境中开发焊接人形机器人；平台还计划于 7 月 22—23 日在 AMD Advancing AI 2026 完成美国首秀。",
+    "sources": [
+      {
+        "name": "Generative Bionics / PR Newswire",
+        "url": "https://www.prnewswire.com/apac/news-releases/generative-bionics-introduces-gene01-a-fully-functional-smart-skin-humanoid-robot-platform-designed-for-safe-human-collaboration-302829069.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "agibot-a3-ultra-x2-edu-g2-max-omnihand-waic-20260720",
     "title": "智元机器人在 WAIC 2026 发布 A3 Ultra 等四款具身智能新品",
     "date": "2026-07-20",
