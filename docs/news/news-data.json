@@ -1,5 +1,26 @@
 [
   {
+    "id": "humanoid-152m-series-a-135b-valuation-thehumanoid",
+    "title": "Humanoid 完成 1.52 亿美元 A 轮融资：投后估值达 13.5 亿美元",
+    "date": "2026-07-21",
+    "fetched_at": "2026-07-22",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "公司战略"
+    ],
+    "summary": "英国工业人形机器人公司 Humanoid 宣布完成 1.52 亿美元 A 轮融资，投后估值为 13.5 亿美元，累计融资额达到 2.7 亿美元。本轮由 Prime Movers Lab 领投，舍弗勒、博世、富邦金控创投和 Aglaé Ventures 参投；资金将用于下一代机器人平台、商业部署、轮式人形机器人量产及 KinetIQ AI 软件研发。",
+    "sources": [
+      {
+        "name": "Humanoid",
+        "url": "https://thehumanoid.ai/humanoid-raises-152-million-at-1-35-billion-post-money-valuation-becoming-europes-first-pure-play-humanoid-robotics-unicorn/"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "generative-bionics-gene01-smart-skin-open-robot-model-20260720",
     "title": "Generative Bionics 发布具全身触觉皮肤的 Gene.01 人形机器人平台",
     "date": "2026-07-20",
