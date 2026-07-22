@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-21">2026.07.21</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-22">2026.07.22</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 10 篇强相关候选，聚焦跨本体具身基础模型、人形 VLA 闭环、力觉记忆与轻量高频控制。</p>
+    <p class="paper-brief__dek">今日筛出 7 篇强相关候选，聚焦双向视觉动作接口、长短期记忆 WAM、agentic real-to-sim 与密集具身中间表征。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">10</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">7</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">4</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.21</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.22</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA</span><strong>122B 具身模型统一跨本体动作空间</strong><span class="paper-brief__paper">RynnBrain 1.1</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">HUMANOID</span><strong>持久 3D 物体状态闭合人形执行环</strong><span class="paper-brief__paper">POT-VLA</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">TACTILE</span><strong>力觉历史成为非马尔可夫操作记忆</strong><span class="paper-brief__paper">FM-VLA</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">POLICY</span><strong>0.7% 参数量超越微调 OpenVLA</strong><span class="paper-brief__paper">Patch Policy</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>像素动作接口统一正向与逆向世界建模</strong><span class="paper-brief__paper">Masked Visual Actions</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">WAM</span><strong>事件记忆让 WAM 追踪长时程任务进度</strong><span class="paper-brief__paper">WorldScape Policy 2.0</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>23 万轨迹用中间表征连接 VLA 与世界模型</strong><span class="paper-brief__paper">RoboInter1.5</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">SIM</span><strong>视觉语言 agent 自动装配可运行物理孪生</strong><span class="paper-brief__paper">Agentic Real2Sim</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 325 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 332 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,57 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-22" class="paper-day-heading">2026-07-22</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 Masked Visual Actions × WorldScape Policy 2.0：前者用统一像素动作接口把视频模型变成正向动力学、逆向策略与候选轨迹评估器，后者用长短期事件记忆补足 WAM 的任务进度跟踪；再以 RoboInter1.5 检查密集中间表征能否同时约束动作与世界 rollout，以 Agentic Real2Sim 观察自动构建可执行物理孪生的数据闭环。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>WORLD MODEL</span><span>VISUAL ACTION</span><span>FORWARD / INVERSE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.19343" target="_blank" rel="noreferrer">Masked Visual Actions for Unified World Modeling</a></h3>
+      <p>把任意实体的部分可见像素轨迹作为动作接口：暴露机器人运动时预测环境响应，暴露目标物体运动时反推出机器人行为。单一模型只用 15 小时真机与仿真遮罩视频微调，即可跨场景和本体用于 rollout 评估、候选未来排序与逆向动作合成。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.19343" target="_blank" rel="noreferrer">arXiv</a><a href="https://masked-visual-actions.github.io" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WORLD ACTION MODEL</span><span>EVENT MEMORY</span><span>MANIPEVENT-5M</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18840" target="_blank" rel="noreferrer">WorldScape Policy 2.0: Empowering Steerable World Action Modeling with Reasoning-Augmented Memory</a></h3>
+      <p>以 DiT prefill 保存短期视觉动力学，并把 VLM 历史整理成全局、局部活跃与事件边界记忆，实现进度感知检索和隐式子目标规划；同时构建近 500 万事件片段的 ManipEvent-5M，统一支持文本、目标图像和视频上下文控制。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18840" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>ROBOT DATA</span><span>INTERMEDIATE REPRESENTATION</span><span>VLA + WORLD MODEL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18709" target="_blank" rel="noreferrer">RoboInter1.5: A Holistic Intermediate Representation Suite for Embodied World Modeling and Robotic Manipulation</a></h3>
+      <p>在 571 个场景、超过 23 万条操作轨迹上提供子任务、技能、物体与夹爪 grounding、可供性、抓取位姿、接触点和运动轨迹等十余类逐帧标注，并配套 VQA、VLA 与世界模型，验证中间表征既可规范动作空间也可约束未来状态生成。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18709" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>AGENTIC REAL2SIM</span><span>PHYSICAL TWIN</span><span>CROSS-DOMAIN</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.19190" target="_blank" rel="noreferrer">Agentic Real2Sim: Physics-based World Modeling with Vision-Language Agents</a></h3>
+      <p>让视觉语言 agent 从真实交互视频恢复几何、物体状态、物理参数、相机与轨迹，自动装配可运行的 episodic twin；统一覆盖刚体操作、可变形物体和人形运动，开源权重 VLM 后端以远低于前沿模型的成本取得相近转换成功率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.19190" target="_blank" rel="noreferrer">arXiv</a><a href="https://ericchen321.github.io/agentic_real2sim.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>EMBODIED LLM</span><span>ON-DEVICE</span><span>HIGH-LEVEL INTERACTION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18985" target="_blank" rel="noreferrer">Athena-Brain Technical Report: An Efficient Robot Brain for General Intelligence and Embodied Interaction</a></h3>
+      <p>Athena-Brain-8B 通过通用 SFT、通用强化学习、具身专家训练与模型合并，兼顾通用推理和端侧高层具身交互；相对 Qwen3-8B thinking 保持相近通用能力但输出更短，在域内具身评测上超过同规模及若干更大的零样本模型。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18985" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>VISUO-TACTILE SENSOR</span><span>SURGICAL ROBOT</span><span>OPEN SOURCE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18660" target="_blank" rel="noreferrer">MVP-Tac: A Miniaturized Dual-Modal Vision and Photoelastic Tactile Sensor for Robot-Assisted Minimally Invasive Surgery</a></h3>
+      <p>以半透明膜和可控照明在同一微型光路中切换视觉与光弹性触觉，兼顾腔内导航和触诊；0–2 N 标定后，对暴露与皮下肿瘤模型的硬度分类分别达到 97% 和 92%，并开放设计、制造与固件。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18660" target="_blank" rel="noreferrer">arXiv</a><a href="https://mvp-tac.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>LEGGED BALANCE</span><span>KOOPMAN</span><span>REAL ROBOT DATA</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.18760" target="_blank" rel="noreferrer">Koopman DCM: Unstable Eigenfunctions as Data-driven Representations for Legged Balancing</a></h3>
+      <p>把腿式平衡中的发散运动分量推广为 Koopman 不稳定特征函数，仅用一小时真机数据学习可观测量；在真实双足机器人上改善参考步态跟踪，并与 MPC 结合形成基于状态的可行性约束。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.18760" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
