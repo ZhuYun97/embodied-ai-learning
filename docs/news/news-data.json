@@ -1,5 +1,87 @@
 [
   {
+    "id": "futuring-robot-nearly-1b-pre-a-500-households-avla-wam-20260722",
+    "title": "未来不远完成近 10 亿元 Pre-A 轮融资：家庭机器人已进入 500 余户",
+    "date": "2026-07-22",
+    "fetched_at": "2026-07-23",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "家庭机器人",
+      "WAM",
+      "产业落地"
+    ],
+    "summary": "上海未来不远机器人完成近 10 亿元人民币 Pre-A 轮融资，由源来资本、联新资本、博裕创投、汇川产投、国际国方、德宁资本和纳爱斯集团共同投资，为公司 2026 年公开披露的第三轮融资。公司面向家庭场景开发 F1、F2 通用机器人，以 AVLA 与 Self-Evolving WAM 双引擎支持主动决策和闭环进化；产品已在 500 余户家庭付费使用，累计服务超过 5 万小时。",
+    "sources": [
+      {
+        "name": "盖世汽车",
+        "url": "https://autonews.gasgoo.com/articles/news/seeds-third-round-this-year-futuring-robot-closes-nearly-1-billion-yuan-financing-2079937877461934081"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "palladyne-iq-usaf-2-9m-stratfi-option-embodied-ai-20260722",
+    "title": "Palladyne IQ 具身智能平台获美国空军追加 290 万美元合同",
+    "date": "2026-07-22",
+    "fetched_at": "2026-07-23",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产业落地",
+      "具身基础模型",
+      "国防机器人"
+    ],
+    "summary": "Palladyne AI 宣布美国空军对 STRATFI 合同行使 290 万美元追加选项，使项目总额超过 1060 万美元。后续里程碑覆盖真实机器人少样本人类示教学习、混合现实遥操作和任务自主执行。其硬件无关的 Palladyne IQ 具身智能架构面向动态、非结构化及通信受限环境，可从 1—5 次演示学习操作任务，并在边缘端完成传感融合、泛化与闭环自主执行。",
+    "sources": [
+      {
+        "name": "Palladyne AI",
+        "url": "https://www.palladyneai.com/press-releases/pdyn-stratfi-palladyne-iq/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "applied-intuition-dana-agentic-platform-physical-ai-20260721",
+    "title": "Applied Intuition 发布 Dana：面向 Physical AI 全生命周期的智能体平台",
+    "date": "2026-07-21",
+    "fetched_at": "2026-07-23",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "平台发布",
+      "Physical AI",
+      "产业落地"
+    ],
+    "summary": "Applied Intuition 发布 Dana 智能体平台，将数据、可视化、仿真测试、部署运维、评估追踪和治理能力统一到 Physical AI 开发流程，覆盖机器人、自动驾驶、工程机械、矿业和农业等场景。平台支持自然语言与命令行交互，已由小松和五十铃等客户试用；公司称部分开发环节已由数月缩短至数天，体现智能体工作流开始进入安全关键型物理系统工程。",
+    "sources": [
+      {
+        "name": "Applied Intuition",
+        "url": "https://www.appliedintuition.com/press-releases/applied-intuition-launches-dana"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "humanoid-152m-series-a-135b-valuation-thehumanoid",
     "title": "Humanoid 完成 1.52 亿美元 A 轮融资：投后估值达 13.5 亿美元",
     "date": "2026-07-21",
