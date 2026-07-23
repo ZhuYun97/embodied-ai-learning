@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-22">2026.07.22</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-23">2026.07.23</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 7 篇强相关候选，聚焦双向视觉动作接口、长短期记忆 WAM、agentic real-to-sim 与密集具身中间表征。</p>
+    <p class="paper-brief__dek">今日筛出 7 篇强相关候选，聚焦单视频即时技能习得、无 IDM 世界模型评测、人类失败恢复数据与零售人形 VLA 后训练。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
       <div><dt>候选</dt><dd data-paper-stat="latest">7</dd></div>
       <div><dt>P0</dt><dd data-paper-stat="p0">4</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.22</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.23</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>像素动作接口统一正向与逆向世界建模</strong><span class="paper-brief__paper">Masked Visual Actions</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">WAM</span><strong>事件记忆让 WAM 追踪长时程任务进度</strong><span class="paper-brief__paper">WorldScape Policy 2.0</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>23 万轨迹用中间表征连接 VLA 与世界模型</strong><span class="paper-brief__paper">RoboInter1.5</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">SIM</span><strong>视觉语言 agent 自动装配可运行物理孪生</strong><span class="paper-brief__paper">Agentic Real2Sim</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">DATA</span><strong>单段人类视频在推理时快速注入新操作技能</strong><span class="paper-brief__paper">HOST</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">EVAL</span><strong>显式 6D 运动学接地绕开脆弱逆动力学评测</strong><span class="paper-brief__paper">KineBench</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>第一视角人类恢复片段规模化覆盖失败长尾</strong><span class="paper-brief__paper">EgoRecovery</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">VLA</span><strong>系统级数据设计把失败基座变成零售人形策略</strong><span class="paper-brief__paper">DEED</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 332 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 339 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,57 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-23" class="paper-day-heading">2026-07-23</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 HOST × EgoRecovery：前者把单段人类示范转成推理时可执行的新技能，后者把人类第一视角失败恢复片段对齐到机器人纠错意图，二者共同指向“人类视频作为低成本策略增量”的数据范式；再以 KineBench 检查世界模型评测能否摆脱 IDM 误差归因，以 DEED 观察 VLA 从实验室到真实零售部署时数据后训练与经验驱动改进的系统瓶颈。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--data paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>HUMAN VIDEO</span><span>ONE-SHOT SKILL</span><span>INFERENCE-TIME ADAPTATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.20033" target="_blank" rel="noreferrer">Robots Acquire Manipulation Skills in Seconds from a Single Human Video</a></h3>
+      <p>HOST 把人类视频与机器人轨迹映射到共享任务进度流形，依次预测当前进度、自身未来观测与动作，使机器人无需训练循环即可从单段视频注入新技能。平均 29 秒完成技能获取、成功率 62%，相对零样本基线提升 45%，且保留已有技能。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.20033" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EMBODIED WORLD MODEL</span><span>IDM-FREE EVAL</span><span>6D KINEMATICS</span><span>ECCV 2026</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.19876" target="_blank" rel="noreferrer">KineBench: Benchmarking Embodied World Models via IDM-Free Kinematic Grounding</a></h3>
+      <p>用级联视觉基础模型从生成视频逐帧提取 6D 末端位姿，再送入物理模拟器闭环执行，避免 IDM 在新物体和新场景上的误差污染世界模型归因；覆盖 ManiSkill3 的 20 项操作任务，并以平滑度和可操作度补充任务成功率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.19876" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>FAILURE RECOVERY</span><span>EGOCENTRIC HUMAN DATA</span><span>CORRECTIVE INTENT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.19745" target="_blank" rel="noreferrer">EgoRecovery: Acquiring Failure Recovery Ability Through Human Recovery Demonstration</a></h3>
+      <p>把人类第一视角恢复示范与少量机器人恢复数据对齐到共享纠错意图空间，并用恢复门控只在失败状态触发修正。该采集协议每小时得到的有效恢复数据超过机器人遥操作的 10 倍，真机实验优于机器人单独训练及直接人机联合训练。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.19745" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>HUMANOID VLA</span><span>POST-TRAINING</span><span>EXPERIENCE-DRIVEN</span><span>UNITREE G1</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.20345" target="_blank" rel="noreferrer">Closing the Lab-to-Store Gap: A Data-Efficient Post-Training and Experience-Driven Learning VLA Framework for Retail Humanoids</a></h3>
+      <p>DEED 在 Unitree G1 超市补货任务上组合控制频率对齐、数据筛选、任务相关视觉高亮、文本优势前缀与视觉语言价值函数，把朴素微调下失败的 GR00T N1.6 策略用单张 GPU 改造成可工作的真实系统，强调部署瓶颈首先是数据与系统集成。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.20345" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>LANGUAGE-GUIDED GRASP</span><span>MULTI-EMBODIMENT</span><span>2.56M GRASPS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.20207" target="_blank" rel="noreferrer">SeededGrasp: Language-Guided Grasping in Complex Scenes with Multiple Embodiments</a></h3>
+      <p>让预训练 VLM 只预测语言目标的种子点，再由轻量 flow-matching 模型生成 6DoF 抓取，将语义推理与几何执行解耦；同时发布首个复杂桌面场景多本体抓取集，含 256 万抓取位姿，仿真与真机成功率分别为 72% 和 78%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.20207" target="_blank" rel="noreferrer">arXiv</a><a href="https://uoft-isl.github.io/seeded-grasp/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>DIFFUSION POLICY</span><span>VIDEO-ACTION MODEL</span><span>REVISABLE DENOISING</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.19919" target="_blank" rel="noreferrer">Diffusion ReRoll: Revisable Denoising for Robotic Sequential Prediction</a></h3>
+      <p>对已局部稳定的时间段选择性重新加噪，使序列前后段在生成中反复修正而不锁死错误前缀；同一机制覆盖长时规划、动作生成与视频—动作联合预测，在 LIBERO-10 上相对 Diffusion Policy 平均成功率提升 56.5%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.19919" target="_blank" rel="noreferrer">arXiv</a><a href="https://seonsoo-p1.github.io/DiffusionReRoll/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>TELEOPERATION</span><span>BIMANUAL MOBILE MANIPULATION</span><span>HAPTICS</span><span>OPEN SOURCE</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.19479" target="_blank" rel="noreferrer">ModPack: An Extensible Teleoperation Interface for Bimanual Mobile Manipulation</a></h3>
+      <p>以自包含可穿戴背包统一计算、电源、通信和存储，再插件化接入关节级触觉遥操作、移动操作与主动感知模块；跨两种机器人本体验证真实移动操作的数据采集与策略学习，并开放完整硬件设计和软件栈。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.19479" target="_blank" rel="noreferrer">arXiv</a><a href="https://modpack-robotics.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
   </div>
 </div>
 
