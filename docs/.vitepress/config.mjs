@@ -656,7 +656,7 @@ export default withMermaid(defineConfig({
           { text: '每日论文 Ideas', link: '/autoresearch/' },
           { text: '每日最新论文', link: '/papers/latest' },
           { text: '具身新闻', link: '/news/' },
-          { text: 'Qwen-Robot 系列专题', link: '/news/qwen-robot' },
+          { text: '大厂系列专题', link: '/news/company-series' },
           { text: '发展时间线', link: '/vla/papers/timeline' },
           { text: '更新日志', link: '/vla/changelog' },
           { text: '小红书具身内容精选', link: '/vla/papers/xiaohongshu' },

@@ -2127,10 +2127,21 @@ function createElectricBorder(card, canvas, { overflow = 18 } = {}) {
   let clearTimer = 0
 
   const resize = () => {
-    const rect = card.getBoundingClientRect()
-    const nextWidth = Math.max(1, Math.ceil(rect.width + overflow * 2))
-    const nextHeight = Math.max(1, Math.ceil(rect.height + overflow * 2))
+    // Canvas lives inside the card and inherits its hover/focus transform.
+    // Reading getBoundingClientRect() here would measure the already transformed
+    // axis-aligned box, then apply that size inside the transformed card again,
+    // which makes the electric stroke visibly drift away from the border.
+    const nextWidth = Math.max(1, Math.ceil(card.offsetWidth + overflow * 2))
+    const nextHeight = Math.max(1, Math.ceil(card.offsetHeight + overflow * 2))
     const nextDpr = Math.min(window.devicePixelRatio || 1, 2)
+    const style = window.getComputedStyle(card)
+    const borderLeft = parseFloat(style.borderLeftWidth) || 0
+    const borderTop = parseFloat(style.borderTopWidth) || 0
+    // Absolutely positioned children are anchored to the card's padding box.
+    // Subtract the border as well so the sampled path lands on the visible
+    // outer stroke instead of sitting one pixel inside it.
+    canvas.style.left = `${-(overflow + borderLeft)}px`
+    canvas.style.top = `${-(overflow + borderTop)}px`
     if (nextWidth === width && nextHeight === height && nextDpr === dpr) return
     width = nextWidth
     height = nextHeight
@@ -2238,7 +2249,9 @@ function setupElectricBorder() {
       const canvas = document.createElement('canvas')
       canvas.className = 'electric-border-canvas'
       canvas.setAttribute('aria-hidden', 'true')
-      canvas.style.inset = '-18px'
+      canvas.style.inset = 'auto'
+      canvas.style.top = '-18px'
+      canvas.style.left = '-18px'
       card.appendChild(canvas)
       const controller = createElectricBorder(card, canvas)
       if (!controller) return
