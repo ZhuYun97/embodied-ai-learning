@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-07-23T17:00:00+08:00",
+  "last_fetched_at": "2026-07-24T17:00:00+08:00",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -152,8 +152,11 @@
     "humanoid-152m-series-a-135b-valuation|thehumanoid",
     "futuring-robot-nearly-1b-pre-a-500-households-avla-wam|20260722",
     "palladyne-iq-usaf-2-9m-stratfi-option-embodied-ai|20260722",
-    "applied-intuition-dana-agentic-platform-physical-ai|20260721"
+    "applied-intuition-dana-agentic-platform-physical-ai|20260721",
+    "south-korea-navy-humanoid-robot-helmsman-combat-experiment|20260724",
+    "ropedia-22m-homie-head-mounted-robot-training-data|20260723",
+    "atoms-1-7b-a16z-industrial-ai-specialized-robots|20260722"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 152
+  "_count": 155
 }

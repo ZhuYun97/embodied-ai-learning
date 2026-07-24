@@ -1,5 +1,87 @@
 [
   {
+    "id": "atoms-1-7b-a16z-industrial-ai-specialized-robots-20260722",
+    "title": "Travis Kalanick 旗下 Atoms 获 17 亿美元投资，布局工业 AI 与专用机器人",
+    "date": "2026-07-22",
+    "fetched_at": "2026-07-24",
+    "importance": "hot",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "公司战略",
+      "产业机器人",
+      "Physical AI"
+    ],
+    "summary": "Uber 联合创始人 Travis Kalanick 旗下 Atoms 获得 17 亿美元投资，由 Andreessen Horowitz（a16z）领投，Uber 等参与。Atoms 从 City Storage Systems 的长期自动化实践中发展而来，计划以 Atoms Food、Atoms Mining 和 Atoms Transport 三条业务线，为餐饮、采矿和运输等重资产行业开发工业 AI 与专用机器人系统；a16z 合伙人 Ben Horowitz 将加入董事会。",
+    "sources": [
+      {
+        "name": "Andreessen Horowitz",
+        "url": "https://a16z.com/travis-is-back/"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "south-korea-navy-humanoid-robot-helmsman-combat-experiment-20260724",
+    "title": "韩国海军首次让人形机器人替代舵手开展战斗实验",
+    "date": "2026-07-24",
+    "fetched_at": "2026-07-24",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产业落地",
+      "人形机器人",
+      "国防机器人"
+    ],
+    "summary": "韩国海军在昌原训练司令部首次开展由人形机器人替代舰桥舵手的战斗实验。该机器人由韩国科学技术院（KAIST）团队研发，可接收操舵指令并操作训练设备；海军称将评估其任务表现与舰上适用性，并把此次试验作为应对兵员减少、推进有人—无人协同的一项验证。",
+    "sources": [
+      {
+        "name": "韩联社",
+        "url": "https://en.yna.co.kr/view/AEN20260723011600315"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "ropedia-22m-homie-head-mounted-robot-training-data-20260723",
+    "title": "Ropedia 获 2200 万美元融资：用头戴设备规模化采集机器人训练数据",
+    "date": "2026-07-23",
+    "fetched_at": "2026-07-24",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "融资上市",
+      "具身数据",
+      "数据采集"
+    ],
+    "summary": "机器人训练数据公司 Ropedia 完成 2200 万美元融资，用于扩大 HOMIE 头戴式 360° 相机设备的部署和数据采集团队。该方案从人类日常作业中记录第一视角视频及动作信息，为机器人学习提供可规模化的真实世界示范数据，瞄准具身模型训练中昂贵、稀缺的数据供给瓶颈。",
+    "sources": [
+      {
+        "name": "The Robot Report",
+        "url": "https://www.therobotreport.com/ropedia-raises-22m-scale-data-collection-training-robots/"
+      }
+    ],
+    "related": [
+      {
+        "label": "datasets",
+        "url": "/datasets"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "futuring-robot-nearly-1b-pre-a-500-households-avla-wam-20260722",
     "title": "未来不远完成近 10 亿元 Pre-A 轮融资：家庭机器人已进入 500 余户",
     "date": "2026-07-22",
