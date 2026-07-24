@@ -21,7 +21,10 @@ const series = [
     route: ['统一基座', '任务分支', '世界模型'],
     links: [
       { label: 'Qwen-VLA', href: '/vla/papers/qwen-vla', type: 'VLA' },
-      { label: 'Qwen-Robot 系列', href: '/news/qwen-robot', type: '专题' },
+      { label: 'Qwen-Robot 导读', href: '/news/qwen-robot', type: '专题' },
+      { label: 'Qwen-RobotManip', href: '/vla/papers/qwen-robotmanip', type: 'VLA' },
+      { label: 'Qwen-RobotNav', href: '/vla/papers/qwen-robotnav', type: 'NAV' },
+      { label: 'Qwen-RobotWorld', href: '/wam/papers/qwen-robotworld', type: 'WAM' },
       { label: 'RynnBrain', href: '/vla/papers/rynnbrain', type: 'S2' },
       { label: 'RynnVLA-001', href: '/vla/papers/rynnvla', type: 'VLA' },
       { label: 'WorldVLA', href: '/wam/papers/worldvla', type: 'WAM' },
@@ -66,10 +69,10 @@ const series = [
     unit: 'Seed · GR 系列',
     logo: '/logos/bytedance.png',
     accent: '#2f6bff',
-    summary: '以视频生成预训练起步，转向通用 VLA，再扩展到双臂灵巧手系统。',
+    summary: '从早期视频生成预训练研究出发，转向通用 VLA，再扩展到双臂灵巧手系统。',
     route: ['视频预训', '通用 VLA', '灵巧操作'],
     links: [
-      { label: 'GR-1', href: '/wam/papers/gr-1', type: 'WAM' },
+      { label: 'GR-1 · 早期研究', href: '/wam/papers/gr-1', type: 'WAM ⚠' },
       { label: 'GR-3', href: '/vla/papers/gr-3', type: 'VLA' },
       { label: 'GR-Dexter', href: '/vla/papers/gr-dexter', type: 'DEX' },
     ],
@@ -89,6 +92,9 @@ const series = [
       { label: 'π0.5', href: '/vla/papers/pi05', type: 'VLA' },
       { label: 'π0.6', href: '/vla/papers/pi06', type: 'RL' },
       { label: 'π0.7', href: '/vla/papers/pi07', type: 'VLA' },
+      { label: 'Knowledge Insulation', href: '/vla/papers/knowledge-insulation', type: 'METHOD' },
+      { label: 'RL Token', href: '/vla/papers/rl-token', type: 'RL' },
+      { label: 'Steerable Policies', href: '/vla/papers/steerable-policies', type: 'JOINT' },
     ],
   },
   {
@@ -111,16 +117,16 @@ const series = [
     id: 'x-square',
     group: 'EMBODIED COMPANY',
     name: '自变量 X²Robot',
-    unit: 'WALL / X-WAM',
+    unit: 'WALL / X-Tokenizer',
     logo: '/logos/zibianliang.png',
     accent: '#06b6d4',
-    summary: '从开放 VLA、动作 tokenizer 到世界模型，形成动作与 4D 世界联合建模路线。',
-    route: ['开放 VLA', '动作表征', '4D WAM'],
+    summary: '从开放 VLA 到语义动作 tokenizer，形成离散监督与连续动作生成协同演进的路线。',
+    route: ['开放 VLA', '混合动作头', '语义 tokenizer'],
     links: [
       { label: 'WALL-OSS', href: '/vla/papers/wall-oss', type: 'VLA' },
       { label: 'WALL-OSS-0.5', href: '/vla/papers/wall-oss-05', type: 'VLA' },
       { label: 'WALL-WM', href: '/wam/papers/wall-wm', type: 'WAM' },
-      { label: 'X-WAM', href: '/wam/papers/x-wam', type: '4D' },
+      { label: 'X-Tokenizer', href: '/vla/papers/x-tokenizer', type: 'TOKEN' },
     ],
   },
   {
@@ -629,6 +635,7 @@ const isExternal = (href) => /^https?:\/\//i.test(href)
   .company-series__grid { grid-template-columns: 1fr; }
   .company-series__card { padding: 16px; }
   .company-series__links a { min-height: 42px; }
+  .company-series--compact .company-series__links a { min-height: 42px; }
   .company-series__note {
     align-items: flex-start;
     flex-direction: column;
