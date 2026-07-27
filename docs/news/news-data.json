@@ -1,5 +1,33 @@
 [
   {
+    "id": "tactus-ai-elsie-humanoid-lab-assistant-adlm-20260727",
+    "title": "Tactus AI 发布人形实验室助手 Elsie，首批医学中心试点年内启动",
+    "date": "2026-07-27",
+    "fetched_at": "2026-07-27",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "产品发布",
+      "人形机器人",
+      "医疗机器人",
+      "产业落地"
+    ],
+    "summary": "Tactus AI 在 ADLM 2026 发布双臂人形实验室助手 Elsie，可在不更换现有仪器的前提下，依据实验室已验证的 SOP 执行样本搬运、仪器操作、异常处理、清洁校准和全流程记录。技能先在实验台数字孪生中训练与压力测试，再由客户质量团队验收后上线；公司计划 2026 年选择 3—5 家启动实验室，并在美国学术医学中心开展首批试点。",
+    "sources": [
+      {
+        "name": "ADLM 2026 Press Program / Newswise",
+        "url": "https://www.newswise.com/articles/tactus-ai-brings-a-humanoid-lab-assistant-to-the-bench-at-adlm-2026"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "hyundai-nvidia-robot-reference-platform-hyundai",
     "title": "现代汽车集团公布 Physical AI 路线：与 NVIDIA 共建机器人参考平台",
     "date": "2026-07-24",
