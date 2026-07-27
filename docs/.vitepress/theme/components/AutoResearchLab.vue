@@ -2866,86 +2866,88 @@ onMounted(loadCorpus)
         </div>
       </div>
 
-      <div v-if="selectedIdea" class="ar-detail-backdrop" @click="closeIdeaDetail">
-        <article
-          class="ar-detail-sheet"
-          role="dialog"
-          aria-modal="true"
-          :aria-labelledby="`idea-detail-${selectedIdea.id}`"
-          @click.stop
-        >
-          <header class="ar-detail-head">
-            <div>
-              <span class="ar-panel__tag">IDEA DETAIL</span>
-              <h2 :id="`idea-detail-${selectedIdea.id}`">{{ selectedIdea.title }}</h2>
-            </div>
-            <button type="button" aria-label="关闭详情" @click="closeIdeaDetail">×</button>
-          </header>
-
-          <div class="ar-detail-meta">
-            <span>#{{ selectedIdeaIndex + 1 }}</span>
-            <span>{{ selectedIdea.tension }}</span>
-            <span>学术总分 {{ selectedIdea.academicScore }}/10</span>
-            <span>{{ selectedIdea.academicTier }}</span>
-          </div>
-
-          <p class="ar-detail-thesis">{{ selectedIdea.thesis }}</p>
-
-          <section class="ar-detail-academic">
-            <header>
-              <span>学术多维评分</span>
-              <strong>{{ selectedIdea.academicScore }}/10</strong>
+      <Teleport to="body">
+        <div v-if="selectedIdea" class="ar-detail-backdrop" @click="closeIdeaDetail">
+          <article
+            class="ar-detail-sheet"
+            role="dialog"
+            aria-modal="true"
+            :aria-labelledby="`idea-detail-${selectedIdea.id}`"
+            @click.stop
+          >
+            <header class="ar-detail-head">
+              <div>
+                <span class="ar-panel__tag">IDEA DETAIL</span>
+                <h2 :id="`idea-detail-${selectedIdea.id}`">{{ selectedIdea.title }}</h2>
+              </div>
+              <button type="button" aria-label="关闭详情" @click="closeIdeaDetail">×</button>
             </header>
-            <div class="ar-academic-grid">
-              <span v-for="item in selectedIdea.academicScoreItems" :key="`detail-score-${selectedIdea.id}-${item.key}`">
-                <b>{{ item.label }}</b>
-                <i>{{ item.value }}/10</i>
-              </span>
+
+            <div class="ar-detail-meta">
+              <span>#{{ selectedIdeaIndex + 1 }}</span>
+              <span>{{ selectedIdea.tension }}</span>
+              <span>学术总分 {{ selectedIdea.academicScore }}/10</span>
+              <span>{{ selectedIdea.academicTier }}</span>
             </div>
-            <p>{{ selectedIdea.academicVerdict }}</p>
-          </section>
 
-          <section class="ar-detail-why">
-            <span>WHY NOW</span>
-            <p>{{ selectedIdea.whyNow }}</p>
-            <a v-if="selectedIdea.frontier" :href="selectedIdea.frontier.url" target="_blank" rel="noopener">
-              {{ selectedIdea.frontier.title }}
-            </a>
-          </section>
+            <p class="ar-detail-thesis">{{ selectedIdea.thesis }}</p>
 
-          <div class="ar-detail-grid">
-            <section>
-              <h3>动机</h3>
-              <p>{{ selectedIdea.motivation }}</p>
+            <section class="ar-detail-academic">
+              <header>
+                <span>学术多维评分</span>
+                <strong>{{ selectedIdea.academicScore }}/10</strong>
+              </header>
+              <div class="ar-academic-grid">
+                <span v-for="item in selectedIdea.academicScoreItems" :key="`detail-score-${selectedIdea.id}-${item.key}`">
+                  <b>{{ item.label }}</b>
+                  <i>{{ item.value }}/10</i>
+                </span>
+              </div>
+              <p>{{ selectedIdea.academicVerdict }}</p>
             </section>
-            <section>
-              <h3>核心贡献</h3>
-              <ul>
-                <li v-for="item in selectedIdea.contributions" :key="`detail-c-${item}`">{{ item }}</li>
-              </ul>
-            </section>
-            <section>
-              <h3>方法路径</h3>
-              <ul>
-                <li v-for="item in selectedIdea.method" :key="`detail-m-${item}`">{{ item }}</li>
-              </ul>
-            </section>
-            <section>
-              <h3>验证方式</h3>
-              <p>{{ selectedIdea.evaluation }}</p>
-            </section>
-          </div>
 
-          <section class="ar-detail-sources">
-            <h3>站内证据与近邻论文</h3>
-            <div class="ar-source-row">
-              <a v-for="doc in selectedIdea.sources" :key="`detail-${selectedIdea.id}-${doc.id}`" :href="doc.url" target="_blank" rel="noopener">
-                {{ doc.title }}
+            <section class="ar-detail-why">
+              <span>WHY NOW</span>
+              <p>{{ selectedIdea.whyNow }}</p>
+              <a v-if="selectedIdea.frontier" :href="selectedIdea.frontier.url" target="_blank" rel="noopener">
+                {{ selectedIdea.frontier.title }}
               </a>
+            </section>
+
+            <div class="ar-detail-grid">
+              <section>
+                <h3>动机</h3>
+                <p>{{ selectedIdea.motivation }}</p>
+              </section>
+              <section>
+                <h3>核心贡献</h3>
+                <ul>
+                  <li v-for="item in selectedIdea.contributions" :key="`detail-c-${item}`">{{ item }}</li>
+                </ul>
+              </section>
+              <section>
+                <h3>方法路径</h3>
+                <ul>
+                  <li v-for="item in selectedIdea.method" :key="`detail-m-${item}`">{{ item }}</li>
+                </ul>
+              </section>
+              <section>
+                <h3>验证方式</h3>
+                <p>{{ selectedIdea.evaluation }}</p>
+              </section>
             </div>
-          </section>
-        </article>
-      </div>
+
+            <section class="ar-detail-sources">
+              <h3>站内证据与近邻论文</h3>
+              <div class="ar-source-row">
+                <a v-for="doc in selectedIdea.sources" :key="`detail-${selectedIdea.id}-${doc.id}`" :href="doc.url" target="_blank" rel="noopener">
+                  {{ doc.title }}
+                </a>
+              </div>
+            </section>
+          </article>
+        </div>
+      </Teleport>
 
       <div v-if="mode === 'deep'" class="ar-panel">
         <span class="ar-panel__tag">LATEST RESEARCH SIGNALS</span>
@@ -4307,7 +4309,7 @@ onMounted(loadCorpus)
 
 .ar-detail-sheet {
   position: relative;
-  width: min(980px, calc(100vw - 32px));
+  width: min(980px, calc(100vw - 48px));
   max-height: calc(100vh - 48px);
   overflow: auto;
   padding: 18px;
@@ -4927,7 +4929,8 @@ onMounted(loadCorpus)
 }
 
 /* AutoResearch visual polish v3 */
-.ar-lab {
+.ar-lab,
+.ar-detail-backdrop {
   --ar-polish-v3: 1;
   --ar-bg: #10130f;
   --ar-surface: rgba(22, 25, 22, 0.86);
@@ -4940,9 +4943,12 @@ onMounted(loadCorpus)
   --ar-gold: #d8b86e;
   --ar-sage: #9eb7a2;
   --ar-cyan: #8fc9d7;
+  color: var(--ar-text);
+}
+
+.ar-lab {
   gap: 18px;
   margin-top: 18px;
-  color: var(--ar-text);
 }
 
 .ar-lab::before {
@@ -5693,7 +5699,8 @@ onMounted(loadCorpus)
 }
 
 /* AutoResearch visual polish v4: quiet research board */
-.ar-lab {
+.ar-lab,
+.ar-detail-backdrop {
   --ar-polish-v4: 1;
   --ar-paper-bg: #111318;
   --ar-paper-panel: rgba(20, 23, 29, 0.88);
@@ -5706,10 +5713,13 @@ onMounted(loadCorpus)
   --ar-paper-amber: #d9ba72;
   --ar-paper-blue: #8fbde8;
   --ar-paper-green: #9ab8a2;
-  gap: 16px;
-  margin-top: 12px;
   color: var(--ar-paper-text);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.ar-lab {
+  gap: 16px;
+  margin-top: 12px;
 }
 
 .ar-lab::before {
@@ -6228,6 +6238,20 @@ onMounted(loadCorpus)
 }
 
 @media (max-width: 560px) {
+  .ar-detail-backdrop {
+    padding: 10px;
+  }
+
+  .ar-detail-sheet {
+    width: calc(100vw - 20px);
+    max-height: calc(100dvh - 20px);
+    padding: 14px;
+  }
+
+  .ar-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
   .ar-hero,
   .ar-panel {
     padding: 15px;
