@@ -1,5 +1,27 @@
 [
   {
+    "id": "hyundai-nvidia-robot-reference-platform-hyundai",
+    "title": "现代汽车集团公布 Physical AI 路线：与 NVIDIA 共建机器人参考平台",
+    "date": "2026-07-24",
+    "fetched_at": "2026-07-25",
+    "importance": "major",
+    "credibility": "verified",
+    "category": [
+      "公司战略",
+      "平台发布",
+      "产业动态"
+    ],
+    "summary": "现代汽车集团在旧金山 AI 峰会上宣布向 Physical AI 解决方案公司转型，并将制造、车辆、物流和机器人运行数据接入持续迭代 AI 模型的数据飞轮。集团还将与 NVIDIA 开发 Robot Reference Platform，向高校、研究机构和初创企业提供标准化软硬件与研究机器人；Atlas 将先在现代汽车集团美国工厂验证部署。",
+    "sources": [
+      {
+        "name": "Hyundai Motor Group",
+        "url": "https://www.hyundai.com/worldwide/en/newsroom/detail/0000001238"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "atoms-1-7b-a16z-industrial-ai-specialized-robots-20260722",
     "title": "Travis Kalanick 旗下 Atoms 获 17 亿美元投资，布局工业 AI 与专用机器人",
     "date": "2026-07-22",
