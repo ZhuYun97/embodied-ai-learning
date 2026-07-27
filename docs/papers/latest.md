@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-23">2026.07.23</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-27">2026.07.27</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 7 篇强相关候选，聚焦单视频即时技能习得、无 IDM 世界模型评测、人类失败恢复数据与零售人形 VLA 后训练。</p>
+    <p class="paper-brief__dek">今日筛出 5 篇强相关候选，聚焦机器人解耦世界模型、视触觉 rollout、动态双臂协作与多臂策略落地。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">7</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">4</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">5</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">3</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.23</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.27</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">DATA</span><strong>单段人类视频在推理时快速注入新操作技能</strong><span class="paper-brief__paper">HOST</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">EVAL</span><strong>显式 6D 运动学接地绕开脆弱逆动力学评测</strong><span class="paper-brief__paper">KineBench</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">DATA</span><strong>第一视角人类恢复片段规模化覆盖失败长尾</strong><span class="paper-brief__paper">EgoRecovery</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">VLA</span><strong>系统级数据设计把失败基座变成零售人形策略</strong><span class="paper-brief__paper">DEED</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>把动作实现与机器人外观移出世界模型学习负担</strong><span class="paper-brief__paper">Robot-Factored WM</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">TACTILE</span><strong>联合预测视觉与触觉 rollout，兼顾数据扩增和策略评估</strong><span class="paper-brief__paper">ViTacWorld</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">VLA</span><strong>把另一只手建模为动态任务参数以统一双臂协作</strong><span class="paper-brief__paper">DynaMAC</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">WAM</span><strong>学习超声接触动力学并用冻结世界模型训练探头导航</strong><span class="paper-brief__paper">Ultrasound WM</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 339 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 346 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,96 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-27" class="paper-day-heading">2026-07-27</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 Robot-Factored World Models × ViTacWorld：前者通过显式机器人渲染重新划分世界模型应学习的边界，后者把接触触觉纳入动作条件 rollout，并直接服务数据扩增与策略评估；再以 DynaMAC 和 Embodying Multi-Hand Policies 对照学习策略中的双臂协同与策略输出到实体多臂系统的安全执行。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>ROBOT WORLD MODEL</span><span>ROBOT RENDERING</span><span>CROSS-EMBODIMENT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.22535" target="_blank" rel="noreferrer">Robot-Factored World Models via Robot Rendering</a></h3>
+      <p>把动作命令先经控制器和运动学滚成部署时可得的名义轨迹，再用 URDF 渲染机器人几何并配对末端与场景深度，让世界模型专注学习接触后的物体响应，而非重复学习动作实现和机器人外观；该统一视觉接口优于向量动作条件基线，可零样本泛化到未见机器人本体，并能把人类手部示范重定向成机器人操作视频。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.22535" target="_blank" rel="noreferrer">arXiv</a><a href="https://bjkim95.github.io/rofacto/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>VISUO-TACTILE WORLD MODEL</span><span>CONTACT-RICH</span><span>DATA AUGMENTATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.22530" target="_blank" rel="noreferrer">ViTacWorld: Scaling Visuo-Tactile World Models for Contact-Rich Robot Manipulation</a></h3>
+      <p>用公开真实触觉数据、仿真环境和真实策略 rollout 预训练再适配动作条件视触觉世界模型，同步预测未来画面与触觉反馈；生成的 rollout 既扩增接触丰富任务的策略训练数据，也能在受控动作序列下评估策略结果，把触觉从单一策略输入扩展成可规模化的预测与评测信号。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.22530" target="_blank" rel="noreferrer">arXiv</a><a href="https://vitacworld.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>BIMANUAL MANIPULATION</span><span>DYNAMIC COOPERATION</span><span>SAMPLE EFFICIENCY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.22119" target="_blank" rel="noreferrer">One Hand Watches The Other: Dynamic Multi-Agent Cooperation for Sample-Efficient Bimanual Manipulation in Dynamic Environments</a></h3>
+      <p>DynaMAC 把对侧机械臂视作动态任务参数，解除多流策略把参考系默认成外生静态变量的限制，无需显式主从关系即可统一动态物体操作与双臂协同；在新提出的 DynaBench 上相对概率和生成式基线提升超过 35 个百分点、示范量减少 20 倍，并可从静态示范零样本迁移到动态环境。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.22119" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>MULTI-ARM EXECUTION</span><span>POLICY GROUNDING</span><span>COLLISION AVOIDANCE</span><span>SOCS 2026</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.22020" target="_blank" rel="noreferrer">Embodying Multi-Hand Manipulation Policies by Searching the Assignment and Null Spaces</a></h3>
+      <p>面向输出抽象多手轨迹的学习策略，以 Conflict-Based Search 联合搜索轨迹到实体机械臂的离散分配和冗余机械臂的连续 Jacobian 零空间，在跟踪末端轨迹的同时满足关节约束并规避臂间碰撞；该框架补上跨本体策略从“手轨迹”到安全多臂执行的工程缺口，并给出理论完备性。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.22020" target="_blank" rel="noreferrer">arXiv</a><a href="https://omcbsa.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>ACTION-CONDITIONED WORLD MODEL</span><span>ROBOTIC ULTRASOUND</span><span>MODEL-BASED LEARNING</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21918" target="_blank" rel="noreferrer">Action-Conditioned World Model for Goal Plane Probe Guidance in Robotic Ultrasound</a></h3>
+      <p>先用潜在条件扩散模型从历史超声帧、探头运动和时间间隔预测未来观察，再以冻结世界模型提供奖励微调目标条件动作 Transformer，绕开显式模拟接触、组织形变和视角相关声学伪影的困难；真实闭环颈部扫描中，颈动脉与甲状腺目标平面引导成功率分别为 70% 和 65%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21918" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-24" class="paper-day-heading">2026-07-24</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 AXIS × Scale Up Strategically × TableVerse：三者分别回答如何持续增长高质量数据、如何诊断 VLA 的语言捷径并把诊断变成采集策略、以及如何从真实互联网布局规模化生成可交互训练环境；再以 FELT 检查视觉数据能否低成本补齐触觉监督，以 GS-Agent 与 PhysCoRe 对照生成式仿真和物理残差世界模型的两条路线。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--data paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>ROBOT DATA ENGINE</span><span>COMMUNITY TELEOP</span><span>VLA SCALING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21588" target="_blank" rel="noreferrer">AXIS: A Growable Community-Driven Data Engine for Scalable Robot Manipulation</a></h3>
+      <p>把浏览器 MuJoCo 遥操作、自动任务生成与验证、成功检测、轨迹清洗及视觉—物理增强串成可持续增长的数据引擎；当前论文快照含 207 个任务和 5 万余轨迹，持续预训练使 π0.5 总成功率提升 5.8%，并在布局、传感噪声和相机扰动上呈现稳定缩放收益。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21588" target="_blank" rel="noreferrer">arXiv</a><a href="https://axisaiorg.github.io/AXIS-V1/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>COMPOSITIONAL GENERALIZATION</span><span>BIAS-AWARE EVAL</span><span>DATA COLLECTION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21582" target="_blank" rel="noreferrer">Scale Up Strategically: Learning Compositional Generalization via Bias-Aware Evaluation and Data Collection for Robotic Manipulation</a></h3>
+      <p>用 Factor Dominance Rate 与 Hierarchy 定位策略对颜色、物体、空间、动词和尺寸等指令因子的捷径依赖；六个基础策略均呈现颜色强、动词与尺寸弱的相似排序，据此把固定采集预算倾斜到欠接地因子，仅用一半示范就在仿真和真机超过基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21582" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>REAL2SIM</span><span>TABLETOP DATA</span><span>100K ENVIRONMENTS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21017" target="_blank" rel="noreferrer">TableVerse: A Large-scale Tabletop Dataset with Real-world Grounded Layouts for Generalizable Manipulation</a></h3>
+      <p>不再凭文本想象桌面布局，而从非结构化互联网图像确定性重建具有真实尺度、拓扑与机械稳定性的仿真环境，再自动生成无碰撞取放轨迹；TableVerse-100K 提供十万个独特、物理一致且带交互示范的桌面环境。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21017" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>VISUO-TACTILE</span><span>SYNTHETIC TOUCH</span><span>CONTACT-RICH</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.20683" target="_blank" rel="noreferrer">FELT: Generating Tactile Signals from Vision for Visuo-Tactile Manipulation</a></h3>
+      <p>以冻结视觉编码器和轻量查询解码器从 RGB 单次前向生成左右手指压力图或潜在触觉特征，使既有纯视觉数据无需触觉硬件即可补充接触监督；在擦拭、插入和手内旋转等四项任务中，两种合成表示均优于纯视觉策略。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.20683" target="_blank" rel="noreferrer">arXiv</a><a href="https://felt-tactile.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>GENERATIVE SIMULATION</span><span>4D PHYSICAL WORLD</span><span>PHYSICS-IN-THE-LOOP</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21522" target="_blank" rel="noreferrer">GS-Agent: Creating 4D Physical Worlds With Generative Simulation</a></h3>
+      <p>让多个专职 agent 通过代码操纵物理引擎，围绕资产、材质、布置、运动、相机与光照迭代接受多模态反馈，从自然语言构建可控且可运行的 4D 世界；输出覆盖液体、可变形体与刚体交互，强调生成结果是物理仿真而非仅像素视频。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21522" target="_blank" rel="noreferrer">arXiv</a><a href="https://umass-embodied-agi.github.io/gs-agent/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>DEFORMABLE WORLD MODEL</span><span>DIFFERENTIABLE PHYSICS</span><span>MATERIAL IDENTIFICATION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.20653" target="_blank" rel="noreferrer">PhysCoRe: Physics-Corrected Residual World Models for Material-Aware Deformable Dynamics</a></h3>
+      <p>把可微 MPM 模拟器与材质推断、动力学残差两个前馈网络耦合：前者从视觉估计逐粒子弹性，后者修正解析模拟器的系统偏差；少量交互即可适应新物体，并用预测不确定性引导后续探索，真实可变形操作序列上优于现有预测基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.20653" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>BIMANUAL MANIPULATION</span><span>COMPOSITIONAL DIFFUSION</span><span>ENERGY GUIDANCE</span><span>IROS 2026</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21341" target="_blank" rel="noreferrer">Grasp, Handover, Rotate: Bimanual Object Reorientation via Compositional Diffusion and Energy-Based Optimization</a></h3>
+      <p>BiCompoDiff 在抓取扩散模型的反向生成过程中注入碰撞规避、可微逆运动学平滑、交接可行性与再抓取安全等能量梯度，把抓取选择、双臂交接、再抓取和运动规划联合为一个可组合优化过程，面向直接放置受限的物体重定向。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21341" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
