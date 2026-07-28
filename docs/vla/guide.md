@@ -24,6 +24,7 @@ description: 如何阅读具身星图——内容地图、推荐阅读路径、�
 | **快速建立全景** | [总报告](/vla/) 的论文细读导航表 + [术语速查表](papers/glossary) |
 | **深挖某个模型** | 论文细读导航里点对应条目;每篇细读结构统一:TL;DR → 要解决的问题 → 方法与架构 → 实验结果表 → 局限 |
 | **找数据/基准/硬件** | [具身数据论文索引](papers/embodied-data-papers) · [具身数据全景](papers/embodied-data) · [数据集与基准](papers/benchmarks) · [实验机器人本体](papers/robots) |
+| **选投稿会议 / 期刊** | [机器人学投稿会议与期刊指南](papers/publication-venues) · 按核心贡献匹配 ICRA/IROS/RSS/CoRL、RA-L/T-RO/T-RL/IJRR 等 venue |
 | **查术语 / 找原文** | [术语速查表](papers/glossary) · [参考文献](papers/references) |
 
 > 每篇细读底部都有「本系列」页脚,可一键跳到相关专题与速查页。
@@ -55,7 +56,7 @@ description: 如何阅读具身星图——内容地图、推荐阅读路径、�
 - **更多代表模型**:[GR-3](papers/gr-3) · [RDT-1B](papers/rdt-1b) · [GO-1](papers/go-1) · [MemoryVLA](papers/memoryvla) · [SpatialVLA](papers/spatialvla) · [Helix](papers/helix)
 - **WAM 调研轨(独立)**:[WAM 总览](/wam/) · 细读 [DreamZero](/wam/papers/dreamzero) · [X-WAM](/wam/papers/x-wam) · [UWM](/wam/papers/uwm) · [Genie Envisioner](/wam/papers/genie-envisioner) · [GR00T N2](/wam/papers/groot-n2)
 - **方法 / 工程横切**:[预测式 VLA](papers/predictive-vla) · [知识隔离 KI](papers/knowledge-insulation) · [具身数据处理](papers/data-processing) · [推理加速与部署](papers/inference-deployment) · [开源代码库对照](papers/codebases) · [共性失败模式](papers/failure-modes)
-- **速查 / 参考**:[术语速查表](papers/glossary) · [发展时间线](papers/timeline) · [参考文献](papers/references) · [外部资源导航(Awesome 列表)](papers/resources) · [实验机器人本体](papers/robots)
+- **速查 / 参考**:[术语速查表](papers/glossary) · [发展时间线](papers/timeline) · [机器人学投稿会议与期刊](papers/publication-venues) · [参考文献](papers/references) · [外部资源导航(Awesome 列表)](papers/resources) · [实验机器人本体](papers/robots)
 
 > 优先级是"建立全局理解"视角的建议序;若你为特定目的而来(找某模型/某数据集/某工程问题),直接按上面的[推荐阅读路径](#推荐阅读路径)表或顶栏导航定位即可。
 
@@ -80,7 +81,7 @@ description: 如何阅读具身星图——内容地图、推荐阅读路径、�
 - **数据专题** — 具身数据全景 / 具身数据论文索引 / 具身数据处理
 - **训练与评测专题** — 具身模型训练全流程 / 数据集与基准
 - **机器人系统基础** — 实验机器人本体 / 运控算法基础
-- **速查与参考** — 术语速查表 / 发展时间线 / 参考文献
+- **速查与参考** — 术语速查表 / 发展时间线 / 机器人学投稿会议与期刊 / 参考文献
 - **关于** — 本页 / [更新日志](changelog)
 
 ## 贡献与反馈

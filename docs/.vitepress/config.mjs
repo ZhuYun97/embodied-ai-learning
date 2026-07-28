@@ -729,11 +729,12 @@ export default withMermaid(defineConfig({
       },
       {
         text: '专题速查',
-        activeMatch: '^/vla/papers/(datasets-catalog|leaderboard|models-spec)',
+        activeMatch: '^/vla/papers/(datasets-catalog|leaderboard|models-spec|publication-venues)',
         items: [
           { text: '数据集与仿真环境图鉴', link: '/vla/papers/datasets-catalog' },
           { text: '统一基准榜', link: '/vla/papers/leaderboard' },
           { text: '全模型规格对比', link: '/vla/papers/models-spec' },
+          { text: '机器人学投稿会议与期刊', link: '/vla/papers/publication-venues' },
         ],
       },
       {
@@ -928,6 +929,7 @@ export default withMermaid(defineConfig({
           items: [
             { text: '术语速查表', link: '/vla/papers/glossary' },
             { text: '发展时间线', link: '/vla/papers/timeline' },
+            { text: '机器人学投稿会议与期刊', link: '/vla/papers/publication-venues' },
             { text: '参考文献', link: '/vla/papers/references' },
             { text: '外部资源导航(Awesome 列表)', link: '/vla/papers/resources' },
             { text: '小红书具身内容精选（169 条实采）', link: '/vla/papers/xiaohongshu' },
@@ -1025,6 +1027,7 @@ export default withMermaid(defineConfig({
           items: [
             { text: '学习路线图', link: '/vla/papers/roadmap' },
             { text: '具身入门 · 新手起步', link: '/vla/papers/getting-started' },
+            { text: '机器人学投稿会议与期刊', link: '/vla/papers/publication-venues' },
           ],
         },
         {

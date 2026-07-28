@@ -121,6 +121,7 @@ RT-2(2023)把"动作当文本 token"奠定了 VLA 范式。此后领域沿两条
 |---|---|---|
 | 术语速查表 | 流匹配/动作分块/双系统/co-training 等术语一页速查 | [→ 术语表](papers/glossary.md) |
 | 发展时间线 | 2022→2026 VLA × WAM 里程碑一览 | [→ 时间线](papers/timeline.md) |
+| 机器人学投稿会议与期刊 | 按贡献类型选择 ICRA/IROS/RSS/CoRL 等会议与 RA-L/T-RO/T-RL/IJRR 等期刊,含 VLA/WAM 映射与双投检查 | [→ 投稿指南](papers/publication-venues.md) |
 | 参考文献 | 全站一手信源(arXiv/官网)聚合 | [→ 信源](papers/references.md) |
 | 外部资源导航 | 站外高质量 Awesome 论文合集 / 综述 / 基准仿真官方站 / 数据集 / 机构博客 | [→ 资源](papers/resources.md) |
 
