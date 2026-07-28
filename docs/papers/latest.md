@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-27">2026.07.27</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-07-28">2026.07.28</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 5 篇强相关候选，聚焦机器人解耦世界模型、视触觉 rollout、动态双臂协作与多臂策略落地。</p>
+    <p class="paper-brief__dek">今日筛出 6 篇强相关候选，聚焦有序动作 token、通用机器人编排、无梯度策略约束与进度奖励评测。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">5</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">3</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">6</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">2</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">07.27</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">07.28</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WAM</span><strong>把动作实现与机器人外观移出世界模型学习负担</strong><span class="paper-brief__paper">Robot-Factored WM</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">TACTILE</span><strong>联合预测视觉与触觉 rollout，兼顾数据扩增和策略评估</strong><span class="paper-brief__paper">ViTacWorld</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">VLA</span><strong>把另一只手建模为动态任务参数以统一双臂协作</strong><span class="paper-brief__paper">DynaMAC</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">WAM</span><strong>学习超声接触动力学并用冻结世界模型训练探头导航</strong><span class="paper-brief__paper">Ultrasound WM</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA</span><strong>动作 token 前缀即可解码，按算力逐步细化控制精度</strong><span class="paper-brief__paper">OAT</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA</span><strong>在冻结策略外补上规划、验证与失败恢复闭环</strong><span class="paper-brief__paper">Pigey</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">CONTROL</span><strong>用 MPPI 前向代价把黑盒安全约束注入扩散策略</strong><span class="paper-brief__paper">GRACE</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">EVAL</span><strong>统一进度奖励的输入、信号、监督来源与验证协议</strong><span class="paper-brief__paper">Progress Reward</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 346 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 352 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,51 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-07-28" class="paper-day-heading">2026-07-28</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 Ordered Action Tokens × Physical Agency：前者重新设计 VLA 的低层动作接口，使 token 序列天然支持“先粗后细”的随时解码；后者把规划、结果验证和恢复从冻结策略中解耦出来，直接测量通用策略的编排缺口。再以 GRACE 检查部署时黑盒约束如何进入生成策略，以 Progress Reward Survey 补齐过程评测框架。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>ACTION TOKENIZATION</span><span>ANYTIME CONTROL</span><span>60+ TASKS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21670" target="_blank" rel="noreferrer">Ordered Action Tokens for Visuomotor Policy Learning</a></h3>
+      <p>提出同时满足高压缩、完全可解码与有序 token 空间的 OAT：训练每个 token 前缀都能还原有效动作块，让早期 token 承载粗控制、后续 token 逐步修正残差，从而按推理预算动态权衡速度与动作精度；在三种策略骨干、五个仿真基准和真机共 60 余项任务上验证自回归控制与 VLA action-expert 共训练两种用法。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21670" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>PHYSICAL AGENT</span><span>VLA ORCHESTRATION</span><span>FAILURE RECOVERY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21725" target="_blank" rel="noreferrer">Addressing the Orchestration Gap in Generalist Robots via Physical Agency</a></h3>
+      <p>Pigey 在冻结 VLA 或参数化技能外构建闭环编排器，负责高层规划、子目标分解、执行跟踪、结果验证和失败恢复，无需新增数据或后训练；LIBERO-PRO 从 12.8% 提升到 53.3%，真机推理受限任务从接近零提升到 90% 以上，并用“编排缺口”刻画运动技能单独运行与进入 agent 闭环后的性能差。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21725" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>DIFFUSION POLICY</span><span>GRADIENT-FREE GUIDANCE</span><span>DEPLOYMENT CONSTRAINTS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21661" target="_blank" rel="noreferrer">GRACE: Gradient-Free Robot Action Generation via Combined Diffusion-MPPI Posterior Mean Estimation</a></h3>
+      <p>用只需前向代价评估的 MPPI，在扩散反演每一步估计代价条件后验均值，把二值碰撞、关节限位和黑盒 rollout 代价等不可微约束注入预训练扩散策略；仿真优于扩散与采样基线，真实 7 自由度机械臂则避开了原策略每次都会碰撞的部署时障碍。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21661" target="_blank" rel="noreferrer">arXiv</a><a href="https://anonymous.4open.science/w/grace-70BB/" target="_blank" rel="noreferrer">Code / Videos</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>PROGRESS REWARD</span><span>ROBOT EVALUATION</span><span>SURVEY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21655" target="_blank" rel="noreferrer">Progress Reward Modeling for Robotic Learning: A Comprehensive Survey</a></h3>
+      <p>把只给最终成败的稀疏评测扩展到任务过程，按三层统一进度模型：外部接口规定观察、目标与输出信号，内部方法解释进度估计和奖励构造机制，数据与基准层追踪监督来源及评测究竟验证了什么；适合作为 VLA 价值模型、失败恢复和数据质量评估的共同索引。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21655" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>HUMANOID</span><span>SYNTHETIC VIDEO</span><span>IMITATION LEARNING</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.21648" target="_blank" rel="noreferrer">Learning Diverse Humanoid Tasks via Synthetic Video Scenarios without Real World Data</a></h3>
+      <p>用生成式 AI 把文本提示转成同一任务的多样人类动作视频，再把这些合成示范作为人形机器人模仿学习资源，以降低真实采集成本并覆盖个体与执行风格差异；四个仿真场景显示策略能够完成任务并适应复杂动作变化，但尚缺真实机器人验证。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.21648" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>WHOLE-BODY TACTILE</span><span>WITHDRAWAL REFLEX</span><span>HUMAN EVALUATION</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.22249" target="_blank" rel="noreferrer">Design and Human Evaluation of Tactile Withdrawal Reflexes for a Skin-Covered Robot Arm</a></h3>
+      <p>把机械臂全身皮肤的压力变化映射为连续痛觉增益，并比较统一关节撤回、生物启发位置相关撤回和沿接触面法向的笛卡尔撤回；15 人研究中，简单且可预测的统一反射在安全感、人类相似度和自然度上最佳，而笛卡尔反射被认为最符合触碰方向，提示触觉安全行为的用户接受度不等于生物逼真度。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.22249" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
