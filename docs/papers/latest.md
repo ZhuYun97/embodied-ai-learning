@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-01">2026.08.01</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-03">2026.08.03</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 14 篇强相关候选，聚焦触觉世界动作模型、跨本体迁移、失败数据修复、世界模型规划与具身数据价值。</p>
+    <p class="paper-brief__dek">今日筛出 14 篇强相关候选，聚焦世界模型增强 VLA、WAM 闭环反馈、视觉偏移鲁棒性、数据组合泛化与触觉/人形迁移。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
       <div><dt>候选</dt><dd data-paper-stat="latest">14</dd></div>
       <div><dt>P0</dt><dd data-paper-stat="p0">5</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">08.01</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">08.03</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">TACTILE</span><strong>让未来触觉参与训练、但不成为动作生成的特权输入</strong><span class="paper-brief__paper">TacWAM</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">TRANSFER</span><strong>用末端轨迹等行为对齐表示统一跨本体数据</strong><span class="paper-brief__paper">BAR</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">VLA</span><strong>把失败轨迹转成动作级纠错监督，而非只做负样本</strong><span class="paper-brief__paper">RedFlow</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">WAM</span><strong>在动作条件想象中搜索并迭代修正机器人计划</strong><span class="paper-brief__paper">World Action Planner</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA RL</span><strong>让 critic 同时预测未来状态，而非只回归单帧价值</strong><span class="paper-brief__paper">WCM</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">WORLD MODEL</span><strong>把动作条件世界模型同时做成数据引擎与策略评测器</strong><span class="paper-brief__paper">BWM</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">WAM</span><strong>把真实反馈推入正在生成的动作块，细粒度抑制漂移</strong><span class="paper-brief__paper">FBFM</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">ROBUSTNESS</span><strong>以语义—时序双空间缓解视觉偏移下的训练域幻觉</strong><span class="paper-brief__paper">ST-WAM</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 375 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 389 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,99 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-08-03" class="paper-day-heading">2026-08-03</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 WCM × BWM × FBFM × ST-WAM：分别回答世界模型如何改善 VLA 强化学习的价值估计、如何充当数据与评测基础设施、如何在动作块内部注入真实反馈，以及如何抵御视觉分布偏移。再读组合泛化诊断，反向指导机器人数据应覆盖哪些指令依赖而不只是扩大任务数量。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>WORLD CRITIC</span><span>VLA RL</span><span>149 TASKS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29613" target="_blank" rel="noreferrer">WCM: A World Critic Model for Vision-Language-Action Reinforcement Learning</a></h3>
+      <p>指出单帧 critic 与机器人部分可观测控制存在结构错配，用轻量 LeJEPA 同时预测未来 latent 与估计价值，让表示显式学习跨时动态。兼容 π0、π0.5 和 OpenVLA-OFT，在四个基准 149 项任务及七项真机操作上验证，尤其提升分布外泛化。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29613" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WORLD SIMULATOR</span><span>DATA ENGINE</span><span>POLICY EVALUATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29302" target="_blank" rel="noreferrer">BWM: A Low-Cost High-Fidelity World Simulator for Robot Learning</a></h3>
+      <p>Boundless World Model 以初始环境、动态视觉历史和时间对齐动作做有状态自回归未来预测，既生成动作对齐 rollout 扩充模仿学习数据，也用于风险预判、策略排序与闭环评测；开源模型、训练推理代码和接口，并在 WorldArena 多赛道排名第一。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29302" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>FEEDBACK FLOW</span><span>TRAINING-FREE</span><span>ONLINE CORRECTION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29235" target="_blank" rel="noreferrer">FBFM: A Training-Free Asynchronous Feedback Mechanism for Flow-Matching in World-Action Models Execution</a></h3>
+      <p>把重落地从动作块边界推进到流匹配生成内部：用上一块动作和执行后的真实图像，通过掩码伪逆修正下一块的条件速度场，在不训练的前提下逐时间步抑制预测漂移。接入 DreamZero 与 LingBot-VA 后，在部分 LIBERO、RoboTwin2.0 任务提升超过 5%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29235" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>SEMANTIC-TEMPORAL WAM</span><span>VISUAL SHIFT</span><span>ROBUSTNESS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.28993" target="_blank" rel="noreferrer">ST-WAM: Semantic-Temporal World Action Model for Robust Manipulation under Visual Distribution Shifts</a></h3>
+      <p>诊断 WAM 在视觉偏移下会把未来幻觉回训练域，转而联合预测 VAE 动态与 DINOv3 语义，并用当前上下文从 DINO 历史检索任务证据；推理时无需显式生成未来。相较 Fast-WAM，LIBERO-Plus 零样本提升 21.3 点，真机视觉偏移成功率由 25.8% 升至 61.5%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.28993" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>COMPOSITIONAL GENERALIZATION</span><span>DATA COVERAGE</span><span>DIAGNOSIS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29687" target="_blank" rel="noreferrer">Diagnosing Compositional Generalization in Sequential Robot Tasks</a></h3>
+      <p>把组合泛化差距拆为边际指令、指令组合与上下文—动作三类偏移，说明数据价值取决于是否覆盖动作相关依赖，而非穷举指令元组；结构化覆盖四分之一任务空间即可恢复强分布外性能，对每项任务仅补一条示范便把成功率从 0.4% 提至 54.7%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29687" target="_blank" rel="noreferrer">arXiv</a><a href="https://yixiaowang7.github.io/compositional_generalization/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>CAMERA ROBUSTNESS</span><span>IMITATION LEARNING</span><span>PLÜCKER RAYS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29622" target="_blank" rel="noreferrer">RayViT: Ray-Conditioned Visual Representations for Viewpoint-Robust Imitation Learning</a></h3>
+      <p>将 Plücker 射线图 patch 化后以门控交叉注意力注入预训练 ViT，显式补足 RGB 缺失的相机几何；RoboCasa 相机扰动下鲁棒性约提升 13 个百分点，真机多任务平均多完成 1.78 个阶段。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29622" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>TEMPORAL VLA</span><span>FIBONACCI SAMPLING</span><span>FLOW MATCHING</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29596" target="_blank" rel="noreferrer">FibVLA: An Efficient Temporal Vision-Language-Action Model with Fibonacci Sampling</a></h3>
+      <p>用对数式历史采样压缩视觉与本体长上下文，再以流匹配动作专家和 Fibonacci 递归推理兼顾长程规划与实时闭环反馈；在不重训大型视觉编码器的情况下改善动作平滑度、成功率和真机响应效率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29596" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>SAFE VLA</span><span>CONTROL BARRIER</span><span>FLOW MATCHING</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29569" target="_blank" rel="noreferrer">Safe Vision Language Action Models via Barrier Enhanced Flow Matching</a></h3>
+      <p>不在最终输出后附加安全滤波器，而把控制障碍函数直接嵌入流匹配去噪过程，用平滑聚合障碍约束整段 action chunk；无需安全专用数据或重训，在两种操作平台和二维导航中保持任务成功率并提供形式化安全保证。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29569" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>GENERATIVE POLICY</span><span>HISTORY INITIALIZATION</span><span>19.1 MS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29482" target="_blank" rel="noreferrer">Temporal Policy: History-Initialized Action Generation for Robotic Learning from Demonstration</a></h3>
+      <p>以机器人近期历史代替无信息高斯噪声初始化随机插值流，把过去状态与未来动作显式耦合，使传输路径更直、成本降低近一个数量级；RTX 4080 推理延迟 19.1 ms，并保持先进基线成功率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29482" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>CONTACT-RICH</span><span>ACTION CHUNKING</span><span>PHASE ROUTING</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29285" target="_blank" rel="noreferrer">TRACT: Temporally Routed Action Chunks with Chronological Phase Authority for Contact-Rich Manipulation</a></h3>
+      <p>解决 action chunk 跨越工序边界时整块沿用当前阶段标签的错配，以单一 CURRENT→NEXT 边界和任务图把未来查询路由到对应阶段；再用响应缺口积分补偿接触受阻，六种真机变体中完整方法达到 10/10 全序列成功。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29285" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>TELEOPERATION</span><span>IMPEDANCE RETARGETING</span><span>ONE DEMO</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29271" target="_blank" rel="noreferrer">MDIR: A Task-Manifold Impedance Retargeting Method for Contact-Rich Teleoperation</a></h3>
+      <p>从一条固定笛卡尔阻抗示范，按任务流形的做功、发力和支撑通道确定性重参数化为可执行变阻抗控制；在擦拭、取放与推动的 15 次闭环执行中全部通过任务检查，同时降低腕力峰值、冲量与力波动。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29271" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>WEARABLE TACTILE</span><span>HUMAN DATA</span><span>CONTACT REPRODUCTION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29231" target="_blank" rel="noreferrer">TacPrint: A Wearable Fingertip Tactile Sensor for Human-to-Robot Contact Reproduction</a></h3>
+      <p>用 24 个电容 taxel 的可穿戴指尖采集自然人类接触，经 real-to-sim-to-real 恢复稠密接触深度图；在人到机器人重放中，触觉补偿把抓取和擦拭成功率从 0% 提至 91.67% 与 90%，稠密反馈也明显优于原始 taxel。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29231" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>HUMANOID VLA</span><span>CLOSED MODEL</span><span>ITERATIVE SFT</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29172" target="_blank" rel="noreferrer">CLIFT: Turning Gemini Robotics On-Device into Humanoid Specialists via Non-Invasive Closed-Loop Iterative Fine-Tuning</a></h3>
+      <p>研究只能通过托管 SFT API、无法访问权重与梯度时，如何用部署 rollout 迭代改善闭源机器人基础模型；在真实人形机器人上适配 Gemini Robotics On-Device，聚焦敏捷、接触密集任务中的新状态、跟踪动态、延迟与控制器失败。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29172" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>RUNTIME SAFETY</span><span>VISUAL-ACTION CONSISTENCY</span><span>PLUG-AND-PLAY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2607.29169" target="_blank" rel="noreferrer">ActFovea: Runtime Safeguarding for VLA Policies via Spatiotemporal Visual-Action Consistency</a></h3>
+      <p>由运动学、本体状态与近期动作构建接触相关的动作条件 fovea，检测视觉运动、观察新鲜度与动作转移是否一致，并在候选恢复动作验证后才继续执行；π0 在局部视觉遮挡下成功率从 49.3% 提至 90.3%，冻结画面时全部及时安全失败。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2607.29169" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
