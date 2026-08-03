@@ -1,5 +1,105 @@
 [
   {
+    "id": "google-deepmind-gemini-robotics-2-whole-body-multi-robot-20260730",
+    "title": "Google DeepMind 发布 Gemini Robotics 2：打通全身控制、灵巧操作与多机器人协作",
+    "date": "2026-07-30",
+    "fetched_at": "2026-07-31",
+    "importance": "hot",
+    "credibility": "official",
+    "category": [
+      "VLA",
+      "机器人基础模型",
+      "平台发布",
+      "人形机器人"
+    ],
+    "summary": "Google DeepMind 发布由 Gemini Robotics 2、Gemini Robotics ER 2 和 Gemini Robotics On-Device 2 组成的新一代 Physical AI 模型家族。主 VLA 首次把控制范围扩展至人形机器人的全身运动与双手灵巧操作；ER 2 可编排持续数分钟、包含数百次决策的任务，并支持异构机器人协作；端侧模型则能以少于 200 个示例、数小时数据适配新双臂本体。ER 2 已在 Google AI Studio 上线，VLA 与端侧版本面向早期合作伙伴开放。",
+    "sources": [
+      {
+        "name": "Google DeepMind",
+        "url": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/"
+      }
+    ],
+    "related": [
+      {
+        "label": "",
+        "url": "/vla/"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "fcc-foreign-advanced-ground-robots-covered-list-20260728",
+    "title": "美国 FCC 将外国制造的先进地面机器人列入 Covered List",
+    "date": "2026-07-28",
+    "fetched_at": "2026-07-31",
+    "importance": "hot",
+    "credibility": "official",
+    "category": [
+      "政策标准",
+      "人形机器人",
+      "产业动态"
+    ],
+    "summary": "美国联邦通信委员会将外国制造的先进机器人设备纳入通信供应链 Covered List，范围覆盖符合重量、环境感知、联网和自主移动条件的地面移动机器人，包括人形机器人、四足机器人和部分自主移动机器人。该措施主要限制相关新型号获得 FCC 设备授权，既有已授权型号不被追溯撤销，并设置由美国国防部安全审查的条件批准路径；政策将直接影响海外机器人厂商进入美国市场。",
+    "sources": [
+      {
+        "name": "美国联邦通信委员会（FCC）",
+        "url": "https://www.fcc.gov/document/fcc-adds-foreign-produced-power-inverters-and-robots-covered-list-0"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "lg-innotek-tdk-humanoid-vision-haptic-sensor-modules-20260728",
+    "title": "LG Innotek 与 TDK 联手开发人形机器人视觉与触觉传感模块",
+    "date": "2026-07-28",
+    "fetched_at": "2026-07-31",
+    "importance": "major",
+    "credibility": "official",
+    "category": [
+      "公司战略",
+      "机器人零部件",
+      "Physical AI"
+    ],
+    "summary": "LG Innotek 与 TDK 建立 Physical AI 战略合作，计划把 LG Innotek 的光学与超精密模组设计能力同 TDK 的惯性、位置、麦克风等传感器组合，联合研发面向人形机器人的下一代视觉感知模组与触觉传感模组。双方把两类模组分别定位为机器人的“眼睛”和“皮肤”，并将开展联合前沿研究。",
+    "sources": [
+      {
+        "name": "TDK",
+        "url": "https://www.tdk.com/en/news_center/press/20260728_01.html"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "axis-robotics-12m-seed-physical-ai-data-engine-20260727",
+    "title": "Axis Robotics 完成 1200 万美元种子轮融资，扩建 Physical AI 数据引擎",
+    "date": "2026-07-27",
+    "fetched_at": "2026-07-31",
+    "importance": "major",
+    "credibility": "company-announced",
+    "category": [
+      "融资上市",
+      "具身数据",
+      "数据平台",
+      "Physical AI"
+    ],
+    "summary": "Axis Robotics 宣布完成 1200 万美元种子轮融资，由 Hack VC 领投，Nomad Capital、Pi Network Ventures、10K Ventures 等参投。公司将资金用于扩展程序化任务生成和全球分布式贡献者网络，其数据引擎把仿真遥操作、手机第一视角采集、自动清洗标注与人类纠错闭环结合，为机器人模型持续生成跨任务、跨场景和跨本体训练数据。",
+    "sources": [
+      {
+        "name": "Axis Robotics 新闻稿 / Yellow",
+        "url": "https://yellow.com/press-releases/axis-robotics-12m-seed-round-physical-ai"
+      }
+    ],
+    "related": [
+      {
+        "label": "ecosystem",
+        "url": "/ecosystem"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "tactus-ai-elsie-humanoid-lab-assistant-adlm-20260727",
     "title": "Tactus AI 发布人形实验室助手 Elsie，首批医学中心试点年内启动",
     "date": "2026-07-27",

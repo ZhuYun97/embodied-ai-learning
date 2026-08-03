@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-07-27T17:00:00+08:00",
+  "last_fetched_at": "2026-07-31T17:00:00+08:00",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -157,8 +157,12 @@
     "ropedia-22m-homie-head-mounted-robot-training-data|20260723",
     "atoms-1-7b-a16z-industrial-ai-specialized-robots|20260722",
     "hyundai-nvidia-robot-reference-platform|hyundai",
-    "tactus-ai-elsie-humanoid-lab-assistant-adlm-20260727"
+    "tactus-ai-elsie-humanoid-lab-assistant-adlm-20260727",
+    "google-deepmind-gemini-robotics-2-whole-body-multi-robot|20260730",
+    "fcc-foreign-advanced-ground-robots-covered-list|20260728",
+    "lg-innotek-tdk-humanoid-vision-haptic-sensor-modules|20260728",
+    "axis-robotics-12m-seed-physical-ai-data-engine|20260727"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 157
+  "_count": 161
 }

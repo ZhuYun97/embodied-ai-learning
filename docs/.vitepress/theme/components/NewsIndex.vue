@@ -2,7 +2,6 @@
 import { ref, computed, watch } from 'vue'
 import { withBase } from 'vitepress'
 import newsData from '../../../news/news-data.json'
-import CompanySeries from './CompanySeries.vue'
 
 const searchQuery = ref('')
 const selectedTopic = ref('all')
@@ -245,7 +244,6 @@ const renderMarkdown = (text) => {
         <nav class="brief-hero__links" aria-label="相关内容入口">
           <a :href="withBase('/papers/latest')">每日论文雷达</a>
           <a :href="withBase('/vla/papers/timeline')">发展时间线</a>
-          <a :href="withBase('/news/company-series')">大厂系列专题</a>
         </nav>
       </div>
 
@@ -266,8 +264,6 @@ const renderMarkdown = (text) => {
         </ol>
       </section>
     </header>
-
-    <CompanySeries compact />
 
     <section class="brief-filter" aria-label="新闻筛选">
       <div class="brief-filter__top">
