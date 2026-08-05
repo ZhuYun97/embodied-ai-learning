@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-03">2026.08.03</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-05">2026.08.05</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 14 篇强相关候选，聚焦世界模型增强 VLA、WAM 闭环反馈、视觉偏移鲁棒性、数据组合泛化与触觉/人形迁移。</p>
+    <p class="paper-brief__dek">今日筛出 16 篇强相关候选，聚焦 VLA 状态接口与自适应重规划、轻量 WAM、具身监督与奖励、人形技能迁移及接触力控。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">14</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">5</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">16</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">08.03</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">08.05</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA RL</span><strong>让 critic 同时预测未来状态，而非只回归单帧价值</strong><span class="paper-brief__paper">WCM</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">WORLD MODEL</span><strong>把动作条件世界模型同时做成数据引擎与策略评测器</strong><span class="paper-brief__paper">BWM</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">WAM</span><strong>把真实反馈推入正在生成的动作块，细粒度抑制漂移</strong><span class="paper-brief__paper">FBFM</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">ROBUSTNESS</span><strong>以语义—时序双空间缓解视觉偏移下的训练域幻觉</strong><span class="paper-brief__paper">ST-WAM</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA STATE</span><strong>用受控实验回答本体状态何时有用、历史多长、应注入何处</strong><span class="paper-brief__paper">State-aware VLA</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">REPLANNING</span><strong>让冻结 VLA 按任务进展决定继续动作块还是重新规划</strong><span class="paper-brief__paper">BCP</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">SUPERVISION</span><strong>把视觉场景变化与低层动作统一成更有结构的训练目标</strong><span class="paper-brief__paper">UVT</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">WAM</span><strong>在单张 24GB GPU 上端到端训练紧凑潜空间世界动作模型</strong><span class="paper-brief__paper">LiLa-WAM</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 389 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 405 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,111 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-08-05" class="paper-day-heading">2026-08-05</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 State-aware VLA × BCP × UVT × LiLa-WAM × Track4Action：从输入状态、执行时机、学习目标、潜空间推理和 3D 变化监督五个维度重审 VLA/WAM 设计。人形方向优先 RoboReact，观察生成视频能否替代昂贵示范并通过闭环重落地变成可执行技能。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>PROPRIOCEPTION</span><span>CONTROLLED STUDY</span><span>96-FRAME HISTORY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03052" target="_blank" rel="noreferrer">How Should Vision-Language-Action Models Use Proprioceptive State?</a></h3>
+      <p>固定骨干、数据、动作表示和评测协议，系统比较文本序列化、VLM 前缀、动作前缀、状态专家与特征调制五种状态接口，并把历史长度从 1 扫到 96 帧；覆盖 45 个原子任务和 20 个组合任务，为“状态何时有用、历史收益来自何处、应注入哪一层”给出可检验设计原则。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03052" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>ADAPTIVE HORIZON</span><span>FROZEN VLA</span><span>RL HEAD</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03483" target="_blank" rel="noreferrer">Continue or Replan? Bernoulli-Continuation Policy Learning for Adaptive Horizon Execution</a></h3>
+      <p>给冻结 VLA 增加逐步“继续或重规划”的 continuation head，以轨迹结果和兼顾成功率/调用效率的奖励学习动作块执行长度。RoboTwin 50 任务平均成功率由 89.88% 升至 93.94%，可迁移到 π0.5；两项真机任务分别从 74% 升至 92%、44% 升至 84%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03483" target="_blank" rel="noreferrer">arXiv</a><a href="https://fleetfootwork.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VISUOMOTOR TARGET</span><span>SCENE TRANSITION</span><span>DATA-FREE CHANGE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03563" target="_blank" rel="noreferrer">Unified Visuomotor Targets: Supervising VLAs Beyond Physical Actions</a></h3>
+      <p>不改架构、不增数据，把低层电机控制和视觉场景转移编码成统一潜变量目标，弥合 VLM 高层表征与动作监督之间的结构错配；在两类 VLA、仿真与真机双臂任务中同时改善训练效率、最终性能和有限预算下的鲁棒性。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03563" target="_blank" rel="noreferrer">arXiv</a><a href="https://unified-visuomotor-targets.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>LATENT WAM</span><span>SINGLE 24GB GPU</span><span>VISUAL TRANSITION TOKEN</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03701" target="_blank" rel="noreferrer">LiLa-WAM: Lightweight Latent Reasoning World-Action Model for Robotic Manipulation</a></h3>
+      <p>用未来状态预测与动作生成共同塑造紧凑潜空间，并以视觉特征空间中的方向作为无语言任务表示；可在单张 24GB GPU 上端到端训练，在 RoboTwin 2.0 的 50 项任务达到 90.48%，并覆盖 LIBERO 与真机操作。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03701" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>3D TRACKING</span><span>PRIVILEGED SUPERVISION</span><span>TRACKER-FREE DEPLOYMENT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03727" target="_blank" rel="noreferrer">Track4Action: Distilling World-Centric 3D Tracker into Vision-Language-Action Policies</a></h3>
+      <p>从示范视频片段提取动作造成的几何、运动、可见性与相机变化，将冻结 3D tracker 的世界中心表征蒸馏进当前观察 VLA，部署时无需视频或 tracker。零样本 LIBERO-Plus 达 82.3%，四项真机双臂任务平均 67.5%，比无对齐版本高 25 点。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03727" target="_blank" rel="noreferrer">arXiv</a><a href="https://wing0night.github.io/track4action/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>GENERATED VIDEO</span><span>WHOLE-BODY HUMANOID</span><span>ONLINE REGROUNDING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03387" target="_blank" rel="noreferrer">RoboReact: Agentic Skill Distillation from Generated Egocentric Videos for Generalizable Whole-Body Manipulation</a></h3>
+      <p>从单张第一视角 RGB-D 观察生成操作视频，经深度感知 3D 重建提取保持几何的交互关键帧并重定向到高自由度人形机器人；在线物体重落地与 VLM 引导迭代修正几何错配和执行偏差，在无遥操作、无人类示范下获得可泛化真机全身技能。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03387" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>EMBODIED VIDEO VAE</span><span>DISENTANGLEMENT</span><span>CONTROLLABLE LATENT</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.02990" target="_blank" rel="noreferrer">EmbodiedVAE: Disentangled Video VAE for Efficient and Controllable Embodied Manipulation</a></h3>
+      <p>以双编码器、单解码器和非对称时空压缩分离机械臂运动与背景，再用最优传输一致性约束保持运动潜变量的时间连贯；面向机器人世界模型提供更紧凑、可控的表示，平均重建 PSNR 比先进视频 VAE 高约 2 dB。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.02990" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>VALUE MODEL</span><span>FAILURE LABELS</span><span>REAL BIMANUAL</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.02958" target="_blank" rel="noreferrer">ValueFormer: A Causal Transformer Value Function with Stage-Aware Labels for Semi-Autonomous Vision-Language-Action Policies</a></h3>
+      <p>把难点定位在逐帧价值标签而非 critic 架构：用阶段感知的成功后衰减回报保留失败前进展，并从错误区间监督可恢复失误。在 1,427 条真实双臂三明治组装轨迹上，critic 权重训练把完成率从 70% 提至 85%，同时支持 2 Hz 在线检测。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.02958" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>FORCE CONTROL</span><span>DIFFUSION POLICY</span><span>BIMANUAL DISASSEMBLY</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03103" target="_blank" rel="noreferrer">A Hierarchical Approach to Imitation Learning for Manipulation Tasks Requiring Time Varying Forces</a></h3>
+      <p>DPA-FTG 将 5 Hz 扩散策略的技能规划与 60 Hz 力条件神经阻抗控制解耦，避免 action chunk 对断裂等快速力瞬变失明；在双臂电池拆解中以低频多模态规划配合高频接触稳定控制，超过 Reactive Diffusion Policy。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03103" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>CONTACT-IMPLICIT</span><span>MOTION RETARGETING</span><span>UNITREE G1</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03116" target="_blank" rel="noreferrer">Shooting for Contact: Contact-Implicit Multiple Shooting for Dynamic Motion Retargeting</a></h3>
+      <p>把可微模拟器嵌入多重射击优化，无需预设接触时序即可联合处理摩擦、碰撞、自碰撞、关节与驱动约束，把运动学参考变成动态可行轨迹；加速模仿 RL，并在 Unitree G1 上零样本迁移接触爬行和 180° 跳转。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03116" target="_blank" rel="noreferrer">arXiv</a><a href="https://shooting-for-contact.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>PHYSICAL ATTACK</span><span>ATTENTION HIJACKING</span><span>ZERO-OVERHEAD DEFENSE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03231" target="_blank" rel="noreferrer">Structure-Aware Robust Fine-Tuning: Defending Vision-Language-Action Robots Against Physical Attention Hijacking</a></h3>
+      <p>揭示可打印贴片会把动作条件注意力从任务区域劫持到局部攻击物，并提出只微调视觉编码器的结构感知防御，推理零额外开销；LIBERO 上显著降低 OpenVLA 受攻击失败率，PiPER 真机成功率由 23% 提至 65%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03231" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>ACTION-FREE VIDEO</span><span>OBJECT-CENTRIC REWARD</span><span>SUBTASK DISCOVERY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03753" target="_blank" rel="noreferrer">GORDON: Graph-based Object-centric Rewards for Decomposition of Long-Horizon Manipulation</a></h3>
+      <p>从无动作视频的物体—关系图学习抗背景和机器人运动干扰的稠密奖励，并从奖励时间曲线自动发现长程子任务；七项 MAGICAL/ManiSkill3 操作中，长程任务平均成功率 74.4%，较最强学习基线约高 35 点。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03753" target="_blank" rel="noreferrer">arXiv</a><a href="https://andreaprotopapa.github.io/gordon/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>HUMAN-IN-THE-LOOP</span><span>FLOW-MATCHED POLICY</span><span>LIGHTING SHIFT</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03872" target="_blank" rel="noreferrer">EvoHIL: Self-Evolving Reward and Flow-Matched Policy Optimization for Robust Human-in-the-Loop Reinforcement Learning</a></h3>
+      <p>联合演化人类确认驱动的奖励模型、流匹配动作块生成器和视觉域适配，以已执行前缀稳定接触动作，并通过重光照离线回放适应外观变化；在 FR3 与 SO-101 的六项操作上改善成功率、标签一致性、平滑度和完成时间。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03872" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>PERCEPTIVE LOCOMOTION</span><span>MULTI-SKILL DISTILLATION</span><span>ZERO-SHOT REAL</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.02653" target="_blank" rel="noreferrer">Light-Loco-Parkour: Versatile Perceptive Whole-Body Locomotion via Multi-Skill Distillation</a></h3>
+      <p>单一策略仅凭机载深度与速度命令，自主在行走、平衡、攀爬、下台阶和翻越间切换，无技能标签、门控或运行时动作图；用稀疏动作种子扩展地形配对参考，并零样本迁移到室内外真实人形硬件。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.02653" target="_blank" rel="noreferrer">arXiv</a><a href="https://light-loco-parkour.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>EMBODIED AGENT</span><span>AUDITABLE MEMORY</span><span>REPLAYABLE TRAJECTORY</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03924" target="_blank" rel="noreferrer">ETA: A New Agentic Paradigm for Embodied Tasks</a></h3>
+      <p>以 Planner 每次选择一个工具、Interface 控制执行、World 返回结果与新观察的闭环替代纯端到端观察到动作；OpenETA 提供可替换规划器、组合技能、可审计记忆和可回放轨迹，把成功与失败交互沉淀为经验并连接仿真和真机。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03924" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>INFERENCE ENGINE</span><span>VLA + WAM</span><span>EDGE-CLOUD</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.03682" target="_blank" rel="noreferrer">PhyAI: Real-Time Physical AI at the Edge, Scalable Rollouts in the Cloud</a></h3>
+      <p>以单一运行时覆盖 VLA/WAM 的评测、云端 RL rollout、边缘服务和机载部署，通过模型适配器保留条件、求解器与缓存差异；对 π0、π0.5、GR00T N1.7 和 MiniCPM-Robot 相比官方实现加速 1.40–4.65 倍，并提出 control-time Roofline 区分推理与环境瓶颈。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.03682" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
