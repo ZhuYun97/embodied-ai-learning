@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-05">2026.08.05</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-10">2026.08.10</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 16 篇强相关候选，聚焦 VLA 状态接口与自适应重规划、轻量 WAM、具身监督与奖励、人形技能迁移及接触力控。</p>
+    <p class="paper-brief__dek">今日筛出 11 篇强相关候选，聚焦持久世界状态、WAM 表征解耦、VLA 后训练与推理调度、跨视角鲁棒性、示范迁移及动态触觉。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">16</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">11</dd></div>
       <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">08.05</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">08.10</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">VLA STATE</span><strong>用受控实验回答本体状态何时有用、历史多长、应注入何处</strong><span class="paper-brief__paper">State-aware VLA</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">REPLANNING</span><strong>让冻结 VLA 按任务进展决定继续动作块还是重新规划</strong><span class="paper-brief__paper">BCP</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">SUPERVISION</span><strong>把视觉场景变化与低层动作统一成更有结构的训练目标</strong><span class="paper-brief__paper">UVT</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">WAM</span><strong>在单张 24GB GPU 上端到端训练紧凑潜空间世界动作模型</strong><span class="paper-brief__paper">LiLa-WAM</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WORLD STATE</span><strong>用 4D 世界记忆与自我工作记忆补足单腕相机的长期遗忘</strong><span class="paper-brief__paper">AtlasVLA</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">WAM</span><strong>把高层物理状态演化从低层动作轨迹中显式解耦</strong><span class="paper-brief__paper">PILOT</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">RL POST-TRAIN</span><strong>用双时间尺度分别更新语义投影与动作专家</strong><span class="paper-brief__paper">TEMPO</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">3D WAM</span><strong>以持久三维场景前缀联合生成未来视图与导航动作</strong><span class="paper-brief__paper">WNM-3D</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 405 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 416 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,81 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-08-10" class="paper-day-heading">2026-08-10</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 AtlasVLA × PILOT × TEMPO × WNM-3D：从持久状态、世界—动作表征、在线后训练与三维场景条件四个层面重构具身模型的“记忆—推理—控制”闭环；再用 Cross-View Action Consistency 检查视觉不变性是否真正落实到动作生成空间。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>PERSISTENT WORLD STATE</span><span>WRIST CAMERA</span><span>LONG HORIZON</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.06729" target="_blank" rel="noreferrer">AtlasVLA: Persistent World-Ego State Modeling for Vision-Language-Action Models</a></h3>
+      <p>以 4D 持久世界状态记忆持续融合离开腕部相机视野的物体，并用 Ego-Working State Memory 记录自我状态与任务进展，再共同条件化 DiT 动作生成；仅用腕部相机便在 LIBERO-Long 和真实长程任务上分别比多视角基线高 9.4 与 17.5 个百分点。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.06729" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>REPRESENTATIONAL DEDUCTION</span><span>MOTION COT</span><span>FEW-SHOT REAL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.06994" target="_blank" rel="noreferrer">Decoupling Intention from Trajectory: A Representational Deduction Framework for World Action Models</a></h3>
+      <p>PILOT 让动作分支显式预测潜在状态转移 token，并把它们保留为运动 CoT 来指导细粒度轨迹，从结构上解耦高层物理演化与低层动作生成；额外转移监督也缓解动作稀疏性，可作为主流 WAM 的少样本真机微调模块。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.06994" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>RL POST-TRAINING</span><span>TWO TIMESCALES</span><span>FROZEN VLM</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.07314" target="_blank" rel="noreferrer">TEMPO: Semantic-Action Decoupled RL Post-Training for Vision-Language-Action Models</a></h3>
+      <p>冻结视觉语言骨干，分别以慢速更新语义投影层、快速更新低层动作专家，避免在线 RL 的快速控制反馈破坏高层语义；在 CALVIN 与真机操作中优于预训练 VLA 和统一更新的 RL 后训练基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.07314" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>WORLD NAVIGATION MODEL</span><span>3D SCENE PREFIX</span><span>CLOSED LOOP</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.07267" target="_blank" rel="noreferrer">WNM-3D: A World Navigation Model with 3D Scene Conditioning for Closed-Loop VLN</a></h3>
+      <p>把单目历史编码为固定长度的三维场景 token 前缀，通过块因果注意力同时条件化未来视图与动作生成，并结合监督微调、DAgger 和闭环策略优化；在 GN-Bench 上超过 VLM 导航策略及二维条件 WAM。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.07267" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>VIEWPOINT ROBUSTNESS</span><span>ACTION-FLOW CONSISTENCY</span><span>REAL ROBOT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.06965" target="_blank" rel="noreferrer">Cross-View Action Consistency for Camera-Robust Vision-Language-Action Policies</a></h3>
+      <p>从同一 MuJoCo 状态渲染动作等价视角对，直接约束流式 VLA 在相同采样坐标的动作速度场一致，无需相机标签、外参或深度；LIBERO-Plus 达 87.2%，真机未见视角成功率由 53.3% 提至 74.4%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.06965" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>DUAL SYSTEM</span><span>MODEL ROUTING</span><span>93.4 HZ</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.06434" target="_blank" rel="noreferrer">Fast and Accurate: An Adaptive VLA Inference Framework through Environment-aware Model Selection</a></h3>
+      <p>以强化学习切换策略在完全解耦的大型推理系统与轻量反应系统之间动态路由，支持模块替换且稀疏调用慢模型；LIBERO 保持大型基线成功率的同时把有效动作频率提升至 93.4 Hz，并验证真实双臂操作。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.06434" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>PHYSICAL GROUNDING</span><span>JEPA</span><span>LATENT IDENTIFIABILITY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.06799" target="_blank" rel="noreferrer">Is Forward Prediction Enough? Physical State Grounding for JEPA World Models</a></h3>
+      <p>PSG-JEPA 在前向 latent 预测外增加单帧本体状态和多时域关节变化两类训练期 grounding，使潜空间更可辨识且不增加推理成本；从 probing、冻结 latent 规划到仿真与真机策略学习均优于 JEPA 世界模型基线。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.06799" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>HUMAN VIDEO</span><span>CONTACT RETARGETING</span><span>DEXTEROUS HAND</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.07045" target="_blank" rel="noreferrer">C2Dex: Contact-Consistent Reconstruction and Retargeting for Dexterous Manipulation from Monocular Video</a></h3>
+      <p>从单目人类视频聚合物体坐标系中的稳定接触，既约束时序一致的手物重建，也作为跨手型重定向目标，再以残差 RL 精修；DexYCB/TACO 端到端成功率达 57.78%/26.67%，并完成多类真机接触操作回放。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.07045" target="_blank" rel="noreferrer">arXiv</a><a href="https://k-jie.github.io/C2Dex/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>INTERVENTION DATA</span><span>ACTION CHUNK</span><span>BIMANUAL</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.07065" target="_blank" rel="noreferrer">AutoIntervene: Calibrated Intervention for Action-Chunking Imitation Learning Policies</a></h3>
+      <p>用成功轨迹构成视觉—动作支持记忆，分别校准策略转人工与人工返还策略的阈值；保留成功 rollout 中的干预片段作为 learner-induced state 纠正数据，在真实双臂任务上提高适配后成功率并减少人工控制时间。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.07065" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>6D DYNAMIC TACTILE</span><span>7 KHZ</span><span>CONTACT LOCALIZATION</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.07075" target="_blank" rel="noreferrer">Detection and Ranging of Transient Extrinsic Contacts Based on 6D Dynamic Tactile Sensing</a></h3>
+      <p>在夹爪尖端用单个微型 6D IMU 以 7 kHz 捕获亚毫秒形变，并与机器人位姿经 EKF 融合，在 180 ms 内以约 7 mm 平均误差定位被抓物体的外部接触；可驱动毫秒级轨迹修正与纯触觉探索建图。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.07075" target="_blank" rel="noreferrer">arXiv</a><a href="https://humitlab.github.io/TECDAR/" target="_blank" rel="noreferrer">Project</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>MULTIMODAL FINGERTIP</span><span>BIMANUAL COORDINATION</span><span>HAPTIC HARDWARE</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.07002" target="_blank" rel="noreferrer">A Haptic Robot Finger Designed for Guqin Instrument Playing</a></h3>
+      <p>仿生指尖与指甲结构构成高精度多模态触觉手指，以古琴弦接触验证空弦/按音区分、泛音调节和触觉触发双手协同；虽非完整演奏系统，但为需要精细触觉与灵巧手控制的接触任务提供了硬件案例。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.07002" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
