@@ -1,5 +1,32 @@
 [
   {
+    "id": "unitree-star-market-public-subscription-150-80-20260810",
+    "title": "宇树科技启动科创板公开申购，发行价 150.80 元",
+    "date": "2026-08-10",
+    "fetched_at": "2026-08-10",
+    "importance": "hot",
+    "credibility": "authoritative-media",
+    "category": [
+      "融资上市",
+      "人形机器人",
+      "产业动态"
+    ],
+    "summary": "宇树科技首次公开发行股票进入公开申购环节，8 月 10 日同步开展网上与网下申购，股票代码为 688836、网上申购代码为 787836，发行价确定为每股 150.80 元。此次发行标志着这家以四足和人形机器人、机器人零部件及具身智能模型为主营业务的企业，从此前的科创板过会和证监会注册阶段正式推进至公开发行阶段；最终挂牌交易日期仍以交易所公告为准。",
+    "sources": [
+      {
+        "name": "中国基金报",
+        "url": "https://www.chnfund.com/article/ARe0d162b2-2bc2-1999-2da6-3a22c577f30f"
+      }
+    ],
+    "related": [
+      {
+        "label": "company-series",
+        "url": "/news/company-series"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "google-deepmind-gemini-robotics-2-whole-body-multi-robot-20260730",
     "title": "Google DeepMind 发布 Gemini Robotics 2：打通全身控制、灵巧操作与多机器人协作",
     "date": "2026-07-30",
