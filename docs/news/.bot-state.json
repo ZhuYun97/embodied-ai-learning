@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-08-10T17:00:00+08:00",
+  "last_fetched_at": "2026-08-11T17:20:00+08:00",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -162,8 +162,9 @@
     "fcc-foreign-advanced-ground-robots-covered-list|20260728",
     "lg-innotek-tdk-humanoid-vision-haptic-sensor-modules|20260728",
     "axis-robotics-12m-seed-physical-ai-data-engine|20260727",
-    "unitree-star-market-public-subscription-150-80-20260810"
+    "unitree-star-market-public-subscription-150-80-20260810",
+    "china-humanoid-97pct-global-shipments-agibot-44pct-2026h1"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 162
+  "_count": 163
 }

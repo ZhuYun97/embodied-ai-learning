@@ -1,5 +1,32 @@
 [
   {
+    "id": "china-humanoid-97pct-global-shipments-agibot-44pct-2026h1",
+    "title": "中国厂商占全球人形机器人上半年出货量逾 97%，智元以 44% 居首",
+    "date": "2026-08-10",
+    "fetched_at": "2026-08-11",
+    "importance": "major",
+    "credibility": "authoritative-media",
+    "category": [
+      "人形机器人",
+      "产业动态",
+      "产业落地"
+    ],
+    "summary": "Bloomberg 援引 Smart Analytics Global 新发布的数据称，2026 年上半年全球人形机器人出货量约 1.91 万台，较上年同期 5100 台增长逾两倍，中国厂商合计占比超过 97%。智元机器人以 8400 台、44% 的全球份额居首，宇树科技以 5900 台随后；工业与商业场景占部署量逾 70%。该机构预计 2026 年全年全球出货量约 6 万台、2030 年约 50 万台；上述数字为第三方研究机构统计与预测，并非监管部门或厂商审计口径。",
+    "sources": [
+      {
+        "name": "Bloomberg",
+        "url": "https://www.bloomberg.com/news/articles/2026-08-10/china-humanoid-makers-hold-97-of-global-shipments-report-says"
+      }
+    ],
+    "related": [
+      {
+        "label": "company-series",
+        "url": "/news/company-series"
+      }
+    ],
+    "bot": true
+  },
+  {
     "id": "unitree-star-market-public-subscription-150-80-20260810",
     "title": "宇树科技启动科创板公开申购，发行价 150.80 元",
     "date": "2026-08-10",
