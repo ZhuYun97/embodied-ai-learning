@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-10">2026.08.10</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-11">2026.08.11</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 11 篇强相关候选，聚焦持久世界状态、WAM 表征解耦、VLA 后训练与推理调度、跨视角鲁棒性、示范迁移及动态触觉。</p>
+    <p class="paper-brief__dek">今日筛出 16 篇强相关候选，聚焦几何与 4D 潜世界建模、视频先验蒸馏、紧凑预测策略、长程记忆、具身数据审计及任务状态评测。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">11</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">16</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">7</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">08.10</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">08.11</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WORLD STATE</span><strong>用 4D 世界记忆与自我工作记忆补足单腕相机的长期遗忘</strong><span class="paper-brief__paper">AtlasVLA</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">WAM</span><strong>把高层物理状态演化从低层动作轨迹中显式解耦</strong><span class="paper-brief__paper">PILOT</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">RL POST-TRAIN</span><strong>用双时间尺度分别更新语义投影与动作专家</strong><span class="paper-brief__paper">TEMPO</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">3D WAM</span><strong>以持久三维场景前缀联合生成未来视图与导航动作</strong><span class="paper-brief__paper">WNM-3D</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">GEOMETRIC WAM</span><strong>让多视角几何状态与动作监督共同塑造潜在转移</strong><span class="paper-brief__paper">GWM-VLA</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">4D WAM</span><strong>以三维轨迹场对齐局部运动与长程目标位置</strong><span class="paper-brief__paper">4D-WAM</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">VIDEO PRIOR</span><strong>把视频扩散先验和伪动作离线蒸馏进轻量 WAM</strong><span class="paper-brief__paper">Vid2WAM</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">LATENT POLICY</span><strong>用动作重建与未来潜变量预测训练 0.5B 紧凑策略</strong><span class="paper-brief__paper">SLIM</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 416 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 432 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,111 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-08-11" class="paper-day-heading">2026-08-11</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 GWM-VLA × 4D-WAM × Vid2WAM × JEPA-WAM × SLIM：比较几何状态、轨迹场、生成式视频先验、联合嵌入和紧凑交互潜变量五条 WAM 路线。数据与评测侧优先 RoboGraph，检查“任务状态跨度”是否比动作序列长度更能解释长程失败。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>MULTI-VIEW GEOMETRY</span><span>LATENT WORLD MODEL</span><span>FLOW MATCHING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.07619" target="_blank" rel="noreferrer">GWM-VLA: Geometry-Aware Latent World Modeling for Vision-Language-Action Learning</a></h3>
+      <p>以 VGGT-Ω 聚合多视角几何状态，只预测目标腕部视角的下一步 patch token，并让同一潜在动作表征同时接受世界转移与真实动作监督；在保留局部交互信息的同时降低完整多视角预测成本，仿真和真机均验证视觉与环境偏移鲁棒性。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.07619" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>TRAJECTORY FIELD</span><span>4D ALIGNMENT</span><span>MODEL-AGNOSTIC</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.08023" target="_blank" rel="noreferrer">4D-WAM: Infusing Spatiotemporal Awareness into World Action Models through Trajectory Fields</a></h3>
+      <p>从三维轨迹场向任意 WAM 注入时空监督：相邻帧的运动对齐塑造局部 4D 感知，起点—终点的目标对齐提供长程位置指导；跨多种底座在空间理解、执行精度、分布外泛化和鲁棒性上均获提升。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.08023" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>VIDEO DIFFUSION PRIOR</span><span>PSEUDO ACTION</span><span>OFFLINE DISTILLATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.08558" target="_blank" rel="noreferrer">Vid2WAM: Distilling Video Diffusion Priors into World Action Models</a></h3>
+      <p>用大型视频扩散模型生成任务条件未来，并由逆动力学恢复具身专属伪动作，再以来源感知残差适配缓解合成动作噪声与真实示范冲突；部署时丢弃教师和逆动力学，在有限专家数据下提升新任务泛化与数据效率。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.08558" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>V-JEPA SPACE</span><span>SHARED PREDICTOR</span><span>DENSE CORRESPONDENCE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.09381" target="_blank" rel="noreferrer">JEPA-WAM: Learning Vision-Language-Action Policies with Joint-Embedding World Modeling</a></h3>
+      <p>在预训练 V-JEPA 空间内以共享预测器耦合潜在状态转移和连续动作，预测保留 patch 对应的当前—未来联合目标；LIBERO-Plus 从零训练版本达 79.2%，π0.5 实例达 86.3%，并覆盖 RoboTwin 与真实双臂操作。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.09381" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>0.5B POLICY</span><span>MASKED TRAJECTORY</span><span>ACTION-GROUNDED LATENT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.09771" target="_blank" rel="noreferrer">SLIM-0.5B: Learning Action-Grounded Predictive Latents for Robot Manipulation</a></h3>
+      <p>以自监督遮蔽轨迹预测联合动作重建与未来潜变量预测，用紧凑 Mixture-of-Transformers 建模观察—动作交互，再以流匹配生成语言条件动作；无需额外具身预训练即可匹配或超过大型 VLA/WAM，并降低延迟和显存。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.09771" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>TASK-STATE HORIZON</span><span>588 EPISODES</span><span>15 AGENTS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.08036" target="_blank" rel="noreferrer">Compiling and Benchmarking Task-State Horizons for Embodied Agents</a></h3>
+      <p>提出区别于动作长度的任务状态跨度 TSH，并用 RoboGraph 把空间、时间因果及失败干预编译成可执行符号图；84 个场景、588 个 episode 对 15 个模型的评测表明，长程瓶颈集中在维持、探索和更新任务相关状态。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.08036" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>CROSS-LAYER ROUTING</span><span>0.5B</span><span>ZERO-SHOT SHIFT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.07596" target="_blank" rel="noreferrer">LIRA: Local Cross-Layer Information Routing for Vision-Language-Action Decoding</a></h3>
+      <p>让每个动作融合块从深度对齐的局部 VLM 层窗口路由互补任务证据，同时保持骨干、动作解码器和监督配方不变；0.5B 配置在 LIBERO-Plus 零样本迁移中把成功率由 59.1% 提至 78.0%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.07596" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>DATA AUDIT</span><span>INSTRUCTION MISMATCH</span><span>TRAINING-FREE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.07895" target="_blank" rel="noreferrer">Auditing Instruction-Trajectory Mismatches in Multimodal Robot Demonstrations</a></h3>
+      <p>针对“轨迹行为正确、语言标签错误”的隐蔽数据污染，以局部邻域一致性、全局原型相似度和熵加权多专家融合做训练后审计；在 LIBERO 注入错误与噪声真机数据上改善检测、纠标及下游策略，并量化过滤和重标的取舍。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.07895" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>VISUO-TACTILE</span><span>DEXTEROUS GRASP</span><span>POST-CONTACT REFINEMENT</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.07600" target="_blank" rel="noreferrer">AdaDexGrasp: Adaptive Dexterous Grasping via 3D Visuo-Tactile Representation Fusion</a></h3>
+      <p>将物体几何与带手指身份的触觉信号统一到三维表征，同时支持接触前抓取生成、可行性预测与接触后细粒度自适应；仿真和真机均显示对多样物体的抓取成功率与泛化提升。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.07600" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>SURGICAL EVAL</span><span>MOTION-CENTRIC</span><span>ROLLOUT STABILITY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.08070" target="_blank" rel="noreferrer">SurgWMBench: A Vision-Based Benchmark for World-Modeling Surgical Instrument Motion Planning</a></h3>
+      <p>把手术世界模型评测从 FVD 等生成质量转向可执行运动：给定术中图像和历史器械轨迹，评估短期运动预测、连续 rollout 稳定性及输入扰动鲁棒性，为运动中心的手术动力学模型提供公开协议。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.08070" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>SEMANTIC FORESIGHT</span><span>SPATIAL GROUNDING</span><span>VLM PLANNER</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.08839" target="_blank" rel="noreferrer">SG-WAM: Text-Grounded and Spatial-aware Semantic Guidance for World-Action Models</a></h3>
+      <p>用 VLM 规划器预测目标对象和场景几何两类语义 foresight，再共同引导未来视频与动作分支，修复独立文本编码器导致的指令—预测错位；仿真及真机均改善精确操作和指令遵循。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.08839" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>ONLINE MEMORY</span><span>VALUE-GUIDED</span><span>LONG HORIZON</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.08749" target="_blank" rel="noreferrer">OnEvoMemory: Evolving Memory through Online Robot Rollouts for Pretrained Robot Policies</a></h3>
+      <p>维护近期上下文、高价值经验和显著转移，并从成功/失败 rollout 的结果学习保留哪些经历；离线示范初始化记忆先验，在线交互继续演化，使基础 VLA 更能识别任务阶段并避免重复已完成子任务。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.08749" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>TEST-TIME TRAINING</span><span>REVERSIBLE UPDATE</span><span>FUTURE EVIDENCE</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.09448" target="_blank" rel="noreferrer">VANE: Reliable Test-Time Training for Vision-Language-Action Models via Future Visual Representation Prediction</a></h3>
+      <p>把候选部署时更新隔离于在线策略，用已执行动作造成的未来视觉结果验证后再提交，使适配具有选择性和可逆性；SimplerEnv WidowX 比对应 TTT 基线高 3.2 点，但 Google Robot 上收益仍依赖任务与具身。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.09448" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>ADAPTIVE EXECUTION</span><span>PROGRESS MONITOR</span><span>PLUG-AND-PLAY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.09492" target="_blank" rel="noreferrer">Rethink Before You Execute: Adaptive Execution for World Action Models</a></h3>
+      <p>TempoWAM 根据当前观察、指令、剩余动作和执行历史估计进度，以任务相关的在线校准决定继续动作块还是重规划；真机简单任务少 26.9% WAM 推理且成功率不降，困难任务成功率提高 13.3 点。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.09492" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>SPECULATIVE DECODING</span><span>NEAR CONTACT</span><span>WORLD-AWARE</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.08725" target="_blank" rel="noreferrer">WA-SpecDec: World-Aware Speculative Decoding for Vision-Language-Action Models</a></h3>
+      <p>在 VLA prefill 阶段注入世界模型的场景物理信息，让草稿与目标模型共享状态感知，在不改宽松接受规则的前提下区分自由空间和接触附近的动作偏差；同成功率下加速 1.5 倍，近接触失败平均少 18.6%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.08725" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>CODED MEMORY</span><span>MARKOVIAN VLA</span><span>HEURISTIC LEARNING</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.09410" target="_blank" rel="noreferrer">Skills in Weights, Memory in Code: Hybrid Learning for Memory-Dependent Robot Manipulation</a></h3>
+      <p>HyMeS 把低层运动技能留在模仿学习权重中，由编码智能体根据 rollout 反馈迭代可执行启发式系统，负责高层记忆管理并驱动原本马尔可夫的 VLA；探索以代码记忆处理非马尔可夫长程操作。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.09410" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
