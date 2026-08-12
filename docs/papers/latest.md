@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-11">2026.08.11</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-12">2026.08.12</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 16 篇强相关候选，聚焦几何与 4D 潜世界建模、视频先验蒸馏、紧凑预测策略、长程记忆、具身数据审计及任务状态评测。</p>
+    <p class="paper-brief__dek">今日筛出 12 篇强相关候选，聚焦失败感知与多流 WAM、语言对齐动作表征、规划质量诊断、三维移动操作、柔性与双手灵巧操作及 VLA 安全。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">16</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">7</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">12</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">5</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">08.11</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">08.12</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">GEOMETRIC WAM</span><strong>让多视角几何状态与动作监督共同塑造潜在转移</strong><span class="paper-brief__paper">GWM-VLA</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">4D WAM</span><strong>以三维轨迹场对齐局部运动与长程目标位置</strong><span class="paper-brief__paper">4D-WAM</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">VIDEO PRIOR</span><strong>把视频扩散先验和伪动作离线蒸馏进轻量 WAM</strong><span class="paper-brief__paper">Vid2WAM</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">LATENT POLICY</span><strong>用动作重建与未来潜变量预测训练 0.5B 紧凑策略</strong><span class="paper-brief__paper">SLIM</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">FAILURE-AWARE WAM</span><strong>让失败轨迹成为动作后果与进度预测的有效监督</strong><span class="paper-brief__paper">FACT</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">MULTI-STREAM WAM</span><strong>以同一视频潜空间联合承载 RGB、三维、语义与动作</strong><span class="paper-brief__paper">Flex-π</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">ACTION TOKEN</span><strong>用语言恢复目标保住动作轨迹中的动词语义</strong><span class="paper-brief__paper">SALT</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">WORLD MODEL EVAL</span><strong>从编码、预测与规划全链路诊断潜世界模型</strong><span class="paper-brief__paper">VIScore</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 432 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 444 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,87 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-08-12" class="paper-day-heading">2026-08-12</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 FACT × Flex-π × SALT × Stage-JEPA WAM × VIScore：分别检查失败数据、多模态预测流、动作语义、阶段未来与规划质量如何改变世界—动作模型的训练和评测闭环。</p>
+
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured">
+      <div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>FAILURE DATA</span><span>CAUSAL FUTURE</span><span>PROGRESS SCORING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10232" target="_blank" rel="noreferrer">FACT: Failure-Aware Causal Training for World-Action Models</a></h3>
+      <p>把未来视频和任务进度显式条件化于已执行动作，使失败 rollout 也能监督动作后果，并可在推理时为候选动作评分；仿真与真实双臂实验显示，加入失败数据可减少坏动作下的成功偏置幻觉。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10232" target="_blank" rel="noreferrer">arXiv</a><a href="https://fact-wam.github.io" target="_blank" rel="noreferrer">项目页</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>RGB + 3D + DINO</span><span>STREAM DROPOUT</span><span>6B WAM</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10860" target="_blank" rel="noreferrer">Flex-π: A Multi-Stream World-Action Model with Compute Flexibility</a></h3>
+      <p>发现冻结视频 VAE 几乎无损编码三维 pointmap，遂在同一潜空间联合去噪 RGB、几何、DINO 语义与动作；跨模态强制和流 dropout 让单一检查点可按算力选择动作单流或完整生成，在真实双臂精细操作上提升 2–7 倍。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10860" target="_blank" rel="noreferrer">arXiv</a><a href="https://flex-pi.github.io" target="_blank" rel="noreferrer">项目页</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>SEMANTIC TOKENIZER</span><span>VERB GROUNDING</span><span>BRIDGEV2</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10484" target="_blank" rel="noreferrer">Lost in Reconstruction: Aligning Action Representations with Language in Vision-Language-Action Models</a></h3>
+      <p>SALT 在 VQ-VAE 动作 tokenizer 上增加由冻结 VLM 从量化动作潜变量恢复指令的目标，避免 L1/L2 重建抹去动词语义；SimplerEnv 平均成功率 71.9%，显著超过纯重建 tokenizer 的 42.7% 与 FAST 的 31.2%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10484" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--wam">
+      <div class="paper-ticket__meta"><span>STAGE FUTURE</span><span>V-JEPA2</span><span>ROBOTWIN 2.0</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10780" target="_blank" rel="noreferrer">JEPA-WAM: Stage-Level Joint-Embedding Prediction for World-Action Models in Robot Manipulation</a></h3>
+      <p>在短期物理未来之外显式预测下一任务阶段的语义潜目标，以冻结 V-JEPA2 编码器和目标条件 Stage-JEPA 增强 Motus；RoboTwin 2.0 的 50 项任务总体成功率 90.25%，成功 rollout 步数减少 5.97%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10780" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>LATENT DIAGNOSTIC</span><span>PLANNING QUALITY</span><span>OOD CORRELATION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.11174" target="_blank" rel="noreferrer">VIScore: Diagnosing Planning-Relevant Quality in Latent World Models</a></h3>
+      <p>用 Veracity、Influence 与 Sobriety 覆盖编码器、预测器和搜索规划器，衡量可达性、容量及规划幻觉；跨已见与未见模型和数据集，对跨任务成功率的 Spearman 相关均超过 0.75，优于直线度、状态 probe 与 empowerment。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.11174" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>SEMANTIC 3DGS</span><span>MOBILE MANIPULATION</span><span>OPEN VOCABULARY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10756" target="_blank" rel="noreferrer">Embodied Multimodal Grounding for Open-Vocabulary Mobile Manipulation via Semantic 3D Gaussian Splatting</a></h3>
+      <p>以可刷新的局部 Semantic-3DGS 统一主动感知、语言定位、避障、底座选位和动作条件，并只在后部 action expert 注入三维语义；真实长程成功率 60%，高于 PointVLA 的 40% 和 DexVLA 的 28%。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10756" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>SKILL TOKEN</span><span>CROSS-DOMAIN</span><span>FEW-SHOT</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10600" target="_blank" rel="noreferrer">BooST: Bridging Semantics and Motions for Efficient Skill Transfer</a></h3>
+      <p>先用跨模态 VQ-VAE 把高层语义意图与低层运动动力学压入统一技能表示，再蒸馏为轻量策略；仿真与真机验证少样本适配、跨域迁移和动态视觉干扰鲁棒性。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10600" target="_blank" rel="noreferrer">arXiv</a><a href="https://boost-robots.github.io" target="_blank" rel="noreferrer">项目页</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--data">
+      <div class="paper-ticket__meta"><span>VLA SECURITY</span><span>BLACK-BOX ATTACK</span><span>PHYSICAL WORLD</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10393" target="_blank" rel="noreferrer">Hidden in Plain Sight: Diffusion-Based Unrestricted Robotic Attacks on Vision-Language-Action Models</a></h3>
+      <p>DURA 沿预训练扩散模型潜轨迹生成自然外观的对抗贴片，仅凭受害模型动作即可执行黑盒定向攻击；仿真与真实机器人均暴露 VLA 物理部署中的新安全风险。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10393" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>DEFORMABLE</span><span>DATA FLYWHEEL</span><span>CHAMPION SYSTEM</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10718" target="_blank" rel="noreferrer">TCAM for Autonomous Deformable Manipulation: The RMC2 Champion System for WBCD 2026 Track 4</a></h3>
+      <p>围绕 T 恤分层、搬运、对齐和抚平构建硬件—感知—数据—学习闭环，结合便携 UMI 与真机示范，并按失败物理因素定向补采和微调；决赛 25 次装载中 22 次达到表面平整要求。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10718" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--tactile">
+      <div class="paper-ticket__meta"><span>BIMANUAL GRASP</span><span>FORCE SIGNAL</span><span>SINGLE VIEW</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10383" target="_blank" rel="noreferrer">Real-World Cooperative Bimanual Dexterous Grasp of Large Objects from Single-View Observations</a></h3>
+      <p>采集关节、视觉与力信号多模态数据，以 DDPM 从单视角分割点云生成双手关节抓取构型，再结合运动规划和在线抓取细化，在未知几何与姿态的大物体上实现稳定真机协同抓取。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10383" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--humanoid">
+      <div class="paper-ticket__meta"><span>UNITREE G1</span><span>CONFINED SPACE</span><span>WHOLE BODY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10220" target="_blank" rel="noreferrer">Whole-Body Planning for Humanoids Navigating Confined Spaces via Self-Collision Avoidance References</a></h3>
+      <p>在可达刚体体积上生成含可微碰撞约束的引导，再优化全阶多接触轨迹并训练残差 RL 跟踪策略；Unitree G1 在超过 NIST 应急标准的狭窄测试床完成 12–18 秒手脚复合接触任务。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10220" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
+    <article class="paper-ticket paper-ticket--vla">
+      <div class="paper-ticket__meta"><span>KV CACHE</span><span>MODEL CONFIDENCE</span><span>TRAINING-FREE</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div>
+      <h3><a href="https://arxiv.org/abs/2608.10824" target="_blank" rel="noreferrer">Neural Introspection Gating for Adaptive KV-Cache Reuse in Vision-Language-Action Models</a></h3>
+      <p>用动作 token 前两名 logit margin 作为零成本置信信号，在不确定时废弃视觉 KV cache 并完整重算；OpenVLA 系列在 LIBERO-Goal/Long 恢复盲目缓存损失的全部精度，同时保留 80% 计算节省。</p>
+      <div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.10824" target="_blank" rel="noreferrer">arXiv</a></div>
+    </article>
   </div>
 </div>
 
