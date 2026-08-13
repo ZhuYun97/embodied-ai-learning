@@ -1,5 +1,49 @@
 [
   {
+    "id": "ioai-embodied-data-infrastructure-financing-20260812",
+    "title": "艾欧智能完成数亿元融资，加码具身智能真实世界数据基础设施",
+    "date": "2026-08-12",
+    "fetched_at": "2026-08-13",
+    "importance": "normal",
+    "credibility": "authoritative-media",
+    "category": [
+      "融资上市",
+      "具身数据",
+      "产业动态"
+    ],
+    "summary": "机器人与具身智能数据基础设施企业艾欧智能（IO-AI Tech）宣布完成**数亿元人民币融资**，由顺为资本、松禾资本、深创投联合投资，并获一家头部机器人本体企业战略投资。资金将用于核心产品研发、团队建设与全球市场拓展。公司已形成 TeleXperience 遥操作采集、SenseXperience 人类数据采集和 EmbodiFlow 数据管理三条产品线，称已服务全球 150 余家客户、适配 80 余款机器人；融资额及业务数据均来自公司披露，未见监管文件独立验证。",
+    "sources": [
+      {
+        "name": "36氪",
+        "url": "http://www.36kr.com/p/3937187153132680"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
+    "id": "westlake-robotics-series-a-four-rounds-20260812",
+    "title": "西湖机器人完成 A 轮融资，半年四轮累计募资 5 亿元",
+    "date": "2026-08-12",
+    "fetched_at": "2026-08-13",
+    "importance": "normal",
+    "credibility": "authoritative-media",
+    "category": [
+      "融资上市",
+      "机器人基础模型",
+      "人形机器人"
+    ],
+    "summary": "具身智能通用大脑公司西湖机器人完成 A 轮融资，海愿资本领投；公司称其在六个月内连续完成四轮融资，**累计募资 5 亿元人民币**，投资方还包括赛富、小苗朗程和河南投资集团汇融基金等。本轮资金将重点投入人形机器人全身统一大模型研发和具身智能人才培育基地。公司采用“通用大脑＋人形全身小脑＋自研本体”路线，并推出西湖 o1 人形机器人；融资规模与订单等经营信息主要来自公司披露。",
+    "sources": [
+      {
+        "name": "36氪",
+        "url": "https://m.36kr.com/p/3924908647577732"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "china-humanoid-97pct-global-shipments-agibot-44pct-2026h1",
     "title": "中国厂商占全球人形机器人上半年出货量逾 97%，智元以 44% 居首",
     "date": "2026-08-10",
