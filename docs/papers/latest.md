@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-12">2026.08.12</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-13">2026.08.13</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 12 篇强相关候选，聚焦失败感知与多流 WAM、语言对齐动作表征、规划质量诊断、三维移动操作、柔性与双手灵巧操作及 VLA 安全。</p>
+    <p class="paper-brief__dek">今日筛出 11 篇强相关候选，聚焦统一自回归 VLA、上下文示范、无 rollout WAM、单示范在线适配、训练期世界建模、具身数据与人形操作评测。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">12</dd></div>
-      <div><dt>P0</dt><dd data-paper-stat="p0">5</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">11</dd></div>
+      <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">08.12</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">08.13</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">FAILURE-AWARE WAM</span><strong>让失败轨迹成为动作后果与进度预测的有效监督</strong><span class="paper-brief__paper">FACT</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">MULTI-STREAM WAM</span><strong>以同一视频潜空间联合承载 RGB、三维、语义与动作</strong><span class="paper-brief__paper">Flex-π</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">ACTION TOKEN</span><strong>用语言恢复目标保住动作轨迹中的动词语义</strong><span class="paper-brief__paper">SALT</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">WORLD MODEL EVAL</span><strong>从编码、预测与规划全链路诊断潜世界模型</strong><span class="paper-brief__paper">VIScore</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">UNIFIED VLA</span><strong>单一自回归流统一机器人推理与跨具身动作 token</strong><span class="paper-brief__paper">G0.5</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">IN-CONTEXT VLA</span><strong>把轨迹变成结构化示范，在测试时单样本适配</strong><span class="paper-brief__paper">StellaVLA</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">ROLLOUT-FREE WAM</span><strong>一次前向构造未来缓存，移除在线视频 rollout</strong><span class="paper-brief__paper">RIFT</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">DATA + EVAL</span><strong>用两亿编辑样本评测人手视频到灵巧机器人迁移</strong><span class="paper-brief__paper">HandEdit</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 444 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 455 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,25 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-08-13" class="paper-day-heading">2026-08-13</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 G0.5 × StellaVLA × RIFT × MiDAS × World Tokens × HandEdit：比较统一自回归、上下文适配、无 rollout 未来条件、单示范在线学习、训练期世界监督和人类视频数据迁移六条扩展 VLA 能力的路线。</p>
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla paper-ticket--featured"><div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>AUTOREGRESSIVE VLA</span><span>CROSS-EMBODIMENT TOKEN</span><span>REASONING</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.11739" target="_blank" rel="noreferrer">G0.5: One Autoregressive Stream for Robot Reasoning and Action</a></h3><p>以单一 Transformer 和统一目标交错生成推理与动作 token，并用可学习跨具身 tokenizer、原生思维链和视觉记忆承载异构机器人数据；在真机、BEHAVIOR、LIBERO、RoboTwin 2.0 与 SimplerEnv 等七类设置领先强基线。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.11739" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>STRUCTURED DEMO</span><span>TEST-TIME ADAPTATION</span><span>OOD</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.11671" target="_blank" rel="noreferrer">StellaVLA: In-Context Structured Demonstration for Generalizable Vision-Language-Action Models</a></h3><p>自动把原始轨迹转成任务计划、子目标与三维运动语言，用一次检索示范在测试时适配场景、视角、物体和具身变化；VLA-Arena 总分 0.63，LIBERO-Plus 成功率 85.1%，推理仍只运行实时动作专家。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.11671" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--wam"><div class="paper-ticket__meta"><span>FUTURE KV CACHE</span><span>ONE PASS</span><span>LOW LATENCY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.11521" target="_blank" rel="noreferrer">Keep the Future, Drop the Rollout: RIFT for World Action Models</a></h3><p>通过干预实验分离未来缓存的生产与消费，再以 anticipation tokens 一次前向构造完整未来 K/V cache；LIBERO 保持 98.8% 成功率并将动作块延迟降低 68.2%–89.1%，证明 WAM 部署不必迭代生成视频。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.11521" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>ONE DEMO</span><span>OFFLINE-TO-ONLINE RL</span><span>YAM</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.11363" target="_blank" rel="noreferrer">Adaptation of Generalist Robot Policies with Minimal Data</a></h3><p>MiDAS 先用一到少量示范行为克隆锚定预训练 VLA，再对残差策略做 value-based 在线强化学习；在 LIBERO、RoboCasa 和双臂 YAM 上，从单示范脆弱策略经约六小时自主交互获得可靠新任务能力。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.11363" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--wam"><div class="paper-ticket__meta"><span>TRAINING-ONLY WM</span><span>WORLD TOKENS</span><span>VLA LATENCY</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.09730" target="_blank" rel="noreferrer">World Tokens: Enhancing Embodied Policies with Training-Time World Modeling</a></h3><p>World Adapter 把 VLM 特征压成同时驱动未来视频去噪与动作专家的 world tokens，以预测梯度塑造控制表征；部署时移除世界模型分支，在不承担在线视频生成成本下取得有竞争力的 LIBERO、SIMPLER 与真机结果。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.09730" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>200M EDITS</span><span>26 URDFS</span><span>HUMAN-TO-ROBOT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.12122" target="_blank" rel="noreferrer">HandEdit: A Unified Benchmark for Egocentric Human-to-Robot Dexterous Hand Image Editing</a></h3><p>构建超过两亿条具身感知编辑实例，覆盖 26 种手与手臂 URDF，并以手部、手臂双赛道和通用、VLM、具身专用指标评测 11 种基线，为从海量人类第一视角视频扩展灵巧操作数据提供统一入口。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.12122" target="_blank" rel="noreferrer">arXiv</a><a href="https://handedit.github.io" target="_blank" rel="noreferrer">项目页</a></div></article>
+    <article class="paper-ticket paper-ticket--humanoid"><div class="paper-ticket__meta"><span>DUAL ARM</span><span>HAND PRIOR</span><span>DATA COVERAGE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.11769" target="_blank" rel="noreferrer">Policy-Induced Hand Priors in Humanoid Dual-Arm Manipulation</a></h3><p>用 HandPriorScore、残余手偏置和目标响应性诊断 17 种初始姿态下的选手偏置，发现聚合成功率会掩盖姿态—策略交互；扩大姿态覆盖或针对薄弱构型增广数据可显著改善双臂鲁棒性。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.11769" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>EMBODIED HARNESS</span><span>SCENE GRAPH</span><span>EXIT CODE</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.11246" target="_blank" rel="noreferrer">Towards the Harness of Embodied Agents</a></h3><p>Thea 把机器人能力封装为可调用工具，并以持久场景图补足物理状态读取、以“评测即退出码”判断动作终止、成功与失败原因，使 agentic loop 能在真实环境组合技能完成长程任务。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.11246" target="_blank" rel="noreferrer">arXiv</a><a href="https://eit-hai.github.io" target="_blank" rel="noreferrer">项目页</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>SKILL EVOLUTION</span><span>FROZEN MODEL</span><span>TRAIN-FREE</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div><h3><a href="https://arxiv.org/abs/2608.11350" target="_blank" rel="noreferrer">Self-Evolving Embodied Agents via Skill-Harness Evolution</a></h3><p>SHAPER 冻结模型参数，通过目标环境 rollout 让同一模型迭代可复用技能与 context-code harness；在 VLABench 和 ESI-Bench 对不同底层动作接口优于纯执行、微调与多种测试时扩展基线。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.11350" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>OUTDOOR VLN</span><span>CONTINUOUS ACTION</span><span>DYNAMIC WORLD</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.11901" target="_blank" rel="noreferrer">DaViNCi: A Dataset Towards Outdoor Vision-and-Language Navigation with Continuous Actions and Dynamic Elements</a></h3><p>在六张户外地图提供 6,933 条轨迹，同时引入连续动作与不可预测动态元素；实验量化动作粒度和动态环境造成的显著成功率下降，为更贴近现实的户外 VLN 与 sim-to-real 评测补位。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.11901" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--humanoid"><div class="paper-ticket__meta"><span>LOCO-MANIPULATION</span><span>SMPC DATA</span><span>G1 + SPOT</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.12063" target="_blank" rel="noreferrer">Learning Loco-Manipulation From SMPC Demonstrations With Sparse Offline-to-Online RL</a></h3><p>以仿真 SMPC 自动生成大规模离线示范解决探索瓶颈，再用稀疏任务奖励训练离线到在线 RL；配合动态稳定控制器后策略可超过优化教师，并跨带臂 Spot 与 G1 人形完成 sim-to-real 部署。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.12063" target="_blank" rel="noreferrer">arXiv</a></div></article>
   </div>
 </div>
 
