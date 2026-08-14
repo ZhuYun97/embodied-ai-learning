@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-13">2026.08.13</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-14">2026.08.14</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 11 篇强相关候选，聚焦统一自回归 VLA、上下文示范、无 rollout WAM、单示范在线适配、训练期世界建模、具身数据与人形操作评测。</p>
+    <p class="paper-brief__dek">今日筛出 13 篇强相关候选，聚焦合成数据到真机评测、VLA 时序信用分配、人到机器人视频世界模型、接触前监控、灵巧操作、人形与触觉评测。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">11</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">13</dd></div>
       <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">08.13</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">08.14</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">UNIFIED VLA</span><strong>单一自回归流统一机器人推理与跨具身动作 token</strong><span class="paper-brief__paper">G0.5</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">IN-CONTEXT VLA</span><strong>把轨迹变成结构化示范，在测试时单样本适配</strong><span class="paper-brief__paper">StellaVLA</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">ROLLOUT-FREE WAM</span><strong>一次前向构造未来缓存，移除在线视频 rollout</strong><span class="paper-brief__paper">RIFT</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">DATA + EVAL</span><strong>用两亿编辑样本评测人手视频到灵巧机器人迁移</strong><span class="paper-brief__paper">HandEdit</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">SYNTH → REAL</span><strong>统一合成操作技能训练与未知真机环境评测</strong><span class="paper-brief__paper">RoboSynChallenge</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA RL</span><strong>按任务阶段分配稀疏成功奖励，避免整轨迹信用混叠</strong><span class="paper-brief__paper">Temporal GRPO</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">H2R WORLD MODEL</span><strong>系统诊断人类示范到机器人视频的跨具身生成缺口</strong><span class="paper-brief__paper">H2R-Bench</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">RUNTIME SAFETY</span><strong>用动作条件潜在未来在接触发生前预测并中止失败</strong><span class="paper-brief__paper">ContactGuard</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 455 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 468 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,27 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-08-14" class="paper-day-heading">2026-08-14</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 RoboSynChallenge × Temporal GRPO × H2R-Bench × DreamX-Phi × ContactGuard × VLA Progress Probe：从数据生成、策略后训练、世界模拟到部署监控，检查具身模型的训练—评测—安全闭环。</p>
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--data paper-ticket--featured"><div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>SYNTHETIC DATA</span><span>REAL-WORLD EVAL</span><span>VLA + WAM BASELINES</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.12416" target="_blank" rel="noreferrer">RoboSynChallenge: Mastering Real-World Dexterity via Generalizing Synthesized Manipulation Skills</a></h3><p>以大规模合成状态—动作试次训练通用操作策略，再只在未见真实环境完成最终评测；统一提供 Transformer、Diffusion、VLA 与 WAM 基线，为“合成数据是否真正提升真机泛化”建立可复现竞赛协议。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.12416" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>STAGE CREDIT</span><span>GRPO</span><span>ROBOTWIN 2.0</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13026" target="_blank" rel="noreferrer">Temporal GRPO: Beyond Trajectory-Level Credit in Vision-Language-Action Reinforcement Learning</a></h3><p>把任务拆成可检测阶段，将同阶段 rollout 的相对优势只施加到对应动作区间，避免后段失败惩罚前段正确行为；在 RoboTwin 2.0 提升成功率与样本效率，并在 LIBERO-Long 保留共享前置技能。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13026" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>HUMAN-TO-ROBOT</span><span>VIDEO WORLD MODEL</span><span>11 MODELS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13049" target="_blank" rel="noreferrer">H2R-Bench: Benchmarking Human-to-Robot Manipulation Video Generation in World Models</a></h3><p>以人类第一视角示范、目标机器人约束和接触/动作/物体响应标注评测 11 个视频生成模型，覆盖六类操作与两种具身；结果显示领先模型仍频繁破坏具身一致性、功能接触和任务完成。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13049" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--wam"><div class="paper-ticket__meta"><span>ACTION-CONDITIONED VIDEO</span><span>SE(3) CONTROL</span><span>WORLD ARENA 2.0</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13489" target="_blank" rel="noreferrer">DreamX-Phi 1.0: Action-Conditioned Video World Model for Robotic Manipulation</a></h3><p>用逐臂 SE(3) 几何编码约束动作路径，以深度分支和 SAM3/V-JEPA 教师维持场景几何与小物体一致性，再蒸馏为少步生成器；在 WorldArena 2.0 两赛道分列第一、第二。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13489" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--wam"><div class="paper-ticket__meta"><span>PRE-CONTACT MONITOR</span><span>LATENT FUTURE</span><span>ABORT SIGNAL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13438" target="_blank" rel="noreferrer">ContactGuard: Pre-Contact Execution Monitoring with Action-Conditioned Latent World Models</a></h3><p>在即将接触前按策略动作块滚动预测多视角视觉潜变量，再用少量标注训练失败探针决定是否中止；无需修改底层策略即可在真实接触密集任务中把故障发现提前到物体被推、漏抓或滑落之前。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13438" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>MECH INTERP</span><span>TASK PROGRESS</span><span>OOD MONITOR</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13474" target="_blank" rel="noreferrer">Decoding Task Progress from VLA Representations</a></h3><p>从 π0.5 残差流用线性探针读出归一化剩余时间，信号在机器人数据训练前的 PaliGemma 骨干中已存在，并可泛化到未见任务；作为无标签 OOD 监控器可检测进度停滞，但尚不能有效引导策略。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13474" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>DEXTEROUS HAND</span><span>COPILOT TELEOP</span><span>NESTED POLICY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13362" target="_blank" rel="noreferrer">NestDex: Nested Policy Learning with Copilot Assisted Teleoperation for Dexterous Manipulation</a></h3><p>让操作者只控制手臂并以单自由度离合器调节已学习手部技能，视觉语言选择器负责阶段切换；由更稳定、完整的示范训练独立外层臂手策略，降低接触密集灵巧操作的数据采集负担。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13362" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--humanoid"><div class="paper-ticket__meta"><span>PHYSICS-GROUNDED VLN</span><span>4 HUMANOIDS</span><span>SIM-TO-REAL</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.12860" target="_blank" rel="noreferrer">HumanoidVLN: A Physics-Grounded Simulator and Benchmark for Vision-Language Navigation Across Diverse Humanoid Embodiments</a></h3><p>在 Isaac Sim 统一四种不同形态人形、真实动力学控制器与 933 条碰撞感知参考轨迹；四模型×四具身评测揭示 VLN、控制器和形态耦合，并用 Unitree G1 小规模实机验证仿真误差相关性。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.12860" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--humanoid"><div class="paper-ticket__meta"><span>153H MOTION</span><span>12K PREFERENCES</span><span>CONTACT QUALITY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13555" target="_blank" rel="noreferrer">HumanTracker: Towards Comprehensive and Human-Aligned Motion Tracking Benchmark</a></h3><p>以约 153 小时专业表演者动作扩展人形跟踪测试覆盖，并从 12K 对偏好训练 HumanScore；相较逐帧运动学误差，该指标更能捕捉足滑、错误接触和支撑不稳等人类显著感知的物理缺陷。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13555" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>ACTION-SUPERVISED ROI</span><span>DINOv3</span><span>DATA EFFICIENCY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13422" target="_blank" rel="noreferrer">Attention from Action, for Action: Emergent Visual Bottlenecks for Policy Learning</a></h3><p>Seeker 仅用动作监督从冻结 DINOv3 特征学习随任务进度变化的视觉 ROI，并用于 RGB 裁剪、背景增广和点云过滤；真机域内成功率从最佳基线 48.3% 提至 76.7%，视觉偏移下从 20% 提至 60%。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13422" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--wam"><div class="paper-ticket__meta"><span>EVENT-LEVEL WM</span><span>SURGICAL ROBOT</span><span>LONG HORIZON</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13103" target="_blank" rel="noreferrer">S2-HWM: Sparse Event-Structured Hierarchical World Model for Long-Horizon Surgical Robot Manipulation</a></h3><p>从原始潜轨迹学习稀疏事件证据，调度事件级管理器、原子动作 worker 与可变时长转移模型；SurRoL PegTransfer 成功率 98.7%，比扁平 DreamerV3 世界模型高 22.7 个百分点。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13103" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>ACTIVE PRACTICE</span><span>BUDGET OPTIMAL</span><span>LONG HORIZON</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div><h3><a href="https://arxiv.org/abs/2608.13415" target="_blank" rel="noreferrer">Deliberate Practice: Learning Robot Skills under a Budget</a></h3><p>把有限自主练习时间分配给既可在预算内掌握、又能解锁高累计回报计划的技能，并用双线性规划精确求解；仿真与真实长程操作表明，该策略能比启发式采样更有效地获取有用技能。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13415" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--tactile"><div class="paper-ticket__meta"><span>CONTACT + FORCE</span><span>EGOCENTRIC RGB</span><span>SIM-TO-REAL</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13014" target="_blank" rel="noreferrer">EgoPHI: Estimating Contact and Force from Egocentric Vision</a></h3><p>从单目第一视角 RGB 和物体几何联合恢复手与物体网格上的稠密接触及三维力分布，用物理仿真扩充力监督，并以八名参与者、多个触摸和抓取类型的实体传感物体验证 sim-to-real。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13014" target="_blank" rel="noreferrer">arXiv</a></div></article>
   </div>
 </div>
 
