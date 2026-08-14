@@ -1,5 +1,55 @@
 [
   {
+    "id": "lg-nvidia-isaac-gr00t-bipedal-humanoid-partnership-20260814",
+    "title": "LG 与 NVIDIA 联合开发双足人形机器人，计划 2027 年一季度亮相",
+    "date": "2026-08-14",
+    "fetched_at": "2026-08-14",
+    "importance": "hot",
+    "credibility": "official",
+    "category": [
+      "人形机器人",
+      "机器人基础模型",
+      "公司战略",
+      "产业落地"
+    ],
+    "summary": "LG 宣布与 NVIDIA 将合作推进机器人、AI 工厂与移动出行，首个重点成果是一款基于 **NVIDIA Isaac GR00T** 的下一代双足人形机器人，计划于 2027 年第一季度公开亮相。机器人将采用 Jetson Thor 计算平台及 Halos for Robotics 安全架构，并整合 LG Electronics 执行器、LG Innotek 传感器和 LG Energy Solution 电池。双方还将把 LG 田纳西工厂的轮式机器人验证、PhysicalWorks 数据平台和真实制造数据接入训练—验证闭环，用于增强 LG 自研机器人基础模型。",
+    "sources": [
+      {
+        "name": "LG Corp.（PR Newswire）",
+        "url": "https://www.prnewswire.com/news-releases/lg-to-unveil-its-next-gen-humanoid-robot-built-on-nvidia-isaac-gr00t-302851652.html"
+      }
+    ],
+    "related": [
+      {
+        "label": "company-series",
+        "url": "/news/company-series"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "light-origins-pre-a-embodied-foundation-model-data-20260814",
+    "title": "亮源新创完成数亿元 Pre-A 轮融资，加码具身基础模型与数据基础设施",
+    "date": "2026-08-14",
+    "fetched_at": "2026-08-14",
+    "importance": "major",
+    "credibility": "authoritative-media",
+    "category": [
+      "融资上市",
+      "机器人基础模型",
+      "具身数据"
+    ],
+    "summary": "具身智能公司亮源新创（Light Origins）宣布完成**数亿元人民币 Pre-A 轮融资**，由国科投资领投，招商局创投、襄禾资本等参投。资金将用于超大规模具身智能模型训练、多模态数据基础设施、软硬件全栈平台研发和团队扩张。公司由曾参与 InstructGPT、ChatGPT 与 GPT-4 关键研发的姜旭创立，现有团队超过百人；融资金额与团队信息来自公司对媒体披露，未见监管文件独立验证。",
+    "sources": [
+      {
+        "name": "新京报贝壳财经",
+        "url": "https://www.bjnews.com.cn/detail/1786671346129834.html"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "ioai-embodied-data-infrastructure-financing-20260812",
     "title": "艾欧智能完成数亿元融资，加码具身智能真实世界数据基础设施",
     "date": "2026-08-12",
