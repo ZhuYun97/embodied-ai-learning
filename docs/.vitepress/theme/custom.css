@@ -161,49 +161,33 @@ html {
 @media (prefers-reduced-motion: no-preference) {
   /* 核心布局容器的背景和颜色过渡 */
   html,
-  body {
-    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-
-  /* 导航栏 */
+  body,
   .VPNav,
   .VPNavBar,
-  .VPLocalNav {
-    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-
-  /* 侧边栏 */
+  .VPLocalNav,
   .VPSidebar,
-  .VPSidebar .content {
-    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-
-  /* 主内容区 */
+  .VPSidebar .content,
   .VPContent,
   .VPDoc,
-  .vp-doc {
-    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-
-  /* 首页容器 */
+  .vp-doc,
   .VPHome {
-    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: background-color 240ms cubic-bezier(0.23, 1, 0.32, 1),
+                color 240ms cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   /* 代码块 */
   .vp-doc div[class*='language-'],
   .vp-doc :not(pre) > code {
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: background-color 240ms cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 240ms cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   /* 表格 */
   .vp-doc table,
   .vp-doc th,
   .vp-doc td {
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: background-color 240ms cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 240ms cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   /* 卡片类元素 */
@@ -211,37 +195,9 @@ html {
   .route-card,
   .news-card,
   blockquote {
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-
-  /* 文字颜色 */
-  h1, h2, h3, h4, h5, h6,
-  p, li, span, div {
-    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-
-  /* 链接 */
-  a {
-    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-
-  /* 按钮 */
-  .VPButton,
-  .thero__btn,
-  button {
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-
-  /* 渐变背景元素 */
-  .thero__title-zh,
-  .hero-stat__n,
-  .thero__stat-n,
-  .VPHome .VPHero .name.clip {
-    transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: background-color 240ms cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 240ms cubic-bezier(0.23, 1, 0.32, 1),
+                color 240ms cubic-bezier(0.23, 1, 0.32, 1);
   }
 }
 
