@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-14">2026.08.14</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-17">2026.08.17</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 13 篇强相关候选，聚焦合成数据到真机评测、VLA 时序信用分配、人到机器人视频世界模型、接触前监控、灵巧操作、人形与触觉评测。</p>
+    <p class="paper-brief__dek">今日筛出 11 篇强相关候选，聚焦层级世界模型约束、异步 VLA、跨具身灵巧数据、动态反应操作、过程评测、失败发现与触觉皮肤。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">13</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">11</dd></div>
       <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">08.14</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">08.17</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">SYNTH → REAL</span><strong>统一合成操作技能训练与未知真机环境评测</strong><span class="paper-brief__paper">RoboSynChallenge</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">VLA RL</span><strong>按任务阶段分配稀疏成功奖励，避免整轨迹信用混叠</strong><span class="paper-brief__paper">Temporal GRPO</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">H2R WORLD MODEL</span><strong>系统诊断人类示范到机器人视频的跨具身生成缺口</strong><span class="paper-brief__paper">H2R-Bench</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">RUNTIME SAFETY</span><strong>用动作条件潜在未来在接触发生前预测并中止失败</strong><span class="paper-brief__paper">ContactGuard</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WORLD MODEL</span><strong>高低层世界模型协同满足长程时序逻辑与局部安全</strong><span class="paper-brief__paper">hint²</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">ASYNC VLA</span><strong>围绕真实交接状态优化异步动作块的行为连续性</strong><span class="paper-brief__paper">BICPO-VLA</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">H2R DEXTERITY</span><strong>用统一关节动作空间连接人手、灵巧手与夹爪数据</strong><span class="paper-brief__paper">AdvDex</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">DYNAMIC EVAL</span><strong>把推理延迟纳入反应关键型操作的训练与评测</strong><span class="paper-brief__paper">ReflexBench</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 468 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 479 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,25 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-08-17" class="paper-day-heading">2026-08-17</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 hint² × BICPO-VLA × AdvDex × PRM-as-a-Judge 1.5 × Reflex：分别检查长程约束、异步交接、跨具身数据、过程级评测和动态反应如何补齐 VLA 部署闭环。</p>
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--wam paper-ticket--featured"><div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>HIERARCHICAL WM</span><span>LTL GUIDANCE</span><span>REAL UR5E</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13678" target="_blank" rel="noreferrer">hint²: Hierarchical World Models for Inference-Time Temporal Logic Guidance</a></h3><p>用高层世界模型预测动作引发的任务谓词转移、低层动力学模型预测即时状态演化，在推理时共同引导短动作块满足长程 LTL 规范；在 CALVIN 超过既有引导方法，并在真实 UR5e 完成含活性与安全约束的复杂指令。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13678" target="_blank" rel="noreferrer">arXiv</a><a href="https://anonymous-hint2.github.io" target="_blank" rel="noreferrer">项目页</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>ASYNCHRONOUS VLA</span><span>FLOW-DPO</span><span>HANDOFF STATE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13924" target="_blank" rel="noreferrer">BICPO-VLA: Behavior-Identified Continuation Preference Optimization for Smooth Asynchronous Vision-Language-Action Control</a></h3><p>先识别请求时刻的目标行为，再以 Haar 子空间分解加速动作块生成，最后把已执行旧动作滚动到真实交接状态并做行为匹配的 Flow-DPO，联合处理推理延迟、状态漂移和动作不连续。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13924" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>HUMAN + ROBOT DATA</span><span>TACTILE</span><span>JOINT-ALIGNED ACTION</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.14028" target="_blank" rel="noreferrer">AdvDex: Learning Dexterous Manipulation from Human Demonstrations via Joint-Aligned Actions and Adversarial Learning</a></h3><p>发布含运动学与触觉监督的人类操作数据 OmniShare，并以 SE(3) 腕位姿加 15 个手指关节统一人手、灵巧手和夹爪动作；域对抗表征支持零样本人到机器人迁移及少样本适配。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.14028" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>PROCESS REWARD</span><span>DENSE PROGRESS</span><span>ROBOPULSE++</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.14284" target="_blank" rel="noreferrer">PRM-as-a-Judge 1.5: A Toolkit for Robot Process Assessment</a></h3><p>把 rollout 视频转为稠密进度曲线，并从失败侧进展、回撤后恢复和成功侧执行质量细分机器人能力；同时发布 RoboPulse++ 检验过程奖励模型可靠性与可复现评测工具。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.14284" target="_blank" rel="noreferrer">arXiv</a><a href="https://prm-as-a-judge.github.io" target="_blank" rel="noreferrer">项目页</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>REACTION-CRITICAL</span><span>LATENCY BENCH</span><span>LATENT FUTURE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.14379" target="_blank" rel="noreferrer">Reflex: Enabling Fast and Predictive Vision-Language-Action Models for Reaction-Critical Manipulation</a></h3><p>ReflexBench 以六类动态任务和可配置同步/异步延迟补足静态操作评测；ReflexVLA 用潜在未来预测、多帧融合、批量视觉编码与 CUDA Graph 回放提升动态成功率，并完成真机验证。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.14379" target="_blank" rel="noreferrer">arXiv</a><a href="https://reflexvla.github.io" target="_blank" rel="noreferrer">项目页</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>TOOL-INJECTION</span><span>30K TRAJECTORIES</span><span>AGENTIC VLA</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.14047" target="_blank" rel="noreferrer">Evolve Vision-Language-Action Model into an Agent with On-the-fly Tool-use</a></h3><p>ART 为任意 VLA 注入低层视觉、高层 affordance 和具身增强工具，以 3 万条工具调用轨迹训练长程推理；仿真和真机平均成功率较主流基线提升 20%，同时降低动作搜索与数据需求。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.14047" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>FLAT OBJECTS</span><span>DEFORMABLE</span><span>SIM BENCHMARK</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.14049" target="_blank" rel="noreferrer">FlatLab: A Unified Methodology Framework and Simulation-Based Benchmark for Robotic Manipulation of Flat Objects</a></h3><p>针对薄片物体难抓取与材质变化，拆分策略生成和动作原语执行，并提供覆盖刚性、可变形物体的高保真仿真、多模态采集、标准任务与评测协议。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.14049" target="_blank" rel="noreferrer">arXiv</a><a href="https://flatlab-web.github.io" target="_blank" rel="noreferrer">项目页</a></div></article>
+    <article class="paper-ticket paper-ticket--wam"><div class="paper-ticket__meta"><span>FAILURE DIAGNOSIS</span><span>ONTOLOGY</span><span>VERIFIED REPAIR</span><span>P1</span><span class="paper-status paper-status--watch">观察</span></div><h3><a href="https://arxiv.org/abs/2608.13901" target="_blank" rel="noreferrer">Ontology-Grounded World Models for Failure Diagnosis and Closed-Loop Repair in Physical AI Systems</a></h3><p>在事件视觉世界模型之上增加类型化谓词、纠错路由和验证门控，把失败条件保留为可执行诊断记录；在 LIBERO-Plus 报告 85% 总成功率，但尚未单独量化本体模块贡献或真机恢复。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13901" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>ACTIVE EVALUATION</span><span>FAILURE COVERAGE</span><span>PAIRED SYSTEMS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13719" target="_blank" rel="noreferrer">Coverage Aware Active Evaluation for Failure Discovery with Paired Systems</a></h3><p>用廉价代理系统的大量评测和少量目标系统结果学习残差风险，再以支持度感知互信息兼顾真实度与失败多样性；在驾驶、操作和四足任务发现的严重失败最多达到基线两倍。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13719" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>ACTIVE PERCEPTION</span><span>AMBIGUITY</span><span>REAL ROBOT</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.13605" target="_blank" rel="noreferrer">Active Perception for Embodied Disambiguation</a></h3><p>让机器人在遮挡、受限视角或文字不可读时主动换位观察，由 VLM 基于累计证据决定继续观察、向用户澄清或完成目标选择；真机实验统一了物理取证与语言消歧。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.13605" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--tactile"><div class="paper-ticket__meta"><span>ROBOTIC SKIN</span><span>PRESSURE + PROXIMITY</span><span>15K CYCLES</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.14406" target="_blank" rel="noreferrer">Effect of Twisted-Yarn Architecture on Pressure and Proximity Sensing Characteristics of Textile Capacitive Sensors for Robotic Skin</a></h3><p>系统比较一、二、四层银包覆绞纱的压力—接近感知权衡；四层结构在 100 kHz 达到最高灵敏度并稳定运行 1.5 万次，4×4 阵列集成机械臂后实现实时触碰与接近检测。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.14406" target="_blank" rel="noreferrer">arXiv</a></div></article>
   </div>
 </div>
 
