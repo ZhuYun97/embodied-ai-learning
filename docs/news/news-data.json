@@ -1,5 +1,27 @@
 [
   {
+    "id": "maniformer-china-telecom-financing-embodied-data-platform-20260817",
+    "title": "觅蜂科技完成新一轮数亿元融资，中国电信领投",
+    "date": "2026-08-17",
+    "fetched_at": "2026-08-17",
+    "importance": "major",
+    "credibility": "authoritative-media",
+    "category": [
+      "融资上市",
+      "具身数据",
+      "产业落地"
+    ],
+    "summary": "一站式物理 AI 数据服务平台觅蜂科技完成**新一轮数亿元人民币融资**，由中国电信领投，张江集团跟投，红杉中国、元启创新等老股东追加投资。资金将用于建设具身智能数据平台型供给基础设施、扩大 **MEgo 系列无本体采集产品**量产，并加强数据采集、治理与闭环评测能力；公司称将加速千万小时级物理交互数据产能落地。融资金额与产能目标来自公司及媒体披露，未见监管文件独立验证。",
+    "sources": [
+      {
+        "name": "科创板日报（东方财富转载）",
+        "url": "https://finance.eastmoney.com/a/202608173842612596.html"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "lg-nvidia-isaac-gr00t-bipedal-humanoid-partnership-20260814",
     "title": "LG 与 NVIDIA 联合开发双足人形机器人，计划 2027 年一季度亮相",
     "date": "2026-08-14",
