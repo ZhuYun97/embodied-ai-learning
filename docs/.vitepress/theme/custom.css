@@ -2375,15 +2375,20 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
 .VPNavBar .VPFlyout:hover .button .vpi-chevron-down,
 .VPNavBar .VPFlyout:focus-within .button .vpi-chevron-down { transform: rotate(180deg); }
 
-/* 展开动画:面板自顶部「展开」(scaleY + 上移,弹性缓动)取代默认平淡淡入 */
+/* 展开动画:面板容器快速淡入/展开,条目保持立即可读 */
 .VPNavBar .VPFlyout .menu {
   transform: translateY(-8px) scaleY(0.94);
   transform-origin: top center;
-  transition: opacity 0.26s ease, visibility 0.26s ease,
-              transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 160ms cubic-bezier(0.23, 1, 0.32, 1),
+              transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+              visibility 0s linear 160ms;
 }
 .VPNavBar .VPFlyout:hover .menu,
-.VPNavBar .VPFlyout:focus-within .menu { transform: translateY(0) scaleY(1); }
+.VPNavBar .VPFlyout:focus-within .menu,
+.VPNavBar .VPFlyout .button[aria-expanded="true"] + .menu {
+  transform: translateY(0) scaleY(1);
+  transition-delay: 0s;
+}
 
 /* 面板本体:深空玻璃 + 青色发丝边 + 三色顶条(不设 overflow,沿用默认 hidden auto 支持长菜单滚动) */
 .VPNavBar .VPMenu {
@@ -2436,29 +2441,11 @@ html.lens-strict .vp-doc td.cred-todo { opacity: 0.2; }
   box-shadow: inset 2px 0 0 0 #22d3ee, 0 0 16px rgba(56, 189, 248, 0.08);
 }
 
-/* 展开时:分组/条目错峰浮入(stagger) */
-@media (prefers-reduced-motion: no-preference) {
-  .VPNavBar .VPFlyout:hover .VPMenu > .items > *,
-  .VPNavBar .VPFlyout:focus-within .VPMenu > .items > * {
-    animation: hudMenuItemIn 0.34s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-  }
-  .VPNavBar .VPMenu > .items > *:nth-child(1) { animation-delay: 0.05s; }
-  .VPNavBar .VPMenu > .items > *:nth-child(2) { animation-delay: 0.10s; }
-  .VPNavBar .VPMenu > .items > *:nth-child(3) { animation-delay: 0.15s; }
-  .VPNavBar .VPMenu > .items > *:nth-child(4) { animation-delay: 0.20s; }
-  .VPNavBar .VPMenu > .items > *:nth-child(n+5) { animation-delay: 0.24s; }
-}
-@keyframes hudMenuItemIn {
-  from { opacity: 0; transform: translateY(7px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* reduced-motion:去展开/浮入动画,保留瞬时显隐 + 静态 HUD 皮肤 */
+/* reduced-motion:去展开动画,保留瞬时显隐 + 静态 HUD 皮肤 */
 @media (prefers-reduced-motion: reduce) {
   .VPNavBar .VPFlyout .menu { transform: none; transition: opacity 0.01s linear, visibility 0.01s linear; }
   .VPNavBar .VPFlyout:hover .button .vpi-chevron-down,
   .VPNavBar .VPFlyout:focus-within .button .vpi-chevron-down { transform: rotate(180deg); }
-  .VPNavBar .VPMenu > .items > * { animation: none; }
 }
 
 /* ============================================================
@@ -4110,12 +4097,13 @@ html.home-pager-ready[data-home-page='resources'] .VPHome .vp-doc {
 .doc-readbar__fill {
   display: block;
   height: 100%;
-  width: 0;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
   background: linear-gradient(90deg, #2563eb, #22d3ee);
-  transition: width 0.08s linear;
 }
 .dark .doc-readbar__fill { box-shadow: 0 0 8px rgba(34, 211, 238, 0.55); }
-@media (prefers-reduced-motion: reduce) { .doc-readbar__fill { transition: none; } }
 
 /* —— 论文档案头:正文之上的一条「档案条」(等宽芯片 + 元信息 + 可信度图例)—— */
 .paper-dossier {

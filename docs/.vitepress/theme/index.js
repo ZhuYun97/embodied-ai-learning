@@ -975,13 +975,18 @@ const PaperDossier = {
 const DocReadBar = {
   setup() {
     const route = useRoute()
-    const pct = ref(0)
+    const progress = ref(0)
     let onScroll = null
+    let frameId = 0
     onMounted(() => {
       onScroll = () => {
-        const doc = document.documentElement
-        const max = doc.scrollHeight - window.innerHeight
-        pct.value = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0
+        if (frameId) return
+        frameId = window.requestAnimationFrame(() => {
+          frameId = 0
+          const doc = document.documentElement
+          const max = doc.scrollHeight - window.innerHeight
+          progress.value = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0
+        })
       }
       onScroll()
       window.addEventListener('scroll', onScroll, { passive: true })
@@ -992,11 +997,15 @@ const DocReadBar = {
         window.removeEventListener('scroll', onScroll)
         window.removeEventListener('resize', onScroll)
       }
+      if (frameId) {
+        window.cancelAnimationFrame(frameId)
+        frameId = 0
+      }
     })
     return () =>
       paperFromRoute(route.path)
         ? h('div', { class: 'doc-readbar', 'aria-hidden': 'true' }, [
-            h('i', { class: 'doc-readbar__fill', style: { width: pct.value.toFixed(1) + '%' } }),
+            h('i', { class: 'doc-readbar__fill', style: { transform: `scaleX(${progress.value.toFixed(4)})` } }),
           ])
         : null
   },
@@ -1240,6 +1249,7 @@ const TechHero = {
     // 真实走秒时钟(诚实遥测:真时钟、非装饰假数)。reduced-motion 下保留——它是内容更新,不是动效。
     const clock = ref('UTC+8 --:--:--')
     let clockTimer = null
+    let cleanupHeroVideo = null
     onMounted(() => {
       if (typeof window === 'undefined') return
       const tick = () => {
@@ -1253,7 +1263,7 @@ const TechHero = {
       clockTimer = setInterval(tick, 1000)
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
       bindHeroUnit(reduce)
-      bindHeroVideo(reduce)
+      cleanupHeroVideo = bindHeroVideo(reduce)
       if (reduce) return
       // 开机序列:状态条 → 终端提示语,逐字打出(一次性;机器人物化见 custom.css robotMaterialize)
       armBootSkip()
@@ -1292,6 +1302,8 @@ const TechHero = {
     })
     onUnmounted(() => {
       if (clockTimer) clearInterval(clockTimer)
+      cleanupHeroVideo?.()
+      cleanupHeroVideo = null
       skipBoot() // 中途离开首页:立即定格并清掉全局监听(幂等)
     })
     return () => {
@@ -1559,11 +1571,14 @@ const ROBOT_LINES = [
 //      ③ prefers-reduced-motion = 只抠首帧静像。
 // =====================================================================
 function bindHeroVideo(reduce) {
-  if (typeof document === 'undefined') return
+  const noop = () => {}
+  if (typeof document === 'undefined') return noop
   const video = document.querySelector('.thero__robot--video')
-  if (!video || video.dataset.scrub) return
+  if (!video || video.dataset.scrub) return noop
   video.dataset.scrub = '1'
   video.muted = true
+  let active = true
+  let cleaned = false
   let readyMarked = false
   const markReady = () => {
     if (readyMarked) return
@@ -1572,7 +1587,8 @@ function bindHeroVideo(reduce) {
     const keyed = video.parentElement?.querySelector('.thero__robot--keyed')
     if (keyed) keyed.dataset.ready = '1'
   }
-  video.addEventListener('error', markReady, { once: true })
+  const onVideoError = () => markReady()
+  video.addEventListener('error', onVideoError, { once: true })
   const fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches
   const SIZE = fine ? 720 : 480
   const canvas = document.createElement('canvas')
@@ -1582,19 +1598,32 @@ function bindHeroVideo(reduce) {
   canvas.setAttribute('role', 'img')
   canvas.setAttribute('aria-label', '镭光人 · 具身智能概念视频')
   video.insertAdjacentElement('afterend', canvas)
-  const ctx = canvas.getContext('2d', { willReadFrequently: true })
+  // 连续帧只合成 worker 返回的 ImageBitmap；静态降级至多承受一次 readback。
+  const ctx = canvas.getContext('2d')
+  if (!ctx) {
+    canvas.remove()
+    delete video.dataset.scrub
+    video.removeEventListener('error', onVideoError)
+    return noop
+  }
   ctx.imageSmoothingEnabled = true
   ctx.imageSmoothingQuality = 'high'
   const N = SIZE * SIZE
-  const queue = new Int32Array(N)
-  const visited = new Uint8Array(N)
-  const maskA = new Uint8Array(N)
-  const maskB = new Uint8Array(N)
+  let queue = null
+  let visited = null
+  let maskA = null
+  let maskB = null
   const keyFrame = () => {
     const vw = video.videoWidth
     const vh = video.videoHeight
     if (!vw || !vh || video.readyState < 2) return
     const s = Math.min(vw, vh)
+    if (!queue) {
+      queue = new Int32Array(N)
+      visited = new Uint8Array(N)
+      maskA = new Uint8Array(N)
+      maskB = new Uint8Array(N)
+    }
     ctx.clearRect(0, 0, SIZE, SIZE)
     ctx.drawImage(video, vw - s, 0, s, s, 0, 0, SIZE, SIZE)
     let img
@@ -1664,61 +1693,267 @@ function bindHeroVideo(reduce) {
     ctx.putImageData(img, 0, 0)
     markReady()
   }
-  const paintWhenReady = () => {
-    if (video.readyState >= 2) keyFrame()
-    else video.addEventListener('loadeddata', keyFrame, { once: true })
-  }
-  if (reduce) {
-    paintWhenReady()
-    return
-  }
-  if (!fine || window.innerWidth < 1024) {
-    // —— 自动播放模式:逐帧抠像 ——
-    video.autoplay = true
-    const p = video.play()
-    if (p && p.catch) p.catch(() => {})
-    if ('requestVideoFrameCallback' in HTMLVideoElement.prototype) {
-      const onFrame = () => { keyFrame(); video.requestVideoFrameCallback(onFrame) }
-      video.requestVideoFrameCallback(onFrame)
-    } else {
-      const loop = () => { keyFrame(); requestAnimationFrame(loop) }
-      requestAnimationFrame(loop)
-    }
-    return
-  }
-  // —— 桌面推扫模式 ——
-  paintWhenReady()
+  let worker = null
+  let frameInFlight = false
+  let videoFrameId = null
+  let animationFrameId = null
+  let loadedDataListening = false
+  let reducedSeekListening = false
+  let singleFrameRequested = false
+  let fallbackRendered = false
   let prevX = null
   let target = 0
   let seeking = false
+  let applyScrub = null
+
+  const cancelScheduledFrame = () => {
+    if (videoFrameId !== null && typeof video.cancelVideoFrameCallback === 'function') {
+      video.cancelVideoFrameCallback(videoFrameId)
+    }
+    if (animationFrameId !== null) window.cancelAnimationFrame(animationFrameId)
+    videoFrameId = null
+    animationFrameId = null
+  }
+  const stopWorker = () => {
+    if (!worker) return
+    worker.removeEventListener('message', onWorkerMessage)
+    worker.removeEventListener('error', onWorkerError)
+    worker.removeEventListener('messageerror', onWorkerError)
+    worker.terminate()
+    worker = null
+  }
+  const renderStaticFrame = () => {
+    if (!active || fallbackRendered) return
+    fallbackRendered = true
+    keyFrame()
+  }
+  const onLoadedData = () => {
+    loadedDataListening = false
+    if (!active) return
+    if (worker) captureWorkerFrame()
+    else renderStaticFrame()
+  }
+  const paintWhenReady = () => {
+    if (!active) return
+    if (video.readyState >= 2) {
+      if (worker) captureWorkerFrame()
+      else renderStaticFrame()
+      return
+    }
+    if (loadedDataListening) return
+    loadedDataListening = true
+    video.addEventListener('loadeddata', onLoadedData, { once: true })
+  }
+  const fallBackToStaticFrame = () => {
+    if (!active) return
+    frameInFlight = false
+    cancelScheduledFrame()
+    stopWorker()
+    video.pause()
+    video.removeEventListener('seeked', onSeeked)
+    window.removeEventListener('mousemove', onMouseMove)
+    applyScrub = null
+    if (reduce && reducedSeekListening) return
+    paintWhenReady()
+  }
+  const onWorkerMessage = (event) => {
+    const data = event.data || {}
+    if (data.type === 'error') {
+      fallBackToStaticFrame()
+      return
+    }
+    if (data.type !== 'frame') return
+
+    const bitmap = data.bitmap
+    frameInFlight = false
+    if (!bitmap) {
+      fallBackToStaticFrame()
+      return
+    }
+    if (!active) {
+      bitmap.close()
+      return
+    }
+    try {
+      ctx.clearRect(0, 0, SIZE, SIZE)
+      ctx.drawImage(bitmap, 0, 0, SIZE, SIZE)
+      markReady()
+    } catch (e) {
+      fallBackToStaticFrame()
+    } finally {
+      bitmap.close()
+    }
+    applyScrub?.()
+  }
+  const onWorkerError = () => {
+    fallBackToStaticFrame()
+  }
+  const captureWorkerFrame = async () => {
+    if (!active || !worker || frameInFlight || video.readyState < 2) return
+    frameInFlight = true
+    const activeWorker = worker
+    let bitmap = null
+    try {
+      bitmap = await window.createImageBitmap(video)
+      if (!active || worker !== activeWorker) {
+        bitmap.close()
+        frameInFlight = false
+        return
+      }
+      activeWorker.postMessage({ type: 'frame', bitmap }, [bitmap])
+      bitmap = null
+    } catch (e) {
+      bitmap?.close()
+      frameInFlight = false
+      fallBackToStaticFrame()
+    }
+  }
+  const onVideoFrame = () => {
+    videoFrameId = null
+    if (!active || !worker) return
+    captureWorkerFrame()
+    scheduleNextFrame()
+  }
+  const onAnimationFrame = () => {
+    animationFrameId = null
+    if (!active || !worker) return
+    captureWorkerFrame()
+    scheduleNextFrame()
+  }
+  const scheduleNextFrame = () => {
+    if (!active || !worker) return
+    if (typeof video.requestVideoFrameCallback === 'function') {
+      videoFrameId = video.requestVideoFrameCallback(onVideoFrame)
+    } else {
+      animationFrameId = window.requestAnimationFrame(onAnimationFrame)
+    }
+  }
   const apply = () => {
-    if (seeking || !Number.isFinite(video.duration) || video.duration <= 0) return
+    if (seeking || frameInFlight || !worker || !Number.isFinite(video.duration) || video.duration <= 0) return
     const clamped = Math.max(0, Math.min(video.duration - 0.05, target))
     if (Math.abs(clamped - video.currentTime) < 0.02) return
     seeking = true
     try { video.currentTime = clamped } catch (e) { seeking = false }
   }
-  video.addEventListener('seeked', () => {
+  const onSeeked = () => {
     seeking = false
-    keyFrame()
+    if (!active || !worker) return
+    captureWorkerFrame()
     apply()
-  })
-  window.addEventListener(
-    'mousemove',
-    (e) => {
-      if (window.innerWidth < 1024) return
-      if (!Number.isFinite(video.duration) || video.duration <= 0) return
-      if (prevX === null) {
-        prevX = e.clientX
-        return
-      }
-      const delta = e.clientX - prevX
-      prevX = e.clientX
-      target = Math.max(0, Math.min(video.duration, target + (delta / window.innerWidth) * 0.8 * video.duration))
-      apply()
-    },
-    { passive: true }
-  )
+  }
+  const onMouseMove = (event) => {
+    if (!active || !worker || window.innerWidth < 1024) return
+    if (!Number.isFinite(video.duration) || video.duration <= 0) return
+    if (prevX === null) {
+      prevX = event.clientX
+      return
+    }
+    const delta = event.clientX - prevX
+    prevX = event.clientX
+    target = Math.max(0, Math.min(video.duration, target + (delta / window.innerWidth) * 0.8 * video.duration))
+    apply()
+  }
+  const paintSingleFrame = () => {
+    if (!active || singleFrameRequested) return
+    singleFrameRequested = true
+    paintWhenReady()
+  }
+  const onReducedSeeked = () => {
+    reducedSeekListening = false
+    video.removeEventListener('seeked', onReducedSeeked)
+    paintSingleFrame()
+  }
+  const cleanup = () => {
+    if (cleaned) return
+    cleaned = true
+    active = false
+    cancelScheduledFrame()
+    video.removeEventListener('error', onVideoError)
+    video.removeEventListener('loadeddata', onLoadedData)
+    video.removeEventListener('seeked', onSeeked)
+    video.removeEventListener('seeked', onReducedSeeked)
+    window.removeEventListener('mousemove', onMouseMove)
+    loadedDataListening = false
+    reducedSeekListening = false
+    stopWorker()
+    frameInFlight = false
+    video.pause()
+    video.autoplay = false
+    video.removeAttribute('autoplay')
+    delete video.dataset.scrub
+    delete video.dataset.ready
+    canvas.remove()
+    queue = null
+    visited = null
+    maskA = null
+    maskB = null
+  }
+
+  const canUseWorker =
+    typeof Worker !== 'undefined' &&
+    typeof OffscreenCanvas !== 'undefined' &&
+    typeof window.createImageBitmap === 'function'
+  if (canUseWorker) {
+    try {
+      worker = new Worker(new URL('./heroChromaWorker.js', import.meta.url), { type: 'module' })
+      worker.addEventListener('message', onWorkerMessage)
+      worker.addEventListener('error', onWorkerError)
+      worker.addEventListener('messageerror', onWorkerError)
+      worker.postMessage({ type: 'init', size: SIZE })
+    } catch (e) {
+      stopWorker()
+    }
+  }
+
+  if (reduce) {
+    video.pause()
+    video.autoplay = false
+    const alreadyAtFirstFrame = !video.seeking && Math.abs(video.currentTime) < 0.001
+    if (alreadyAtFirstFrame) {
+      paintSingleFrame()
+      return cleanup
+    }
+    let waitForSeek = false
+    try {
+      reducedSeekListening = true
+      video.addEventListener('seeked', onReducedSeeked, { once: true })
+      video.currentTime = 0
+      waitForSeek = video.seeking
+    } catch (e) {}
+    if (!waitForSeek) {
+      reducedSeekListening = false
+      video.removeEventListener('seeked', onReducedSeeked)
+      paintSingleFrame()
+    }
+    return cleanup
+  }
+  if (!worker) {
+    // Worker API 不可用时仅绘制一帧,避免在主线程保留逐帧像素循环。
+    paintWhenReady()
+    return cleanup
+  }
+  if (!fine || window.innerWidth < 1024) {
+    // —— 自动播放模式:worker 逐帧抠像,主线程仅合成返回位图 ——
+    video.autoplay = true
+    paintWhenReady()
+    const playPromise = video.play()
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(() => {
+        if (!active) return
+        cancelScheduledFrame()
+        paintWhenReady()
+      })
+    }
+    scheduleNextFrame()
+    return cleanup
+  }
+
+  // —— 桌面推扫模式 ——
+  applyScrub = apply
+  paintWhenReady()
+  video.addEventListener('seeked', onSeeked)
+  window.addEventListener('mousemove', onMouseMove, { passive: true })
+  return cleanup
 }
 
 function bindHeroUnit(reduce) {

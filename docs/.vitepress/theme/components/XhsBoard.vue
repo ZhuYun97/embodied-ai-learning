@@ -2,7 +2,7 @@
 // 小红书实采导航板:全量 169 条按六类筛选 + 标题/作者搜索 + 按快照点赞排序。
 // 数据 = xhs-data.json(由 SRC .omc/research/xhs-build-data.py 从实采 merged.json 烘焙,
 // 分类规则与 2026-06-12 首版表格逐条一致);本组件零主张,只做既有数据的呈现与筛选。
-import { ref, computed, watch } from 'vue'
+import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import data from './xhs-data.json'
 
 const PAGE = 30
@@ -19,6 +19,10 @@ const CAT_EMOJI = Object.fromEntries(data.cats.map((c) => [c.key, c.emoji]))
 const activeCat = ref('all')
 const query = ref('')
 const shown = ref(PAGE)
+const isEntering = ref(false)
+
+let entranceTimer = null
+let entranceGeneration = 0
 
 const counts = computed(() => {
   const m = { all: data.posts.length }
@@ -41,7 +45,33 @@ function pickCat(k) {
   activeCat.value = k
   shown.value = PAGE
 }
-watch(query, () => (shown.value = PAGE))
+watch(query, () => {
+  shown.value = PAGE
+  stopEntrance()
+})
+watch(activeCat, () => playEntrance())
+
+function stopEntrance() {
+  entranceGeneration += 1
+  if (entranceTimer) window.clearTimeout(entranceTimer)
+  entranceTimer = null
+  isEntering.value = false
+}
+
+async function playEntrance() {
+  stopEntrance()
+  const generation = entranceGeneration
+  await nextTick()
+  if (generation !== entranceGeneration) return
+  isEntering.value = true
+  entranceTimer = window.setTimeout(() => {
+    if (generation === entranceGeneration) isEntering.value = false
+    entranceTimer = null
+  }, 350)
+}
+
+onMounted(() => playEntrance())
+onUnmounted(() => stopEntrance())
 
 const fmtLikes = (n) => (n >= 10000 ? (n / 10000).toFixed(1).replace(/\.0$/, '') + '万' : String(n))
 const TABS = computed(() => [
@@ -94,7 +124,7 @@ const TABS = computed(() => [
     </div>
 
     <!-- 卡片墙 -->
-    <div v-if="visible.length" :key="activeCat + '|' + query" class="xhs-grid">
+    <div v-if="visible.length" class="xhs-grid" :class="{ 'is-entering': isEntering }">
       <a
         v-for="(p, i) in visible"
         :key="p.id"
@@ -473,9 +503,9 @@ const TABS = computed(() => [
 
 /* ---------- 入场动效(reduced-motion 全关) ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  .xhs-card {
-    animation: xhs-in 0.34s cubic-bezier(0.22, 0.8, 0.36, 1) both;
-    animation-delay: calc(min(var(--i), 11) * 26ms);
+  .xhs-grid.is-entering .xhs-card {
+    animation: xhs-in 200ms cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-delay: calc(min(var(--i), 5) * 30ms);
   }
   @keyframes xhs-in {
     from { opacity: 0; transform: translateY(8px); }

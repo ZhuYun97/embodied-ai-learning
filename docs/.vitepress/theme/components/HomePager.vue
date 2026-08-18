@@ -164,6 +164,11 @@ const activeStageElements = () => {
 
 const activeStageElement = () => activeStageElements()[0] || null
 
+const focusPagePanel = (page) => {
+  const panelId = page === 'explore' ? 'home-explore-hud' : `home-page-${page}`
+  document.getElementById(panelId)?.focus({ preventScroll: true })
+}
+
 const clearPagerIntent = () => {
   if (pagerIntentTimer) window.clearTimeout(pagerIntentTimer)
   pagerIntentTimer = null
@@ -234,12 +239,17 @@ const commitPageTransition = () => {
   })
 }
 
-const cancelPageTransition = () => {
+const cancelPageTransition = ({ immediate = false } = {}) => {
   if (transitionCommitTimer) window.clearTimeout(transitionCommitTimer)
   if (transitionTimer) window.clearTimeout(transitionTimer)
   transitionCommitTimer = null
   transitionTimer = null
   pendingTransition = null
+  if (immediate) {
+    queuedTransition = null
+    finishPageTransition()
+    return
+  }
   transitionTarget.value = activeHomePage.value
   transitioning.value = true
   returningTransition = true
@@ -308,7 +318,22 @@ const activate = (
 ) => {
   const nextIndex = HOME_PAGES.findIndex((item) => item.id === page)
   if (nextIndex < 0) return false
+  const isImmediateSource = source === 'tab-keyboard' || source === 'page-key'
   if (nextIndex === activeIndex.value) {
+    if (isImmediateSource && transitioning.value) {
+      cancelPageTransition({ immediate: true })
+      document.documentElement.dataset.homeDirection = requestedDirection || 'next'
+      document.documentElement.dataset.homeInput = source
+      if (updateUrl) {
+        syncDocument(activeHomePage.value, { updateUrl: true, scroll: false })
+      }
+      if (focusPanel) {
+        nextTick(() => {
+          if (pagerActive && activeHomePage.value === page) focusPagePanel(page)
+        })
+      }
+      return true
+    }
     if (queuedTransition && transitionTarget.value !== page) {
       queuedTransition = null
       transitionTarget.value = activeHomePage.value
@@ -329,8 +354,10 @@ const activate = (
   }
 
   const direction = requestedDirection || (nextIndex > activeIndex.value ? 'next' : 'previous')
-  if (prefersReducedMotion()) {
+  if (prefersReducedMotion() || isImmediateSource) {
+    if (transitioning.value) cancelPageTransition({ immediate: true })
     document.documentElement.dataset.homeDirection = direction
+    document.documentElement.dataset.homeInput = source
     focusPanelOnChange = focusPanel
     nextSyncUpdateUrl = updateUrl
     setActiveHomePage(page)
@@ -351,7 +378,7 @@ const selectRelative = (offset, options) => {
     root.classList.remove('home-boundary-hit')
     if (boundaryFrame) window.cancelAnimationFrame(boundaryFrame)
     boundaryFrame = null
-    if (!transitioning.value && !prefersReducedMotion()) {
+    if (options?.source !== 'page-key' && !transitioning.value && !prefersReducedMotion()) {
       boundaryFrame = window.requestAnimationFrame(() => {
         boundaryFrame = null
         if (pagerActive) root.classList.add('home-boundary-hit')
@@ -489,8 +516,7 @@ const setupPager = () => {
       if (!pagerActive) return
       const focusedInHiddenView = document.activeElement?.closest?.('[hidden], [aria-hidden="true"]')
       if (focusPanelOnChange || focusedInHiddenView) {
-        const panelId = page === 'explore' ? 'home-explore-hud' : `home-page-${page}`
-        document.getElementById(panelId)?.focus({ preventScroll: true })
+        focusPagePanel(page)
       }
       focusPanelOnChange = false
     })
@@ -1066,6 +1092,13 @@ onUnmounted(() => {
     font-size: 0.54rem;
     line-height: 1;
   }
+}
+
+:global(html[data-home-input='tab-keyboard'] .home-pager__indicator),
+:global(html[data-home-input='page-key'] .home-pager__indicator),
+:global(html[data-home-input='tab-keyboard'] .home-pager__tabs::after),
+:global(html[data-home-input='page-key'] .home-pager__tabs::after) {
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
