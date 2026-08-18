@@ -1,5 +1,5 @@
 {
-  "last_fetched_at": "2026-08-17T17:00:00+08:00",
+  "last_fetched_at": "2026-08-18T17:00:00+08:00",
   "fingerprints": [
     "robocup-2026-将在韩国仁川举办|2026",
     "unitree-宇树科技-通过上交所科创板-ipo-审核-拟融资-42-亿元|caixinglobal",
@@ -168,8 +168,10 @@
     "westlake-robotics-series-a-four-rounds|20260812",
     "lg-nvidia-isaac-gr00t-bipedal-humanoid-partnership|20260814",
     "light-origins-pre-a-embodied-foundation-model-data|20260814",
-    "maniformer-china-telecom-financing-embodied-data-platform|20260817"
+    "maniformer-china-telecom-financing-embodied-data-platform|20260817",
+    "seeing-machines-physical-ai-platform-robotics-20260818",
+    "unitree-ipo-results-star-market-listing-20260818"
   ],
   "_seeded_from_initial_curation": true,
-  "_count": 168
+  "_count": 170
 }

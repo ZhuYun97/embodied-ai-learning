@@ -1,5 +1,54 @@
 [
   {
+    "id": "unitree-ipo-results-star-market-listing-20260818",
+    "title": "宇树科技 IPO 募资约 61 亿元，8 月 19 日登陆科创板",
+    "date": "2026-08-18",
+    "fetched_at": "2026-08-18",
+    "importance": "hot",
+    "credibility": "authoritative-media",
+    "category": [
+      "融资上市",
+      "人形机器人",
+      "公司战略"
+    ],
+    "summary": "宇树科技科创板 IPO 发行结果落定：公司以每股 **150.80 元**发行约 4044.64 万股，募资约 **61 亿元人民币（9.05 亿美元）**，并将于 8 月 19 日以证券代码 688836 挂牌。CNN 报道称，网上发行获逾 8000 倍认购，创科创板纪录。本条记录发行结果与确定挂牌日期，区别于新闻库已收录的 6 月过会/注册及 8 月 10 日启动申购事件。",
+    "sources": [
+      {
+        "name": "CNN（援引上交所发行资料）",
+        "url": "https://www.cnn.com/2026/08/18/tech/china-unitree-ipo-intl-hnk"
+      }
+    ],
+    "related": [
+      {
+        "label": "company-series",
+        "url": "/news/company-series"
+      }
+    ],
+    "bot": true
+  },
+  {
+    "id": "seeing-machines-physical-ai-platform-robotics-20260818",
+    "title": "Seeing Machines 发布面向人机协作的 Physical AI Platform",
+    "date": "2026-08-18",
+    "fetched_at": "2026-08-18",
+    "importance": "major",
+    "credibility": "official",
+    "category": [
+      "平台/开源发布",
+      "机器人基础模型",
+      "产业落地"
+    ],
+    "summary": "澳大利亚计算机视觉公司 Seeing Machines 将其人因研究与嵌入式 AI 能力扩展到机器人领域，发布硬件无关的 **Physical AI Platform for Robotics**。平台面向人形机器人及工业自动化，提供人员与物体检测、人体姿态和注意力理解、运动与风险预测、安全动作建议、导航/操作支持、任务型 VLA、遥操作异常处理与安全门控等能力，重点服务制造、物流、医疗、家庭辅助和公共空间中的人机协作。",
+    "sources": [
+      {
+        "name": "Seeing Machines",
+        "url": "https://seeingmachines.com/robotics"
+      }
+    ],
+    "related": [],
+    "bot": true
+  },
+  {
     "id": "maniformer-china-telecom-financing-embodied-data-platform-20260817",
     "title": "觅蜂科技完成新一轮数亿元融资，中国电信领投",
     "date": "2026-08-17",
