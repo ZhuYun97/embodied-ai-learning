@@ -8,14 +8,14 @@ pageClass: paper-radar-page
 
 <header class="paper-brief">
   <div class="paper-brief__lead">
-    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-17">2026.08.17</time></div>
+    <div class="paper-brief__meta"><span>DAILY BRIEF</span><time datetime="2026-08-19">2026.08.19</time></div>
     <h1>每日论文雷达</h1>
-    <p class="paper-brief__dek">今日筛出 11 篇强相关候选，聚焦层级世界模型约束、异步 VLA、跨具身灵巧数据、动态反应操作、过程评测、失败发现与触觉皮肤。</p>
+    <p class="paper-brief__dek">今日筛出 15 篇强相关候选，聚焦层级 VLA 与通用 WAM、策略安全和后训练、接触数据、力触觉控制及人形长程任务。</p>
     <dl class="paper-brief__stats" aria-label="论文队列统计">
-      <div><dt>候选</dt><dd data-paper-stat="latest">11</dd></div>
+      <div><dt>候选</dt><dd data-paper-stat="latest">15</dd></div>
       <div><dt>P0</dt><dd data-paper-stat="p0">6</dd></div>
       <div><dt>已细读</dt><dd data-paper-stat="done">0</dd></div>
-      <div><dt>更新</dt><dd data-paper-stat="date">08.17</dd></div>
+      <div><dt>更新</dt><dd data-paper-stat="date">08.19</dd></div>
     </dl>
     <nav class="paper-brief__links" aria-label="相关研究入口">
       <a href="/embodied-ai-learning/autoresearch/">论文 Ideas</a>
@@ -26,10 +26,10 @@ pageClass: paper-radar-page
   <section class="paper-brief__signals" aria-labelledby="paper-brief-signals">
     <div class="paper-brief__signals-head"><h2 id="paper-brief-signals">今日信号</h2><span>04</span></div>
     <ol>
-      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">WORLD MODEL</span><strong>高低层世界模型协同满足长程时序逻辑与局部安全</strong><span class="paper-brief__paper">hint²</span></li>
-      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">ASYNC VLA</span><strong>围绕真实交接状态优化异步动作块的行为连续性</strong><span class="paper-brief__paper">BICPO-VLA</span></li>
-      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">H2R DEXTERITY</span><strong>用统一关节动作空间连接人手、灵巧手与夹爪数据</strong><span class="paper-brief__paper">AdvDex</span></li>
-      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">DYNAMIC EVAL</span><strong>把推理延迟纳入反应关键型操作的训练与评测</strong><span class="paper-brief__paper">ReflexBench</span></li>
+      <li><span class="paper-brief__no">01</span><span class="paper-brief__track">HIERARCHICAL VLA</span><strong>用世界模型和测试时搜索扩展长程子任务决策算力</strong><span class="paper-brief__paper">τ₀-VLA</span></li>
+      <li><span class="paper-brief__no">02</span><span class="paper-brief__track">GENERALIST WAM</span><strong>以像素动作流统一跨具身预测、评测与控制</strong><span class="paper-brief__paper">Hydra-0</span></li>
+      <li><span class="paper-brief__no">03</span><span class="paper-brief__track">SAFE VLA</span><strong>把任务成功与接触安全规范拆开并用运行时自动机核验</strong><span class="paper-brief__paper">ManiGuard</span></li>
+      <li><span class="paper-brief__no">04</span><span class="paper-brief__track">CONTACT DATA</span><strong>用视觉、力矩、触觉和人类配对示范补齐工业接触数据</strong><span class="paper-brief__paper">PRISM</span></li>
     </ol>
   </section>
 </header>
@@ -44,7 +44,7 @@ pageClass: paper-radar-page
     </label>
     <div class="paper-filter-panel__head">
       <span>RESEARCH INBOX</span>
-      <output data-paper-filter-count aria-live="polite">显示 479 篇</output>
+      <output data-paper-filter-count aria-live="polite">显示 494 篇</output>
     </div>
     <button type="button" class="paper-filter-clear" data-paper-filter-clear hidden>清除筛选</button>
   </div>
@@ -68,6 +68,29 @@ pageClass: paper-radar-page
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="done">已细读</button>
       <button type="button" class="paper-filter-chip" data-paper-filter-group="status" data-paper-filter="watch">观察</button>
     </div>
+  </div>
+</div>
+
+<h2 id="papers-2026-08-19" class="paper-day-heading">2026-08-19</h2>
+
+<div class="daily-paper-section">
+  <p class="paper-day-note"><strong>编辑建议</strong>优先连读 τ₀-VLA × Hydra-0 × ManiGuard × FetchMan × PRISM × Prism-GRPO：从长程推理、跨具身世界建模、规范安全、仿真数据、接触数据到 VLA 后训练，检查通用机器人策略的完整扩展闭环。</p>
+  <div class="paper-queue-grid">
+    <article class="paper-ticket paper-ticket--vla paper-ticket--featured"><div class="paper-ticket__meta"><span class="paper-editor-pick">EDITOR PICK</span><span>40,115H DATA</span><span>TEST-TIME SEARCH</span><span>MULTI-EMBODIMENT</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.16885" target="_blank" rel="noreferrer">τ₀-VLA: a Hierarchical Robot Foundation Model with World-Model-Guided Test-Time Computation</a></h3><p>高层策略结合执行记忆生成子任务，并按难度用世界模型搜索候选后再提交，低层策略跨多种具身执行；以 40,115 小时异构真机数据训练，测试时算力扩展可提升分布内外的子任务预测与长程闭环成功率。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.16885" target="_blank" rel="noreferrer">arXiv</a><a href="https://tau0-vla.github.io" target="_blank" rel="noreferrer">项目页</a></div></article>
+    <article class="paper-ticket paper-ticket--wam"><div class="paper-ticket__meta"><span>ACTION FLOW</span><span>CROSS-EMBODIMENT</span><span>INVERSE MODE</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.18077" target="_blank" rel="noreferrer">Hydra-0: Action Flow for Generalist World Modeling and Control</a></h3><p>把机器人动作表示为像素运动的 action flow，使世界模型跨具身、任务、环境与视频生成骨干共享控制接口；除动作后果预测和开环评测外，还出现从人类示范目标物体流反推动作并映射到可执行控制的逆模式。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.18077" target="_blank" rel="noreferrer">arXiv</a><a href="https://nvidia-isaac.github.io/video_to_data/hydra-0/" target="_blank" rel="noreferrer">项目页</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>SAFETY BENCH</span><span>8K DEMOS</span><span>23K ROLLOUTS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17386" target="_blank" rel="noreferrer">MANIGUARD: A Benchmark and Data Suite for Specification-Grounded Safety Evaluation and Improvement of Robotic Manipulation</a></h3><p>以独立于任务成功的 LTLf 安全规范构建 200 个接触任务、1,000 个分布偏移场景和 8,000 条安全标注示范；超过 2.3 万次 VLA rollout 显示 6–21% 的成功执行仍违反规范，且单纯扩充示范不能消除缺口。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17386" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--humanoid"><div class="paper-ticket__meta"><span>150K SCENES</span><span>FLOW-GRPO</span><span>ZERO-SHOT G1</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17027" target="_blank" rel="noreferrer">FetchMan: Learning Visual Humanoid Loco-Manipulation Policies from Simulated Experiences</a></h3><p>在 15 万场景中生成行走抓取示范，发现行为克隆的数据规模扩展很快触顶，再用稀疏奖励 Flow-GRPO 突破上限；零样本部署到 Unitree G1，在未见场景完成走近并抓取，真机成功率 73.3%。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17027" target="_blank" rel="noreferrer">arXiv</a><a href="https://orayyan.com/fetchman" target="_blank" rel="noreferrer">项目页</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>5K+ TRAJECTORIES</span><span>FORCE + TACTILE</span><span>INDUSTRIAL</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17962" target="_blank" rel="noreferrer">PRISM: Precision and contact-rich Real-world Industrial Skill Dataset with Multimodal Sensing</a></h3><p>面向 25 类以上精密工业操作发布 5,000 余条机器人轨迹与配对人类示范、总计 45 小时；同步记录多视角 RGB-D、六维力矩、触觉和本体状态，为高精度接触控制补上区别于家庭短程抓放的数据基准。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17962" target="_blank" rel="noreferrer">arXiv</a><a href="https://tengbo-yu.github.io/PRISM/" target="_blank" rel="noreferrer">项目页</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>VLA RL</span><span>QUALITY SIGNAL</span><span>56% FEWER ROLLOUTS</span><span>P0</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17423" target="_blank" rel="noreferrer">Prism-GRPO: Faster VLA Policy Optimization via Splitting Same-outcome Groups</a></h3><p>在二元成败之外加入轨迹级执行质量，把全成或全败、原本零优势而被丢弃的 rollout 组拆出训练信号，同时保证成功始终优于失败；RoboTwin 达到目标成功率最多少用 56% rollout，并抑制奖励投机后迁移到真机。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17423" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>CODE POLICY</span><span>TRAINING-FREE</span><span>RECOVERY LOOP</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.16978" target="_blank" rel="noreferrer">VLCP: Vision Language Control Policy Closed-Loop Code Replanning for Robot Manipulation</a></h3><p>冻结 VLM 直接编写 Python 控制函数，并每隔 K 步根据多视角、状态和状态差量重写失败代码；57 个任务汇总成功率由单次开放环查询的 3.5% 升至 35.1%，失败抓取可在同一 episode 内恢复。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.16978" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--vla"><div class="paper-ticket__meta"><span>SKILL LIBRARY</span><span>EXPERIENCE MEMORY</span><span>NO RETRAINING</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17209" target="_blank" rel="noreferrer">Teach and Grow: An Agent-Centered Architecture for General Robot Learning</a></h3><p>多模态 agent 将少量成功示范诱导为可复用 Skill Blocks，在新场景组合技能与几何工具，并把成功、失败和修复写入经验记忆；新任务无需任务级策略重训，且提出以有效可复用经验衡量教学需求的扩展律假设。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17209" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--tactile"><div class="paper-ticket__meta"><span>FAST-SLOW REFLEX</span><span>FORCE CONTROL</span><span>FROZEN POLICY</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17432" target="_blank" rel="noreferrer">UniReflex: Plug-and-Play Force Control for Pretrained Generative Policies via Fast-Slow Reflex</a></h3><p>从冻结生成策略的动作头潜表示驱动快速反射网络，预测各向异性刚度方向，并以门控在位置规划和力主导执行间切换；无需慢骨干微调即可改善真机双臂接触稳定性，反向延迟低 25–66 倍。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17432" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--humanoid"><div class="paper-ticket__meta"><span>STEREO VLA</span><span>PROPRIO ROUTING</span><span>33-DOF HUMANOID</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17453" target="_blank" rel="noreferrer">EATR-Stereo: Embodiment-Aware Routing of Paired Stereo Evidence for Humanoid Vision-Language-Action Control</a></h3><p>保留预训练 VLA 主视角 token，同时用本体历史选择性路由对齐后的辅助立体证据；33 自由度真机人形在百秒级搜索—接近—抓取—放置任务取得 60% 全程成功，严重非对称遮挡下恢复率达 80%。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17453" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>TEST-TIME AUGMENT</span><span>HEADROOM</span><span>RETRIEVAL GAP</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17484" target="_blank" rel="noreferrer">Reuse Before You Retrieve: Diagnosing Headroom and Complementarity for Test-Time Augmentation of Embodied Multimodal Policies</a></h3><p>用“可恢复余量”和“检索互补性”判断冻结 VLA 应多采样自身行为还是引入外部示范；episode 级重试选择在多种骨干上最多恢复 21 个成功率点，而检索只在动作先验缺口较大时收益明显。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17484" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--humanoid"><div class="paper-ticket__meta"><span>SYSTEM-2 AGENT</span><span>INTERRUPTIBLE</span><span>UNITREE G1</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17584" target="_blank" rel="noreferrer">HODAgent: Towards On-Demand, Responsive Humanoids for Physical World Human Interaction</a></h3><p>以半双工的环境交互、规划、执行和层级记忆维持服务任务状态，使人形在运动中接受新请求、保留进度、改写计划并核验结果；Unitree G1 真机原子、组合和完整任务通过率分别为 92%、72% 和 63.3%。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17584" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>VISUAL CUES</span><span>VLA SAFETY</span><span>7 MODELS</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17600" target="_blank" rel="noreferrer">LIBERO-VIFO: Benchmarking the Capability and Safety of Visual Cue Following in Vision-Language-Action Models</a></h3><p>用八类视觉线索和四套协议分开测试授权线索跟随与未授权跟随；七种 VLA 的线索理解并不稳定转化为执行，却能在无语言指令时执行线索指向任务，揭示新的视觉注入安全面。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17600" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--tactile"><div class="paper-ticket__meta"><span>TACTILE-ONLY</span><span>6-DOF POSE</span><span>ALLEGRO V5</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17601" target="_blank" rel="noreferrer">Physics-Informed Sliding-Window Particle Filtering for Tactile-Only In-Hand 6-DoF Object Pose Refinement</a></h3><p>以接触距离、力方向、摩擦锥和零力负证据构造 SE(3) 粒子滤波似然，并用滑窗与对称性感知重采样维持多峰信念；在 Allegro Hand V5 遮挡场景中优于触觉几何及学习基线。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17601" target="_blank" rel="noreferrer">arXiv</a></div></article>
+    <article class="paper-ticket paper-ticket--data"><div class="paper-ticket__meta"><span>MG-VQA</span><span>ACTIVE MANIPULATION</span><span>SIM-TO-REAL</span><span>P1</span><span class="paper-status paper-status--todo">待细读</span></div><h3><a href="https://arxiv.org/abs/2608.17129" target="_blank" rel="noreferrer">PROBE: Manipulation-Grounded Visual Question Answering with VLM Agents</a></h3><p>把必须移动遮挡物后才能回答的问题定义为操作扎根 VQA，提供 150 个仿真任务、抓推工具和 agent 蒸馏配方；工具型前沿 VLM 平均优于纯感知 8 点，微调 agent 再提升 11.5 点并完成真机迁移。</p><div class="paper-ticket__links"><a href="https://arxiv.org/abs/2608.17129" target="_blank" rel="noreferrer">arXiv</a></div></article>
   </div>
 </div>
 
